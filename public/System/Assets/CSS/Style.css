@@ -1,0 +1,82 @@
+/*-----------------------------
+  Project Fonts
+-----------------------------*/
+/*-----------------------------
+  Project Colors
+-----------------------------*/
+/*-----------------------------
+  Theme Colors
+-----------------------------*/
+/*-----------------------------
+  Standard Colors
+-----------------------------*/
+/*-----------------------------
+  Responsive Project
+-----------------------------*/
+/*-----------------------------
+  Re-use Part
+-----------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+body {
+  box-sizing: border-box; }
+
+ul {
+  list-style: none; }
+
+h1, h2, h3,
+h4, h5, h6 {
+  margin: 0; }
+
+.Container {
+  width: 100%;
+  margin: 0 auto; }
+  @media (max-width: 74.99em) {
+    .Container {
+      padding: 0 1.4rem; } }
+  @media (max-width: 61.99em) {
+    .Container {
+      padding: 2.4rem 2.2rem; } }
+  @media (max-width: 35.99em) {
+    .Container {
+      padding: 2rem .4rem; } }
+  @media (min-width: 75em) {
+    .Container {
+      padding: 0 1.4rem; } }
+
+@media (max-width: 74.99em) {
+  html {
+    font-size: 62.5%; } }
+
+@media (max-width: 61.99em) {
+  html {
+    font-size: 56.25%; } }
+
+@media (max-width: 47.99em) {
+  html {
+    font-size: 50%; } }
+
+@media (max-width: 35.99em) {
+  html {
+    font-size: 50%; } }
+
+@media (min-width: 75em) {
+  html {
+    font-size: 75%; } }
+
+body {
+  font-family: Roboto , sans-serif;
+  color: #6c7a87;
+  font-size: 1.6rem; }
+
+a {
+  text-decoration: none; }
+
+.Wrap {
+  min-height: 100vh; }

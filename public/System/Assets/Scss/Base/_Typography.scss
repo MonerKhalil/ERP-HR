@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
+html {
+
+    @include ScreenResponsive(Desktop) {
+        font-size: 62.5%;
+    }
+
+    @include ScreenResponsive(Tablet) {
+        font-size: 56.25%;
+    }
+
+    @include ScreenResponsive(Phone_Landscape) {
+        font-size: 50% ;
+    }
+
+    @include ScreenResponsive(Phone_Portrait) {
+        font-size: 50% ;
+    }
+
+    @include ScreenResponsive(Desktop_Large) {
+        font-size: 75%;
+    }
+}
+
+body {
+  font-family: Roboto , sans-serif ;
+  color: $BodyColor ;
+  font-size: 1.6rem ;
+}
+
+a {
+  text-decoration: none;
+}
