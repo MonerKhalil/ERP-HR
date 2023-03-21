@@ -1,0 +1,42 @@
+
+/*-----------------------------
+  Responsive Project
+-----------------------------*/
+@mixin ScreenResponsive($BreakPoint) {
+    @if($BreakPoint == Phone_Portrait) { // 575.85
+        @media (max-width: 35.99em) { @content }
+    } @else if($BreakPoint == Phone_Landscape) { // 767.84
+        @media (max-width: 47.99em) { @content }
+    } @else if($BreakPoint == Tablet) { // 991.84
+        @media (max-width: 61.99em) { @content }
+    }@else if($BreakPoint == Desktop) { // 1199.84
+        @media (max-width: 74.99em) { @content }
+    }@else if($BreakPoint == Desktop_Large) { // 1200
+        @media (min-width: 75em) { @content }
+    }
+}
+
+/*-----------------------------
+  Language Project
+-----------------------------*/
+@mixin Language($Lang) {
+    @if($Lang == Arabic) {
+        html[lang="ar"] {
+            @content ;
+        }
+    } @else if($Lang == English) {
+        html[lang="en"] {
+            @content ;
+        }
+    }
+}
+
+/*-----------------------------
+  Re-use Part
+-----------------------------*/
+@mixin BoxCenter() {
+    position: absolute;
+    left : 50% ;
+    top : 50% ;
+    transform: translate(-50% , -50%);
+}
