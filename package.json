@@ -7,16 +7,21 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+
+        "Sass_Compiler": "node-sass ./public/System/Assets/Scss/Main.scss ./public/System/Assets/CSS/Style.css -w",
+
+        "Build__SassCompiler": "node-sass Scss/Main.scss ./CSS/Style.css",
+        "Build__CssConcat": "concat -o ./CSS/Style.Concat.css ./Packages/Icons/all.min.css ./CSS/Style.css ",
+        "Build__CssPrefix": "postcss --use autoprefixer -b 'last 10 version' ./CSS/Style.Concat.css ./CSS/Style.Prefix.css ",
+        "Build__CssCompress": "node-sass ./CSS/Style.Prefix.css ./CSS/Style.css --output-style compressed",
+        "Build:Css": "npm-run-all Build__SassCompiler Build__CssConcat Build__CssPrefix Build__CssCompress"
     },
     "devDependencies": {
-        "@tailwindcss/forms": "^0.5.2",
-        "alpinejs": "^3.4.2",
-        "autoprefixer": "^10.4.2",
         "axios": "^0.25",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.4.6",
-        "tailwindcss": "^3.1.0"
+        "node-sass": "^8.0.0",
+        "postcss": "^8.1.14"
     }
 }
