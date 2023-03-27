@@ -99,6 +99,50 @@ h4, h5, h6 {
   color: #fff;
   font-weight: bold; }
 
+.Visible-phonePortrait,
+.Visible-phoneLandscape,
+.Visible-tablet,
+.Visible-desktop,
+.Visible-desktopLarge {
+  display: none; }
+
+.Hidden-phonePortrait,
+.Hidden-phoneLandscape,
+.Hidden-tablet,
+.Hidden-desktop,
+.Hidden-desktopLarge {
+  display: initial; }
+
+@media only screen and (max-width: 74.99em) {
+  .Visible-desktop {
+    display: initial !important; }
+  .Hidden-desktop {
+    display: none !important; } }
+
+@media only screen and (max-width: 61.99em) {
+  .Visible-tablet {
+    display: initial !important; }
+  .Hidden-tablet {
+    display: none !important; } }
+
+@media only screen and (max-width: 47.99em) {
+  .Visible-phoneLandscape {
+    display: initial !important; }
+  .Hidden-phoneLandscape {
+    display: none !important; } }
+
+@media only screen and (max-width: 35.99em) {
+  .Visible-phonePortrait {
+    display: initial !important; }
+  .Hidden-phonePortrait {
+    display: none !important; } }
+
+@media only screen and (min-width: 75em) {
+  .Visible-desktopLarge {
+    display: initial !important; }
+  .Hidden-desktopLarge {
+    display: none !important; } }
+
 @media only screen and (max-width: 74.99em) {
   html {
     font-size: 62.5%; } }
@@ -148,8 +192,10 @@ a {
     align-items: center; }
     .HeaderPage__MenusOpening .MenusOpening > * {
       padding: 0 .8rem; }
-    .HeaderPage__MenusOpening .MenusOpening .CollapseIcon {
-      display: none; }
+    .HeaderPage__MenusOpening .MenusOpening .MenuIcon {
+      visibility: visible;
+      opacity: 1;
+      transition: all .3s; }
   .HeaderPage__AccountAlerts .AccountAlerts {
     display: flex;
     align-items: center; }
@@ -302,24 +348,23 @@ a {
   @media only screen and (max-width: 47.99em) {
     .HeaderPage__Content {
       flex-direction: column;
-      height: auto;
-      row-gap: 1rem;
-      padding: 1rem 0; }
+      height: 5rem;
+      padding: .5rem 0; }
     .HeaderPage__MenusOpening {
       width: 100%; }
       .HeaderPage__MenusOpening .MenusOpening {
+        flex-direction: row-reverse;
         justify-content: space-between; }
-        .HeaderPage__MenusOpening .MenusOpening .Logo__SystemName {
-          display: none; }
-        .HeaderPage__MenusOpening .MenusOpening .CollapseIcon {
-          display: block; }
     .HeaderPage__AccountAlerts {
       display: none;
       width: 100%; }
       .HeaderPage__AccountAlerts.Open {
         display: block; }
       .HeaderPage__AccountAlerts .AccountAlerts {
-        justify-content: flex-end; } }
+        justify-content: flex-end; }
+    .HeaderPage.OpenMenu .HeaderPage__MenusOpening .MenusOpening .MenuIcon {
+      visibility: hidden;
+      opacity: 0; } }
   @media only screen and (min-width: 75em) {
     .HeaderPage {
       padding-left: 7rem; }
@@ -430,6 +475,9 @@ a {
       transform: translateX(0); }
       .NavigationsMenu.Open .NavigationsMenu__CloseMenu {
         display: initial; } }
+  @media only screen and (max-width: 35.99em) {
+    .NavigationsMenu__Content {
+      width: 100vw; } }
   @media only screen and (min-width: 75em) {
     .NavigationsMenu {
       transform: translateX(0); }

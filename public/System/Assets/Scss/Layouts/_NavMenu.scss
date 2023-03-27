@@ -152,6 +152,13 @@
         }
     }
 
+    @include ScreenResponsive(Phone_Portrait) {
+
+        &__Content {
+            width: 100vw;
+        }
+    }
+
     @include ScreenResponsive(Desktop_Large) {
         transform: translateX(0);
 

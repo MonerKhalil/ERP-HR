@@ -69,3 +69,64 @@
 .ArrowRight {
 
 }
+
+.Visible-phonePortrait ,
+.Visible-phoneLandscape ,
+.Visible-tablet ,
+.Visible-desktop ,
+.Visible-desktopLarge {
+    display: none ;
+}
+
+.Hidden-phonePortrait ,
+.Hidden-phoneLandscape ,
+.Hidden-tablet ,
+.Hidden-desktop ,
+.Hidden-desktopLarge {
+    display: initial ;
+}
+
+@include ScreenResponsive(Desktop) {
+    .Visible-desktop {
+        display: initial !important;
+    }
+    .Hidden-desktop {
+        display : none !important;
+    }
+}
+
+@include ScreenResponsive(Tablet) {
+    .Visible-tablet {
+        display: initial !important;
+    }
+    .Hidden-tablet {
+        display : none !important;
+    }
+}
+
+@include ScreenResponsive(Phone_Landscape) {
+    .Visible-phoneLandscape {
+        display: initial !important;
+    }
+    .Hidden-phoneLandscape {
+        display : none !important;
+    }
+}
+
+@include ScreenResponsive(Phone_Portrait) {
+    .Visible-phonePortrait {
+        display: initial !important;
+    }
+    .Hidden-phonePortrait {
+        display : none !important;
+    }
+}
+
+@include ScreenResponsive(Desktop_Large) {
+    .Visible-desktopLarge {
+        display: initial !important;
+    }
+    .Hidden-desktopLarge {
+        display : none !important;
+    }
+}

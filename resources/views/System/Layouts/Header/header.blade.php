@@ -14,9 +14,6 @@
                                 <span class="Logo__SystemName">ERP Epic</span>
                             </a>
                         </div>
-                        <div class="CollapseIcon">
-                            <i class="material-icons IconClick">swap_vert</i>
-                        </div>
                     </div>
                 </div>
                 <div class="HeaderPage__AccountAlerts">

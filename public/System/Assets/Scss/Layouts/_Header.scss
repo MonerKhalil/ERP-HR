@@ -25,8 +25,10 @@
                 padding: 0 .8rem;
             }
 
-            .CollapseIcon {
-                display: none;
+            .MenuIcon {
+                visibility: visible;
+                opacity: 1 ;
+                transition: all .3s;
             }
         }
     }
@@ -294,27 +296,16 @@
 
         &__Content {
             flex-direction: column;
-            height: auto;
-            row-gap: 1rem ;
-            padding: 1rem 0;
+            height: 5rem;
+            padding: .5rem 0;
         }
 
         &__MenusOpening {
             width: 100%;
 
             .MenusOpening {
+                flex-direction: row-reverse;
                 justify-content: space-between;
-
-                .Logo {
-
-                    &__SystemName {
-                        display: none;
-                    }
-                }
-
-                .CollapseIcon {
-                    display: block;
-                }
             }
         }
 
@@ -328,6 +319,20 @@
 
             .AccountAlerts {
                 justify-content: flex-end;
+            }
+        }
+
+        &.OpenMenu {
+
+            .HeaderPage {
+                &__MenusOpening {
+                    .MenusOpening {
+                        .MenuIcon {
+                            visibility: hidden;
+                            opacity: 0;
+                        }
+                    }
+                }
             }
         }
     }

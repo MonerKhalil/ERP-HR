@@ -97,6 +97,43 @@
                             </a>
                         </div>
                     </li>
+                    <li class="NavigationsGroup__NavItem">
+                        <div class="Title">
+                            <a href="#" class="NavName">
+                                <i class="material-icons Icon">
+                                    notifications
+                                </i>
+                                <span class="Label">Notification</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">language</i>
+                                <span class="Label">Language</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="#" class="NavName">
+                                        <span class="Label">English</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="#" class="NavName">
+                                        <span class="Label">Arabic</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
