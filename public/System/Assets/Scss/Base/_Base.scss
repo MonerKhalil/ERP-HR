@@ -8,7 +8,8 @@
 }
 
 body {
-  box-sizing: border-box ;
+    box-sizing: border-box ;
+    background-color: $BodyColor;
 }
 
 ul {
@@ -20,6 +21,4 @@ h4,h5,h6 {
     margin : 0 ;
 }
 
-.Wrapper {
-
-}
+#Wrapper {}

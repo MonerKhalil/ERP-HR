@@ -20,13 +20,13 @@ html {
     }
 
     @include ScreenResponsive(Desktop_Large) {
-        font-size: 75%;
+        font-size: 70%;
     }
 }
 
 body {
-  font-family: Roboto , sans-serif ;
-  color: $BodyColor ;
+  font-family: $PrimaryFontFamily ;
+  color: $GrayColor ;
   font-size: 1.6rem ;
 }
 

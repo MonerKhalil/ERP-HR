@@ -1,0 +1,360 @@
+
+.HeaderPage {
+    position: relative;
+    transition: padding $HeaderMenu;
+
+    &__Wrap {
+        width: 100% ;
+        background-color: #1B202D;
+    }
+
+    &__Content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 5rem ;
+    }
+
+    &__MenusOpening {
+
+        .MenusOpening {
+            display: flex;
+            align-items: center;
+
+            > * {
+                padding: 0 .8rem;
+            }
+
+            .MenuIcon {
+                visibility: visible;
+                opacity: 1 ;
+                transition: all .3s;
+            }
+        }
+    }
+
+    &__AccountAlerts {
+
+        .AccountAlerts {
+            display: flex;
+            align-items: center;
+
+            > .UserImage ,
+            .Alert {
+
+                .Dropdown {
+                    position: absolute;
+                    top: calc(100% + 0.9rem);
+                    border-bottom-left-radius: 10px;
+                    transform: scale(.95);
+                    opacity: 0;
+                    visibility: hidden;
+                    overflow: hidden;
+                }
+
+                &.Open {
+                    .Dropdown {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: scale(1);
+                    }
+                }
+            }
+
+            > .UserImage {
+                margin: 0 .8rem;
+
+                > img {
+                    cursor: pointer;
+                }
+            }
+
+            .UserImage {
+
+                .Dropdown {
+                    right: 0;
+
+                    > * {
+                        width: 25rem;
+                    }
+
+                    &__Header {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 1.5rem;
+                        padding: 1.5rem 2rem;
+                        border-bottom: 1px solid $SeparateBorderColor;
+
+                        .UserImage {
+                            width: 4rem;
+                            height: 4rem;
+                        }
+
+                        .UserDetails {
+                            flex : 1 ;
+
+                            .UserName {
+                                font-size: 1.4rem;
+                                font-weight: 500;
+                                color : $WhiteColor ;
+                                margin-bottom: .2rem;
+                            }
+
+                            .UserEmail {
+                                font-size: 1.2rem;
+                                color : $LightGrayColor;
+                                word-break: break-word;
+                            }
+                        }
+                    }
+
+                    &__Content {
+                        padding: 1rem 2rem;
+                    }
+
+                    &__Item {
+                        a {
+                            display: flex;
+                            align-items: flex-end;
+                            padding: 1rem 0;
+                            gap: .5rem;
+                            color : $GrayColor;
+                            transition: all .3s;
+
+                            i {
+                                font-size: 2rem;
+                            }
+
+                            span {
+                                flex : 1 ;
+                                font-size: 1.4rem;
+                            }
+
+                            &:hover {
+                                color : $PrimaryColor-Project;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .Alerts {
+                display: flex;
+                align-items: center;
+
+                > .Alert {
+                    position: relative;
+                    padding: 0 .8rem;
+
+                    .Dropdown {
+                        right: .8rem;
+                    }
+
+                    &--Language {
+
+                        .Dropdown {
+
+                            &__Item {
+
+                                > a {
+                                    display: block;
+                                    width: 15rem;
+                                    padding: 1rem 1.5rem;
+                                    color : $WhiteColor;
+                                    transition: all .3s;
+
+                                    &:hover {
+                                        background-color: #171a21;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &--Notification {
+
+                        .Dropdown {
+
+                            > * {
+                                width: 33rem;
+                            }
+
+                            &__Header {
+                                display: flex;
+                                align-items: baseline;
+                                justify-content: space-between;
+                                padding: 1.5rem 2rem;
+                                border-bottom: 1px solid $SeparateBorderColor;
+
+                                .Title {
+                                    color : $SecondaryColor-Project ;
+                                }
+
+                                .ReadAll {
+                                    flex: 1;
+                                    text-align: right;
+                                    font-size: 1.2rem;
+                                    cursor: pointer;
+                                    transition: color .3s;
+
+                                    &:hover {
+                                        color : $PrimaryColor-Project ;
+                                    }
+                                }
+                            }
+
+                            &__Content {
+                                max-height: 20rem ;
+                                overflow-y: auto;
+                                padding: 0 1.5rem;
+
+                                @include ScrollBar();
+                            }
+
+                            &__Item {
+                                position: relative;
+                                display: flex;
+                                padding: 1.5rem 0;
+
+                                .NotificationIcon {
+                                    width: 4rem;
+
+                                    i {
+                                        font-size: 2rem;
+                                        padding: 0.5rem;
+                                        border-radius: 50%;
+                                    }
+
+                                    &--Send {
+                                        i {
+                                            color : #1EE0AC ;
+                                            background-color: #193E40;
+                                        }
+                                    }
+
+                                    &--Receive {
+                                        i {
+                                            color : #F4BD0E ;
+                                            background-color: #393828;
+                                        }
+                                    }
+                                }
+
+                                .NotificationDetails {
+                                    flex : 1 ;
+
+                                    .NotificationSummery {
+                                        font-size: 1.2rem;
+                                        font-weight: 500;
+                                        margin-bottom: 0.5rem;
+                                        line-height: 1.4;
+                                    }
+
+                                    .NotificationDate {
+                                        font-size: 1rem;
+                                        font-weight: 400;
+                                    }
+
+                                }
+
+                                .NotificationRemove {
+                                    cursor: pointer;
+
+                                    i {
+                                        font-size: 1.4rem;
+                                        transition: color .3s;
+                                    }
+
+                                    &:hover {
+
+                                        i {
+                                            color : $PrimaryColor-Project
+                                        }
+                                    }
+                                }
+                            }
+
+                            &__Footer {
+                                padding: 1rem 2rem;
+                                text-align: center;
+                                border-top: 1px solid $SeparateBorderColor;
+
+                                a {
+                                    font-size: 1.2rem;
+                                    color : $PrimaryColor-Project;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include ScreenResponsive(Phone_Landscape) {
+
+        &__Content {
+            flex-direction: column;
+            height: 5rem;
+            padding: .5rem 0;
+        }
+
+        &__MenusOpening {
+            width: 100%;
+
+            .MenusOpening {
+                flex-direction: row-reverse;
+                justify-content: space-between;
+            }
+        }
+
+        &__AccountAlerts {
+            display: none;
+            width: 100% ;
+
+            &.Open {
+                display: block;
+            }
+
+            .AccountAlerts {
+                justify-content: flex-end;
+            }
+        }
+
+        &.OpenMenu {
+
+            .HeaderPage {
+                &__MenusOpening {
+                    .MenusOpening {
+                        .MenuIcon {
+                            visibility: hidden;
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include ScreenResponsive(Desktop_Large) {
+
+        & {
+            padding-left: 7rem;
+        }
+
+        &.OpenMenu {
+            padding-left: 26rem;
+        }
+
+        &__MenusOpening {
+
+            .MenusOpening {
+
+                .Logo {
+                    display: none;
+                }
+            }
+        }
+    }
+}

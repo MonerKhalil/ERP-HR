@@ -2,19 +2,24 @@
 /*-----------------------------
   Project Fonts
 -----------------------------*/
+$PrimaryFontFamily : Roboto , sans-serif ;
+$SecondaryFontFamily : Roboto , sans-serif ;
 
 /*-----------------------------
   Project Colors
 -----------------------------*/
-$PrimaryColor-Project : #fff ;
-$SecondaryColor-Project : #fff ;
+$PrimaryColor-Project : #10C093 ;
+$SecondaryColor-Project : #b6c6e3 ;
 $TertiaryColor-Project : #fff ;
-$BodyColor : #6c7a87;
+$BodyColor : #242C3F;
+$SeparateBorderColor: #23364e ;
+
 /*-----------------------------
   Theme Colors
 -----------------------------*/
 $PrimaryColor-Theme : #fff ;
 $SecondaryColor-Theme : #fff ;
+
 /*-----------------------------
   Standard Colors
 -----------------------------*/
@@ -32,3 +37,30 @@ $GreenColor: #19a389;
 $SeaColor: #4d81f7;
 $GoldColor: #ffce53;
 $PurpleColor: #6f5fa6;
+
+/*-----------------------------
+  Box Shadows
+-----------------------------*/
+$PrimaryShadow : 0px 4px 10px rgba(37, 47, 63, 0.1) ;
+$LightShadow : 0 2px 6px 0 rgba(0, 0, 0, 0.05) ;
+$DarkShadow : 0 2px 6px 0 rgba(0, 0, 0, 0.2) ;
+
+/*-----------------------------
+  Z-index Layer
+-----------------------------*/
+$BasicLayer : 0 ;
+$VeryLowLayer : 1 ;
+$LowLayer : 2 ;
+$MiddleLayer : 3 ;
+$TopLayer : 4 ;
+$VeryTopLayer : 5 ;
+
+/*-----------------------------
+  Transitions
+-----------------------------*/
+$HeaderMenu : .4s ;
+
+/*-----------------------------
+  Values Used
+-----------------------------*/
+$InfinityValue : 10 ;
