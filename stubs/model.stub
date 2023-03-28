@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Requests\BaseRequest;
+
+class {{ class }} extends BaseModel
+{
+    use HasFactory;
+
+    protected $fillable = [
+    ];
+
+    // Add relationships between tables section
+
+    /**
+     * Description: To check front end validation
+     * @inheritDoc
+     */
+    public function validationRules(){
+        return function (BaseRequest $validator) {
+            return [
+                //Rules
+            ];
+        };
+    }
+}
