@@ -15,13 +15,13 @@ class StorageFiles
     public const FOLDER_IMAGES = "images";
     public const FOLDER_FILES = "files";
 
-
     /**
      * @param $file
      * @param string $pathDir
      * @param string|null $disk
      * @return bool|string
      * @throws Exception
+     * @author moner khalil
      */
     public function Upload($file, string $pathDir = "", string $disk = null): bool|string
     {
@@ -43,6 +43,7 @@ class StorageFiles
      * @param string|array $paths
      * @param string|null $disk
      * @return bool
+     * @author moner khalil
      */
     public function deleteFile(string|array $paths, string $disk = null): bool
     {
@@ -58,6 +59,7 @@ class StorageFiles
      * @param string|null $disk
      * @return BinaryFileResponse
      * @throws Exception
+     * @author moner khalil
      */
     public function downloadFile(string $path, string $disk = null): BinaryFileResponse
     {
