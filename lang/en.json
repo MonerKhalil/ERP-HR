@@ -1,0 +1,7 @@
+{
+    "dashboard" : "Dashboard",
+    "suc.create" : "Addition completed successfully",
+    "suc.update" : "The modification was completed successfully",
+    "suc.delete" : "The deletion was completed successfully",
+    "suc.default" : "The previous operation completed successfully"
+}

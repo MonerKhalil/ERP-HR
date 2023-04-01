@@ -7,6 +7,7 @@ class StringProcess
     /**
      * @param string $str
      * @return string
+     * @author moner khalil
      */
     public function camelCase(string $str): string
     {
@@ -24,6 +25,7 @@ class StringProcess
      * @param $model
      * @param string $column
      * @return string
+     * @author moner khalil
      */
     function uniqueSlug(string $title, $model, string $column = 'slug'): string
     {
