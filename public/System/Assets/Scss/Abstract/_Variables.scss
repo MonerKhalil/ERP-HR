@@ -3,16 +3,21 @@
   Project Fonts
 -----------------------------*/
 $PrimaryFontFamily : Roboto , sans-serif ;
-$SecondaryFontFamily : Roboto , sans-serif ;
+$SecondaryFontFamily : Nunito , sans-serif ;
 
 /*-----------------------------
   Project Colors
 -----------------------------*/
-$PrimaryColor-Project : #10C093 ;
+$PrimaryColor-Project : #3F51B5 ;
 $SecondaryColor-Project : #b6c6e3 ;
-$TertiaryColor-Project : #fff ;
+$TertiaryColor-Project : #10C093 ;
 $BodyColor : #242C3F;
 $SeparateBorderColor: #23364e ;
+$SeparateBorderColor_Extra-1: #96A2B4 ;
+$DangerColor : #f93542 ;
+
+$TextColor : #96A2B4 ; //Form
+$BackGroundColor : #1A202E ; //Card
 
 /*-----------------------------
   Theme Colors
@@ -41,9 +46,9 @@ $PurpleColor: #6f5fa6;
 /*-----------------------------
   Box Shadows
 -----------------------------*/
-$PrimaryShadow : 0px 4px 10px rgba(37, 47, 63, 0.1) ;
-$LightShadow : 0 2px 6px 0 rgba(0, 0, 0, 0.05) ;
-$DarkShadow : 0 2px 6px 0 rgba(0, 0, 0, 0.2) ;
+$PrimaryShadow : 1.5rem 0 rgba($BlackColor , .25) ;
+$LightShadow : 1.5rem 0 rgba($BlackColor , .25) ;
+$DarkShadow :  1.5rem 0 rgba($BlackColor , .35) ;
 
 /*-----------------------------
   Z-index Layer
@@ -61,6 +66,29 @@ $VeryTopLayer : 5 ;
 $HeaderMenu : .4s ;
 
 /*-----------------------------
+  Maps Used
+-----------------------------*/
+$GridGaps : (
+    "0" : 0 ,
+    "1" : 1rem ,
+    "1-5" : 1.5rem ,
+    "2" : 2rem ,
+    "3" : 3rem ,
+);
+
+/*-----------------------------
+  List Used
+-----------------------------*/
+$JustifyList : flex-start , flex-end
+, space-between , space-around , space-evenly , center ;
+
+$AlignItem : center ;
+
+/*-----------------------------
   Values Used
 -----------------------------*/
 $InfinityValue : 10 ;
+$MenuCollapsed : 7 ;
+$MenuExpansion : 26 ;
+$BorderRadiusValue : 5px ;
+$GridColumns : 12 ;

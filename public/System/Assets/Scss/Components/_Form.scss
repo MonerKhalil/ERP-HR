@@ -1,0 +1,258 @@
+
+.Form {
+
+    // Version With Animated Label
+
+    position: relative;
+    width: 100% ;
+
+    &__Group {
+        position: relative ;
+        width : 100% ;
+    }
+
+    &__Input {
+        position: relative;
+        width: 100%;
+
+        .Input {
+
+            &__Area {
+                position: relative;
+                border : 1px solid $SeparateBorderColor_Extra-1 ;
+                border-radius: $BorderRadiusValue ;
+
+                &.Error {
+                    border-color: $DangerColor;
+
+                    .Input__Label {
+                        color : $DangerColor ;
+                    }
+                }
+            }
+
+            &__Field {
+                display: block ;
+                width : 100% ;
+                font-family: inherit ;
+                font-size: 1.5rem ;
+                outline: none;
+                color : $TextColor ;
+                border: none ;
+                //padding: 1.5rem 2rem;
+                padding: 1.3rem 2rem;
+                transition: all .4s;
+
+                &::placeholder {
+                    color : transparent;
+                }
+
+                &:focus ~ .Input__Label ,
+                &:not(:placeholder-shown) ~ .Input__Label {
+                    top: 0;
+                    left: 1.5rem;
+                    transform: translateY(-50%);
+                    font-size: 1.3rem;
+                    padding: 0 0.5rem;
+                }
+            }
+
+            &__Label {
+                position: absolute ;
+                top : 1rem ;
+                left : 2rem ;
+                font-size: 1.5rem ;
+                font-weight: 700;
+                transition: all .3s;
+            }
+        }
+
+        &--Password {
+
+            .Input {
+
+                &__Field {
+                    //padding: 1.5rem 4rem 1.5rem 2rem;
+                    padding: 1.3rem 4rem 1.3rem 2rem;
+                }
+
+                &__Icon {
+                    position: absolute;
+                    right: 1rem ;
+                    top : 50% ;
+                    cursor: pointer;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+    }
+
+    &__CheckBox {
+        position: relative;
+
+        .CheckBox {
+
+            &__Area {
+
+            }
+
+            &__Input {
+                display: none;
+
+                &:checked {
+
+                    ~ .CheckBox__Label .IconChecked {
+                        background-color: $PrimaryColor-Project;
+                        border-color: $PrimaryColor-Project;
+
+                        > .material-icons {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+
+            &__Label {
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+
+                .IconChecked {
+                    position: relative;
+                    display: inline-block;
+                    width : 2.5rem;
+                    height : 2.5rem;
+                    border: 1px solid $SeparateBorderColor_Extra-1 ;
+                    border-radius: $BorderRadiusValue;
+                    color : $WhiteColor ;
+                    transition: all .3s;
+
+                    > .material-icons {
+                        position: absolute ;
+                        display: none ;
+                        width: 100% ;
+                        height: 100% ;
+                        font-size: 2rem ;
+                        left: 0.2rem ;
+                        top: 0.1rem ;
+                    }
+                }
+
+                .TextCheckBox {
+                    font-size: 1.6rem;
+                }
+            }
+
+        }
+    }
+
+    &__Radio {
+
+    }
+
+    &__Select {
+
+        .Selector {
+
+            &__WordLabel {
+                background-color: $BackGroundColor;
+            }
+
+            &__Options {
+                background-color: $BackGroundColor;
+                border : 1px solid $SeparateBorderColor_Extra-1;
+            }
+
+            &__Option {
+
+                &:hover {
+                    background-color: $PrimaryColor-Project ;
+                    color : $WhiteColor ;
+                }
+            }
+        }
+    }
+
+    &__Link {
+
+        .Link {
+
+            &__Anchor {
+                color: $TextColor;
+                font-size: 1.4rem;
+
+                &:hover {
+                    color : $TertiaryColor-Project;
+                }
+            }
+        }
+    }
+
+    &__Error {
+
+        .Error {
+
+            &__Area {
+                list-style: initial;
+                color: $DangerColor;
+            }
+        }
+    }
+
+    &__Button {
+
+        .Send {
+            background-color: $PrimaryColor-Project;
+            color : $WhiteColor ;
+        }
+
+        .Cancel {
+            background-color: $DangerColor;
+            color : $WhiteColor ;
+        }
+    }
+}
+
+@include Language(Arabic) {
+
+    .Form {
+
+        &__Input {
+
+            .Input {
+
+                &__Field {
+
+                    &:focus ~ .Input__Label ,
+                    &:not(:placeholder-shown) ~ .Input__Label {
+                        top: 0;
+                        left: initial;
+                        right: 1.5rem;
+                    }
+                }
+
+                &__Label {
+                    top : 1.3rem ;
+                    left : initial ;
+                    right: 2rem ;
+                }
+            }
+
+            &--Password {
+
+                .Input {
+
+                    &__Field {
+                        padding: 1.5rem 2rem 1.5rem 4rem;
+                    }
+
+                    &__Icon {
+                        right: initial ;
+                        left: 1rem;
+                    }
+                }
+            }
+        }
+
+    }
+}
