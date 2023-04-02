@@ -232,7 +232,6 @@
                 }
 
                 &__Label {
-                    top : 1.3rem ;
                     left : initial ;
                     right: 2rem ;
                 }
@@ -243,7 +242,8 @@
                 .Input {
 
                     &__Field {
-                        padding: 1.5rem 2rem 1.5rem 4rem;
+                        //padding: 1.5rem 2rem 1.5rem 4rem;
+                        padding: 1.3rem 2rem 1.3rem 4rem;
                     }
 
                     &__Icon {

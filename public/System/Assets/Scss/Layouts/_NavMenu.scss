@@ -167,6 +167,10 @@
         &__Content {
             width: 100vw;
         }
+
+        &__CloseMenu {
+            right: 3rem;
+        }
     }
 
     @include ScreenResponsive(Desktop_Large) {
@@ -298,6 +302,14 @@
 
             &.Open {
                 transform: translateX(0);
+            }
+        }
+
+        @include ScreenResponsive(Phone_Portrait) {
+
+            &__CloseMenu {
+                right: initial;
+                left: 3rem;
             }
         }
 

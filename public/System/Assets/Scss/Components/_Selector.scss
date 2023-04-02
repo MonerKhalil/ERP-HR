@@ -93,3 +93,25 @@
         }
     }
 }
+
+@include Language(Arabic) {
+
+    .Selector {
+
+        &__Arrow {
+            right : initial ;
+            left : 1rem ;
+        }
+
+        &.Selected {
+
+            .Selector {
+
+                &__WordLabel {
+                    left : initial ;
+                    right : 1.5rem ;
+                }
+            }
+        }
+    }
+}

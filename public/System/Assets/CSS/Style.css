@@ -425,12 +425,11 @@ html[lang=ar] .Form__Input .Input__Field:focus ~ .Input__Label, html[lang=ar] .F
   right: 1.5rem;
 }
 html[lang=ar] .Form__Input .Input__Label {
-  top: 1.3rem;
   left: initial;
   right: 2rem;
 }
 html[lang=ar] .Form__Input--Password .Input__Field {
-  padding: 1.5rem 2rem 1.5rem 4rem;
+  padding: 1.3rem 2rem 1.3rem 4rem;
 }
 html[lang=ar] .Form__Input--Password .Input__Icon {
   right: initial;
@@ -529,6 +528,15 @@ html[lang=ar] .Form__Input--Password .Input__Icon {
   display: initial;
 }
 
+html[lang=ar] .Selector__Arrow {
+  right: initial;
+  left: 1rem;
+}
+html[lang=ar] .Selector.Selected .Selector__WordLabel {
+  left: initial;
+  right: 1.5rem;
+}
+
 .Card {
   position: relative;
   width: 100%;
@@ -551,6 +559,9 @@ html[lang=ar] .Form__Input--Password .Input__Icon {
 }
 .Card__Content .Form__Input .Input__Field:focus ~ .Input__Label, .Card__Content .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   background-color: #1B202D;
+}
+.Card__Title {
+  text-transform: capitalize;
 }
 .HeaderPage {
   position: sticky;
@@ -976,6 +987,9 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
   .NavigationsMenu__Content {
     width: 100vw;
   }
+  .NavigationsMenu__CloseMenu {
+    right: 3rem;
+  }
 }
 @media only screen and (min-width: 75em) {
   .NavigationsMenu {
@@ -1043,6 +1057,12 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
     transform: translateX(0);
   }
 }
+@media only screen and (max-width: 35.99em) {
+  html[lang=ar] .NavigationsMenu__CloseMenu {
+    right: initial;
+    left: 3rem;
+  }
+}
 @media only screen and (min-width: 75em) {
   html[lang=ar] .NavigationsMenu {
     border-right: none;
@@ -1062,6 +1082,7 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 .Breadcrumb {
   position: relative;
   width: 100%;
+  margin-bottom: 4rem;
 }
 .Breadcrumb__Header {
   display: flex;
@@ -1071,6 +1092,7 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 }
 .Breadcrumb__Title {
   color: #b6c6e3;
+  text-transform: capitalize;
 }
 .Breadcrumb__Path {
   display: flex;
@@ -1090,6 +1112,7 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   .Breadcrumb__Header {
     flex-direction: column-reverse;
     row-gap: 1rem;
+    align-items: flex-start;
   }
 }
 
@@ -1526,12 +1549,13 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 }
 .LoginPage__Title {
   color: #96A2B4;
+  text-transform: capitalize;
 }
 .LoginPage__Text {
   margin-bottom: 2.5rem;
 }
-.LoginPage__Form .LoginPage__Title {
-  margin-bottom: 1.5rem;
+.LoginPage__Text .LoginPage__Title {
+  margin-bottom: 0.5rem;
 }
 .LoginPage__Form .Form__Input input {
   background-color: transparent;
@@ -1577,9 +1601,6 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   }
 }
 
-html[lang=ar] .LoginPage__Form .LoginPage__Title {
-  margin-bottom: 1.5rem;
-}
 html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   text-align: left;
 }

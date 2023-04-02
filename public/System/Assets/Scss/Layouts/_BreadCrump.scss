@@ -2,6 +2,7 @@
 .Breadcrumb {
     position: relative;
     width: 100% ;
+    margin-bottom: 4rem;
 
     &__Header {
         display: flex;
@@ -12,6 +13,7 @@
 
     &__Title {
         color: $SecondaryColor-Project;
+        text-transform: capitalize;
     }
 
     &__Path {
@@ -39,6 +41,7 @@
         &__Header {
             flex-direction: column-reverse;
             row-gap: 1rem;
+            align-items: flex-start;
         }
     }
 

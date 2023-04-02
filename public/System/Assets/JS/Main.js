@@ -89,6 +89,9 @@ $(document).ready(function (){
             $(Value).find(".Selector").each((Index_2 , Selector) => {
                 $(Selector).find(".Selector__Main").click(() => {
                     $(Selector).toggleClass("Open");
+                    closeOutSide($(Selector)[0] , ()=> {
+                        $(Selector).removeClass("Open");
+                    });
                 });
                 $(Selector).find(".Selector__Options .Selector__Option")
                     .each((Index_3 , Value_3) => {
