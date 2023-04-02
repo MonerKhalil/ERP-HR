@@ -9,9 +9,8 @@
         "prod": "npm run production",
         "production": "mix --production",
 
-        "Sass_Compiler": "node-sass ./public/System/Assets/Scss/Main.scss ./public/System/Assets/CSS/Style.css -w",
 
-
+        "Sass_Compiler": "sass ./public/System/Assets/Scss/Main.scss ./public/System/Assets/CSS/Style.css -w",
         "Build__SassCompiler": "node-sass Scss/Main.scss ./CSS/Style.css",
         "Build__CssConcat": "concat -o ./CSS/Style.Concat.css ./Packages/Icons/all.min.css ./CSS/Style.css ",
         "Build__CssPrefix": "postcss --use autoprefixer -b 'last 10 version' ./CSS/Style.Concat.css ./CSS/Style.Prefix.css ",
@@ -26,6 +25,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
-        "jquery": "^3.6.4"
+        "jquery": "^3.6.4",
+        "sass": "^1.60.0"
     }
 }

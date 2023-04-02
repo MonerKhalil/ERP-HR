@@ -16,6 +16,20 @@
     }
 }
 
+@mixin ScreenResponsive_V2($BreakPoint) {
+    @if($BreakPoint == Phone_Portrait) { // 0
+        @media only screen and (min-width: 0em) { @content }
+    } @else if($BreakPoint == Phone_Landscape) { // 576
+        @media only screen and (min-width: 36em) { @content }
+    } @else if($BreakPoint == Tablet) { // 768
+        @media only screen and (min-width: 48em) { @content }
+    }@else if($BreakPoint == Desktop) { // 992
+        @media only screen and (min-width: 62em) { @content }
+    }@else if($BreakPoint == Desktop_Large) { // 1200
+        @media only screen and (min-width: 75em) { @content }
+    }
+}
+
 @mixin PrinterResponsive() {
     @media print {
         @content
@@ -33,6 +47,23 @@
     } @else if($Lang == English) {
         html[lang="en"] {
             @content ;
+        }
+    }
+}
+
+/*-----------------------------
+  Themes Project
+-----------------------------*/
+@mixin Themes($Type) {
+    body {
+        @if($Type == Dark) {
+            &.Dark {
+                @content
+            }
+        } @else if($Type == Light) {
+            &.Light {
+                @content
+            }
         }
     }
 }

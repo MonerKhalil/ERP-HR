@@ -1,6 +1,6 @@
 <header class="HeaderPage">
     <div class="HeaderPage__Wrap">
-        <div class="Container">
+        <div class="Container--Header">
             <div class="HeaderPage__Content">
                 <div class="HeaderPage__MenusOpening">
                     <div class="MenusOpening">
