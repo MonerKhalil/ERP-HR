@@ -12,7 +12,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>@lang("app.dashboard")</h1>
+    <h1>@lang("dashboard")</h1>
     @if(app()->getLocale()==="en")
         <form action="{{route("lang.change","ar")}}" method="get">
             <button type="submit">change</button>
@@ -22,6 +22,8 @@
             <button type="submit">change</button>
         </form>
     @endif
-
+    @if(Session::has(Messages::$suc))
+        <h2>{{Session::get(Messages::$suc)}}</h2>
+    @endif
 </body>
 </html>

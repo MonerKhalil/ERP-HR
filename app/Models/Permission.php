@@ -1,23 +1,14 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Requests\BaseRequest;
 
-class {{ class }} extends BaseModel
+class Permission extends \Spatie\Permission\Models\Permission
 {
-    use HasFactory;
-
-    protected $fillable = [
-    ];
-
-    // Add relationships between tables section
-
     /**
      * Description: To check front end validation
      * @inheritDoc
-     * @author moner khalil
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
