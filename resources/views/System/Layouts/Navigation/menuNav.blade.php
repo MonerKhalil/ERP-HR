@@ -14,7 +14,7 @@
             <main class="NavigationsMenu__Navigations">
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
-                        <span class="Title">Main</span>
+                        <span class="Title">@lang("main")</span>
                     </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
@@ -85,7 +85,7 @@
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
-                        <span class="Title">app</span>
+                        <span class="Title">@lang("app")</span>
                     </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
@@ -137,7 +137,7 @@
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
-                        <span class="Title">Account</span>
+                        <span class="Title">@lang("account")</span>
                     </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">

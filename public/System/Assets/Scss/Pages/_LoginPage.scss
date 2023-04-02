@@ -51,17 +51,18 @@
 
     &__Title {
         color : #96A2B4 ;
+        text-transform: capitalize;
     }
 
     &__Text {
         margin-bottom: 2.5rem ;
+
+        .LoginPage__Title {
+            margin-bottom: .5rem ;
+        }
     }
 
     &__Form {
-
-        .LoginPage__Title {
-            margin-bottom: 1.5rem ;
-        }
 
         .Form {
 
@@ -152,10 +153,6 @@
     .LoginPage {
 
         &__Form {
-
-            .LoginPage__Title {
-                margin-bottom: 1.5rem ;
-            }
 
             .Form {
 

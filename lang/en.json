@@ -1,0 +1,51 @@
+{
+    "dashboard" : "Dashboard",
+    "suc.create" : "Addition completed successfully",
+    "suc.update" : "The modification was completed successfully",
+    "suc.delete" : "The deletion was completed successfully",
+    "suc.default" : "The previous operation completed successfully",
+
+    "/*         Header         */": "",
+
+    "notification" : "notification" ,
+    "markRead" : "mark all as read" ,
+    "viewNotification" : "view all notification" ,
+    "english" : "english" ,
+    "arabic" : "arabic" ,
+    "viewProfile" : "view profile",
+    "accountSetting" : "Account Setting",
+    "signout" : "sign out" ,
+
+    "/*         Nav Menu         */": "",
+
+    "main" : "main" ,
+    "app" : "app" ,
+    "account" : "account" ,
+
+    "/*         Login Page         */": "",
+
+    "welcomeSystem" : "welcome to ERP Epic" ,
+    "titleSystem" : "Lorem ipsum is een opvultekst die drukkers, zetters, grafisch ontwerpers en dergelijken gebruiken om te kijken hoe een opmaak er grafisch uitziet",
+    "signin" : "sign in" ,
+    "forgetPassword" : "forget password?" ,
+    "rememberMe" : "remember me" ,
+    "loginSystem" : "login to system" ,
+
+    "/*         Add User Page         */": "",
+
+    "addUser" : "add user" ,
+    "titleAddUserPage" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+
+    "/*         Form         */": "",
+
+    "userName" : "user name" ,
+    "password" : "password" ,
+    "rePassword" : "Re-Password" ,
+    "firstName" : "first name" ,
+    "lastName" : "last name" ,
+    "email" : "email" ,
+    "choose" : "choose",
+    "gender" : "gender",
+    "male" : "male" ,
+    "female" : "female"
+}

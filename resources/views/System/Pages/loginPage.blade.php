@@ -20,13 +20,13 @@
                                     </div>
                                 </div>
                                 <div class="LoginPage__Text">
-                                    <h2 class="LoginPage__Title">Welcome to ERP Epic</h2>
+                                    <h2 class="LoginPage__Title">@lang("welcomeSystem")</h2>
                                     <p class="LoginPage__Summery">
-                                        Lorem ipsum is een opvultekst die drukkers, zetters, grafisch ontwerpers en dergelijken gebruiken om te kijken hoe een opmaak er grafisch uitziet
+                                        @lang("titleSystem")
                                     </p>
                                 </div>
                                 <div class="LoginPage__Form">
-                                    <h2 class="LoginPage__Title">Sign in</h2>
+                                    <h2 class="LoginPage__Title">@lang("signin")</h2>
                                     <form class="Form" action="#" method="post">
                                         <div class="Row GapR-1-5">
                                             <div class="Col">
@@ -34,8 +34,8 @@
                                                     <div class="Form__Input">
                                                         <div class="Input__Area">
                                                             <input id="UserName" class="Input__Field" type="text"
-                                                                   name="UserName" placeholder="User Name">
-                                                            <label class="Input__Label" for="UserName">User Name</label>
+                                                                   name="UserName" placeholder="@lang("userName")">
+                                                            <label class="Input__Label" for="UserName">@lang("userName")</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -45,10 +45,9 @@
                                                     <div class="Form__Input Form__Input--Password">
                                                         <div class="Input__Area">
                                                             <input id="Password" class="Input__Field"
-                                                                   type="password" name="password" placeholder="Password">
-                                                            <label class="Input__Label" for="Password">Password</label>
+                                                                   type="password" name="password" placeholder="@lang("password")">
+                                                            <label class="Input__Label" for="Password">@lang("password")</label>
                                                             <i class="material-icons Input__Icon">visibility</i>
-                                                            {{--   Icon If We Need    --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -65,7 +64,7 @@
                                                             check_small
                                                         </i>
                                                         </span>
-                                                                <span class="TextCheckBox">Remember Me</span>
+                                                                <span class="TextCheckBox">@lang("rememberMe")</span>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -75,7 +74,7 @@
                                                 <div class="Form__Group">
                                                     <div class="Form__Link">
                                                         <div class="Link__Area">
-                                                            <a href="#" class="Link__Anchor">Forget Password?</a>
+                                                            <a href="#" class="Link__Anchor">@lang("forgetPassword")</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -84,7 +83,7 @@
                                                 <div class="Form__Group">
                                                     <div class="Form__Button">
                                                         <button class="Button Send"
-                                                                type="submit">Login To System</button>
+                                                                type="submit">@lang("loginSystem")</button>
                                                     </div>
                                                 </div>
                                             </div>
