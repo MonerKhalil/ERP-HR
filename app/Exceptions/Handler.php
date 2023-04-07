@@ -2,7 +2,13 @@
 
 namespace App\Exceptions;
 
+use App\HelpersClasses\MessagesFlash;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -35,7 +41,19 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            if ($e instanceof ValidationException) {
+                MessagesFlash::Errors($e->errors());
+                return \redirect()->back();
+            }
+            if ($e instanceof AuthenticationException) {
+                MessagesFlash::Errors($e->getMessage());
+                return \redirect()->route("login");
+            }
+            if ($e instanceof NotFoundHttpException || $e instanceof ModelNotFoundException)
+                return response()->view("404");
+            if ($e instanceof AccessDeniedHttpException)
+                return response()->view("403");
+            dd($e);
         });
     }
 }

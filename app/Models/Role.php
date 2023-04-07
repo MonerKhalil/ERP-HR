@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Requests\BaseRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Validation\Rule;
 
 class Role extends \Spatie\Permission\Models\Role
 {
@@ -13,9 +14,15 @@ class Role extends \Spatie\Permission\Models\Role
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
-            return [
-                //Rules
+            $rules = [
+                'name' => ['required',Rule::unique("roles","name")],
+                'permissions' => 'required|array',
+                'permissions.id' => 'required|array',
             ];
+            if ($validator->isUpdatedRequest()){
+                $rules['name'] =  ["required",Rule::unique("roles","name")->ignore($validator->route('role')->id)];
+            }
+            return $rules;
         };
     }
 }
