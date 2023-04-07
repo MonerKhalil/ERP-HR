@@ -2,8 +2,8 @@
 
 use App\HelpersClasses\Permissions;
 
-$users = Permissions::ExceptPermissions("users",["print"]);
-$roles = Permissions::ExceptPermissions("roles",["print"]);
+$users = Permissions::ExceptPermissions("users",["export"]);
+$roles = Permissions::ExceptPermissions("roles",["export"]);
 $test = Permissions::getPermissions("test");
 
 return array_merge($users,$roles,[

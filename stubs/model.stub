@@ -10,6 +10,8 @@ class {{ class }} extends BaseModel
     use HasFactory;
 
     protected $fillable = [
+        #Add Attributes
+        "created_by","updated_by","is_active",
     ];
 
     // Add relationships between tables section

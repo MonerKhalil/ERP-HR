@@ -1,0 +1,20 @@
+{
+    "roles" : {
+        "super_admin" : {
+            "users" : "a",
+            "roles" : "a"
+        },
+        "user" : {
+            "users" : ["r","c"],
+            "roles" : ["r"]
+        }
+    },
+    "process": {
+        "a" : "all",
+        "r" : "read",
+        "c" : "create",
+        "u" : "update",
+        "d" : "delete",
+        "e" : "export"
+    }
+}

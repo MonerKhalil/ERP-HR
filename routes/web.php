@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\LocalizationController;
-use App\Models\Permission;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
+Route::get('xxx', function () {
+    \App\HelpersClasses\Permissions::addRolesAndUsersInSeeder();
     \App\HelpersClasses\MessagesFlash::Success();
     return view("dashboard");
 //    return $permissions = Permission::query()->whereIn("name",[
