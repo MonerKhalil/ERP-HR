@@ -2,7 +2,6 @@
 .Form {
 
     // Version With Animated Label
-
     position: relative;
     width: 100% ;
 
@@ -11,10 +10,12 @@
         width : 100% ;
     }
 
-    &__Input {
+    &__Input ,
+    &__Date {
         position: relative;
         width: 100%;
 
+        .Date ,
         .Input {
 
             &__Area {
@@ -37,24 +38,10 @@
                 font-family: inherit ;
                 font-size: 1.5rem ;
                 outline: none;
-                color : $TextColor ;
                 border: none ;
-                //padding: 1.5rem 2rem;
                 padding: 1.3rem 2rem;
+                border-radius: $BorderRadiusValue - 1px ;
                 transition: all .4s;
-
-                &::placeholder {
-                    color : transparent;
-                }
-
-                &:focus ~ .Input__Label ,
-                &:not(:placeholder-shown) ~ .Input__Label {
-                    top: 0;
-                    left: 1.5rem;
-                    transform: translateY(-50%);
-                    font-size: 1.3rem;
-                    padding: 0 0.5rem;
-                }
             }
 
             &__Label {
@@ -64,6 +51,24 @@
                 font-size: 1.5rem ;
                 font-weight: 700;
                 transition: all .3s;
+            }
+        }
+    }
+
+    &__Input {
+
+        .Input {
+
+            &__Field {
+
+                &:focus ~ .Input__Label ,
+                &:not(:placeholder-shown) ~ .Input__Label {
+                    top: 0;
+                    left: 1.5rem;
+                    transform: translateY(-50%);
+                    font-size: 1.3rem;
+                    padding: 0 0.5rem;
+                }
             }
         }
 
@@ -87,6 +92,23 @@
         }
     }
 
+    &__Date {
+
+        .Date {
+
+            &__Field {
+
+                &:not(:placeholder-shown) ~ .Date__Label {
+                    top: 0;
+                    left: 1.5rem;
+                    transform: translateY(-50%);
+                    font-size: 1.3rem;
+                    padding: 0 0.5rem;
+                }
+            }
+        }
+    }
+
     &__CheckBox {
         position: relative;
 
@@ -102,8 +124,6 @@
                 &:checked {
 
                     ~ .CheckBox__Label .IconChecked {
-                        background-color: $PrimaryColor-Project;
-                        border-color: $PrimaryColor-Project;
 
                         > .material-icons {
                             display: inline-block;
@@ -124,7 +144,7 @@
                     height : 2.5rem;
                     border: 1px solid $SeparateBorderColor_Extra-1 ;
                     border-radius: $BorderRadiusValue;
-                    color : $WhiteColor ;
+                    cursor: pointer;
                     transition: all .3s;
 
                     > .material-icons {
@@ -140,6 +160,7 @@
 
                 .TextCheckBox {
                     font-size: 1.6rem;
+                    cursor: pointer;
                 }
             }
 
@@ -152,25 +173,6 @@
 
     &__Select {
 
-        .Selector {
-
-            &__WordLabel {
-                background-color: $BackGroundColor;
-            }
-
-            &__Options {
-                background-color: $BackGroundColor;
-                border : 1px solid $SeparateBorderColor_Extra-1;
-            }
-
-            &__Option {
-
-                &:hover {
-                    background-color: $PrimaryColor-Project ;
-                    color : $WhiteColor ;
-                }
-            }
-        }
     }
 
     &__Link {
@@ -178,12 +180,7 @@
         .Link {
 
             &__Anchor {
-                color: $TextColor;
                 font-size: 1.4rem;
-
-                &:hover {
-                    color : $TertiaryColor-Project;
-                }
             }
         }
     }
@@ -211,11 +208,139 @@
             color : $WhiteColor ;
         }
     }
+
+    //Theme Form
+
+    &--Dark {
+
+        .Form {
+
+            &__Input ,
+            &__Date {
+
+                .Input ,
+                .Date {
+
+                    &__Field {
+                        color : $TextColor ;
+                        background-color: transparent;
+
+                        &::placeholder {
+                            color : transparent;
+                        }
+                    }
+                }
+            }
+
+            &__Input {
+
+                .Input {
+
+                    &__Field {
+
+                        &:focus ~ .Input__Label ,
+                        &:not(:placeholder-shown) ~ .Input__Label {
+                            background-color: $BackGroundColor_Extra-3;
+                        }
+                    }
+                }
+            }
+
+            &__Date {
+
+                .Date {
+
+                    &__Field {
+
+                        &:not(:placeholder-shown) ~ .Date__Label {
+                            background-color: $BackGroundColor_Extra-3;
+                        }
+                    }
+                }
+            }
+
+            &__CheckBox {
+
+                .CheckBox {
+
+                    &__Input {
+
+                        &:checked {
+
+                            ~ .CheckBox__Label .IconChecked {
+                                background-color: $PrimaryColor-Project;
+                                border-color: $PrimaryColor-Project;
+                            }
+                        }
+                    }
+
+                    &__Label {
+
+                        .IconChecked {
+                            color : $WhiteColor ;
+                        }
+                    }
+
+                }
+            }
+
+            &__Select {
+
+                .Selector {
+
+                    &__WordLabel {
+                        background-color: $BackGroundColor;
+                    }
+
+                    &__Options {
+                        background-color: $BackGroundColor;
+                        border : 1px solid $SeparateBorderColor_Extra-1;
+                    }
+
+                    &__Option {
+
+                        &:hover {
+                            background-color: $PrimaryColor-Project ;
+                            color : $WhiteColor ;
+                        }
+                    }
+                }
+            }
+
+            &__Link {
+
+                .Link {
+
+                    &__Anchor {
+                        color: $TextColor;
+
+                        &:hover {
+                            color : $TertiaryColor-Project;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 @include Language(Arabic) {
 
     .Form {
+
+        &__Input ,
+        &__Date {
+
+            .Input ,
+            .Date {
+
+                &__Label {
+                    left : initial ;
+                    right: 2rem ;
+                }
+            }
+        }
 
         &__Input {
 
@@ -229,11 +354,6 @@
                         left: initial;
                         right: 1.5rem;
                     }
-                }
-
-                &__Label {
-                    left : initial ;
-                    right: 2rem ;
                 }
             }
 
@@ -254,5 +374,17 @@
             }
         }
 
+        &__Date {
+
+            .Date {
+
+                &__Field {
+                    &:not(:placeholder-shown) ~ .Date__Label {
+                        left: initial;
+                        right : 1.5rem
+                    }
+                }
+            }
+        }
     }
 }

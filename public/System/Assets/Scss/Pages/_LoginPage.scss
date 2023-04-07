@@ -66,28 +66,6 @@
 
         .Form {
 
-            &__Input {
-
-                input {
-                    background-color: transparent;
-                }
-
-                .Input {
-
-                    &__Field {
-
-                        &::placeholder {
-                            color : transparent;
-                        }
-
-                        &:focus ~ .Input__Label ,
-                        &:not(:placeholder-shown) ~ .Input__Label {
-                            background-color: #1B202D;
-                        }
-                    }
-                }
-            }
-
             &__Button {
 
                 .Button {
