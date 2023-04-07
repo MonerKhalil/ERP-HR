@@ -1,0 +1,110 @@
+
+.ListData {
+    position: relative;
+
+    &__Head {
+        background-color: #212a3f;
+        padding: .5rem 1rem;
+        border-radius: $BorderRadiusValue;
+    }
+
+    &__Title {
+        text-transform: uppercase;
+        font-weight: 800;
+        color: $TextColor;
+    }
+
+    &__Content {
+
+    }
+
+    &__Item {
+
+        .Data_Col {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem 1rem;
+            transition: all .3s;
+
+            .Data_Label {
+                width: 50%;
+            }
+
+            .Data_Value {
+                width: 50%;
+                text-align: left;
+                word-break: break-word;
+            }
+
+            &--End {
+                justify-content: flex-end;
+                flex-grow: 0;
+                min-width: 10rem;
+            }
+        }
+
+        &--Action ,
+        &--NoAction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color : $GrayColor;
+        }
+
+        &--Action {
+            cursor: pointer;
+        }
+
+        &:hover {
+
+            .Data_Col {
+                color: $WhiteColor;
+            }
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $SeparateBorderColor;
+        }
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 3rem;
+    }
+
+    @include ScreenResponsive(Phone_Landscape) {
+
+        &__Item {
+
+            .Data_Col {
+                flex-direction: column;
+
+                .Data_Label {
+                    width: 100%;
+                }
+
+                .Data_Value {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+}
+
+@include Language(Arabic) {
+
+    .ListData {
+
+        &__Item {
+
+            .Data_Col {
+
+                .Data_Value {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}

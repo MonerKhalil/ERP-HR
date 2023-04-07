@@ -14,7 +14,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba($BlackColor , .6);
+        background-color: $BackGroundColor_Extra-2 ;
         visibility: hidden;
         opacity: 0 ;
         z-index: $TopLayer;
@@ -22,10 +22,10 @@
     }
 
     &__Section {
-        padding-top: 1.5rem;
+        padding : 1.5rem 0;
 
         &--Login {
-            padding-top: 0 ;
+            padding : 0 ;
         }
     }
 

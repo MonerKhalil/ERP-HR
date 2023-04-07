@@ -47,5 +47,23 @@
     "choose" : "choose",
     "gender" : "gender",
     "male" : "male" ,
-    "female" : "female"
+    "female" : "female",
+
+    "/*         Profile Page         */": "" ,
+
+    "profile" : "profile",
+    "titleProfilePage" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "personalInformation" : "personal information",
+    "basics" : "basics",
+    "fullName" : "full name",
+    "phone" : "phone",
+    "dateBirthday" : "date birthday",
+    "additionalInformation" : "additional information",
+    "joinDate" : "join date",
+    "country" : "country",
+    "nationality" : "nationality",
+    "connectedBy" : "connected by",
+    "skills" : "skills",
+    "updateProfile" : "update profile",
+    "updateData" : "update data"
 }

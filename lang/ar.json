@@ -47,5 +47,23 @@
     "choose" : "اختيار",
     "gender" : "الجنس",
     "male" : "ذكر" ,
-    "female" : "انثى"
+    "female" : "انثى",
+
+    "/*         Profile Page         */": "" ,
+
+    "profile" : "الملف الشخصي",
+    "titleProfilePage" : "هبد للمسا",
+    "personalInformation" : "المعلومات الشخصية",
+    "basics" : "المعلومات الاساسية",
+    "fullName" : "الاسم الكامل",
+    "phone" : "رقم الهاتف",
+    "dateBirthday" : "تاريخ الميلاد",
+    "additionalInformation" : "المعلومات الاضافية",
+    "joinDate" : "تاريخ التوظيف",
+    "country" : "المدينة",
+    "nationality" : "الجنسية",
+    "connectedBy" : "تواصل بواسطة",
+    "skills" : "المهارات",
+    "updateProfile" : "تحديث الملف الشخصي",
+    "updateData" : "تحديث المعلومات"
 }

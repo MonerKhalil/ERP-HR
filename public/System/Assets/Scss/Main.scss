@@ -12,12 +12,17 @@
 @import "./Components/Form";
 @import "./Components/Button";
 @import "./Components/Selector";
+@import "./Components/SocialMedia";
 @import "./Components/Card";
+@import "./Components/Loader";
+@import "./Components/Popup";
 
 @import "./Layouts/Header";
 @import "./Layouts/NavMenu";
 @import "./Layouts/BreadCrump";
+@import "./Layouts/ListData";
 @import "./Layouts/Grid";
 
 @import "./Pages/GlobalPage";
 @import "./Pages/LoginPage";
+@import "./Pages/ProfilePage";
