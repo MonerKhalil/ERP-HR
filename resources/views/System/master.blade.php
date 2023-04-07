@@ -1,6 +1,9 @@
 <!doctype html>
-<html lang="en" dir="ltr">
-{{--<html lang="ar" dir="rtl">--}}
+@if(app()->getLocale()==="en")
+    <html lang="en" dir="ltr">
+    @else
+    <html lang="ar" dir="rtl">
+@endif
 
     <head>
         @include('System.Layouts.head.head')
@@ -8,21 +11,10 @@
 
     <body>
         <div id="Wrapper">
-            {{--  Main Header  --}}
-            @include("System.Layouts.Header.header")
-            {{--  Side Menu  --}}
-            @include("System.Layouts.Navigation.menuNav")
-            {{--  Main Content  --}}
-            <main class="MainContent">
-                <section class="MainContent__Section">
-                    @yield("ContentPage")
-                </section>
-            </main>
-            {{--  Footer  --}}
-            @include("System.Layouts.Footer.footer")
+            @yield("MainContent")
+        </div>
             {{-- Scripts --}}
             @include("System.Layouts.Footer.footerScript")
-        </div>
     </body>
 
 </html>

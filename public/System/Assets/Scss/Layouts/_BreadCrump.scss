@@ -1,0 +1,48 @@
+
+.Breadcrumb {
+    position: relative;
+    width: 100% ;
+    margin-bottom: 4rem;
+
+    &__Header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 1rem ;
+    }
+
+    &__Title {
+        color: $SecondaryColor-Project;
+        text-transform: capitalize;
+    }
+
+    &__Path {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        font-size: 1.4rem;
+        color : $TextColor ;
+
+        a {
+            color : $TextColor ;
+        }
+    }
+
+    &__Summery {
+
+        .Summery {
+            font-size: 1.4rem;
+            color: $TextColor;
+        }
+    }
+
+    @include ScreenResponsive(Phone_Portrait) {
+
+        &__Header {
+            flex-direction: column-reverse;
+            row-gap: 1rem;
+            align-items: flex-start;
+        }
+    }
+
+}

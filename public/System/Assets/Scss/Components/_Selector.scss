@@ -1,0 +1,117 @@
+
+.Selector {
+    position: relative;
+    width : 100% ;
+    font-size: 1.5rem ;
+    z-index: $VeryLowLayer;
+
+    &__Main {
+        position: relative;
+        display: block ;
+        width: 100%;
+        padding: 1rem 2rem;
+        outline: 1px solid $SeparateBorderColor_Extra-1;
+        border-radius: $BorderRadiusValue ;
+        z-index: $VeryLowLayer;
+        cursor: pointer;
+        transition: all .3s;
+    }
+
+    &__WordLabel {
+        font-weight: 700;
+        transition: all .3s;
+    }
+
+    &__WordChoose {
+        display: none;
+        font-size: 1.5rem;
+        color : $TextColor ;
+    }
+
+    &__Options {
+        position: absolute;
+        top : 0 ;
+        left : 0 ;
+        width: 100% ;
+        border-radius: $BorderRadiusValue ;
+        background-color: #000 ;
+        visibility: hidden;
+        opacity: 0;
+        overflow: hidden;
+        transition: all .3s ;
+    }
+
+    &__Option {
+        padding: 1rem 2rem;
+        cursor: pointer;
+        transition: all .3s;
+
+        &:hover {
+            background-color: #1EE0AC;
+        }
+    }
+
+    &__SelectForm {
+        display: none;
+    }
+
+    &__Arrow {
+        position: absolute;
+        top : 50% ;
+        right : 1rem ;
+        transform: translateY(-50%);
+    }
+
+    &.Open {
+
+        .Selector {
+
+            &__Options {
+                top : calc(100% + .5rem) ;
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+
+    &.Selected {
+
+        .Selector {
+
+            &__WordLabel {
+                position: absolute ;
+                top : 0 ;
+                left : 1.5rem ;
+                transform: translateY(-50%);
+                font-size: 1.3rem;
+                padding: 0 0.5rem;
+            }
+
+            &__WordChoose {
+                display: initial;
+            }
+        }
+    }
+}
+
+@include Language(Arabic) {
+
+    .Selector {
+
+        &__Arrow {
+            right : initial ;
+            left : 1rem ;
+        }
+
+        &.Selected {
+
+            .Selector {
+
+                &__WordLabel {
+                    left : initial ;
+                    right : 1.5rem ;
+                }
+            }
+        }
+    }
+}
