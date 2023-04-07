@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\HelpersClasses\MessagesFlash;
+use App\Exceptions\MainException;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,36 +16,43 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     const Folder = "users";
-    const IndexRoute = "user.index";
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @author moner khalil
-     */
-    public function index(): Application|Factory|View
+    const IndexRoute = "users.index";
+
+    public function __construct()
     {
-        $data = MyApp::Classes()->Search->getData(User::query());
-        return view("",compact('data'));
+        $this->addMiddlewarePermissionsToFunctions(app(User::class)->getTable());
     }
 
     /**
-     * @return Factory|View|Application
+     * Display a listing of the resource.
+     *
+     * @return Response|RedirectResponse|null
      * @author moner khalil
      */
-    public function create(): Factory|View|Application
+    public function index(): Response|RedirectResponse|null
+    {
+        $data = MyApp::Classes()->Search->getData(User::query()->whereNot("id",auth()->id()));
+        return $this->responseSuccess("",compact("data"));
+    }
+
+    /**
+     * @return Response|RedirectResponse|null
+     * @author moner khalil
+     */
+    public function create(): Response|RedirectResponse|null
     {
         $roles = Role::query()->get(["id","name"]);
-        return \view("",compact('roles'));
+        return $this->responseSuccess("",compact("roles"));
     }
 
 
     /**
      * @param UserRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws MainException
      * @author moner khalil
      */
-    public function store(UserRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(UserRequest $request): RedirectResponse
     {
         try {
             $dataRequest = Arr::except($request->validated(),['password','roles']);
@@ -58,44 +64,43 @@ class UserController extends Controller
             $user = User::query()->create($dataRequest);
             $user->assignRole($request->roles);
             DB::commit();
-            MessagesFlash::Success("create");
-            return redirect()->route(self::IndexRoute);
+            return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
             DB::rollBack();
-            MessagesFlash::Errors($exception->getMessage());
-            return redirect()->back();
+            throw new MainException($exception->getMessage());
         }
     }
 
     /**
      * @param User $user
-     * @return Factory|View|Application
+     * @return Response|RedirectResponse|null
      * @author moner khalil
      */
-    public function show(User $user): Factory|View|Application
+    public function show(User $user): Response|RedirectResponse|null
     {
-        return \view("user.show",compact('user'));
+        return $this->responseSuccess("user.show",compact('user'));
     }
 
     /**
      * @param User $user
-     * @return Factory|View|Application
+     * @return Response|RedirectResponse|null
      * @author moner khalil
      */
-    public function edit(User $user): Factory|View|Application
+    public function edit(User $user): Response|RedirectResponse|null
     {
         $roles = Role::query()->get(["id","name"]);
         $userRole = $user->roles;
-        return \view("user.show",compact('user','roles','userRole'));
+        return $this->responseSuccess("user.show",compact('user','roles','userRole'));
     }
 
     /**
      * @param UserRequest $request
      * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws MainException
      * @author moner khalil
      */
-    public function update(UserRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UserRequest $request, User $user): RedirectResponse
     {
         try {
             $dataRequest = Arr::except($request->validated(),['password','roles']);
@@ -110,26 +115,23 @@ class UserController extends Controller
             $user->update($dataRequest);
             $user->syncRoles($request->roles);
             DB::commit();
-            MessagesFlash::Success("update");
-            return redirect()->route(self::IndexRoute);
+            return $this->responseSuccess(null,null,"update",self::IndexRoute);
         }catch (\Exception $exception){
             DB::rollBack();
-            MessagesFlash::Errors($exception->getMessage());
-            return redirect()->back();
+            throw new MainException($exception->getMessage());
         }
     }
 
     /**
      * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * @author moner khalil
      */
-    public function destroy(User $user): \Illuminate\Http\RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
         $img = $user->image;
         $user->delete();
         MyApp::Classes()->storageFiles->deleteFile($img);
-        MessagesFlash::Success("delete");
-        return redirect()->route(self::IndexRoute);
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 }

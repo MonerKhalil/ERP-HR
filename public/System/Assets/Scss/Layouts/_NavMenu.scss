@@ -4,7 +4,7 @@
     top : 0 ;
     left : 0 ;
     transform: translateX(-100%);
-    border-right: 2px solid $SeparateBorderColor;
+    z-index: $MiddleLayer;
     transition: all .3s;
 
     &__Wrap {
@@ -12,7 +12,7 @@
     }
 
     &__Content {
-        width: 26rem;
+        width: $MenuExpansion * 1rem;
         height: 100vh;
         transition: all $HeaderMenu;
 
@@ -54,7 +54,7 @@
 
             &__Title {
                 margin: 1.5rem 0 1.5rem .5rem;
-                color: #9babf1;
+                color: $SecondaryColor-Project;
                 font-size: 1.2rem;
                 text-transform: uppercase;
                 font-weight: 600;
@@ -95,6 +95,7 @@
                 padding: 1rem 1.8rem 1rem 0.5rem;
                 border-radius: 8px ;
                 transition: all .3s;
+
                 &:hover {
                     background-color: $PrimaryColor-Project;
                 }
@@ -116,7 +117,7 @@
 
                     .ArrowRight {
                         position: absolute;
-                        top: calc(50% + .1rem);
+                        top: 50%;
                         right: .3rem;
                         transform: translateY(-50%);
                         color : $WhiteColor;
@@ -142,9 +143,18 @@
     }
 
     @include ScreenResponsive(Desktop) {
+        box-shadow: 0 .8rem $DarkShadow;
 
         &.Open {
             transform: translateX(0);
+
+            ~ .MainContent {
+
+                &::after {
+                    visibility: visible;
+                    opacity: 1 ;
+                }
+            }
 
             .NavigationsMenu__CloseMenu {
                 display: initial;
@@ -157,17 +167,30 @@
         &__Content {
             width: 100vw;
         }
+
+        &__CloseMenu {
+            right: 3rem;
+        }
     }
 
     @include ScreenResponsive(Desktop_Large) {
+        border-right: 2px solid $SeparateBorderColor;
         transform: translateX(0);
 
+        ~ .MainContent {
+            padding-left: $MenuExpansion * 1rem;
+        }
+
         &:not(.Open) {
+
+            ~ .MainContent {
+                padding-left: $MenuCollapsed * 1rem;
+            }
 
             .NavigationsMenu {
 
                 &__Content {
-                    width: 7rem;
+                    width: $MenuCollapsed * 1rem;
                 }
 
                 &__Header {
@@ -228,5 +251,85 @@
             }
         }
     }
+}
 
+@include Language(Arabic) {
+
+    .NavigationsMenu {
+        left : initial ;
+        right: 0 ;
+        transform: translateX(100%);
+
+        &__CloseMenu {
+            right: initial;
+            left: 1rem;
+        }
+
+        &__NavigationsGroup {
+
+            .NavigationsGroup {
+
+                &__Title {
+                    margin: 1.5rem .5rem 1.5rem 0;
+                }
+
+                &__NavItem .NavName ,
+                &__GroupItem > .Title {
+                    padding: 1rem .5rem 1rem 1.8rem;
+                }
+
+                &__SubItems {
+                    padding-left: 0 ;
+                    padding-right: 2.2rem ;
+                }
+
+                &__GroupItem {
+
+                    > .Title {
+
+                        .ArrowRight {
+                            right: initial;
+                            left: .3rem ;
+                            transform: translateY(-50%) rotate(180deg);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        @include ScreenResponsive(Desktop) {
+
+            &.Open {
+                transform: translateX(0);
+            }
+        }
+
+        @include ScreenResponsive(Phone_Portrait) {
+
+            &__CloseMenu {
+                right: initial;
+                left: 3rem;
+            }
+        }
+
+        @include ScreenResponsive(Desktop_Large) {
+            border-right: none;
+            border-left: 2px solid $SeparateBorderColor;
+            transform: translateX(0);
+
+            ~ .MainContent {
+                padding-right: $MenuExpansion * 1rem;
+                padding-left: 0 ;
+            }
+
+            &:not(.Open) {
+
+                ~ .MainContent {
+                    padding-left: 0 ;
+                    padding-right: $MenuCollapsed * 1rem ;
+                }
+            }
+        }
+    }
 }

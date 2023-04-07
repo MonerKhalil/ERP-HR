@@ -3,5 +3,49 @@
     "suc.create" : "تمت عملية الاضاقة بنجاح",
     "suc.update" : "تمت عملية التعديل بنجاح",
     "suc.delete" : "تمت عملية الحذف بنجاح",
-    "suc.default" : "تمت العملية السابقة بنجاح"
+    "suc.default" : "تمت العملية السابقة بنجاح",
+
+    "/*         Header         */": "",
+
+    "notification" : "الاشعارات" ,
+    "markRead" : "قراءة كل الاشعارات" ,
+    "viewNotification" : "عرض كل الاشعارات" ,
+    "english" : "الانجليزية" ,
+    "arabic" : "العربية" ,
+    "viewProfile" : "عرض الملف الشخصي",
+    "accountSetting" : "اعدادات الحساب",
+    "signout" : "تسجيل خروج" ,
+
+    "/*         Nav Menu         */": "",
+
+    "main" : "الرئيسية" ,
+    "app" : "التطبيق" ,
+    "account" : "الحساب" ,
+
+    "/*         Login Page         */": "",
+
+    "welcomeSystem" : "مرحبا في نظام ERP Epic" ,
+    "titleSystem" : "هبد للصبح",
+    "signin" : "تسجيل الدخول" ,
+    "forgetPassword" : "هل نسيت كلمة المرور ؟" ,
+    "rememberMe" : "تذكرني" ,
+    "loginSystem" : "تسجيل الدخول الى النظام" ,
+
+    "/*         Add User Page         */": "",
+
+    "addUser" : "اضافة مستخدم" ,
+    "titleAddUserPage" : "هبد للصبح",
+
+    "/*         Form         */": "",
+
+    "userName" : "اسم المستخدم" ,
+    "password" : "كلمة المرور" ,
+    "rePassword" : "اعادة كلمة المرور" ,
+    "firstName" : "الاسم الاول" ,
+    "lastName" : "الاسم الاخير" ,
+    "email" : "البريد الالكتروني" ,
+    "choose" : "اختيار",
+    "gender" : "الجنس",
+    "male" : "ذكر" ,
+    "female" : "انثى"
 }

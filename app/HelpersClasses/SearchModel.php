@@ -2,7 +2,6 @@
 
 namespace App\HelpersClasses;
 
-use App\Http\Requests\BaseRequest;
 
 class SearchModel
 {
@@ -71,10 +70,11 @@ class SearchModel
 
     /**
      * @param $filter
-     * @return array|mixed
+     * @return mixed
      * @author moner khalil
      */
-    private function filterSearchAttributes($filter){
+    private function filterSearchAttributes($filter): mixed
+    {
         $finalFilter = [];
         if (isset($filter)){
             $finalFilter = $filter;

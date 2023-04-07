@@ -1,5 +1,5 @@
 
-.Container {
+.Container--Header {
     width: 100%;
     margin: 0 auto;
 
@@ -19,6 +19,32 @@
         padding: 0 1.4rem ;
     }
 }
+
+.Container--MainContent {
+    width: 100%;
+    margin: 0 auto;
+
+    @include ScreenResponsive(Desktop) {
+        padding: 0 3.4rem ;
+    }
+
+    @include ScreenResponsive(Tablet) {
+        padding: 0 4.2rem ;
+    }
+
+    @include ScreenResponsive(Phone_Portrait) {
+        padding: 0 2.4rem ;
+    }
+
+    @include ScreenResponsive(Desktop_Large) {
+        padding: 0 3.4rem ;
+    }
+}
+
+//.Row {
+//    display: flex;
+//    flex-wrap: wrap;
+//}
 
 .IconClick {
     font-size: 2rem;
@@ -67,7 +93,7 @@
 }
 
 .ArrowRight {
-
+    transform: rotate(180deg);
 }
 
 .Visible-phonePortrait ,

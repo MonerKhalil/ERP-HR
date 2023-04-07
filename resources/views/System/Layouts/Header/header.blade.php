@@ -1,6 +1,6 @@
 <header class="HeaderPage">
     <div class="HeaderPage__Wrap">
-        <div class="Container">
+        <div class="Container--Header">
             <div class="HeaderPage__Content">
                 <div class="HeaderPage__MenusOpening">
                     <div class="MenusOpening">
@@ -25,8 +25,8 @@
                                 </i>
                                 <div class="Dropdown">
                                     <div class="Dropdown__Header">
-                                        <h3 class="Title">Notification</h3>
-                                        <span class="ReadAll">Mark All As Read</span>
+                                        <h3 class="Title">@lang("notification")</h3>
+                                        <span class="ReadAll">@lang("markRead")</span>
                                     </div>
                                     <ul class="Dropdown__Content">
                                         <li class="Dropdown__Item">
@@ -87,7 +87,7 @@
                                         </li>
                                     </ul>
                                     <div class="Dropdown__Footer">
-                                        <a href="#" title="View All Notification">View All Notification</a>
+                                        <a href="#" title="View All Notification">@lang("viewNotification")</a>
                                     </div>
                                 </div>
                             </li>
@@ -95,8 +95,12 @@
                                 <i class="material-icons IconClick">language</i>
                                 <div class="Dropdown">
                                     <ul class="Dropdown__Content">
-                                        <li class="Dropdown__Item"><a href="#">English</a></li>
-                                        <li class="Dropdown__Item"><a href="#">Arabic</a></li>
+                                        <li class="Dropdown__Item">
+                                            <a href="{{route("lang.change","en")}}">@lang("english")</a>
+                                        </li>
+                                        <li class="Dropdown__Item">
+                                            <a href="{{route("lang.change","ar")}}">@lang("arabic")</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -119,7 +123,7 @@
                                             <i class="material-icons">
                                                 person
                                             </i>
-                                            <span>View Profile</span>
+                                            <span>@lang("viewProfile")</span>
                                         </a>
                                     </li>
                                     <li class="Dropdown__Item">
@@ -127,7 +131,7 @@
                                             <i class="material-icons">
                                                 manage_accounts
                                             </i>
-                                            <span>Account Setting</span>
+                                            <span>@lang("accountSetting")</span>
                                         </a>
                                     </li>
                                     <li class="Dropdown__Item">
@@ -135,7 +139,7 @@
                                             <i class="material-icons">
                                                 logout
                                             </i>
-                                            <span>Sign out</span>
+                                            <span>@lang("signout")</span>
                                         </a>
                                     </li>
                                 </ul>
