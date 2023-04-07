@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Session;
 
 class LocalizationController extends Controller
 {
+    /**
+     * @param $Lang
+     * @return RedirectResponse
+     * @author moner khalil
+     */
     public function SwitchLang($Lang): RedirectResponse
     {
         $locale = MyApp::Classes()->getLangLocale($Lang);

@@ -38,6 +38,6 @@ class MessagesFlash
      * @author moner khalil
      */
     public static function Errors(mixed $errors){
-        Session::flash(self::$err,$errors);
+        Session::flash(self::$err,is_string($errors) ? __($errors) : $errors);
     }
 }
