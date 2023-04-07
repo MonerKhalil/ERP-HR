@@ -4,43 +4,14 @@
     width: 100% ;
     border-radius: 10px ;
     background-color: $BackGroundColor;
-
-    > * {
-        padding-left: 3rem;
-        padding-right: 3rem;
-    }
+    padding: 1rem 1.6rem;
 
     &__Header {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     &__Content {
 
-        .Form {
-
-            &__Input {
-
-                input {
-                    background-color: transparent;
-                }
-
-                .Input {
-
-                    &__Field {
-
-                        &::placeholder {
-                            color : transparent;
-                        }
-
-                        &:focus ~ .Input__Label ,
-                        &:not(:placeholder-shown) ~ .Input__Label {
-                            background-color: #1B202D;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     &__Footer {
@@ -53,5 +24,20 @@
 
     &__Summery {
 
+    }
+
+    &--FullCard {
+        padding: 0 ;
+
+        .Card {
+
+            &__Header {
+
+            }
+        }
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 1rem;
     }
 }

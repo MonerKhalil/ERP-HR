@@ -11,7 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+// mix.js('resources/js/app.js', 'public/js')
+//     .postCss('resources/css/app.css', 'public/css', [
+//         //
+//     ]);
+
+mix.scripts([
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/flatpickr/dist/flatpickr.min.js'
+] ,  'public/System/Assets/Lib/Libraries.js')
+
+    .styles([
+        'node_modules/flatpickr/dist/themes/dark.css'
+    ],  'public/System/Assets/Lib/Libraries.css');

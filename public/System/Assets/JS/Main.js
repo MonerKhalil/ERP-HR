@@ -74,6 +74,13 @@ $(document).ready(function (){
     /*===========================================
 	=           Form       =
     =============================================*/
+    $("form").ready(function (){
+        $("form").each((Index , Value)=> {
+            $(Value).submit(()=>{
+                LoaderView();
+            });
+        });
+    });
     $(".Form").ready(function () {
         $(this).find(".Form__Input--Password").each((Index , Value)=> {
             $(Value).find(".Input__Icon").click((Icon)=>{
@@ -119,6 +126,9 @@ $(document).ready(function (){
                 }
             });
         });
+        $(this).find(".Form__Date").each((Index , Value)=> {
+           $(Value).find("input").flatpickr();
+        });
     });
 
     /*===========================================
@@ -140,7 +150,68 @@ $(document).ready(function (){
         MenuNav.removeClass("Open") ;
     }
 
+    /*===========================================
+	=           Loader Upload       =
+    =============================================*/
+    function LoaderView() {
+        $(".Loader--Upload").ready(function (){
+            $(".Loader--Upload").each((Index , Value)=> {
+                $(Value).show();
+            })
+        });
+    }
+
+    /*===========================================
+	=           Profile Page       =
+    =============================================*/
+    $(".ProfilePage").ready(function (){
+        $(".ProfilePage").find("form.ChangeImage").each((Index , Value)=>{
+            const InputFile = $(Value).find("#ImageChange");
+            InputFile.change(()=>{
+                //Check Image
+                $(Value).submit();
+            });
+        });
+    });
+
+    /*===========================================
+	=           Popup Component       =
+    =============================================*/
+    $(".Popup").ready(function (){
+        $(".Popup").each((Index , Value)=> {
+            $(Value).find(".Popup__Close").click(()=>{
+                $(Value).removeClass("Open");
+            });
+            closeOutSide($(Value).find(".Popup__Card")[0] , ()=>{
+                $(Value).removeClass("Open");
+            });
+        });
+    });
+    $(".OpenPopup").ready(function (){
+        $(".OpenPopup").each((Index , Value)=>{
+            const PopupName = $(Value).attr("data-popUp");
+            let PopupElement ;
+            $(".Popup").each((Index_2 , PopupValue)=>{
+                if($(PopupValue).attr("data-name") === PopupName)
+                    PopupElement = PopupValue ;
+            });
+            $(Value).click(()=>{
+                $(PopupElement).addClass("Open");
+            });
+        });
+    });
+
 });
+
+window.onload = function (){
+
+    /*===========================================
+	=           Loader Page       =
+    =============================================*/
+    $(".Loader--Page").ready(function () {
+        $(this).find(".Loader--Page").remove();
+    });
+}
 
 
 /*===========================================

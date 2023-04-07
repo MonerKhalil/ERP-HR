@@ -1,0 +1,26 @@
+
+.Loader {
+    position: fixed;
+    top : 0 ;
+    left : 0 ;
+    width: 100% ;
+    height: 100vh;
+    z-index: $VeryTopLayer;
+
+    &--Page {
+        background-color: $BackGroundColor;
+    }
+
+    &--Upload {
+        display: none;
+        background-color: $BackGroundColor_Extra-2;
+    }
+
+    &__SvgCircle {
+        @include BoxCenter ;
+        display: inline-block;
+        width: 10rem;
+        height: 10rem;
+    }
+
+}

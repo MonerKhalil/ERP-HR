@@ -11,3 +11,7 @@ Route::get('/Test-1', function () {
 Route::get('/Test-2', function () {
     return view('System.Pages.Actors.Admin.addUser');
 });
+
+Route::get('/Test-3', function () {
+    return view('System.Pages.Actors.profile');
+});

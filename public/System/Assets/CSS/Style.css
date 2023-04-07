@@ -69,7 +69,7 @@ p {
 }
 
 a {
-  transition: all 0.3s;
+  transition: all 0.3s !important;
 }
 
 img {
@@ -272,6 +272,10 @@ h3, .h3 {
   font-size: 1.8rem;
 }
 
+h4, .h4 {
+  font-size: 1.6rem;
+}
+
 p {
   font-size: 1.5rem;
 }
@@ -294,34 +298,49 @@ p {
   position: relative;
   width: 100%;
 }
-.Form__Input {
+.Form__Input, .Form__Date {
   position: relative;
   width: 100%;
 }
-.Form__Input .Input__Area {
+.Form__Input .Date__Area,
+.Form__Input .Input__Area, .Form__Date .Date__Area,
+.Form__Date .Input__Area {
   position: relative;
   border: 1px solid #96A2B4;
   border-radius: 5px;
 }
-.Form__Input .Input__Area.Error {
+.Form__Input .Date__Area.Error,
+.Form__Input .Input__Area.Error, .Form__Date .Date__Area.Error,
+.Form__Date .Input__Area.Error {
   border-color: #f93542;
 }
-.Form__Input .Input__Area.Error .Input__Label {
+.Form__Input .Date__Area.Error .Input__Label,
+.Form__Input .Input__Area.Error .Input__Label, .Form__Date .Date__Area.Error .Input__Label,
+.Form__Date .Input__Area.Error .Input__Label {
   color: #f93542;
 }
-.Form__Input .Input__Field {
+.Form__Input .Date__Field,
+.Form__Input .Input__Field, .Form__Date .Date__Field,
+.Form__Date .Input__Field {
   display: block;
   width: 100%;
   font-family: inherit;
   font-size: 1.5rem;
   outline: none;
-  color: #96A2B4;
   border: none;
   padding: 1.3rem 2rem;
+  border-radius: 4px;
   transition: all 0.4s;
 }
-.Form__Input .Input__Field::placeholder {
-  color: transparent;
+.Form__Input .Date__Label,
+.Form__Input .Input__Label, .Form__Date .Date__Label,
+.Form__Date .Input__Label {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: all 0.3s;
 }
 .Form__Input .Input__Field:focus ~ .Input__Label, .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   top: 0;
@@ -329,14 +348,6 @@ p {
   transform: translateY(-50%);
   font-size: 1.3rem;
   padding: 0 0.5rem;
-}
-.Form__Input .Input__Label {
-  position: absolute;
-  top: 1rem;
-  left: 2rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  transition: all 0.3s;
 }
 .Form__Input--Password .Input__Field {
   padding: 1.3rem 4rem 1.3rem 2rem;
@@ -348,15 +359,18 @@ p {
   cursor: pointer;
   transform: translateY(-50%);
 }
+.Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  padding: 0 0.5rem;
+}
 .Form__CheckBox {
   position: relative;
 }
 .Form__CheckBox .CheckBox__Input {
   display: none;
-}
-.Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked {
-  background-color: #3F51B5;
-  border-color: #3F51B5;
 }
 .Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked > .material-icons {
   display: inline-block;
@@ -373,7 +387,7 @@ p {
   height: 2.5rem;
   border: 1px solid #96A2B4;
   border-radius: 5px;
-  color: #fff;
+  cursor: pointer;
   transition: all 0.3s;
 }
 .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
@@ -387,24 +401,10 @@ p {
 }
 .Form__CheckBox .CheckBox__Label .TextCheckBox {
   font-size: 1.6rem;
-}
-.Form__Select .Selector__WordLabel {
-  background-color: #1A202E;
-}
-.Form__Select .Selector__Options {
-  background-color: #1A202E;
-  border: 1px solid #96A2B4;
-}
-.Form__Select .Selector__Option:hover {
-  background-color: #3F51B5;
-  color: #fff;
+  cursor: pointer;
 }
 .Form__Link .Link__Anchor {
-  color: #96A2B4;
   font-size: 1.4rem;
-}
-.Form__Link .Link__Anchor:hover {
-  color: #10C093;
 }
 .Form__Error .Error__Area {
   list-style: initial;
@@ -418,15 +418,58 @@ p {
   background-color: #f93542;
   color: #fff;
 }
+.Form--Dark .Form__Input .Input__Field,
+.Form--Dark .Form__Input .Date__Field, .Form--Dark .Form__Date .Input__Field,
+.Form--Dark .Form__Date .Date__Field {
+  color: #96A2B4;
+  background-color: transparent;
+}
+.Form--Dark .Form__Input .Input__Field::placeholder,
+.Form--Dark .Form__Input .Date__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
+.Form--Dark .Form__Date .Date__Field::placeholder {
+  color: transparent;
+}
+.Form--Dark .Form__Input .Input__Field:focus ~ .Input__Label, .Form--Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
+  background-color: #1B202D;
+}
+.Form--Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+  background-color: #1B202D;
+}
+.Form--Dark .Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked {
+  background-color: #3F51B5;
+  border-color: #3F51B5;
+}
+.Form--Dark .Form__CheckBox .CheckBox__Label .IconChecked {
+  color: #fff;
+}
+.Form--Dark .Form__Select .Selector__WordLabel {
+  background-color: #1A202E;
+}
+.Form--Dark .Form__Select .Selector__Options {
+  background-color: #1A202E;
+  border: 1px solid #96A2B4;
+}
+.Form--Dark .Form__Select .Selector__Option:hover {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.Form--Dark .Form__Link .Link__Anchor {
+  color: #96A2B4;
+}
+.Form--Dark .Form__Link .Link__Anchor:hover {
+  color: #10C093;
+}
 
+html[lang=ar] .Form__Input .Input__Label,
+html[lang=ar] .Form__Input .Date__Label, html[lang=ar] .Form__Date .Input__Label,
+html[lang=ar] .Form__Date .Date__Label {
+  left: initial;
+  right: 2rem;
+}
 html[lang=ar] .Form__Input .Input__Field:focus ~ .Input__Label, html[lang=ar] .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   top: 0;
   left: initial;
   right: 1.5rem;
-}
-html[lang=ar] .Form__Input .Input__Label {
-  left: initial;
-  right: 2rem;
 }
 html[lang=ar] .Form__Input--Password .Input__Field {
   padding: 1.3rem 2rem 1.3rem 4rem;
@@ -434,6 +477,10 @@ html[lang=ar] .Form__Input--Password .Input__Field {
 html[lang=ar] .Form__Input--Password .Input__Icon {
   right: initial;
   left: 1rem;
+}
+html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+  left: initial;
+  right: 1.5rem;
 }
 
 .Button, .Button:link, .Button:visited {
@@ -537,32 +584,130 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   right: 1.5rem;
 }
 
+.SocialMedia {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.SocialMedia__Item a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  color: #6c7a87;
+  transition: all 0.3s;
+}
+.SocialMedia__Item a:hover {
+  color: #10C093;
+}
+.SocialMedia__Icon {
+  width: 3rem;
+}
+
 .Card {
   position: relative;
   width: 100%;
   border-radius: 10px;
   background-color: #1A202E;
-}
-.Card > * {
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding: 1rem 1.6rem;
 }
 .Card__Header {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-.Card__Content .Form__Input input {
-  background-color: transparent;
-}
-.Card__Content .Form__Input .Input__Field::placeholder {
-  color: transparent;
-}
-.Card__Content .Form__Input .Input__Field:focus ~ .Input__Label, .Card__Content .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
-  background-color: #1B202D;
+  margin-bottom: 1.5rem;
 }
 .Card__Title {
   text-transform: capitalize;
 }
+.Card--FullCard {
+  padding: 0;
+}
+.Card:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.Loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 5;
+}
+.Loader--Page {
+  background-color: #1A202E;
+}
+.Loader--Upload {
+  display: none;
+  background-color: rgba(26, 32, 46, 0.6);
+}
+.Loader__SvgCircle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  width: 10rem;
+  height: 10rem;
+}
+
+.Popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+}
+.Popup__Content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 0 2rem;
+}
+.Popup__Card {
+  position: relative;
+  max-width: 70rem;
+  max-height: calc(100% - 5rem);
+  width: 100%;
+  padding: 3rem;
+  border-radius: 5px;
+}
+.Popup__Close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+.Popup.Open {
+  visibility: visible;
+  opacity: 1;
+}
+.Popup--Dark {
+  background-color: rgba(26, 32, 46, 0.6);
+}
+.Popup--Dark .Popup__Card {
+  background-color: #1B2633;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
+}
+.Popup--Dark .Popup__Card .Form--Dark .Form__Input .Input__Field:focus ~ .Input__Label, .Popup--Dark .Popup__Card .Form--Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
+  background-color: #1B2633;
+}
+.Popup--Dark .Popup__Card .Form--Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+  background-color: #1B2633;
+}
+.Popup--Dark .Popup__Close:hover {
+  color: #10C093;
+}
+
+html[lang=ar] .Popup__Close {
+  right: initial;
+  left: 2rem;
+}
+
 .HeaderPage {
   position: sticky;
   top: 0;
@@ -1082,7 +1227,6 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 .Breadcrumb {
   position: relative;
   width: 100%;
-  margin-bottom: 4rem;
 }
 .Breadcrumb__Header {
   display: flex;
@@ -1116,6 +1260,74 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   }
 }
 
+.ListData {
+  position: relative;
+}
+.ListData__Head {
+  background-color: #212a3f;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+.ListData__Title {
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #96A2B4;
+}
+.ListData__Item .Data_Col {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 1rem;
+  transition: all 0.3s;
+}
+.ListData__Item .Data_Col .Data_Label {
+  width: 50%;
+}
+.ListData__Item .Data_Col .Data_Value {
+  width: 50%;
+  text-align: left;
+  word-break: break-word;
+}
+.ListData__Item .Data_Col--End {
+  justify-content: flex-end;
+  flex-grow: 0;
+  min-width: 10rem;
+}
+.ListData__Item--Action, .ListData__Item--NoAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #6c7a87;
+}
+.ListData__Item--Action {
+  cursor: pointer;
+}
+.ListData__Item:hover .Data_Col {
+  color: #fff;
+}
+.ListData__Item:not(:last-child) {
+  border-bottom: 1px solid #23364e;
+}
+.ListData:not(:last-child) {
+  margin-bottom: 3rem;
+}
+@media only screen and (max-width: 47.99em) {
+  .ListData__Item .Data_Col {
+    flex-direction: column;
+  }
+  .ListData__Item .Data_Col .Data_Label {
+    width: 100%;
+  }
+  .ListData__Item .Data_Col .Data_Value {
+    width: 100%;
+  }
+}
+
+html[lang=ar] .ListData__Item .Data_Col .Data_Value {
+  text-align: right;
+}
+
 .Row {
   display: flex;
   flex-direction: row;
@@ -1123,6 +1335,8 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 }
 .Row > * {
   width: 100%;
+  max-width: 100%;
+  margin-top: 2rem;
 }
 .Row .Col {
   flex: 0 1 auto;
@@ -1488,17 +1702,17 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(26, 32, 46, 0.6);
   visibility: hidden;
   opacity: 0;
   z-index: 4;
   transition: all 0.4s;
 }
 .MainContent__Section {
-  padding-top: 1.5rem;
+  padding: 1.5rem 0;
 }
 .MainContent__Section--Login {
-  padding-top: 0;
+  padding: 0;
 }
 .MainContent .RowPage {
   display: flex;
@@ -1557,15 +1771,6 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 .LoginPage__Text .LoginPage__Title {
   margin-bottom: 0.5rem;
 }
-.LoginPage__Form .Form__Input input {
-  background-color: transparent;
-}
-.LoginPage__Form .Form__Input .Input__Field::placeholder {
-  color: transparent;
-}
-.LoginPage__Form .Form__Input .Input__Field:focus ~ .Input__Label, .LoginPage__Form .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
-  background-color: #1B202D;
-}
 .LoginPage__Form .Form__Button .Button {
   width: 100%;
 }
@@ -1603,6 +1808,108 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 
 html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   text-align: left;
+}
+
+.ProfilePage__Image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.ProfilePage__Image .UserImage {
+  width: 10rem;
+  height: 10rem;
+  cursor: pointer;
+}
+.ProfilePage__Image .UserImage__Edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3F51B5;
+  border-radius: 50%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+}
+.ProfilePage__Image .UserImage__Edit .EditIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.ProfilePage__Image .UserImage .LockOpenIcon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #3F51B5;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s;
+}
+.ProfilePage__Image .UserImage:hover .UserImage__Edit {
+  visibility: visible;
+  opacity: 1;
+}
+.ProfilePage__Image .UserImage:hover .LockOpenIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage__Image .Text {
+  text-align: center;
+}
+.ProfilePage__Image .Text > *:not(:last-child) {
+  margin-bottom: 0.8rem;
+}
+.ProfilePage__Image .Text .UserName {
+  color: #96A2B4;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+.ProfilePage__Image .Text .Specialization {
+  font-size: 1.4rem;
+}
+.ProfilePage__Image .Text .Date {
+  font-size: 1.4rem;
+}
+.ProfilePage__Connection .SocialMedia {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ProfilePage__Skills .Skills__List {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.ProfilePage__Skills .Skills__List .Skill {
+  font-size: 1.2rem;
+  background-color: #3F51B5;
+  padding: 0 1rem;
+  border-radius: 5px;
+  color: #fff;
+}
+@media only screen and (max-width: 47.99em) {
+  .ProfilePage__Connection .SocialMedia {
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .ProfilePage__Skills .Skills__List {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+html[lang=ar] .ProfilePage__Image .UserImage .LockOpenIcon {
+  left: initial;
+  right: 0;
 }
 
 /*# sourceMappingURL=Style.css.map */

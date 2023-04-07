@@ -27,8 +27,8 @@
                                 </div>
                                 <div class="LoginPage__Form">
                                     <h2 class="LoginPage__Title">@lang("signin")</h2>
-                                    <form class="Form" action="#" method="post">
-                                        <div class="Row GapR-1-5">
+                                    <form class="Form Form--Dark" action="#" method="post">
+                                        <div class="Row">
                                             <div class="Col">
                                                 <div class="Form__Group">
                                                     <div class="Form__Input">
