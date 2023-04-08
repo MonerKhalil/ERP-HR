@@ -81,6 +81,20 @@
                                 }
                             }
                         }
+
+                        &__Select {
+
+                            .Selector {
+
+                                &__WordLabel {
+                                    background-color: $BackGroundColor_Extra-4;
+                                }
+
+                                &__Options {
+                                    background-color: $BackGroundColor_Extra-4;
+                                }
+                            }
+                        }
                     }
                 }
             }

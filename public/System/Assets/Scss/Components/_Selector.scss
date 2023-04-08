@@ -3,7 +3,6 @@
     position: relative;
     width : 100% ;
     font-size: 1.5rem ;
-    z-index: $VeryLowLayer;
 
     &__Main {
         position: relative;
@@ -12,7 +11,6 @@
         padding: 1rem 2rem;
         outline: 1px solid $SeparateBorderColor_Extra-1;
         border-radius: $BorderRadiusValue ;
-        z-index: $VeryLowLayer;
         cursor: pointer;
         transition: all .3s;
     }
@@ -33,12 +31,17 @@
         top : 0 ;
         left : 0 ;
         width: 100% ;
+        max-height: 21rem;
         border-radius: $BorderRadiusValue ;
         background-color: #000 ;
         visibility: hidden;
         opacity: 0;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-shadow: 0 0 $DarkShadow;
         transition: all .3s ;
+
+        @include ScrollBar() ;
     }
 
     &__Option {
@@ -65,6 +68,14 @@
     &.Open {
 
         .Selector {
+
+            &__Main {
+                z-index: $LowLayer;
+            }
+
+            &__Options {
+                z-index: $VeryLowLayer;
+            }
 
             &__Options {
                 top : calc(100% + .5rem) ;

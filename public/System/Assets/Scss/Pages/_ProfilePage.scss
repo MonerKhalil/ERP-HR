@@ -90,25 +90,53 @@
             flex-direction: row ;
             justify-content: space-between;
         }
+
+        .Card__Header {
+            display: flex;
+            align-items: center;
+            gap : 1rem ;
+        }
+
+        .EditIcon {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        &:hover {
+
+            .EditIcon {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
     }
 
-    &__Skills {
+    &__PasswordChange {
 
-        .Skills {
+        .PasswordChange {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            row-gap: 1.5rem ;
 
-            &__List {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 1rem ;
+            &__Label {
 
-                .Skill {
-                    font-size: 1.2rem;
-                    background-color: $PrimaryColor-Project;
-                    padding: 0 1rem;
-                    border-radius: $BorderRadiusValue;
-                    color : $WhiteColor ;
+                > * {
+                    margin-bottom: .5rem ;
                 }
+            }
+
+            &__Title {
+                color : $WhiteColor ;
+            }
+
+            &__Text {
+                color : $TextColor ;
+            }
+
+            &__LastChange {
+                font-size: 1.2rem;
             }
         }
     }
@@ -121,17 +149,6 @@
                 justify-content: center;
                 gap: 1rem ;
                 flex-wrap: wrap;
-            }
-        }
-
-        &__Skills {
-
-            .Skills {
-
-                &__List {
-                    justify-content: center;
-                    flex-wrap: wrap;
-                }
             }
         }
     }
