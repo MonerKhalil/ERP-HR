@@ -104,14 +104,13 @@ $(document).ready(function (){
                     .each((Index_3 , Value_3) => {
                         $(Value_3).click(() => {
                             $(Selector).toggleClass("Open");
-                            $(Selector).addClass("Selected");
-                            $(Selector).find(".Selector__Main .Selector__WordChoose")
-                                .text($(Value_3).text());
                             ClickSelect($(Value_3).text());
                         });
                     });
                 CreateSelect($(Selector).attr("data-name") ,
                     $(Selector).attr("data-required")) ;
+                if($(Selector).attr("data-selected"))
+                    ClickSelect($(Selector).attr("data-selected")) ;
 
                 function CreateSelect(Name = String , IsRequired) {
                     const Required = IsRequired ? "required" : "" ;
@@ -121,6 +120,9 @@ $(document).ready(function (){
                 }
 
                 function ClickSelect(OptionSelected = String) {
+                    $(Selector).addClass("Selected");
+                    $(Selector).find(".Selector__Main .Selector__WordChoose")
+                        .text(OptionSelected);
                     $(Selector).find(".Selector__SelectForm")
                         .attr("value" , OptionSelected);
                 }
@@ -182,9 +184,6 @@ $(document).ready(function (){
             $(Value).find(".Popup__Close").click(()=>{
                 $(Value).removeClass("Open");
             });
-            closeOutSide($(Value).find(".Popup__Card")[0] , ()=>{
-                $(Value).removeClass("Open");
-            });
         });
     });
     $(".OpenPopup").ready(function (){
@@ -198,6 +197,35 @@ $(document).ready(function (){
             $(Value).click(()=>{
                 $(PopupElement).addClass("Open");
             });
+        });
+    });
+
+    /*===========================================
+	=           Taps Layout       =
+    =============================================*/
+    $(".Taps").ready(function () {
+        $(".Taps").each((Index , TapElement) => {
+           let CurrentTap , CurrentPanel ;
+           $(TapElement).find(".Taps__Item").each((Index_2 , TapItem) => {
+              const ContentAttribute = $(TapItem).attr("data-content");
+              let PanelElement ;
+              $(TapElement).find(".Taps__Panel").each((Index_3 , PanelItem)=> {
+                  if($(PanelItem).attr("data-panel") === ContentAttribute)
+                      PanelElement = PanelItem ;
+              });
+              if(Index_2 === 0)
+                  Select(TapItem , PanelElement);
+              $(TapItem).click(()=> Select(TapItem , PanelElement));
+           });
+
+           function Select(TapButton , Panel) {
+               $(CurrentTap).removeClass("Active");
+               $(CurrentPanel).removeClass("Active");
+               CurrentTap = TapButton ;
+               CurrentPanel = Panel ;
+               $(CurrentTap).addClass("Active") ;
+               $(CurrentPanel).addClass("Active");
+           }
         });
     });
 

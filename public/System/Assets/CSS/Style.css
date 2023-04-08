@@ -502,12 +502,15 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   transform: translateY(-0.1rem);
   box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.25);
 }
+.Button--Primary {
+  background-color: #3F51B5;
+  color: #fff;
+}
 
 .Selector {
   position: relative;
   width: 100%;
   font-size: 1.5rem;
-  z-index: 1;
 }
 .Selector__Main {
   position: relative;
@@ -516,7 +519,6 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   padding: 1rem 2rem;
   outline: 1px solid #96A2B4;
   border-radius: 5px;
-  z-index: 1;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -534,12 +536,29 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   top: 0;
   left: 0;
   width: 100%;
+  max-height: 21rem;
   border-radius: 5px;
   background-color: #000;
   visibility: hidden;
   opacity: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
   transition: all 0.3s;
+}
+.Selector__Options::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.Selector__Options::-webkit-scrollbar-track, .Selector__Options::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.Selector__Options:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.Selector__Options:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
 }
 .Selector__Option {
   padding: 1rem 2rem;
@@ -557,6 +576,12 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   top: 50%;
   right: 1rem;
   transform: translateY(-50%);
+}
+.Selector.Open .Selector__Main {
+  z-index: 2;
+}
+.Selector.Open .Selector__Options {
+  z-index: 1;
 }
 .Selector.Open .Selector__Options {
   top: calc(100% + 0.5rem);
@@ -609,19 +634,31 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   width: 100%;
   border-radius: 10px;
   background-color: #1A202E;
+}
+.Card__Inner {
   padding: 1rem 1.6rem;
+}
+.Card__Inner--Group .Card__Inner {
+  padding: 2.4rem;
 }
 .Card__Header {
   margin-bottom: 1.5rem;
 }
 .Card__Title {
   text-transform: capitalize;
-}
-.Card--FullCard {
-  padding: 0;
+  color: #fff;
 }
 .Card:not(:last-child) {
   margin-bottom: 1rem;
+}
+.Card--Taps .Taps__List {
+  padding: 0 1.6rem;
+}
+.Card--Border {
+  border: 1px solid #23364e;
+}
+.Card--Dark {
+  background-color: #1A202E;
 }
 
 .Loader {
@@ -699,6 +736,12 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
 .Popup--Dark .Popup__Card .Form--Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   background-color: #1B2633;
 }
+.Popup--Dark .Popup__Card .Form--Dark .Form__Select .Selector__WordLabel {
+  background-color: #1B2633;
+}
+.Popup--Dark .Popup__Card .Form--Dark .Form__Select .Selector__Options {
+  background-color: #1B2633;
+}
 .Popup--Dark .Popup__Close:hover {
   color: #10C093;
 }
@@ -706,6 +749,29 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
 html[lang=ar] .Popup__Close {
   right: initial;
   left: 2rem;
+}
+
+.Skills {
+  position: relative;
+}
+.Skills__List {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.Skills__List .Skill {
+  font-size: 1.2rem;
+  background-color: #3F51B5;
+  padding: 0 1rem;
+  border-radius: 5px;
+  color: #fff;
+}
+@media only screen and (max-width: 47.99em) {
+  .Skills__List {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 
 .HeaderPage {
@@ -1689,6 +1755,59 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   }
 }
 
+.Taps {
+  position: relative;
+}
+.Taps__List {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  column-gap: 2.5rem;
+  border-bottom: 1px solid #23364e;
+}
+.Taps__Item {
+  position: relative;
+  padding: 1.5rem;
+  color: #b6c6e3;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.Taps__Item:hover {
+  color: #fff;
+}
+.Taps__Item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(50%);
+  width: 100%;
+  height: 2px;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: all 0.3s;
+}
+.Taps__Item--Icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.Taps__Item.Active {
+  color: #10C093;
+}
+.Taps__Item.Active::after {
+  background-color: #10C093;
+}
+.Taps__Panel {
+  display: none;
+}
+.Taps__Panel.Active {
+  display: block;
+}
+
 .MainContent {
   position: relative;
   min-height: calc(100vh - 5rem);
@@ -1882,27 +2001,42 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   flex-direction: row;
   justify-content: space-between;
 }
-.ProfilePage__Skills .Skills__List {
+.ProfilePage__Connection .Card__Header {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
 }
-.ProfilePage__Skills .Skills__List .Skill {
-  font-size: 1.2rem;
-  background-color: #3F51B5;
-  padding: 0 1rem;
-  border-radius: 5px;
+.ProfilePage__Connection .EditIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage__Connection:hover .EditIcon {
+  visibility: visible;
+  opacity: 1;
+}
+.ProfilePage__PasswordChange .PasswordChange {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 1.5rem;
+}
+.ProfilePage__PasswordChange .PasswordChange__Label > * {
+  margin-bottom: 0.5rem;
+}
+.ProfilePage__PasswordChange .PasswordChange__Title {
   color: #fff;
+}
+.ProfilePage__PasswordChange .PasswordChange__Text {
+  color: #96A2B4;
+}
+.ProfilePage__PasswordChange .PasswordChange__LastChange {
+  font-size: 1.2rem;
 }
 @media only screen and (max-width: 47.99em) {
   .ProfilePage__Connection .SocialMedia {
     justify-content: center;
     gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .ProfilePage__Skills .Skills__List {
-    justify-content: center;
     flex-wrap: wrap;
   }
 }

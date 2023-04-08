@@ -4,40 +4,66 @@
     width: 100% ;
     border-radius: 10px ;
     background-color: $BackGroundColor;
-    padding: 1rem 1.6rem;
 
-    &__Header {
-        margin-bottom: 1.5rem;
+    &__Inner {
+
+        & {
+            padding: 1rem 1.6rem;
+        }
+
+        &--Group {
+
+            .Card__Inner {
+                padding: 2.4rem ;
+            }
+        }
+
     }
 
     &__Content {
 
     }
 
-    &__Footer {
+    & {
+        &__Header {
+            margin-bottom: 1.5rem;
+        }
 
-    }
+        &__Footer {
 
-    &__Title {
-        text-transform: capitalize;
-    }
+        }
 
-    &__Summery {
+        &__Title {
+            text-transform: capitalize;
+            color : $WhiteColor ;
+        }
 
-    }
+        &__Summery {
 
-    &--FullCard {
-        padding: 0 ;
-
-        .Card {
-
-            &__Header {
-
-            }
         }
     }
 
     &:not(:last-child) {
         margin-bottom: 1rem;
+    }
+
+    // Version
+    &--Taps {
+
+        .Taps {
+
+            &__List {
+                padding: 0 1.6rem;
+            }
+        }
+    }
+
+    &--Border {
+        border: 1px solid $SeparateBorderColor;
+    }
+
+    // Theme
+    &--Dark {
+        background-color: $BackGroundColor;
     }
 }
