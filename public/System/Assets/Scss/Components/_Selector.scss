@@ -103,6 +103,28 @@
             }
         }
     }
+
+    // Sizing
+    &.Size-2 {
+        font-size: 1.3rem ;
+
+        .Selector {
+
+            &__Main {
+                min-width: 12rem;
+                padding: 0.5rem 3rem 0.5rem 1rem ;
+            }
+
+            &__WordLabel {
+                font-size: 1rem;
+                left: 0.5rem;
+            }
+
+            &__WordChoose {
+                font-size: inherit;
+            }
+        }
+    }
 }
 
 @include Language(Arabic) {
@@ -121,6 +143,21 @@
                 &__WordLabel {
                     left : initial ;
                     right : 1.5rem ;
+                }
+            }
+        }
+
+        &.Size-2 {
+
+            .Selector {
+
+                &__Main {
+                    padding: 0.5rem 1rem 0.5rem 3rem ;
+                }
+
+                &__WordLabel {
+                    left: initial;
+                    right: .5rem;
                 }
             }
         }

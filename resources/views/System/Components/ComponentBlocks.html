@@ -89,5 +89,15 @@
         ])
         <!--  End Breadcrumb  -->
 
+        <!--  Start Search Form  -->
+        @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "Dummy" , "Method" => "Post"] ,
+        'SearchForm' => ['Placeholder' => 'Dummy' , 'Name' => 'Dummy' , 'Value' => 'Dummy'] ,
+        'FilterForm' => [ ['Type' => 'Input' , 'Info' =>
+        ['Name' => "Dummy" , 'Placeholder' => "Dummy" , 'Value' => "Dummy"] ,
+        'Error' => "Error Message"] ]
+        ])
+        <!--  End Search Form  -->
+
     </body>
 </html>
