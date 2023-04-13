@@ -60,10 +60,10 @@
                                                                    class="CheckBox__Input">
                                                             <label class="CheckBox__Label" for="RememberMe">
                                                             <span class="IconChecked">
-                                                            <i class="material-icons ">
-                                                            check_small
-                                                        </i>
-                                                        </span>
+                                                                <i class="material-icons ">
+                                                                    check_small
+                                                                </i>
+                                                            </span>
                                                                 <span class="TextCheckBox">@lang("rememberMe")</span>
                                                             </label>
                                                         </div>

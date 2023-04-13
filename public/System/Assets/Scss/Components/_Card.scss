@@ -5,23 +5,42 @@
     border-radius: 10px ;
     background-color: $BackGroundColor;
 
+    &__InnerGroup {
+        border-bottom: 1px solid $SeparateBorderColor;
+
+        .Card__Inner:not(:last-child) {
+            border-bottom: 1px solid $SeparateBorderColor;
+        }
+    }
+
     &__Inner {
-
-        & {
-            padding: 1rem 1.6rem;
-        }
-
-        &--Group {
-
-            .Card__Inner {
-                padding: 2.4rem ;
-            }
-        }
-
+        padding: 2.4rem ;
     }
 
     &__Content {
 
+    }
+
+    &__ToolsGroup {
+        position: relative;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__SearchTools {
+
+        .SearchTools {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+
+            &__Separate {
+                margin : 0 1rem;
+                border-right: 1px solid $SeparateBorderColor_Extra-1 ;
+            }
+        }
     }
 
     & {

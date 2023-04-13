@@ -54,10 +54,8 @@
                     opacity: 0;
                     visibility: hidden;
                     overflow: hidden;
-                }
 
-                &.Open {
-                    .Dropdown {
+                    &.Show {
                         opacity: 1;
                         visibility: visible;
                         transform: scale(1);
