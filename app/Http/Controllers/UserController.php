@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class UserController extends Controller
 {
@@ -31,8 +32,8 @@ class UserController extends Controller
      */
     public function index(): Response|RedirectResponse|null
     {
-        $data = MyApp::Classes()->Search->getData(User::query()->whereNot("id",auth()->id()));
-        return $this->responseSuccess("",compact("data"));
+        $users = MyApp::Classes()->Search->getData(User::query()->whereNot("id",auth()->id()));
+        return $this->responseSuccess("System.Pages.Actors.Admin.viewUsers",compact("users"));
     }
 
     /**
@@ -41,8 +42,8 @@ class UserController extends Controller
      */
     public function create(): Response|RedirectResponse|null
     {
-        $roles = Role::query()->get(["id","name"]);
-        return $this->responseSuccess("",compact("roles"));
+        $roles = Role::query()->pluck('name','id')->toArray();
+        return $this->responseSuccess("System.Pages.Actors.Admin.addUser",compact("roles"));
     }
 
 
@@ -55,14 +56,14 @@ class UserController extends Controller
     public function store(UserRequest $request): RedirectResponse
     {
         try {
-            $dataRequest = Arr::except($request->validated(),['password','roles']);
+            $dataRequest = Arr::except($request->validated(),['password','role']);
             $dataRequest['password'] = Hash::make($request->password);
             if (isset($dataRequest['image'])){
                 $dataRequest['image'] = MyApp::Classes()->storageFiles->Upload($dataRequest['image'],self::Folder);
             }
             DB::beginTransaction();
             $user = User::query()->create($dataRequest);
-            $user->assignRole($request->roles);
+            $user->assignRole($request->role);
             DB::commit();
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
@@ -78,19 +79,12 @@ class UserController extends Controller
      */
     public function show(User $user): Response|RedirectResponse|null
     {
-        return $this->responseSuccess("user.show",compact('user'));
-    }
-
-    /**
-     * @param User $user
-     * @return Response|RedirectResponse|null
-     * @author moner khalil
-     */
-    public function edit(User $user): Response|RedirectResponse|null
-    {
-        $roles = Role::query()->get(["id","name"]);
-        $userRole = $user->roles;
-        return $this->responseSuccess("user.show",compact('user','roles','userRole'));
+        $auth = auth()->user();
+        if ($auth->id == $user->id || $auth->can("read_users") || $auth->can("all_users")){
+            $roles = Role::query()->pluck('name','id')->toArray();
+            return $this->responseSuccess("System.Pages.Actors.profile",compact('user','roles'));
+        }
+        throw UnauthorizedException::forPermissions(["read_users","all_users"]);
     }
 
     /**
@@ -103,7 +97,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user): RedirectResponse
     {
         try {
-            $dataRequest = Arr::except($request->validated(),['password','roles']);
+            $dataRequest = Arr::except($request->validated(),['password','role']);
             if (isset($dataRequest['image'])){
                 $dataRequest['image'] = MyApp::Classes()->storageFiles->Upload($dataRequest['image'],self::Folder);
                 MyApp::Classes()->storageFiles->deleteFile($user->image);
@@ -113,7 +107,7 @@ class UserController extends Controller
             }
             DB::beginTransaction();
             $user->update($dataRequest);
-            $user->syncRoles($request->roles);
+            $user->syncRoles($request->role);
             DB::commit();
             return $this->responseSuccess(null,null,"update",self::IndexRoute);
         }catch (\Exception $exception){

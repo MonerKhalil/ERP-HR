@@ -4,6 +4,7 @@
     "suc.update" : "The modification was completed successfully",
     "suc.delete" : "The deletion was completed successfully",
     "suc.default" : "The previous operation completed successfully",
+    "password_error" : "The old password is incorrect",
 
     "/*         Header         */": "",
 
@@ -48,6 +49,8 @@
     "gender" : "gender",
     "male" : "male" ,
     "female" : "female",
+    "role" : "role",
+    "roles" : "roles",
 
     "/*         Profile Page         */": "" ,
 

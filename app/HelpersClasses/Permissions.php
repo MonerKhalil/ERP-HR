@@ -82,7 +82,7 @@ class Permissions
                 $permissionsRoles = Permission::query()
                     ->whereIn("name",self::getAllProcessKeys($table,$process,$allProcess))
                     ->pluck("id","id")->all();
-                $role->permissions()->syncWithoutDetaching($permissionsRoles);
+                $role->givePermissionTo($permissionsRoles);
             }
             $user = User::create([
                 "name" => $role->name,
@@ -122,3 +122,14 @@ class Permissions
     }
 
 }
+/*
+$user->assignRole('writer');
+$user->removeRole('writer');
+$user->syncRoles(params);
+$role->givePermissionTo('edit articles');
+$role->revokePermissionTo('edit articles');
+$role->syncPermissions(params);
+$permission->assignRole('writer');
+$permission->removeRole('writer');
+$permission->syncRoles(params);
+ * */

@@ -5,7 +5,7 @@
             "roles" : "a"
         },
         "user" : {
-            "users" : ["r","c"],
+            "users" : ["r"],
             "roles" : ["r"]
         }
     },
@@ -15,6 +15,7 @@
         "c" : "create",
         "u" : "update",
         "d" : "delete",
-        "e" : "export"
+        "e" : "export",
+        "au": "audit"
     }
 }

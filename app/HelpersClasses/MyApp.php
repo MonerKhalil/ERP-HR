@@ -4,7 +4,7 @@ namespace App\HelpersClasses;
 
 class MyApp
 {
-    public const RouteHome = "dashboard";
+    public const RouteHome = "home";
 
     /**
      * @var MyApp|null

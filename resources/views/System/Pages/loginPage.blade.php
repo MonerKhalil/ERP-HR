@@ -27,15 +27,16 @@
                                 </div>
                                 <div class="LoginPage__Form">
                                     <h2 class="LoginPage__Title">@lang("signin")</h2>
-                                    <form class="Form Form--Dark" action="#" method="post">
+                                    <form class="Form Form--Dark" action="{{route('login')}}" method="post">
+                                        @csrf
                                         <div class="Row">
                                             <div class="Col">
                                                 <div class="Form__Group">
                                                     <div class="Form__Input">
                                                         <div class="Input__Area">
-                                                            <input id="UserName" class="Input__Field" type="text"
-                                                                   name="UserName" placeholder="@lang("userName")">
-                                                            <label class="Input__Label" for="UserName">@lang("userName")</label>
+                                                            <input id="email" class="Input__Field" type="text"
+                                                                   name="email" placeholder="@lang("email")">
+                                                            <label class="Input__Label" for="email">@lang("email")</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -74,7 +75,7 @@
                                                 <div class="Form__Group">
                                                     <div class="Form__Link">
                                                         <div class="Link__Area">
-                                                            <a href="#" class="Link__Anchor">@lang("forgetPassword")</a>
+                                                            <a href="{{route('password.request')}}" class="Link__Anchor">@lang("forgetPassword")</a>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
+        $this->renderable(function (Throwable $e) {
             if ($e instanceof ValidationException) {
                 MessagesFlash::Errors($e->errors());
                 return \redirect()->back();
