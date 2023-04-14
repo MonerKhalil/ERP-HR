@@ -9,6 +9,8 @@
     <main class="MainContent">
         @yield("ContentPage")
     </main>
+    {{--  Popup Content  --}}
+    @yield("PopupPage")
     {{--  Footer  --}}
     @include("System.Layouts.Footer.footer")
 @endsection

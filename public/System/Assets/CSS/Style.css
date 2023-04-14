@@ -284,6 +284,11 @@ p {
   font-size: 1.99rem;
 }
 
+@media print {
+  html {
+    font-size: 56.25%;
+  }
+}
 .Dropdown {
   position: relative;
   background-color: #1b2633;
@@ -403,12 +408,6 @@ p {
   font-size: 1.6rem;
   cursor: pointer;
 }
-.Form__Search .SearchIcon {
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-}
 .Form__Link .Link__Anchor {
   font-size: 1.4rem;
 }
@@ -523,6 +522,10 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   background-color: #3F51B5;
   color: #fff;
 }
+.Button--Danger {
+  background-color: #f93542;
+  color: #fff;
+}
 .Button.Size-2 {
   padding: 0.6rem 2rem;
 }
@@ -556,7 +559,7 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   top: 0;
   left: 0;
   width: 100%;
-  max-height: 21rem;
+  max-height: 0;
   border-radius: 5px;
   background-color: #000;
   visibility: hidden;
@@ -588,9 +591,6 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
 .Selector__Option:hover {
   background-color: #1EE0AC;
 }
-.Selector__SelectForm {
-  display: none;
-}
 .Selector__Arrow {
   position: absolute;
   top: 50%;
@@ -601,12 +601,11 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   z-index: 2;
 }
 .Selector.Open .Selector__Options {
-  z-index: 1;
-}
-.Selector.Open .Selector__Options {
   top: calc(100% + 0.5rem);
   visibility: visible;
   opacity: 1;
+  max-height: 21rem;
+  z-index: 1;
 }
 .Selector.Selected .Selector__WordLabel {
   position: absolute;
@@ -685,6 +684,9 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 .Card__Inner {
   padding: 2.4rem;
 }
+.Card__Inner.p0 {
+  padding: 0;
+}
 .Card__ToolsGroup {
   position: relative;
   display: flex;
@@ -754,7 +756,27 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   height: 100vh;
   visibility: hidden;
   opacity: 0;
+  z-index: 4;
   transition: all 0.4s;
+}
+.Popup__Title {
+  position: relative;
+  text-align: center;
+}
+.Popup__Title .Title {
+  position: relative;
+  background-color: #1B2633;
+  padding: 0 2rem;
+}
+.Popup__Title::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+  background-color: #96A2B4;
 }
 .Popup__Content {
   display: flex;
@@ -764,19 +786,47 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   height: 100vh;
   padding: 0 2rem;
 }
+.Popup__Inner {
+  padding: 2.4rem;
+}
+.Popup__Inner:not(:first-child) {
+  padding-top: 0;
+}
 .Popup__Card {
   position: relative;
   max-width: 70rem;
-  max-height: calc(100% - 5rem);
   width: 100%;
   padding: 3rem;
   border-radius: 5px;
 }
+.Popup__CardContent {
+  max-height: calc(100vh - 20rem);
+  overflow-y: auto;
+}
+.Popup__CardContent::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.Popup__CardContent::-webkit-scrollbar-track, .Popup__CardContent::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.Popup__CardContent:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.Popup__CardContent:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
+}
 .Popup__Close {
   position: absolute;
-  top: 1.5rem;
-  right: 2rem;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   cursor: pointer;
+  background-color: #3F51B5;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 50%;
   transition: all 0.4s;
 }
 .Popup.Open {
@@ -803,12 +853,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   background-color: #1B2633;
 }
 .Popup--Dark .Popup__Close:hover {
-  color: #10C093;
-}
-
-html[lang=ar] .Popup__Close {
-  right: initial;
-  left: 2rem;
+  background-color: #252f69;
 }
 
 .Skills {
@@ -1546,6 +1591,9 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   max-width: 100%;
   margin-top: 2rem;
 }
+.Row.m0 > * {
+  margin-top: 0;
+}
 .Row .Col {
   flex: 0 1 auto;
   max-width: 100%;
@@ -1905,7 +1953,6 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
   column-gap: 2.5rem;
   border-bottom: 1px solid #23364e;
 }
@@ -2305,23 +2352,33 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   visibility: visible;
   opacity: 1;
 }
-.ProfilePage__PasswordChange .PasswordChange {
+.ProfilePage__PasswordChange .PasswordChange,
+.ProfilePage__PasswordChange .DeleteAccount, .ProfilePage__DeleteAccount .PasswordChange,
+.ProfilePage__DeleteAccount .DeleteAccount {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   row-gap: 1.5rem;
 }
-.ProfilePage__PasswordChange .PasswordChange__Label > * {
+.ProfilePage__PasswordChange .PasswordChange__Label > *,
+.ProfilePage__PasswordChange .DeleteAccount__Label > *, .ProfilePage__DeleteAccount .PasswordChange__Label > *,
+.ProfilePage__DeleteAccount .DeleteAccount__Label > * {
   margin-bottom: 0.5rem;
 }
-.ProfilePage__PasswordChange .PasswordChange__Title {
+.ProfilePage__PasswordChange .PasswordChange__Title,
+.ProfilePage__PasswordChange .DeleteAccount__Title, .ProfilePage__DeleteAccount .PasswordChange__Title,
+.ProfilePage__DeleteAccount .DeleteAccount__Title {
   color: #fff;
 }
-.ProfilePage__PasswordChange .PasswordChange__Text {
+.ProfilePage__PasswordChange .PasswordChange__Text,
+.ProfilePage__PasswordChange .DeleteAccount__Text, .ProfilePage__DeleteAccount .PasswordChange__Text,
+.ProfilePage__DeleteAccount .DeleteAccount__Text {
   color: #96A2B4;
 }
-.ProfilePage__PasswordChange .PasswordChange__LastChange {
+.ProfilePage__PasswordChange .PasswordChange__LastChange,
+.ProfilePage__PasswordChange .DeleteAccount__LastChange, .ProfilePage__DeleteAccount .PasswordChange__LastChange,
+.ProfilePage__DeleteAccount .DeleteAccount__LastChange {
   font-size: 1.2rem;
 }
 @media only screen and (max-width: 47.99em) {
