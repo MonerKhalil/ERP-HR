@@ -67,10 +67,10 @@ class User extends Authenticatable implements Auditable
                 $rules['email'] =  ["required","email",Rule::unique("users","email")->ignore($userCurrentId)];
                 $rules["old_password"] = ["sometimes","min:8","string"];
                 $rules["new_password"] = [Rule::requiredIf(!is_null($validator->input('old_password'))),"min:8","string"];
+                $rules["role"] = ["required",Rule::exists("roles","id")];
                 if ($user->can("update_users")){
                     $rules["password"] = ["sometimes","min:8","string"];
                     $rules["re_password"] = ["sometimes","same:password"];
-                    $rules["role"] = ["required",Rule::exists("roles","id")];
                 }
             }else{
                 $rules["password"] = ["required","min:8","string"];

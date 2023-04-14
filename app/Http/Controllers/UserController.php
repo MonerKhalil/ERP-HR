@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class UserController extends Controller
 {
@@ -31,8 +32,8 @@ class UserController extends Controller
      */
     public function index(): Response|RedirectResponse|null
     {
-        $data = MyApp::Classes()->Search->getData(User::query()->whereNot("id",auth()->id()));
-        return $this->responseSuccess("System.Pages.Actors.Admin.addUser",compact("data"));
+        $users = MyApp::Classes()->Search->getData(User::query()->whereNot("id",auth()->id()));
+        return $this->responseSuccess("System.Pages.Actors.Admin.viewUsers",compact("users"));
     }
 
     /**
@@ -41,7 +42,7 @@ class UserController extends Controller
      */
     public function create(): Response|RedirectResponse|null
     {
-        $roles = Role::query()->get(["id","name"]);
+        $roles = Role::query()->pluck('name','id')->toArray();
         return $this->responseSuccess("System.Pages.Actors.Admin.addUser",compact("roles"));
     }
 
@@ -78,19 +79,12 @@ class UserController extends Controller
      */
     public function show(User $user): Response|RedirectResponse|null
     {
-        return $this->responseSuccess("user.show",compact('user'));
-    }
-
-    /**
-     * @param User $user
-     * @return Response|RedirectResponse|null
-     * @author moner khalil
-     */
-    public function edit(User $user): Response|RedirectResponse|null
-    {
-        $roles = Role::query()->get(["id","name"]);
-        $userRole = $user->roles;
-        return $this->responseSuccess("user.show",compact('user','roles','userRole'));
+        $auth = auth()->user();
+        if ($auth->id == $user->id || $auth->can("read_users") || $auth->can("all_users")){
+            $roles = Role::query()->pluck('name','id')->toArray();
+            return $this->responseSuccess("System.Pages.Actors.profile",compact('user','roles'));
+        }
+        throw UnauthorizedException::forPermissions(["read_users","all_users"]);
     }
 
     /**

@@ -18,7 +18,7 @@ class AuditObserver
     {
         $auditData = $audit->toArray();
         $user = auth()->user();
-        $tableName = app($auditData["auditable_type"]::class)->getTable();
+        $tableName = app($auditData["auditable_type"])->getTable();
         if (!is_null($user)){
             $Data = [
                 "model_id" => $auditData['auditable_id'],

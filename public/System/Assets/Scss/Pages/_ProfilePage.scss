@@ -111,9 +111,11 @@
         }
     }
 
-    &__PasswordChange {
+    &__PasswordChange ,
+    &__DeleteAccount {
 
-        .PasswordChange {
+        .PasswordChange ,
+        .DeleteAccount {
             display: flex;
             justify-content: space-between;
             align-items: center;

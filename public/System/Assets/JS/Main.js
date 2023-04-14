@@ -7,23 +7,17 @@ $(document).ready(function (){
 	=           Header Page       =
     =============================================*/
     const Header = $(".HeaderPage") ;
-    Header.ready(function (){
+    Header.ready(function () {
         $(".HeaderPage .Alert").each(function() {
             $(this).children("i").click(()=> {
-                $(this).toggleClass("Open");
-                if($(this).hasClass("Open"))
-                    closeOutSide($(this)[0] , ()=> {
-                        $(this).removeClass("Open");
-                    });
+                $(this).children(".Dropdown")
+                    .toggleClass("Show").trigger("ShowChange");
             });
         });
         $(".HeaderPage .AccountAlerts > .UserImage").each(function (){
             $(this).children("img").click(() => {
-                $(this).toggleClass("Open");
-                if($(this).hasClass("Open"))
-                    closeOutSide($(this)[0] , ()=> {
-                        $(this).removeClass("Open");
-                    });
+                $(this).find(".Dropdown")
+                    .toggleClass("Show").trigger("ShowChange")
             });
         });
         $(".HeaderPage__MenusOpening .MenuIcon").each(function() {
@@ -70,6 +64,62 @@ $(document).ready(function (){
         });
     }
 
+    /*===========================================
+	=           Footer Page       =
+    =============================================*/
+    const Footer = $(".FooterPage") ;
+
+    /*===========================================
+	=           Selector       =
+    =============================================*/
+    $(".Selector").ready(function (){
+        $(".Selector").each((_ , Selector)=> {
+            $(Selector).find(".Selector__Main").click(() => {
+                $(Selector).toggleClass("Open");
+                closeOutSide($(Selector)[0] , ()=> {
+                    $(Selector).removeClass("Open");
+                });
+            });
+            CreateSelect($(Selector).attr("data-name")
+                , $(Selector).attr("data-required"));
+            $(Selector).find(".Selector__Options .Selector__Option")
+                .each((Index_3 , Value_3) => {
+                    $(Value_3).click(() => {
+                        const OptionValue = $(Value_3).attr("data-option");
+                        $(Selector).toggleClass("Open");
+                        ClickSelect($(Value_3).text() , OptionValue);
+                    });
+                });
+            if($(Selector).attr("data-selected"))
+                DefaultValue($(Selector).attr("data-selected")) ;
+
+            function CreateSelect(Name = String , IsRequired) {
+                const Required = IsRequired ? "required" : "" ;
+                const InputElement = `<input type="text" value=""
+                    name="${Name}" class="Selector__SelectForm" ${Required} hidden>` ;
+                $(Selector).append(InputElement);
+            }
+
+            function DefaultValue(Value = String) {
+                $(Selector).find(".Selector__Options .Selector__Option")
+                    .each((_ , Option) => {
+                        if($(Option).attr("data-option") === Value) {
+                            ClickSelect($(Option).text() , Value);
+                        }
+                    });
+            }
+
+            function ClickSelect(OptionSelected = String
+                , ValueOption = String) {
+                $(Selector).addClass("Selected");
+                $(Selector).find(".Selector__Main .Selector__WordChoose")
+                    .text(OptionSelected);
+                $(Selector).find(".Selector__SelectForm")
+                    .attr("value" , ValueOption);
+                $(Selector).attr("data-selected" , ValueOption);
+            }
+        });
+    });
 
     /*===========================================
 	=           Form       =
@@ -92,44 +142,72 @@ $(document).ready(function (){
                     InputField.attr("type" , "password");
             });
         });
-        $(this).find(".Form__Select").each((Index , Value) => {
-            $(Value).find(".Selector").each((Index_2 , Selector) => {
-                $(Selector).find(".Selector__Main").click(() => {
-                    $(Selector).toggleClass("Open");
-                    closeOutSide($(Selector)[0] , ()=> {
-                        $(Selector).removeClass("Open");
-                    });
-                });
-                $(Selector).find(".Selector__Options .Selector__Option")
-                    .each((Index_3 , Value_3) => {
-                        $(Value_3).click(() => {
-                            $(Selector).toggleClass("Open");
-                            ClickSelect($(Value_3).text());
-                        });
-                    });
-                CreateSelect($(Selector).attr("data-name") ,
-                    $(Selector).attr("data-required")) ;
-                if($(Selector).attr("data-selected"))
-                    ClickSelect($(Selector).attr("data-selected")) ;
-
-                function CreateSelect(Name = String , IsRequired) {
-                    const Required = IsRequired ? "required" : "" ;
-                    const InputElement = `<input type="text" value="#"
-                    name="${Name}" class="Selector__SelectForm" ${Required}>` ;
-                    $(Selector).append(InputElement);
-                }
-
-                function ClickSelect(OptionSelected = String) {
-                    $(Selector).addClass("Selected");
-                    $(Selector).find(".Selector__Main .Selector__WordChoose")
-                        .text(OptionSelected);
-                    $(Selector).find(".Selector__SelectForm")
-                        .attr("value" , OptionSelected);
-                }
-            });
-        });
         $(this).find(".Form__Date").each((Index , Value)=> {
            $(Value).find("input").flatpickr();
+        });
+        $(this).find(".Form__Group").each((_ , Group) => {
+            $(Group).find(".Form__Input:not(.Form__Input--Password)").ready(function () {
+                $(Group).find("input[type=text]").on("invalid" , function (e) {
+                    e.preventDefault();
+                    CreateError("Error In Input");
+                });
+                $(Group).find("input[type=email]").on("invalid" , function (e) {
+                    e.preventDefault();
+                    CreateError("Error in Email");
+                });
+                $(Group).find("input[type=text]").on("change" , function () {
+                    RemoveError();
+                });
+                $(Group).find("input[type=email]").on("change" , function () {
+                    RemoveError();
+                });
+            });
+            $(Group).find(".Form__Input--Password").ready(function () {
+                $(Group).find("input").on("invalid" , function (e) {
+                    e.preventDefault();
+                    CreateError("Error In Password");
+                });
+                $(Group).find("input").on("change" , function () {
+                    RemoveError();
+                });
+            });
+            $(Group).find(".Form__Date").ready(function () {
+                $(Group).find("input").on("invalid" , function (e) {
+                    e.preventDefault();
+                    CreateError("Error In Date");
+                });
+                $(Group).find("input").on("change" , function () {
+                    RemoveError();
+                });
+            });
+            $(Group).find(".Form__Select").ready(function () {
+                $(Group).find("input").on("invalid" , function (e) {
+                    e.preventDefault();
+                    CreateError("Error In Select");
+                });
+                $(Group).find(".Selector__Option").click(() => {
+                    RemoveError();
+                });
+            });
+
+            function CreateError(Message = String) {
+                const ErrorElement =  $(Group).find(".Form__Error") ;
+                if(ErrorElement.length === 0) {
+                    const ElementError = `<div class="Form__Error">
+                        <div class="Error__Area">
+                            <small> ${Message} </small>
+                        </div>
+                    </div>` ;
+                    $(Group).append(ElementError);
+                } else {
+                    ErrorElement.find("small").text(Message);
+                }
+            }
+
+            function RemoveError() {
+                $(Group).find(".Form__Error").remove();
+            }
+
         });
     });
 
@@ -144,12 +222,14 @@ $(document).ready(function (){
     function OpenMenu() {
         Header.addClass("OpenMenu") ;
         MenuNav.addClass("Open") ;
+        Footer.addClass("OpenMenu")
     }
 
     function CloseMenu() {
         CloseNavigationsGroup() ;
         Header.removeClass("OpenMenu") ;
         MenuNav.removeClass("Open") ;
+        Footer.removeClass("OpenMenu")
     }
 
     /*===========================================
@@ -229,6 +309,52 @@ $(document).ready(function (){
         });
     });
 
+    /*===========================================
+	=           Dropdown       =
+    =============================================*/
+    $(".Dropdown").ready(function (){
+        $(".Dropdown").each((_ , Dropdown)=>{
+            $(Dropdown).on("ShowChange" , function (){
+                if($(Dropdown).hasClass("Show"))
+                    closeOutSide($(Dropdown)[0] , ()=>{
+                        $(Dropdown).removeClass("Show");
+                    });
+            });
+        });
+    });
+
+    /*===========================================
+	=           Table Layout       =
+    =============================================*/
+    $(".Table").ready(function () {
+        $(".Table").each((_ , Table) => {
+            $(Table).find(".Table__List").each((_ , List)=>{
+                $(List).find(".HeaderList").each((_ , HeaderList) => {
+                    $(HeaderList).find(".CheckBoxItem").change((ev) => {
+                        if($(ev.currentTarget).is(":checked"))
+                            $(List).find(".DataItem").each((_ , Item) => {
+                                $(Item).find(".CheckBoxItem").prop('checked', true);
+                            });
+                        else
+                            $(List).find(".DataItem").each((_ , Item) => {
+                                $(Item).find(".CheckBoxItem").prop('checked', false);
+                            });
+                    });
+                });
+                $(List).find(".DataItem").each((_ , DataItem) => {
+                    $(DataItem).find(".CheckBoxItem").change((ev) => {
+                        const CheckBoxHeader = $(List).find(".HeaderList .CheckBoxItem") ;
+                        if(CheckBoxHeader.is(":checked") &&
+                            !$(ev.currentTarget).is(":checked")) {
+                            CheckBoxHeader.prop('checked', false);
+                        }
+                    });
+                });
+            });
+            // $(Table).find(".Table__BulkTools")
+        });
+    });
+
 });
 
 window.onload = function (){
@@ -248,7 +374,9 @@ window.onload = function (){
 function closeOutSide(ElementTarget = HTMLElement,
                       CallbackFunc = Function ,
                       ElementEvent = undefined) {
-    $(document)[0].addEventListener("click" , EventClick);
+    setTimeout(()=>{
+        $(document)[0].addEventListener("click" , EventClick);
+    } , 100)
     function EventClick(event) {
         if(!ElementTarget.contains(event.target)) {
             CallbackFunc() ;

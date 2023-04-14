@@ -284,6 +284,11 @@ p {
   font-size: 1.99rem;
 }
 
+@media print {
+  html {
+    font-size: 56.25%;
+  }
+}
 .Dropdown {
   position: relative;
   background-color: #1b2633;
@@ -292,36 +297,51 @@ p {
 
 .Form {
   position: relative;
-  width: 100%;
 }
 .Form__Group {
   position: relative;
   width: 100%;
 }
-.Form__Input, .Form__Date {
+.Form__Input, .Form__Date, .Form__Search {
   position: relative;
   width: 100%;
 }
 .Form__Input .Date__Area,
-.Form__Input .Input__Area, .Form__Date .Date__Area,
-.Form__Date .Input__Area {
+.Form__Input .Input__Area,
+.Form__Input .Search__Area, .Form__Date .Date__Area,
+.Form__Date .Input__Area,
+.Form__Date .Search__Area, .Form__Search .Date__Area,
+.Form__Search .Input__Area,
+.Form__Search .Search__Area {
   position: relative;
   border: 1px solid #96A2B4;
   border-radius: 5px;
 }
 .Form__Input .Date__Area.Error,
-.Form__Input .Input__Area.Error, .Form__Date .Date__Area.Error,
-.Form__Date .Input__Area.Error {
+.Form__Input .Input__Area.Error,
+.Form__Input .Search__Area.Error, .Form__Date .Date__Area.Error,
+.Form__Date .Input__Area.Error,
+.Form__Date .Search__Area.Error, .Form__Search .Date__Area.Error,
+.Form__Search .Input__Area.Error,
+.Form__Search .Search__Area.Error {
   border-color: #f93542;
 }
 .Form__Input .Date__Area.Error .Input__Label,
-.Form__Input .Input__Area.Error .Input__Label, .Form__Date .Date__Area.Error .Input__Label,
-.Form__Date .Input__Area.Error .Input__Label {
+.Form__Input .Input__Area.Error .Input__Label,
+.Form__Input .Search__Area.Error .Input__Label, .Form__Date .Date__Area.Error .Input__Label,
+.Form__Date .Input__Area.Error .Input__Label,
+.Form__Date .Search__Area.Error .Input__Label, .Form__Search .Date__Area.Error .Input__Label,
+.Form__Search .Input__Area.Error .Input__Label,
+.Form__Search .Search__Area.Error .Input__Label {
   color: #f93542;
 }
 .Form__Input .Date__Field,
-.Form__Input .Input__Field, .Form__Date .Date__Field,
-.Form__Date .Input__Field {
+.Form__Input .Input__Field,
+.Form__Input .Search__Field, .Form__Date .Date__Field,
+.Form__Date .Input__Field,
+.Form__Date .Search__Field, .Form__Search .Date__Field,
+.Form__Search .Input__Field,
+.Form__Search .Search__Field {
   display: block;
   width: 100%;
   font-family: inherit;
@@ -333,8 +353,12 @@ p {
   transition: all 0.4s;
 }
 .Form__Input .Date__Label,
-.Form__Input .Input__Label, .Form__Date .Date__Label,
-.Form__Date .Input__Label {
+.Form__Input .Input__Label,
+.Form__Input .Search__Label, .Form__Date .Date__Label,
+.Form__Date .Input__Label,
+.Form__Date .Search__Label, .Form__Search .Date__Label,
+.Form__Search .Input__Label,
+.Form__Search .Search__Label {
   position: absolute;
   top: 1rem;
   left: 2rem;
@@ -380,25 +404,6 @@ p {
   gap: 1rem;
   align-items: center;
 }
-.Form__CheckBox .CheckBox__Label .IconChecked {
-  position: relative;
-  display: inline-block;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid #96A2B4;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
-  position: absolute;
-  display: none;
-  width: 100%;
-  height: 100%;
-  font-size: 2rem;
-  left: 0.2rem;
-  top: 0.1rem;
-}
 .Form__CheckBox .CheckBox__Label .TextCheckBox {
   font-size: 1.6rem;
   cursor: pointer;
@@ -419,14 +424,22 @@ p {
   color: #fff;
 }
 .Form--Dark .Form__Input .Input__Field,
-.Form--Dark .Form__Input .Date__Field, .Form--Dark .Form__Date .Input__Field,
-.Form--Dark .Form__Date .Date__Field {
+.Form--Dark .Form__Input .Date__Field,
+.Form--Dark .Form__Input .Search__Field, .Form--Dark .Form__Date .Input__Field,
+.Form--Dark .Form__Date .Date__Field,
+.Form--Dark .Form__Date .Search__Field, .Form--Dark .Form__Search .Input__Field,
+.Form--Dark .Form__Search .Date__Field,
+.Form--Dark .Form__Search .Search__Field {
   color: #96A2B4;
   background-color: transparent;
 }
 .Form--Dark .Form__Input .Input__Field::placeholder,
-.Form--Dark .Form__Input .Date__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
-.Form--Dark .Form__Date .Date__Field::placeholder {
+.Form--Dark .Form__Input .Date__Field::placeholder,
+.Form--Dark .Form__Input .Search__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
+.Form--Dark .Form__Date .Date__Field::placeholder,
+.Form--Dark .Form__Date .Search__Field::placeholder, .Form--Dark .Form__Search .Input__Field::placeholder,
+.Form--Dark .Form__Search .Date__Field::placeholder,
+.Form--Dark .Form__Search .Search__Field::placeholder {
   color: transparent;
 }
 .Form--Dark .Form__Input .Input__Field:focus ~ .Input__Label, .Form--Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
@@ -452,6 +465,9 @@ p {
 .Form--Dark .Form__Select .Selector__Option:hover {
   background-color: #3F51B5;
   color: #fff;
+}
+.Form--Dark .Form__Search .Search__Field::placeholder {
+  color: inherit;
 }
 .Form--Dark .Form__Link .Link__Anchor {
   color: #96A2B4;
@@ -506,6 +522,13 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   background-color: #3F51B5;
   color: #fff;
 }
+.Button--Danger {
+  background-color: #f93542;
+  color: #fff;
+}
+.Button.Size-2 {
+  padding: 0.6rem 2rem;
+}
 
 .Selector {
   position: relative;
@@ -536,7 +559,7 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   top: 0;
   left: 0;
   width: 100%;
-  max-height: 21rem;
+  max-height: 0;
   border-radius: 5px;
   background-color: #000;
   visibility: hidden;
@@ -568,9 +591,6 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
 .Selector__Option:hover {
   background-color: #1EE0AC;
 }
-.Selector__SelectForm {
-  display: none;
-}
 .Selector__Arrow {
   position: absolute;
   top: 50%;
@@ -581,12 +601,11 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   z-index: 2;
 }
 .Selector.Open .Selector__Options {
-  z-index: 1;
-}
-.Selector.Open .Selector__Options {
   top: calc(100% + 0.5rem);
   visibility: visible;
   opacity: 1;
+  max-height: 21rem;
+  z-index: 1;
 }
 .Selector.Selected .Selector__WordLabel {
   position: absolute;
@@ -599,6 +618,20 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
 .Selector.Selected .Selector__WordChoose {
   display: initial;
 }
+.Selector.Size-2 {
+  font-size: 1.3rem;
+}
+.Selector.Size-2 .Selector__Main {
+  min-width: 12rem;
+  padding: 0.5rem 3rem 0.5rem 1rem;
+}
+.Selector.Size-2 .Selector__WordLabel {
+  font-size: 1rem;
+  left: 0.5rem;
+}
+.Selector.Size-2 .Selector__WordChoose {
+  font-size: inherit;
+}
 
 html[lang=ar] .Selector__Arrow {
   right: initial;
@@ -607,6 +640,13 @@ html[lang=ar] .Selector__Arrow {
 html[lang=ar] .Selector.Selected .Selector__WordLabel {
   left: initial;
   right: 1.5rem;
+}
+html[lang=ar] .Selector.Size-2 .Selector__Main {
+  padding: 0.5rem 1rem 0.5rem 3rem;
+}
+html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
+  left: initial;
+  right: 0.5rem;
 }
 
 .SocialMedia {
@@ -635,11 +675,33 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   border-radius: 10px;
   background-color: #1A202E;
 }
-.Card__Inner {
-  padding: 1rem 1.6rem;
+.Card__InnerGroup {
+  border-bottom: 1px solid #23364e;
 }
-.Card__Inner--Group .Card__Inner {
+.Card__InnerGroup .Card__Inner:not(:last-child) {
+  border-bottom: 1px solid #23364e;
+}
+.Card__Inner {
   padding: 2.4rem;
+}
+.Card__Inner.p0 {
+  padding: 0;
+}
+.Card__ToolsGroup {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.Card__SearchTools .SearchTools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.Card__SearchTools .SearchTools__Separate {
+  margin: 0 1rem;
+  border-right: 1px solid #96A2B4;
 }
 .Card__Header {
   margin-bottom: 1.5rem;
@@ -694,7 +756,27 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   height: 100vh;
   visibility: hidden;
   opacity: 0;
+  z-index: 4;
   transition: all 0.4s;
+}
+.Popup__Title {
+  position: relative;
+  text-align: center;
+}
+.Popup__Title .Title {
+  position: relative;
+  background-color: #1B2633;
+  padding: 0 2rem;
+}
+.Popup__Title::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+  background-color: #96A2B4;
 }
 .Popup__Content {
   display: flex;
@@ -704,19 +786,47 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   height: 100vh;
   padding: 0 2rem;
 }
+.Popup__Inner {
+  padding: 2.4rem;
+}
+.Popup__Inner:not(:first-child) {
+  padding-top: 0;
+}
 .Popup__Card {
   position: relative;
   max-width: 70rem;
-  max-height: calc(100% - 5rem);
   width: 100%;
   padding: 3rem;
   border-radius: 5px;
 }
+.Popup__CardContent {
+  max-height: calc(100vh - 20rem);
+  overflow-y: auto;
+}
+.Popup__CardContent::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.Popup__CardContent::-webkit-scrollbar-track, .Popup__CardContent::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.Popup__CardContent:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.Popup__CardContent:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
+}
 .Popup__Close {
   position: absolute;
-  top: 1.5rem;
-  right: 2rem;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   cursor: pointer;
+  background-color: #3F51B5;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 50%;
   transition: all 0.4s;
 }
 .Popup.Open {
@@ -743,12 +853,7 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   background-color: #1B2633;
 }
 .Popup--Dark .Popup__Close:hover {
-  color: #10C093;
-}
-
-html[lang=ar] .Popup__Close {
-  right: initial;
-  left: 2rem;
+  background-color: #252f69;
 }
 
 .Skills {
@@ -772,6 +877,88 @@ html[lang=ar] .Popup__Close {
     justify-content: center;
     flex-wrap: wrap;
   }
+}
+
+.CheckBoxNormal, .Table__List .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked {
+  position: relative;
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #96A2B4;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.CheckBoxNormal > .material-icons, .Table__List .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  font-size: 2rem;
+  left: 0.2rem;
+  top: 0.1rem;
+}
+
+.Pagination {
+  position: relative;
+}
+.Pagination--Select .Pagination__List {
+  gap: 1.5rem;
+}
+.Pagination--Select .Pagination__PageWord, .Pagination--Select .Pagination__PageOf {
+  font-size: 1.2rem;
+}
+.Pagination--Select .Selector__Main {
+  min-width: 7rem;
+  outline-color: #23364e;
+  padding: 0.5rem 1rem;
+}
+.Pagination--Select .Selector__WordLabel {
+  display: none;
+}
+.Pagination--Select .Selector__WordChoose {
+  font-size: 1.2rem;
+}
+.Pagination--Select .Selector__Options {
+  top: initial;
+  bottom: 0;
+}
+.Pagination--Select .Selector.Open .Selector__Options {
+  top: initial;
+  bottom: calc(100% + 0.5rem);
+  visibility: visible;
+  opacity: 1;
+}
+.Pagination__List {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.Pagination__Number a, .Pagination__Previous a, .Pagination__Next a, .Pagination__Points {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: 1px solid #23364e;
+  color: #96A2B4;
+  transition: all 0.3s;
+}
+.Pagination__Number a:hover, .Pagination__Previous a:hover, .Pagination__Next a:hover, .Pagination__Points:hover {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.Pagination__Points {
+  cursor: initial;
+}
+.Pagination__Previous a {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.Pagination__Next a {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .HeaderPage {
@@ -818,8 +1005,8 @@ html[lang=ar] .Popup__Close {
   visibility: hidden;
   overflow: hidden;
 }
-.HeaderPage__AccountAlerts .AccountAlerts > .UserImage.Open .Dropdown,
-.HeaderPage__AccountAlerts .AccountAlerts .Alert.Open .Dropdown {
+.HeaderPage__AccountAlerts .AccountAlerts > .UserImage .Dropdown.Show,
+.HeaderPage__AccountAlerts .AccountAlerts .Alert .Dropdown.Show {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
@@ -1404,6 +1591,9 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   max-width: 100%;
   margin-top: 2rem;
 }
+.Row.m0 > * {
+  margin-top: 0;
+}
 .Row .Col {
   flex: 0 1 auto;
   max-width: 100%;
@@ -1763,7 +1953,6 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
   column-gap: 2.5rem;
   border-bottom: 1px solid #23364e;
 }
@@ -1806,6 +1995,155 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 }
 .Taps__Panel.Active {
   display: block;
+}
+
+.Table {
+  position: relative;
+}
+.Table__BulkTools .BulkTools {
+  position: relative;
+}
+.Table__BulkTools .BulkTools .Form {
+  display: flex;
+  gap: 1rem;
+}
+.Table__ContentList {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.Table__List {
+  display: table;
+  width: 100%;
+  font-size: 1.3rem;
+}
+.Table__List .Item {
+  display: table-row;
+}
+.Table__List .Item__Col {
+  position: relative;
+  display: table-cell;
+  width: 1%;
+  vertical-align: middle;
+  padding: 0.8rem;
+  white-space: nowrap;
+  border-bottom: 1px solid #23364e;
+}
+.Table__List .Item__Col--Group .Group {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 1rem;
+}
+.Table__List .Item__Col--Check {
+  line-height: 1;
+}
+.Table__List .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
+  background-color: #10C093;
+}
+.Table__List .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+.Table__List .Item__Col--Check .CheckBoxRow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.Table__List .Item__Col--Check .CheckBoxRow > .material-icons {
+  font-size: 1.4rem;
+  left: 0;
+  top: 0;
+}
+.Table__List .Item__Col--Tools .Tools {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.Table__List .Item__Col--Tools .Tools .IconClick {
+  position: relative;
+  font-size: 1.6rem;
+  color: #96A2B4;
+}
+.Table__List .Item__Col--Tools .Tools .IconClick.View:hover {
+  color: #10C093;
+}
+.Table__List .Item__Col--Tools .Tools .IconClick.Remove:hover {
+  color: #f93542;
+}
+.Table__List .Item__Col:first-child {
+  padding-left: 2.4rem;
+}
+.Table__List .Item__Col:last-child {
+  padding-right: 2.4rem;
+}
+.Table__List .Item:hover .Item__Col--Tools .Tools {
+  visibility: visible;
+  opacity: 1;
+}
+.Table__Pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media only screen and (max-width: 35.99em) {
+  .Table__Pagination {
+    justify-content: center;
+  }
+  .Table__Pagination .Pagination--Numbers {
+    display: none;
+  }
+}
+
+html[lang=ar] .Table__List .Item__Col:first-child {
+  padding-right: 2.4rem;
+  padding-left: 0;
+}
+html[lang=ar] .Table__List .Item__Col:last-child {
+  padding-right: 0;
+  padding-left: 2.4rem;
+}
+
+.FooterPage {
+  position: relative;
+  width: 100%;
+  z-index: 3;
+  transition: padding 0.4s;
+}
+.FooterPage__Wrap {
+  background-color: #1B202D;
+}
+.FooterPage__Content {
+  padding: 1.5rem 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
+.FooterPage__Links {
+  text-align: right;
+}
+@media only screen and (min-width: 75em) {
+  .FooterPage {
+    padding-left: 7rem;
+  }
+  .FooterPage.OpenMenu {
+    padding-left: 26rem;
+  }
+}
+
+html[lang=ar] .FooterPage__Links {
+  text-align: left;
+}
+@media only screen and (min-width: 75em) {
+  html[lang=ar] .FooterPage {
+    padding-left: 0;
+    padding-right: 7rem;
+  }
+  html[lang=ar] .FooterPage.OpenMenu {
+    padding-left: 0;
+    padding-right: 26rem;
+  }
 }
 
 .MainContent {
@@ -2014,23 +2352,33 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   visibility: visible;
   opacity: 1;
 }
-.ProfilePage__PasswordChange .PasswordChange {
+.ProfilePage__PasswordChange .PasswordChange,
+.ProfilePage__PasswordChange .DeleteAccount, .ProfilePage__DeleteAccount .PasswordChange,
+.ProfilePage__DeleteAccount .DeleteAccount {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   row-gap: 1.5rem;
 }
-.ProfilePage__PasswordChange .PasswordChange__Label > * {
+.ProfilePage__PasswordChange .PasswordChange__Label > *,
+.ProfilePage__PasswordChange .DeleteAccount__Label > *, .ProfilePage__DeleteAccount .PasswordChange__Label > *,
+.ProfilePage__DeleteAccount .DeleteAccount__Label > * {
   margin-bottom: 0.5rem;
 }
-.ProfilePage__PasswordChange .PasswordChange__Title {
+.ProfilePage__PasswordChange .PasswordChange__Title,
+.ProfilePage__PasswordChange .DeleteAccount__Title, .ProfilePage__DeleteAccount .PasswordChange__Title,
+.ProfilePage__DeleteAccount .DeleteAccount__Title {
   color: #fff;
 }
-.ProfilePage__PasswordChange .PasswordChange__Text {
+.ProfilePage__PasswordChange .PasswordChange__Text,
+.ProfilePage__PasswordChange .DeleteAccount__Text, .ProfilePage__DeleteAccount .PasswordChange__Text,
+.ProfilePage__DeleteAccount .DeleteAccount__Text {
   color: #96A2B4;
 }
-.ProfilePage__PasswordChange .PasswordChange__LastChange {
+.ProfilePage__PasswordChange .PasswordChange__LastChange,
+.ProfilePage__PasswordChange .DeleteAccount__LastChange, .ProfilePage__DeleteAccount .PasswordChange__LastChange,
+.ProfilePage__DeleteAccount .DeleteAccount__LastChange {
   font-size: 1.2rem;
 }
 @media only screen and (max-width: 47.99em) {

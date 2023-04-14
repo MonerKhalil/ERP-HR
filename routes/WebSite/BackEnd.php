@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function (){
         /*===========================================
         =         End Profile User Routes        =
        =============================================*/
-       
+
         /*===========================================
         =         Start Notification Routes        =
        =============================================*/
@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function (){
         =         End Notification Routes        =
        =============================================*/
     });
-    Route::resource("users", UserController::class);
+    Route::resource("users", UserController::class)->except(["edit","update"]);
+    Route::post("users/update/{user}",[UserController::class,"update"])->name("users.update");
     Route::resource("roles", RoleController::class);
 });
