@@ -62,154 +62,156 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="Table__ContentList">
-                                        <form class="Table__List" action="" method="post">
-                                            <div class="Item HeaderList">
-                                                <div class="Item__Col Item__Col--Check">
-                                                    <input id="ItemRow_Main" class="CheckBoxItem" type="checkbox" hidden>
-                                                    <label for="ItemRow_Main" class="CheckBoxRow">
-                                                        <i class="material-icons ">
-                                                            check_small
-                                                        </i>
-                                                    </label>
-                                                </div>
-                                                <div class="Item__Col"><span>User</span></div>
-                                                <div class="Item__Col">ID</div>
-                                                <div class="Item__Col"><span>Email</span></div>
-                                                <div class="Item__Col"><span>Create Date</span></div>
-                                                <div class="Item__Col"><span>&nbsp;</span></div>
-                                            </div>
-                                            <div class="Item DataItem">
-                                                <div class="Item__Col Item__Col--Check">
-                                                    <input id="ItemRow_2" class="CheckBoxItem" type="checkbox" hidden>
-                                                    <label for="ItemRow_2" class="CheckBoxRow">
-                                                        <i class="material-icons ">
-                                                            check_small
-                                                        </i>
-                                                    </label>
-                                                </div>
-                                                <div class="Item__Col Item__Col--Group">
-                                                    <div class="Group">
-                                                        <div class="UserImage">
-                                                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                        <div class="Card__Inner p0">
+                                            <div class="Table__ContentList">
+                                                <form class="Table__List" action="" method="post">
+                                                    <div class="Item HeaderList">
+                                                        <div class="Item__Col Item__Col--Check">
+                                                            <input id="ItemRow_Main" class="CheckBoxItem" type="checkbox" hidden>
+                                                            <label for="ItemRow_Main" class="CheckBoxRow">
+                                                                <i class="material-icons ">
+                                                                    check_small
+                                                                </i>
+                                                            </label>
                                                         </div>
-                                                        <span>Amir HO</span>
+                                                        <div class="Item__Col"><span>User</span></div>
+                                                        <div class="Item__Col">ID</div>
+                                                        <div class="Item__Col"><span>Email</span></div>
+                                                        <div class="Item__Col"><span>Create Date</span></div>
+                                                        <div class="Item__Col"><span>&nbsp;</span></div>
                                                     </div>
-                                                </div>
-                                                <div class="Item__Col">#45684866</div>
-                                                <div class="Item__Col">example@example.com</div>
-                                                <div class="Item__Col">14-3-2020</div>
-                                                <div class="Item__Col Item__Col--Tools">
-                                                    <div class="Tools">
-                                                        <i class="material-icons IconClick View">
-                                                            visibility
-                                                        </i>
-                                                        <i class="material-icons IconClick Remove">
-                                                            delete
-                                                        </i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="Item DataItem">
-                                                <div class="Item__Col Item__Col--Check">
-                                                    <input id="ItemRow_3" class="CheckBoxItem" type="checkbox" hidden>
-                                                    <label for="ItemRow_3" class="CheckBoxRow">
-                                                        <i class="material-icons ">
-                                                            check_small
-                                                        </i>
-                                                    </label>
-                                                </div>
-                                                <div class="Item__Col Item__Col--Group">
-                                                    <div class="Group">
-                                                        <div class="UserImage">
-                                                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                    <div class="Item DataItem">
+                                                        <div class="Item__Col Item__Col--Check">
+                                                            <input id="ItemRow_2" class="CheckBoxItem" type="checkbox" hidden>
+                                                            <label for="ItemRow_2" class="CheckBoxRow">
+                                                                <i class="material-icons ">
+                                                                    check_small
+                                                                </i>
+                                                            </label>
                                                         </div>
-                                                        <span>Amir HO</span>
-                                                    </div>
-                                                </div>
-                                                <div class="Item__Col">#45684866</div>
-                                                <div class="Item__Col">example@example.com</div>
-                                                <div class="Item__Col">14-3-2020</div>
-                                                <div class="Item__Col Item__Col--Tools">
-                                                    <div class="Tools">
-                                                        <i class="material-icons IconClick View">
-                                                            visibility
-                                                        </i>
-                                                        <i class="material-icons IconClick Remove">
-                                                            delete
-                                                        </i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="Item DataItem">
-                                                <div class="Item__Col Item__Col--Check">
-                                                    <input id="ItemRow_4" class="CheckBoxItem" type="checkbox" hidden>
-                                                    <label for="ItemRow_4" class="CheckBoxRow">
-                                                        <i class="material-icons ">
-                                                            check_small
-                                                        </i>
-                                                    </label>
-                                                </div>
-                                                <div class="Item__Col Item__Col--Group">
-                                                    <div class="Group">
-                                                        <div class="UserImage">
-                                                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                        <div class="Item__Col Item__Col--Group">
+                                                            <div class="Group">
+                                                                <div class="UserImage">
+                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                                </div>
+                                                                <span>Amir HO</span>
+                                                            </div>
                                                         </div>
-                                                        <span>Amir HO</span>
-                                                    </div>
-                                                </div>
-                                                <div class="Item__Col">#45684866</div>
-                                                <div class="Item__Col">example@example.com</div>
-                                                <div class="Item__Col">14-3-2020</div>
-                                                <div class="Item__Col Item__Col--Tools">
-                                                    <div class="Tools">
-                                                        <i class="material-icons IconClick View">
-                                                            visibility
-                                                        </i>
-                                                        <i class="material-icons IconClick Remove">
-                                                            delete
-                                                        </i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="Item DataItem">
-                                                <div class="Item__Col Item__Col--Check">
-                                                    <input id="ItemRow_5" class="CheckBoxItem" type="checkbox" hidden>
-                                                    <label for="ItemRow_5" class="CheckBoxRow">
-                                                        <i class="material-icons ">
-                                                            check_small
-                                                        </i>
-                                                    </label>
-                                                </div>
-                                                <div class="Item__Col Item__Col--Group">
-                                                    <div class="Group">
-                                                        <div class="UserImage">
-                                                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                        <div class="Item__Col">#45684866</div>
+                                                        <div class="Item__Col">example@example.com</div>
+                                                        <div class="Item__Col">14-3-2020</div>
+                                                        <div class="Item__Col Item__Col--Tools">
+                                                            <div class="Tools">
+                                                                <i class="material-icons IconClick View">
+                                                                    visibility
+                                                                </i>
+                                                                <i class="material-icons IconClick Remove">
+                                                                    delete
+                                                                </i>
+                                                            </div>
                                                         </div>
-                                                        <span>Amir HO</span>
                                                     </div>
-                                                </div>
-                                                <div class="Item__Col">#45684866</div>
-                                                <div class="Item__Col">example@example.com</div>
-                                                <div class="Item__Col">14-3-2020</div>
-                                                <div class="Item__Col Item__Col--Tools">
-                                                    <div class="Tools">
-                                                        <i class="material-icons IconClick View">
-                                                            visibility
-                                                        </i>
-                                                        <i class="material-icons IconClick Remove">
-                                                            delete
-                                                        </i>
+                                                    <div class="Item DataItem">
+                                                        <div class="Item__Col Item__Col--Check">
+                                                            <input id="ItemRow_3" class="CheckBoxItem" type="checkbox" hidden>
+                                                            <label for="ItemRow_3" class="CheckBoxRow">
+                                                                <i class="material-icons ">
+                                                                    check_small
+                                                                </i>
+                                                            </label>
+                                                        </div>
+                                                        <div class="Item__Col Item__Col--Group">
+                                                            <div class="Group">
+                                                                <div class="UserImage">
+                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                                </div>
+                                                                <span>Amir HO</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="Item__Col">#45684866</div>
+                                                        <div class="Item__Col">example@example.com</div>
+                                                        <div class="Item__Col">14-3-2020</div>
+                                                        <div class="Item__Col Item__Col--Tools">
+                                                            <div class="Tools">
+                                                                <i class="material-icons IconClick View">
+                                                                    visibility
+                                                                </i>
+                                                                <i class="material-icons IconClick Remove">
+                                                                    delete
+                                                                </i>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div class="Item DataItem">
+                                                        <div class="Item__Col Item__Col--Check">
+                                                            <input id="ItemRow_4" class="CheckBoxItem" type="checkbox" hidden>
+                                                            <label for="ItemRow_4" class="CheckBoxRow">
+                                                                <i class="material-icons ">
+                                                                    check_small
+                                                                </i>
+                                                            </label>
+                                                        </div>
+                                                        <div class="Item__Col Item__Col--Group">
+                                                            <div class="Group">
+                                                                <div class="UserImage">
+                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                                </div>
+                                                                <span>Amir HO</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="Item__Col">#45684866</div>
+                                                        <div class="Item__Col">example@example.com</div>
+                                                        <div class="Item__Col">14-3-2020</div>
+                                                        <div class="Item__Col Item__Col--Tools">
+                                                            <div class="Tools">
+                                                                <i class="material-icons IconClick View">
+                                                                    visibility
+                                                                </i>
+                                                                <i class="material-icons IconClick Remove">
+                                                                    delete
+                                                                </i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="Item DataItem">
+                                                        <div class="Item__Col Item__Col--Check">
+                                                            <input id="ItemRow_5" class="CheckBoxItem" type="checkbox" hidden>
+                                                            <label for="ItemRow_5" class="CheckBoxRow">
+                                                                <i class="material-icons ">
+                                                                    check_small
+                                                                </i>
+                                                            </label>
+                                                        </div>
+                                                        <div class="Item__Col Item__Col--Group">
+                                                            <div class="Group">
+                                                                <div class="UserImage">
+                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                                </div>
+                                                                <span>Amir HO</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="Item__Col">#45684866</div>
+                                                        <div class="Item__Col">example@example.com</div>
+                                                        <div class="Item__Col">14-3-2020</div>
+                                                        <div class="Item__Col Item__Col--Tools">
+                                                            <div class="Tools">
+                                                                <i class="material-icons IconClick View">
+                                                                    visibility
+                                                                </i>
+                                                                <i class="material-icons IconClick Remove">
+                                                                    delete
+                                                                </i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="Card__Inner">
-                                        <div class="Table__Pagination">
-                                            @include("System.Components.paginationNum")
-                                            @include("System.Components.paginationSelect")
+                                        </div>
+                                        <div class="Card__Inner">
+                                            <div class="Table__Pagination">
+                                                @include("System.Components.paginationNum")
+                                                @include("System.Components.paginationSelect")
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -220,6 +222,9 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("PopupPage")
     @include("System.Components.searchForm" , [
         'InfoForm' => ["Route" => "Dummy" , "Method" => "Post"] ,
         'SearchForm' => ['Placeholder' => 'Dummy' , 'Name' => 'Dummy'] ,
@@ -228,6 +233,8 @@
              'Error' => "Error Message"] , ['Type' => 'text' , 'Info' =>
                 ['Name' => "Dummy" , 'Placeholder' => "Dummy"] ,
                 'Error' => "Error Message"] , ['Type' => 'select' , 'Info' =>
-                ['Name' => "Dummy" , 'Placeholder' => "Dummy" ] ,'Error' => "Error Message"]]
+                ['Name' => "oo" , 'Placeholder' => "Dummy" , "Required" => " "
+                , "Options" => [["Label" => "1" , "Value" => "5"]]] ,
+                'Error' => "Error Message"]]
     ])
 @endsection

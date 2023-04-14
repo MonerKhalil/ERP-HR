@@ -4,23 +4,16 @@
         <form class="Form Form--Dark">
             <div class="Form__Select">
                 <div class="Select__Area">
-                    <div class="Selector Selected">
-                        <div class="Selector__Main">
-                            <div class="Selector__WordLabel">&nbsp;</div>
-                            <div class="Selector__WordChoose">1</div>
-                            <i class="material-icons Selector__Arrow">
-                                keyboard_arrow_down
-                            </i>
-                        </div>
-                        <ul class="Selector__Options">
-                            <li class="Selector__Option">1</li>
-                            <li class="Selector__Option">2</li>
-                            <li class="Selector__Option">3</li>
-                            <li class="Selector__Option">4</li>
-                            <li class="Selector__Option">5</li>
-                            <li class="Selector__Option">6</li>
-                        </ul>
-                    </div>
+                    @include("System.Components.selector" , [
+                        'Name' => "Pagination" , "DefaultValue" => "1" ,
+                        "Label" => "\"&nbsp;\"" ,
+                        "Options" => [ ["Label" => "1" , "Value" => "1"] ,
+                                       ["Label" => "2" , "Value" => "2"] ,
+                                       ["Label" => "3" , "Value" => "3"] ,
+                                       ["Label" => "4" , "Value" => "4"] ,
+                                       ["Label" => "5" , "Value" => "5"] ,
+                                       ["Label" => "6" , "Value" => "6"] ] ,
+                    ])
                 </div>
             </div>
         </form>
