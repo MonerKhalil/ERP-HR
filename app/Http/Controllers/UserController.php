@@ -32,7 +32,7 @@ class UserController extends Controller
     public function index(): Response|RedirectResponse|null
     {
         $data = MyApp::Classes()->Search->getData(User::query()->whereNot("id",auth()->id()));
-        return $this->responseSuccess("",compact("data"));
+        return $this->responseSuccess("System.Pages.Actors.Admin.addUser",compact("data"));
     }
 
     /**
@@ -42,7 +42,7 @@ class UserController extends Controller
     public function create(): Response|RedirectResponse|null
     {
         $roles = Role::query()->get(["id","name"]);
-        return $this->responseSuccess("",compact("roles"));
+        return $this->responseSuccess("System.Pages.Actors.Admin.addUser",compact("roles"));
     }
 
 
@@ -55,14 +55,14 @@ class UserController extends Controller
     public function store(UserRequest $request): RedirectResponse
     {
         try {
-            $dataRequest = Arr::except($request->validated(),['password','roles']);
+            $dataRequest = Arr::except($request->validated(),['password','role']);
             $dataRequest['password'] = Hash::make($request->password);
             if (isset($dataRequest['image'])){
                 $dataRequest['image'] = MyApp::Classes()->storageFiles->Upload($dataRequest['image'],self::Folder);
             }
             DB::beginTransaction();
             $user = User::query()->create($dataRequest);
-            $user->assignRole($request->roles);
+            $user->assignRole($request->role);
             DB::commit();
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
@@ -103,7 +103,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user): RedirectResponse
     {
         try {
-            $dataRequest = Arr::except($request->validated(),['password','roles']);
+            $dataRequest = Arr::except($request->validated(),['password','role']);
             if (isset($dataRequest['image'])){
                 $dataRequest['image'] = MyApp::Classes()->storageFiles->Upload($dataRequest['image'],self::Folder);
                 MyApp::Classes()->storageFiles->deleteFile($user->image);
@@ -113,7 +113,7 @@ class UserController extends Controller
             }
             DB::beginTransaction();
             $user->update($dataRequest);
-            $user->syncRoles($request->roles);
+            $user->syncRoles($request->role);
             DB::commit();
             return $this->responseSuccess(null,null,"update",self::IndexRoute);
         }catch (\Exception $exception){

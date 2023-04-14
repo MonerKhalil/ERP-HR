@@ -25,74 +25,81 @@
                                         </div>
                                     </div>
                                     <div class="Card__Content">
-                                        <form class="Form Form--Dark">
+                                        <form class="Form Form--Dark" action="{{route("users.store")}}" method = "post">
+                                            @csrf
                                             <div class="Row GapC-1-5">
                                                 <div class="Col-4-md Col-6-sm">
                                                     <div class="Form__Group">
                                                         <div class="Form__Input">
                                                             <div class="Input__Area">
-                                                                <input id="FirstName" class="Input__Field" type="text"
-                                                                       name="FirstName" placeholder="@lang("firstName")">
-                                                                <label class="Input__Label" for="FirstName">@lang("firstName")</label>
+                                                                <input id="name" class="Input__Field" type="text"
+                                                                       name="name" placeholder="@lang("userName")" required>
+                                                                <label class="Input__Label" for="name">@lang("userName")</label>
                                                             </div>
                                                         </div>
+                                                        @if(!is_null(Errors("name")))
+                                                            <div class="Form__Error">
+                                                                <div class="Error__Area">
+                                                                    <small>{{Errors("name")}}</small>
+                                                                </div>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="Col-4-md Col-6-sm">
                                                     <div class="Form__Group">
                                                         <div class="Form__Input">
                                                             <div class="Input__Area">
-                                                                <input id="LastName" class="Input__Field" type="text"
-                                                                       name="LastName" placeholder="@lang("lastName")">
-                                                                <label class="Input__Label" for="LastName">@lang("lastName")</label>
+                                                                <input id="email" class="Input__Field"
+                                                                       type="email" name="email" placeholder="@lang("email")" required>
+                                                                <label class="Input__Label" for="email">@lang("email")</label>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @if(!is_null(Errors("name")))
+                                                        <div class="Form__Error">
+                                                            <div class="Error__Area">
+                                                                <small>{{Errors("email")}}</small>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 <div class="Col-4-md Col-6-sm">
                                                     <div class="Form__Group">
-                                                        <div class="Form__Input">
+                                                        <div class="Form__Input Form__Input--Password">
                                                             <div class="Input__Area">
-                                                                <input id="UserName" class="Input__Field" type="text"
-                                                                       name="UserName" placeholder="@lang("userName")">
-                                                                <label class="Input__Label" for="UserName">@lang("userName")</label>
+                                                                <input id="password" class="Input__Field"
+                                                                       type="password" name="password" placeholder="@lang("password")" required>
+                                                                <label class="Input__Label" for="password">@lang("password")</label>
+                                                                <i class="material-icons Input__Icon">visibility</i>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="Col-4-md Col-6-sm">
-                                                    <div class="Form__Group">
-                                                        <div class="Form__Input">
-                                                            <div class="Input__Area">
-                                                                <input id="Email" class="Input__Field"
-                                                                       type="email" name="Email" placeholder="@lang("email")">
-                                                                <label class="Input__Label" for="Email">@lang("email")</label>
+                                                        @if(!is_null(Errors("password")))
+                                                            <div class="Form__Error">
+                                                                <div class="Error__Area">
+                                                                    <small>{{Errors("password")}}</small>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="Col-4-md Col-6-sm">
                                                     <div class="Form__Group">
                                                         <div class="Form__Input Form__Input--Password">
                                                             <div class="Input__Area">
-                                                                <input id="Password" class="Input__Field"
-                                                                       type="password" name="Password" placeholder="@lang("password")">
-                                                                <label class="Input__Label" for="Password">@lang("password")</label>
+                                                                <input id="re_password" class="Input__Field"
+                                                                       type="password" name="re_password" placeholder="@lang("rePassword")" required>
+                                                                <label class="Input__Label" for="re_password">@lang("rePassword")</label>
                                                                 <i class="material-icons Input__Icon">visibility</i>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="Col-4-md Col-6-sm">
-                                                    <div class="Form__Group">
-                                                        <div class="Form__Input Form__Input--Password">
-                                                            <div class="Input__Area">
-                                                                <input id="Re-Password" class="Input__Field"
-                                                                       type="password" name="Re-Password" placeholder="@lang("rePassword")">
-                                                                <label class="Input__Label" for="Re-Password">@lang("rePassword")</label>
-                                                                <i class="material-icons Input__Icon">visibility</i>
+                                                        @if(!is_null(Errors("re_password")))
+                                                            <div class="Form__Error">
+                                                                <div class="Error__Area">
+                                                                    <small>{{Errors("re_password")}}</small>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="Col-4-md Col-6-sm">
@@ -100,21 +107,29 @@
                                                         <div class="Form__Select">
                                                             <div class="Select__Area">
                                                                 <div class="Selector"
-                                                                     data-name="Gender" data-required="true">
+                                                                     data-name="role" data-required="true">
                                                                     <div class="Selector__Main">
-                                                                        <div class="Selector__WordLabel">@lang("gender")</div>
-                                                                        <div class="Selector__WordChoose">@lang("gender")</div>
+                                                                        <div class="Selector__WordLabel">@lang("roles")</div>
+                                                                        <div class="Selector__WordChoose">@lang("roles")</div>
                                                                         <i class="material-icons Selector__Arrow">
                                                                             keyboard_arrow_down
                                                                         </i>
                                                                     </div>
                                                                     <ul class="Selector__Options">
-                                                                        <li class="Selector__Option">@lang("male")</li>
-                                                                        <li class="Selector__Option">@lang("female")</li>
+                                                                        @foreach($roles as $role)
+                                                                            <li class="Selector__Option">{{$role->name}}</li>
+                                                                        @endforeach
                                                                     </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        @if(!is_null(Errors("roles")))
+                                                            <div class="Form__Error">
+                                                                <div class="Error__Area">
+                                                                    <small>{{Errors("roles")}}</small>
+                                                                </div>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="Col-12-xs">

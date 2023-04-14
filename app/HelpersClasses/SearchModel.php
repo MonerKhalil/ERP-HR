@@ -76,6 +76,10 @@ class SearchModel
     private function filterSearchAttributes($filter): mixed
     {
         $finalFilter = [];
+        if(!is_null($this->request->input("isClearFilter")) 
+            && $this->request->input("isClearFilter") === "true" ){
+            return $finalFilter;
+        }
         if (isset($filter)){
             $finalFilter = $filter;
         }
