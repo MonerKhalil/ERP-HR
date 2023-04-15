@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function index(): Response|RedirectResponse|null
     {
-        $users = MyApp::Classes()->Search->getData(User::query()->whereNot("id",auth()->id()));
+        $users = MyApp::Classes()->Search->getDataFilter(User::query()->whereNot("id",auth()->id()));
         return $this->responseSuccess("System.Pages.Actors.Admin.viewUsers",compact("users"));
     }
 

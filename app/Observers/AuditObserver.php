@@ -37,7 +37,7 @@ class AuditObserver
             ];
             $users = User::query()->get();
             foreach ($users as $user) {
-                if ($user->can($tableName."_audit")||$user->can($tableName."_all"))
+                if ($user->can("audit_".$tableName)||$user->can("all_".$tableName))
                     $user->notify(new MainNotification($Data,"audit"));
             }
         }
