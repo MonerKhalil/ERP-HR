@@ -2,7 +2,8 @@
     "roles" : {
         "super_admin" : {
             "users" : "a",
-            "roles" : "a"
+            "roles" : "a",
+            "employees": "a"
         },
         "user" : {
             "users" : ["r"],

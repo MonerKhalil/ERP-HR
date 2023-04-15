@@ -4,18 +4,16 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class DatabaseSeeder extends Seeder
+class AddressSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call(PermissionSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(CountrySeeder::class);
     }
 }

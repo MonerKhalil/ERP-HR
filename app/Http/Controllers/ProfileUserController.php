@@ -41,6 +41,9 @@ class ProfileUserController extends Controller
                 throw new MainException("password_error");
             }
         }
+        if (isset($dataRequest['role'])){
+            unset($dataRequest['role']);
+        }
         $user->update($dataRequest);
         return $this->responseSuccess(null,null,"update",null,true);
     }

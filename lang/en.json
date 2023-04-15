@@ -5,6 +5,9 @@
     "suc.delete" : "The deletion was completed successfully",
     "suc.default" : "The previous operation completed successfully",
     "password_error" : "The old password is incorrect",
+    "created": "created",
+    "updated": "updated",
+    "deleted": "deleted",
 
     "/*         Header         */": "",
 
