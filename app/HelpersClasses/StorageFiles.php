@@ -2,6 +2,7 @@
 
 namespace App\HelpersClasses;
 
+use App\Exceptions\MainException;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -20,7 +21,7 @@ class StorageFiles
      * @param string $pathDir
      * @param string|null $disk
      * @return bool|string
-     * @throws Exception
+     * @throws MainException
      * @author moner khalil
      */
     public function Upload($file, string $pathDir = "", string $disk = null): bool|string
@@ -36,7 +37,7 @@ class StorageFiles
             return Storage::disk(is_null($disk) ? self::DISK : $disk)
                 ->putFileAs($pathDir . "/" . self::FOLDER_IMAGES . "/", $file, $fileNameFinal);
         }
-        throw new Exception("you cant upload current file !!!");
+        throw new MainException("you cant upload current file !!!");
     }
 
     /**
@@ -70,6 +71,6 @@ class StorageFiles
             ob_end_clean();
             return $file;
         }
-        throw new Exception("the path file {$path} is not exists");
+        throw new MainException("the path file {$path} is not exists");
     }
 }

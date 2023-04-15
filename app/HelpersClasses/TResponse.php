@@ -28,7 +28,7 @@ trait TResponse
             MessagesFlash::Success($msgProcess);
         }
         if (!is_null($ViewName)){
-            return is_null($Data) ? response()->view($ViewName,$Data) : response()->view($ViewName);
+            return !is_null($Data) ? response()->view($ViewName,$Data) : response()->view($ViewName);
         }
         if ($isBack){
             return redirect()->back();
