@@ -26,7 +26,7 @@ class RoleController extends Controller
      */
     public function index(): Response|RedirectResponse|null
     {
-        $data = MyApp::Classes()->Search->getData(Role::query());
+        $data = MyApp::Classes()->Search->getDataFilter(Role::query());
         return $this->responseSuccess("",compact("data"));
     }
 

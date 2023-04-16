@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationsContoller;
 use App\Http\Controllers\ProfileUserController;
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function (){
             Route::delete("clear","clearNotifications")->name("notifications.clear");
             Route::put("edit/read","editNotificationsToRead")->name("notifications.edit");
         });
+        Route::get("audit/show",[AuditController::class,"NotificationsAuditUserShow"])->name("audit.show");
         /*===========================================
         =         End Notification Routes        =
        =============================================*/

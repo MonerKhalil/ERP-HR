@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('{{ table }}', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            #Add Columns
+            $table->string("country_code");
+            $table->string("country_name");
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{{ table }}');
+        Schema::dropIfExists('countries');
     }
 };

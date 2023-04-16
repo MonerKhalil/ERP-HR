@@ -7,14 +7,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('xxx', function (Request $request) {
-        $input = $request->all();
-        foreach($input as $key => $value){
-            if(is_string($value)){
-                $input[$key] = strip_tags($value);
-            }
-        }
-        $request->merge($input);
-        return $request->all();
+    $user = auth()->user();
+    $data = $user->notifications()->select([
+        "id","data","read_at","created_at",
+    ])->where("data->type","audit")->get();
+    dd($data->toArray());
 
     //    return $permissions = Permission::query()->whereIn("name",[
 //        "read_users","read_roles",
