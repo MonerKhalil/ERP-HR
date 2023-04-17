@@ -38,7 +38,7 @@ class RoleController extends Controller
     public function create(): Response|RedirectResponse|null
     {
         $permissions = Permission::query()->get(["id","name"]);
-        return $this->responseSuccess("",compact("permissions"));
+        return $this->responseSuccess("System.Pages.Actors.Admin.roleAdd",compact("permissions"));
     }
 
     /**

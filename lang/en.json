@@ -45,6 +45,8 @@
     "userName" : "user name" ,
     "password" : "password" ,
     "rePassword" : "Re-Password" ,
+    "oldPassword" : "old password" ,
+    "newPassword" : "new password" ,
     "firstName" : "first name" ,
     "lastName" : "last name" ,
     "email" : "email" ,

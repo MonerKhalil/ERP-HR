@@ -169,6 +169,10 @@ img {
   transform: rotate(180deg);
 }
 
+.Center {
+  text-align: center;
+}
+
 .Visible-phonePortrait,
 .Visible-phoneLandscape,
 .Visible-tablet,
@@ -505,7 +509,7 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   border-radius: 5px;
   border: none;
   font-size: 1.6rem;
-  padding: 1.3rem 2rem;
+  padding: 1rem 2rem;
   outline: none;
   cursor: pointer;
   transition: all 0.3s;
@@ -686,6 +690,18 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 }
 .Card__Inner.p0 {
   padding: 0;
+}
+.Card__Inner.pl0 {
+  padding-left: 0;
+}
+.Card__Inner.pr0 {
+  padding-right: 0;
+}
+.Card__Inner.pt0 {
+  padding-top: 0;
+}
+.Card__Inner.pb0 {
+  padding-bottom: 0;
 }
 .Card__ToolsGroup {
   position: relative;
@@ -897,6 +913,26 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   font-size: 2rem;
   left: 0.2rem;
   top: 0.1rem;
+}
+
+.DragDrop__Zone.Empty {
+  position: relative;
+  width: 100%;
+  height: 20rem;
+  border: 1px solid #23364e;
+  border-radius: 5px;
+}
+.DragDrop__Zone.Empty .DragDrop__Tip {
+  display: block;
+}
+.DragDrop__Tip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  font-size: 3rem;
 }
 
 .Pagination {
@@ -2106,6 +2142,70 @@ html[lang=ar] .Table__List .Item__Col:last-child {
   padding-left: 2.4rem;
 }
 
+.Cookies {
+  position: fixed;
+  right: 0;
+  bottom: 5rem;
+  max-width: 34.5rem;
+  width: 100%;
+  border-radius: 5px;
+  transform: translateX(100%);
+  padding: 1.5rem 2.5rem 2.2rem;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.Cookies__Header {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  color: #3F51B5;
+  margin-bottom: 1.5rem;
+}
+.Cookies__Icon {
+  font-size: 3.2rem;
+}
+.Cookies__Content {
+  margin-bottom: 2.5rem;
+}
+.Cookies__ReadMore {
+  color: #10C093;
+}
+.Cookies__ReadMore:hover {
+  color: #fff;
+}
+.Cookies__Buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.Cookies--Dark {
+  background-color: #1B2633;
+}
+.Cookies.Show {
+  right: 2rem;
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+}
+@media only screen and (max-width: 35.99em) {
+  .Cookies {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+html[lang=ar] .Cookies {
+  right: initial;
+  left: 0;
+}
+html[lang=ar] .Cookies.Show {
+  right: initial;
+  left: 2rem;
+}
+
 .FooterPage {
   position: relative;
   width: 100%;
@@ -2277,46 +2377,6 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
 .ProfilePage__Image .UserImage {
   width: 10rem;
   height: 10rem;
-  cursor: pointer;
-}
-.ProfilePage__Image .UserImage__Edit {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #3F51B5;
-  border-radius: 50%;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.4s;
-}
-.ProfilePage__Image .UserImage__Edit .EditIcon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-}
-.ProfilePage__Image .UserImage .LockOpenIcon {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: #3F51B5;
-  color: #fff;
-  padding: 0.5rem;
-  border-radius: 50%;
-  visibility: visible;
-  opacity: 1;
-  transition: all 0.4s;
-}
-.ProfilePage__Image .UserImage:hover .UserImage__Edit {
-  visibility: visible;
-  opacity: 1;
-}
-.ProfilePage__Image .UserImage:hover .LockOpenIcon {
-  visibility: hidden;
-  opacity: 0;
 }
 .ProfilePage__Image .Text {
   text-align: center;
@@ -2338,19 +2398,6 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
 .ProfilePage__Connection .SocialMedia {
   flex-direction: row;
   justify-content: space-between;
-}
-.ProfilePage__Connection .Card__Header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.ProfilePage__Connection .EditIcon {
-  visibility: hidden;
-  opacity: 0;
-}
-.ProfilePage__Connection:hover .EditIcon {
-  visibility: visible;
-  opacity: 1;
 }
 .ProfilePage__PasswordChange .PasswordChange,
 .ProfilePage__PasswordChange .DeleteAccount, .ProfilePage__DeleteAccount .PasswordChange,
@@ -2381,6 +2428,61 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
 .ProfilePage__DeleteAccount .DeleteAccount__LastChange {
   font-size: 1.2rem;
 }
+.ProfilePage--My .ProfilePage__Image .UserImage {
+  cursor: pointer;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage__Edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3F51B5;
+  border-radius: 50%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage__Edit .EditIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #3F51B5;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage:hover .UserImage__Edit {
+  visibility: visible;
+  opacity: 1;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage:hover .LockOpenIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage--My .ProfilePage__Connection .Card__Header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ProfilePage--My .ProfilePage__Connection .EditIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage--My .ProfilePage__Connection:hover .EditIcon {
+  visibility: visible;
+  opacity: 1;
+}
 @media only screen and (max-width: 47.99em) {
   .ProfilePage__Connection .SocialMedia {
     justify-content: center;
@@ -2389,9 +2491,34 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   }
 }
 
-html[lang=ar] .ProfilePage__Image .UserImage .LockOpenIcon {
+html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   left: initial;
   right: 0;
+}
+
+.MessagePage {
+  position: relative;
+}
+.MessagePage__Content {
+  max-width: 55rem;
+  width: 100%;
+  margin: auto;
+}
+.MessagePage__Image {
+  width: 100%;
+}
+.MessagePage__Title {
+  text-align: center;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+  margin-bottom: 2rem;
+  color: #b6c6e3;
+}
+.MessagePage__Title h2 {
+  font-size: 3rem;
+}
+.MessagePage__Description {
+  text-align: center;
 }
 
 /*# sourceMappingURL=Style.css.map */

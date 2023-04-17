@@ -324,6 +324,103 @@ $(document).ready(function (){
     });
 
     /*===========================================
+	=           Drag & Drop       =
+    =============================================*/
+    $(".DragDrop").ready(function() {
+        let ItemTarget = undefined ;
+        let LastZone = undefined ;
+
+        $(".DragDrop__Zone").each((_ , Zone) => {
+            const NamesItem = $(Zone).attr("data-namesItem").split(" ") ;
+            CheckEmptyZone(true);
+            $(Zone).on("dragover" , (ev) => {
+                ev.preventDefault();
+                CheckEmptyZone();
+                let IsAcceptItem = false ;
+                for (let i = 0; i < NamesItem.length ; i++) {
+                    if(NamesItem[i] === $(ItemTarget)
+                        .attr("data-nameItem")) {
+                        IsAcceptItem = true ;
+                        break ;
+                    }
+                }
+                if(IsAcceptItem) {
+                    const ItemBottom = InsertAboveItem(ev.originalEvent.clientY) ;
+                    if(!ItemBottom) {
+                        $(Zone).append(ItemTarget)
+                    } else {
+                        $(ItemTarget).insertBefore(ItemBottom)
+                    }
+                }
+            });
+
+            function InsertAboveItem(MouseY = Number) {
+                let ClosestItem = undefined ;
+                let ClosestOffset = Number.NEGATIVE_INFINITY ;
+                $(Zone).find(".DragDrop.DragDrop__Item:not(.IsDragging)")
+                    .each((_ , Item) => {
+                        const HeightItem = $(Item).height() ;
+                        const TopBoundItem = Item.getBoundingClientRect().top
+                            + (HeightItem / 2);
+                        const Offset = MouseY - TopBoundItem ;
+                        if(Offset < 0 && Offset > ClosestOffset) {
+                            ClosestOffset = Offset ;
+                            ClosestItem = Item ;
+                        }
+                    });
+                return ClosestItem ;
+            }
+
+            function CheckEmptyZone(IsInitial = false) {
+
+                if(!IsInitial) {
+                    if(Zone !== LastZone) {
+                        setTimeout(() => {
+                            if(LastZone) {
+                                Check(LastZone);
+                                console.log($(LastZone).children().length)
+                            }
+                            LastZone = Zone ;
+                        } , 10);
+                    }
+                }
+
+                Check(Zone);
+
+                function Check(ZoneContent) {
+                    if($(ZoneContent).children().length === 0) {
+                        console.log("sss");
+                        $(ZoneContent).addClass("Empty");
+                        const DropText = `
+                        <div class="DragDrop__Tip">
+                            Drop Here
+                        </div>
+                    ` ;
+                        $(ZoneContent).append(DropText);
+                    } else {
+                        $(ZoneContent).find(".DragDrop__Tip").remove();
+                        $(ZoneContent).removeClass("Empty");
+                    }
+                }
+            }
+
+        });
+
+        $(".DragDrop__Item").each((_ , Item) => {
+            $(Item).prop("draggable" , "true");
+            $(Item).on("dragstart" , () => {
+                $(Item).addClass("IsDragging") ;
+                ItemTarget = Item ;
+            });
+            $(Item).on("dragend" , () => {
+                $(Item).removeClass("IsDragging") ;
+                ItemTarget = undefined ;
+                LastZone = undefined ;
+            });
+        });
+    });
+
+    /*===========================================
 	=           Table Layout       =
     =============================================*/
     $(".Table").ready(function () {
@@ -353,6 +450,23 @@ $(document).ready(function (){
             });
             // $(Table).find(".Table__BulkTools")
         });
+    });
+
+    /*===========================================
+	=           Cookies Page       =
+    =============================================*/
+    $(".Cookies").ready(function () {
+        if(document.cookie === "") {
+            $(".Cookies").addClass("Show");
+            $(".Cookies__Accept").click(() => {
+                document.cookie = "Accept" ;
+                $(".Cookies").removeClass("Show");
+            });
+            $(".Cookies__Decline").click(() => {
+                document.cookie = "Decline" ;
+                $(".Cookies").removeClass("Show");
+            });
+        }
     });
 
 });

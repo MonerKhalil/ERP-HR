@@ -30,6 +30,7 @@ class UserController extends Controller
      * @return Response|RedirectResponse|null
      * @author moner khalil
      */
+
     public function index(): Response|RedirectResponse|null
     {
         $users = MyApp::Classes()->Search->getDataFilter(User::query()->whereNot("id",auth()->id()));
