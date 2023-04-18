@@ -28,4 +28,26 @@
         text-align: center;
     }
 
+    &--404 {
+
+        .MessagePage {
+
+            &__Image {
+                max-height: 45rem;
+                height: 100% ;
+            }
+        }
+    }
+
+    &--ComingSoon {
+
+        .MessagePage {
+
+            &__Image {
+                max-height: 36rem;
+                height: 100% ;
+            }
+        }
+    }
+
 }

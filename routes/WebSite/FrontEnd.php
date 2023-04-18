@@ -23,7 +23,11 @@ Route::get('/Test-4', function () {
 });
 
 Route::get('/Test-5', function () {
-    return view('System.Pages.Actors.comingSoon');
+    return view('System.Pages.comingSoon');
+});
+
+Route::get('/Test-6', function () {
+    return view('System.Pages.404');
 });
 
 /*===========================================

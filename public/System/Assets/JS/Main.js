@@ -376,10 +376,8 @@ $(document).ready(function (){
                 if(!IsInitial) {
                     if(Zone !== LastZone) {
                         setTimeout(() => {
-                            if(LastZone) {
+                            if(LastZone)
                                 Check(LastZone);
-                                console.log($(LastZone).children().length)
-                            }
                             LastZone = Zone ;
                         } , 10);
                     }
@@ -389,7 +387,6 @@ $(document).ready(function (){
 
                 function Check(ZoneContent) {
                     if($(ZoneContent).children().length === 0) {
-                        console.log("sss");
                         $(ZoneContent).addClass("Empty");
                         const DropText = `
                         <div class="DragDrop__Tip">

@@ -29,68 +29,23 @@
                                                         <div class="ListData">
                                                             <div class="DragDrop DragDrop__Zone
                                                                         ListData__Content" data-namesItem="Permissions">
-
-                                                                <div class="DragDrop DragDrop__Item ListData__Item
+                                                                @foreach($permissions as $Permission)
+                                                                    <div class="DragDrop DragDrop__Item ListData__Item
                                                                             ListData__Item--Action" data-nameItem="Permissions">
-                                                                    <input type="text" name="AnyName" hidden>
-                                                                    <div class="Data_Col">
+                                                                        <input type="text" name="permissions[]"
+                                                                               value="{{$Permission["id"]}}" hidden>
+                                                                        <div class="Data_Col">
                                                                         <span class="Data_Label">
-                                                                            Role Name
+                                                                            {{$Permission["name"]}}
                                                                         </span>
+                                                                        </div>
+                                                                        <div class="Data_Col Data_Col--End">
+                                                                            <i class="material-icons">
+                                                                                sync_alt
+                                                                            </i>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="Data_Col Data_Col--End">
-                                                                        <i class="material-icons">
-                                                                            sync_alt
-                                                                        </i>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="DragDrop DragDrop__Item ListData__Item
-                                                                            ListData__Item--Action" data-nameItem="Permissions">
-                                                                    <input type="text" name="AnyName" hidden>
-                                                                    <div class="Data_Col">
-                                                                        <span class="Data_Label">
-                                                                            Permission Name
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="Data_Col Data_Col--End">
-                                                                        <i class="material-icons">
-                                                                            sync_alt
-                                                                        </i>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="DragDrop DragDrop__Item ListData__Item
-                                                                            ListData__Item--Action" data-nameItem="Permissions">
-                                                                    <input type="text" name="AnyName" hidden>
-                                                                    <div class="Data_Col">
-                                                                        <span class="Data_Label">
-                                                                            Permission Name
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="Data_Col Data_Col--End">
-                                                                        <i class="material-icons">
-                                                                            sync_alt
-                                                                        </i>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="DragDrop DragDrop__Item ListData__Item
-                                                                            ListData__Item--Action" data-nameItem="Permissions">
-                                                                    <input type="text" name="AnyName" hidden>
-                                                                    <div class="Data_Col">
-                                                                        <span class="Data_Label">
-                                                                            Permission Name
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="Data_Col Data_Col--End">
-                                                                        <i class="material-icons">
-                                                                            sync_alt
-                                                                        </i>
-                                                                    </div>
-                                                                </div>
-
-
+                                                                @endforeach
                                                             </div>
                                                         </div>
                                                     </div>
@@ -112,7 +67,9 @@
                                                 </div>
                                             </div>
                                             <div class="Card__Inner pt0">
-                                                <form class="Form Form--Dark">
+                                                <form class="Form Form--Dark" action="{{route("roles.store")}}"
+                                                      method="post">
+                                                    @csrf
                                                     <div class="Row">
                                                         <div class="Col">
                                                             <div class="Form__Group">

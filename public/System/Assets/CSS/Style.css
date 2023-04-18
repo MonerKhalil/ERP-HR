@@ -2520,5 +2520,13 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 .MessagePage__Description {
   text-align: center;
 }
+.MessagePage--404 .MessagePage__Image {
+  max-height: 45rem;
+  height: 100%;
+}
+.MessagePage--ComingSoon .MessagePage__Image {
+  max-height: 36rem;
+  height: 100%;
+}
 
 /*# sourceMappingURL=Style.css.map */

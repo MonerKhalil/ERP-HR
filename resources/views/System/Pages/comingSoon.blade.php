@@ -4,7 +4,7 @@
     {{--  Main Content  --}}
     <main class="MainContent">
         <section class="MainContent__Section MainContent__Section--Message">
-            <div class="MessagePage">
+            <div class="MessagePage MessagePage--ComingSoon">
                 <div class="Container--MainContent">
                     <div class="MessagePage__Content">
                         <img src="{{@asset("System/Assets/Images/ComingSoon.jpg")}}"
