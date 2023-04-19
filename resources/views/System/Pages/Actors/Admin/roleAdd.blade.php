@@ -32,7 +32,7 @@
                                                                 @foreach($permissions as $Permission)
                                                                     <div class="DragDrop DragDrop__Item ListData__Item
                                                                             ListData__Item--Action" data-nameItem="Permissions">
-                                                                        <input type="text" name="permissions[]"
+                                                                        <input type="text" name="permissions[id]"
                                                                                value="{{$Permission["id"]}}" hidden>
                                                                         <div class="Data_Col">
                                                                         <span class="Data_Label">
