@@ -121,6 +121,15 @@ $(document).ready(function (){
         });
     });
 
+    function ClearSelector(Selector = HTMLElement) {
+        $(Selector).removeClass("Selected");
+        $(Selector).find(".Selector__Main .Selector__WordChoose")
+            .text("");
+        $(Selector).find(".Selector__SelectForm")
+            .attr("value" , "");
+        $(Selector).attr("data-selected" , "");
+    }
+
     /*===========================================
 	=           Form       =
     =============================================*/
@@ -130,84 +139,106 @@ $(document).ready(function (){
                 LoaderView();
             });
         });
+
     });
     $(".Form").ready(function () {
-        $(this).find(".Form__Input--Password").each((Index , Value)=> {
-            $(Value).find(".Input__Icon").click((Icon)=>{
-                const InputField = $(Value).find(".Input__Field") ;
-                const IsView = InputField.attr("type") === 'password' ;
-                if(IsView)
-                    InputField.attr("type" , "text");
+        $(".Form").each((_ , Form) => {
+            $(Form).find(".Form__Input--Password").each((Index , Value)=> {
+                $(Value).find(".Input__Icon").click((Icon)=>{
+                    const InputField = $(Value).find(".Input__Field") ;
+                    const IsView = InputField.attr("type") === 'password' ;
+                    if(IsView)
+                        InputField.attr("type" , "text");
+                    else
+                        InputField.attr("type" , "password");
+                });
+            });
+            $(Form).find(".Form__Date").each((Index , Value)=> {
+                const Input = $(Value).find("input").get(0) ;
+                if($(Input).hasClass("RangeData")) {
+                    console.log("dd");
+                    $(Input).flatpickr({
+                        mode: "range"
+                    });
+                }
                 else
-                    InputField.attr("type" , "password");
+                    $(Input).flatpickr();
             });
-        });
-        $(this).find(".Form__Date").each((Index , Value)=> {
-           $(Value).find("input").flatpickr();
-        });
-        $(this).find(".Form__Group").each((_ , Group) => {
-            $(Group).find(".Form__Input:not(.Form__Input--Password)").ready(function () {
-                $(Group).find("input[type=text]").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Input");
+            $(Form).find(".Form__Group").each((_ , Group) => {
+                $(Group).find(".Form__Input:not(.Form__Input--Password)").ready(function () {
+                    $(Group).find("input[type=text]").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Input");
+                    });
+                    $(Group).find("input[type=email]").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error in Email");
+                    });
+                    $(Group).find("input[type=text]").on("change" , function () {
+                        RemoveError();
+                    });
+                    $(Group).find("input[type=email]").on("change" , function () {
+                        RemoveError();
+                    });
                 });
-                $(Group).find("input[type=email]").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error in Email");
+                $(Group).find(".Form__Input--Password").ready(function () {
+                    $(Group).find("input").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Password");
+                    });
+                    $(Group).find("input").on("change" , function () {
+                        RemoveError();
+                    });
                 });
-                $(Group).find("input[type=text]").on("change" , function () {
-                    RemoveError();
+                $(Group).find(".Form__Date").ready(function () {
+                    $(Group).find("input").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Date");
+                    });
+                    $(Group).find("input").on("change" , function () {
+                        RemoveError();
+                    });
                 });
-                $(Group).find("input[type=email]").on("change" , function () {
-                    RemoveError();
+                $(Group).find(".Form__Select").ready(function () {
+                    $(Group).find("input").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Select");
+                    });
+                    $(Group).find(".Selector__Option").click(() => {
+                        RemoveError();
+                    });
                 });
-            });
-            $(Group).find(".Form__Input--Password").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Password");
-                });
-                $(Group).find("input").on("change" , function () {
-                    RemoveError();
-                });
-            });
-            $(Group).find(".Form__Date").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Date");
-                });
-                $(Group).find("input").on("change" , function () {
-                    RemoveError();
-                });
-            });
-            $(Group).find(".Form__Select").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Select");
-                });
-                $(Group).find(".Selector__Option").click(() => {
-                    RemoveError();
-                });
-            });
 
-            function CreateError(Message = String) {
-                const ErrorElement =  $(Group).find(".Form__Error") ;
-                if(ErrorElement.length === 0) {
-                    const ElementError = `<div class="Form__Error">
+                function CreateError(Message = String) {
+                    const ErrorElement =  $(Group).find(".Form__Error") ;
+                    if(ErrorElement.length === 0) {
+                        const ElementError = `<div class="Form__Error">
                         <div class="Error__Area">
                             <small> ${Message} </small>
                         </div>
                     </div>` ;
-                    $(Group).append(ElementError);
-                } else {
-                    ErrorElement.find("small").text(Message);
+                        $(Group).append(ElementError);
+                    } else {
+                        ErrorElement.find("small").text(Message);
+                    }
                 }
-            }
 
-            function RemoveError() {
-                $(Group).find(".Form__Error").remove();
-            }
+                function RemoveError() {
+                    $(Group).find(".Form__Error").remove();
+                }
 
+            });
+            $(Form).find(".RestButton").each((_ , Buttons) => {
+                $(Buttons).click(()=> {
+                    $(Form).find(`.Date__Field , .Input__Field , .Textarea__Field`)
+                        .each((_ , Field) => {
+                       $(Field).val("");
+                    });
+                    $(Form).find(`.Selector`).each((_ , Selector) => {
+                        ClearSelector(Selector);
+                    });
+                });
+            });
         });
     });
 
@@ -418,6 +449,13 @@ $(document).ready(function (){
     });
 
     /*===========================================
+	=           Drag & Drop By Click       =
+    =============================================*/
+    $(".DragDropClick").ready(function (){
+
+    });
+
+    /*===========================================
 	=           Table Layout       =
     =============================================*/
     $(".Table").ready(function () {
@@ -464,6 +502,40 @@ $(document).ready(function (){
                 $(".Cookies").removeClass("Show");
             });
         }
+    });
+
+    /*===========================================
+	=           Bulk Tools       =
+    =============================================*/
+    $(".BulkTools").ready(function (){
+        $(".BulkTools").each((_ , Bulk) => {
+            const ClosestForm = $(Bulk).closest("form").get(0) ;
+            let IsHaveDeleteInput = false ;
+            if(ClosestForm !== undefined)
+                $(Bulk).find(".Selector__Option").each((_ , Option) => {
+                    $(Option).click(() => {
+                       const Action = $(Option).attr("data-action") ;
+                       const Method = $(Option).attr("data-method") ;
+                       if(Method === "delete") {
+                           if(!IsHaveDeleteInput) {
+                               const DeleteInput = `
+                           <input type="hidden" name="_method" value="delete" />` ;
+                               $(Bulk).append(DeleteInput) ;
+                               IsHaveDeleteInput = true ;
+                           }
+                       } else {
+                           if(IsHaveDeleteInput) {
+                               $(Bulk).find("input[value='delete']").remove() ;
+                               IsHaveDeleteInput = false ;
+                           }
+                       }
+                        $(ClosestForm).attr("action" , Action) ;
+                        $(ClosestForm).attr("method" , Method) ;
+                    });
+                });
+            else
+                console.log("BulkTools Is undefined");
+        });
     });
 
 });

@@ -11,10 +11,10 @@
                              alt="Coming Soon" class="MessagePage__Image" />
                         <div class="MessagePage__Description">
                             <p>
-                                We are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.
+                                @lang("404Message")
                             </p>
                             <a class="Button Button--Primary" href="#">
-                                Back To Home
+                                @lang("backToHome")
                             </a>
                         </div>
                     </div>

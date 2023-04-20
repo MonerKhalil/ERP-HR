@@ -20,6 +20,11 @@
     "accountSetting" : "Account Setting",
     "signout" : "sign out" ,
 
+    "/*         Footer         */": "",
+
+    "copyright" : "copyright",
+    "footerTitle" : "designed by ERP Epic All rights reserved",
+
     "/*         Nav Menu         */": "",
 
     "main" : "main" ,
@@ -73,5 +78,42 @@
     "connectedBy" : "connected by",
     "skills" : "skills",
     "updateProfile" : "update profile",
-    "updateData" : "update data"
+    "updateData" : "update data",
+
+    "/*         View Users Page         */": "" ,
+
+    "viewUsers" : "view users" ,
+    "titleViewUsers" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "user" : "user" ,
+    "id" : "id" ,
+    "createDate" : "create date",
+    "apply" : "apply" ,
+    "bulkAction" : "bulk action",
+    "print" : "print",
+    "delete" : "delete",
+    "page" : "page" ,
+    "ofPage" : "of",
+
+    "/*         Form Search         */": "",
+
+    "search" : "search",
+    "filter" : "filter" ,
+    "clean" : "clean",
+
+    "/*         Print Page         */": "",
+
+    "printInformation" : "print information",
+    "titlePrintInformation" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+
+    "/*         No Data Component         */": "",
+
+    "noDataMessage" : "Sorry there is no data",
+
+    "/*         Message Page         */": "",
+
+    "404Message" : "we are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.",
+    "comingSoon" : "coming soon" ,
+    "comingSoonMessage" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ,
+    "backToHome" : "back to home"
+
 }

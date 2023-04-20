@@ -7,28 +7,10 @@ use Illuminate\Support\Facades\Route;
 =============================================*/
 
 Route::get('/Test', function () {
-    return view('System.Pages.test');
+    return view('System.Pages.print');
 });
 
-Route::get('/Test-1', function () {
-    return view('System.Pages.loginPage');
-});
 
-Route::get('/Test-2', function () {
-    return view('System.Pages.Actors.Admin.addUser');
-});
-
-Route::get('/Test-4', function () {
-    return view('System.Pages.Actors.Admin.viewUsers');
-});
-
-Route::get('/Test-5', function () {
-    return view('System.Pages.comingSoon');
-});
-
-Route::get('/Test-6', function () {
-    return view('System.Pages.404');
-});
 
 /*===========================================
 	=          Real Route         =

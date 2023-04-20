@@ -10,10 +10,10 @@
                         <img src="{{@asset("System/Assets/Images/ComingSoon.jpg")}}"
                              alt="Coming Soon" class="MessagePage__Image" />
                         <div class="MessagePage__Title">
-                            <h2>@lang("comingSoon")</h2>
+                            <h2>Coming Soon</h2>
                         </div>
                         <div class="MessagePage__Description">
-                            @lang("comingSoonMessage")
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dicta doloremque fugit incidunt laboriosam magni nisi possimus saepe velit. A aperiam, consequatur cupiditate eos illum iusto maiores molestias nemo sunt.
                         </div>
                     </div>
                 </div>

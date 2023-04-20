@@ -4,6 +4,7 @@
     width: 100% ;
     border-radius: 10px ;
     background-color: $BackGroundColor;
+    overflow: hidden;
 
     &__InnerGroup {
         border-bottom: 1px solid $SeparateBorderColor;
@@ -63,6 +64,20 @@
             &__Separate {
                 margin : 0 1rem;
                 border-right: 1px solid $SeparateBorderColor_Extra-1 ;
+            }
+
+            &__FilterIcon.Note ,
+            &__SearchIcon.Note {
+                position: relative;
+
+                &::after {
+                    content: "" ;
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background-color: $TertiaryColor-Project;
+                    border-radius: 50%;
+                }
             }
         }
     }

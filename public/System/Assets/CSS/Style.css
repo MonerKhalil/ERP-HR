@@ -370,6 +370,17 @@ p {
   font-weight: 700;
   transition: all 0.3s;
 }
+.Form__Input .Input__Field {
+  /* Chrome, Safari, Edge, Opera */
+  /* Firefox */
+}
+.Form__Input .Input__Field::-webkit-outer-spin-button, .Form__Input .Input__Field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.Form__Input .Input__Field[type=number] {
+  -moz-appearance: textfield;
+}
 .Form__Input .Input__Field:focus ~ .Input__Label, .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   top: 0;
   left: 1.5rem;
@@ -425,6 +436,10 @@ p {
 }
 .Form__Button .Cancel {
   background-color: #f93542;
+  color: #fff;
+}
+.Form__Button .Clear {
+  background-color: #10C093;
   color: #fff;
 }
 .Form--Dark .Form__Input .Input__Field,
@@ -678,6 +693,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   width: 100%;
   border-radius: 10px;
   background-color: #1A202E;
+  overflow: hidden;
 }
 .Card__InnerGroup {
   border-bottom: 1px solid #23364e;
@@ -718,6 +734,17 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 .Card__SearchTools .SearchTools__Separate {
   margin: 0 1rem;
   border-right: 1px solid #96A2B4;
+}
+.Card__SearchTools .SearchTools__FilterIcon.Note, .Card__SearchTools .SearchTools__SearchIcon.Note {
+  position: relative;
+}
+.Card__SearchTools .SearchTools__FilterIcon.Note::after, .Card__SearchTools .SearchTools__SearchIcon.Note::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #10C093;
+  border-radius: 50%;
 }
 .Card__Header {
   margin-bottom: 1.5rem;
@@ -944,26 +971,9 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 .Pagination--Select .Pagination__PageWord, .Pagination--Select .Pagination__PageOf {
   font-size: 1.2rem;
 }
-.Pagination--Select .Selector__Main {
+.Pagination--Select .Input__Field {
   min-width: 7rem;
-  outline-color: #23364e;
   padding: 0.5rem 1rem;
-}
-.Pagination--Select .Selector__WordLabel {
-  display: none;
-}
-.Pagination--Select .Selector__WordChoose {
-  font-size: 1.2rem;
-}
-.Pagination--Select .Selector__Options {
-  top: initial;
-  bottom: 0;
-}
-.Pagination--Select .Selector.Open .Selector__Options {
-  top: initial;
-  bottom: calc(100% + 0.5rem);
-  visibility: visible;
-  opacity: 1;
 }
 .Pagination__List {
   position: relative;
@@ -975,18 +985,17 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
-  cursor: pointer;
   padding: 0.5rem 1rem;
   border: 1px solid #23364e;
   color: #96A2B4;
+}
+.Pagination__Number a, .Pagination__Previous a, .Pagination__Next a {
+  cursor: pointer;
   transition: all 0.3s;
 }
-.Pagination__Number a:hover, .Pagination__Previous a:hover, .Pagination__Next a:hover, .Pagination__Points:hover {
+.Pagination__Number a:hover, .Pagination__Previous a:hover, .Pagination__Next a:hover {
   background-color: #3F51B5;
   color: #fff;
-}
-.Pagination__Points {
-  cursor: initial;
 }
 .Pagination__Previous a {
   border-bottom-left-radius: 5px;
@@ -1229,7 +1238,6 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
     width: 100%;
   }
   .HeaderPage__MenusOpening .MenusOpening {
-    flex-direction: row-reverse;
     justify-content: space-between;
   }
   .HeaderPage__AccountAlerts {
@@ -1248,13 +1256,13 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   }
 }
 @media only screen and (min-width: 75em) {
-  .HeaderPage {
+  .HeaderPage:not(.HeaderPage--Print) {
     padding-left: 7rem;
   }
-  .HeaderPage.OpenMenu {
+  .HeaderPage:not(.HeaderPage--Print).OpenMenu {
     padding-left: 26rem;
   }
-  .HeaderPage__MenusOpening .MenusOpening .Logo {
+  .HeaderPage:not(.HeaderPage--Print) .HeaderPage__MenusOpening .MenusOpening .Logo {
     display: none;
   }
 }
@@ -1273,13 +1281,16 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
   left: 0.8rem;
 }
 @media only screen and (min-width: 75em) {
-  html[lang=ar] .HeaderPage {
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print) {
     padding-left: 0;
     padding-right: 7rem;
   }
-  html[lang=ar] .HeaderPage.OpenMenu {
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print).OpenMenu {
     padding-left: 0;
     padding-right: 26rem;
+  }
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print) .HeaderPage__MenusOpening .MenusOpening .Logo {
+    display: none;
   }
 }
 
@@ -2206,6 +2217,19 @@ html[lang=ar] .Cookies.Show {
   left: 2rem;
 }
 
+.NoData__Content {
+  text-align: center;
+}
+.NoData__Image img {
+  max-width: 25rem;
+  width: 100%;
+}
+.NoData__Title {
+  color: #b6c6e3;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+}
+
 .FooterPage {
   position: relative;
   width: 100%;
@@ -2231,6 +2255,12 @@ html[lang=ar] .Cookies.Show {
     padding-left: 26rem;
   }
 }
+.FooterPage--Print {
+  padding-left: 0;
+}
+.FooterPage--Print.OpenMenu {
+  padding-left: 0;
+}
 
 html[lang=ar] .FooterPage__Links {
   text-align: left;
@@ -2244,6 +2274,12 @@ html[lang=ar] .FooterPage__Links {
     padding-left: 0;
     padding-right: 26rem;
   }
+}
+html[lang=ar] .FooterPage--Print {
+  padding-right: 0;
+}
+html[lang=ar] .FooterPage--Print.OpenMenu {
+  padding-right: 0;
 }
 
 .MainContent {
