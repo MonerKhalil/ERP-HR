@@ -8,6 +8,7 @@
     {{--  Main Content  --}}
     <main class="MainContent">
         @yield("ContentPage")
+        @include("System.Components.cookies")
     </main>
     {{--  Popup Content  --}}
     @yield("PopupPage")

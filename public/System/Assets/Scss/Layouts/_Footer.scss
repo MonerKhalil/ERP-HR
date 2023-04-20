@@ -29,6 +29,17 @@
             padding-left : $MenuExpansion * 1rem ;
         }
     }
+
+    &--Print {
+
+        & {
+            padding-left : 0 ;
+        }
+
+        &.OpenMenu {
+            padding-left : 0 ;
+        }
+    }
 }
 
 @include Language(Arabic) {
@@ -49,6 +60,17 @@
             &.OpenMenu {
                 padding-left : 0 ;
                 padding-right : $MenuExpansion * 1rem ;
+            }
+        }
+
+        &--Print {
+
+            & {
+                padding-right : 0 ;
+            }
+
+            &.OpenMenu {
+                padding-right : 0 ;
             }
         }
     }

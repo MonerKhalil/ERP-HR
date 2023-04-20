@@ -11,54 +11,6 @@
         .UserImage {
             width: 10rem;
             height: 10rem;
-            cursor: pointer;
-
-            &__Edit {
-                position: absolute;
-                top : 0 ;
-                left : 0 ;
-                width: 100%;
-                height: 100%;
-                background-color: $PrimaryColor-Project;
-                border-radius: 50% ;
-                visibility: hidden;
-                opacity: 0 ;
-                transition: all .4s;
-
-                .EditIcon {
-                    position: absolute;
-                    top : 50% ;
-                    left : 50% ;
-                    transform: translate(-50% , -50%);
-                    color : $WhiteColor ;
-                }
-            }
-
-            .LockOpenIcon {
-                position: absolute;
-                bottom: 0 ;
-                left : 0 ;
-                background-color: $PrimaryColor-Project;
-                color : $WhiteColor;
-                padding: .5rem;
-                border-radius: 50% ;
-                visibility: visible;
-                opacity: 1;
-                transition: all .4s;
-            }
-
-            &:hover {
-
-                .UserImage__Edit {
-                    visibility: visible;
-                    opacity: 1;
-                }
-
-                .LockOpenIcon {
-                    visibility: hidden;
-                    opacity: 0;
-                }
-            }
         }
 
         .Text {
@@ -89,25 +41,6 @@
         .SocialMedia {
             flex-direction: row ;
             justify-content: space-between;
-        }
-
-        .Card__Header {
-            display: flex;
-            align-items: center;
-            gap : 1rem ;
-        }
-
-        .EditIcon {
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        &:hover {
-
-            .EditIcon {
-                visibility: visible;
-                opacity: 1;
-            }
         }
     }
 
@@ -143,6 +76,92 @@
         }
     }
 
+    &--My {
+
+        .ProfilePage {
+
+            &__Image {
+
+                .UserImage {
+                    cursor: pointer;
+
+                    &__Edit {
+                        position: absolute;
+                        top : 0 ;
+                        left : 0 ;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $PrimaryColor-Project;
+                        border-radius: 50% ;
+                        visibility: hidden;
+                        opacity: 0 ;
+                        transition: all .4s;
+
+                        .EditIcon {
+                            position: absolute;
+                            top : 50% ;
+                            left : 50% ;
+                            transform: translate(-50% , -50%);
+                            color : $WhiteColor ;
+                        }
+                    }
+
+                    .LockOpenIcon {
+                        position: absolute;
+                        bottom: 0 ;
+                        left : 0 ;
+                        background-color: $PrimaryColor-Project;
+                        color : $WhiteColor;
+                        padding: .5rem;
+                        border-radius: 50% ;
+                        visibility: visible;
+                        opacity: 1;
+                        transition: all .4s;
+                    }
+
+                    &:hover {
+
+                        .UserImage__Edit {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+
+                        .LockOpenIcon {
+                            visibility: hidden;
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
+
+            &__Connection {
+
+                .Card__Header {
+                    display: flex;
+                    align-items: center;
+                    gap : 1rem ;
+                }
+
+                .EditIcon {
+                    visibility: hidden;
+                    opacity: 0;
+                }
+
+                &:hover {
+
+                    .EditIcon {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    &--Visitor {
+
+    }
+
     @include ScreenResponsive(Phone_Landscape) {
 
         &__Connection {
@@ -161,13 +180,19 @@
 
     .ProfilePage {
 
-        &__Image {
+        &--My {
 
-            .UserImage {
+            .ProfilePage {
 
-                .LockOpenIcon {
-                    left : initial ;
-                    right: 0 ;
+                &__Image {
+
+                    .UserImage {
+
+                        .LockOpenIcon {
+                            left : initial ;
+                            right: 0 ;
+                        }
+                    }
                 }
             }
         }

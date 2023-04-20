@@ -1,22 +1,24 @@
-<div class="Pagination--Select">
-    <div class="Pagination__List">
-        <span class="Pagination__PageWord">Page</span>
-        <form class="Form Form--Dark">
-            <div class="Form__Select">
-                <div class="Select__Area">
-                    @include("System.Components.selector" , [
-                        'Name' => "Pagination" , "DefaultValue" => "1" ,
-                        "Label" => "\"&nbsp;\"" ,
-                        "Options" => [ ["Label" => "1" , "Value" => "1"] ,
-                                       ["Label" => "2" , "Value" => "2"] ,
-                                       ["Label" => "3" , "Value" => "3"] ,
-                                       ["Label" => "4" , "Value" => "4"] ,
-                                       ["Label" => "5" , "Value" => "5"] ,
-                                       ["Label" => "6" , "Value" => "6"] ] ,
-                    ])
+@if($PaginationData->currentPage() >= 2 &&
+                        $PaginationData->currentPage() <= $PaginationData->lastPage())
+    <div class="Pagination--Select">
+        <div class="Pagination__List">
+            <span class="Pagination__PageWord">@lang("page")</span>
+            <form class="Form Form--Dark">
+                <div class="Form__Group">
+                    <div class="Form__Input">
+                        <div class="Input__Area">
+                            <input id="PageNumber" class="Input__Field" type="number"
+                                   min="1" max="{{$PaginationData->lastPage()}}"
+                                   name="PageNumber" value="{{$PaginationData->currentPage()}}">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <span class="Pagination__PageOf">Of 102</span>
+            </form>
+            <span class="Pagination__PageOf">@lang("ofPage") {{$PaginationData->lastPage()}}</span>
+        </div>
     </div>
-</div>
+@endif
+
+{{--
+    $PaginationData : For All Page Data
+--}}

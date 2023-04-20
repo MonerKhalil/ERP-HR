@@ -169,6 +169,10 @@ img {
   transform: rotate(180deg);
 }
 
+.Center {
+  text-align: center;
+}
+
 .Visible-phonePortrait,
 .Visible-phoneLandscape,
 .Visible-tablet,
@@ -366,6 +370,17 @@ p {
   font-weight: 700;
   transition: all 0.3s;
 }
+.Form__Input .Input__Field {
+  /* Chrome, Safari, Edge, Opera */
+  /* Firefox */
+}
+.Form__Input .Input__Field::-webkit-outer-spin-button, .Form__Input .Input__Field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.Form__Input .Input__Field[type=number] {
+  -moz-appearance: textfield;
+}
 .Form__Input .Input__Field:focus ~ .Input__Label, .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   top: 0;
   left: 1.5rem;
@@ -421,6 +436,10 @@ p {
 }
 .Form__Button .Cancel {
   background-color: #f93542;
+  color: #fff;
+}
+.Form__Button .Clear {
+  background-color: #10C093;
   color: #fff;
 }
 .Form--Dark .Form__Input .Input__Field,
@@ -505,7 +524,7 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   border-radius: 5px;
   border: none;
   font-size: 1.6rem;
-  padding: 1.3rem 2rem;
+  padding: 1rem 2rem;
   outline: none;
   cursor: pointer;
   transition: all 0.3s;
@@ -674,6 +693,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   width: 100%;
   border-radius: 10px;
   background-color: #1A202E;
+  overflow: hidden;
 }
 .Card__InnerGroup {
   border-bottom: 1px solid #23364e;
@@ -686,6 +706,18 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 }
 .Card__Inner.p0 {
   padding: 0;
+}
+.Card__Inner.pl0 {
+  padding-left: 0;
+}
+.Card__Inner.pr0 {
+  padding-right: 0;
+}
+.Card__Inner.pt0 {
+  padding-top: 0;
+}
+.Card__Inner.pb0 {
+  padding-bottom: 0;
 }
 .Card__ToolsGroup {
   position: relative;
@@ -702,6 +734,17 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 .Card__SearchTools .SearchTools__Separate {
   margin: 0 1rem;
   border-right: 1px solid #96A2B4;
+}
+.Card__SearchTools .SearchTools__FilterIcon.Note, .Card__SearchTools .SearchTools__SearchIcon.Note {
+  position: relative;
+}
+.Card__SearchTools .SearchTools__FilterIcon.Note::after, .Card__SearchTools .SearchTools__SearchIcon.Note::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #10C093;
+  border-radius: 50%;
 }
 .Card__Header {
   margin-bottom: 1.5rem;
@@ -899,6 +942,26 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   top: 0.1rem;
 }
 
+.DragDrop__Zone.Empty {
+  position: relative;
+  width: 100%;
+  height: 20rem;
+  border: 1px solid #23364e;
+  border-radius: 5px;
+}
+.DragDrop__Zone.Empty .DragDrop__Tip {
+  display: block;
+}
+.DragDrop__Tip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  font-size: 3rem;
+}
+
 .Pagination {
   position: relative;
 }
@@ -908,26 +971,9 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 .Pagination--Select .Pagination__PageWord, .Pagination--Select .Pagination__PageOf {
   font-size: 1.2rem;
 }
-.Pagination--Select .Selector__Main {
+.Pagination--Select .Input__Field {
   min-width: 7rem;
-  outline-color: #23364e;
   padding: 0.5rem 1rem;
-}
-.Pagination--Select .Selector__WordLabel {
-  display: none;
-}
-.Pagination--Select .Selector__WordChoose {
-  font-size: 1.2rem;
-}
-.Pagination--Select .Selector__Options {
-  top: initial;
-  bottom: 0;
-}
-.Pagination--Select .Selector.Open .Selector__Options {
-  top: initial;
-  bottom: calc(100% + 0.5rem);
-  visibility: visible;
-  opacity: 1;
 }
 .Pagination__List {
   position: relative;
@@ -939,18 +985,17 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   display: block;
   font-size: 1.2rem;
   font-weight: 600;
-  cursor: pointer;
   padding: 0.5rem 1rem;
   border: 1px solid #23364e;
   color: #96A2B4;
+}
+.Pagination__Number a, .Pagination__Previous a, .Pagination__Next a {
+  cursor: pointer;
   transition: all 0.3s;
 }
-.Pagination__Number a:hover, .Pagination__Previous a:hover, .Pagination__Next a:hover, .Pagination__Points:hover {
+.Pagination__Number a:hover, .Pagination__Previous a:hover, .Pagination__Next a:hover {
   background-color: #3F51B5;
   color: #fff;
-}
-.Pagination__Points {
-  cursor: initial;
 }
 .Pagination__Previous a {
   border-bottom-left-radius: 5px;
@@ -1193,7 +1238,6 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
     width: 100%;
   }
   .HeaderPage__MenusOpening .MenusOpening {
-    flex-direction: row-reverse;
     justify-content: space-between;
   }
   .HeaderPage__AccountAlerts {
@@ -1212,13 +1256,13 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   }
 }
 @media only screen and (min-width: 75em) {
-  .HeaderPage {
+  .HeaderPage:not(.HeaderPage--Print) {
     padding-left: 7rem;
   }
-  .HeaderPage.OpenMenu {
+  .HeaderPage:not(.HeaderPage--Print).OpenMenu {
     padding-left: 26rem;
   }
-  .HeaderPage__MenusOpening .MenusOpening .Logo {
+  .HeaderPage:not(.HeaderPage--Print) .HeaderPage__MenusOpening .MenusOpening .Logo {
     display: none;
   }
 }
@@ -1237,13 +1281,16 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
   left: 0.8rem;
 }
 @media only screen and (min-width: 75em) {
-  html[lang=ar] .HeaderPage {
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print) {
     padding-left: 0;
     padding-right: 7rem;
   }
-  html[lang=ar] .HeaderPage.OpenMenu {
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print).OpenMenu {
     padding-left: 0;
     padding-right: 26rem;
+  }
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print) .HeaderPage__MenusOpening .MenusOpening .Logo {
+    display: none;
   }
 }
 
@@ -2106,6 +2153,83 @@ html[lang=ar] .Table__List .Item__Col:last-child {
   padding-left: 2.4rem;
 }
 
+.Cookies {
+  position: fixed;
+  right: 0;
+  bottom: 5rem;
+  max-width: 34.5rem;
+  width: 100%;
+  border-radius: 5px;
+  transform: translateX(100%);
+  padding: 1.5rem 2.5rem 2.2rem;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.Cookies__Header {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  color: #3F51B5;
+  margin-bottom: 1.5rem;
+}
+.Cookies__Icon {
+  font-size: 3.2rem;
+}
+.Cookies__Content {
+  margin-bottom: 2.5rem;
+}
+.Cookies__ReadMore {
+  color: #10C093;
+}
+.Cookies__ReadMore:hover {
+  color: #fff;
+}
+.Cookies__Buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.Cookies--Dark {
+  background-color: #1B2633;
+}
+.Cookies.Show {
+  right: 2rem;
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+}
+@media only screen and (max-width: 35.99em) {
+  .Cookies {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+html[lang=ar] .Cookies {
+  right: initial;
+  left: 0;
+}
+html[lang=ar] .Cookies.Show {
+  right: initial;
+  left: 2rem;
+}
+
+.NoData__Content {
+  text-align: center;
+}
+.NoData__Image img {
+  max-width: 25rem;
+  width: 100%;
+}
+.NoData__Title {
+  color: #b6c6e3;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+}
+
 .FooterPage {
   position: relative;
   width: 100%;
@@ -2131,6 +2255,12 @@ html[lang=ar] .Table__List .Item__Col:last-child {
     padding-left: 26rem;
   }
 }
+.FooterPage--Print {
+  padding-left: 0;
+}
+.FooterPage--Print.OpenMenu {
+  padding-left: 0;
+}
 
 html[lang=ar] .FooterPage__Links {
   text-align: left;
@@ -2144,6 +2274,12 @@ html[lang=ar] .FooterPage__Links {
     padding-left: 0;
     padding-right: 26rem;
   }
+}
+html[lang=ar] .FooterPage--Print {
+  padding-right: 0;
+}
+html[lang=ar] .FooterPage--Print.OpenMenu {
+  padding-right: 0;
 }
 
 .MainContent {
@@ -2277,46 +2413,6 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
 .ProfilePage__Image .UserImage {
   width: 10rem;
   height: 10rem;
-  cursor: pointer;
-}
-.ProfilePage__Image .UserImage__Edit {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #3F51B5;
-  border-radius: 50%;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.4s;
-}
-.ProfilePage__Image .UserImage__Edit .EditIcon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-}
-.ProfilePage__Image .UserImage .LockOpenIcon {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: #3F51B5;
-  color: #fff;
-  padding: 0.5rem;
-  border-radius: 50%;
-  visibility: visible;
-  opacity: 1;
-  transition: all 0.4s;
-}
-.ProfilePage__Image .UserImage:hover .UserImage__Edit {
-  visibility: visible;
-  opacity: 1;
-}
-.ProfilePage__Image .UserImage:hover .LockOpenIcon {
-  visibility: hidden;
-  opacity: 0;
 }
 .ProfilePage__Image .Text {
   text-align: center;
@@ -2338,19 +2434,6 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
 .ProfilePage__Connection .SocialMedia {
   flex-direction: row;
   justify-content: space-between;
-}
-.ProfilePage__Connection .Card__Header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.ProfilePage__Connection .EditIcon {
-  visibility: hidden;
-  opacity: 0;
-}
-.ProfilePage__Connection:hover .EditIcon {
-  visibility: visible;
-  opacity: 1;
 }
 .ProfilePage__PasswordChange .PasswordChange,
 .ProfilePage__PasswordChange .DeleteAccount, .ProfilePage__DeleteAccount .PasswordChange,
@@ -2381,6 +2464,61 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
 .ProfilePage__DeleteAccount .DeleteAccount__LastChange {
   font-size: 1.2rem;
 }
+.ProfilePage--My .ProfilePage__Image .UserImage {
+  cursor: pointer;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage__Edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3F51B5;
+  border-radius: 50%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage__Edit .EditIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #3F51B5;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage:hover .UserImage__Edit {
+  visibility: visible;
+  opacity: 1;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage:hover .LockOpenIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage--My .ProfilePage__Connection .Card__Header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ProfilePage--My .ProfilePage__Connection .EditIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage--My .ProfilePage__Connection:hover .EditIcon {
+  visibility: visible;
+  opacity: 1;
+}
 @media only screen and (max-width: 47.99em) {
   .ProfilePage__Connection .SocialMedia {
     justify-content: center;
@@ -2389,9 +2527,42 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   }
 }
 
-html[lang=ar] .ProfilePage__Image .UserImage .LockOpenIcon {
+html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   left: initial;
   right: 0;
+}
+
+.MessagePage {
+  position: relative;
+}
+.MessagePage__Content {
+  max-width: 55rem;
+  width: 100%;
+  margin: auto;
+}
+.MessagePage__Image {
+  width: 100%;
+}
+.MessagePage__Title {
+  text-align: center;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+  margin-bottom: 2rem;
+  color: #b6c6e3;
+}
+.MessagePage__Title h2 {
+  font-size: 3rem;
+}
+.MessagePage__Description {
+  text-align: center;
+}
+.MessagePage--404 .MessagePage__Image {
+  max-height: 45rem;
+  height: 100%;
+}
+.MessagePage--ComingSoon .MessagePage__Image {
+  max-height: 36rem;
+  height: 100%;
 }
 
 /*# sourceMappingURL=Style.css.map */

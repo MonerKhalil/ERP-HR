@@ -20,39 +20,9 @@
             }
         }
 
-        .Selector {
-
-            &__Main {
-                min-width: 7rem ;
-                outline-color: $SeparateBorderColor;
-                padding: .5rem 1rem;
-            }
-
-            &__WordLabel {
-                display: none;
-            }
-
-            &__WordChoose {
-                font-size: 1.2rem;
-            }
-
-            &__Options {
-                top : initial;
-                bottom: 0 ;
-            }
-
-            &.Open {
-
-                .Selector {
-
-                    &__Options {
-                        top : initial;
-                        bottom: calc(100% + .5rem);
-                        visibility: visible;
-                        opacity: 1;
-                    }
-                }
-            }
+        .Input__Field {
+            min-width: 7rem ;
+            padding: .5rem 1rem;
         }
     }
 
@@ -70,20 +40,21 @@
         display: block ;
         font-size: 1.2rem;
         font-weight: 600 ;
-        cursor: pointer ;
         padding: .5rem 1rem;
         border: 1px solid $SeparateBorderColor;
         color : $TextColor;
+    }
+
+    &__Number a,
+    &__Previous a,
+    &__Next a {
+        cursor: pointer ;
         transition: all .3s ;
 
         &:hover {
             background-color: $PrimaryColor-Project;
             color : $WhiteColor ;
         }
-    }
-
-    &__Points {
-        cursor: initial;
     }
 
     &__Previous {

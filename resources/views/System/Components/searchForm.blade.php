@@ -7,10 +7,11 @@
                     @if(isset($InfoForm))
                         <form class="Form Form--Dark"
                               action="{{$InfoForm['Route']}}" method="{{$InfoForm['Method']}}">
+                            @csrf
                             @if(isset($SearchForm))
                                 <div class="Popup__Inner">
                                     <h3 class="Popup__Title">
-                                        <span class="Title">Search</span>
+                                        <span class="Title">@lang("search")</span>
                                     </h3>
                                     <div class="Popup__Body">
                                         <div class="Row GapC-1-5">
@@ -36,12 +37,13 @@
                                 ?>
                                 <div class="Popup__Inner">
                                     <h3 class="Popup__Title">
-                                        <span class="Title">Filter</span>
+                                        <span class="Title">@lang("filter")</span>
                                     </h3>
                                     <div class="Popup__Body">
                                         <div class="Row GapC-1-5">
                                             @foreach($FilterForm as $Field)
-                                                @if($Field["Type"] == "text" || $Field["Type"] == "email")
+                                                @if($Field["Type"] == "text" || $Field["Type"] == "email"
+                                                    || $Field["Type"] == "number")
                                                     <div class="Col-6-md">
                                                         <div class="Form__Group">
                                                             <div class="Form__Input">
@@ -56,8 +58,7 @@
                                                                            @endif
                                                                            @if(isset($Field["Info"]["Required"]))
                                                                            required
-                                                                        @endif
-                                                                    >
+                                                                            @endif>
                                                                     <label class="Input__Label"
                                                                            for="{{"Input".$Counter}}">{{$Field["Info"]["Placeholder"]}}</label>
                                                                 </div>
@@ -100,12 +101,12 @@
                                                         </div>
                                                     </div>
                                                 @endif
-                                                @if($Field["Type"] == "date")
+                                                @if($Field["Type"] == "dateRange")
                                                     <div class="Col-6-md">
                                                         <div class="Form__Group">
                                                             <div class="Form__Date">
                                                                 <div class="Date__Area">
-                                                                    <input id="{{"Input".$Counter}}" class="Date__Field"
+                                                                    <input id="{{"Input".$Counter}}" class="RangeData Date__Field"
                                                                            type="text" name="{{$Field["Info"]["Name"]}}"
                                                                            placeholder="{{$Field["Info"]["Placeholder"]}}"
                                                                            @if(isset($Field["Info"]["Value"]))
@@ -122,6 +123,28 @@
                                                         </div>
                                                     </div>
                                                 @endif
+                                                @if($Field["Type"] == "dateSingle")
+                                                        <div class="Col-6-md">
+                                                            <div class="Form__Group">
+                                                                <div class="Form__Date">
+                                                                    <div class="Date__Area">
+                                                                        <input id="{{"Input".$Counter}}" class="Date__Field"
+                                                                               type="text" name="{{$Field["Info"]["Name"]}}"
+                                                                               placeholder="{{$Field["Info"]["Placeholder"]}}"
+                                                                               @if(isset($Field["Info"]["Value"]))
+                                                                               value="{{$Field["Info"]["Value"]}}"
+                                                                               @endif
+                                                                               @if(isset($Field["Info"]["Required"]))
+                                                                               required
+                                                                            @endif
+                                                                        >
+                                                                        <label class="Date__Label"
+                                                                               for="{{"Input".$Counter}}">{{$Field["Info"]["Placeholder"]}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 <?php $Counter++?>
                                             @endforeach
                                         </div>
@@ -135,7 +158,9 @@
                                             <div class="Form__Group">
                                                 <div class="Form__Button">
                                                     <button class="Button Send"
-                                                            type="submit">Get Data</button>
+                                                            type="submit">@lang("filter")</button>
+                                                    <button class="RestButton Button Clear"
+                                                            type="button">@lang("clean")</button>
                                                 </div>
                                             </div>
                                         </div>

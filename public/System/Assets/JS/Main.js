@@ -121,6 +121,15 @@ $(document).ready(function (){
         });
     });
 
+    function ClearSelector(Selector = HTMLElement) {
+        $(Selector).removeClass("Selected");
+        $(Selector).find(".Selector__Main .Selector__WordChoose")
+            .text("");
+        $(Selector).find(".Selector__SelectForm")
+            .attr("value" , "");
+        $(Selector).attr("data-selected" , "");
+    }
+
     /*===========================================
 	=           Form       =
     =============================================*/
@@ -130,84 +139,106 @@ $(document).ready(function (){
                 LoaderView();
             });
         });
+
     });
     $(".Form").ready(function () {
-        $(this).find(".Form__Input--Password").each((Index , Value)=> {
-            $(Value).find(".Input__Icon").click((Icon)=>{
-                const InputField = $(Value).find(".Input__Field") ;
-                const IsView = InputField.attr("type") === 'password' ;
-                if(IsView)
-                    InputField.attr("type" , "text");
+        $(".Form").each((_ , Form) => {
+            $(Form).find(".Form__Input--Password").each((Index , Value)=> {
+                $(Value).find(".Input__Icon").click((Icon)=>{
+                    const InputField = $(Value).find(".Input__Field") ;
+                    const IsView = InputField.attr("type") === 'password' ;
+                    if(IsView)
+                        InputField.attr("type" , "text");
+                    else
+                        InputField.attr("type" , "password");
+                });
+            });
+            $(Form).find(".Form__Date").each((Index , Value)=> {
+                const Input = $(Value).find("input").get(0) ;
+                if($(Input).hasClass("RangeData")) {
+                    console.log("dd");
+                    $(Input).flatpickr({
+                        mode: "range"
+                    });
+                }
                 else
-                    InputField.attr("type" , "password");
+                    $(Input).flatpickr();
             });
-        });
-        $(this).find(".Form__Date").each((Index , Value)=> {
-           $(Value).find("input").flatpickr();
-        });
-        $(this).find(".Form__Group").each((_ , Group) => {
-            $(Group).find(".Form__Input:not(.Form__Input--Password)").ready(function () {
-                $(Group).find("input[type=text]").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Input");
+            $(Form).find(".Form__Group").each((_ , Group) => {
+                $(Group).find(".Form__Input:not(.Form__Input--Password)").ready(function () {
+                    $(Group).find("input[type=text]").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Input");
+                    });
+                    $(Group).find("input[type=email]").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error in Email");
+                    });
+                    $(Group).find("input[type=text]").on("change" , function () {
+                        RemoveError();
+                    });
+                    $(Group).find("input[type=email]").on("change" , function () {
+                        RemoveError();
+                    });
                 });
-                $(Group).find("input[type=email]").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error in Email");
+                $(Group).find(".Form__Input--Password").ready(function () {
+                    $(Group).find("input").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Password");
+                    });
+                    $(Group).find("input").on("change" , function () {
+                        RemoveError();
+                    });
                 });
-                $(Group).find("input[type=text]").on("change" , function () {
-                    RemoveError();
+                $(Group).find(".Form__Date").ready(function () {
+                    $(Group).find("input").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Date");
+                    });
+                    $(Group).find("input").on("change" , function () {
+                        RemoveError();
+                    });
                 });
-                $(Group).find("input[type=email]").on("change" , function () {
-                    RemoveError();
+                $(Group).find(".Form__Select").ready(function () {
+                    $(Group).find("input").on("invalid" , function (e) {
+                        e.preventDefault();
+                        CreateError("Error In Select");
+                    });
+                    $(Group).find(".Selector__Option").click(() => {
+                        RemoveError();
+                    });
                 });
-            });
-            $(Group).find(".Form__Input--Password").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Password");
-                });
-                $(Group).find("input").on("change" , function () {
-                    RemoveError();
-                });
-            });
-            $(Group).find(".Form__Date").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Date");
-                });
-                $(Group).find("input").on("change" , function () {
-                    RemoveError();
-                });
-            });
-            $(Group).find(".Form__Select").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Select");
-                });
-                $(Group).find(".Selector__Option").click(() => {
-                    RemoveError();
-                });
-            });
 
-            function CreateError(Message = String) {
-                const ErrorElement =  $(Group).find(".Form__Error") ;
-                if(ErrorElement.length === 0) {
-                    const ElementError = `<div class="Form__Error">
+                function CreateError(Message = String) {
+                    const ErrorElement =  $(Group).find(".Form__Error") ;
+                    if(ErrorElement.length === 0) {
+                        const ElementError = `<div class="Form__Error">
                         <div class="Error__Area">
                             <small> ${Message} </small>
                         </div>
                     </div>` ;
-                    $(Group).append(ElementError);
-                } else {
-                    ErrorElement.find("small").text(Message);
+                        $(Group).append(ElementError);
+                    } else {
+                        ErrorElement.find("small").text(Message);
+                    }
                 }
-            }
 
-            function RemoveError() {
-                $(Group).find(".Form__Error").remove();
-            }
+                function RemoveError() {
+                    $(Group).find(".Form__Error").remove();
+                }
 
+            });
+            $(Form).find(".RestButton").each((_ , Buttons) => {
+                $(Buttons).click(()=> {
+                    $(Form).find(`.Date__Field , .Input__Field , .Textarea__Field`)
+                        .each((_ , Field) => {
+                       $(Field).val("");
+                    });
+                    $(Form).find(`.Selector`).each((_ , Selector) => {
+                        ClearSelector(Selector);
+                    });
+                });
+            });
         });
     });
 
@@ -324,6 +355,107 @@ $(document).ready(function (){
     });
 
     /*===========================================
+	=           Drag & Drop       =
+    =============================================*/
+    $(".DragDrop").ready(function() {
+        let ItemTarget = undefined ;
+        let LastZone = undefined ;
+
+        $(".DragDrop__Zone").each((_ , Zone) => {
+            const NamesItem = $(Zone).attr("data-namesItem").split(" ") ;
+            CheckEmptyZone(true);
+            $(Zone).on("dragover" , (ev) => {
+                ev.preventDefault();
+                CheckEmptyZone();
+                let IsAcceptItem = false ;
+                for (let i = 0; i < NamesItem.length ; i++) {
+                    if(NamesItem[i] === $(ItemTarget)
+                        .attr("data-nameItem")) {
+                        IsAcceptItem = true ;
+                        break ;
+                    }
+                }
+                if(IsAcceptItem) {
+                    const ItemBottom = InsertAboveItem(ev.originalEvent.clientY) ;
+                    if(!ItemBottom) {
+                        $(Zone).append(ItemTarget)
+                    } else {
+                        $(ItemTarget).insertBefore(ItemBottom)
+                    }
+                }
+            });
+
+            function InsertAboveItem(MouseY = Number) {
+                let ClosestItem = undefined ;
+                let ClosestOffset = Number.NEGATIVE_INFINITY ;
+                $(Zone).find(".DragDrop.DragDrop__Item:not(.IsDragging)")
+                    .each((_ , Item) => {
+                        const HeightItem = $(Item).height() ;
+                        const TopBoundItem = Item.getBoundingClientRect().top
+                            + (HeightItem / 2);
+                        const Offset = MouseY - TopBoundItem ;
+                        if(Offset < 0 && Offset > ClosestOffset) {
+                            ClosestOffset = Offset ;
+                            ClosestItem = Item ;
+                        }
+                    });
+                return ClosestItem ;
+            }
+
+            function CheckEmptyZone(IsInitial = false) {
+
+                if(!IsInitial) {
+                    if(Zone !== LastZone) {
+                        setTimeout(() => {
+                            if(LastZone)
+                                Check(LastZone);
+                            LastZone = Zone ;
+                        } , 10);
+                    }
+                }
+
+                Check(Zone);
+
+                function Check(ZoneContent) {
+                    if($(ZoneContent).children().length === 0) {
+                        $(ZoneContent).addClass("Empty");
+                        const DropText = `
+                        <div class="DragDrop__Tip">
+                            Drop Here
+                        </div>
+                    ` ;
+                        $(ZoneContent).append(DropText);
+                    } else {
+                        $(ZoneContent).find(".DragDrop__Tip").remove();
+                        $(ZoneContent).removeClass("Empty");
+                    }
+                }
+            }
+
+        });
+
+        $(".DragDrop__Item").each((_ , Item) => {
+            $(Item).prop("draggable" , "true");
+            $(Item).on("dragstart" , () => {
+                $(Item).addClass("IsDragging") ;
+                ItemTarget = Item ;
+            });
+            $(Item).on("dragend" , () => {
+                $(Item).removeClass("IsDragging") ;
+                ItemTarget = undefined ;
+                LastZone = undefined ;
+            });
+        });
+    });
+
+    /*===========================================
+	=           Drag & Drop By Click       =
+    =============================================*/
+    $(".DragDropClick").ready(function (){
+
+    });
+
+    /*===========================================
 	=           Table Layout       =
     =============================================*/
     $(".Table").ready(function () {
@@ -352,6 +484,57 @@ $(document).ready(function (){
                 });
             });
             // $(Table).find(".Table__BulkTools")
+        });
+    });
+
+    /*===========================================
+	=           Cookies Page       =
+    =============================================*/
+    $(".Cookies").ready(function () {
+        if(document.cookie === "") {
+            $(".Cookies").addClass("Show");
+            $(".Cookies__Accept").click(() => {
+                document.cookie = "Accept" ;
+                $(".Cookies").removeClass("Show");
+            });
+            $(".Cookies__Decline").click(() => {
+                document.cookie = "Decline" ;
+                $(".Cookies").removeClass("Show");
+            });
+        }
+    });
+
+    /*===========================================
+	=           Bulk Tools       =
+    =============================================*/
+    $(".BulkTools").ready(function (){
+        $(".BulkTools").each((_ , Bulk) => {
+            const ClosestForm = $(Bulk).closest("form").get(0) ;
+            let IsHaveDeleteInput = false ;
+            if(ClosestForm !== undefined)
+                $(Bulk).find(".Selector__Option").each((_ , Option) => {
+                    $(Option).click(() => {
+                       const Action = $(Option).attr("data-action") ;
+                       const Method = $(Option).attr("data-method") ;
+                       if(Method === "delete") {
+                           if(!IsHaveDeleteInput) {
+                               const DeleteInput = `
+                           <input type="hidden" name="_method" value="delete" />` ;
+                               $(Bulk).append(DeleteInput) ;
+                               IsHaveDeleteInput = true ;
+                           }
+                       } else {
+                           if(IsHaveDeleteInput) {
+                               $(Bulk).find("input[value='delete']").remove() ;
+                               IsHaveDeleteInput = false ;
+                           }
+                       }
+                        $(ClosestForm).attr("action" , Action) ;
+                        $(ClosestForm).attr("method" , Method) ;
+                    });
+                });
+            else
+                console.log("BulkTools Is undefined");
         });
     });
 

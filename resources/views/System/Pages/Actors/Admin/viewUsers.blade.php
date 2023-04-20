@@ -5,9 +5,9 @@
         <div class="ViewUsers">
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "View Users" ,
+                    'mainTitle' => __("viewUsers") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+                    'summery' => __("titleViewUsers")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -16,55 +16,38 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
+                                <form action="#" method="post">
+                                    @csrf
                                     <div class="Card__InnerGroup">
-                                        <div class="Card__Inner">
-                                            <div class="Table__Head">
-                                                <div class="Card__ToolsGroup">
-                                                    <div class="Card__Tools Table__BulkTools">
-                                                        <div class="BulkTools">
-                                                            <div class="Form Form--Dark">
-                                                                <div class="Form__Group">
-                                                                    <div class="Form__Select">
-                                                                        <div class="Select__Area">
-                                                                            <div class="Selector Selected Size-2"
-                                                                                 data-name="BulkAction" data-required="false">
-                                                                                <div class="Selector__Main">
-                                                                                    <div class="Selector__WordChoose">Bulk Action</div>
-                                                                                    <i class="material-icons Selector__Arrow">
-                                                                                        keyboard_arrow_down
-                                                                                    </i>
-                                                                                </div>
-                                                                                <ul class="Selector__Options">
-                                                                                    <li class="Selector__Option">Delete</li>
-                                                                                    <li class="Selector__Option">Print</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Form__Group">
-                                                                    <div class="Form__Button">
-                                                                        <button class="Button Send Size-2"
-                                                                                type="submit">Apply</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="Card__Tools Card__SearchTools">
-                                                        <ul class="SearchTools">
-                                                            <li><i class="OpenPopup material-icons IconClick"
-                                                                   data-popUp="SearchAbout">search</i></li>
-                                                            <li><span class="SearchTools__Separate"></span></li>
-                                                            <li><i class="material-icons IconClick">print</i></li>
-                                                        </ul>
-                                                    </div>
+                                    <div class="Card__Inner">
+                                        <div class="Table__Head">
+                                            <div class="Card__ToolsGroup">
+                                                <div class="Card__Tools Table__BulkTools">
+                                                    @include("System.Components.bulkAction" , [
+                                                        "Options" => [ [
+                                                            "Label" => __("print") , "Action" => "#" , "Method" => "B"
+                                                        ] , [
+                                                            "Label" => __("delete") , "Action" => "#" , "Method" => "delete"
+                                                        ] ]
+                                                    ])
+                                                </div>
+                                                <div class="Card__Tools Card__SearchTools">
+                                                    <ul class="SearchTools">
+                                                        <li><i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
+                                                               data-popUp="SearchAbout">filter_list</i></li>
+                                                        <li><span class="SearchTools__Separate"></span></li>
+                                                        <li><a href="#">
+                                                                <i class="material-icons IconClick">print</i>
+                                                            </a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    @if(count($users) > 0)
                                         <div class="Card__Inner p0">
-                                            <div class="Table__ContentList">
-                                                <form class="Table__List" action="" method="post">
+                                        <div class="Table__ContentList">
+                                                <div class="Table__List">
                                                     <div class="Item HeaderList">
                                                         <div class="Item__Col Item__Col--Check">
                                                             <input id="ItemRow_Main" class="CheckBoxItem" type="checkbox" hidden>
@@ -74,147 +57,68 @@
                                                                 </i>
                                                             </label>
                                                         </div>
-                                                        <div class="Item__Col"><span>User</span></div>
-                                                        <div class="Item__Col">ID</div>
-                                                        <div class="Item__Col"><span>Email</span></div>
-                                                        <div class="Item__Col"><span>Create Date</span></div>
+                                                        <div class="Item__Col"><span>@lang("user")</span></div>
+                                                        <div class="Item__Col">@lang("id")</div>
+                                                        <div class="Item__Col"><span>@lang("email")</span></div>
+                                                        <div class="Item__Col"><span>@lang("createDate")</span></div>
                                                         <div class="Item__Col"><span>&nbsp;</span></div>
                                                     </div>
-                                                    <div class="Item DataItem">
-                                                        <div class="Item__Col Item__Col--Check">
-                                                            <input id="ItemRow_2" class="CheckBoxItem" type="checkbox" hidden>
-                                                            <label for="ItemRow_2" class="CheckBoxRow">
-                                                                <i class="material-icons ">
-                                                                    check_small
-                                                                </i>
-                                                            </label>
-                                                        </div>
-                                                        <div class="Item__Col Item__Col--Group">
-                                                            <div class="Group">
-                                                                <div class="UserImage">
-                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                    @foreach($users as $User)
+                                                        <div class="Item DataItem">
+                                                            <div class="Item__Col Item__Col--Check">
+                                                                <input id="ItemRow_{{$User["id"]}}" class="CheckBoxItem" type="checkbox" hidden>
+                                                                <label for="ItemRow_{{$User["id"]}}" class="CheckBoxRow">
+                                                                    <i class="material-icons ">
+                                                                        check_small
+                                                                    </i>
+                                                                </label>
+                                                            </div>
+                                                            <div class="Item__Col Item__Col--Group">
+                                                                <div class="Group">
+                                                                    <div class="UserImage">
+                                                                        @if($User["image"] === null)
+                                                                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                                        @else
+                                                                            <img src="{{$User["image"]}}" alt="#">
+                                                                        @endif
+                                                                    </div>
+                                                                    <span>{{$User["name"]}}</span>
                                                                 </div>
-                                                                <span>Amir HO</span>
                                                             </div>
-                                                        </div>
-                                                        <div class="Item__Col">#45684866</div>
-                                                        <div class="Item__Col">example@example.com</div>
-                                                        <div class="Item__Col">14-3-2020</div>
-                                                        <div class="Item__Col Item__Col--Tools">
-                                                            <div class="Tools">
-                                                                <i class="material-icons IconClick View">
-                                                                    visibility
-                                                                </i>
-                                                                <i class="material-icons IconClick Remove">
-                                                                    delete
-                                                                </i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="Item DataItem">
-                                                        <div class="Item__Col Item__Col--Check">
-                                                            <input id="ItemRow_3" class="CheckBoxItem" type="checkbox" hidden>
-                                                            <label for="ItemRow_3" class="CheckBoxRow">
-                                                                <i class="material-icons ">
-                                                                    check_small
-                                                                </i>
-                                                            </label>
-                                                        </div>
-                                                        <div class="Item__Col Item__Col--Group">
-                                                            <div class="Group">
-                                                                <div class="UserImage">
-                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                                            <div class="Item__Col">#{{$User["id"]}}</div>
+                                                            <div class="Item__Col">{{$User["email"]}}</div>
+                                                            <div class="Item__Col">{{$User["created_at"]}}</div>
+                                                            <div class="Item__Col Item__Col--Tools">
+                                                                <div class="Tools">
+                                                                    <a href="{{route("users.show" , $User["id"])}}">
+                                                                        <i class="material-icons IconClick View">
+                                                                            visibility
+                                                                        </i>
+                                                                    </a>
                                                                 </div>
-                                                                <span>Amir HO</span>
                                                             </div>
                                                         </div>
-                                                        <div class="Item__Col">#45684866</div>
-                                                        <div class="Item__Col">example@example.com</div>
-                                                        <div class="Item__Col">14-3-2020</div>
-                                                        <div class="Item__Col Item__Col--Tools">
-                                                            <div class="Tools">
-                                                                <i class="material-icons IconClick View">
-                                                                    visibility
-                                                                </i>
-                                                                <i class="material-icons IconClick Remove">
-                                                                    delete
-                                                                </i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="Item DataItem">
-                                                        <div class="Item__Col Item__Col--Check">
-                                                            <input id="ItemRow_4" class="CheckBoxItem" type="checkbox" hidden>
-                                                            <label for="ItemRow_4" class="CheckBoxRow">
-                                                                <i class="material-icons ">
-                                                                    check_small
-                                                                </i>
-                                                            </label>
-                                                        </div>
-                                                        <div class="Item__Col Item__Col--Group">
-                                                            <div class="Group">
-                                                                <div class="UserImage">
-                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
-                                                                </div>
-                                                                <span>Amir HO</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="Item__Col">#45684866</div>
-                                                        <div class="Item__Col">example@example.com</div>
-                                                        <div class="Item__Col">14-3-2020</div>
-                                                        <div class="Item__Col Item__Col--Tools">
-                                                            <div class="Tools">
-                                                                <i class="material-icons IconClick View">
-                                                                    visibility
-                                                                </i>
-                                                                <i class="material-icons IconClick Remove">
-                                                                    delete
-                                                                </i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="Item DataItem">
-                                                        <div class="Item__Col Item__Col--Check">
-                                                            <input id="ItemRow_5" class="CheckBoxItem" type="checkbox" hidden>
-                                                            <label for="ItemRow_5" class="CheckBoxRow">
-                                                                <i class="material-icons ">
-                                                                    check_small
-                                                                </i>
-                                                            </label>
-                                                        </div>
-                                                        <div class="Item__Col Item__Col--Group">
-                                                            <div class="Group">
-                                                                <div class="UserImage">
-                                                                    <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
-                                                                </div>
-                                                                <span>Amir HO</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="Item__Col">#45684866</div>
-                                                        <div class="Item__Col">example@example.com</div>
-                                                        <div class="Item__Col">14-3-2020</div>
-                                                        <div class="Item__Col Item__Col--Tools">
-                                                            <div class="Tools">
-                                                                <i class="material-icons IconClick View">
-                                                                    visibility
-                                                                </i>
-                                                                <i class="material-icons IconClick Remove">
-                                                                    delete
-                                                                </i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                                    @endforeach
+                                                </div>
                                         </div>
-                                        <div class="Card__Inner">
-                                            <div class="Table__Pagination">
-                                                @include("System.Components.paginationNum")
-                                                @include("System.Components.paginationSelect")
-                                            </div>
+                                    </div>
+                                    @else
+                                        @include("System.Components.noData")
+                                    @endif
+                                    <div class="Card__Inner">
+                                        <div class="Table__Pagination">
+                                            @include("System.Components.paginationNum" , [
+                                                "PaginationData" => $users ,
+                                                "PartsViewNum" => 5
+                                            ])
+                                            @include("System.Components.paginationSelect" , [
+                                                "PaginationData" => $users
+                                            ])
                                         </div>
                                     </div>
                                 </div>
+                                </form>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -226,15 +130,14 @@
 
 @section("PopupPage")
     @include("System.Components.searchForm" , [
-        'InfoForm' => ["Route" => "Dummy" , "Method" => "Post"] ,
-        'SearchForm' => ['Placeholder' => 'Dummy' , 'Name' => 'Dummy'] ,
+        'InfoForm' => ["Route" => route("users.index") , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'text' , 'Info' =>
-            ['Name' => "Dummy" , 'Placeholder' => "Dummy"] ,
-             'Error' => "Error Message"] , ['Type' => 'text' , 'Info' =>
-                ['Name' => "Dummy" , 'Placeholder' => "Dummy"] ,
-                'Error' => "Error Message"] , ['Type' => 'select' , 'Info' =>
-                ['Name' => "oo" , 'Placeholder' => "Dummy" , "Required" => " "
-                , "Options" => [["Label" => "1" , "Value" => "5"]]] ,
-                'Error' => "Error Message"]]
+                ['Name' => "filter[name]" , 'Placeholder' => __("userName")]] , ['Type' => 'number' , 'Info' =>
+                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]
+                ] , ['Type' => 'email' , 'Info' =>
+                ['Name' => "filter[email]" , 'Placeholder' => __("email")]
+            ] , ['Type' => 'dateRange' , 'Info' =>
+                ['Name' => "filter[created_at]" , 'Placeholder' => __("createDate")]
+            ] ]
     ])
 @endsection

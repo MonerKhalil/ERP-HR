@@ -38,7 +38,7 @@ class RoleController extends Controller
     public function create(): Response|RedirectResponse|null
     {
         $permissions = Permission::query()->get(["id","name"]);
-        return $this->responseSuccess("",compact("permissions"));
+        return $this->responseSuccess("System.Pages.Actors.Admin.roleAdd",compact("permissions"));
     }
 
     /**
@@ -50,6 +50,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request): Response
     {
+        dd($request->all());
         $role = Role::query()->create(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
         return $this->responseSuccess(null,null,"create",self::IndexRoute);
