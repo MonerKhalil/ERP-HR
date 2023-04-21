@@ -2282,6 +2282,94 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
   padding-right: 0;
 }
 
+.AuthenticationPage {
+  position: relative;
+}
+.AuthenticationPage__Content {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.AuthenticationPage__Logo {
+  position: absolute;
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+}
+.AuthenticationPage__Logo .Logo__Image {
+  width: 6rem;
+  height: 6rem;
+}
+.AuthenticationPage__ImagePage {
+  width: 50%;
+}
+.AuthenticationPage__ImagePage > img {
+  object-fit: contain;
+  object-position: center;
+}
+.AuthenticationPage__LoginForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 0 2rem;
+  background-color: #1B202D;
+}
+.AuthenticationPage__LoginForm .Content {
+  max-width: 100%;
+  width: 40rem;
+  margin: auto 0;
+}
+.AuthenticationPage__Title {
+  color: #96A2B4;
+  text-transform: capitalize;
+}
+.AuthenticationPage__Text {
+  margin-bottom: 2.5rem;
+}
+.AuthenticationPage__Text .LoginPage__Title {
+  margin-bottom: 0.5rem;
+}
+.AuthenticationPage__Form .Form__Button .Button {
+  width: 100%;
+}
+.AuthenticationPage__Form .Form__Link .Link__Area {
+  text-align: right;
+}
+@media only screen and (max-width: 61.99em) {
+  .AuthenticationPage__Content {
+    height: auto;
+    min-height: 100vh;
+    overflow: initial;
+  }
+  .AuthenticationPage__Logo {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .AuthenticationPage__Logo .Logo > a {
+    justify-content: center;
+  }
+  .AuthenticationPage__ImagePage {
+    display: none;
+  }
+  .AuthenticationPage__LoginForm {
+    width: 100%;
+  }
+  .AuthenticationPage__LoginForm .Content {
+    position: relative;
+    width: 55rem;
+    border: 1px solid #96A2B4;
+    border-radius: 5px;
+    padding: 6rem 3rem 3rem;
+  }
+}
+
+html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
+  text-align: left;
+}
+
 .MainContent {
   position: relative;
   min-height: calc(100vh - 5rem);
@@ -2313,94 +2401,6 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
 }
 .MainContent .RowPage > * {
   flex: 1;
-}
-
-.LoginPage {
-  position: relative;
-}
-.LoginPage__Content {
-  position: relative;
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-.LoginPage__Logo {
-  position: absolute;
-  left: 50%;
-  top: 1rem;
-  transform: translateX(-50%);
-}
-.LoginPage__Logo .Logo__Image {
-  width: 6rem;
-  height: 6rem;
-}
-.LoginPage__ImagePage {
-  width: 50%;
-}
-.LoginPage__ImagePage > img {
-  object-fit: contain;
-  object-position: center;
-}
-.LoginPage__LoginForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  padding: 0 2rem;
-  background-color: #1B202D;
-}
-.LoginPage__LoginForm .Content {
-  max-width: 100%;
-  width: 40rem;
-  margin: auto 0;
-}
-.LoginPage__Title {
-  color: #96A2B4;
-  text-transform: capitalize;
-}
-.LoginPage__Text {
-  margin-bottom: 2.5rem;
-}
-.LoginPage__Text .LoginPage__Title {
-  margin-bottom: 0.5rem;
-}
-.LoginPage__Form .Form__Button .Button {
-  width: 100%;
-}
-.LoginPage__Form .Form__Link .Link__Area {
-  text-align: right;
-}
-@media only screen and (max-width: 61.99em) {
-  .LoginPage__Content {
-    height: auto;
-    min-height: 100vh;
-    overflow: initial;
-  }
-  .LoginPage__Logo {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .LoginPage__Logo .Logo > a {
-    justify-content: center;
-  }
-  .LoginPage__ImagePage {
-    display: none;
-  }
-  .LoginPage__LoginForm {
-    width: 100%;
-  }
-  .LoginPage__LoginForm .Content {
-    position: relative;
-    width: 55rem;
-    border: 1px solid #96A2B4;
-    border-radius: 5px;
-    padding: 6rem 3rem 3rem;
-  }
-}
-
-html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
-  text-align: left;
 }
 
 .ProfilePage__Image {
