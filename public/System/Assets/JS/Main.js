@@ -111,11 +111,12 @@ $(document).ready(function (){
 
             function ClickSelect(OptionSelected = String
                 , ValueOption = String) {
+                const InputField = $(Selector).find(".Selector__SelectForm").get(0) ;
                 $(Selector).addClass("Selected");
                 $(Selector).find(".Selector__Main .Selector__WordChoose")
                     .text(OptionSelected);
-                $(Selector).find(".Selector__SelectForm")
-                    .attr("value" , ValueOption);
+                $(InputField).attr("value" , ValueOption);
+                $(InputField).valid() ;
                 $(Selector).attr("data-selected" , ValueOption);
             }
         });
@@ -229,6 +230,9 @@ $(document).ready(function (){
                         ClearSelector(Selector);
                     });
                 });
+            });
+            $(Form).find(".TextEditor").each((_ , TextEditor) => {
+                $(TextEditor).trumbowyg() ;
             });
         });
     });
