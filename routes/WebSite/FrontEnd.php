@@ -17,3 +17,7 @@ Route::get('/Test-2', function () {
 Route::get('/Test-3', function () {
     return view('System.Pages.comingSoon');
 });
+
+Route::get('/Test-4', function () {
+    return view('System.Pages.Actors.decisionForm');
+});
