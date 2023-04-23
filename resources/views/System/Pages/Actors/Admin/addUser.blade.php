@@ -70,9 +70,9 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Input Form__Input--Password">
                                                                     <div class="Input__Area">
-                                                                        <input id="password" class="Input__Field"
+                                                                        <input id="Password" class="Input__Field"
                                                                                type="password" name="password" placeholder="@lang("password")" required>
-                                                                        <label class="Input__Label" for="password">@lang("password")</label>
+                                                                        <label class="Input__Label" for="Password">@lang("password")</label>
                                                                         <i class="material-icons Input__Icon">visibility</i>
                                                                     </div>
                                                                 </div>
@@ -89,9 +89,9 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Input Form__Input--Password">
                                                                     <div class="Input__Area">
-                                                                        <input id="re_password" class="Input__Field"
+                                                                        <input id="Re_password" class="Input__Field"
                                                                                type="password" name="re_password" placeholder="@lang("rePassword")" required>
-                                                                        <label class="Input__Label" for="re_password">@lang("rePassword")</label>
+                                                                        <label class="Input__Label" for="Re_password">@lang("rePassword")</label>
                                                                         <i class="material-icons Input__Icon">visibility</i>
                                                                     </div>
                                                                     @if(!is_null(Errors("re_password")))

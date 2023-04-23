@@ -77,6 +77,10 @@ img {
   height: 100%;
 }
 
+.NoWrap {
+  white-space: nowrap;
+}
+
 .Container--Header {
   width: 100%;
   margin: 0 auto;
@@ -173,6 +177,28 @@ img {
   text-align: center;
 }
 
+.Left {
+  text-align: left;
+}
+
+.Right {
+  text-align: right;
+}
+
+.Justify-Content-End {
+  justify-content: end !important;
+}
+
+.ReplaceOldBackGround {
+  background-color: #542426;
+  color: #fff;
+}
+
+.ReplaceNewBackGround {
+  background-color: #1C4428;
+  color: #fff;
+}
+
 .Visible-phonePortrait,
 .Visible-phoneLandscape,
 .Visible-tablet,
@@ -229,6 +255,13 @@ img {
     display: none !important;
   }
 }
+html[lang=ar] .Left {
+  text-align: right;
+}
+html[lang=ar] .Right {
+  text-align: left;
+}
+
 @media only screen and (max-width: 74.99em) {
   html {
     font-size: 62.5%;
@@ -264,6 +297,7 @@ body {
 }
 
 a {
+  color: inherit;
   text-decoration: none;
 }
 
@@ -693,7 +727,6 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   width: 100%;
   border-radius: 10px;
   background-color: #1A202E;
-  overflow: hidden;
 }
 .Card__InnerGroup {
   border-bottom: 1px solid #23364e;
@@ -922,7 +955,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   }
 }
 
-.CheckBoxNormal, .Table__List .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked {
+.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked {
   position: relative;
   display: inline-block;
   width: 2.5rem;
@@ -932,7 +965,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   cursor: pointer;
   transition: all 0.3s;
 }
-.CheckBoxNormal > .material-icons, .Table__List .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
+.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
   position: absolute;
   display: none;
   width: 100%;
@@ -2054,79 +2087,87 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   display: flex;
   gap: 1rem;
 }
-.Table__ContentList {
+.Table__ContentTable {
   position: relative;
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
-.Table__List {
+.Table__Table {
   display: table;
   width: 100%;
   font-size: 1.3rem;
+  border-collapse: collapse;
 }
-.Table__List .Item {
+.Table__Table .GroupRows {
+  display: table-row-group;
+}
+.Table__Table .GroupRows__MainRow.Show {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.Table__Table .GroupRows__SubRows {
+  display: none;
+  background-color: #11151e;
+}
+.Table__Table .Item {
   display: table-row;
 }
-.Table__List .Item__Col {
+.Table__Table .Item__Col {
   position: relative;
   display: table-cell;
-  width: 1%;
   vertical-align: middle;
   padding: 0.8rem;
-  white-space: nowrap;
   border-bottom: 1px solid #23364e;
 }
-.Table__List .Item__Col--Group .Group {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  gap: 1rem;
+.Table__Table .Item__Col .fitContent {
+  width: 1%;
 }
-.Table__List .Item__Col--Check {
+.Table__Table .Item__Col--Check {
   line-height: 1;
 }
-.Table__List .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
+.Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
   background-color: #10C093;
 }
-.Table__List .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
+.Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
   display: inline-block;
   color: #fff;
 }
-.Table__List .Item__Col--Check .CheckBoxRow {
+.Table__Table .Item__Col--Check .CheckBoxRow {
   width: 1.5rem;
   height: 1.5rem;
 }
-.Table__List .Item__Col--Check .CheckBoxRow > .material-icons {
+.Table__Table .Item__Col--Check .CheckBoxRow > .material-icons {
   font-size: 1.4rem;
   left: 0;
   top: 0;
 }
-.Table__List .Item__Col--Tools .Tools {
+.Table__Table .Item__Col--Tools .Tools {
   position: relative;
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s;
 }
-.Table__List .Item__Col--Tools .Tools .IconClick {
+.Table__Table .Item__Col--Tools .Tools .IconClick {
   position: relative;
   font-size: 1.6rem;
   color: #96A2B4;
 }
-.Table__List .Item__Col--Tools .Tools .IconClick.View:hover {
+.Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
   color: #10C093;
 }
-.Table__List .Item__Col--Tools .Tools .IconClick.Remove:hover {
+.Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
   color: #f93542;
 }
-.Table__List .Item__Col:first-child {
-  padding-left: 2.4rem;
+.Table__Table .Item__Col--Details .Details__Button {
+  cursor: pointer;
+  transition: all 0.3s;
 }
-.Table__List .Item__Col:last-child {
-  padding-right: 2.4rem;
+.Table__Table .Item__Col--Details .Details__Button:hover {
+  color: #10C093;
 }
-.Table__List .Item:hover .Item__Col--Tools .Tools {
+.Table__Table .Item:hover .Item__Col--Tools .Tools {
   visibility: visible;
   opacity: 1;
 }
@@ -2144,12 +2185,17 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   }
 }
 
-html[lang=ar] .Table__List .Item__Col:first-child {
-  padding-right: 2.4rem;
-  padding-left: 0;
+html[lang=en] .Table__Table .Item__Col:first-child {
+  padding-left: 2.4rem;
 }
-html[lang=ar] .Table__List .Item__Col:last-child {
-  padding-right: 0;
+html[lang=en] .Table__Table .Item__Col:last-child {
+  padding-right: 2.4rem;
+}
+
+html[lang=ar] .Table__Table .Item__Col:first-child {
+  padding-right: 2.4rem;
+}
+html[lang=ar] .Table__Table .Item__Col:last-child {
   padding-left: 2.4rem;
 }
 
@@ -2334,9 +2380,6 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
 .AuthenticationPage__Form .Form__Button .Button {
   width: 100%;
 }
-.AuthenticationPage__Form .Form__Link .Link__Area {
-  text-align: right;
-}
 @media only screen and (max-width: 61.99em) {
   .AuthenticationPage__Content {
     height: auto;
@@ -2364,10 +2407,6 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
     border-radius: 5px;
     padding: 6rem 3rem 3rem;
   }
-}
-
-html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
-  text-align: left;
 }
 
 .MainContent {

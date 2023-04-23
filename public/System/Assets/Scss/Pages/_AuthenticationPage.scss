@@ -71,16 +71,6 @@
                     width: 100% ;
                 }
             }
-
-            &__Link {
-
-                .Link {
-
-                    &__Area {
-                        text-align: right;
-                    }
-                }
-            }
         }
     }
 
@@ -125,24 +115,4 @@
     }
 }
 
-@include Language(Arabic) {
 
-    .LoginPage {
-
-        &__Form {
-
-            .Form {
-
-                &__Link {
-
-                    .Link {
-
-                        &__Area {
-                            text-align: left;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}

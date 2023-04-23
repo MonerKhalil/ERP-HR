@@ -129,18 +129,74 @@ $(document).ready(function (){
             .attr("value" , "");
         $(Selector).attr("data-selected" , "");
     }
-
     /*===========================================
 	=           Form       =
     =============================================*/
     $("form").ready(function (){
         $("form").each((Index , Value)=> {
-            $(Value).submit(()=>{
-                LoaderView();
+            $.validator.addMethod("RegexPassword"
+                , function (Value , Element) {
+                return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
+            } ,
+                $("html").get(0).lang === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
+                    : "The password must contain from 8 to 15 characters"
+            );
+            const ValidatorForm = $(Value).validate({
+
+                ignore : ".IgnoreValidate" ,
+
+                rules : {
+
+                    "password" : {
+                        RegexPassword : true
+                    } ,
+
+                    "re_password" : {
+                        equalTo: "#Password"
+                    }
+                } ,
+
+                success : function (ErrorLabel , FieldElement) {
+                    const Group = $(FieldElement).closest(".Form__Group").get(0) ;
+                    const ErrorElement = $(Group).find(".Form__Error") ;
+                    if(ErrorElement.length > 0)
+                        ErrorElement.remove() ;
+                } ,
+
+                errorPlacement : function (Error , Element) {
+                    const Group = $(Element).closest(".Form__Group").get(0) ;
+                    const ErrorElement = $(Group).find(".Form__Error") ;
+                    if(ErrorElement.length === 0) {
+                        const ErrorContainer = `<div class="Form__Error">
+                            <div class="Error__Area">
+                                <small>${$(Error).text()}</small>
+                            </div>
+                        </div>` ;
+                        $(Group).append(ErrorContainer) ;
+                    } else {
+                        $(ErrorElement).find(".Error__Area small")
+                            .text($(Error).text()) ;
+                    }
+                } ,
+
+                invalidHandler : function () {
+                    LoaderHidden() ;
+                } ,
+
+                submitHandler : function (form) {
+                    if($(form).valid()) {
+                        LoaderView();
+                        $(form).get(0).submit();
+                    }
+                }
+            });
+            $(Value).find("input , textarea").each((_ , Field) => {
+                $(Field).on("blur" , function () {
+                    $(Field).valid() ;
+                });
             });
         });
-
-    });
+    })
     $(".Form").ready(function () {
         $(".Form").each((_ , Form) => {
             $(Form).find(".Form__Input--Password").each((Index , Value)=> {
@@ -156,77 +212,12 @@ $(document).ready(function (){
             $(Form).find(".Form__Date").each((Index , Value)=> {
                 const Input = $(Value).find("input").get(0) ;
                 if($(Input).hasClass("RangeData")) {
-                    console.log("dd");
                     $(Input).flatpickr({
                         mode: "range"
                     });
                 }
                 else
                     $(Input).flatpickr();
-            });
-            $(Form).find(".Form__Group").each((_ , Group) => {
-                $(Group).find(".Form__Input:not(.Form__Input--Password)").ready(function () {
-                    $(Group).find("input[type=text]").on("invalid" , function (e) {
-                        e.preventDefault();
-                        CreateError("Error In Input");
-                    });
-                    $(Group).find("input[type=email]").on("invalid" , function (e) {
-                        e.preventDefault();
-                        CreateError("Error in Email");
-                    });
-                    $(Group).find("input[type=text]").on("change" , function () {
-                        RemoveError();
-                    });
-                    $(Group).find("input[type=email]").on("change" , function () {
-                        RemoveError();
-                    });
-                });
-                $(Group).find(".Form__Input--Password").ready(function () {
-                    $(Group).find("input").on("invalid" , function (e) {
-                        e.preventDefault();
-                        CreateError("Error In Password");
-                    });
-                    $(Group).find("input").on("change" , function () {
-                        RemoveError();
-                    });
-                });
-                $(Group).find(".Form__Date").ready(function () {
-                    $(Group).find("input").on("invalid" , function (e) {
-                        e.preventDefault();
-                        CreateError("Error In Date");
-                    });
-                    $(Group).find("input").on("change" , function () {
-                        RemoveError();
-                    });
-                });
-                $(Group).find(".Form__Select").ready(function () {
-                    $(Group).find("input").on("invalid" , function (e) {
-                        e.preventDefault();
-                        CreateError("Error In Select");
-                    });
-                    $(Group).find(".Selector__Option").click(() => {
-                        RemoveError();
-                    });
-                });
-
-                function CreateError(Message = String) {
-                    const ErrorElement =  $(Group).find(".Form__Error") ;
-                    if(ErrorElement.length === 0) {
-                        const ElementError = `<div class="Form__Error">
-                        <div class="Error__Area">
-                            <small> ${Message} </small>
-                        </div>
-                    </div>` ;
-                        $(Group).append(ElementError);
-                    } else {
-                        ErrorElement.find("small").text(Message);
-                    }
-                }
-
-                function RemoveError() {
-                    $(Group).find(".Form__Error").remove();
-                }
-
             });
             $(Form).find(".RestButton").each((_ , Buttons) => {
                 $(Buttons).click(()=> {
@@ -270,6 +261,14 @@ $(document).ready(function (){
         $(".Loader--Upload").ready(function (){
             $(".Loader--Upload").each((Index , Value)=> {
                 $(Value).show();
+            })
+        });
+    }
+
+    function LoaderHidden() {
+        $(".Loader--Upload").ready(function (){
+            $(".Loader--Upload").each((Index , Value)=> {
+                $(Value).hide();
             })
         });
     }
@@ -482,6 +481,14 @@ $(document).ready(function (){
                         }
                     });
                 });
+            });
+            $(Table).find(".GroupRows").each((_ , Group) => {
+                const MainRow = $(Group).find(".GroupRows__MainRow").get(0) ;
+                const SubRows = $(Group).find(".GroupRows__SubRows").get(0) ;
+                $(MainRow).find(".Details__Button").click(() => {
+                        $(MainRow).toggleClass("Show") ;
+                        $(SubRows).fadeToggle() ;
+                    });
             });
             // $(Table).find(".Table__BulkTools")
         });

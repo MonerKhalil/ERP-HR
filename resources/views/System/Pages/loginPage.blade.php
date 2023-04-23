@@ -74,7 +74,7 @@
                                             <div class="Col-6-xs">
                                                 <div class="Form__Group">
                                                     <div class="Form__Link">
-                                                        <div class="Link__Area">
+                                                        <div class="Right Link__Area">
                                                             <a href="{{route('password.request')}}" class="Link__Anchor">@lang("forgetPassword")</a>
                                                         </div>
                                                     </div>
