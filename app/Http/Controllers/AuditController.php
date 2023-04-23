@@ -56,7 +56,7 @@ class AuditController extends Controller
                 return $this->resolveDataItem($item);
             });
         }
-        return $this->responseSuccess("",compact("data"));
+        return $this->responseSuccess("System.Pages.Actors.Admin.auditing",compact("data"));
     }
 
     private function resolveDataItem($item){

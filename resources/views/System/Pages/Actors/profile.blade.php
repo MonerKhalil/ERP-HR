@@ -1,11 +1,13 @@
 
 <?php
     $IsVisitor = (auth()->user()->id != $user->id) ;
-    $IsHavePermissionEditUser = isset($user) && ($user->can("update_users") || $user->can("all_users")) ;
-    $IsHavePermissionEditEmployee = isset($user->employee) && ($user->can("update_employees") || $user->can("all_employees")) ;
-    $IsHavePermissionReadUser = isset($user) && ($user->can("read_users") || $user->can("all_users")) ;
-    $IsHavePermissionReadEmployee = isset($user->employee) && ($user->can("read_employees") || $user->can("all_employees")) ;
-    $IsHavePermissionDelete = isset($user) && ($user->can("delete_users") || $user->can("all_users")) ;
+    $MyAccount = auth()->user() ;
+    $IsHavePermissionEditUser = isset($user) && ($MyAccount->can("update_users") || $MyAccount->can("all_users")) ;
+    $IsHavePermissionEditEmployee = isset($user->employee) && ($MyAccount->can("update_employees")
+            || $MyAccount->can("all_employees")) ;
+    $IsHavePermissionReadUser = isset($user) && ($MyAccount->can("read_users") || $MyAccount->can("all_users")) ;
+    $IsHavePermissionReadEmployee = isset($user->employee) && ($MyAccount->can("read_employees") || $MyAccount->can("all_employees")) ;
+    $IsHavePermissionDelete = isset($user) && ($MyAccount->can("delete_users") || $MyAccount->can("all_users")) ;
 ?>
 
 
@@ -30,7 +32,7 @@
                                     <div class="Card__Content">
                                         <div class="Card__Inner">
                                             <div class="ProfilePage__Image">
-                                                @if($IsHavePermissionEditUser)
+                                                @if(!$IsVisitor && $IsHavePermissionEditUser)
                                                     <form class="ChangeImage"
                                                           action="{{$IsVisitor ? route("users.update",$user->id) : route("profile.update")}}"
                                                           method="post">
@@ -73,7 +75,7 @@
                                                     <div class="Card__Title">
                                                         <h3>@lang("connectedBy")</h3>
                                                     </div>
-                                                    @if($IsHavePermissionEditUser)
+                                                    @if(!$IsVisitor && $IsHavePermissionEditUser)
                                                         <i class="material-icons OpenPopup IconClick EditIcon"
                                                            data-popUp="UpdateSocialMedia">
                                                             edit
@@ -348,7 +350,7 @@
                                                 <div class="Form__Input">
                                                     <div class="Input__Area">
                                                         <input id="UserName" class="Input__Field"
-                                                               type="text" name="UserName" placeholder="User Name">
+                                                               type="text" name="name" placeholder="User Name">
                                                         <label class="Input__Label" for="UserName">User Name</label>
                                                     </div>
                                                 </div>
@@ -426,9 +428,9 @@
                                                 <div class="Form__Group">
                                                     <div class="Form__Input Form__Input--Password">
                                                         <div class="Input__Area">
-                                                            <input id="NewPassword" class="Input__Field"
+                                                            <input id="Password" class="Input__Field"
                                                                    type="password" name="new_password" placeholder="@lang("newPassword")">
-                                                            <label class="Input__Label" for="NewPassword">@lang("newPassword")</label>
+                                                            <label class="Input__Label" for="Password">@lang("newPassword")</label>
                                                             <i class="material-icons Input__Icon">visibility</i>
                                                         </div>
                                                     </div>
@@ -439,9 +441,10 @@
                                             <div class="Form__Group">
                                                 <div class="Form__Input Form__Input--Password">
                                                     <div class="Input__Area">
-                                                        <input id="Re-Password" class="Input__Field"
-                                                               type="password" name="re_password" placeholder="@lang("rePassword")">
-                                                        <label class="Input__Label" for="Re-Password">@lang("rePassword")</label>
+                                                        <input id="Re_Password" class="Input__Field"
+                                                               type="password" name="re_password"
+                                                               placeholder="@lang("rePassword")" required>
+                                                        <label class="Input__Label" for="Re_Password">@lang("rePassword")</label>
                                                         <i class="material-icons Input__Icon">visibility</i>
                                                     </div>
                                                 </div>
@@ -705,8 +708,9 @@
                             </h3>
                             <div class="Popup__Body">
                                 <form class="Form Form--Dark"
-                                      action="{{$IsVisitor ? route("users.update",$user->id) : route("profile.update")}}"
+                                      action="{{route("users.destroy",$user->id)}}"
                                       method="post">
+                                    @method('delete')
                                     @csrf
                                     <div class="Row">
                                         <div class="Col">

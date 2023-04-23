@@ -3,15 +3,15 @@
 @section("MainContent")
     <main class="MainContent">
         <section class="MainContent__Section MainContent__Section--Login">
-            <div class="LoginPage">
-                <div class="LoginPage__Wrap">
-                    <div class="LoginPage__Content">
-                        <div class="LoginPage__ImagePage">
+            <div class="AuthenticationPage">
+                <div class="AuthenticationPage__Wrap">
+                    <div class="AuthenticationPage__Content">
+                        <div class="AuthenticationPage__ImagePage">
                             <img src="{{asset("System/Assets/Images/Login.jpg")}}" alt="" />
                         </div>
-                        <div class="LoginPage__LoginForm">
+                        <div class="AuthenticationPage__LoginForm">
                             <div class="Content">
-                                <div class="LoginPage__Logo">
+                                <div class="AuthenticationPage__Logo">
                                     <div class="Logo">
                                         <a>
                                             <img src="{{asset("System/Assets/Images/Logo.png")}}"
@@ -19,14 +19,14 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="LoginPage__Text">
-                                    <h2 class="LoginPage__Title">@lang("welcomeSystem")</h2>
-                                    <p class="LoginPage__Summery">
+                                <div class="AuthenticationPage__Text">
+                                    <h2 class="AuthenticationPage__Title">@lang("welcomeSystem")</h2>
+                                    <p class="AuthenticationPage__Summery">
                                         @lang("titleSystem")
                                     </p>
                                 </div>
-                                <div class="LoginPage__Form">
-                                    <h2 class="LoginPage__Title">@lang("signin")</h2>
+                                <div class="AuthenticationPage__Form">
+                                    <h2 class="AuthenticationPage__Title">@lang("signin")</h2>
                                     <form class="Form Form--Dark" action="{{route('login')}}" method="post">
                                         @csrf
                                         <div class="Row">
@@ -74,7 +74,7 @@
                                             <div class="Col-6-xs">
                                                 <div class="Form__Group">
                                                     <div class="Form__Link">
-                                                        <div class="Link__Area">
+                                                        <div class="Right Link__Area">
                                                             <a href="{{route('password.request')}}" class="Link__Anchor">@lang("forgetPassword")</a>
                                                         </div>
                                                     </div>

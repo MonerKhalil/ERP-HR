@@ -46,8 +46,8 @@
                                     </div>
                                     @if(count($users) > 0)
                                         <div class="Card__Inner p0">
-                                        <div class="Table__ContentList">
-                                                <div class="Table__List">
+                                        <div class="Table__ContentTable">
+                                                <div class="Table__Table">
                                                     <div class="Item HeaderList">
                                                         <div class="Item__Col Item__Col--Check">
                                                             <input id="ItemRow_Main" class="CheckBoxItem" type="checkbox" hidden>
@@ -61,7 +61,7 @@
                                                         <div class="Item__Col">@lang("id")</div>
                                                         <div class="Item__Col"><span>@lang("email")</span></div>
                                                         <div class="Item__Col"><span>@lang("createDate")</span></div>
-                                                        <div class="Item__Col"><span>&nbsp;</span></div>
+                                                        <div class="Item__Col"><span>More</span></div>
                                                     </div>
                                                     @foreach($users as $User)
                                                         <div class="Item DataItem">
@@ -73,29 +73,14 @@
                                                                     </i>
                                                                 </label>
                                                             </div>
-                                                            <div class="Item__Col Item__Col--Group">
-                                                                <div class="Group">
-                                                                    <div class="UserImage">
-                                                                        @if($User["image"] === null)
-                                                                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
-                                                                        @else
-                                                                            <img src="{{$User["image"]}}" alt="#">
-                                                                        @endif
-                                                                    </div>
-                                                                    <span>{{$User["name"]}}</span>
-                                                                </div>
-                                                            </div>
+                                                            <div class="Item__Col">{{$User["name"]}}</div>
                                                             <div class="Item__Col">#{{$User["id"]}}</div>
                                                             <div class="Item__Col">{{$User["email"]}}</div>
                                                             <div class="Item__Col">{{$User["created_at"]}}</div>
-                                                            <div class="Item__Col Item__Col--Tools">
-                                                                <div class="Tools">
-                                                                    <a href="{{route("users.show" , $User["id"])}}">
-                                                                        <i class="material-icons IconClick View">
-                                                                            visibility
-                                                                        </i>
-                                                                    </a>
-                                                                </div>
+                                                            <div class="Item__Col Item__Col--Details">
+                                                                <a href="{{route("users.show" , $User["id"])}}">
+                                                                    <span class="Details__Button">Details</span>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     @endforeach

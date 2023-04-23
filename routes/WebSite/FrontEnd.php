@@ -6,20 +6,14 @@ use Illuminate\Support\Facades\Route;
 	=          For Test         =
 =============================================*/
 
-Route::get('/Test', function () {
-    return view('System.Pages.print');
+Route::get('/Test-1', function () {
+    return view('System.Pages.logoutPage');
 });
 
-
-
-/*===========================================
-	=          Real Route         =
-=============================================*/
-
-Route::get("/MyProfile" , function () {
-    return view('System.Pages.Actors.profile');
+Route::get('/Test-2', function () {
+    return view('System.Pages.404');
 });
 
-Route::get('/RoleAdd', function () {
-    return view('System.Pages.Actors.Admin.roleAdd');
+Route::get('/Test-3', function () {
+    return view('System.Pages.comingSoon');
 });
