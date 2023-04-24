@@ -54,10 +54,8 @@
                     opacity: 0;
                     visibility: hidden;
                     overflow: hidden;
-                }
 
-                &.Open {
-                    .Dropdown {
+                    &.Show {
                         opacity: 1;
                         visibility: visible;
                         transform: scale(1);
@@ -307,7 +305,7 @@
             width: 100%;
 
             .MenusOpening {
-                flex-direction: row-reverse;
+                //flex-direction: row-reverse;
                 justify-content: space-between;
             }
         }
@@ -342,24 +340,29 @@
 
     @include ScreenResponsive(Desktop_Large) {
 
-        & {
-            padding-left: $MenuCollapsed * 1rem;
-        }
+        &:not(.HeaderPage--Print) {
 
-        &.OpenMenu {
-            padding-left: $MenuExpansion * 1rem;
-        }
+            & {
+                padding-left: $MenuCollapsed * 1rem;
+            }
 
-        &__MenusOpening {
+            &.OpenMenu {
+                padding-left: $MenuExpansion * 1rem;
+            }
 
-            .MenusOpening {
+            .HeaderPage__MenusOpening {
 
-                .Logo {
-                    display: none;
+                .MenusOpening {
+
+                    .Logo {
+                        display: none;
+                    }
                 }
             }
         }
+
     }
+
 }
 
 @include Language(Arabic) {
@@ -393,14 +396,27 @@
 
         @include ScreenResponsive(Desktop_Large) {
 
-            & {
-                padding-left: 0;
-                padding-right: $MenuCollapsed * 1rem;
-            }
+            &:not(.HeaderPage--Print) {
 
-            &.OpenMenu {
-                padding-left: 0;
-                padding-right: $MenuExpansion * 1rem;
+                & {
+                    padding-left: 0;
+                    padding-right: $MenuCollapsed * 1rem;
+                }
+
+                &.OpenMenu {
+                    padding-left: 0;
+                    padding-right: $MenuExpansion * 1rem;
+                }
+
+                .HeaderPage__MenusOpening {
+
+                    .MenusOpening {
+
+                        .Logo {
+                            display: none;
+                        }
+                    }
+                }
             }
         }
     }

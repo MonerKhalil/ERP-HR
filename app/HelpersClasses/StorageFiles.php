@@ -2,6 +2,7 @@
 
 namespace App\HelpersClasses;
 
+use App\Exceptions\MainException;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -11,7 +12,7 @@ class StorageFiles
 {
     private const DISK = "public";
     public const EX_IMG = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-    public const Ex_FILE = ['pdf','xls','csv'];
+    public const Ex_FILE = ['pdf','xlsx','csv'];
     public const FOLDER_IMAGES = "images";
     public const FOLDER_FILES = "files";
 
@@ -20,7 +21,7 @@ class StorageFiles
      * @param string $pathDir
      * @param string|null $disk
      * @return bool|string
-     * @throws Exception
+     * @throws MainException
      * @author moner khalil
      */
     public function Upload($file, string $pathDir = "", string $disk = null): bool|string
@@ -36,18 +37,21 @@ class StorageFiles
             return Storage::disk(is_null($disk) ? self::DISK : $disk)
                 ->putFileAs($pathDir . "/" . self::FOLDER_IMAGES . "/", $file, $fileNameFinal);
         }
-        throw new Exception("you cant upload current file !!!");
+        throw new MainException("you cant upload current file !!!");
     }
 
     /**
-     * @param string|array $paths
+     * @param string|array|null $paths
      * @param string|null $disk
      * @return bool
      * @author moner khalil
      */
-    public function deleteFile(string|array $paths, string $disk = null): bool
+    public function deleteFile(string|array|null $paths, string $disk = null): bool
     {
         $disk = is_null($disk) ? self::DISK : $disk;
+        if (is_null($paths)){
+            return false;
+        }
         if (Storage::disk($disk)->exists($paths)) {
             return Storage::disk(self::DISK)->delete($paths);
         }
@@ -70,6 +74,6 @@ class StorageFiles
             ob_end_clean();
             return $file;
         }
-        throw new Exception("the path file {$path} is not exists");
+        throw new MainException("the path file {$path} is not exists");
     }
 }

@@ -11,54 +11,6 @@
         .UserImage {
             width: 10rem;
             height: 10rem;
-            cursor: pointer;
-
-            &__Edit {
-                position: absolute;
-                top : 0 ;
-                left : 0 ;
-                width: 100%;
-                height: 100%;
-                background-color: $PrimaryColor-Project;
-                border-radius: 50% ;
-                visibility: hidden;
-                opacity: 0 ;
-                transition: all .4s;
-
-                .EditIcon {
-                    position: absolute;
-                    top : 50% ;
-                    left : 50% ;
-                    transform: translate(-50% , -50%);
-                    color : $WhiteColor ;
-                }
-            }
-
-            .LockOpenIcon {
-                position: absolute;
-                bottom: 0 ;
-                left : 0 ;
-                background-color: $PrimaryColor-Project;
-                color : $WhiteColor;
-                padding: .5rem;
-                border-radius: 50% ;
-                visibility: visible;
-                opacity: 1;
-                transition: all .4s;
-            }
-
-            &:hover {
-
-                .UserImage__Edit {
-                    visibility: visible;
-                    opacity: 1;
-                }
-
-                .LockOpenIcon {
-                    visibility: hidden;
-                    opacity: 0;
-                }
-            }
         }
 
         .Text {
@@ -92,25 +44,122 @@
         }
     }
 
-    &__Skills {
+    &__PasswordChange ,
+    &__DeleteAccount {
 
-        .Skills {
+        .PasswordChange ,
+        .DeleteAccount {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            row-gap: 1.5rem ;
 
-            &__List {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 1rem ;
+            &__Label {
 
-                .Skill {
-                    font-size: 1.2rem;
-                    background-color: $PrimaryColor-Project;
-                    padding: 0 1rem;
-                    border-radius: $BorderRadiusValue;
-                    color : $WhiteColor ;
+                > * {
+                    margin-bottom: .5rem ;
+                }
+            }
+
+            &__Title {
+                color : $WhiteColor ;
+            }
+
+            &__Text {
+                color : $TextColor ;
+            }
+
+            &__LastChange {
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+    &--My {
+
+        .ProfilePage {
+
+            &__Image {
+
+                .UserImage {
+                    cursor: pointer;
+
+                    &__Edit {
+                        position: absolute;
+                        top : 0 ;
+                        left : 0 ;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $PrimaryColor-Project;
+                        border-radius: 50% ;
+                        visibility: hidden;
+                        opacity: 0 ;
+                        transition: all .4s;
+
+                        .EditIcon {
+                            position: absolute;
+                            top : 50% ;
+                            left : 50% ;
+                            transform: translate(-50% , -50%);
+                            color : $WhiteColor ;
+                        }
+                    }
+
+                    .LockOpenIcon {
+                        position: absolute;
+                        bottom: 0 ;
+                        left : 0 ;
+                        background-color: $PrimaryColor-Project;
+                        color : $WhiteColor;
+                        padding: .5rem;
+                        border-radius: 50% ;
+                        visibility: visible;
+                        opacity: 1;
+                        transition: all .4s;
+                    }
+
+                    &:hover {
+
+                        .UserImage__Edit {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+
+                        .LockOpenIcon {
+                            visibility: hidden;
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
+
+            &__Connection {
+
+                .Card__Header {
+                    display: flex;
+                    align-items: center;
+                    gap : 1rem ;
+                }
+
+                .EditIcon {
+                    visibility: hidden;
+                    opacity: 0;
+                }
+
+                &:hover {
+
+                    .EditIcon {
+                        visibility: visible;
+                        opacity: 1;
+                    }
                 }
             }
         }
+    }
+
+    &--Visitor {
+
     }
 
     @include ScreenResponsive(Phone_Landscape) {
@@ -123,17 +172,6 @@
                 flex-wrap: wrap;
             }
         }
-
-        &__Skills {
-
-            .Skills {
-
-                &__List {
-                    justify-content: center;
-                    flex-wrap: wrap;
-                }
-            }
-        }
     }
 
 }
@@ -142,13 +180,19 @@
 
     .ProfilePage {
 
-        &__Image {
+        &--My {
 
-            .UserImage {
+            .ProfilePage {
 
-                .LockOpenIcon {
-                    left : initial ;
-                    right: 0 ;
+                &__Image {
+
+                    .UserImage {
+
+                        .LockOpenIcon {
+                            left : initial ;
+                            right: 0 ;
+                        }
+                    }
                 }
             }
         }

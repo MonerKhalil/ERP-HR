@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Session;
 
 class MessagesFlash
 {
-    public static $suc = "success";
-    public static $err = "errors";
+    public static $suc = "Success";
+    public static $err = "Error";
+    public static $Errors = "Errors";
 
     /**
      * @param string $process
@@ -38,6 +39,10 @@ class MessagesFlash
      * @author moner khalil
      */
     public static function Errors(mixed $errors){
-        Session::flash(self::$err,is_string($errors) ? __($errors) : $errors);
+        if (is_array($errors)){
+            Session::flash(self::$Errors,$errors);
+        }else{
+            Session::flash(self::$err,__($errors));
+        }
     }
 }

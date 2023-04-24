@@ -41,11 +41,6 @@
     }
 }
 
-//.Row {
-//    display: flex;
-//    flex-wrap: wrap;
-//}
-
 .IconClick {
     font-size: 2rem;
     border-radius: 50%;
@@ -94,6 +89,32 @@
 
 .ArrowRight {
     transform: rotate(180deg);
+}
+
+.Center {
+    text-align: center;
+}
+
+.Left {
+    text-align: left ;
+}
+
+.Right {
+    text-align: right;
+}
+
+.Justify-Content-End {
+    justify-content: end !important;
+}
+
+.ReplaceOldBackGround {
+    background-color: #542426 ;
+    color : $WhiteColor ;
+}
+
+.ReplaceNewBackGround {
+    background-color: #1C4428;
+    color : $WhiteColor ;
 }
 
 .Visible-phonePortrait ,
@@ -154,5 +175,16 @@
     }
     .Hidden-desktopLarge {
         display : none !important;
+    }
+}
+
+@include Language(Arabic) {
+
+    .Left {
+        text-align: right ;
+    }
+
+    .Right {
+        text-align: left ;
     }
 }

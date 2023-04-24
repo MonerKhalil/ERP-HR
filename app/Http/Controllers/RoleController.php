@@ -26,8 +26,8 @@ class RoleController extends Controller
      */
     public function index(): Response|RedirectResponse|null
     {
-        $data = MyApp::Classes()->Search->getData(Role::query());
-        return $this->responseSuccess("",compact("data"));
+        $data = MyApp::Classes()->Search->getDataFilter(Role::query());
+        return $this->responseSuccess("System.Pages.Actors.Admin.viewRoles",compact("data"));
     }
 
     /**
@@ -38,17 +38,17 @@ class RoleController extends Controller
     public function create(): Response|RedirectResponse|null
     {
         $permissions = Permission::query()->get(["id","name"]);
-        return $this->responseSuccess("",compact("permissions"));
+        return $this->responseSuccess("System.Pages.Actors.Admin.roleAdd",compact("permissions"));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param RoleRequest $request
-     * @return Response
+     * @return RedirectResponse|Response|null
      * @author moner khalil
      */
-    public function store(RoleRequest $request): Response
+    public function store(RoleRequest $request): Response|RedirectResponse|null
     {
         $role = Role::query()->create(['name' => $request->name]);
         $role->syncPermissions($request->permissions);

@@ -19,7 +19,7 @@ class SearchModel
      * @return mixed
      * @author moner khalil
      */
-    public function getData($queryBuilder, array $filter = null,callable $callback = null): mixed
+    public function getDataFilter($queryBuilder, array $filter = null,callable $callback = null): mixed
     {
         foreach ($this->filterSearchAttributes($filter) as $key => $value){
             $queryBuilder = $queryBuilder->where($key,"LIKE","%".strtolower($value)."%");
@@ -29,7 +29,7 @@ class SearchModel
             return $callback($queryBuilder);
         }
 
-        return $this->dataFinal($queryBuilder);
+        return $this->dataPaginate($queryBuilder);
     }
 
     /**
@@ -38,7 +38,7 @@ class SearchModel
      * @return mixed
      * @author moner khalil
      */
-    private function dataFinal($queryBuilder): mixed
+    public function dataPaginate($queryBuilder): mixed
     {
         $tempCount = $this->countItemsPaginate();
 
@@ -76,6 +76,10 @@ class SearchModel
     private function filterSearchAttributes($filter): mixed
     {
         $finalFilter = [];
+        if(!is_null($this->request->input("isClearFilter"))
+            && $this->request->input("isClearFilter") === "true" ){
+            return $finalFilter;
+        }
         if (isset($filter)){
             $finalFilter = $filter;
         }

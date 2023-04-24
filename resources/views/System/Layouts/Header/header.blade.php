@@ -135,7 +135,7 @@
                                         </a>
                                     </li>
                                     <li class="Dropdown__Item">
-                                        <a href="#">
+                                        <a href="{{route("logout")}}">
                                             <i class="material-icons">
                                                 logout
                                             </i>

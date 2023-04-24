@@ -33,6 +33,7 @@ body {
 }
 
 a {
+    color: inherit;
     text-decoration: none;
 }
 
@@ -58,4 +59,11 @@ p {
 
 .material-icons {
     font-size: 1.99rem;
+}
+
+@include PrinterResponsive() {
+
+    html {
+        font-size: 56.25%;
+    }
 }

@@ -4,6 +4,10 @@
     "suc.update" : "تمت عملية التعديل بنجاح",
     "suc.delete" : "تمت عملية الحذف بنجاح",
     "suc.default" : "تمت العملية السابقة بنجاح",
+    "password_error" : "كلمة المرور القديمة غير صحيحة",
+    "created": "انشاء",
+    "updated": "تعديل",
+    "deleted": "حذف",
 
     "/*         Header         */": "",
 
@@ -15,6 +19,11 @@
     "viewProfile" : "عرض الملف الشخصي",
     "accountSetting" : "اعدادات الحساب",
     "signout" : "تسجيل خروج" ,
+
+    "/*         Footer         */": "",
+
+    "copyright" : "حقوق النشر محفوظة لسنة",
+    "footerTitle" : "تم التصميم بواسطة ERP Epic وجميع الحقوق محفوظة",
 
     "/*         Nav Menu         */": "",
 
@@ -41,6 +50,8 @@
     "userName" : "اسم المستخدم" ,
     "password" : "كلمة المرور" ,
     "rePassword" : "اعادة كلمة المرور" ,
+    "oldPassword" : "كلمة المرور القديمة" ,
+    "newPassword" : "كلمة المرور الجديدة" ,
     "firstName" : "الاسم الاول" ,
     "lastName" : "الاسم الاخير" ,
     "email" : "البريد الالكتروني" ,
@@ -48,6 +59,8 @@
     "gender" : "الجنس",
     "male" : "ذكر" ,
     "female" : "انثى",
+    "role" : "دور",
+    "roles" : "أدوار",
 
     "/*         Profile Page         */": "" ,
 
@@ -65,5 +78,41 @@
     "connectedBy" : "تواصل بواسطة",
     "skills" : "المهارات",
     "updateProfile" : "تحديث الملف الشخصي",
-    "updateData" : "تحديث المعلومات"
+    "updateData" : "تحديث المعلومات",
+
+    "/*         View Users Page         */": "" ,
+
+    "viewUsers" : "عرض المستخدمين" ,
+    "titleViewUsers" : "هبد للصبح",
+    "user" : "مستخدم" ,
+    "id" : "الرقم المميز" ,
+    "createDate" : "تاريخ الانشاء",
+    "apply" : "تطبيق" ,
+    "bulkAction" : "العملية",
+    "print" : "طباعة",
+    "delete" : "حذف",
+    "page" : "صفحة" ,
+    "ofPage" : "من",
+
+    "/*         Form Search         */": "",
+
+    "search" : "بحث",
+    "filter" : "تصفية" ,
+    "clean" : "مسح الكل",
+
+    "/*         Print Page         */": "",
+
+    "printInformation" : "معلومات الطباعة",
+    "titlePrintInformation" : "شوية هبد",
+
+    "/*         No Data Component         */": "",
+
+    "noDataMessage" : "عذرا لا يوجد اي معلومات لعرضها",
+
+    "/*         Message Page         */": "",
+
+    "404Message" : "نحن نأسف جدا للإزعاج. يبدو أنك تحاول الوصول إلى صفحة محذوفة أو لم تكن موجودة من قبل.",
+    "comingSoon" : "قريبا" ,
+    "comingSoonMessage" : "هبباب" ,
+    "backToHome" : "العودة للصفحة الرئيسية"
 }

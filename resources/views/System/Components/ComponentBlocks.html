@@ -9,7 +9,7 @@
     <body>
 
         <!--  Start Logo System  -->
-        <div class="Logo">
+            <div class="Logo">
             <a href="#" title="ERP Epic">
                 <img src="{{asset("System/Assets/Images/Logo.png")}}"
                 alt="#" class="Logo__Image">
@@ -19,7 +19,7 @@
         <!--  End Logo System  -->
 
         <!--  Start Form  -->
-        <form class="Form">
+            <form class="Form">
             <div class="Form__Group">
                 <div class="Form__Input">
                     <div class="Input__Area">
@@ -82,12 +82,46 @@
         <!--  End Form  -->
 
         <!--  Start Breadcrumb  -->
-        @include('System.Components.breadcrumb' , [
-        'mainTitle' => 'Add User' ,
-        'path' => [['Home' , '#'] , ['Page']] ,
-        'summery' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
-        ])
-        <!--  End Breadcrumb  -->
+            @include('System.Components.breadcrumb' , [
+            'mainTitle' => 'Add User' ,
+            'path' => [['Home' , '#'] , ['Page']] ,
+            'summery' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
+            ])
+            <!--  End Breadcrumb  -->
+
+            <!--  Start Search Form  -->
+            @include("System.Components.searchForm" , [
+            'InfoForm' => ["Route" => "Dummy" , "Method" => "Post"] ,
+            'SearchForm' => ['Placeholder' => 'Dummy' , 'Name' => 'Dummy' , 'Value' => 'Dummy'] ,
+            'FilterForm' => [ ['Type' => 'Input' , 'Info' =>
+            ['Name' => "Dummy" , 'Placeholder' => "Dummy" , 'Value' => "Dummy"] ,
+            'Error' => "Error Message"] ]
+            ])
+        <!--  End Search Form  -->
+
+        <!--  Start Drag Drop  -->
+
+            <div class="DragDrop DragDrop__Zone ListData__Content" data-namesItem="Permissions">
+            @foreach($permissions as $Permission)
+            <div class="DragDrop DragDrop__Item ListData__Item
+                                                                            ListData__Item--Action" data-nameItem="Permissions">
+                <input type="text" name="permissions[]"
+                       value="{{$Permission["id"]}}" hidden>
+                <div class="Data_Col">
+                                                                        <span class="Data_Label">
+                                                                            {{$Permission["name"]}}
+                                                                        </span>
+                </div>
+                <div class="Data_Col Data_Col--End">
+                    <i class="material-icons">
+                        sync_alt
+                    </i>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <!--  End Drag Drop  -->
 
     </body>
 </html>

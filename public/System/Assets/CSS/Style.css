@@ -77,6 +77,10 @@ img {
   height: 100%;
 }
 
+.NoWrap {
+  white-space: nowrap;
+}
+
 .Container--Header {
   width: 100%;
   margin: 0 auto;
@@ -169,6 +173,32 @@ img {
   transform: rotate(180deg);
 }
 
+.Center {
+  text-align: center;
+}
+
+.Left {
+  text-align: left;
+}
+
+.Right {
+  text-align: right;
+}
+
+.Justify-Content-End {
+  justify-content: end !important;
+}
+
+.ReplaceOldBackGround {
+  background-color: #542426;
+  color: #fff;
+}
+
+.ReplaceNewBackGround {
+  background-color: #1C4428;
+  color: #fff;
+}
+
 .Visible-phonePortrait,
 .Visible-phoneLandscape,
 .Visible-tablet,
@@ -225,6 +255,13 @@ img {
     display: none !important;
   }
 }
+html[lang=ar] .Left {
+  text-align: right;
+}
+html[lang=ar] .Right {
+  text-align: left;
+}
+
 @media only screen and (max-width: 74.99em) {
   html {
     font-size: 62.5%;
@@ -260,6 +297,7 @@ body {
 }
 
 a {
+  color: inherit;
   text-decoration: none;
 }
 
@@ -284,6 +322,11 @@ p {
   font-size: 1.99rem;
 }
 
+@media print {
+  html {
+    font-size: 56.25%;
+  }
+}
 .Dropdown {
   position: relative;
   background-color: #1b2633;
@@ -292,36 +335,51 @@ p {
 
 .Form {
   position: relative;
-  width: 100%;
 }
 .Form__Group {
   position: relative;
   width: 100%;
 }
-.Form__Input, .Form__Date {
+.Form__Input, .Form__Date, .Form__Search {
   position: relative;
   width: 100%;
 }
 .Form__Input .Date__Area,
-.Form__Input .Input__Area, .Form__Date .Date__Area,
-.Form__Date .Input__Area {
+.Form__Input .Input__Area,
+.Form__Input .Search__Area, .Form__Date .Date__Area,
+.Form__Date .Input__Area,
+.Form__Date .Search__Area, .Form__Search .Date__Area,
+.Form__Search .Input__Area,
+.Form__Search .Search__Area {
   position: relative;
   border: 1px solid #96A2B4;
   border-radius: 5px;
 }
 .Form__Input .Date__Area.Error,
-.Form__Input .Input__Area.Error, .Form__Date .Date__Area.Error,
-.Form__Date .Input__Area.Error {
+.Form__Input .Input__Area.Error,
+.Form__Input .Search__Area.Error, .Form__Date .Date__Area.Error,
+.Form__Date .Input__Area.Error,
+.Form__Date .Search__Area.Error, .Form__Search .Date__Area.Error,
+.Form__Search .Input__Area.Error,
+.Form__Search .Search__Area.Error {
   border-color: #f93542;
 }
 .Form__Input .Date__Area.Error .Input__Label,
-.Form__Input .Input__Area.Error .Input__Label, .Form__Date .Date__Area.Error .Input__Label,
-.Form__Date .Input__Area.Error .Input__Label {
+.Form__Input .Input__Area.Error .Input__Label,
+.Form__Input .Search__Area.Error .Input__Label, .Form__Date .Date__Area.Error .Input__Label,
+.Form__Date .Input__Area.Error .Input__Label,
+.Form__Date .Search__Area.Error .Input__Label, .Form__Search .Date__Area.Error .Input__Label,
+.Form__Search .Input__Area.Error .Input__Label,
+.Form__Search .Search__Area.Error .Input__Label {
   color: #f93542;
 }
 .Form__Input .Date__Field,
-.Form__Input .Input__Field, .Form__Date .Date__Field,
-.Form__Date .Input__Field {
+.Form__Input .Input__Field,
+.Form__Input .Search__Field, .Form__Date .Date__Field,
+.Form__Date .Input__Field,
+.Form__Date .Search__Field, .Form__Search .Date__Field,
+.Form__Search .Input__Field,
+.Form__Search .Search__Field {
   display: block;
   width: 100%;
   font-family: inherit;
@@ -333,14 +391,29 @@ p {
   transition: all 0.4s;
 }
 .Form__Input .Date__Label,
-.Form__Input .Input__Label, .Form__Date .Date__Label,
-.Form__Date .Input__Label {
+.Form__Input .Input__Label,
+.Form__Input .Search__Label, .Form__Date .Date__Label,
+.Form__Date .Input__Label,
+.Form__Date .Search__Label, .Form__Search .Date__Label,
+.Form__Search .Input__Label,
+.Form__Search .Search__Label {
   position: absolute;
   top: 1rem;
   left: 2rem;
   font-size: 1.5rem;
   font-weight: 700;
   transition: all 0.3s;
+}
+.Form__Input .Input__Field {
+  /* Chrome, Safari, Edge, Opera */
+  /* Firefox */
+}
+.Form__Input .Input__Field::-webkit-outer-spin-button, .Form__Input .Input__Field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.Form__Input .Input__Field[type=number] {
+  -moz-appearance: textfield;
 }
 .Form__Input .Input__Field:focus ~ .Input__Label, .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   top: 0;
@@ -380,25 +453,6 @@ p {
   gap: 1rem;
   align-items: center;
 }
-.Form__CheckBox .CheckBox__Label .IconChecked {
-  position: relative;
-  display: inline-block;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid #96A2B4;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
-  position: absolute;
-  display: none;
-  width: 100%;
-  height: 100%;
-  font-size: 2rem;
-  left: 0.2rem;
-  top: 0.1rem;
-}
 .Form__CheckBox .CheckBox__Label .TextCheckBox {
   font-size: 1.6rem;
   cursor: pointer;
@@ -418,15 +472,27 @@ p {
   background-color: #f93542;
   color: #fff;
 }
+.Form__Button .Clear {
+  background-color: #10C093;
+  color: #fff;
+}
 .Form--Dark .Form__Input .Input__Field,
-.Form--Dark .Form__Input .Date__Field, .Form--Dark .Form__Date .Input__Field,
-.Form--Dark .Form__Date .Date__Field {
+.Form--Dark .Form__Input .Date__Field,
+.Form--Dark .Form__Input .Search__Field, .Form--Dark .Form__Date .Input__Field,
+.Form--Dark .Form__Date .Date__Field,
+.Form--Dark .Form__Date .Search__Field, .Form--Dark .Form__Search .Input__Field,
+.Form--Dark .Form__Search .Date__Field,
+.Form--Dark .Form__Search .Search__Field {
   color: #96A2B4;
   background-color: transparent;
 }
 .Form--Dark .Form__Input .Input__Field::placeholder,
-.Form--Dark .Form__Input .Date__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
-.Form--Dark .Form__Date .Date__Field::placeholder {
+.Form--Dark .Form__Input .Date__Field::placeholder,
+.Form--Dark .Form__Input .Search__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
+.Form--Dark .Form__Date .Date__Field::placeholder,
+.Form--Dark .Form__Date .Search__Field::placeholder, .Form--Dark .Form__Search .Input__Field::placeholder,
+.Form--Dark .Form__Search .Date__Field::placeholder,
+.Form--Dark .Form__Search .Search__Field::placeholder {
   color: transparent;
 }
 .Form--Dark .Form__Input .Input__Field:focus ~ .Input__Label, .Form--Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
@@ -452,6 +518,9 @@ p {
 .Form--Dark .Form__Select .Selector__Option:hover {
   background-color: #3F51B5;
   color: #fff;
+}
+.Form--Dark .Form__Search .Search__Field::placeholder {
+  color: inherit;
 }
 .Form--Dark .Form__Link .Link__Anchor {
   color: #96A2B4;
@@ -489,7 +558,7 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   border-radius: 5px;
   border: none;
   font-size: 1.6rem;
-  padding: 1.3rem 2rem;
+  padding: 1rem 2rem;
   outline: none;
   cursor: pointer;
   transition: all 0.3s;
@@ -502,12 +571,22 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   transform: translateY(-0.1rem);
   box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.25);
 }
+.Button--Primary {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.Button--Danger {
+  background-color: #f93542;
+  color: #fff;
+}
+.Button.Size-2 {
+  padding: 0.6rem 2rem;
+}
 
 .Selector {
   position: relative;
   width: 100%;
   font-size: 1.5rem;
-  z-index: 1;
 }
 .Selector__Main {
   position: relative;
@@ -516,7 +595,6 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   padding: 1rem 2rem;
   outline: 1px solid #96A2B4;
   border-radius: 5px;
-  z-index: 1;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -534,12 +612,29 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   top: 0;
   left: 0;
   width: 100%;
+  max-height: 0;
   border-radius: 5px;
   background-color: #000;
   visibility: hidden;
   opacity: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
   transition: all 0.3s;
+}
+.Selector__Options::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.Selector__Options::-webkit-scrollbar-track, .Selector__Options::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.Selector__Options:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.Selector__Options:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
 }
 .Selector__Option {
   padding: 1rem 2rem;
@@ -549,19 +644,21 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
 .Selector__Option:hover {
   background-color: #1EE0AC;
 }
-.Selector__SelectForm {
-  display: none;
-}
 .Selector__Arrow {
   position: absolute;
   top: 50%;
   right: 1rem;
   transform: translateY(-50%);
 }
+.Selector.Open .Selector__Main {
+  z-index: 2;
+}
 .Selector.Open .Selector__Options {
   top: calc(100% + 0.5rem);
   visibility: visible;
   opacity: 1;
+  max-height: 21rem;
+  z-index: 1;
 }
 .Selector.Selected .Selector__WordLabel {
   position: absolute;
@@ -574,6 +671,20 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
 .Selector.Selected .Selector__WordChoose {
   display: initial;
 }
+.Selector.Size-2 {
+  font-size: 1.3rem;
+}
+.Selector.Size-2 .Selector__Main {
+  min-width: 12rem;
+  padding: 0.5rem 3rem 0.5rem 1rem;
+}
+.Selector.Size-2 .Selector__WordLabel {
+  font-size: 1rem;
+  left: 0.5rem;
+}
+.Selector.Size-2 .Selector__WordChoose {
+  font-size: inherit;
+}
 
 html[lang=ar] .Selector__Arrow {
   right: initial;
@@ -582,6 +693,13 @@ html[lang=ar] .Selector__Arrow {
 html[lang=ar] .Selector.Selected .Selector__WordLabel {
   left: initial;
   right: 1.5rem;
+}
+html[lang=ar] .Selector.Size-2 .Selector__Main {
+  padding: 0.5rem 1rem 0.5rem 3rem;
+}
+html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
+  left: initial;
+  right: 0.5rem;
 }
 
 .SocialMedia {
@@ -609,19 +727,76 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   width: 100%;
   border-radius: 10px;
   background-color: #1A202E;
-  padding: 1rem 1.6rem;
+}
+.Card__InnerGroup {
+  border-bottom: 1px solid #23364e;
+}
+.Card__InnerGroup .Card__Inner:not(:last-child) {
+  border-bottom: 1px solid #23364e;
+}
+.Card__Inner {
+  padding: 2.4rem;
+}
+.Card__Inner.p0 {
+  padding: 0;
+}
+.Card__Inner.pl0 {
+  padding-left: 0;
+}
+.Card__Inner.pr0 {
+  padding-right: 0;
+}
+.Card__Inner.pt0 {
+  padding-top: 0;
+}
+.Card__Inner.pb0 {
+  padding-bottom: 0;
+}
+.Card__ToolsGroup {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.Card__SearchTools .SearchTools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.Card__SearchTools .SearchTools__Separate {
+  margin: 0 1rem;
+  border-right: 1px solid #96A2B4;
+}
+.Card__SearchTools .SearchTools__FilterIcon.Note, .Card__SearchTools .SearchTools__SearchIcon.Note {
+  position: relative;
+}
+.Card__SearchTools .SearchTools__FilterIcon.Note::after, .Card__SearchTools .SearchTools__SearchIcon.Note::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #10C093;
+  border-radius: 50%;
 }
 .Card__Header {
   margin-bottom: 1.5rem;
 }
 .Card__Title {
   text-transform: capitalize;
-}
-.Card--FullCard {
-  padding: 0;
+  color: #fff;
 }
 .Card:not(:last-child) {
   margin-bottom: 1rem;
+}
+.Card--Taps .Taps__List {
+  padding: 0 1.6rem;
+}
+.Card--Border {
+  border: 1px solid #23364e;
+}
+.Card--Dark {
+  background-color: #1A202E;
 }
 
 .Loader {
@@ -657,7 +832,27 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   height: 100vh;
   visibility: hidden;
   opacity: 0;
+  z-index: 4;
   transition: all 0.4s;
+}
+.Popup__Title {
+  position: relative;
+  text-align: center;
+}
+.Popup__Title .Title {
+  position: relative;
+  background-color: #1B2633;
+  padding: 0 2rem;
+}
+.Popup__Title::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+  background-color: #96A2B4;
 }
 .Popup__Content {
   display: flex;
@@ -667,19 +862,47 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
   height: 100vh;
   padding: 0 2rem;
 }
+.Popup__Inner {
+  padding: 2.4rem;
+}
+.Popup__Inner:not(:first-child) {
+  padding-top: 0;
+}
 .Popup__Card {
   position: relative;
   max-width: 70rem;
-  max-height: calc(100% - 5rem);
   width: 100%;
   padding: 3rem;
   border-radius: 5px;
 }
+.Popup__CardContent {
+  max-height: calc(100vh - 20rem);
+  overflow-y: auto;
+}
+.Popup__CardContent::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.Popup__CardContent::-webkit-scrollbar-track, .Popup__CardContent::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.Popup__CardContent:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.Popup__CardContent:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
+}
 .Popup__Close {
   position: absolute;
-  top: 1.5rem;
-  right: 2rem;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   cursor: pointer;
+  background-color: #3F51B5;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 50%;
   transition: all 0.4s;
 }
 .Popup.Open {
@@ -699,13 +922,121 @@ html[lang=ar] .Selector.Selected .Selector__WordLabel {
 .Popup--Dark .Popup__Card .Form--Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   background-color: #1B2633;
 }
+.Popup--Dark .Popup__Card .Form--Dark .Form__Select .Selector__WordLabel {
+  background-color: #1B2633;
+}
+.Popup--Dark .Popup__Card .Form--Dark .Form__Select .Selector__Options {
+  background-color: #1B2633;
+}
 .Popup--Dark .Popup__Close:hover {
-  color: #10C093;
+  background-color: #252f69;
 }
 
-html[lang=ar] .Popup__Close {
-  right: initial;
-  left: 2rem;
+.Skills {
+  position: relative;
+}
+.Skills__List {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.Skills__List .Skill {
+  font-size: 1.2rem;
+  background-color: #3F51B5;
+  padding: 0 1rem;
+  border-radius: 5px;
+  color: #fff;
+}
+@media only screen and (max-width: 47.99em) {
+  .Skills__List {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked {
+  position: relative;
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #96A2B4;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  font-size: 2rem;
+  left: 0.2rem;
+  top: 0.1rem;
+}
+
+.DragDrop__Zone.Empty {
+  position: relative;
+  width: 100%;
+  height: 20rem;
+  border: 1px solid #23364e;
+  border-radius: 5px;
+}
+.DragDrop__Zone.Empty .DragDrop__Tip {
+  display: block;
+}
+.DragDrop__Tip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  font-size: 3rem;
+}
+
+.Pagination {
+  position: relative;
+}
+.Pagination--Select .Pagination__List {
+  gap: 1.5rem;
+}
+.Pagination--Select .Pagination__PageWord, .Pagination--Select .Pagination__PageOf {
+  font-size: 1.2rem;
+}
+.Pagination--Select .Input__Field {
+  min-width: 7rem;
+  padding: 0.5rem 1rem;
+}
+.Pagination__List {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.Pagination__Number a, .Pagination__Previous a, .Pagination__Next a, .Pagination__Points {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: 1px solid #23364e;
+  color: #96A2B4;
+}
+.Pagination__Number a, .Pagination__Previous a, .Pagination__Next a {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.Pagination__Number a:hover, .Pagination__Previous a:hover, .Pagination__Next a:hover {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.Pagination__Previous a {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.Pagination__Next a {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .HeaderPage {
@@ -752,8 +1083,8 @@ html[lang=ar] .Popup__Close {
   visibility: hidden;
   overflow: hidden;
 }
-.HeaderPage__AccountAlerts .AccountAlerts > .UserImage.Open .Dropdown,
-.HeaderPage__AccountAlerts .AccountAlerts .Alert.Open .Dropdown {
+.HeaderPage__AccountAlerts .AccountAlerts > .UserImage .Dropdown.Show,
+.HeaderPage__AccountAlerts .AccountAlerts .Alert .Dropdown.Show {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
@@ -940,7 +1271,6 @@ html[lang=ar] .Popup__Close {
     width: 100%;
   }
   .HeaderPage__MenusOpening .MenusOpening {
-    flex-direction: row-reverse;
     justify-content: space-between;
   }
   .HeaderPage__AccountAlerts {
@@ -959,13 +1289,13 @@ html[lang=ar] .Popup__Close {
   }
 }
 @media only screen and (min-width: 75em) {
-  .HeaderPage {
+  .HeaderPage:not(.HeaderPage--Print) {
     padding-left: 7rem;
   }
-  .HeaderPage.OpenMenu {
+  .HeaderPage:not(.HeaderPage--Print).OpenMenu {
     padding-left: 26rem;
   }
-  .HeaderPage__MenusOpening .MenusOpening .Logo {
+  .HeaderPage:not(.HeaderPage--Print) .HeaderPage__MenusOpening .MenusOpening .Logo {
     display: none;
   }
 }
@@ -984,13 +1314,16 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
   left: 0.8rem;
 }
 @media only screen and (min-width: 75em) {
-  html[lang=ar] .HeaderPage {
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print) {
     padding-left: 0;
     padding-right: 7rem;
   }
-  html[lang=ar] .HeaderPage.OpenMenu {
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print).OpenMenu {
     padding-left: 0;
     padding-right: 26rem;
+  }
+  html[lang=ar] .HeaderPage:not(.HeaderPage--Print) .HeaderPage__MenusOpening .MenusOpening .Logo {
+    display: none;
   }
 }
 
@@ -1337,6 +1670,9 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   width: 100%;
   max-width: 100%;
   margin-top: 2rem;
+}
+.Row.m0 > * {
+  margin-top: 0;
 }
 .Row .Col {
   flex: 0 1 auto;
@@ -1689,6 +2025,390 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   }
 }
 
+.Taps {
+  position: relative;
+}
+.Taps__List {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 2.5rem;
+  border-bottom: 1px solid #23364e;
+}
+.Taps__Item {
+  position: relative;
+  padding: 1.5rem;
+  color: #b6c6e3;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.Taps__Item:hover {
+  color: #fff;
+}
+.Taps__Item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(50%);
+  width: 100%;
+  height: 2px;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: all 0.3s;
+}
+.Taps__Item--Icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.Taps__Item.Active {
+  color: #10C093;
+}
+.Taps__Item.Active::after {
+  background-color: #10C093;
+}
+.Taps__Panel {
+  display: none;
+}
+.Taps__Panel.Active {
+  display: block;
+}
+
+.Table {
+  position: relative;
+}
+.Table__BulkTools .BulkTools {
+  position: relative;
+}
+.Table__BulkTools .BulkTools .Form {
+  display: flex;
+  gap: 1rem;
+}
+.Table__ContentTable {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.Table__Table {
+  display: table;
+  width: 100%;
+  font-size: 1.3rem;
+  border-collapse: collapse;
+}
+.Table__Table .GroupRows {
+  display: table-row-group;
+}
+.Table__Table .GroupRows__MainRow.Show {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.Table__Table .GroupRows__SubRows {
+  display: none;
+  background-color: #11151e;
+}
+.Table__Table .Item {
+  display: table-row;
+}
+.Table__Table .Item__Col {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0.8rem;
+  border-bottom: 1px solid #23364e;
+}
+.Table__Table .Item__Col .fitContent {
+  width: 1%;
+}
+.Table__Table .Item__Col--Check {
+  line-height: 1;
+}
+.Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
+  background-color: #10C093;
+}
+.Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+.Table__Table .Item__Col--Check .CheckBoxRow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.Table__Table .Item__Col--Check .CheckBoxRow > .material-icons {
+  font-size: 1.4rem;
+  left: 0;
+  top: 0;
+}
+.Table__Table .Item__Col--Tools .Tools {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.Table__Table .Item__Col--Tools .Tools .IconClick {
+  position: relative;
+  font-size: 1.6rem;
+  color: #96A2B4;
+}
+.Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
+  color: #10C093;
+}
+.Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
+  color: #f93542;
+}
+.Table__Table .Item__Col--Details .Details__Button {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.Table__Table .Item__Col--Details .Details__Button:hover {
+  color: #10C093;
+}
+.Table__Table .Item:hover .Item__Col--Tools .Tools {
+  visibility: visible;
+  opacity: 1;
+}
+.Table__Pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media only screen and (max-width: 35.99em) {
+  .Table__Pagination {
+    justify-content: center;
+  }
+  .Table__Pagination .Pagination--Numbers {
+    display: none;
+  }
+}
+
+html[lang=en] .Table__Table .Item__Col:first-child {
+  padding-left: 2.4rem;
+}
+html[lang=en] .Table__Table .Item__Col:last-child {
+  padding-right: 2.4rem;
+}
+
+html[lang=ar] .Table__Table .Item__Col:first-child {
+  padding-right: 2.4rem;
+}
+html[lang=ar] .Table__Table .Item__Col:last-child {
+  padding-left: 2.4rem;
+}
+
+.Cookies {
+  position: fixed;
+  right: 0;
+  bottom: 5rem;
+  max-width: 34.5rem;
+  width: 100%;
+  border-radius: 5px;
+  transform: translateX(100%);
+  padding: 1.5rem 2.5rem 2.2rem;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.Cookies__Header {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  color: #3F51B5;
+  margin-bottom: 1.5rem;
+}
+.Cookies__Icon {
+  font-size: 3.2rem;
+}
+.Cookies__Content {
+  margin-bottom: 2.5rem;
+}
+.Cookies__ReadMore {
+  color: #10C093;
+}
+.Cookies__ReadMore:hover {
+  color: #fff;
+}
+.Cookies__Buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.Cookies--Dark {
+  background-color: #1B2633;
+}
+.Cookies.Show {
+  right: 2rem;
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+}
+@media only screen and (max-width: 35.99em) {
+  .Cookies {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+html[lang=ar] .Cookies {
+  right: initial;
+  left: 0;
+}
+html[lang=ar] .Cookies.Show {
+  right: initial;
+  left: 2rem;
+}
+
+.NoData__Content {
+  text-align: center;
+}
+.NoData__Image img {
+  max-width: 25rem;
+  width: 100%;
+}
+.NoData__Title {
+  color: #b6c6e3;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.FooterPage {
+  position: relative;
+  width: 100%;
+  z-index: 3;
+  transition: padding 0.4s;
+}
+.FooterPage__Wrap {
+  background-color: #1B202D;
+}
+.FooterPage__Content {
+  padding: 1.5rem 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
+.FooterPage__Links {
+  text-align: right;
+}
+@media only screen and (min-width: 75em) {
+  .FooterPage {
+    padding-left: 7rem;
+  }
+  .FooterPage.OpenMenu {
+    padding-left: 26rem;
+  }
+}
+.FooterPage--Print {
+  padding-left: 0;
+}
+.FooterPage--Print.OpenMenu {
+  padding-left: 0;
+}
+
+html[lang=ar] .FooterPage__Links {
+  text-align: left;
+}
+@media only screen and (min-width: 75em) {
+  html[lang=ar] .FooterPage {
+    padding-left: 0;
+    padding-right: 7rem;
+  }
+  html[lang=ar] .FooterPage.OpenMenu {
+    padding-left: 0;
+    padding-right: 26rem;
+  }
+}
+html[lang=ar] .FooterPage--Print {
+  padding-right: 0;
+}
+html[lang=ar] .FooterPage--Print.OpenMenu {
+  padding-right: 0;
+}
+
+.AuthenticationPage {
+  position: relative;
+}
+.AuthenticationPage__Content {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.AuthenticationPage__Logo {
+  position: absolute;
+  left: 50%;
+  top: 1rem;
+  transform: translateX(-50%);
+}
+.AuthenticationPage__Logo .Logo__Image {
+  width: 6rem;
+  height: 6rem;
+}
+.AuthenticationPage__ImagePage {
+  width: 50%;
+}
+.AuthenticationPage__ImagePage > img {
+  object-fit: contain;
+  object-position: center;
+}
+.AuthenticationPage__LoginForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 0 2rem;
+  background-color: #1B202D;
+}
+.AuthenticationPage__LoginForm .Content {
+  max-width: 100%;
+  width: 40rem;
+  margin: auto 0;
+}
+.AuthenticationPage__Title {
+  color: #96A2B4;
+  text-transform: capitalize;
+}
+.AuthenticationPage__Text {
+  margin-bottom: 2.5rem;
+}
+.AuthenticationPage__Text .LoginPage__Title {
+  margin-bottom: 0.5rem;
+}
+.AuthenticationPage__Form .Form__Button .Button {
+  width: 100%;
+}
+@media only screen and (max-width: 61.99em) {
+  .AuthenticationPage__Content {
+    height: auto;
+    min-height: 100vh;
+    overflow: initial;
+  }
+  .AuthenticationPage__Logo {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .AuthenticationPage__Logo .Logo > a {
+    justify-content: center;
+  }
+  .AuthenticationPage__ImagePage {
+    display: none;
+  }
+  .AuthenticationPage__LoginForm {
+    width: 100%;
+  }
+  .AuthenticationPage__LoginForm .Content {
+    position: relative;
+    width: 55rem;
+    border: 1px solid #96A2B4;
+    border-radius: 5px;
+    padding: 6rem 3rem 3rem;
+  }
+}
+
 .MainContent {
   position: relative;
   min-height: calc(100vh - 5rem);
@@ -1722,94 +2442,6 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   flex: 1;
 }
 
-.LoginPage {
-  position: relative;
-}
-.LoginPage__Content {
-  position: relative;
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-.LoginPage__Logo {
-  position: absolute;
-  left: 50%;
-  top: 1rem;
-  transform: translateX(-50%);
-}
-.LoginPage__Logo .Logo__Image {
-  width: 6rem;
-  height: 6rem;
-}
-.LoginPage__ImagePage {
-  width: 50%;
-}
-.LoginPage__ImagePage > img {
-  object-fit: contain;
-  object-position: center;
-}
-.LoginPage__LoginForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  padding: 0 2rem;
-  background-color: #1B202D;
-}
-.LoginPage__LoginForm .Content {
-  max-width: 100%;
-  width: 40rem;
-  margin: auto 0;
-}
-.LoginPage__Title {
-  color: #96A2B4;
-  text-transform: capitalize;
-}
-.LoginPage__Text {
-  margin-bottom: 2.5rem;
-}
-.LoginPage__Text .LoginPage__Title {
-  margin-bottom: 0.5rem;
-}
-.LoginPage__Form .Form__Button .Button {
-  width: 100%;
-}
-.LoginPage__Form .Form__Link .Link__Area {
-  text-align: right;
-}
-@media only screen and (max-width: 61.99em) {
-  .LoginPage__Content {
-    height: auto;
-    min-height: 100vh;
-    overflow: initial;
-  }
-  .LoginPage__Logo {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .LoginPage__Logo .Logo > a {
-    justify-content: center;
-  }
-  .LoginPage__ImagePage {
-    display: none;
-  }
-  .LoginPage__LoginForm {
-    width: 100%;
-  }
-  .LoginPage__LoginForm .Content {
-    position: relative;
-    width: 55rem;
-    border: 1px solid #96A2B4;
-    border-radius: 5px;
-    padding: 6rem 3rem 3rem;
-  }
-}
-
-html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
-  text-align: left;
-}
-
 .ProfilePage__Image {
   position: relative;
   display: flex;
@@ -1820,46 +2452,6 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
 .ProfilePage__Image .UserImage {
   width: 10rem;
   height: 10rem;
-  cursor: pointer;
-}
-.ProfilePage__Image .UserImage__Edit {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #3F51B5;
-  border-radius: 50%;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.4s;
-}
-.ProfilePage__Image .UserImage__Edit .EditIcon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-}
-.ProfilePage__Image .UserImage .LockOpenIcon {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: #3F51B5;
-  color: #fff;
-  padding: 0.5rem;
-  border-radius: 50%;
-  visibility: visible;
-  opacity: 1;
-  transition: all 0.4s;
-}
-.ProfilePage__Image .UserImage:hover .UserImage__Edit {
-  visibility: visible;
-  opacity: 1;
-}
-.ProfilePage__Image .UserImage:hover .LockOpenIcon {
-  visibility: hidden;
-  opacity: 0;
 }
 .ProfilePage__Image .Text {
   text-align: center;
@@ -1882,18 +2474,89 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
   flex-direction: row;
   justify-content: space-between;
 }
-.ProfilePage__Skills .Skills__List {
+.ProfilePage__PasswordChange .PasswordChange,
+.ProfilePage__PasswordChange .DeleteAccount, .ProfilePage__DeleteAccount .PasswordChange,
+.ProfilePage__DeleteAccount .DeleteAccount {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  row-gap: 1.5rem;
+}
+.ProfilePage__PasswordChange .PasswordChange__Label > *,
+.ProfilePage__PasswordChange .DeleteAccount__Label > *, .ProfilePage__DeleteAccount .PasswordChange__Label > *,
+.ProfilePage__DeleteAccount .DeleteAccount__Label > * {
+  margin-bottom: 0.5rem;
+}
+.ProfilePage__PasswordChange .PasswordChange__Title,
+.ProfilePage__PasswordChange .DeleteAccount__Title, .ProfilePage__DeleteAccount .PasswordChange__Title,
+.ProfilePage__DeleteAccount .DeleteAccount__Title {
+  color: #fff;
+}
+.ProfilePage__PasswordChange .PasswordChange__Text,
+.ProfilePage__PasswordChange .DeleteAccount__Text, .ProfilePage__DeleteAccount .PasswordChange__Text,
+.ProfilePage__DeleteAccount .DeleteAccount__Text {
+  color: #96A2B4;
+}
+.ProfilePage__PasswordChange .PasswordChange__LastChange,
+.ProfilePage__PasswordChange .DeleteAccount__LastChange, .ProfilePage__DeleteAccount .PasswordChange__LastChange,
+.ProfilePage__DeleteAccount .DeleteAccount__LastChange {
+  font-size: 1.2rem;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage {
+  cursor: pointer;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage__Edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3F51B5;
+  border-radius: 50%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage__Edit .EditIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #3F51B5;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage:hover .UserImage__Edit {
+  visibility: visible;
+  opacity: 1;
+}
+.ProfilePage--My .ProfilePage__Image .UserImage:hover .LockOpenIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage--My .ProfilePage__Connection .Card__Header {
+  display: flex;
+  align-items: center;
   gap: 1rem;
 }
-.ProfilePage__Skills .Skills__List .Skill {
-  font-size: 1.2rem;
-  background-color: #3F51B5;
-  padding: 0 1rem;
-  border-radius: 5px;
-  color: #fff;
+.ProfilePage--My .ProfilePage__Connection .EditIcon {
+  visibility: hidden;
+  opacity: 0;
+}
+.ProfilePage--My .ProfilePage__Connection:hover .EditIcon {
+  visibility: visible;
+  opacity: 1;
 }
 @media only screen and (max-width: 47.99em) {
   .ProfilePage__Connection .SocialMedia {
@@ -1901,15 +2564,829 @@ html[lang=ar] .LoginPage__Form .Form__Link .Link__Area {
     gap: 1rem;
     flex-wrap: wrap;
   }
-  .ProfilePage__Skills .Skills__List {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
 }
 
-html[lang=ar] .ProfilePage__Image .UserImage .LockOpenIcon {
+html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   left: initial;
   right: 0;
+}
+
+.MessagePage {
+  position: relative;
+}
+.MessagePage__Content {
+  max-width: 55rem;
+  width: 100%;
+  margin: auto;
+}
+.MessagePage__Image {
+  width: 100%;
+}
+.MessagePage__Title {
+  text-align: center;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+  margin-bottom: 2rem;
+  color: #b6c6e3;
+}
+.MessagePage__Title h2 {
+  font-size: 3rem;
+}
+.MessagePage__Description {
+  text-align: center;
+}
+.MessagePage--404 .MessagePage__Image {
+  max-height: 45rem;
+  height: 100%;
+}
+.MessagePage--ComingSoon .MessagePage__Image {
+  max-height: 36rem;
+  height: 100%;
+}
+
+/**
+ * Trumbowyg v2.27.3 - A lightweight WYSIWYG editor
+ * Default stylesheet for Trumbowyg editor
+ * ------------------------
+ * @link https://alex-d.github.io/Trumbowyg/
+ * @license MIT
+ * @author Alexandre Demode (Alex-D)
+ *         Twitter : @AlexandreDemode
+ *         Website : alex-d.fr
+ */
+#trumbowyg-icons,
+.trumbowyg-icons {
+  overflow: hidden;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+#trumbowyg-icons svg,
+.trumbowyg-icons svg {
+  height: 0;
+  width: 0;
+}
+
+.trumbowyg-box *,
+.trumbowyg-box *::before,
+.trumbowyg-box *::after,
+.trumbowyg-modal *,
+.trumbowyg-modal *::before,
+.trumbowyg-modal *::after {
+  box-sizing: border-box;
+}
+.trumbowyg-box svg,
+.trumbowyg-modal svg {
+  width: 17px;
+  height: 100%;
+  color: #222;
+  fill: #222;
+}
+
+.trumbowyg-box {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.trumbowyg-editor-box {
+  display: block;
+  flex: 1;
+}
+
+.trumbowyg-box,
+.trumbowyg-editor-box {
+  position: relative;
+  width: 100%;
+  border: 1px solid #d7e0e2;
+}
+
+.trumbowyg-box .trumbowyg-editor {
+  min-height: 100%;
+  margin: 0 auto;
+}
+
+.trumbowyg-box.trumbowyg-fullscreen {
+  background: #fefefe;
+  border: none !important;
+}
+
+.trumbowyg-editor-box,
+.trumbowyg-textarea {
+  position: relative;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
+  border-style: none;
+  resize: none;
+  outline: none;
+  overflow: auto;
+  user-select: text;
+}
+.trumbowyg-editor-box.trumbowyg-autogrow-on-enter,
+.trumbowyg-textarea.trumbowyg-autogrow-on-enter {
+  transition: height 300ms ease-out;
+}
+
+.trumbowyg-editor-box {
+  padding: 0;
+}
+
+.trumbowyg-editor {
+  outline: none;
+  padding: 20px;
+}
+
+.trumbowyg-box-blur .trumbowyg-editor *, .trumbowyg-box-blur .trumbowyg-editor::before {
+  color: transparent !important;
+  text-shadow: 0 0 7px #333;
+}
+@media screen and (min-width: 0 \0 ) {
+  .trumbowyg-box-blur .trumbowyg-editor *, .trumbowyg-box-blur .trumbowyg-editor::before {
+    color: rgba(200, 200, 200, 0.6) !important;
+  }
+}
+@supports (-ms-accelerator: true) {
+  .trumbowyg-box-blur .trumbowyg-editor *, .trumbowyg-box-blur .trumbowyg-editor::before {
+    color: rgba(200, 200, 200, 0.6) !important;
+  }
+}
+.trumbowyg-box-blur .trumbowyg-editor img,
+.trumbowyg-box-blur .trumbowyg-editor hr {
+  opacity: 0.2;
+}
+
+.trumbowyg-textarea {
+  position: relative;
+  display: block;
+  overflow: auto;
+  border: none;
+  font-size: 14px;
+  font-family: "Consolas", "Courier", "Courier New", monospace;
+  line-height: 18px;
+}
+
+.trumbowyg-box.trumbowyg-editor-visible .trumbowyg-textarea {
+  height: 1px !important;
+  width: 25%;
+  min-height: 0 !important;
+  padding: 0 !important;
+  background: none;
+  opacity: 0 !important;
+}
+
+.trumbowyg-box.trumbowyg-editor-hidden .trumbowyg-textarea {
+  display: block;
+  flex: 1;
+  margin-bottom: 1px;
+}
+.trumbowyg-box.trumbowyg-editor-hidden .trumbowyg-editor-box {
+  display: none;
+}
+
+.trumbowyg-box.trumbowyg-disabled .trumbowyg-textarea {
+  opacity: 0.8;
+  background: none;
+}
+
+.trumbowyg-editor-box[contenteditable=true]:empty:not(:focus)::before {
+  content: attr(placeholder);
+  color: #999;
+  pointer-events: none;
+  white-space: break-spaces;
+}
+
+.trumbowyg-button-pane {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 36px;
+  background: #ecf0f1;
+  border-bottom: 1px solid #d7e0e2;
+  margin: 0;
+  padding: 0 5px;
+  position: relative;
+  list-style-type: none;
+  line-height: 10px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  z-index: 11;
+}
+.trumbowyg-button-pane::before, .trumbowyg-button-pane::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 35px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 1px;
+  background: #d7e0e2;
+}
+.trumbowyg-button-pane::after {
+  top: 71px;
+}
+.trumbowyg-button-pane .trumbowyg-button-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+.trumbowyg-button-pane .trumbowyg-button-group .trumbowyg-fullscreen-button svg {
+  color: transparent;
+}
+.trumbowyg-button-pane .trumbowyg-button-group::after {
+  content: " ";
+  display: block;
+  width: 1px;
+  background: #d7e0e2;
+  margin: 0 5px;
+  height: 35px;
+  vertical-align: top;
+}
+.trumbowyg-button-pane .trumbowyg-button-group:last-child::after {
+  content: none;
+}
+.trumbowyg-button-pane button {
+  display: block;
+  position: relative;
+  width: 35px;
+  height: 35px;
+  padding: 1px 6px !important;
+  margin-bottom: 1px;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  background: none;
+  vertical-align: middle;
+  transition: background-color 150ms, opacity 150ms;
+}
+.trumbowyg-button-pane button.trumbowyg-textual-button {
+  width: auto;
+  line-height: 35px;
+  user-select: none;
+}
+.trumbowyg-button-pane.trumbowyg-disable button:not(.trumbowyg-not-disable):not(.trumbowyg-active),
+.trumbowyg-button-pane button.trumbowyg-disable, .trumbowyg-disabled .trumbowyg-button-pane button:not(.trumbowyg-not-disable):not(.trumbowyg-viewHTML-button) {
+  opacity: 0.2;
+  cursor: default;
+  pointer-events: none;
+}
+.trumbowyg-button-pane.trumbowyg-disable .trumbowyg-button-group::before, .trumbowyg-disabled .trumbowyg-button-pane .trumbowyg-button-group::before {
+  background: #e3e9eb;
+}
+.trumbowyg-button-pane button:not(.trumbowyg-disable):hover,
+.trumbowyg-button-pane button:not(.trumbowyg-disable):focus,
+.trumbowyg-button-pane button.trumbowyg-active {
+  background-color: #fff;
+  outline: none;
+}
+.trumbowyg-button-pane .trumbowyg-open-dropdown::after {
+  display: block;
+  content: " ";
+  position: absolute;
+  top: 27px;
+  right: 3px;
+  height: 0;
+  width: 0;
+  border: 3px solid transparent;
+  border-top-color: #555;
+}
+.trumbowyg-button-pane .trumbowyg-open-dropdown.trumbowyg-textual-button {
+  padding-left: 10px !important;
+  padding-right: 18px !important;
+}
+.trumbowyg-button-pane .trumbowyg-open-dropdown.trumbowyg-textual-button::after {
+  top: 17px;
+  right: 7px;
+}
+.trumbowyg-button-pane .trumbowyg-right {
+  margin-left: auto;
+}
+
+.trumbowyg-dropdown {
+  max-width: 300px;
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: nowrap;
+  border: 1px solid #d7e0e2;
+  padding: 5px 0;
+  border-top: none;
+  background: #fff;
+  color: #222;
+  margin-left: -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 3px;
+  z-index: 12;
+}
+.trumbowyg-dropdown button {
+  display: block;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  text-decoration: none;
+  background: #fff;
+  padding: 0 20px 0 10px;
+  color: #222;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+  transition: all 150ms;
+}
+.trumbowyg-dropdown button:hover, .trumbowyg-dropdown button:focus {
+  background: #ecf0f1;
+}
+.trumbowyg-dropdown button svg {
+  float: left;
+  margin-right: 14px;
+}
+
+/* Modal box */
+.trumbowyg-modal {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 520px;
+  width: 100%;
+  height: 350px;
+  z-index: 12;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.trumbowyg-modal-box {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 500px;
+  width: calc(100% - 20px);
+  padding-bottom: 45px;
+  z-index: 1;
+  background-color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Trebuchet MS", Helvetica, Verdana, sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 3px;
+  backface-visibility: hidden;
+}
+.trumbowyg-modal-box .trumbowyg-modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px;
+  padding: 15px 0 13px;
+  display: block;
+  border-bottom: 1px solid #d7e0e2;
+}
+.trumbowyg-modal-box .trumbowyg-progress {
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  top: 58px;
+}
+.trumbowyg-modal-box .trumbowyg-progress .trumbowyg-progress-bar {
+  background: #2BC06A;
+  width: 0;
+  height: 100%;
+  transition: width 150ms linear;
+}
+.trumbowyg-modal-box .trumbowyg-input-row {
+  position: relative;
+  margin: 15px 12px;
+  border: 1px solid #dedede;
+  overflow: hidden;
+}
+.trumbowyg-modal-box .trumbowyg-input-infos {
+  text-align: left;
+  transition: all 150ms;
+  width: 150px;
+  border-right: 1px solid #dedede;
+  padding: 0 7px;
+  background-color: #fbfcfc;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+.trumbowyg-modal-box .trumbowyg-input-infos label {
+  color: #69878f;
+  overflow: hidden;
+  height: 27px;
+  line-height: 27px;
+}
+.trumbowyg-modal-box .trumbowyg-input-infos label, .trumbowyg-modal-box .trumbowyg-input-infos label span {
+  display: block;
+  height: 27px;
+  line-height: 27px;
+  transition: all 150ms;
+}
+.trumbowyg-modal-box .trumbowyg-input-infos .trumbowyg-msg-error {
+  color: #e74c3c;
+}
+.trumbowyg-modal-box .trumbowyg-input-html {
+  padding: 1px 1px 1px 152px;
+}
+.trumbowyg-modal-box .trumbowyg-input-html, .trumbowyg-modal-box .trumbowyg-input-html input, .trumbowyg-modal-box .trumbowyg-input-html textarea, .trumbowyg-modal-box .trumbowyg-input-html select {
+  font-size: 14px;
+}
+.trumbowyg-modal-box .trumbowyg-input-html input, .trumbowyg-modal-box .trumbowyg-input-html textarea, .trumbowyg-modal-box .trumbowyg-input-html select {
+  transition: all 150ms;
+  height: 27px;
+  line-height: 27px;
+  border: 0;
+  width: 100%;
+  padding: 0 7px;
+}
+.trumbowyg-modal-box .trumbowyg-input-html input:hover, .trumbowyg-modal-box .trumbowyg-input-html input:focus, .trumbowyg-modal-box .trumbowyg-input-html textarea:hover, .trumbowyg-modal-box .trumbowyg-input-html textarea:focus, .trumbowyg-modal-box .trumbowyg-input-html select:hover, .trumbowyg-modal-box .trumbowyg-input-html select:focus {
+  outline: 1px solid #95a5a6;
+}
+.trumbowyg-modal-box .trumbowyg-input-html input:focus, .trumbowyg-modal-box .trumbowyg-input-html textarea:focus, .trumbowyg-modal-box .trumbowyg-input-html select:focus {
+  background: #fbfcfc;
+}
+.trumbowyg-modal-box .trumbowyg-input-html input[type=checkbox] {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+}
+.trumbowyg-modal-box .trumbowyg-input-html-with-checkbox {
+  text-align: left;
+  padding: 3px 1px 1px 3px;
+}
+.trumbowyg-modal-box .trumbowyg-input-error input, .trumbowyg-modal-box .trumbowyg-input-error select, .trumbowyg-modal-box .trumbowyg-input-error textarea {
+  outline: 1px solid #e74c3c;
+}
+.trumbowyg-modal-box .trumbowyg-input-error .trumbowyg-input-infos label span:first-child {
+  margin-top: -27px;
+}
+.trumbowyg-modal-box .error {
+  margin-top: 25px;
+  display: block;
+  color: red;
+}
+.trumbowyg-modal-box .trumbowyg-modal-button {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  width: 100px;
+  height: 35px;
+  line-height: 33px;
+  margin: 0 10px;
+  background-color: #333;
+  border: none;
+  cursor: pointer;
+  font-family: "Trebuchet MS", Helvetica, Verdana, sans-serif;
+  font-size: 16px;
+  transition: all 150ms;
+}
+.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit {
+  right: 110px;
+  background: #2bc06a;
+}
+.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit:hover, .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit:focus {
+  background: #40d47e;
+  outline: none;
+}
+.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit:active {
+  background: #25a25a;
+}
+.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset {
+  color: #555;
+  background: #e6e6e6;
+}
+.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset:hover, .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset:focus {
+  background: #fbfbfb;
+  outline: none;
+}
+.trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset:active {
+  background: #d5d5d5;
+}
+
+.trumbowyg-overlay {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+  width: 100%;
+  left: 0;
+  display: none;
+  top: 0;
+  z-index: 10;
+}
+
+/**
+ * Fullscreen
+ */
+body.trumbowyg-body-fullscreen {
+  overflow: hidden;
+}
+
+.trumbowyg-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 99999;
+}
+.trumbowyg-fullscreen.trumbowyg-box,
+.trumbowyg-fullscreen .trumbowyg-editor-box {
+  border: none;
+}
+.trumbowyg-fullscreen .trumbowyg-editor-box,
+.trumbowyg-fullscreen .trumbowyg-textarea {
+  height: auto !important;
+  overflow: auto;
+}
+.trumbowyg-fullscreen .trumbowyg-overlay {
+  height: 100% !important;
+}
+.trumbowyg-fullscreen .trumbowyg-button-group .trumbowyg-fullscreen-button svg {
+  color: #222;
+  fill: transparent;
+}
+
+.trumbowyg-editor {
+  /*
+   * For resetCss option
+   */
+}
+.trumbowyg-editor object,
+.trumbowyg-editor embed,
+.trumbowyg-editor video,
+.trumbowyg-editor img {
+  max-width: 100%;
+}
+.trumbowyg-editor video,
+.trumbowyg-editor img {
+  height: auto;
+}
+.trumbowyg-editor img {
+  cursor: move;
+}
+.trumbowyg-editor canvas:focus {
+  outline: none;
+}
+.trumbowyg-editor.trumbowyg-reset-css {
+  background: #fefefe !important;
+  font-family: "Trebuchet MS", Helvetica, Verdana, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.45em !important;
+  color: #333 !important;
+  font-weight: normal !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css a {
+  color: #15c !important;
+  text-decoration: underline !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css div,
+.trumbowyg-editor.trumbowyg-reset-css p,
+.trumbowyg-editor.trumbowyg-reset-css ul,
+.trumbowyg-editor.trumbowyg-reset-css ol,
+.trumbowyg-editor.trumbowyg-reset-css blockquote {
+  box-shadow: none !important;
+  background: none !important;
+  margin: 0 !important;
+  margin-bottom: 15px !important;
+  line-height: 1.4em !important;
+  font-family: "Trebuchet MS", Helvetica, Verdana, sans-serif !important;
+  font-size: 14px !important;
+  border: none !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css iframe,
+.trumbowyg-editor.trumbowyg-reset-css object,
+.trumbowyg-editor.trumbowyg-reset-css hr {
+  margin-bottom: 15px !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css blockquote {
+  margin-left: 32px !important;
+  font-style: italic !important;
+  color: #555 !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css ul {
+  list-style: disc !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css ol {
+  list-style: decimal !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css ul,
+.trumbowyg-editor.trumbowyg-reset-css ol {
+  padding-left: 20px !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css ul ul,
+.trumbowyg-editor.trumbowyg-reset-css ol ol,
+.trumbowyg-editor.trumbowyg-reset-css ul ol,
+.trumbowyg-editor.trumbowyg-reset-css ol ul {
+  border: none !important;
+  margin: 2px !important;
+  padding: 0 !important;
+  padding-left: 24px !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css hr {
+  display: block !important;
+  height: 1px !important;
+  border: none !important;
+  border-top: 1px solid #CCC !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css h1,
+.trumbowyg-editor.trumbowyg-reset-css h2,
+.trumbowyg-editor.trumbowyg-reset-css h3,
+.trumbowyg-editor.trumbowyg-reset-css h4 {
+  color: #111 !important;
+  background: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-weight: bold !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css h1 {
+  font-size: 32px !important;
+  line-height: 38px !important;
+  margin-bottom: 20px !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css h2 {
+  font-size: 26px !important;
+  line-height: 34px !important;
+  margin-bottom: 15px !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css h3 {
+  font-size: 22px !important;
+  line-height: 28px !important;
+  margin-bottom: 7px !important;
+}
+.trumbowyg-editor.trumbowyg-reset-css h4 {
+  font-size: 16px !important;
+  line-height: 22px !important;
+  margin-bottom: 7px !important;
+}
+
+/*
+ * Dark theme
+ */
+.trumbowyg-dark .trumbowyg-textarea {
+  background: #222;
+  color: #fff;
+  border-color: #343434;
+}
+.trumbowyg-dark .trumbowyg-box {
+  border: 1px solid #343434;
+}
+.trumbowyg-dark .trumbowyg-box.trumbowyg-fullscreen {
+  background: #111;
+}
+.trumbowyg-dark .trumbowyg-box.trumbowyg-box-blur .trumbowyg-editor *, .trumbowyg-dark .trumbowyg-box.trumbowyg-box-blur .trumbowyg-editor::before {
+  text-shadow: 0 0 7px #ccc;
+}
+@media screen and (min-width: 0 \0 ) {
+  .trumbowyg-dark .trumbowyg-box.trumbowyg-box-blur .trumbowyg-editor *, .trumbowyg-dark .trumbowyg-box.trumbowyg-box-blur .trumbowyg-editor::before {
+    color: rgba(20, 20, 20, 0.6) !important;
+  }
+}
+@supports (-ms-accelerator: true) {
+  .trumbowyg-dark .trumbowyg-box.trumbowyg-box-blur .trumbowyg-editor *, .trumbowyg-dark .trumbowyg-box.trumbowyg-box-blur .trumbowyg-editor::before {
+    color: rgba(20, 20, 20, 0.6) !important;
+  }
+}
+.trumbowyg-dark .trumbowyg-box svg {
+  fill: #fff;
+  color: #fff;
+}
+.trumbowyg-dark .trumbowyg-button-pane {
+  background-color: #222;
+  border-bottom-color: #343434;
+}
+.trumbowyg-dark .trumbowyg-button-pane::before, .trumbowyg-dark .trumbowyg-button-pane::after {
+  background: #343434;
+}
+.trumbowyg-dark .trumbowyg-button-pane .trumbowyg-button-group:not(:empty)::after {
+  background-color: #343434;
+}
+.trumbowyg-dark .trumbowyg-button-pane .trumbowyg-button-group:not(:empty) .trumbowyg-fullscreen-button svg {
+  color: transparent;
+}
+.trumbowyg-dark .trumbowyg-button-pane.trumbowyg-disable .trumbowyg-button-group::after {
+  background-color: #2a2a2a;
+}
+.trumbowyg-dark .trumbowyg-button-pane button:not(.trumbowyg-disable):hover,
+.trumbowyg-dark .trumbowyg-button-pane button:not(.trumbowyg-disable):focus,
+.trumbowyg-dark .trumbowyg-button-pane button.trumbowyg-active {
+  background-color: #333;
+}
+.trumbowyg-dark .trumbowyg-button-pane .trumbowyg-open-dropdown::after {
+  border-top-color: #fff;
+}
+.trumbowyg-dark .trumbowyg-fullscreen .trumbowyg-button-pane .trumbowyg-button-group:not(:empty) .trumbowyg-fullscreen-button svg {
+  color: #ecf0f1;
+  fill: transparent;
+}
+.trumbowyg-dark .trumbowyg-dropdown {
+  border-color: #343434;
+  background: #333;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 2px 3px;
+}
+.trumbowyg-dark .trumbowyg-dropdown button {
+  background: #333;
+  color: #fff;
+}
+.trumbowyg-dark .trumbowyg-dropdown button:hover, .trumbowyg-dark .trumbowyg-dropdown button:focus {
+  background: #222;
+}
+.trumbowyg-dark .trumbowyg-modal-box {
+  background-color: #333;
+  color: #fff;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-title {
+  border-bottom: 1px solid #555;
+  color: #fff;
+  background: #3c3c3c;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-input-row {
+  border-color: #222;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-input-infos {
+  color: #eee;
+  background-color: #2f2f2f;
+  border-right-color: #222;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-input-infos span {
+  color: #eee;
+  background-color: #2f2f2f;
+  border-color: #343434;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-input-infos span.trumbowyg-msg-error {
+  color: #e74c3c;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-input-row.trumbowyg-input-error input,
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-input-row.trumbowyg-input-error select,
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-input-row.trumbowyg-input-error textarea {
+  border-color: #e74c3c;
+}
+.trumbowyg-dark .trumbowyg-modal-box input,
+.trumbowyg-dark .trumbowyg-modal-box select,
+.trumbowyg-dark .trumbowyg-modal-box textarea {
+  border-color: #343434;
+  color: #fff;
+  background: #222;
+}
+.trumbowyg-dark .trumbowyg-modal-box input:hover, .trumbowyg-dark .trumbowyg-modal-box input:focus,
+.trumbowyg-dark .trumbowyg-modal-box select:hover,
+.trumbowyg-dark .trumbowyg-modal-box select:focus,
+.trumbowyg-dark .trumbowyg-modal-box textarea:hover,
+.trumbowyg-dark .trumbowyg-modal-box textarea:focus {
+  border-color: #626262;
+}
+.trumbowyg-dark .trumbowyg-modal-box input:focus,
+.trumbowyg-dark .trumbowyg-modal-box select:focus,
+.trumbowyg-dark .trumbowyg-modal-box textarea:focus {
+  background-color: #2f2f2f;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit {
+  background: #1b7943;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit:hover, .trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit:focus {
+  background: #25a25a;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-submit:active {
+  background: #176437;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset {
+  background: #333;
+  color: #ccc;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset:hover, .trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset:focus {
+  background: #444;
+}
+.trumbowyg-dark .trumbowyg-modal-box .trumbowyg-modal-button.trumbowyg-modal-reset:active {
+  background: #111;
+}
+.trumbowyg-dark .trumbowyg-overlay {
+  background-color: rgba(15, 15, 15, 0.6);
+}
+
+.trumbowyg-dark .trumbowyg-box {
+  border: 1px solid #96A2B4;
+}
+.trumbowyg-dark .trumbowyg-box svg {
+  fill: #96A2B4;
+  color: #96A2B4;
+}
+.trumbowyg-dark .trumbowyg-button-pane {
+  background-color: #1A202E;
+  border-bottom-color: #96A2B4;
+}
+.trumbowyg-dark .trumbowyg-button-pane button:not(.trumbowyg-disable):hover,
+.trumbowyg-dark .trumbowyg-button-pane button:not(.trumbowyg-disable):focus,
+.trumbowyg-dark .trumbowyg-button-pane button.trumbowyg-active {
+  background-color: #111620;
+}
+.trumbowyg-dark .trumbowyg-dropdown {
+  border-color: #1A202E;
+  background: #1A202E;
+}
+.trumbowyg-dark .trumbowyg-dropdown button {
+  background: #1A202E;
 }
 
 /*# sourceMappingURL=Style.css.map */
