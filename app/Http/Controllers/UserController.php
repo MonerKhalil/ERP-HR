@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\MainException;
+use App\Exports\TableCustomExport;
+use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
+use App\Http\Requests\BaseRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
@@ -12,7 +15,10 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UserController extends Controller
 {
@@ -21,7 +27,10 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->addMiddlewarePermissionsToFunctions(app(User::class)->getTable());
+        $table = app(User::class)->getTable();
+        $this->addMiddlewarePermissionsToFunctions($table);
+        $this->middleware("permission:delete_".$table)
+            ->only(["MultiUsersForceDelete","MultiUsersDelete","forceDelete"]);
     }
 
     /**
@@ -80,6 +89,7 @@ class UserController extends Controller
     public function show(User $user): Response|RedirectResponse|null
     {
         $auth = auth()->user();
+        $user = User::with("employee")->findOrFail($user->id);
         if ($auth->id == $user->id || $auth->can("read_users") || $auth->can("all_users")){
             $roles = Role::query()->pluck('name','id')->toArray();
             return $this->responseSuccess("System.Pages.Actors.profile",compact('user','roles'));
@@ -123,9 +133,112 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        $img = $user->image;
         $user->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+    }
+
+    /**
+     * @param BaseRequest $request
+     * @return mixed
+     * @throws MainException
+     * @author moner khalil
+     */
+    public function MultiUsersDelete(BaseRequest $request): mixed
+    {
+        $request->validate([
+            "users" => ["required","array"],
+            "users.*" => ["required",Rule::exists("users","id")],
+        ]);
+        $Delete = $this->ForceDeleteProcess(false,$request->users);
+        return !is_string($Delete) ? $this->responseSuccess(null,null,"delete",self::IndexRoute)
+            : throw new MainException($Delete);
+    }
+
+    /**
+     * @param User $user
+     * @return Response|RedirectResponse|null
+     * @author moner khalil
+     */
+    public function forceDelete(User $user): Response|RedirectResponse|null
+    {
+        $img = $user->image;
+        $user->forceDelete();
         MyApp::Classes()->storageFiles->deleteFile($img);
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+    }
+
+
+    /**
+     * @param BaseRequest $request
+     * @return mixed
+     * @throws MainException
+     * @author moner khalil
+     */
+    public function MultiUsersForceDelete(BaseRequest $request): mixed
+    {
+        $request->validate([
+            "users" => ["required","array"],
+            "users.*" => ["required",Rule::exists("users","id")],
+        ]);
+        $Delete = $this->ForceDeleteProcess(true,$request->users);
+        return !is_string($Delete) ? $this->responseSuccess(null,null,"delete",self::IndexRoute)
+            : throw new MainException($Delete);
+    }
+
+    /**
+     * @param bool $isForce
+     * @param array $users
+     * @return bool
+     * @author moner khalil
+     */
+    private function ForceDeleteProcess(bool $isForce = false, array $users): bool
+    {
+        try {
+            $images = [];
+            DB::beginTransaction();
+            foreach ($users as $user){
+                $user = User::query()->find($user);
+                if ($isForce){
+                    $images[] = $user->image;
+                    $user->forceDelete();
+                }else{
+                    $user->delete();
+                }
+            }
+            DB::commit();
+            MyApp::Classes()->storageFiles->deleteFile($images);
+            return true;
+        }catch (\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+
+    public function ExportXls(): BinaryFileResponse
+    {
+        $data = $this->MainExportData();
+        return Excel::download(new TableCustomExport($data['head'],$data['body']),self::Folder.".xlsx");
+    }
+
+    public function ExportPDF(): Response
+    {
+        $data = $this->MainExportData();
+        return ExportPDF::downloadPDF($data['head'],$data['body'],self::Folder);
+    }
+
+    /**
+     * @return array
+     * @author moner khalil
+     */
+    private function MainExportData(): array
+    {
+        $head = [
+            "name" , "email" , "created_at",
+        ];
+        $users = MyApp::Classes()->Search->getDataFilter(User::query()->select($head)->whereNot("id",auth()->id()));
+        return [
+            "head" => $head,
+            "body" => $users,
+        ];
     }
 }

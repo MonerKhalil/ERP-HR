@@ -3,6 +3,10 @@
 use App\HelpersClasses\MessagesFlash;
 use Illuminate\Support\Facades\Session;
 
+function FilterDataRequest(){
+    return  !is_null(request('filter')) ? request('filter') : [];
+}
+
 function Errors($key)
 {
     return Session::has(MessagesFlash::$Errors) && isset(Session::get(MessagesFlash::$Errors)[$key])
