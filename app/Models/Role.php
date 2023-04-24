@@ -17,7 +17,7 @@ class Role extends \Spatie\Permission\Models\Role
             $rules = [
                 'name' => ['required',Rule::unique("roles","name")],
                 'permissions' => 'required|array',
-                'permissions.id' => ['required',Rule::exists("permissions","id")],
+                'permissions.*' => ['required',Rule::exists("permissions","id")],
             ];
             if ($validator->isUpdatedRequest()){
                 $rules['name'] =  ["required",Rule::unique("roles","name")->ignore($validator->route('role')->id)];

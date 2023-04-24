@@ -8,11 +8,13 @@ use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -132,10 +134,21 @@ class UserController extends Controller
      * @return RedirectResponse
      * @author moner khalil
      */
-    public function destroy(User $user): RedirectResponse
+    public function destroy(Request $request,User $user): RedirectResponse
     {
+        if ($user->id == auth()->id()){
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            $return = "logout";
+        }else{
+            $return = self::IndexRoute;
+        }
         $user->delete();
-        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        return $this->responseSuccess(null,null,"delete",$return);
     }
 
     /**
