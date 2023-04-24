@@ -59,6 +59,26 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="Col-4-md Col-6-sm">
+                                                            <div class="Form__Group">
+                                                                <div class="Form__Select">
+                                                                    <div class="Select__Area">
+                                                                        @include("System.Components.multiSelector" , [
+                                                                            'Label' => "Selector Multi" ,
+                                                                            'Options' => [
+                                                                                [
+                                                                                    'value' => "1" , 'label' => '1'
+                                                                                ] , [
+                                                                                    'value' => "2" , 'label' => '2'
+                                                                                ]
+                                                                            ]
+                                                                        ])
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="Col-4-md Col-6-sm">
                                                             <div class="Form__Group">
                                                                 <div class="Form__Date">
@@ -91,9 +111,10 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Textarea">
                                                                     <div class="Textarea__Area">
-                                                                        <label class="Textarea__Label" for="DecisionEditor">Decision Number</label>
+                                                                        <label class="Textarea__Label" for="DecisionEditor">Decision Content</label>
                                                                         <div class="trumbowyg-dark">
-                                                                            <textarea id="DecisionEditor" class="TextEditor" required></textarea>
+                                                                            <textarea id="DecisionEditor" class="TextEditor Textarea__Field"
+                                                                                      placeholder="Your text as placeholder" required></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -120,4 +141,12 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("extraScripts")
+    {{-- JS Trumbowyg --}}
+    <script src="{{asset("System/Assets/Lib/trumbowyg/dist/trumbowyg.min.js")}}"></script>
+    @if(app()->getLocale()==="ar")
+        <script src="{{asset("System/Assets/Lib/trumbowyg/dist/langs/ar.min.js")}}"></script>
+    @endif
 @endsection

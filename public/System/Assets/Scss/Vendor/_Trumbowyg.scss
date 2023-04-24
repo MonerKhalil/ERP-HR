@@ -1,5 +1,14 @@
 @import "../../Lib/trumbowyg/dist/ui/sass/trumbowyg";
 
+.trumbowyg-box {
+    z-index: $BasicLayer;
+    border-radius: $BorderRadiusValue;
+    //overflow: hidden;
+
+    .trumbowyg-editor {
+        min-height: 26.1rem ;
+    }
+}
 
 
 .trumbowyg-dark {

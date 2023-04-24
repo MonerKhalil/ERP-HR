@@ -457,6 +457,10 @@ p {
   font-size: 1.6rem;
   cursor: pointer;
 }
+.Form__Textarea .Textarea__Label {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
 .Form__Link .Link__Anchor {
   font-size: 1.4rem;
 }
@@ -592,7 +596,7 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   position: relative;
   display: block;
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1.1rem 2rem;
   outline: 1px solid #96A2B4;
   border-radius: 5px;
   cursor: pointer;
@@ -700,6 +704,128 @@ html[lang=ar] .Selector.Size-2 .Selector__Main {
 html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   left: initial;
   right: 0.5rem;
+}
+
+.MultiSelector {
+  position: relative;
+  width: 100%;
+  font-size: 1.5rem;
+}
+.MultiSelector__Main {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 1.1rem 2rem;
+  outline: 1px solid #96A2B4;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.MultiSelector__WordLabel {
+  font-weight: 700;
+  transition: all 0.3s;
+}
+.MultiSelector__WordChoose {
+  display: none;
+  font-size: 1.5rem;
+  color: #96A2B4;
+}
+.MultiSelector__Options {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  border-radius: 5px;
+  background-color: #000;
+  visibility: hidden;
+  opacity: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
+  transition: all 0.3s;
+}
+.MultiSelector__Options::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.MultiSelector__Options::-webkit-scrollbar-track, .MultiSelector__Options::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.MultiSelector__Options:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.MultiSelector__Options:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
+}
+.MultiSelector__CheckBox {
+  width: 1.9rem !important;
+  height: 1.9rem !important;
+}
+.MultiSelector__CheckBox > .material-icons {
+  font-size: 1.7rem !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+.MultiSelector__InputCheckBox:checked + .MultiSelector__Label .MultiSelector__CheckBox {
+  background-color: #10C093;
+}
+.MultiSelector__InputCheckBox:checked + .MultiSelector__Label .MultiSelector__CheckBox > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+.MultiSelector__Label {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.MultiSelector__Label:hover {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.MultiSelector__Label:hover .MultiSelector__CheckBox {
+  border-color: #fff;
+}
+.MultiSelector__Arrow {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+}
+.MultiSelector.Open .Selector__Main {
+  z-index: 2;
+}
+.MultiSelector.Open .Selector__Options {
+  top: calc(100% + 0.5rem);
+  visibility: visible;
+  opacity: 1;
+  max-height: 21rem;
+  z-index: 1;
+}
+.MultiSelector.Selected .Selector__WordLabel {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  padding: 0 0.5rem;
+}
+.MultiSelector.Selected .Selector__WordChoose {
+  display: initial;
+}
+
+html[lang=ar] .Selector__Arrow {
+  right: initial;
+  left: 1rem;
+}
+html[lang=ar] .Selector.Selected .Selector__WordLabel {
+  left: initial;
+  right: 1.5rem;
 }
 
 .SocialMedia {
@@ -955,7 +1081,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   }
 }
 
-.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked {
+.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked, .MultiSelector__CheckBox {
   position: relative;
   display: inline-block;
   width: 2.5rem;
@@ -965,7 +1091,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   cursor: pointer;
   transition: all 0.3s;
 }
-.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
+.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons, .MultiSelector__CheckBox > .material-icons {
   position: absolute;
   display: none;
   width: 100%;
@@ -3363,6 +3489,14 @@ body.trumbowyg-body-fullscreen {
 }
 .trumbowyg-dark .trumbowyg-overlay {
   background-color: rgba(15, 15, 15, 0.6);
+}
+
+.trumbowyg-box {
+  z-index: 0;
+  border-radius: 5px;
+}
+.trumbowyg-box .trumbowyg-editor {
+  min-height: 26.1rem;
 }
 
 .trumbowyg-dark .trumbowyg-box {
