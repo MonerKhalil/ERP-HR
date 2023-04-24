@@ -43,6 +43,9 @@ class AuditController extends Controller
                 return $check;
             })->pluck('id');
             $data = $queryAudit->whereIn("id", $idsNotificationsFilter);
+            $data = (!is_null($dataFilter['start_date']) && !is_null($dataFilter['end_date']))
+                && ($dataFilter['start_date'] <= $dataFilter['end_date'])
+                ? $data->whereBetween('created_at',[$dataFilter['start_date'],$dataFilter['end_date']]) : $data;
         }else{
             $data = $queryAudit;
         }

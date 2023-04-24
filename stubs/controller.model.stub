@@ -88,4 +88,14 @@ class {{ class }} extends Controller
     {
         //
     }
+
+    public function ExportXls()
+    {
+        //
+    }
+
+    public function ExportPDF()
+    {
+        //
+    }
 }
