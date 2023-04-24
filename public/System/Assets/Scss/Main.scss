@@ -19,6 +19,7 @@
 @import "./Components/Popup";
 @import "./Components/Skills";
 @import "./Components/Checkbox";
+@import "./Components/DragDrop";
 @import "./Components/Pagination";
 
 @import "./Layouts/Header";
@@ -28,8 +29,13 @@
 @import "./Layouts/Grid";
 @import "./Layouts/Taps";
 @import "./Layouts/Table";
+@import "./Layouts/Cookies";
+@import "./Layouts/NoData";
 @import "./Layouts/Footer";
 
+@import "./Pages/AuthenticationPage";
 @import "./Pages/GlobalPage";
-@import "./Pages/LoginPage";
 @import "./Pages/ProfilePage";
+@import "./Pages/MessagePage";
+
+@import "./Vendor/Trumbowyg";

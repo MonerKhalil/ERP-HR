@@ -2,22 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/Test', function () {
-    return view('System.Pages.test');
-});
+/*===========================================
+	=          For Test         =
+=============================================*/
 
 Route::get('/Test-1', function () {
-    return view('System.Pages.loginPage');
+    return view('System.Pages.logoutPage');
 });
 
 Route::get('/Test-2', function () {
-    return view('System.Pages.Actors.Admin.addUser');
+    return view('System.Pages.404');
 });
 
 Route::get('/Test-3', function () {
-    return view('System.Pages.Actors.profile');
+    return view('System.Pages.comingSoon');
 });
 
 Route::get('/Test-4', function () {
-    return view('System.Pages.Actors.Admin.viewUsers');
+    return view('System.Pages.Actors.decisionForm');
 });

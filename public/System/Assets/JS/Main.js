@@ -111,103 +111,129 @@ $(document).ready(function (){
 
             function ClickSelect(OptionSelected = String
                 , ValueOption = String) {
+                const InputField = $(Selector).find(".Selector__SelectForm").get(0) ;
                 $(Selector).addClass("Selected");
                 $(Selector).find(".Selector__Main .Selector__WordChoose")
                     .text(OptionSelected);
-                $(Selector).find(".Selector__SelectForm")
-                    .attr("value" , ValueOption);
+                $(InputField).attr("value" , ValueOption);
+                $(InputField).valid() ;
                 $(Selector).attr("data-selected" , ValueOption);
             }
         });
     });
 
+    function ClearSelector(Selector = HTMLElement) {
+        $(Selector).removeClass("Selected");
+        $(Selector).find(".Selector__Main .Selector__WordChoose")
+            .text("");
+        $(Selector).find(".Selector__SelectForm")
+            .attr("value" , "");
+        $(Selector).attr("data-selected" , "");
+    }
     /*===========================================
 	=           Form       =
     =============================================*/
     $("form").ready(function (){
         $("form").each((Index , Value)=> {
-            $(Value).submit(()=>{
-                LoaderView();
-            });
-        });
-    });
-    $(".Form").ready(function () {
-        $(this).find(".Form__Input--Password").each((Index , Value)=> {
-            $(Value).find(".Input__Icon").click((Icon)=>{
-                const InputField = $(Value).find(".Input__Field") ;
-                const IsView = InputField.attr("type") === 'password' ;
-                if(IsView)
-                    InputField.attr("type" , "text");
-                else
-                    InputField.attr("type" , "password");
-            });
-        });
-        $(this).find(".Form__Date").each((Index , Value)=> {
-           $(Value).find("input").flatpickr();
-        });
-        $(this).find(".Form__Group").each((_ , Group) => {
-            $(Group).find(".Form__Input:not(.Form__Input--Password)").ready(function () {
-                $(Group).find("input[type=text]").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Input");
-                });
-                $(Group).find("input[type=email]").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error in Email");
-                });
-                $(Group).find("input[type=text]").on("change" , function () {
-                    RemoveError();
-                });
-                $(Group).find("input[type=email]").on("change" , function () {
-                    RemoveError();
-                });
-            });
-            $(Group).find(".Form__Input--Password").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Password");
-                });
-                $(Group).find("input").on("change" , function () {
-                    RemoveError();
-                });
-            });
-            $(Group).find(".Form__Date").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Date");
-                });
-                $(Group).find("input").on("change" , function () {
-                    RemoveError();
-                });
-            });
-            $(Group).find(".Form__Select").ready(function () {
-                $(Group).find("input").on("invalid" , function (e) {
-                    e.preventDefault();
-                    CreateError("Error In Select");
-                });
-                $(Group).find(".Selector__Option").click(() => {
-                    RemoveError();
-                });
-            });
+            $.validator.addMethod("RegexPassword"
+                , function (Value , Element) {
+                return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
+            } ,
+                $("html").get(0).lang === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
+                    : "The password must contain from 8 to 15 characters"
+            );
+            const ValidatorForm = $(Value).validate({
 
-            function CreateError(Message = String) {
-                const ErrorElement =  $(Group).find(".Form__Error") ;
-                if(ErrorElement.length === 0) {
-                    const ElementError = `<div class="Form__Error">
-                        <div class="Error__Area">
-                            <small> ${Message} </small>
-                        </div>
-                    </div>` ;
-                    $(Group).append(ElementError);
-                } else {
-                    ErrorElement.find("small").text(Message);
+                ignore : ".IgnoreValidate" ,
+
+                rules : {
+
+                    "password" : {
+                        RegexPassword : true
+                    } ,
+
+                    "re_password" : {
+                        equalTo: "#Password"
+                    }
+                } ,
+
+                success : function (ErrorLabel , FieldElement) {
+                    const Group = $(FieldElement).closest(".Form__Group").get(0) ;
+                    const ErrorElement = $(Group).find(".Form__Error") ;
+                    if(ErrorElement.length > 0)
+                        ErrorElement.remove() ;
+                } ,
+
+                errorPlacement : function (Error , Element) {
+                    const Group = $(Element).closest(".Form__Group").get(0) ;
+                    const ErrorElement = $(Group).find(".Form__Error") ;
+                    if(ErrorElement.length === 0) {
+                        const ErrorContainer = `<div class="Form__Error">
+                            <div class="Error__Area">
+                                <small>${$(Error).text()}</small>
+                            </div>
+                        </div>` ;
+                        $(Group).append(ErrorContainer) ;
+                    } else {
+                        $(ErrorElement).find(".Error__Area small")
+                            .text($(Error).text()) ;
+                    }
+                } ,
+
+                invalidHandler : function () {
+                    LoaderHidden() ;
+                } ,
+
+                submitHandler : function (form) {
+                    if($(form).valid()) {
+                        LoaderView();
+                        $(form).get(0).submit();
+                    }
                 }
-            }
-
-            function RemoveError() {
-                $(Group).find(".Form__Error").remove();
-            }
-
+            });
+            $(Value).find("input , textarea").each((_ , Field) => {
+                $(Field).on("blur" , function () {
+                    $(Field).valid() ;
+                });
+            });
+        });
+    })
+    $(".Form").ready(function () {
+        $(".Form").each((_ , Form) => {
+            $(Form).find(".Form__Input--Password").each((Index , Value)=> {
+                $(Value).find(".Input__Icon").click((Icon)=>{
+                    const InputField = $(Value).find(".Input__Field") ;
+                    const IsView = InputField.attr("type") === 'password' ;
+                    if(IsView)
+                        InputField.attr("type" , "text");
+                    else
+                        InputField.attr("type" , "password");
+                });
+            });
+            $(Form).find(".Form__Date").each((Index , Value)=> {
+                const Input = $(Value).find("input").get(0) ;
+                if($(Input).hasClass("RangeData")) {
+                    $(Input).flatpickr({
+                        mode: "range"
+                    });
+                }
+                else
+                    $(Input).flatpickr();
+            });
+            $(Form).find(".RestButton").each((_ , Buttons) => {
+                $(Buttons).click(()=> {
+                    $(Form).find(`.Date__Field , .Input__Field , .Textarea__Field`)
+                        .each((_ , Field) => {
+                       $(Field).val("");
+                    });
+                    $(Form).find(`.Selector`).each((_ , Selector) => {
+                        ClearSelector(Selector);
+                    });
+                });
+            });
+            $(Form).find(".TextEditor").each((_ , TextEditor) => {
+                $(TextEditor).trumbowyg() ;
+            });
         });
     });
 
@@ -239,6 +265,14 @@ $(document).ready(function (){
         $(".Loader--Upload").ready(function (){
             $(".Loader--Upload").each((Index , Value)=> {
                 $(Value).show();
+            })
+        });
+    }
+
+    function LoaderHidden() {
+        $(".Loader--Upload").ready(function (){
+            $(".Loader--Upload").each((Index , Value)=> {
+                $(Value).hide();
             })
         });
     }
@@ -324,6 +358,107 @@ $(document).ready(function (){
     });
 
     /*===========================================
+	=           Drag & Drop       =
+    =============================================*/
+    $(".DragDrop").ready(function() {
+        let ItemTarget = undefined ;
+        let LastZone = undefined ;
+
+        $(".DragDrop__Zone").each((_ , Zone) => {
+            const NamesItem = $(Zone).attr("data-namesItem").split(" ") ;
+            CheckEmptyZone(true);
+            $(Zone).on("dragover" , (ev) => {
+                ev.preventDefault();
+                CheckEmptyZone();
+                let IsAcceptItem = false ;
+                for (let i = 0; i < NamesItem.length ; i++) {
+                    if(NamesItem[i] === $(ItemTarget)
+                        .attr("data-nameItem")) {
+                        IsAcceptItem = true ;
+                        break ;
+                    }
+                }
+                if(IsAcceptItem) {
+                    const ItemBottom = InsertAboveItem(ev.originalEvent.clientY) ;
+                    if(!ItemBottom) {
+                        $(Zone).append(ItemTarget)
+                    } else {
+                        $(ItemTarget).insertBefore(ItemBottom)
+                    }
+                }
+            });
+
+            function InsertAboveItem(MouseY = Number) {
+                let ClosestItem = undefined ;
+                let ClosestOffset = Number.NEGATIVE_INFINITY ;
+                $(Zone).find(".DragDrop.DragDrop__Item:not(.IsDragging)")
+                    .each((_ , Item) => {
+                        const HeightItem = $(Item).height() ;
+                        const TopBoundItem = Item.getBoundingClientRect().top
+                            + (HeightItem / 2);
+                        const Offset = MouseY - TopBoundItem ;
+                        if(Offset < 0 && Offset > ClosestOffset) {
+                            ClosestOffset = Offset ;
+                            ClosestItem = Item ;
+                        }
+                    });
+                return ClosestItem ;
+            }
+
+            function CheckEmptyZone(IsInitial = false) {
+
+                if(!IsInitial) {
+                    if(Zone !== LastZone) {
+                        setTimeout(() => {
+                            if(LastZone)
+                                Check(LastZone);
+                            LastZone = Zone ;
+                        } , 10);
+                    }
+                }
+
+                Check(Zone);
+
+                function Check(ZoneContent) {
+                    if($(ZoneContent).children().length === 0) {
+                        $(ZoneContent).addClass("Empty");
+                        const DropText = `
+                        <div class="DragDrop__Tip">
+                            Drop Here
+                        </div>
+                    ` ;
+                        $(ZoneContent).append(DropText);
+                    } else {
+                        $(ZoneContent).find(".DragDrop__Tip").remove();
+                        $(ZoneContent).removeClass("Empty");
+                    }
+                }
+            }
+
+        });
+
+        $(".DragDrop__Item").each((_ , Item) => {
+            $(Item).prop("draggable" , "true");
+            $(Item).on("dragstart" , () => {
+                $(Item).addClass("IsDragging") ;
+                ItemTarget = Item ;
+            });
+            $(Item).on("dragend" , () => {
+                $(Item).removeClass("IsDragging") ;
+                ItemTarget = undefined ;
+                LastZone = undefined ;
+            });
+        });
+    });
+
+    /*===========================================
+	=           Drag & Drop By Click       =
+    =============================================*/
+    $(".DragDropClick").ready(function (){
+
+    });
+
+    /*===========================================
 	=           Table Layout       =
     =============================================*/
     $(".Table").ready(function () {
@@ -351,7 +486,66 @@ $(document).ready(function (){
                     });
                 });
             });
+            $(Table).find(".GroupRows").each((_ , Group) => {
+                const MainRow = $(Group).find(".GroupRows__MainRow").get(0) ;
+                const SubRows = $(Group).find(".GroupRows__SubRows").get(0) ;
+                $(MainRow).find(".Details__Button").click(() => {
+                        $(MainRow).toggleClass("Show") ;
+                        $(SubRows).fadeToggle() ;
+                    });
+            });
             // $(Table).find(".Table__BulkTools")
+        });
+    });
+
+    /*===========================================
+	=           Cookies Page       =
+    =============================================*/
+    $(".Cookies").ready(function () {
+        if(document.cookie === "") {
+            $(".Cookies").addClass("Show");
+            $(".Cookies__Accept").click(() => {
+                document.cookie = "Accept" ;
+                $(".Cookies").removeClass("Show");
+            });
+            $(".Cookies__Decline").click(() => {
+                document.cookie = "Decline" ;
+                $(".Cookies").removeClass("Show");
+            });
+        }
+    });
+
+    /*===========================================
+	=           Bulk Tools       =
+    =============================================*/
+    $(".BulkTools").ready(function (){
+        $(".BulkTools").each((_ , Bulk) => {
+            const ClosestForm = $(Bulk).closest("form").get(0) ;
+            let IsHaveDeleteInput = false ;
+            if(ClosestForm !== undefined)
+                $(Bulk).find(".Selector__Option").each((_ , Option) => {
+                    $(Option).click(() => {
+                       const Action = $(Option).attr("data-action") ;
+                       const Method = $(Option).attr("data-method") ;
+                       if(Method === "delete") {
+                           if(!IsHaveDeleteInput) {
+                               const DeleteInput = `
+                           <input type="hidden" name="_method" value="delete" />` ;
+                               $(Bulk).append(DeleteInput) ;
+                               IsHaveDeleteInput = true ;
+                           }
+                       } else {
+                           if(IsHaveDeleteInput) {
+                               $(Bulk).find("input[value='delete']").remove() ;
+                               IsHaveDeleteInput = false ;
+                           }
+                       }
+                        $(ClosestForm).attr("action" , Action) ;
+                        $(ClosestForm).attr("method" , Method) ;
+                    });
+                });
+            else
+                console.log("BulkTools Is undefined");
         });
     });
 

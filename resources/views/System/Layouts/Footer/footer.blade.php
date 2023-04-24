@@ -6,12 +6,12 @@
                 <div class="Row m0">
                     <div class="Col-6-xs">
                         <div class="FooterPage__CopyRight">
-                            Copyright © 2022
+                            @lang("copyright") © 2022
                         </div>
                     </div>
                     <div class="Col-6-xs">
                         <div class="FooterPage__Links">
-                            Designed by <span class="SystemName"> ERP Epic </span> All rights reserved
+                            @lang("footerTitle")
                         </div>
                     </div>
                 </div>

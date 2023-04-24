@@ -16,7 +16,7 @@ class ProfileUserController extends Controller
     public function ShowProfile(): Response|RedirectResponse|null
     {
         $user = \auth()->user();
-        return $this->responseSuccess("",compact('user'));
+        return $this->responseSuccess("System.Pages.Actors.profile",compact('user'));
     }
 
     /**

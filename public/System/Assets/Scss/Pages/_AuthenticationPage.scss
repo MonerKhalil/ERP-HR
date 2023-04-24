@@ -1,5 +1,5 @@
 
-.LoginPage {
+.AuthenticationPage {
     position: relative;
 
     &__Content {
@@ -46,7 +46,6 @@
             width: 40rem;
             margin: auto 0 ;
         }
-
     }
 
     &__Title {
@@ -70,16 +69,6 @@
 
                 .Button {
                     width: 100% ;
-                }
-            }
-
-            &__Link {
-
-                .Link {
-
-                    &__Area {
-                        text-align: right;
-                    }
                 }
             }
         }
@@ -126,24 +115,4 @@
     }
 }
 
-@include Language(Arabic) {
 
-    .LoginPage {
-
-        &__Form {
-
-            .Form {
-
-                &__Link {
-
-                    .Link {
-
-                        &__Area {
-                            text-align: left;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}

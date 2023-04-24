@@ -18,7 +18,9 @@ const mix = require('laravel-mix');
 
 mix.scripts([
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/flatpickr/dist/flatpickr.min.js'
+    'node_modules/flatpickr/dist/flatpickr.min.js',
+    'node_modules/jquery-validation/dist/jquery.validate.min.js',
+    'node_modules/jquery-validation/dist/localization/messages_ar-en.js'
 ] ,  'public/System/Assets/Lib/Libraries.js')
 
     .styles([

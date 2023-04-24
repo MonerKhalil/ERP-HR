@@ -19,7 +19,7 @@
 
     }
 
-    &__ContentList {
+    &__ContentTable {
         position: relative;
         width: 100% ;
         max-width: 100% ;
@@ -27,10 +27,28 @@
         overflow-y: hidden;
     }
 
-    &__List {
+    &__Table {
         display: table;
         width: 100% ;
         font-size: 1.3rem;
+        border-collapse: collapse;
+
+        .GroupRows {
+            display : table-row-group;
+
+            &__MainRow {
+
+                &.Show {
+                    background-color: $PrimaryColor-Project;
+                    color : $WhiteColor ;
+                }
+            }
+
+            &__SubRows {
+                display: none;
+                background-color: darken($BackGroundColor , 5%);
+            }
+        }
 
         .HeaderList {
 
@@ -42,20 +60,12 @@
             &__Col {
                 position: relative;
                 display: table-cell;
-                width: 1%;
                 vertical-align: middle;
                 padding: .8rem ;
-                white-space: nowrap;
                 border-bottom: 1px solid $SeparateBorderColor;
 
-                &--Group {
-
-                    .Group {
-                        display: flex;
-                        align-items: center;
-                        width: fit-content;
-                        gap: 1rem;
-                    }
+                .fitContent {
+                    width: 1%;
                 }
 
                 &--Check {
@@ -109,12 +119,19 @@
                     }
                 }
 
-                &:first-child {
-                    padding-left: 2.4rem;
-                }
+                &--Details {
 
-                &:last-child {
-                    padding-right: 2.4rem;
+                    .Details {
+
+                        &__Button {
+                            cursor: pointer;
+                            transition: all .3s;
+
+                            &:hover {
+                                color : $TertiaryColor-Project ;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -154,11 +171,34 @@
     }
 }
 
+@include Language(English) {
+
+    .Table {
+
+        &__Table {
+
+            .Item {
+
+                &__Col {
+
+                    &:first-child {
+                        padding-left: 2.4rem;
+                    }
+
+                    &:last-child {
+                        padding-right: 2.4rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @include Language(Arabic) {
 
     .Table {
 
-        &__List {
+        &__Table {
 
             .Item {
 
@@ -166,11 +206,9 @@
 
                     &:first-child {
                         padding-right: 2.4rem;
-                        padding-left: 0;
                     }
 
                     &:last-child {
-                        padding-right: 0;
                         padding-left: 2.4rem;
                     }
                 }
