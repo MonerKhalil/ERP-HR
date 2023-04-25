@@ -313,7 +313,8 @@
 
             &__Select {
 
-                .Selector {
+                .Selector ,
+                .MultiSelector {
 
                     &__WordLabel {
                         background-color: $BackGroundColor;

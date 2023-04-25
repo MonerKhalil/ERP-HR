@@ -76,6 +76,7 @@ $(document).ready(function (){
     =============================================*/
     $(".Selector").ready(function (){
         $(".Selector").each((_ , Selector)=> {
+
             $(Selector).find(".Selector__Main").click(() => {
                 $(Selector).toggleClass("Open");
                 closeOutSide($(Selector)[0] , ()=> {
@@ -132,6 +133,37 @@ $(document).ready(function (){
             .attr("value" , "");
         $(Selector).attr("data-selected" , "");
     }
+
+    /*===========================================
+	=           Multi Selector       =
+    =============================================*/
+    $(".MultiSelector").ready(function (){
+        $(".MultiSelector").each((_ , MultiSelector)=> {
+            $(MultiSelector).find(".MultiSelector__Main").click(() => {
+                $(MultiSelector).toggleClass("Open");
+                closeOutSide($(MultiSelector)[0] , ()=> {
+                    $(MultiSelector).removeClass("Open");
+                });
+            });
+            $(MultiSelector).find(".MultiSelector__InputCheckBox").on("change" , CheckBoxCountChecked);
+
+            function CheckBoxCountChecked() {
+                let Counter = $(MultiSelector)
+                    .find(".MultiSelector__InputCheckBox:checked").length ;
+                if(Counter === 0) {
+                    $(MultiSelector).find(".MultiSelector__WordChoose")
+                        .text("") ;
+                    $(MultiSelector).removeClass("Selected") ;
+                } else {
+                    $(MultiSelector).find(".MultiSelector__WordChoose")
+                        .text((LanguagePage === "ar") ? `${Counter} من العناصر تم اختيارهم` : `${Counter} Selected`) ;
+                    $(MultiSelector).addClass("Selected") ;
+                }
+                console.log(Counter) ;
+            }
+        });
+    });
+
     /*===========================================
 	=           Form       =
     =============================================*/
@@ -528,7 +560,7 @@ $(document).ready(function (){
     =============================================*/
     $(".Table").ready(function () {
         $(".Table").each((_ , Table) => {
-            $(Table).find(".Table__List").each((_ , List)=>{
+            $(Table).find(".Table__Table").each((_ , List)=>{
                 $(List).find(".HeaderList").each((_ , HeaderList) => {
                     $(HeaderList).find(".CheckBoxItem").change((ev) => {
                         if($(ev.currentTarget).is(":checked"))
@@ -611,6 +643,16 @@ $(document).ready(function (){
                 });
             else
                 console.log("BulkTools Is undefined");
+        });
+    });
+
+    /*===========================================
+	=           Message Process Component       =
+    =============================================*/
+    $(".MessageProcess").ready(function (){
+        $(".MessageProcess").each((_ , Message) => {
+            $(Message).find(".MessageProcess__Close")
+                .click(() => { $(Message).removeClass("Show") });
         });
     });
 

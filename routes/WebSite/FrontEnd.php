@@ -21,3 +21,7 @@ Route::get('/Test-3', function () {
 Route::get('/Test-4', function () {
     return view('System.Pages.Actors.decisionForm');
 });
+
+Route::get('/Test-5', function () {
+    return view('System/Pages/Docs/decisionPrint');
+});

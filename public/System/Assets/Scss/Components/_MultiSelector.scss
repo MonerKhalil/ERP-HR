@@ -100,7 +100,7 @@
 
     &.Open {
 
-        .Selector {
+        .MultiSelector {
 
             &__Main {
                 z-index: $LowLayer;
@@ -118,7 +118,7 @@
 
     &.Selected {
 
-        .Selector {
+        .MultiSelector {
 
             &__WordLabel {
                 position: absolute ;
@@ -138,7 +138,7 @@
 
 @include Language(Arabic) {
 
-    .Selector {
+    .MultiSelector {
 
         &__Arrow {
             right : initial ;
@@ -147,7 +147,7 @@
 
         &.Selected {
 
-            .Selector {
+            .MultiSelector {
 
                 &__WordLabel {
                     left : initial ;
