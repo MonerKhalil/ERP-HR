@@ -109,6 +109,11 @@ img {
     padding: 0 1.4rem;
   }
 }
+@media print {
+  .Container--Header {
+    padding: 0 2.2rem;
+  }
+}
 
 .Container--MainContent {
   width: 100%;
@@ -132,6 +137,11 @@ img {
 @media only screen and (min-width: 75em) {
   .Container--MainContent {
     padding: 0 3.4rem;
+  }
+}
+@media print {
+  .Container--MainContent {
+    padding: 0 4.2rem;
   }
 }
 
@@ -291,6 +301,11 @@ html[lang=ar] .Right {
     font-size: 70%;
   }
 }
+@media print {
+  html {
+    font-size: 56.25%;
+  }
+}
 
 body {
   font-family: Roboto, sans-serif;
@@ -326,11 +341,6 @@ p {
   font-size: 1.99rem;
 }
 
-@media print {
-  html {
-    font-size: 56.25%;
-  }
-}
 .Dropdown {
   position: relative;
   background-color: #1b2633;
@@ -1270,6 +1280,18 @@ html[lang=ar] .MessageProcessContainer {
   opacity: 1;
 }
 
+.TextEditorContent__Content ul {
+  list-style: initial;
+}
+
+html[lang=ar] .TextEditorContent__Content li {
+  margin-right: 1.7rem;
+}
+
+html[lang=en] .TextEditorContent__Content li {
+  margin-left: 1.7rem;
+}
+
 .HeaderPage {
   position: sticky;
   top: 0;
@@ -1880,13 +1902,13 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   margin-bottom: 3rem;
 }
 @media only screen and (max-width: 47.99em) {
-  .ListData__Item .Data_Col {
+  .ListData:not(.NotResponsive) .ListData__Item .Data_Col {
     flex-direction: column;
   }
-  .ListData__Item .Data_Col .Data_Label {
+  .ListData:not(.NotResponsive) .ListData__Item .Data_Col .Data_Label {
     width: 100%;
   }
-  .ListData__Item .Data_Col .Data_Value {
+  .ListData:not(.NotResponsive) .ListData__Item .Data_Col .Data_Value {
     width: 100%;
   }
 }
@@ -2836,6 +2858,42 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 .MessagePage--ComingSoon .MessagePage__Image {
   max-height: 36rem;
   height: 100%;
+}
+
+.PrintPage__CompanyInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+.PrintPage__CompanyInfo .ImageCompany {
+  width: 13rem;
+}
+.PrintPage__CompanyInfo .ImageCompany > img {
+  width: 100%;
+  border-radius: 50%;
+}
+.PrintPage__CompanyInfo .DescriptionCompany .Text > * {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #b6c6e3;
+}
+.PrintPage__TextEditorContent {
+  padding: 1.5rem 1rem;
+  color: #fff;
+}
+.PrintPage__TextEditorContent .TextEditorContent__Content .Content {
+  background-color: #1B2633;
+}
+.PrintPage .ListData--CustomPrint .ListData__Head {
+  margin-bottom: 1rem;
+}
+.PrintPage .ListData--CustomPrint .ListData__Item {
+  color: #fff;
+}
+.PrintPage .ListData--CustomPrint .ListData__Item .Data_Col {
+  padding: 1.5rem 1rem;
 }
 
 /**
