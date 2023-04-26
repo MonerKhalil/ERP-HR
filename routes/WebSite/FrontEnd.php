@@ -29,3 +29,7 @@ Route::get('/Test-5', function () {
 Route::get('/Test-6', function () {
     return view('System/Pages/Actors/sessionForm');
 });
+
+Route::get('/Test-7', function () {
+    return view('System/Pages/Actors/sessionView');
+});

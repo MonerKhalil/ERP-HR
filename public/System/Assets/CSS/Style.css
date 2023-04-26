@@ -2377,6 +2377,9 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   padding: 0.8rem;
   border-bottom: 1px solid #23364e;
 }
+.Table__Table .Item__Col.Link a:hover {
+  color: #10C093;
+}
 .Table__Table .Item__Col .fitContent {
   width: 1%;
 }

@@ -64,6 +64,16 @@
                 padding: .8rem ;
                 border-bottom: 1px solid $SeparateBorderColor;
 
+                &.Link {
+
+                    a {
+
+                        &:hover {
+                            color : $TertiaryColor-Project ;
+                        }
+                    }
+                }
+
                 .fitContent {
                     width: 1%;
                 }
