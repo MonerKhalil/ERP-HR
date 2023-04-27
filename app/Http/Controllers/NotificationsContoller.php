@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\HelpersClasses\MyApp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class NotificationsContoller extends Controller
 {
@@ -11,10 +12,10 @@ class NotificationsContoller extends Controller
         $user = auth()->user();
         $data = [];
         switch($request->input("status")){
-            case "Read" : 
+            case "Read" :
                 $data = $user->readNotifications();
                 break;
-            case "unRead" : 
+            case "unRead" :
                 $data = $user->unreadNotifications();
                 break;
             default:
@@ -28,7 +29,7 @@ class NotificationsContoller extends Controller
         return $this->responseSuccess(null,null,"delete",MyApp::RouteHome);
     }
 
-    /* 
+    /*
     * @descriptions : Ajax Request -> Work Update Notification To Read
     */
     public function editNotificationsToRead()
