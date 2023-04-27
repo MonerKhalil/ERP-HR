@@ -107,8 +107,9 @@
                                                             <div class="Form__Date">
                                                                 <div class="Date__Area">
                                                                     <input id="{{"Input".$Counter}}" class="RangeData Date__Field"
-                                                                           type="text" name="{{$Field["Info"]["Name"]}}"
-                                                                           placeholder="{{$Field["Info"]["Placeholder"]}}"
+                                                                           type="text" placeholder="{{$Field["Info"]["Placeholder"]}}"
+                                                                           date-StartDateName="{{$Field["Info"]["StartDateName"]}}"
+                                                                           date-EndDateName="{{$Field["Info"]["EndDateName"]}}"
                                                                            @if(isset($Field["Info"]["Value"]))
                                                                            value="{{$Field["Info"]["Value"]}}"
                                                                            @endif

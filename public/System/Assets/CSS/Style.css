@@ -49,6 +49,10 @@
   box-sizing: inherit;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   box-sizing: border-box;
   background-color: #242C3F;
@@ -105,6 +109,11 @@ img {
     padding: 0 1.4rem;
   }
 }
+@media print {
+  .Container--Header {
+    padding: 0 2.2rem;
+  }
+}
 
 .Container--MainContent {
   width: 100%;
@@ -128,6 +137,11 @@ img {
 @media only screen and (min-width: 75em) {
   .Container--MainContent {
     padding: 0 3.4rem;
+  }
+}
+@media print {
+  .Container--MainContent {
+    padding: 0 4.2rem;
   }
 }
 
@@ -287,6 +301,11 @@ html[lang=ar] .Right {
     font-size: 70%;
   }
 }
+@media print {
+  html {
+    font-size: 56.25%;
+  }
+}
 
 body {
   font-family: Roboto, sans-serif;
@@ -322,11 +341,6 @@ p {
   font-size: 1.99rem;
 }
 
-@media print {
-  html {
-    font-size: 56.25%;
-  }
-}
 .Dropdown {
   position: relative;
   background-color: #1b2633;
@@ -457,6 +471,10 @@ p {
   font-size: 1.6rem;
   cursor: pointer;
 }
+.Form__Textarea .Textarea__Label {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
 .Form__Link .Link__Anchor {
   font-size: 1.4rem;
 }
@@ -508,14 +526,17 @@ p {
 .Form--Dark .Form__CheckBox .CheckBox__Label .IconChecked {
   color: #fff;
 }
-.Form--Dark .Form__Select .Selector__WordLabel {
+.Form--Dark .Form__Select .Selector__WordLabel,
+.Form--Dark .Form__Select .MultiSelector__WordLabel {
   background-color: #1A202E;
 }
-.Form--Dark .Form__Select .Selector__Options {
+.Form--Dark .Form__Select .Selector__Options,
+.Form--Dark .Form__Select .MultiSelector__Options {
   background-color: #1A202E;
   border: 1px solid #96A2B4;
 }
-.Form--Dark .Form__Select .Selector__Option:hover {
+.Form--Dark .Form__Select .Selector__Option:hover,
+.Form--Dark .Form__Select .MultiSelector__Option:hover {
   background-color: #3F51B5;
   color: #fff;
 }
@@ -592,7 +613,7 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   position: relative;
   display: block;
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1.1rem 2rem;
   outline: 1px solid #96A2B4;
   border-radius: 5px;
   cursor: pointer;
@@ -702,6 +723,128 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   right: 0.5rem;
 }
 
+.MultiSelector {
+  position: relative;
+  width: 100%;
+  font-size: 1.5rem;
+}
+.MultiSelector__Main {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 1.1rem 2rem;
+  outline: 1px solid #96A2B4;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.MultiSelector__WordLabel {
+  font-weight: 700;
+  transition: all 0.3s;
+}
+.MultiSelector__WordChoose {
+  display: none;
+  font-size: 1.5rem;
+  color: #96A2B4;
+}
+.MultiSelector__Options {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  border-radius: 5px;
+  background-color: #000;
+  visibility: hidden;
+  opacity: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
+  transition: all 0.3s;
+}
+.MultiSelector__Options::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.MultiSelector__Options::-webkit-scrollbar-track, .MultiSelector__Options::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.MultiSelector__Options:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.MultiSelector__Options:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
+}
+.MultiSelector__CheckBox {
+  width: 1.9rem !important;
+  height: 1.9rem !important;
+}
+.MultiSelector__CheckBox > .material-icons {
+  font-size: 1.7rem !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+.MultiSelector__InputCheckBox:checked + .MultiSelector__Label .MultiSelector__CheckBox {
+  background-color: #10C093;
+}
+.MultiSelector__InputCheckBox:checked + .MultiSelector__Label .MultiSelector__CheckBox > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+.MultiSelector__Label {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.MultiSelector__Label:hover {
+  background-color: #3F51B5;
+  color: #fff;
+}
+.MultiSelector__Label:hover .MultiSelector__CheckBox {
+  border-color: #fff;
+}
+.MultiSelector__Arrow {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+}
+.MultiSelector.Open .MultiSelector__Main {
+  z-index: 2;
+}
+.MultiSelector.Open .MultiSelector__Options {
+  top: calc(100% + 0.5rem);
+  visibility: visible;
+  opacity: 1;
+  max-height: 21rem;
+  z-index: 1;
+}
+.MultiSelector.Selected .MultiSelector__WordLabel {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  padding: 0 0.5rem;
+}
+.MultiSelector.Selected .MultiSelector__WordChoose {
+  display: initial;
+}
+
+html[lang=ar] .MultiSelector__Arrow {
+  right: initial;
+  left: 1rem;
+}
+html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
+  left: initial;
+  right: 1.5rem;
+}
+
 .SocialMedia {
   position: relative;
   display: flex;
@@ -751,6 +894,14 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 }
 .Card__Inner.pb0 {
   padding-bottom: 0;
+}
+.Card__Inner.py0 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.Card__Inner.px0 {
+  padding-right: 0;
+  padding-left: 0;
 }
 .Card__ToolsGroup {
   position: relative;
@@ -955,7 +1106,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   }
 }
 
-.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked {
+.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked, .MultiSelector__CheckBox {
   position: relative;
   display: inline-block;
   width: 2.5rem;
@@ -965,7 +1116,7 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   cursor: pointer;
   transition: all 0.3s;
 }
-.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons {
+.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons, .MultiSelector__CheckBox > .material-icons {
   position: absolute;
   display: none;
   width: 100%;
@@ -1037,6 +1188,108 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 .Pagination__Next a {
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+.MessageProcessContainer {
+  position: fixed;
+  bottom: 7.4rem;
+  max-width: 60rem;
+  width: 100%;
+  padding: 0 2rem;
+  transform: translateX(-50%);
+}
+
+html[lang=en] .MessageProcessContainer {
+  left: 50%;
+}
+@media only screen and (min-width: 75em) {
+  html[lang=en] .MessageProcessContainer {
+    left: calc(50% + 7rem);
+  }
+}
+
+html[lang=ar] .MessageProcessContainer {
+  right: 50%;
+}
+@media only screen and (min-width: 75em) {
+  html[lang=ar] .MessageProcessContainer {
+    right: calc(50% + 7rem);
+  }
+}
+
+.MessageProcess {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  transition: all 0.3s;
+}
+.MessageProcess__MainContent {
+  padding: 1rem;
+  border-radius: 5px;
+}
+.MessageProcess__Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.MessageProcess__Title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.MessageProcess__Title .Title {
+  font-size: 1.8rem;
+}
+.MessageProcess__Close {
+  cursor: pointer;
+  color: #3F51B5;
+  transition: all 0.3s;
+}
+.MessageProcess__Close:hover {
+  color: #252f69;
+}
+.MessageProcess__Separate {
+  clear: both;
+  border: 0;
+  height: 1px;
+  margin: 1rem 0;
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+}
+.MessageProcess__Body {
+  padding: 0 1rem;
+}
+.MessageProcess--Success .MessageProcess__MainContent {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+.MessageProcess--Error .MessageProcess__MainContent {
+  background-color: #f2dede;
+  color: #f93542;
+}
+.MessageProcess--Warning .MessageProcess__MainContent {
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+}
+.MessageProcess--Info .MessageProcess__MainContent {
+  background-color: #d9edf7;
+  color: #31708f;
+}
+.MessageProcess.Show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.TextEditorContent__Content ul {
+  list-style: initial;
+}
+
+html[lang=ar] .TextEditorContent__Content li {
+  margin-right: 1.7rem;
+}
+
+html[lang=en] .TextEditorContent__Content li {
+  margin-left: 1.7rem;
 }
 
 .HeaderPage {
@@ -1642,17 +1895,20 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 .ListData__Item:not(:last-child) {
   border-bottom: 1px solid #23364e;
 }
+.ListData__CustomItem {
+  padding: 2.5rem 1rem;
+}
 .ListData:not(:last-child) {
   margin-bottom: 3rem;
 }
 @media only screen and (max-width: 47.99em) {
-  .ListData__Item .Data_Col {
+  .ListData:not(.NotResponsive) .ListData__Item .Data_Col {
     flex-direction: column;
   }
-  .ListData__Item .Data_Col .Data_Label {
+  .ListData:not(.NotResponsive) .ListData__Item .Data_Col .Data_Label {
     width: 100%;
   }
-  .ListData__Item .Data_Col .Data_Value {
+  .ListData:not(.NotResponsive) .ListData__Item .Data_Col .Data_Value {
     width: 100%;
   }
 }
@@ -2120,6 +2376,9 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   vertical-align: middle;
   padding: 0.8rem;
   border-bottom: 1px solid #23364e;
+}
+.Table__Table .Item__Col.Link a:hover {
+  color: #10C093;
 }
 .Table__Table .Item__Col .fitContent {
   width: 1%;
@@ -2602,6 +2861,42 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 .MessagePage--ComingSoon .MessagePage__Image {
   max-height: 36rem;
   height: 100%;
+}
+
+.PrintPage__CompanyInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+.PrintPage__CompanyInfo .ImageCompany {
+  width: 13rem;
+}
+.PrintPage__CompanyInfo .ImageCompany > img {
+  width: 100%;
+  border-radius: 50%;
+}
+.PrintPage__CompanyInfo .DescriptionCompany .Text > * {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #b6c6e3;
+}
+.PrintPage__TextEditorContent {
+  padding: 1.5rem 1rem;
+  color: #fff;
+}
+.PrintPage__TextEditorContent .TextEditorContent__Content .Content {
+  background-color: #1B2633;
+}
+.PrintPage .ListData--CustomPrint .ListData__Head {
+  margin-bottom: 1rem;
+}
+.PrintPage .ListData--CustomPrint .ListData__Item {
+  color: #fff;
+}
+.PrintPage .ListData--CustomPrint .ListData__Item .Data_Col {
+  padding: 1.5rem 1rem;
 }
 
 /**
@@ -3363,6 +3658,14 @@ body.trumbowyg-body-fullscreen {
 }
 .trumbowyg-dark .trumbowyg-overlay {
   background-color: rgba(15, 15, 15, 0.6);
+}
+
+.trumbowyg-box {
+  z-index: 0;
+  border-radius: 5px;
+}
+.trumbowyg-box .trumbowyg-editor {
+  min-height: 26.1rem;
 }
 
 .trumbowyg-dark .trumbowyg-box {

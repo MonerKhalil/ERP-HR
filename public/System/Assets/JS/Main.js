@@ -3,6 +3,8 @@ $(document).ready(function (){
 
     "use strict" ;
 
+    const LanguagePage = $("html").get(0).lang ;
+
     /*===========================================
 	=           Header Page       =
     =============================================*/
@@ -74,6 +76,7 @@ $(document).ready(function (){
     =============================================*/
     $(".Selector").ready(function (){
         $(".Selector").each((_ , Selector)=> {
+
             $(Selector).find(".Selector__Main").click(() => {
                 $(Selector).toggleClass("Open");
                 closeOutSide($(Selector)[0] , ()=> {
@@ -130,6 +133,37 @@ $(document).ready(function (){
             .attr("value" , "");
         $(Selector).attr("data-selected" , "");
     }
+
+    /*===========================================
+	=           Multi Selector       =
+    =============================================*/
+    $(".MultiSelector").ready(function (){
+        $(".MultiSelector").each((_ , MultiSelector)=> {
+            $(MultiSelector).find(".MultiSelector__Main").click(() => {
+                $(MultiSelector).toggleClass("Open");
+                closeOutSide($(MultiSelector)[0] , ()=> {
+                    $(MultiSelector).removeClass("Open");
+                });
+            });
+            $(MultiSelector).find(".MultiSelector__InputCheckBox").on("change" , CheckBoxCountChecked);
+
+            function CheckBoxCountChecked() {
+                let Counter = $(MultiSelector)
+                    .find(".MultiSelector__InputCheckBox:checked").length ;
+                if(Counter === 0) {
+                    $(MultiSelector).find(".MultiSelector__WordChoose")
+                        .text("") ;
+                    $(MultiSelector).removeClass("Selected") ;
+                } else {
+                    $(MultiSelector).find(".MultiSelector__WordChoose")
+                        .text((LanguagePage === "ar") ? `${Counter} من العناصر تم اختيارهم` : `${Counter} Selected`) ;
+                    $(MultiSelector).addClass("Selected") ;
+                }
+                console.log(Counter) ;
+            }
+        });
+    });
+
     /*===========================================
 	=           Form       =
     =============================================*/
@@ -139,7 +173,7 @@ $(document).ready(function (){
                 , function (Value , Element) {
                 return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
             } ,
-                $("html").get(0).lang === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
+                LanguagePage === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
                     : "The password must contain from 8 to 15 characters"
             );
             const ValidatorForm = $(Value).validate({
@@ -213,12 +247,55 @@ $(document).ready(function (){
             $(Form).find(".Form__Date").each((Index , Value)=> {
                 const Input = $(Value).find("input").get(0) ;
                 if($(Input).hasClass("RangeData")) {
+                    let IsDetermine = false ;
+                    const InputAria = $(Value).find(".Date__Area").get(0) ;
+                    const InputStartDate = $(Input).attr("date-StartDateName") ;
+                    const InputEndDate = $(Input).attr("date-EndDateName") ;
                     $(Input).flatpickr({
-                        mode: "range"
+                        mode: "range" ,
+                        onClose: function(selectedDates, dateStr, instance) {
+
+                            if(selectedDates.length > 1) {
+                                let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
+                                let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
+                                if(dateStart && dateEnd) {
+                                    if(new Date(dateStart).getTime() >
+                                        new Date(dateEnd).getTime()) {
+                                        let Temp = dateEnd ;
+                                        dateStart = dateEnd ;
+                                        dateEnd = Temp ;
+                                    }
+                                    if(IsDetermine) {
+                                        const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                                        const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                                        $(StartDateInput).attr("value" , dateStart) ;
+                                        $(EndDateInput).attr("value" , dateEnd) ;
+                                    } else {
+                                        const InputElements = `
+                                        <input class="IgnoreValidate StartDate" type="hidden"
+                                               name="${InputStartDate}" value="${dateStart}">
+                                        <input class="IgnoreValidate EndDate" type="hidden"
+                                               name="${InputEndDate}" value="${dateEnd}">
+                                    `;
+                                        $(InputAria).append(InputElements) ;
+                                        IsDetermine = true ;
+                                    }
+                                }
+                            } else {
+                                if(IsDetermine) {
+                                    const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                                    const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                                    $(StartDateInput).remove() ;
+                                    $(EndDateInput).remove() ;
+                                    IsDetermine = false ;
+                                }
+                            }
+                        }
                     });
                 }
-                else
+                else {
                     $(Input).flatpickr();
+                }
             });
             $(Form).find(".RestButton").each((_ , Buttons) => {
                 $(Buttons).click(()=> {
@@ -232,7 +309,27 @@ $(document).ready(function (){
                 });
             });
             $(Form).find(".TextEditor").each((_ , TextEditor) => {
-                $(TextEditor).trumbowyg() ;
+                const Model = $(TextEditor).trumbowyg({
+                    lang: LanguagePage === "ar" ? 'ar' : 'en' ,
+                    tagsToRemove: ['script' , 'link'] ,
+                    btns: [
+                        ['viewHTML'],
+                        ['undo', 'redo'],
+                        ['formatting'],
+                        ['strong', 'em', 'del'],
+                        ['superscript', 'subscript'],
+                        ['link'],
+                        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                        ['unorderedList', 'orderedList'],
+                        ['horizontalRule'],
+                        ['removeformat'],
+                    ]
+                }).get(0) ;
+                $(Model).on("tbwinit" , function (ev) {
+                    $('.trumbowyg-editor').on("blur" , function(){
+                        $(TextEditor).valid() ;
+                    });
+                });
             });
         });
     });
@@ -463,7 +560,7 @@ $(document).ready(function (){
     =============================================*/
     $(".Table").ready(function () {
         $(".Table").each((_ , Table) => {
-            $(Table).find(".Table__List").each((_ , List)=>{
+            $(Table).find(".Table__Table").each((_ , List)=>{
                 $(List).find(".HeaderList").each((_ , HeaderList) => {
                     $(HeaderList).find(".CheckBoxItem").change((ev) => {
                         if($(ev.currentTarget).is(":checked"))
@@ -546,6 +643,16 @@ $(document).ready(function (){
                 });
             else
                 console.log("BulkTools Is undefined");
+        });
+    });
+
+    /*===========================================
+	=           Message Process Component       =
+    =============================================*/
+    $(".MessageProcess").ready(function (){
+        $(".MessageProcess").each((_ , Message) => {
+            $(Message).find(".MessageProcess__Close")
+                .click(() => { $(Message).removeClass("Show") });
         });
     });
 

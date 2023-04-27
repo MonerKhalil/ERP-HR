@@ -18,6 +18,10 @@
     @include ScreenResponsive(Desktop_Large) {
         padding: 0 1.4rem ;
     }
+
+    @include PrinterResponsive(Default) {
+        padding: 0 2.2rem ;
+    }
 }
 
 .Container--MainContent {
@@ -38,6 +42,10 @@
 
     @include ScreenResponsive(Desktop_Large) {
         padding: 0 3.4rem ;
+    }
+
+    @include PrinterResponsive(Default) {
+        padding: 0 4.2rem ;
     }
 }
 

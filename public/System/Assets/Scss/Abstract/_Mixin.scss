@@ -30,9 +30,36 @@
     }
 }
 
-@mixin PrinterResponsive() {
-    @media print {
-        @content
+@mixin PrinterResponsive($PaperSize) {
+
+    @if($PaperSize == A0) {
+        @media print and (width: 84.1cm) and (height: 118.9cm) {
+            @content
+        }
+    } @else if($PaperSize == A1) {
+        @media print and (width: 59.4cm) and (height: 84.1cm) {
+            @content
+        }
+    } @else if($PaperSize == A2) {
+        @media print and (width: 42cm) and (height: 59.4cm) {
+            @content
+        }
+    } @else if($PaperSize == A3) {
+        @media print and (width: 29.7cm) and (height: 42cm) {
+            @content
+        }
+    } @else if($PaperSize == A4) {
+        @media print and (width: 21cm) and (height: 29.7cm) {
+            @content
+        }
+    } @else if($PaperSize == A5) {
+        @media print and (width: 14.85cm) and (height: 21cm) {
+            @content
+        }
+    } @else {
+        @media print {
+            @content
+        }
     }
 }
 

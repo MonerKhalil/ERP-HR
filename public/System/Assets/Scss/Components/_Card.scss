@@ -35,6 +35,16 @@
         &.pb0 {
             padding-bottom: 0;
         }
+
+        &.py0 {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        &.px0 {
+            padding-right: 0;
+            padding-left: 0;
+        }
     }
 
     &__Content {

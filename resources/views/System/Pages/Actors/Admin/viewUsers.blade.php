@@ -122,7 +122,9 @@
                 ] , ['Type' => 'email' , 'Info' =>
                 ['Name' => "filter[email]" , 'Placeholder' => __("email")]
             ] , ['Type' => 'dateRange' , 'Info' =>
-                ['Name' => "filter[created_at]" , 'Placeholder' => __("createDate")]
+                ['Placeholder' => __("createDate") ,
+                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
+                ]
             ] ]
     ])
 @endsection

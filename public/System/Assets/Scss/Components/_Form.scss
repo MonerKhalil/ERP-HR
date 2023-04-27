@@ -177,6 +177,22 @@
 
     &__Textarea {
 
+        .Textarea {
+
+            &__Area {
+
+            }
+
+            &__Label {
+                display: inline-block ;
+                margin-bottom: 1rem ;
+            }
+
+            &__Field {
+
+            }
+
+        }
     }
 
     &__Link {
@@ -297,7 +313,8 @@
 
             &__Select {
 
-                .Selector {
+                .Selector ,
+                .MultiSelector {
 
                     &__WordLabel {
                         background-color: $BackGroundColor;
