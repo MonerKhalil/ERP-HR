@@ -12,7 +12,7 @@ class StorageFiles
 {
     private const DISK = "public";
     public const EX_IMG = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-    public const Ex_FILE = ['pdf','xls','csv'];
+    public const Ex_FILE = ['pdf','xlsx','csv'];
     public const FOLDER_IMAGES = "images";
     public const FOLDER_FILES = "files";
 
@@ -41,14 +41,17 @@ class StorageFiles
     }
 
     /**
-     * @param string|array $paths
+     * @param string|array|null $paths
      * @param string|null $disk
      * @return bool
      * @author moner khalil
      */
-    public function deleteFile(string|array $paths, string $disk = null): bool
+    public function deleteFile(string|array|null $paths, string $disk = null): bool
     {
         $disk = is_null($disk) ? self::DISK : $disk;
+        if (is_null($paths)){
+            return false;
+        }
         if (Storage::disk($disk)->exists($paths)) {
             return Storage::disk(self::DISK)->delete($paths);
         }

@@ -16,7 +16,7 @@
                             <p>Thank you for using ERP Epic , Have a good day</p>
                             <div class="Row">
                                 <div class="Col">
-                                    <a class="Button Button--Primary" href="#">Login if you forget something</a>
+                                    <a class="Button Button--Primary" href="{{route("login")}}">Login if you forget something</a>
                                 </div>
                             </div>
                         </div>

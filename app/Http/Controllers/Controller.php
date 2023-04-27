@@ -17,5 +17,6 @@ class Controller extends BaseController
         $this->middleware(["permission:create_".$table."|all_".$table])->only(["create","store"]);
         $this->middleware(["permission:update_".$table."|all_".$table])->only(["edit","update"]);
         $this->middleware(["permission:delete_".$table."|all_".$table])->only(["destroy"]);
+        $this->middleware(["permission:export_".$table."|all_".$table])->only(["ExportPDF","ExportXls"]);
     }
 }
