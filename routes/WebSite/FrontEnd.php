@@ -18,23 +18,22 @@ Route::get('/Test-3', function () {
     return view('System.Pages.comingSoon');
 });
 
-Route::get('/Test-4', function () {
+Route::get('/Test-10', function () {
     return view('System.Pages.Actors.decisionForm');
 });
 
-Route::get('/Test-5', function () {
+Route::get('/Test-11', function () {
     return view('System/Pages/Docs/decisionPrint');
 });
 
-Route::get('/Test-6', function () {
+Route::get('/Test-12', function () {
     return view('System/Pages/Actors/sessionForm');
 });
 
-Route::get('/Test-7', function () {
+Route::get('/Test-13', function () {
     return view('System/Pages/Actors/sessionView');
 });
-<<<<<<< Updated upstream
-=======
+
 
 Route::get('/Test-3', function () {
     return view('System.Pages.Actors.profile');
@@ -63,4 +62,7 @@ Route::get('/Test-8', function () {
 Route::get('/Test-9', function () {
     return view('System.Pages.Actors.HR_Manager.employeeEndOfServiceForm');
 });
->>>>>>> Stashed changes
+
+Route::get('/Test-0', function () {
+    return view('System.Pages.Actors.Admin.addUser');
+});

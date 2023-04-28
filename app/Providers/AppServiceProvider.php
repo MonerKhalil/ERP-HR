@@ -24,15 +24,12 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-<<<<<<< Updated upstream
     public function boot()
     {
         Audit::observe(AuditObserver::class);
     }
-=======
 //    public function boot()
 //    {
 //        Audit::observe(AuditObserver::class);
 //    }
->>>>>>> Stashed changes
 }
