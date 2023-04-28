@@ -7,6 +7,14 @@
     }
 
     &__BulkTools {
+        visibility: hidden;
+        opacity: 0 ;
+        transition: all .3s;
+
+        &.Show {
+            visibility: visible;
+            opacity: 1 ;
+        }
 
         .BulkTools {
             position: relative ;
@@ -14,9 +22,47 @@
             .Form {
                 display: flex;
                 gap: 1rem ;
+                align-items: center;
             }
         }
+    }
 
+    &__PrintMenu {
+        position: relative;
+
+        .PrintMenu {
+
+            &__Button {
+
+            }
+
+            &__Menu {
+                position: absolute;
+                border-radius: $BorderRadiusValue ;
+                visibility: hidden;
+                opacity: 0 ;
+                top : 100% ;
+                right : 0 ;
+                overflow: hidden;
+                z-index: $LowLayer;
+
+                .Dropdown__Item {
+                    padding: 1rem 1.5rem ;
+                    white-space: nowrap;
+
+                    &:hover {
+                        background-color: lighten($BackGroundColor_Extra-4 , 10%);
+                        color : $WhiteColor ;
+                    }
+                }
+
+                &.Show {
+                    visibility: visible;
+                    opacity: 1 ;
+                }
+            }
+
+        }
     }
 
     &__ContentTable {
@@ -64,7 +110,17 @@
                 padding: .8rem ;
                 border-bottom: 1px solid $SeparateBorderColor;
 
-                .fitContent {
+                &.Link {
+
+                    a {
+
+                        &:hover {
+                            color : $TertiaryColor-Project ;
+                        }
+                    }
+                }
+
+                &.fitContent {
                     width: 1%;
                 }
 
@@ -197,6 +253,18 @@
 @include Language(Arabic) {
 
     .Table {
+
+        &__PrintMenu {
+
+            .PrintMenu {
+
+                &__Menu {
+                    right : initial ;
+                    left : 0 ;
+                }
+
+            }
+        }
 
         &__Table {
 

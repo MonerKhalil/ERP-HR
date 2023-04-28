@@ -119,7 +119,7 @@
                                 </div>
                                 <ul class="Dropdown__Content">
                                     <li class="Dropdown__Item">
-                                        <a href="#">
+                                        <a href="{{route("profile.show")}}">
                                             <i class="material-icons">
                                                 person
                                             </i>
@@ -127,20 +127,17 @@
                                         </a>
                                     </li>
                                     <li class="Dropdown__Item">
-                                        <a href="#">
-                                            <i class="material-icons">
-                                                manage_accounts
-                                            </i>
-                                            <span>@lang("accountSetting")</span>
-                                        </a>
-                                    </li>
-                                    <li class="Dropdown__Item">
-                                        <a href="{{route("logout")}}">
+                                        <a class="AnchorSubmit"
+                                           data-form="logOutSystem">
                                             <i class="material-icons">
                                                 logout
                                             </i>
                                             <span>@lang("signout")</span>
                                         </a>
+                                        <form action="{{route("logout")}}"
+                                              name="logOutSystem" method="post">
+                                            @csrf
+                                        </form>
                                     </li>
                                 </ul>
                             </div>

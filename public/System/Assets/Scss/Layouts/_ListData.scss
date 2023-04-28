@@ -69,23 +69,33 @@
         }
     }
 
+    &__CustomItem {
+        padding: 2.5rem 1rem;
+    }
+
     &:not(:last-child) {
         margin-bottom: 3rem;
     }
 
     @include ScreenResponsive(Phone_Landscape) {
 
-        &__Item {
+        &:not(.NotResponsive) {
 
-            .Data_Col {
-                flex-direction: column;
+            .ListData {
 
-                .Data_Label {
-                    width: 100%;
-                }
+                &__Item {
 
-                .Data_Value {
-                    width: 100%;
+                    .Data_Col {
+                        flex-direction: column;
+
+                        .Data_Label {
+                            width: 100%;
+                        }
+
+                        .Data_Value {
+                            width: 100%;
+                        }
+                    }
                 }
             }
         }

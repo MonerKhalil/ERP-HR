@@ -25,6 +25,9 @@
             </div>
             <div class="ProfilePage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row GapC-1">
                         @if($IsHavePermissionReadUser)
                             <div class="Col-3-md">
@@ -36,6 +39,7 @@
                                                     <form class="ChangeImage"
                                                           action="{{$IsVisitor ? route("users.update",$user->id) : route("profile.update")}}"
                                                           method="post">
+                                                        @csrf
                                                         <input type="file" id="ImageChange"
                                                                name="image" accept="image/jpeg" hidden>
                                                         <label for="ImageChange" style="display: block">
@@ -350,7 +354,9 @@
                                                 <div class="Form__Input">
                                                     <div class="Input__Area">
                                                         <input id="UserName" class="Input__Field"
-                                                               type="text" name="name" placeholder="User Name">
+                                                               type="text" name="name"
+                                                               value="{{$user->name}}"
+                                                               placeholder="User Name" required>
                                                         <label class="Input__Label" for="UserName">User Name</label>
                                                     </div>
                                                 </div>
@@ -361,7 +367,9 @@
                                                 <div class="Form__Input">
                                                     <div class="Input__Area">
                                                         <input id="Email" class="Input__Field"
-                                                               type="email" name="email" placeholder="@lang("email")">
+                                                               type="email" name="email"
+                                                               value="{{$user->email}}"
+                                                               placeholder="@lang("email")" required>
                                                         <label class="Input__Label" for="Email">@lang("email")</label>
                                                     </div>
                                                 </div>
