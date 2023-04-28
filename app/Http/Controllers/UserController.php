@@ -92,7 +92,7 @@ class UserController extends Controller
     public function show(User $user): Response|RedirectResponse|null
     {
         $auth = auth()->user();
-        $user = User::with("employee")->findOrFail($user->id);
+        $user = User::with("ؤ")->findOrFail($user->id);
         if ($auth->id == $user->id || $auth->can("read_users") || $auth->can("all_users")){
             $roles = Role::query()->pluck('name','id')->toArray();
             return $this->responseSuccess("System.Pages.Actors.profile",compact('user','roles'));
