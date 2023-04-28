@@ -127,7 +127,8 @@
                                         </a>
                                     </li>
                                     <li class="Dropdown__Item">
-                                        <a href="javascript:document.logOutSystem.submit()">
+                                        <a class="AnchorSubmit"
+                                           data-form="logOutSystem">
                                             <i class="material-icons">
                                                 logout
                                             </i>

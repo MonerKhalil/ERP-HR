@@ -1,5 +1,25 @@
 @extends("System.Pages.globalPage")
 
+@php
+    $IsEditPage = isset($role) ;
+    $PermissionNotReserve = [] ;
+    if($IsEditPage) {
+        foreach($permissions as $Permission) {
+            $IsExist = false ;
+            foreach($rolePermissions as $RolePermission) {
+                if($Permission["id"] == $RolePermission["id"]) {
+                    $IsExist = true ;
+                    break ;
+                }
+            }
+            if(!$IsExist)
+                array_push($PermissionNotReserve , $Permission) ;
+        }
+    } else {
+        $PermissionNotReserve = $permissions ;
+    }
+@endphp
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--RollSetting">
         <div class="RollSettingPage">
@@ -29,13 +49,13 @@
                                                         <div class="ListData">
                                                             <div class="DragDrop DragDrop__Zone
                                                                         ListData__Content" data-namesItem="Permissions">
-                                                                @foreach($permissions as $Permission)
+                                                                @foreach($PermissionNotReserve as $Permission)
                                                                     <div class="DragDrop DragDrop__Item ListData__Item
                                                                             ListData__Item--Action" data-nameItem="Permissions">
                                                                         <input type="text" name="permissions[]"
                                                                                value="{{$Permission["id"]}}" hidden>
                                                                         <div class="Data_Col">
-                                                                        <span class="Data_Label">
+                                                                            <span class="Data_Label">
                                                                             {{$Permission["name"]}}
                                                                         </span>
                                                                         </div>
@@ -67,16 +87,22 @@
                                                 </div>
                                             </div>
                                             <div class="Card__Inner pt0">
-                                                <form class="Form Form--Dark" action="{{route("roles.store")}}"
+                                                <form class="Form Form--Dark"
+                                                      action="{{$IsEditPage ? route("roles.update" , $role["id"])
+                                                                : route("roles.store")}}"
                                                       method="post">
                                                     @csrf
+                                                    @if($IsEditPage)
+                                                        @method("put")
+                                                    @endif
                                                     <div class="Row">
                                                         <div class="Col">
                                                             <div class="Form__Group">
                                                                 <div class="Form__Input">
                                                                     <div class="Input__Area">
                                                                         <input id="RoleName" class="Input__Field" type="text"
-                                                                               name="name" placeholder="Role Name" required>
+                                                                               name="name" value="{{$IsEditPage ? $role['name'] : ''}}"
+                                                                               placeholder="Role Name" required>
                                                                         <label class="Input__Label" for="RoleName">Role Name</label>
                                                                     </div>
                                                                 </div>
@@ -88,6 +114,26 @@
                                                                     <div class="ListData">
                                                                         <div class="DragDrop DragDrop__Zone
                                                                         ListData__Content" data-namesItem="Permissions">
+                                                                            @if($IsEditPage)
+                                                                                @foreach($rolePermissions as $Permission)
+                                                                                    <div class="DragDrop DragDrop__Item ListData__Item
+                                                                                         ListData__Item--Action"
+                                                                                         data-nameItem="Permissions">
+                                                                                        <input type="text" name="permissions[]"
+                                                                                               value="{{$Permission["id"]}}" hidden>
+                                                                                        <div class="Data_Col">
+                                                                                            <span class="Data_Label">
+                                                                            {{$Permission["name"]}}
+                                                                        </span>
+                                                                                        </div>
+                                                                                        <div class="Data_Col Data_Col--End">
+                                                                                            <i class="material-icons">
+                                                                                                sync_alt
+                                                                                            </i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>

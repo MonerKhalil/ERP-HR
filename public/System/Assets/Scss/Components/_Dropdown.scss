@@ -3,4 +3,9 @@
     position: relative;
     background-color: #1b2633;
     transition: all .3s;
+
+    &__Item {
+        cursor: pointer;
+        transition: all .3s;
+    }
 }
