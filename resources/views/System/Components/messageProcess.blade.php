@@ -1,16 +1,27 @@
 
-@if(isset($Type) && isset($Message))
-    @php
-        $TypeMessage = "" ;
-        if($Type == "Success")
-            $TypeMessage = "Success" ;
-        elseif($Type == "Error")
+<?php
+    $TypeMessage = null ;
+    $ErrorsName = ['email' , 'name' , 'password'] ; // Add Error Name
+    $SuccessName = [] ; // Add Success Name
+    foreach ($ErrorsName as $Error) {
+        if(!is_null(Error($Error))) {
             $TypeMessage = "Error" ;
-        elseif($Type == "Warning")
-            $TypeMessage = "Warning" ;
-        elseif($Type == "Info")
-            $TypeMessage = "Info" ;
-    @endphp
+            $Message = Error($Error) ;
+            break ;
+        }
+    }
+    if($TypeMessage == null) {
+        foreach ($SuccessName as $Success) {
+            if(!is_null(Success($Success))) {
+                $TypeMessage = "Success" ;
+                $Message = Success($Success) ;
+                break ;
+            }
+        }
+    }
+?>
+
+@if($TypeMessage != null)
     <div class="MessageProcess MessageProcess--{{$TypeMessage}} Show">
         <div class="MessageProcess__MainContent">
             <div class="MessageProcess__Header">

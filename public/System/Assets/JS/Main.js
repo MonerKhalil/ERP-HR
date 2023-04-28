@@ -652,7 +652,9 @@ $(document).ready(function (){
     $(".MessageProcess").ready(function (){
         $(".MessageProcess").each((_ , Message) => {
             $(Message).find(".MessageProcess__Close")
-                .click(() => { $(Message).removeClass("Show") });
+                .click(() => {
+                    $(Message).remove();
+                });
         });
     });
 
