@@ -77,7 +77,8 @@ class RoleController extends Controller
     {
         $permissions = Permission::query()->get(["id","name"]);
         $rolePermissions = $role->permissions;
-        return $this->responseSuccess("role.show",compact('role','permissions','rolePermissions'));
+        return $this->responseSuccess("System.Pages.Actors.Admin.roleAdd"
+            ,compact('role','permissions','rolePermissions'));
     }
 
     /**

@@ -346,6 +346,10 @@ p {
   background-color: #1b2633;
   transition: all 0.3s;
 }
+.Dropdown__Item {
+  cursor: pointer;
+  transition: all 0.3s;
+}
 
 .Form {
   position: relative;
@@ -905,6 +909,10 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 .Card__Inner.px0 {
   padding-right: 0;
   padding-left: 0;
+}
+.Card__Inner.py1 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .Card__ToolsGroup {
   position: relative;
@@ -2316,12 +2324,47 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 .Table {
   position: relative;
 }
+.Table__BulkTools {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.Table__BulkTools.Show {
+  visibility: visible;
+  opacity: 1;
+}
 .Table__BulkTools .BulkTools {
   position: relative;
 }
 .Table__BulkTools .BulkTools .Form {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+.Table__PrintMenu {
+  position: relative;
+}
+.Table__PrintMenu .PrintMenu__Menu {
+  position: absolute;
+  border-radius: 5px;
+  visibility: hidden;
+  opacity: 0;
+  top: 100%;
+  right: 0;
+  overflow: hidden;
+  z-index: 2;
+}
+.Table__PrintMenu .PrintMenu__Menu .Dropdown__Item {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+}
+.Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
+  background-color: #2d3f54;
+  color: #fff;
+}
+.Table__PrintMenu .PrintMenu__Menu.Show {
+  visibility: visible;
+  opacity: 1;
 }
 .Table__ContentTable {
   position: relative;
@@ -2360,7 +2403,7 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 .Table__Table .Item__Col.Link a:hover {
   color: #10C093;
 }
-.Table__Table .Item__Col .fitContent {
+.Table__Table .Item__Col.fitContent {
   width: 1%;
 }
 .Table__Table .Item__Col--Check {
@@ -2431,6 +2474,10 @@ html[lang=en] .Table__Table .Item__Col:last-child {
   padding-right: 2.4rem;
 }
 
+html[lang=ar] .Table__PrintMenu .PrintMenu__Menu {
+  right: initial;
+  left: 0;
+}
 html[lang=ar] .Table__Table .Item__Col:first-child {
   padding-right: 2.4rem;
 }
@@ -2850,15 +2897,24 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   padding: 1rem;
 }
 .PrintPage__CompanyInfo .ImageCompany {
-  width: 13rem;
+  width: 10rem;
 }
 .PrintPage__CompanyInfo .ImageCompany > img {
   width: 100%;
   border-radius: 50%;
 }
+.PrintPage__CompanyInfo .DescriptionCompany {
+  flex: 1;
+}
+.PrintPage__CompanyInfo .DescriptionCompany .Text {
+  display: flex;
+  flex-wrap: wrap;
+}
 .PrintPage__CompanyInfo .DescriptionCompany .Text > * {
+  width: 50%;
+  padding: 1rem;
   margin-bottom: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: #b6c6e3;
 }
@@ -2877,6 +2933,9 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 }
 .PrintPage .ListData--CustomPrint .ListData__Item .Data_Col {
   padding: 1.5rem 1rem;
+}
+.PrintPage .Table__Table .Item__Col {
+  width: 1%;
 }
 
 /**

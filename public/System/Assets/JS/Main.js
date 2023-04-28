@@ -8,6 +8,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Header Page       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     const Header = $(".HeaderPage") ;
     Header.ready(function () {
         $(".HeaderPage .Alert").each(function() {
@@ -35,6 +40,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Navigations Menu       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     const MenuNav = $(".NavigationsMenu") ;
     MenuNav.ready(function () {
         let IsHover = false ;
@@ -69,11 +79,21 @@ $(document).ready(function (){
     /*===========================================
 	=           Footer Page       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     const Footer = $(".FooterPage") ;
 
     /*===========================================
 	=           Selector       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Selector").ready(function (){
         $(".Selector").each((_ , Selector)=> {
 
@@ -137,6 +157,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Multi Selector       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".MultiSelector").ready(function (){
         $(".MultiSelector").each((_ , MultiSelector)=> {
             $(MultiSelector).find(".MultiSelector__Main").click(() => {
@@ -167,6 +192,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Form       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $("form").ready(function (){
         $("form").each((Index , Value)=> {
             $.validator.addMethod("RegexPassword"
@@ -333,6 +363,14 @@ $(document).ready(function (){
             });
         });
     });
+    $(".AnchorSubmit").ready(function () {
+        $(".AnchorSubmit").each((_ , Anchor) => {
+            const FormName = $(Anchor).attr("data-form") ;
+            $(Anchor).click(() => {
+                $(document).find(`form[name="${FormName}"]`).submit() ;
+            });
+        });
+    });
 
     /*===========================================
 	=           Menu And Header       =
@@ -358,6 +396,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Loader Upload       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     function LoaderView() {
         $(".Loader--Upload").ready(function (){
             $(".Loader--Upload").each((Index , Value)=> {
@@ -377,6 +420,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Profile Page       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".ProfilePage").ready(function (){
         $(".ProfilePage").find("form.ChangeImage").each((Index , Value)=>{
             const InputFile = $(Value).find("#ImageChange");
@@ -390,6 +438,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Popup Component       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Popup").ready(function (){
         $(".Popup").each((Index , Value)=> {
             $(Value).find(".Popup__Close").click(()=>{
@@ -414,6 +467,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Taps Layout       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Taps").ready(function () {
         $(".Taps").each((Index , TapElement) => {
            let CurrentTap , CurrentPanel ;
@@ -443,6 +501,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Dropdown       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Dropdown").ready(function (){
         $(".Dropdown").each((_ , Dropdown)=>{
             $(Dropdown).on("ShowChange" , function (){
@@ -560,22 +623,28 @@ $(document).ready(function (){
     =============================================*/
     $(".Table").ready(function () {
         $(".Table").each((_ , Table) => {
-            $(Table).find(".Table__Table").each((_ , List)=>{
+            const BulkTools =  $(Table).find(".Table__BulkTools").get(0) ?? undefined ;
+            $(Table).find(".Table__Table").each((_ , List) => {
                 $(List).find(".HeaderList").each((_ , HeaderList) => {
                     $(HeaderList).find(".CheckBoxItem").change((ev) => {
-                        if($(ev.currentTarget).is(":checked"))
+                        if($(ev.currentTarget).is(":checked")) {
                             $(List).find(".DataItem").each((_ , Item) => {
                                 $(Item).find(".CheckBoxItem").prop('checked', true);
-                            });
-                        else
+                            }) ;
+                            BulkVisible(true) ;
+                        }
+                        else {
                             $(List).find(".DataItem").each((_ , Item) => {
                                 $(Item).find(".CheckBoxItem").prop('checked', false);
-                            });
+                            }) ;
+                            BulkVisible(false) ;
+                        }
                     });
                 });
                 $(List).find(".DataItem").each((_ , DataItem) => {
                     $(DataItem).find(".CheckBoxItem").change((ev) => {
                         const CheckBoxHeader = $(List).find(".HeaderList .CheckBoxItem") ;
+                        BulkVisible($(List).find(".CheckBoxItem:checked").length > 0) ;
                         if(CheckBoxHeader.is(":checked") &&
                             !$(ev.currentTarget).is(":checked")) {
                             CheckBoxHeader.prop('checked', false);
@@ -591,7 +660,19 @@ $(document).ready(function (){
                         $(SubRows).fadeToggle() ;
                     });
             });
-            // $(Table).find(".Table__BulkTools")
+            $(Table).find(".Table__PrintMenu").each((_ , PrintMenu) => {
+                $(PrintMenu).find(".PrintMenu__Button").click(() => {
+                    $(PrintMenu).find(".PrintMenu__Menu.Dropdown")
+                        .addClass("Show").trigger("ShowChange") ;
+                });
+            })
+
+            function BulkVisible(IsVisible = Boolean) {
+                if(BulkTools && IsVisible)
+                    $(BulkTools).addClass("Show") ;
+                else
+                    $(BulkTools).removeClass("Show") ;
+            }
         });
     });
 
@@ -631,14 +712,15 @@ $(document).ready(function (){
                                $(Bulk).append(DeleteInput) ;
                                IsHaveDeleteInput = true ;
                            }
+                           $(ClosestForm).attr("method" , "post") ;
                        } else {
                            if(IsHaveDeleteInput) {
                                $(Bulk).find("input[value='delete']").remove() ;
                                IsHaveDeleteInput = false ;
                            }
+                           $(ClosestForm).attr("method" , Method) ;
                        }
                         $(ClosestForm).attr("action" , Action) ;
-                        $(ClosestForm).attr("method" , Method) ;
                     });
                 });
             else

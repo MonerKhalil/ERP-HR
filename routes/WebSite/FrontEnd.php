@@ -33,3 +33,7 @@ Route::get('/Test-6', function () {
 Route::get('/Test-7', function () {
     return view('System/Pages/Actors/sessionView');
 });
+
+Route::get('/Test-8', function () {
+    return view('System/Pages/Docs/tablePrint');
+});
