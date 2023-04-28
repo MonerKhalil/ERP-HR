@@ -8,9 +8,6 @@
     {{--  Main Content  --}}
     <main class="MainContent">
         @yield("ContentPage")
-        <div class="MessageProcessContainer">
-            @include("System.Components.messageProcess")
-        </div>
         @include("System.Components.cookies")
     </main>
     {{--  Popup Content  --}}
