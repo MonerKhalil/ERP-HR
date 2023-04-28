@@ -13,11 +13,10 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests,TResponse;
 
     protected function addMiddlewarePermissionsToFunctions(string $table){
-        if (!is_null(auth()->user()) && !auth()->user()->can("all_".$table)){
-            $this->middleware(["permission:read_".$table])->only(["index"]);
-            $this->middleware(["permission:create_".$table])->only(["create","store"]);
-            $this->middleware(["permission:update_".$table])->only(["edit","update"]);
-            $this->middleware(["permission:delete_".$table])->only(["destroy"]);
-        }
+        $this->middleware(["permission:read_".$table."|all_".$table])->only(["index"]);
+        $this->middleware(["permission:create_".$table."|all_".$table])->only(["create","store"]);
+        $this->middleware(["permission:update_".$table."|all_".$table])->only(["edit","update"]);
+        $this->middleware(["permission:delete_".$table."|all_".$table])->only(["destroy"]);
+        $this->middleware(["permission:export_".$table."|all_".$table])->only(["ExportPDF","ExportXls"]);
     }
 }

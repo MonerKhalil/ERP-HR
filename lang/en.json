@@ -4,6 +4,10 @@
     "suc.update" : "The modification was completed successfully",
     "suc.delete" : "The deletion was completed successfully",
     "suc.default" : "The previous operation completed successfully",
+    "password_error" : "The old password is incorrect",
+    "created": "created",
+    "updated": "updated",
+    "deleted": "deleted",
 
     "/*         Header         */": "",
 
@@ -15,6 +19,11 @@
     "viewProfile" : "view profile",
     "accountSetting" : "Account Setting",
     "signout" : "sign out" ,
+
+    "/*         Footer         */": "",
+
+    "copyright" : "copyright",
+    "footerTitle" : "designed by ERP Epic All rights reserved",
 
     "/*         Nav Menu         */": "",
 
@@ -41,15 +50,14 @@
     "userName" : "user name" ,
     "password" : "password" ,
     "rePassword" : "Re-Password" ,
+    "oldPassword" : "old password" ,
+    "newPassword" : "new password" ,
     "firstName" : "first name" ,
     "lastName" : "last name" ,
     "email" : "email" ,
     "choose" : "choose",
     "gender" : "gender",
     "male" : "male" ,
-<<<<<<< Updated upstream
-    "female" : "female"
-=======
     "female" : "female",
     "role" : "role",
     "roles" : "roles",
@@ -145,6 +153,41 @@
     "courseProvider" : "Course Provider",
     "saveCourse" : "Save Course",
     "countryName" : "Country Name",
-    "cityName" : "City Name"
->>>>>>> Stashed changes
+    "cityName" : "City Name",
+    "/*         View Users Page         */": "" ,
+
+    "viewUsers" : "view users" ,
+    "titleViewUsers" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "user" : "user" ,
+    "id" : "id" ,
+    "createDate" : "create date",
+    "apply" : "apply" ,
+    "bulkAction" : "bulk action",
+    "print" : "print",
+    "delete" : "delete",
+    "page" : "page" ,
+    "ofPage" : "of",
+
+    "/*         Form Search         */": "",
+
+    "search" : "search",
+    "filter" : "filter" ,
+    "clean" : "clean",
+
+    "/*         Print Page         */": "",
+
+    "printInformation" : "print information",
+    "titlePrintInformation" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+
+    "/*         No Data Component         */": "",
+
+    "noDataMessage" : "Sorry there is no data",
+
+    "/*         Message Page         */": "",
+
+    "404Message" : "we are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.",
+    "comingSoon" : "coming soon" ,
+    "comingSoonMessage" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ,
+    "backToHome" : "back to home"
+
 }

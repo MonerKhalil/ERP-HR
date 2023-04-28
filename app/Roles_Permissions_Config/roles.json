@@ -2,10 +2,11 @@
     "roles" : {
         "super_admin" : {
             "users" : "a",
-            "roles" : "a"
+            "roles" : "a",
+            "employees": "a"
         },
         "user" : {
-            "users" : ["r","c"],
+            "users" : ["r"],
             "roles" : ["r"]
         }
     },
@@ -15,6 +16,7 @@
         "c" : "create",
         "u" : "update",
         "d" : "delete",
-        "e" : "export"
+        "e" : "export",
+        "au": "audit"
     }
 }

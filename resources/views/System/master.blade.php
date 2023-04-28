@@ -12,6 +12,7 @@
     <body>
         <div id="Wrapper">
             @yield("MainContent")
+            @include("System.Components.loader")
         </div>
             {{-- Scripts --}}
             @include("System.Layouts.Footer.footerScript")

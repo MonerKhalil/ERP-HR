@@ -7,6 +7,15 @@
 
     > * {
         width: 100%;
+        max-width : 100% ;
+        margin-top: 2rem;
+    }
+
+    &.m0 {
+
+        > * {
+            margin-top: 0;
+        }
     }
 
     .Col {

@@ -1,0 +1,76 @@
+
+.Pagination {
+    position: relative;
+
+    &--Numbers {
+
+    }
+
+    &--Select {
+
+        .Pagination {
+
+            &__List {
+                gap: 1.5rem ;
+            }
+
+            &__PageWord ,
+            &__PageOf {
+                font-size: 1.2rem;
+            }
+        }
+
+        .Input__Field {
+            min-width: 7rem ;
+            padding: .5rem 1rem;
+        }
+    }
+
+    &__List {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap ;
+        align-items: center;
+    }
+
+    &__Number a,
+    &__Previous a,
+    &__Next a ,
+    &__Points{
+        display: block ;
+        font-size: 1.2rem;
+        font-weight: 600 ;
+        padding: .5rem 1rem;
+        border: 1px solid $SeparateBorderColor;
+        color : $TextColor;
+    }
+
+    &__Number a,
+    &__Previous a,
+    &__Next a {
+        cursor: pointer ;
+        transition: all .3s ;
+
+        &:hover {
+            background-color: $PrimaryColor-Project;
+            color : $WhiteColor ;
+        }
+    }
+
+    &__Previous {
+
+        a {
+            border-bottom-left-radius: $BorderRadiusValue;
+            border-top-left-radius: $BorderRadiusValue;
+        }
+    }
+
+    &__Next {
+
+        a {
+            border-bottom-right-radius: $BorderRadiusValue;
+            border-top-right-radius: $BorderRadiusValue;
+        }
+    }
+
+}

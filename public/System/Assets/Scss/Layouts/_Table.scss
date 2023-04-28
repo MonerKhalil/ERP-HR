@@ -1,0 +1,228 @@
+
+.Table {
+    position: relative;
+
+    &__Head {
+
+    }
+
+    &__BulkTools {
+
+        .BulkTools {
+            position: relative ;
+
+            .Form {
+                display: flex;
+                gap: 1rem ;
+            }
+        }
+
+    }
+
+    &__ContentTable {
+        position: relative;
+        width: 100% ;
+        max-width: 100% ;
+        overflow-x : auto;
+        overflow-y: hidden;
+    }
+
+    &__Table {
+        display: table;
+        width: 100% ;
+        font-size: 1.3rem;
+        border-collapse: collapse;
+
+        .GroupRows {
+            display : table-row-group;
+
+            &__MainRow {
+
+                &.Show {
+                    background-color: $PrimaryColor-Project;
+                    color : $WhiteColor ;
+                }
+            }
+
+            &__SubRows {
+                display: none;
+                background-color: darken($BackGroundColor , 5%);
+            }
+        }
+
+        .HeaderList {
+
+        }
+
+        .Item {
+            display: table-row;
+
+            &__Col {
+                position: relative;
+                display: table-cell;
+                vertical-align: middle;
+                padding: .8rem ;
+                border-bottom: 1px solid $SeparateBorderColor;
+
+                &.Link {
+
+                    a {
+
+                        &:hover {
+                            color : $TertiaryColor-Project ;
+                        }
+                    }
+                }
+
+                .fitContent {
+                    width: 1%;
+                }
+
+                &--Check {
+                    line-height: 1;
+
+                    .CheckBoxItem:checked + .CheckBoxRow {
+
+                        background-color: $TertiaryColor-Project;
+
+                        > .material-icons {
+                            display: inline-block;
+                            color : $WhiteColor;
+                        }
+                    }
+
+                    .CheckBoxRow {
+                        @extend .CheckBoxNormal ;
+                        width: 1.5rem;
+                        height: 1.5rem;
+
+                        > .material-icons {
+                            font-size: 1.4rem;
+                            left: 0;
+                            top: 0;
+                        }
+                    }
+                }
+
+                &--Tools {
+
+                    .Tools {
+                        position: relative;
+                        visibility: hidden;
+                        opacity: 0;
+                        transition: all .3s;
+
+                        .IconClick {
+                            position: relative;
+                            font-size: 1.6rem;
+                            color: $TextColor;
+
+                            &.View:hover {
+                                color : $TertiaryColor-Project ;
+                            }
+
+                            &.Remove:hover {
+                                color : $DangerColor ;
+                            }
+
+                        }
+                    }
+                }
+
+                &--Details {
+
+                    .Details {
+
+                        &__Button {
+                            cursor: pointer;
+                            transition: all .3s;
+
+                            &:hover {
+                                color : $TertiaryColor-Project ;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                .Item {
+
+                    &__Col {
+
+                        &--Tools {
+
+                            .Tools {
+                                visibility: visible;
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__Pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    @include ScreenResponsive(Phone_Portrait) {
+
+        &__Pagination {
+            justify-content: center;
+
+            .Pagination--Numbers {
+                display: none;
+            }
+        }
+    }
+}
+
+@include Language(English) {
+
+    .Table {
+
+        &__Table {
+
+            .Item {
+
+                &__Col {
+
+                    &:first-child {
+                        padding-left: 2.4rem;
+                    }
+
+                    &:last-child {
+                        padding-right: 2.4rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include Language(Arabic) {
+
+    .Table {
+
+        &__Table {
+
+            .Item {
+
+                &__Col {
+
+                    &:first-child {
+                        padding-right: 2.4rem;
+                    }
+
+                    &:last-child {
+                        padding-left: 2.4rem;
+                    }
+                }
+            }
+        }
+    }
+}

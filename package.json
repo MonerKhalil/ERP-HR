@@ -8,8 +8,6 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-
-
         "Sass_Compiler": "sass ./public/System/Assets/Scss/Main.scss ./public/System/Assets/CSS/Style.css -w",
         "Build__SassCompiler": "node-sass Scss/Main.scss ./CSS/Style.css",
         "Build__CssConcat": "concat -o ./CSS/Style.Concat.css ./Packages/Icons/all.min.css ./CSS/Style.css ",
@@ -25,7 +23,10 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
+        "flatpickr": "^4.6.13",
         "jquery": "^3.6.4",
-        "sass": "^1.60.0"
+        "jquery-validation": "^1.19.5",
+        "sass": "^1.60.0",
+        "trumbowyg": "^2.27.3"
     }
 }
