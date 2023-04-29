@@ -165,6 +165,9 @@
                                                                     ] , [
                                                                         "Label" => __("email") , "Value" => $user->email ,
                                                                         "IsLock" => !$IsHavePermissionEditUser , "PopupName" => "UpdateUser"
+                                                                    ] , [
+                                                                        "Label" => "Role" , "Value" => "Dummy" ,
+                                                                        "IsLock" => !$IsHavePermissionEditUser , "PopupName" => "UpdateUser"
                                                                     ]
                                                                 ]
                                                             ])
@@ -371,6 +374,21 @@
                                                                value="{{$user->email}}"
                                                                placeholder="@lang("email")" required>
                                                         <label class="Input__Label" for="Email">@lang("email")</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="Col-6-md">
+                                            <div class="Form__Group">
+                                                <div class="Form__Select">
+                                                    <div class="Select__Area">
+                                                        @include("System.Components.selector" , [
+                                                            'Name' => "Roles" , "Required" => "true" ,
+                                                            "DefaultValue" => "" , "Label" => "Roles" ,
+                                                            "Options" => [ ["Label" => "Rule_1" , "Value" => "1"]
+                                                                , ["Label" => "Rule_2" , "Value" => "2"]
+                                                             ]
+                                                        ])
                                                     </div>
                                                 </div>
                                             </div>

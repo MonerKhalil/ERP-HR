@@ -28,7 +28,8 @@
                                 </div>
                                 <div class="AuthenticationPage__Form">
                                     <h2 class="AuthenticationPage__Title">@lang("signin")</h2>
-                                    <form class="Form Form--Dark" action="{{route('login')}}" method="post">
+                                    <form class="Form Form--Dark" id="AuthenticationForm"
+                                          action="{{route('login')}}" method="post">
                                         @csrf
                                         <div class="Row">
                                             <div class="Col">

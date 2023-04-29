@@ -181,6 +181,7 @@ img {
 .Logo__SystemName {
   color: #fff;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .ArrowRight {
@@ -201,6 +202,14 @@ img {
 
 .Justify-Content-End {
   justify-content: end !important;
+}
+
+.Justify-Content-Center {
+  justify-content: center !important;
+}
+
+.Overflow-Hidden {
+  overflow: hidden;
 }
 
 .ReplaceOldBackGround {
@@ -309,7 +318,7 @@ html[lang=ar] .Right {
 
 body {
   font-family: Roboto, sans-serif;
-  color: #6c7a87;
+  color: #b2b2b2;
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.5;
@@ -941,6 +950,11 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   background-color: #10C093;
   border-radius: 50%;
 }
+.Card__Pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .Card__Header {
   margin-bottom: 1.5rem;
 }
@@ -959,6 +973,14 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 }
 .Card--Dark {
   background-color: #1A202E;
+}
+@media only screen and (max-width: 35.99em) {
+  .Card__Pagination {
+    justify-content: center;
+  }
+  .Card__Pagination .Pagination--Numbers {
+    display: none;
+  }
 }
 
 .Loader {
@@ -1635,7 +1657,7 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
   position: relative;
 }
 .NavigationsMenu__NavigationsGroup .NavigationsGroup__NavItem:not(:last-child), .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem:not(:last-child) {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .NavigationsMenu__NavigationsGroup .NavigationsGroup__NavItem .Title, .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem .Title {
   position: relative;
@@ -1644,7 +1666,7 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
 .NavigationsMenu__NavigationsGroup .NavigationsGroup__NavItem .Title .NavName, .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem .Title .NavName {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
   color: #fff;
 }
@@ -1743,6 +1765,9 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
     padding: 1rem 0;
   }
   .NavigationsMenu:not(.Open) .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > .Title .ArrowRight {
+    display: none;
+  }
+  .NavigationsMenu:not(.Open) .NavigationsMenu__NavigationsGroup .NavigationsGroup__SubItems {
     display: none;
   }
 }
@@ -2453,19 +2478,6 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   visibility: visible;
   opacity: 1;
 }
-.Table__Pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-@media only screen and (max-width: 35.99em) {
-  .Table__Pagination {
-    justify-content: center;
-  }
-  .Table__Pagination .Pagination--Numbers {
-    display: none;
-  }
-}
 
 html[lang=en] .Table__Table .Item__Col:first-child {
   padding-left: 2.4rem;
@@ -2560,6 +2572,67 @@ html[lang=ar] .Cookies.Show {
   color: #b6c6e3;
   letter-spacing: 3px;
   text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.Notification {
+  position: relative;
+  transition: all 0.3s;
+}
+.Notification__Content {
+  display: flex;
+}
+.Notification__Icon {
+  width: 7rem;
+}
+.Notification__Icon i {
+  font-size: 4rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+.Notification__Icon--Send i {
+  color: #1EE0AC;
+  background-color: #193E40;
+}
+.Notification__Icon--Receive i {
+  color: #F4BD0E;
+  background-color: #393828;
+}
+.Notification__Details {
+  flex: 1;
+}
+.Notification__Details > *:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.Notification__Details > *:last-child {
+  margin: 0;
+}
+.Notification__Details .NotificationTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #dadada;
+}
+.Notification__Details .NotificationDescription {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+.Notification__Details .NotificationDate {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #6c7a87;
+}
+.Notification__Remove {
+  cursor: pointer;
+}
+.Notification__Remove i {
+  font-size: 2rem;
+  transition: color 0.3s;
+}
+.Notification__Remove:hover i {
+  color: #10C093;
+}
+.Notification:hover {
+  background-color: #202738;
 }
 
 .FooterPage {
@@ -2936,6 +3009,27 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 }
 .PrintPage .Table__Table .Item__Col {
   width: 1%;
+}
+
+.NotificationPage {
+  position: relative;
+}
+.NotificationPage__Buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+.NotificationPage__NotificationList .Notification:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 5px;
+  background-color: #000;
+  background-color: #35393f;
 }
 
 /**
