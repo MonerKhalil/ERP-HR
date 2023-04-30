@@ -40,7 +40,6 @@ class BaseRequest extends FormRequest
         if ($this->isUpdatedRequest()) {
             $this->rule = 'sometimes';
         }
-
         return "$this->rule|mimes:jpeg,png,jpg,gif,svg|max:256";
     }
 
@@ -93,10 +92,10 @@ class BaseRequest extends FormRequest
      * @param bool|null $isNullable
      * @param null $min
      * @param null $max
-     * @return string
+     * @return array
      * @author moner khalil
      */
-    public function textRule(bool $isRequired = null, bool $isNullable = null, $min = null, $max = null): string
+    public function textRule(bool $isRequired = null, bool $isNullable = null, $min = null, $max = null): array
     {
         $temp_rules = [];
         if (!is_null($isRequired)) {

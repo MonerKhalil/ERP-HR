@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\NotificationsContoller;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function (){
         =         Start Notification Routes        =
        =============================================*/
 
-        Route::prefix("notifications")->controller(NotificationsContoller::class)
+        Route::prefix("notifications")->controller(NotificationsController::class)
         ->group(function(){
             Route::get("show","getNotifications")->name("notifications.show");
             Route::delete("clear","clearNotifications")->name("notifications.clear");
@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function (){
         /*===========================================
         =         End Notification Routes        =
        =============================================*/
-        
+
     });
 
     /*===========================================

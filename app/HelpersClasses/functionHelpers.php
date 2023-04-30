@@ -22,3 +22,8 @@ function Success(){
     return Session::has(MessagesFlash::$suc)
         ? Session::get(MessagesFlash::$suc) : null;
 }
+
+function PathStorage($path)
+{
+    return asset('storage/'.$path);
+}

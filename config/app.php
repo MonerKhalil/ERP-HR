@@ -194,6 +194,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         "Messages" => \App\HelpersClasses\MessagesFlash::class,
     ])->toArray(),
 
