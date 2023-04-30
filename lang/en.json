@@ -33,6 +33,7 @@
     "account" : "account" ,
     "admin" : "admin",
     "resumeSection" : "resume section" ,
+    "auditTrack" : "auditing",
     "users" : "users" ,
     "employees" : "employees",
     "viewEmployees" : "view employees",
@@ -126,6 +127,35 @@
     "404Message" : "we are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.",
     "comingSoon" : "coming soon" ,
     "comingSoonMessage" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ,
-    "backToHome" : "back to home"
+    "backToHome" : "back to home",
 
+    "/*         Audit Page         */": "",
+
+    "viewAudit" : "view audit",
+    "event" : "event" ,
+    "tableEdit" : "table edit",
+    "fromUser" : "from user",
+    "userId" : "user id",
+    "editDate" : "edit date",
+    "details" : "details",
+    "typeValue" : "type value",
+    "name" : "name" ,
+    "newValue" : "new value",
+    "oldValue" : "old value",
+    "userNameEditing" : "user name editing",
+    "userIdEditing" : "user id editing",
+
+    "/*         Add Role Page         */": "",
+
+    "roleSetting" : "role setting",
+    "permissions" : "permissions" ,
+    "newRole" : "new role",
+    "roleName" : "role name",
+    "createOne" : "create one",
+
+    "/*         View Role Page         */": "",
+
+    "printTablePDFFile" : "print table pdf file",
+    "printTableXlsxFile" : "print table xlsx file",
+    "more" : "more",
 }

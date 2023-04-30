@@ -16,6 +16,16 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
+                                    <form name="PrintAllTablePDF" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
+                                    <form name="PrintAllTableXlsx" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">

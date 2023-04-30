@@ -16,6 +16,16 @@
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("admin")</span>
                     </li>
+                    <li class="NavigationsGroup__NavItem">
+                        <div class="Title">
+                            <a href="{{route("audit.show")}}" class="NavName">
+                                <i class="material-icons Icon">
+                                    track_changes
+                                </i>
+                                <span class="Label">@lang("auditTrack")</span>
+                            </a>
+                        </div>
+                    </li>
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
