@@ -87,7 +87,9 @@
                                         </li>
                                     </ul>
                                     <div class="Dropdown__Footer">
-                                        <a href="#" title="View All Notification">@lang("viewNotification")</a>
+                                        <a href="{{route("notifications.show")}}" title="View All Notification">
+                                            @lang("viewNotification")
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -135,6 +137,7 @@
                                             <span>@lang("signout")</span>
                                         </a>
                                         <form action="{{route("logout")}}"
+                                              class="logoutForm"
                                               name="logOutSystem" method="post">
                                             @csrf
                                         </form>

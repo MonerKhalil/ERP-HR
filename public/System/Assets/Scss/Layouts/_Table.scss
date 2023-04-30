@@ -208,23 +208,6 @@
             }
         }
     }
-
-    &__Pagination {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    @include ScreenResponsive(Phone_Portrait) {
-
-        &__Pagination {
-            justify-content: center;
-
-            .Pagination--Numbers {
-                display: none;
-            }
-        }
-    }
 }
 
 @include Language(English) {

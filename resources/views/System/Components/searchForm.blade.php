@@ -6,7 +6,8 @@
                 <div class="Popup__InnerGroup">
                     @if(isset($InfoForm))
                         <form class="Form Form--Dark"
-                              action="{{$InfoForm['Route']}}" method="{{$InfoForm['Method']}}">
+                              action="{{$InfoForm['Route']}}"
+                              method="{{$InfoForm['Method']}}">
                             @csrf
                             @if(isset($SearchForm))
                                 <div class="Popup__Inner">

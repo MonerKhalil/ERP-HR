@@ -1,0 +1,88 @@
+
+.Notification {
+    position: relative;
+    transition: all .3s ;
+
+    &__Content {
+        display: flex;
+    }
+
+    &__Icon {
+        width: 7rem;
+
+        i {
+            font-size: 4rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+
+        &--Send {
+            i {
+                color : #1EE0AC ;
+                background-color: #193E40;
+            }
+        }
+
+        &--Receive {
+            i {
+                color : #F4BD0E ;
+                background-color: #393828;
+            }
+        }
+    }
+
+    &__Details {
+        flex : 1 ;
+
+        > * {
+
+            &:not(:last-child) {
+                margin-bottom: 0.5rem;
+            }
+
+            &:last-child {
+                margin : 0 ;
+            }
+
+        }
+
+        .NotificationTitle {
+            font-size: 1.6rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color : $WhiteColor_Extra-2 ;
+        }
+
+        .NotificationDescription {
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        .NotificationDate {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color : $GrayColor ;
+        }
+
+    }
+
+    &__Remove {
+        cursor: pointer;
+
+        i {
+            font-size: 2rem;
+            transition: color .3s;
+        }
+
+        &:hover {
+
+            i {
+                color : $TertiaryColor-Project
+            }
+        }
+    }
+
+    &:hover {
+        background-color: lighten($BackGroundColor , 3%);
+    }
+}

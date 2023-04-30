@@ -120,11 +120,3 @@
         </div>
     </section>
 @endsection
-
-@section("extraScripts")
-    {{-- JS Trumbowyg --}}
-    <script src="{{asset("System/Assets/Lib/trumbowyg/dist/trumbowyg.min.js")}}"></script>
-    @if(app()->getLocale()==="ar")
-        <script src="{{asset("System/Assets/Lib/trumbowyg/dist/langs/ar.min.js")}}"></script>
-    @endif
-@endsection

@@ -99,15 +99,15 @@
                                                 </div>
                                             </div>
                                             <div class="Card__Inner">
-                                                {{--                                                <div class="Table__Pagination">--}}
-                                                {{--                                                    @include("System.Components.paginationNum" , [--}}
-                                                {{--                                                        "PaginationData" => $users ,--}}
-                                                {{--                                                        "PartsViewNum" => 5--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                    @include("System.Components.paginationSelect" , [--}}
-                                                {{--                                                        "PaginationData" => $users--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                </div>--}}
+{{--                                                <div class="Card__Pagination">--}}
+{{--                                                    @include("System.Components.paginationNum" , [--}}
+{{--                                                        "PaginationData" => $users ,--}}
+{{--                                                        "PartsViewNum" => 5--}}
+{{--                                                    ])--}}
+{{--                                                    @include("System.Components.paginationSelect" , [--}}
+{{--                                                        "PaginationData" => $users--}}
+{{--                                                    ])--}}
+{{--                                                </div>--}}
                                             </div>
                                         </div>
                                     </form>

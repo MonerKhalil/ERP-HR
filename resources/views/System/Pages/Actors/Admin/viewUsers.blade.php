@@ -129,7 +129,7 @@
                                             @include("System.Components.noData")
                                         @endif
                                         <div class="Card__Inner">
-                                            <div class="Table__Pagination">
+                                            <div class="Card__Pagination">
                                                 @include("System.Components.paginationNum" , [
                                                     "PaginationData" => $users ,
                                                     "PartsViewNum" => 5

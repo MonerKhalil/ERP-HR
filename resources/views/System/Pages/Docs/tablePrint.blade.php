@@ -41,22 +41,26 @@
                                     <div class="Table">
                                         <div class="Card__Inner p0">
                                             <div class="Table__ContentTable">
-                                                <div class="Table__Table">
-                                                    <div class="Item HeaderList">
-                                                        @foreach($data["head"] as $Head)
-                                                            <div class="Item__Col">
-                                                                <span>{{$Head}}</span>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                    @foreach($data["body"] as $Row)
-                                                        <div class="Item DataItem">
-                                                            @foreach($Row as $DataColumn)
-                                                                <div class="Item__Col">{{$DataColumn}}</div>
+                                                <table class="Table__Table">
+                                                    <thead>
+                                                        <tr class="Item HeaderList">
+                                                            @foreach($data["head"] as $Head)
+                                                                <th class="Item__Col">
+                                                                    <span>{{$Head}}</span>
+                                                                </th>
                                                             @endforeach
-                                                        </div>
-                                                    @endforeach
-                                                </div>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($data["body"] as $Row)
+                                                            <tr class="Item DataItem">
+                                                                @foreach($Row as $DataColumn)
+                                                                    <td class="Item__Col">{{$DataColumn}}</td>
+                                                                @endforeach
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
