@@ -3817,10 +3817,10 @@
                                                 </div>
                                                 <div class="DescriptionCompany">
                                                     <div class="Text">
-                                                        <div class="CompanyName">Company : ERP Epic</div>
-                                                        <div class="Address">Address : Damascus</div>
-                                                        <div class="Telephone">Tel : 123123123</div>
-                                                        <div class="Email">Email : Amir@Amir.com</div>
+                                                        <div class="CompanyName">@lang("company") : ERP Epic</div>
+                                                        <div class="Address">@lang("address") : @lang("damascus")</div>
+                                                        <div class="Telephone">@lang("tel") : 123123123</div>
+                                                        <div class="Email">@lang("email") : Amir@Amir.com</div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -117,6 +117,10 @@
 
     "printInformation" : "معلومات الطباعة",
     "titlePrintInformation" : "شوية هبد",
+    "company" : "الشركة",
+    "address" : "العنوان",
+    "tel" : "الهاتف",
+    "damascus" : "دمشق",
 
     "/*         No Data Component         */": "",
 
@@ -157,5 +161,31 @@
 
     "printTablePDFFile" : "طباعة جدول على صيغة pdf",
     "printTableXlsxFile" : "طباعة جدول على صيغة xlsx",
-    "more" : "المزيد"
+    "more" : "المزيد",
+
+    "/*         Decision Page         */": "",
+
+    "decisionForm" : "تسجيل قرار",
+    "decisionType" : "نوع القرار",
+    "decisionNumber" : "رقم القرار",
+    "dateDecision" : "تاريخ القرار",
+    "dateDecisionEnd" : "تاريخ انتهاء القرار",
+    "sessionName" : "اسم الجلسة",
+    "decisionContent" : "محتوى القرار",
+
+    "/*         Session Form Page         */": "",
+
+    "sessionForm" : "تسجيل جلسة" ,
+    "sessionDate" : "تارخ الجلسة",
+    "sessionTitle" : "عنوان الجلسة",
+    "sessionDirection" : "الهدف من الجلسة",
+    "sessionMemberNumber" : "عدد الاعضاء",
+
+    "/*         Session View Page         */": "",
+
+    "viewSession" : "عرض الجلسات" ,
+    "sessionDecisions" : "قرارات الجلسة",
+    "sessionDetails" : "تفاصيل الجلسة",
+    "decisions" : "القرارات",
+    "download" : "تحميل الملف"
 }
