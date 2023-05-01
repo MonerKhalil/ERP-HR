@@ -19,11 +19,14 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                <form name="PrintAllTablePDF" action="{{route("users.pdf")}}"
+                                <form name="PrintAllTablePDF"
+                                      class="FilterForm"
+                                      action="{{route("users.pdf")}}"
                                       method="post">
                                     @csrf
                                 </form>
-                                <form name="PrintAllTableXlsx" action="{{route("users.xls")}}"
+                                <form name="PrintAllTableXlsx"
+                                      action="{{route("users.xls")}}"
                                       method="post">
                                     @csrf
                                 </form>
@@ -62,13 +65,13 @@
                                                                         <li class="Dropdown__Item">
                                                                             <a class="AnchorSubmit"
                                                                                data-form="PrintAllTablePDF">
-                                                                                Print Table PDF File
+                                                                                @lang("printTablePDFFile")
                                                                             </a>
                                                                         </li>
                                                                         <li class="Dropdown__Item">
                                                                             <a class="AnchorSubmit"
                                                                                data-form="PrintAllTableXlsx">
-                                                                                Print Table Xlsx File
+                                                                                @lang("printTableXlsxFile")
                                                                             </a>
                                                                         </li>
                                                                     </ul>
@@ -97,7 +100,7 @@
                                                             <div class="Item__Col">@lang("id")</div>
                                                             <div class="Item__Col"><span>@lang("email")</span></div>
                                                             <div class="Item__Col"><span>@lang("createDate")</span></div>
-                                                            <div class="Item__Col"><span>More</span></div>
+                                                            <div class="Item__Col"><span>@lang("more")</span></div>
                                                         </div>
                                                         @foreach($users as $User)
                                                             <div class="Item DataItem">
@@ -117,7 +120,7 @@
                                                                 <div class="Item__Col">{{$User["created_at"]}}</div>
                                                                 <div class="Item__Col Item__Col--Details">
                                                                     <a href="{{route("users.show" , $User["id"])}}">
-                                                                        <span class="Details__Button">Details</span>
+                                                                        <span class="Details__Button">@lang("details")</span>
                                                                     </a>
                                                                 </div>
                                                             </div>

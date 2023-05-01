@@ -5,7 +5,7 @@
         <div class="ViewUsers">
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "View Session" ,
+                    'mainTitle' => __("viewSession") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -16,6 +16,16 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
+                                    <form name="PrintAllTablePDF" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
+                                    <form name="PrintAllTableXlsx" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
@@ -24,12 +34,19 @@
                                                     <div class="Justify-Content-End Card__ToolsGroup">
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
-                                                                <li><i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
-                                                                       data-popUp="SearchAbout">filter_list</i></li>
-                                                                <li><span class="SearchTools__Separate"></span></li>
-                                                                <li><a href="#">
+                                                                <li>
+                                                                    <i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
+                                                                       data-popUp="SearchAbout">filter_list
+                                                                    </i>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="SearchTools__Separate"></span>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
                                                                         <i class="material-icons IconClick">print</i>
-                                                                    </a></li>
+                                                                    </a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -40,11 +57,11 @@
                                                     <table class="Left Table__Table" >
                                                         <tr class="Item HeaderList">
                                                             <th class="Item__Col">#</th>
-                                                            <th class="Item__Col">Session Name</th>
-                                                            <th class="Item__Col">Session Title</th>
-                                                            <th class="Item__Col">Session Date</th>
-                                                            <th class="Item__Col">Session Decisions</th>
-                                                            <th class="Item__Col">Session Details</th>
+                                                            <th class="Item__Col">@lang("sessionName")</th>
+                                                            <th class="Item__Col">@lang("sessionTitle")</th>
+                                                            <th class="Item__Col">@lang("sessionDate")</th>
+                                                            <th class="Item__Col">@lang("sessionDecisions")</th>
+                                                            <th class="Item__Col">@lang("sessionDetails")</th>
                                                         </tr>
                                                             <tbody class="GroupRows">
                                                                 <tr class="GroupRows__MainRow">
@@ -53,10 +70,10 @@
                                                                     <td class="Item__Col">About Habd</td>
                                                                     <td class="Item__Col">12-2-2022</td>
                                                                     <td class="Item__Col Item__Col--Details">
-                                                                        <span class="Details__Button">Decisions</span>
+                                                                        <span class="Details__Button">@lang("decisions")</span>
                                                                     </td>
                                                                     <td class="Item__Col Link">
-                                                                        <a href="#">Details</a>
+                                                                        <a href="#">@lang("details")</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="GroupRows__SubRows">
@@ -66,15 +83,14 @@
                                                                                 <thead>
                                                                                     <tr class="Item HeaderList">
                                                                                         <th class="Item__Col">#</th>
-                                                                                        <th class="Item__Col">Decision Type</th>
-                                                                                        <th class="Item__Col">Decision Number</th>
-                                                                                        <th class="Item__Col">Start Date</th>
-                                                                                        <th class="Item__Col">End Date</th>
-                                                                                        <th class="Item__Col">Download</th>
-                                                                                        <th class="Item__Col">Details</th>
+                                                                                        <th class="Item__Col">@lang("decisionType")</th>
+                                                                                        <th class="Item__Col">@lang("decisionNumber")</th>
+                                                                                        <th class="Item__Col">@lang("dateDecision")</th>
+                                                                                        <th class="Item__Col">@lang("dateDecisionEnd")</th>
+                                                                                        <th class="Item__Col">@lang("download")</th>
+                                                                                        <th class="Item__Col">@lang("details")</th>
                                                                                     </tr>
                                                                                 </thead>
-
                                                                                 <tbody>
                                                                                     <tr class="Item DataItem">
                                                                                         <td class="Item__Col">1</td>

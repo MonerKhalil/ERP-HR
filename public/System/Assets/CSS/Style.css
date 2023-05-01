@@ -1455,7 +1455,6 @@ html[lang=en] .TextEditorContent__Content li {
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content {
   max-height: 20rem;
   overflow-y: auto;
-  padding: 0 1.5rem;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content::-webkit-scrollbar {
   width: 0.4rem;
@@ -1471,49 +1470,30 @@ html[lang=en] .TextEditorContent__Content li {
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content:hover::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.2705882353);
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item {
-  position: relative;
-  display: flex;
-  padding: 1.5rem 0 0;
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification {
+  padding: 1rem 1.5rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Icon {
   width: 4rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon i {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Icon i {
   font-size: 2rem;
-  padding: 0.5rem;
-  border-radius: 50%;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon--Send i {
-  color: #1EE0AC;
-  background-color: #193E40;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon--Receive i {
-  color: #F4BD0E;
-  background-color: #393828;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationDetails {
-  flex: 1;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationDetails .NotificationSummery {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationTitle {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   line-height: 1.4;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationDetails .NotificationDate {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationDescription {
+  font-size: 1.1rem;
+}
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationDate {
   font-size: 1rem;
   font-weight: 400;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationRemove {
-  cursor: pointer;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationRemove i {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Remove i {
   font-size: 1.4rem;
-  transition: color 0.3s;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationRemove:hover i {
-  color: #10C093;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Footer {
   padding: 1rem 2rem;
