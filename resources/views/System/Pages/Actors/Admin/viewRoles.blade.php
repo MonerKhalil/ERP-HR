@@ -5,7 +5,7 @@
         <div class="ViewUsers">
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "View Roles" ,
+                    'mainTitle' => __("viewRoles") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => __("titleViewUsers")
                 ])
@@ -20,10 +20,12 @@
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
                                     <form name="PrintAllTablePDF" action="#"
+                                          class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
                                     <form name="PrintAllTableXlsx" action="#"
+                                          class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
@@ -61,12 +63,12 @@
                                                                         <ul class="Dropdown__Content">
                                                                             <li class="Dropdown__Item">
                                                                                 <a href="javascript:document.PrintAllTablePDF.submit()">
-                                                                                    Print Table PDF File
+                                                                                    @lang("printTablePDFFile")
                                                                                 </a>
                                                                             </li>
                                                                             <li class="Dropdown__Item">
                                                                                 <a href="javascript:document.PrintAllTableXlsx.submit()">
-                                                                                    Print Table Xlsx File
+                                                                                    @lang("printTableXlsxFile")
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
@@ -91,10 +93,10 @@
                                                                         </i>
                                                                     </label>
                                                                 </div>
-                                                                <div class="Item__Col"><span>id</span></div>
-                                                                <div class="Item__Col"><span>Role Name</span></div>
-                                                                <div class="Item__Col"><span>Create Date</span></div>
-                                                                <div class="Item__Col"><span>More</span></div>
+                                                                <div class="Item__Col"><span>@lang("id")</span></div>
+                                                                <div class="Item__Col"><span>@lang("roleName")</span></div>
+                                                                <div class="Item__Col"><span>@lang("createDate")</span></div>
+                                                                <div class="Item__Col"><span>@lang("more")</span></div>
                                                             </div>
                                                             @foreach($data as $Role)
                                                                 <div class="Item DataItem">
@@ -113,7 +115,7 @@
                                                                     <div class="Item__Col">{{$Role["created_at"]}}</div>
                                                                     <div class="Item__Col Item__Col--Details">
                                                                         <a href="{{route("roles.edit" , $Role["id"])}}">
-                                                                            <span class="Details__Button">Details</span>
+                                                                            <span class="Details__Button">@lang("details")</span>
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -125,7 +127,7 @@
                                                 @include("System.Components.noData")
                                             @endif
                                             <div class="Card__Inner">
-                                                <div class="Table__Pagination">
+                                                <div class="Card__Pagination">
                                                     @include("System.Components.paginationNum" , [
                                                         "PaginationData" => $data ,
                                                         "PartsViewNum" => 5

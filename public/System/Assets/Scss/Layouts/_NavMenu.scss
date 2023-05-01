@@ -65,7 +65,7 @@
                 position: relative;
 
                 &:not(:last-child) {
-                    margin-bottom: 1rem;
+                    margin-bottom: .5rem;
                 }
 
                 .Title {
@@ -75,7 +75,7 @@
                     .NavName {
                         display: flex;
                         justify-content: flex-start;
-                        align-items: flex-start;
+                        align-items: center;
                         gap: .5rem;
                         color : $WhiteColor ;
 
@@ -244,6 +244,10 @@
                                     display: none;
                                 }
                             }
+                        }
+
+                        &__SubItems {
+                            display: none;
                         }
                     }
 

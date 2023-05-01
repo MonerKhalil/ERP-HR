@@ -14,6 +14,7 @@
     "notification" : "الاشعارات" ,
     "markRead" : "قراءة كل الاشعارات" ,
     "viewNotification" : "عرض كل الاشعارات" ,
+    "language" : "اللغة" ,
     "english" : "الانجليزية" ,
     "arabic" : "العربية" ,
     "viewProfile" : "عرض الملف الشخصي",
@@ -30,6 +31,18 @@
     "main" : "الرئيسية" ,
     "app" : "التطبيق" ,
     "account" : "الحساب" ,
+    "admin" : "المسؤول",
+    "resumeSection" : "قسم الذاتية" ,
+    "auditTrack" : "تتبع النظام",
+    "users" : "المستخدمين" ,
+    "employees" : "الوظفيين",
+    "viewEmployees" : "عرض الموظفين",
+    "addEmployee" : "اضافة موظف",
+    "viewRoles" : "عرض الادوار",
+    "addRole" : "اضافة دور",
+    "decisionsSession" : "الجلسات",
+    "addSession" : "اضافة جلسة",
+    "viewSessions" : "عرض الجلسات",
 
     "/*         Login Page         */": "",
 
@@ -104,6 +117,10 @@
 
     "printInformation" : "معلومات الطباعة",
     "titlePrintInformation" : "شوية هبد",
+    "company" : "الشركة",
+    "address" : "العنوان",
+    "tel" : "الهاتف",
+    "damascus" : "دمشق",
 
     "/*         No Data Component         */": "",
 
@@ -114,5 +131,61 @@
     "404Message" : "نحن نأسف جدا للإزعاج. يبدو أنك تحاول الوصول إلى صفحة محذوفة أو لم تكن موجودة من قبل.",
     "comingSoon" : "قريبا" ,
     "comingSoonMessage" : "هبباب" ,
-    "backToHome" : "العودة للصفحة الرئيسية"
+    "backToHome" : "العودة للصفحة الرئيسية",
+
+    "/*         Audit Page         */": "",
+
+    "viewAudit" : "عرض التتبع",
+    "event" : "الحدث" ,
+    "tableEdit" : "الجدول المعدل",
+    "fromUser" : "من المستخدم",
+    "userId" : "رقم المستخدم",
+    "editDate" : "تاريخ التعديل",
+    "details" : "تفاصيل",
+    "typeValue" : "نوع القيمة",
+    "name" : "الاسم" ,
+    "newValue" : "القيمة الجديدة",
+    "oldValue" : "القيمة القديمة",
+    "userNameEditing" : "اسم المستخدم المُعدل",
+    "userIdEditing" : "رقم المستخدم المُعدل",
+
+    "/*         Add Role Page         */": "",
+
+    "roleSetting" : "اعداد دور",
+    "permissions" : "الاذونات" ,
+    "newRole" : "دور جديد",
+    "roleName" : "اسم الدور",
+    "createOne" : "انشاء دور",
+
+    "/*         View Role Page         */": "",
+
+    "printTablePDFFile" : "طباعة جدول على صيغة pdf",
+    "printTableXlsxFile" : "طباعة جدول على صيغة xlsx",
+    "more" : "المزيد",
+
+    "/*         Decision Page         */": "",
+
+    "decisionForm" : "تسجيل قرار",
+    "decisionType" : "نوع القرار",
+    "decisionNumber" : "رقم القرار",
+    "dateDecision" : "تاريخ القرار",
+    "dateDecisionEnd" : "تاريخ انتهاء القرار",
+    "sessionName" : "اسم الجلسة",
+    "decisionContent" : "محتوى القرار",
+
+    "/*         Session Form Page         */": "",
+
+    "sessionForm" : "تسجيل جلسة" ,
+    "sessionDate" : "تارخ الجلسة",
+    "sessionTitle" : "عنوان الجلسة",
+    "sessionDirection" : "الهدف من الجلسة",
+    "sessionMemberNumber" : "عدد الاعضاء",
+
+    "/*         Session View Page         */": "",
+
+    "viewSession" : "عرض الجلسات" ,
+    "sessionDecisions" : "قرارات الجلسة",
+    "sessionDetails" : "تفاصيل الجلسة",
+    "decisions" : "القرارات",
+    "download" : "تحميل الملف"
 }

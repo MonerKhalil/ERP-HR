@@ -6,6 +6,30 @@ $(document).ready(function (){
     const LanguagePage = $("html").get(0).lang ;
 
     /*===========================================
+	=           Authentication Process       =
+    =============================================*/
+    const Token = $(`meta[name="csrf-token"]`).prop('content') ;
+    const RememberStorage = localStorage.getItem("Remember") ;
+    $(".AuthenticationPage").ready(function (){
+        $(".AuthenticationPage").each((_ , Page) => {
+            $(Page).find("#AuthenticationForm").submit(function (){
+               const IsRemember = $(Page).find("#RememberMe")
+                   .is(':checked') ;
+               localStorage.setItem("Remember" , IsRemember) ;
+            });
+        });
+    });
+    $(".logoutForm").ready(function (){
+        $(".logoutForm").each((_ , Form) => {
+           $(Form).submit(function () {
+               localStorage.clear() ;
+           });
+        });
+    });
+    if(RememberStorage != null && RememberStorage === "true")
+        localStorage.setItem("Token" , Token) ;
+
+    /*===========================================
 	=           Header Page       =
     =============================================*/
 
@@ -206,7 +230,7 @@ $(document).ready(function (){
                 LanguagePage === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
                     : "The password must contain from 8 to 15 characters"
             );
-            const ValidatorForm = $(Value).validate({
+            $(Value).validate({
 
                 ignore : ".IgnoreValidate" ,
 
@@ -260,6 +284,12 @@ $(document).ready(function (){
                     $(Field).valid() ;
                 });
             });
+            if($(Value).hasClass("FilterForm")) {
+                const ActionForm = $(Value).attr("action") ;
+                const Params = GetFullParams() ;
+                if(Params !== undefined)
+                    $(Value).attr("action" , `${ActionForm}?${Params}`);
+            }
         });
     })
     $(".Form").ready(function () {
@@ -416,6 +446,7 @@ $(document).ready(function (){
             })
         });
     }
+
 
     /*===========================================
 	=           Profile Page       =
@@ -740,6 +771,27 @@ $(document).ready(function (){
         });
     });
 
+    /*===========================================
+	=           Notification Component       =
+    =============================================*/
+    $(".Notification").ready(function() {
+        $(".Notification").each((_ , Notification) => {
+            $(Notification).find(".Notification__Remove i").click(() => {
+                LoaderView() ;
+                $.ajax({
+                   url : "d" ,
+                   type : "delete" ,
+                   dataType : 'text' ,
+                }).done(() => {
+                    LoaderHidden() ;
+                    $(Notification).remove() ;
+                }).fail(() => {
+                    LoaderHidden() ;
+                });
+            });
+        });
+    });
+
 });
 
 window.onload = function (){
@@ -750,6 +802,8 @@ window.onload = function (){
     $(".Loader--Page").ready(function () {
         $(this).find(".Loader--Page").remove();
     });
+
+    GetFullParams() ;
 }
 
 
@@ -768,6 +822,11 @@ function closeOutSide(ElementTarget = HTMLElement,
             $(document)[0].removeEventListener("click" , EventClick);
         }
     }
+}
+
+function GetFullParams() {
+    const URL = window.location.href ;
+    return URL.split("?")[1] ;
 }
 
 

@@ -25,7 +25,7 @@
         <div class="RollSettingPage">
             <div class="AddUserPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "Role Setting" ,
+                    'mainTitle' => __("roleSetting") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Click Or Pull Permissions To New Roles"
                 ])
@@ -39,7 +39,7 @@
                                             <div class="Card__Inner pb0">
                                                 <div class="Card__Header">
                                                     <div class="Card__Title">
-                                                        <h3>Permissions</h3>
+                                                        <h3>@lang("permissions")</h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,7 +82,7 @@
                                             <div class="Card__Inner pb0">
                                                 <div class="Card__Header">
                                                     <div class="Card__Title">
-                                                        <h3>New Role</h3>
+                                                        <h3>@lang("newRole")</h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,8 +102,8 @@
                                                                     <div class="Input__Area">
                                                                         <input id="RoleName" class="Input__Field" type="text"
                                                                                name="name" value="{{$IsEditPage ? $role['name'] : ''}}"
-                                                                               placeholder="Role Name" required>
-                                                                        <label class="Input__Label" for="RoleName">Role Name</label>
+                                                                               placeholder="@lang("roleName")" required>
+                                                                        <label class="Input__Label" for="RoleName">@lang("roleName")</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -143,7 +143,7 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Button">
                                                                     <button class="Button Send"
-                                                                            type="submit">Create One</button>
+                                                                            type="submit">@lang("createOne")</button>
                                                                 </div>
                                                             </div>
                                                         </div>
