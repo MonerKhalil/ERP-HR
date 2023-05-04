@@ -110,7 +110,6 @@
     "done" : "Done",
     "exempt" : "Exempt",
     "profession" : "Profession",
-    "addEmployee" : "Add Employee",
     "contactInfo" : "Contact Information",
     "chooseDocument" : "Choose Document",
     "documentID" : "Document ID",
@@ -192,7 +191,6 @@
     "printInformation" : "print information",
     "titlePrintInformation" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "company" : "company",
-    "address" : "address",
     "tel" : "telephone",
     "damascus" : "Damascus",
 
@@ -266,7 +264,6 @@
     "retirement" : "Retirement",
     "EOSStartDate" : "End of service start date",
     "EOSEndDate" : "End of service end date",
-    "decisionNumber" : "Decision Number",
     "decisionDate" : "Decision Date",
     "saveEOS" : "Save Data"
 }
