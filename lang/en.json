@@ -188,6 +188,12 @@
     "404Message" : "we are very sorry for inconvenience. It looks like you’re try to access a page that either has been deleted or never existed.",
     "comingSoon" : "coming soon" ,
     "comingSoonMessage" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ,
-    "backToHome" : "back to home"
-
+    "backToHome" : "back to home",
+    "EOSReason" : "End of service reason",
+    "retirement" : "Retirement",
+    "EOSStartDate" : "End of service start date",
+    "EOSEndDate" : "End of service end date",
+    "decisionNumber" : "Decision Number",
+    "decisionDate" : "Decision Date",
+    "saveEOS" : "Save Data"
 }

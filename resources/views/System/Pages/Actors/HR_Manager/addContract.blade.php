@@ -117,6 +117,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="Col-4-md Col-6-sm">
+                                                        <div class="Form__Group">
+                                                            <div class="Form__Select">
+                                                                <div class="Select__Area">
+                                                                    @include("System.Components.selector" , ['Name' => "managerName" , "Required" => "true" , "Label" => __('managerName'),"DefaultValue" => "",
+                                                                                "OptionsValues" => [("Test1"), ("Test2")],])
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="Col-12-xs">
                                                         <div class="Form__Group">
                                                             <div class="Form__Button">

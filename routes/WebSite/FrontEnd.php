@@ -34,7 +34,6 @@ Route::get('/Test-13', function () {
     return view('System/Pages/Actors/sessionView');
 });
 
-
 Route::get('/Test-3', function () {
     return view('System.Pages.Actors.profile');
 });
@@ -65,4 +64,13 @@ Route::get('/Test-9', function () {
 
 Route::get('/Test-0', function () {
     return view('System.Pages.Actors.Admin.addUser');
+});
+
+
+Route::get('/Test-14', function () {
+    return view('System.Pages.Actors.Diwan_User.addOutgoingCorrespondense');
+});
+
+Route::get('/Test-15', function () {
+    return view('System/Pages/Actors/Diwan_User/viewCorrespondenses');
 });

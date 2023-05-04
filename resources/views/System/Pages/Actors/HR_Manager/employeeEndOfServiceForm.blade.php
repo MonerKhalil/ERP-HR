@@ -5,9 +5,9 @@
         <div class="AddEOSPage">
             <div class="AddEOSPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterEmployeeContract') ,
-                    'paths' => [['Contracts' , '#'] , ['New Contract']] ,
-                    'summery' => __('RegisterContractsPage')
+                    'mainTitle' => __('RegisterEmployeeEOS') ,
+                    'paths' => [['employees End Of Service' , '#'] , ['EOS']] ,
+                    'summery' => __('RegisterEOSPage')
                 ])
             </div>
         </div>
