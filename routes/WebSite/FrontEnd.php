@@ -36,8 +36,9 @@ Route::get('/Test-13', function () {
 
 Route::get('/Test-8', function () {
     return view('System/Pages/Docs/tablePrint');
-=======
-Route::get('/Test-3', function () {
+});
+
+Route::get('/Test-16', function () {
     return view('System.Pages.Actors.profile');
 });
 

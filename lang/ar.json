@@ -37,7 +37,6 @@
     "users" : "المستخدمين" ,
     "employees" : "الوظفيين",
     "viewEmployees" : "عرض الموظفين",
-    "addEmployee" : "اضافة موظف",
     "viewRoles" : "عرض الادوار",
     "addRole" : "اضافة دور",
     "decisionsSession" : "الجلسات",
@@ -187,7 +186,7 @@
     "sessionDecisions" : "قرارات الجلسة",
     "sessionDetails" : "تفاصيل الجلسة",
     "decisions" : "القرارات",
-    "download" : "تحميل الملف"
+    "download" : "تحميل الملف",
     "personalInfo": "المعلومات الشخصية",
     "fatherName" : "اسم الأب",
     "motherName" : "اسم الأم",
@@ -227,7 +226,6 @@
     "addressType" : "نوع العنوان",
     "Home" : "منزل",
     "Bureau": "مكتب",
-    "address": "العنوان",
     "educationInfo" : "معلومات التعليم",
     "educationDegree" : "درجة التعليم",
     "dateOfIssuance" : "تاريخ المنح",
@@ -269,7 +267,6 @@
     "retirement" : "تقاعد",
     "EOSStartDate" : "تاريخ بداية الانقطاع عن العمل",
     "EOSEndDate" : "تاريخ نهاية الانقطاع عن العمل",
-    "decisionNumber" : "رقم القرار",
     "decisionDate" : "تاريخ القرار",
     "saveEOS" : "حفظ المعلومات"
 }
