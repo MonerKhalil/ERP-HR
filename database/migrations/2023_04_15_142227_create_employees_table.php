@@ -16,19 +16,27 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->unique()->constrained("users")->restrictOnDelete();
-            $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
-            $table->string("address_details")->nullable();
-            $table->integer("national_number")->unique();
+
             $table->string("first_name");
             $table->string("last_name");
             $table->string("father_name");
             $table->string("mother_name");
             $table->string("nationality");
             $table->string("NP_registration");
-            $table->string("id_barcode");
             $table->enum("gender",["male","female"]);
             $table->string("birth_place");
             $table->date("birth_date");
+            $table->integer("number_wives");
+            $table->bigInteger("number_file")->unsigned();
+            $table->integer("number_child");
+            $table->string("current_job");
+            $table->bigInteger("number_self")->unsigned();
+            $table->enum("military_service",["exempt","performer","in_service"]); //ومؤدي//معفى
+            $table->enum("family_status",["married","divorced","single"]);
+            $table->bigInteger("Number_insurance")->unsigned();
+            $table->string("job_site");
+            $table->bigInteger("number_national")->unique()->unsigned();
+
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();

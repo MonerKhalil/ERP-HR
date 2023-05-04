@@ -49,7 +49,7 @@ class User extends Authenticatable implements Auditable
     // Add relationships between tables section
 
     public function employee(){
-        return $this->belongsTo(Employee::class,"user_id","id");
+        return $this->hasOne(Employee::class,"user_id","id")->withDefault();
     }
 
     /**

@@ -96,7 +96,7 @@ class BaseRequest extends FormRequest
      * @return string
      * @author moner khalil
      */
-    public function textRule(bool $isRequired = null, bool $isNullable = null, $min = null, $max = null): string
+    public function textRule(bool $isRequired = null, bool $isNullable = null, $min = null, $max = null)
     {
         $temp_rules = [];
         if (!is_null($isRequired)) {
