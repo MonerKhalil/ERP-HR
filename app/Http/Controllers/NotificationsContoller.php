@@ -11,16 +11,16 @@ class NotificationsContoller extends Controller
         $user = auth()->user();
         $data = [];
         switch($request->input("status")){
-            case "Read" : 
+            case "Read" :
                 $data = $user->readNotifications();
                 break;
-            case "unRead" : 
+            case "unRead" :
                 $data = $user->unreadNotifications();
                 break;
             default:
             $data = $user->notifications();
         }
-        return $this->responseSuccess("notifications.show",compact("data"));
+        return $this->responseSuccess("System.Pages.Actors.notification",compact("data"));
     }
 
     public function clearNotifications(){
@@ -28,7 +28,7 @@ class NotificationsContoller extends Controller
         return $this->responseSuccess(null,null,"delete",MyApp::RouteHome);
     }
 
-    /* 
+    /*
     * @descriptions : Ajax Request -> Work Update Notification To Read
     */
     public function editNotificationsToRead()

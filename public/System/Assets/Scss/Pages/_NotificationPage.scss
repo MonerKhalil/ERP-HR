@@ -1,0 +1,23 @@
+
+.NotificationPage {
+    position: relative ;
+
+    &__Buttons {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap : 1rem ;
+    }
+
+    &__NotificationList {
+
+        .Notification {
+
+            &:not(:last-child)::after {
+                @include UnderLine() ;
+                background-color: $SeparateBorderColor_Extra-3;
+            }
+        }
+    }
+
+}

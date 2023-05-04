@@ -34,6 +34,9 @@ Route::get('/Test-13', function () {
     return view('System/Pages/Actors/sessionView');
 });
 
+Route::get('/Test-8', function () {
+    return view('System/Pages/Docs/tablePrint');
+=======
 Route::get('/Test-3', function () {
     return view('System.Pages.Actors.profile');
 });

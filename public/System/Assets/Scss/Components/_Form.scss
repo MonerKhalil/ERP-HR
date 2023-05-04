@@ -43,6 +43,7 @@
                 padding: 1.3rem 2rem;
                 border-radius: $BorderRadiusValue - 1px ;
                 transition: all .4s;
+
             }
 
             &__Label {
@@ -61,6 +62,10 @@
         .Input {
 
             &__Field {
+
+                &:-internal-autofill-selected {
+                    background-color: transparent !important;
+                }
 
                 /* Chrome, Safari, Edge, Opera */
                 &::-webkit-outer-spin-button,

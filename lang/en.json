@@ -14,6 +14,7 @@
     "notification" : "notification" ,
     "markRead" : "mark all as read" ,
     "viewNotification" : "view all notification" ,
+    "language" : "language" ,
     "english" : "english" ,
     "arabic" : "arabic" ,
     "viewProfile" : "view profile",
@@ -30,6 +31,18 @@
     "main" : "main" ,
     "app" : "app" ,
     "account" : "account" ,
+    "admin" : "admin",
+    "resumeSection" : "resume section" ,
+    "auditTrack" : "auditing",
+    "users" : "users" ,
+    "employees" : "employees",
+    "viewEmployees" : "view employees",
+    "addEmployee" : "add employee",
+    "viewRoles" : "view roles",
+    "addRole" : "add role",
+    "decisionsSession" : "sessions",
+    "addSession" : "add session",
+    "viewSessions" : "view sessions",
 
     "/*         Login Page         */": "",
 
@@ -178,6 +191,10 @@
 
     "printInformation" : "print information",
     "titlePrintInformation" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "company" : "company",
+    "address" : "address",
+    "tel" : "telephone",
+    "damascus" : "Damascus",
 
     "/*         No Data Component         */": "",
 
@@ -189,6 +206,62 @@
     "comingSoon" : "coming soon" ,
     "comingSoonMessage" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ,
     "backToHome" : "back to home",
+
+    "/*         Audit Page         */": "",
+
+    "viewAudit" : "view audit",
+    "event" : "event" ,
+    "tableEdit" : "table edit",
+    "fromUser" : "from user",
+    "userId" : "user id",
+    "editDate" : "edit date",
+    "details" : "details",
+    "typeValue" : "type value",
+    "name" : "name" ,
+    "newValue" : "new value",
+    "oldValue" : "old value",
+    "userNameEditing" : "user name editing",
+    "userIdEditing" : "user id editing",
+
+    "/*         Add Role Page         */": "",
+
+    "roleSetting" : "role setting",
+    "permissions" : "permissions" ,
+    "newRole" : "new role",
+    "roleName" : "role name",
+    "createOne" : "create one",
+
+    "/*         View Role Page         */": "",
+
+    "printTablePDFFile" : "print table pdf file",
+    "printTableXlsxFile" : "print table xlsx file",
+    "more" : "more",
+
+    "/*         Decision Page         */": "",
+
+    "decisionForm" : "decision register",
+    "decisionType" : "decision type",
+    "decisionNumber" : "decision number",
+    "dateDecision" : "date decision",
+    "dateDecisionEnd" : "date decision end",
+    "sessionName" : "session name",
+    "decisionContent" : "decision content",
+
+    "/*         Session Form Page         */": "",
+
+    "sessionForm" : "session register" ,
+    "sessionDate" : "session date",
+    "sessionTitle" : "session title",
+    "sessionDirection" : "session direction",
+    "sessionMemberNumber" : "Member Number",
+
+    "/*         Session View Page         */": "",
+
+    "viewSession" : "view sessions" ,
+    "sessionDecisions" : "session decisions",
+    "sessionDetails" : "session details",
+    "decisions" : "decisions",
+    "download" : "Download File",
     "EOSReason" : "End of service reason",
     "retirement" : "Retirement",
     "EOSStartDate" : "End of service start date",

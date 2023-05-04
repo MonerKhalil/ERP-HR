@@ -207,69 +207,46 @@
                             &__Content {
                                 max-height: 20rem ;
                                 overflow-y: auto;
-                                padding: 0 1.5rem;
 
                                 @include ScrollBar();
                             }
 
                             &__Item {
-                                position: relative;
-                                display: flex;
-                                padding: 1.5rem 0 0;
 
-                                .NotificationIcon {
-                                    width: 4rem;
+                                .Notification {
+                                    padding: 1rem 1.5rem;
 
-                                    i {
-                                        font-size: 2rem;
-                                        padding: 0.5rem;
-                                        border-radius: 50%;
-                                    }
+                                    &__Icon {
+                                        width: 4rem;
 
-                                    &--Send {
                                         i {
-                                            color : #1EE0AC ;
-                                            background-color: #193E40;
+                                            font-size: 2rem;
                                         }
                                     }
 
-                                    &--Receive {
-                                        i {
-                                            color : #F4BD0E ;
-                                            background-color: #393828;
+                                    &__Details {
+
+                                        .NotificationTitle {
+                                            font-size: 1.2rem;
+                                            font-weight: 500;
+                                            margin-bottom: 0.5rem;
+                                            line-height: 1.4;
+                                        }
+
+                                        .NotificationDescription {
+                                            font-size: 1.1rem ;
+                                        }
+
+                                        .NotificationDate {
+                                            font-size: 1rem;
+                                            font-weight: 400;
                                         }
                                     }
-                                }
 
-                                .NotificationDetails {
-                                    flex : 1 ;
-
-                                    .NotificationSummery {
-                                        font-size: 1.2rem;
-                                        font-weight: 500;
-                                        margin-bottom: 0.5rem;
-                                        line-height: 1.4;
-                                    }
-
-                                    .NotificationDate {
-                                        font-size: 1rem;
-                                        font-weight: 400;
-                                    }
-
-                                }
-
-                                .NotificationRemove {
-                                    cursor: pointer;
-
-                                    i {
-                                        font-size: 1.4rem;
-                                        transition: color .3s;
-                                    }
-
-                                    &:hover {
+                                    &__Remove {
 
                                         i {
-                                            color : $TertiaryColor-Project
+                                            font-size: 1.4rem;
                                         }
                                     }
                                 }

@@ -92,6 +92,7 @@
     &__SystemName {
         color: $WhiteColor;
         font-weight: bold;
+        white-space: nowrap;
     }
 }
 
@@ -113,6 +114,14 @@
 
 .Justify-Content-End {
     justify-content: end !important;
+}
+
+.Justify-Content-Center {
+    justify-content: center !important;
+}
+
+.Overflow-Hidden {
+    overflow: hidden;
 }
 
 .ReplaceOldBackGround {
