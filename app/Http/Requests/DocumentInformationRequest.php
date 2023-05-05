@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Employee;
+use App\Models\Document_information;
 
-class EmployeeRequest extends BaseRequest
+
+class DocumentInformationRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,9 +14,8 @@ class EmployeeRequest extends BaseRequest
      */
     public function rules()
     {
-        $callback = (new Employee)->validationRules();
+        $callback = (new Document_information)->validationRules();
 
         return $callback($this);
-
     }
 }

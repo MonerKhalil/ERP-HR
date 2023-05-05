@@ -806,6 +806,133 @@ window.onload = function (){
     GetFullParams() ;
 }
 
+    /*===========================================
+	=           Profile Page       =
+    =============================================*/
+    $(".ProfilePage").ready(function (){
+        $(".ProfilePage").find("form.ChangeImage").each((Index , Value)=>{
+            const InputFile = $(Value).find("#ImageChange");
+            InputFile.change(()=>{
+                //Check Image
+                $(Value).submit();
+            });
+        });
+    });
+
+    /*===========================================
+	=           Popup Component       =
+    =============================================*/
+    $(".Popup").ready(function (){
+        $(".Popup").each((Index , Value)=> {
+            $(Value).find(".Popup__Close").click(()=>{
+                $(Value).removeClass("Open");
+            });
+        });
+    });
+    $(".OpenPopup").ready(function (){
+        $(".OpenPopup").each((Index , Value)=>{
+            const PopupName = $(Value).attr("data-popUp");
+            let PopupElement ;
+            $(".Popup").each((Index_2 , PopupValue)=>{
+                if($(PopupValue).attr("data-name") === PopupName)
+                    PopupElement = PopupValue ;
+            });
+            $(Value).click(()=>{
+                $(PopupElement).addClass("Open");
+            });
+        });
+    });
+
+    /*===========================================
+	=           Duplicate Form       =
+    =============================================*/
+
+    $("#duplicateDoc").click(function(){
+        var clone = $("#documentForm").last().clone(true);
+        console.log('clone ', clone, clone.val())
+        clone.val("");
+        clone.find("input").each(function() {
+            $(this).val("");
+            console.log('id', $(this).id)
+        });
+        clone.appendTo($("#parentForm"));
+
+    });
+
+    /*===========================================
+	=           Taps Layout       =
+    =============================================*/
+    $(".Taps").ready(function () {
+        $(".Taps").each((Index , TapElement) => {
+           let CurrentTap , CurrentPanel ;
+           $(TapElement).find(".Taps__Item").each((Index_2 , TapItem) => {
+              const ContentAttribute = $(TapItem).attr("data-content");
+              let PanelElement ;
+              $(TapElement).find(".Taps__Panel").each((Index_3 , PanelItem)=> {
+                  if($(PanelItem).attr("data-panel") === ContentAttribute)
+                      PanelElement = PanelItem ;
+              });
+              if(Index_2 === 0)
+                  Select(TapItem , PanelElement);
+              $(TapItem).click(()=> Select(TapItem , PanelElement));
+           });
+
+           function Select(TapButton , Panel) {
+               $(CurrentTap).removeClass("Active");
+               $(CurrentPanel).removeClass("Active");
+               CurrentTap = TapButton ;
+               CurrentPanel = Panel ;
+               $(CurrentTap).addClass("Active") ;
+               $(CurrentPanel).addClass("Active");
+           }
+        });
+    });
+
+    /*===========================================
+	=           Dropdown       =
+    =============================================*/
+    $(".Dropdown").ready(function (){
+        $(".Dropdown").each((_ , Dropdown)=>{
+            $(Dropdown).on("ShowChange" , function (){
+                if($(Dropdown).hasClass("Show"))
+                    closeOutSide($(Dropdown)[0] , ()=>{
+                        $(Dropdown).removeClass("Show");
+                    });
+            });
+        });
+    });
+
+    /*===========================================
+	=           Table Layout       =
+    =============================================*/
+    $(".Table").ready(function () {
+        $(".Table").each((_ , Table) => {
+            $(Table).find(".Table__List").each((_ , List)=>{
+                $(List).find(".HeaderList").each((_ , HeaderList) => {
+                    $(HeaderList).find(".CheckBoxItem").change((ev) => {
+                        if($(ev.currentTarget).is(":checked"))
+                            $(List).find(".DataItem").each((_ , Item) => {
+                                $(Item).find(".CheckBoxItem").prop('checked', true);
+                            });
+                        else
+                            $(List).find(".DataItem").each((_ , Item) => {
+                                $(Item).find(".CheckBoxItem").prop('checked', false);
+                            });
+                    });
+                });
+                $(List).find(".DataItem").each((_ , DataItem) => {
+                    $(DataItem).find(".CheckBoxItem").change((ev) => {
+                        const CheckBoxHeader = $(List).find(".HeaderList .CheckBoxItem") ;
+                        if(CheckBoxHeader.is(":checked") &&
+                            !$(ev.currentTarget).is(":checked")) {
+                            CheckBoxHeader.prop('checked', false);
+                        }
+                    });
+                });
+            });
+            // $(Table).find(".Table__BulkTools")
+        });
+    });
 
 /*===========================================
 =           Functions       =

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Employee;
+use App\Models\Education_data;
 
-class EmployeeRequest extends BaseRequest
+class Education_dataRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,9 +13,8 @@ class EmployeeRequest extends BaseRequest
      */
     public function rules()
     {
-        $callback = (new Employee)->validationRules();
+        $callback = (new Education_data)->validationRules();
 
         return $callback($this);
-
     }
 }
