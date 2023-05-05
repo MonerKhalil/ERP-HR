@@ -6,9 +6,12 @@ use App\HelpersClasses\MyApp;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Address;
 use App\Models\Contact;
+use App\Models\Document_information;
+use App\Models\Education_data;
 use App\Models\Education_level;
 use App\Models\Employee;
 use App\Models\User;
+use http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
@@ -61,12 +64,12 @@ class EmployeeController extends Controller
 //            }
             $education_data=$employeePI->education_data()->create(Arr::only($request->validated(),["id_ed_lev","grant_date"
                 ,"amount_impact_salary", "college_name"]));
-            foreach ($request->document_education_path as $value){
-                    $path= MyApp::Classes()->storageFiles->Upload($value,"documents/education");
-                $education_data->document_education()->create([
-                    "document_education_path"=>$path
-                ]);
-            }
+//            foreach ($request->document_education_path as $value){
+//                    $path= MyApp::Classes()->storageFiles->Upload($value,"documents/education");
+//                $education_data->document_education()->create([
+//                    "document_education_path"=>$path
+//                ]);
+//            }
             DB::commit();
         }catch (Exception $e){
             DB::rollBack();
@@ -76,17 +79,26 @@ class EmployeeController extends Controller
             ->with('success', 'Category created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Employee $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Employee $employee)
+    //Employee $employee
+    public function show($id)
     {
-       // $employee = Employee::find($id);
+
+        $employee = Employee::findOrFail($id);
+
+        $contact=Contact::where(["employee_id"=>$employee->id])->document_information()->get();
+
+        $education=$employee->education_data()->with("document_education")->get();
+
+
+        return  Response()->json([
+         // 'employee'=>$employee,
+         'education' => $education,
+          'contact'=>$contact,
+        ]);
+
         return view('dashboard.employeePI.show', [
-            'category' => $employee
+            'employee' => $employee,
+            'education' => $education,
         ]);
     }
 

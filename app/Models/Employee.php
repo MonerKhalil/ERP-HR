@@ -89,8 +89,8 @@ class Employee extends BaseModel
                 "college_name"=>$validator->textRule(true),
 
                 "amount_impact_salary"=>['numeric', 'min:0', 'max:100'],
-                "document_education_path"=>["required","array"],
-                "document_education_path.*"=>$validator->imageRule(true),
+//                "document_education_path"=>["required","array"],
+//                "document_education_path.*"=>$validator->imageRule(true),
 
 
 
