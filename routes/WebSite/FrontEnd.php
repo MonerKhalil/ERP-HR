@@ -18,18 +18,63 @@ Route::get('/Test-3', function () {
     return view('System.Pages.comingSoon');
 });
 
-Route::get('/Test-4', function () {
+Route::get('/Test-10', function () {
     return view('System.Pages.Actors.decisionForm');
 });
 
-Route::get('/Test-5', function () {
+Route::get('/Test-11', function () {
     return view('System/Pages/Docs/decisionPrint');
 });
 
-Route::get('/Test-6', function () {
+Route::get('/Test-12', function () {
     return view('System/Pages/Actors/sessionForm');
 });
 
-Route::get('/Test-7', function () {
+Route::get('/Test-13', function () {
     return view('System/Pages/Actors/sessionView');
+});
+
+Route::get('/Test-8', function () {
+    return view('System/Pages/Docs/tablePrint');
+});
+
+Route::get('/Test-16', function () {
+    return view('System.Pages.Actors.profile');
+});
+
+Route::get('/Test-4', function () {
+    return view('System.Pages.Actors.Admin.viewUsers');
+});
+
+Route::get('/Test-5', function () {
+    return view('System.Pages.Actors.HR_Manager.addEmployee');
+});
+
+Route::get('/Test-6', function () {
+    return view('System.Pages.Actors.HR_Manager.viewEmployees');
+});
+
+Route::get('/Test-7', function () {
+    return view('System.Pages.Actors.HR_Manager.addContract');
+});
+
+Route::get('/Test-8', function () {
+    return view('System.Pages.Actors.HR_Manager.addCourse');
+});
+
+Route::get('/Test-9', function () {
+    return view('System.Pages.Actors.HR_Manager.employeeEndOfServiceForm');
+});
+
+Route::get('/Test-0', function () {
+    return view('System.Pages.Actors.Admin.addUser');
+});
+
+
+Route::get('/Test-14', function () {
+    return view('System.Pages.Actors.Diwan_User.addOutgoingCorrespondense');
+});
+
+Route::get('/Test-15', function () {
+    return view('System/Pages/Actors/Diwan_User/viewCorrespondenses');
 });

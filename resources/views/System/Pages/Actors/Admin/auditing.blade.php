@@ -5,7 +5,7 @@
         <div class="ViewUsers">
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "View Auditing" ,
+                    'mainTitle' => __("viewAudit") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -16,6 +16,16 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
+                                    <form name="PrintAllTablePDF" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
+                                    <form name="PrintAllTableXlsx" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
@@ -39,12 +49,12 @@
                                                 <div class="Table__ContentTable">
                                                     <table class="Left Table__Table" >
                                                         <tr class="Item HeaderList">
-                                                            <th class="Item__Col">Event</th>
-                                                            <th class="Item__Col">On Table</th>
-                                                            <th class="Item__Col">From User</th>
-                                                            <th class="Item__Col">User Id</th>
-                                                            <th class="Item__Col">Edit Date</th>
-                                                            <th class="Item__Col">Details</th>
+                                                            <th class="Item__Col">@lang("event")</th>
+                                                            <th class="Item__Col">@lang("tableEdit")</th>
+                                                            <th class="Item__Col">@lang("fromUser")</th>
+                                                            <th class="Item__Col">@lang("userId")</th>
+                                                            <th class="Item__Col">@lang("editDate")</th>
+                                                            <th class="Item__Col">@lang("details")</th>
                                                         </tr>
                                                         @foreach($data as $AuditingData)
                                                             @php
@@ -58,7 +68,7 @@
                                                                     <td class="Item__Col">#{{$RealData["user_id"]}}</td>
                                                                     <td class="Item__Col">{{$RealData["date"]}}</td>
                                                                     <td class="Item__Col Item__Col--Details">
-                                                                        <span class="Details__Button">Details</span>
+                                                                        <span class="Details__Button">@lang("details")</span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="GroupRows__SubRows">
@@ -66,14 +76,14 @@
                                                                         <div class="Table__ContentTable">
                                                                             <table class="Left Table__Table">
                                                                                 <tr class="Item HeaderList">
-                                                                                    <th class="Item__Col">Type Value</th>
-                                                                                    <th class="Item__Col">ID</th>
-                                                                                    <th class="Item__Col">Name</th>
-                                                                                    <th class="Item__Col">Email</th>
+                                                                                    <th class="Item__Col">@lang("typeValue")</th>
+                                                                                    <th class="Item__Col">@lang("id")</th>
+                                                                                    <th class="Item__Col">@lang("name")</th>
+                                                                                    <th class="Item__Col">@lang("email")</th>
                                                                                 </tr>
                                                                                 @if(count($RealData["new_values"]) > 0)
                                                                                     <tr class="ReplaceNewBackGround Item DataItem">
-                                                                                        <td class="Item__Col">New Value</td>
+                                                                                        <td class="Item__Col">@lang("newValue")</td>
                                                                                         <td class="Item__Col">#{{$RealData["new_values"]["id"]}}</td>
                                                                                         <td class="Item__Col">{{$RealData["new_values"]["name"]}}</td>
                                                                                         <td class="Item__Col">{{$RealData["new_values"]["email"]}}</td>
@@ -81,7 +91,7 @@
                                                                                 @endif
                                                                                 @if(count($RealData["old_values"]) > 0)
                                                                                     <tr class="ReplaceOldBackGround Item DataItem">
-                                                                                        <td class="Item__Col">Old Value</td>
+                                                                                        <td class="Item__Col">@lang("oldValue")</td>
                                                                                         <td class="Item__Col">#{{$RealData["old_values"]["id"]}}</td>
                                                                                         <td class="Item__Col">{{$RealData["old_values"]["name"]}}</td>
                                                                                         <td class="Item__Col">{{$RealData["old_values"]["email"]}}</td>
@@ -97,7 +107,7 @@
                                                 </div>
                                             </div>
                                             <div class="Card__Inner">
-{{--                                                <div class="Table__Pagination">--}}
+{{--                                                <div class="Card__Pagination">--}}
 {{--                                                    @include("System.Components.paginationNum" , [--}}
 {{--                                                        "PaginationData" => $users ,--}}
 {{--                                                        "PartsViewNum" => 5--}}
@@ -123,10 +133,11 @@
     @include("System.Components.searchForm" , [
         'InfoForm' => ["Route" => route("audit.show") , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[user_id]" , 'Placeholder' => 'User ID Editing'] ] , ['Type' => 'text' , 'Info' =>
-                    ['Name' => "filter[user_name]" , 'Placeholder' => 'User Name Editing']
+                ['Name' => "filter[user_id]" , 'Placeholder' => __("userIdEditing") ] ] , ['Type' => 'text' , 'Info' =>
+                    ['Name' => "filter[user_name]" , 'Placeholder' => __("userNameEditing")]
                 ] , ['Type' => 'dateRange' , 'Info' =>
-                ['Name' => "filter[date]" , 'Placeholder' => 'Create Editing']
+                ['Name' => "filter[date]" , 'StartDateName' => "filter[start_date]"
+                , 'EndDateName' => "filter[end_date]" , 'Placeholder' => __("createDate") ]
             ] ]
     ])
 @endsection

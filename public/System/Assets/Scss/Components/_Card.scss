@@ -45,6 +45,11 @@
             padding-right: 0;
             padding-left: 0;
         }
+
+        &.py1 {
+            padding-top: 1rem ;
+            padding-bottom: 1rem ;
+        }
     }
 
     &__Content {
@@ -91,6 +96,12 @@
         }
     }
 
+    &__Pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     & {
         &__Header {
             margin-bottom: 1.5rem;
@@ -132,5 +143,17 @@
     // Theme
     &--Dark {
         background-color: $BackGroundColor;
+    }
+
+
+    @include ScreenResponsive(Phone_Portrait) {
+
+        &__Pagination {
+            justify-content: center;
+
+            .Pagination--Numbers {
+                display: none;
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@
         <div class="AddDecisionPage">
             <div class="AddUserPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "Session Form" ,
+                    'mainTitle' => __("sessionForm") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -24,7 +24,7 @@
                                                     <div class="ListData">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                Main Information
+                                                                @lang("basics")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -35,8 +35,8 @@
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="SessionName" class="Input__Field" type="text"
-                                                                                           name="SessionName" placeholder="Session Name" required>
-                                                                                    <label class="Input__Label" for="SessionName">Session Name</label>
+                                                                                           name="SessionName" placeholder="@lang("sessionName")" required>
+                                                                                    <label class="Input__Label" for="SessionName">@lang("sessionName")</label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -46,7 +46,7 @@
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.multiSelector" , [
-                                                                                        'Label' => "Selector Multi" ,
+                                                                                        'Label' => __("sessionMemberNumber") ,
                                                                                         'Options' => [ [
                                                                                         'Value' => "1" , 'Label' => '1' , "Name" => "1"
                                                                                         ] , [
@@ -63,8 +63,8 @@
                                                                                 <div class="Date__Area">
                                                                                     <input id="SessionDate" class="Date__Field"
                                                                                            type="date" name="Session Date"
-                                                                                           placeholder="Session Date" required>
-                                                                                    <label class="Date__Label" for="SessionDate">Session Date</label>
+                                                                                           placeholder="@lang("sessionDate")" required>
+                                                                                    <label class="Date__Label" for="SessionDate">@lang("sessionDate")</label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -74,9 +74,10 @@
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="SessionTitle" class="Input__Field" type="text"
-                                                                                           name="SessionName" placeholder="Session Title" required>
+                                                                                           name="SessionName"
+                                                                                           placeholder="@lang("sessionTitle")" required>
                                                                                     <label class="Input__Label" for="SessionTitle">
-                                                                                        Session Title
+                                                                                        @lang("sessionTitle")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -87,9 +88,10 @@
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="SessionDirection" class="Input__Field" type="text"
-                                                                                           name="SessionName" placeholder="Session Direction" required>
+                                                                                           name="SessionName"
+                                                                                           placeholder="@lang("sessionDirection")" required>
                                                                                     <label class="Input__Label" for="SessionDirection">
-                                                                                        Session Direction
+                                                                                        @lang("sessionDirection")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -119,12 +121,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section("extraScripts")
-    {{-- JS Trumbowyg --}}
-    <script src="{{asset("System/Assets/Lib/trumbowyg/dist/trumbowyg.min.js")}}"></script>
-    @if(app()->getLocale()==="ar")
-        <script src="{{asset("System/Assets/Lib/trumbowyg/dist/langs/ar.min.js")}}"></script>
-    @endif
 @endsection

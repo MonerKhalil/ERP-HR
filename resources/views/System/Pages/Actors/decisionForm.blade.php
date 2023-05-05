@@ -5,7 +5,7 @@
         <div class="AddDecisionPage">
             <div class="AddUserPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "Decision Form" ,
+                    'mainTitle' => __("decisionForm") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -24,7 +24,7 @@
                                                     <div class="ListData">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                Main Information
+                                                                @lang("basics")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -36,7 +36,7 @@
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "Type" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "Decision Type" ,
+                                                                                        "DefaultValue" => "" , "Label" => __("decisionType") ,
                                                                                         "Options" => [ ["Label" => "Decision" , "Value" => "Decision"] ,
                                                                                                        ["Label" => "Administrative Order" , "Value" => "Administrative order"]]
                                                                                     ])
@@ -49,8 +49,8 @@
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="DecisionNumber" class="Input__Field" type="number"
-                                                                                           name="PhoneNumber" placeholder="Decision Number" required>
-                                                                                    <label class="Input__Label" for="DecisionNumber">Decision Number</label>
+                                                                                           name="PhoneNumber" placeholder="@lang("decisionNumber")" required>
+                                                                                    <label class="Input__Label" for="DecisionNumber">@lang("decisionNumber")</label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -61,8 +61,8 @@
                                                                                 <div class="Date__Area">
                                                                                     <input id="DateDecision" class="Date__Field"
                                                                                            type="date" name="DateDecision"
-                                                                                           placeholder="Date Decision" required>
-                                                                                    <label class="Date__Label" for="DateDecision">Date Decision</label>
+                                                                                           placeholder="@lang("dateDecision")" required>
+                                                                                    <label class="Date__Label" for="DateDecision">@lang("dateDecision")</label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -73,9 +73,9 @@
                                                                                 <div class="Date__Area">
                                                                                     <input id="DateDecisionEnd" class="Date__Field"
                                                                                            type="date" name="DateDecision"
-                                                                                           placeholder="Date Decision End">
+                                                                                           placeholder="@lang("dateDecisionEnd")">
                                                                                     <label class="Date__Label" for="DateDecisionEnd">
-                                                                                        Date Decision End
+                                                                                        @lang("dateDecisionEnd")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -87,7 +87,7 @@
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "SessionName" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "Session Name" ,
+                                                                                        "DefaultValue" => "" , "Label" => __("sessionName") ,
                                                                                         "Options" => [ ["Label" => "First Session" , "Value" => "1"] ,
                                                                                                        ["Label" => "Second Session" , "Value" => "2"]]
                                                                                     ])
@@ -103,7 +103,7 @@
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 <label for="DecisionEditor">
-                                                                    Decision Content
+                                                                    @lang("decisionContent")
                                                                 </label>
                                                             </h4>
                                                         </div>

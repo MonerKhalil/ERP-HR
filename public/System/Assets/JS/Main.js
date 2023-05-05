@@ -6,8 +6,37 @@ $(document).ready(function (){
     const LanguagePage = $("html").get(0).lang ;
 
     /*===========================================
+	=           Authentication Process       =
+    =============================================*/
+    const Token = $(`meta[name="csrf-token"]`).prop('content') ;
+    const RememberStorage = localStorage.getItem("Remember") ;
+    $(".AuthenticationPage").ready(function (){
+        $(".AuthenticationPage").each((_ , Page) => {
+            $(Page).find("#AuthenticationForm").submit(function (){
+               const IsRemember = $(Page).find("#RememberMe")
+                   .is(':checked') ;
+               localStorage.setItem("Remember" , IsRemember) ;
+            });
+        });
+    });
+    $(".logoutForm").ready(function (){
+        $(".logoutForm").each((_ , Form) => {
+           $(Form).submit(function () {
+               localStorage.clear() ;
+           });
+        });
+    });
+    if(RememberStorage != null && RememberStorage === "true")
+        localStorage.setItem("Token" , Token) ;
+
+    /*===========================================
 	=           Header Page       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     const Header = $(".HeaderPage") ;
     Header.ready(function () {
         $(".HeaderPage .Alert").each(function() {
@@ -35,6 +64,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Navigations Menu       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     const MenuNav = $(".NavigationsMenu") ;
     MenuNav.ready(function () {
         let IsHover = false ;
@@ -69,11 +103,21 @@ $(document).ready(function (){
     /*===========================================
 	=           Footer Page       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     const Footer = $(".FooterPage") ;
 
     /*===========================================
 	=           Selector       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Selector").ready(function (){
         $(".Selector").each((_ , Selector)=> {
 
@@ -137,6 +181,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Multi Selector       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".MultiSelector").ready(function (){
         $(".MultiSelector").each((_ , MultiSelector)=> {
             $(MultiSelector).find(".MultiSelector__Main").click(() => {
@@ -167,6 +216,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Form       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $("form").ready(function (){
         $("form").each((Index , Value)=> {
             $.validator.addMethod("RegexPassword"
@@ -176,7 +230,7 @@ $(document).ready(function (){
                 LanguagePage === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
                     : "The password must contain from 8 to 15 characters"
             );
-            const ValidatorForm = $(Value).validate({
+            $(Value).validate({
 
                 ignore : ".IgnoreValidate" ,
 
@@ -230,6 +284,12 @@ $(document).ready(function (){
                     $(Field).valid() ;
                 });
             });
+            if($(Value).hasClass("FilterForm")) {
+                const ActionForm = $(Value).attr("action") ;
+                const Params = GetFullParams() ;
+                if(Params !== undefined)
+                    $(Value).attr("action" , `${ActionForm}?${Params}`);
+            }
         });
     })
     $(".Form").ready(function () {
@@ -333,6 +393,14 @@ $(document).ready(function (){
             });
         });
     });
+    $(".AnchorSubmit").ready(function () {
+        $(".AnchorSubmit").each((_ , Anchor) => {
+            const FormName = $(Anchor).attr("data-form") ;
+            $(Anchor).click(() => {
+                $(document).find(`form[name="${FormName}"]`).submit() ;
+            });
+        });
+    });
 
     /*===========================================
 	=           Menu And Header       =
@@ -358,6 +426,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Loader Upload       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     function LoaderView() {
         $(".Loader--Upload").ready(function (){
             $(".Loader--Upload").each((Index , Value)=> {
@@ -374,9 +447,15 @@ $(document).ready(function (){
         });
     }
 
+
     /*===========================================
 	=           Profile Page       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".ProfilePage").ready(function (){
         $(".ProfilePage").find("form.ChangeImage").each((Index , Value)=>{
             const InputFile = $(Value).find("#ImageChange");
@@ -390,6 +469,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Popup Component       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Popup").ready(function (){
         $(".Popup").each((Index , Value)=> {
             $(Value).find(".Popup__Close").click(()=>{
@@ -414,6 +498,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Taps Layout       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Taps").ready(function () {
         $(".Taps").each((Index , TapElement) => {
            let CurrentTap , CurrentPanel ;
@@ -443,6 +532,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Dropdown       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Dropdown").ready(function (){
         $(".Dropdown").each((_ , Dropdown)=>{
             $(Dropdown).on("ShowChange" , function (){
@@ -560,22 +654,28 @@ $(document).ready(function (){
     =============================================*/
     $(".Table").ready(function () {
         $(".Table").each((_ , Table) => {
-            $(Table).find(".Table__Table").each((_ , List)=>{
+            const BulkTools =  $(Table).find(".Table__BulkTools").get(0) ?? undefined ;
+            $(Table).find(".Table__Table").each((_ , List) => {
                 $(List).find(".HeaderList").each((_ , HeaderList) => {
                     $(HeaderList).find(".CheckBoxItem").change((ev) => {
-                        if($(ev.currentTarget).is(":checked"))
+                        if($(ev.currentTarget).is(":checked")) {
                             $(List).find(".DataItem").each((_ , Item) => {
                                 $(Item).find(".CheckBoxItem").prop('checked', true);
-                            });
-                        else
+                            }) ;
+                            BulkVisible(true) ;
+                        }
+                        else {
                             $(List).find(".DataItem").each((_ , Item) => {
                                 $(Item).find(".CheckBoxItem").prop('checked', false);
-                            });
+                            }) ;
+                            BulkVisible(false) ;
+                        }
                     });
                 });
                 $(List).find(".DataItem").each((_ , DataItem) => {
                     $(DataItem).find(".CheckBoxItem").change((ev) => {
                         const CheckBoxHeader = $(List).find(".HeaderList .CheckBoxItem") ;
+                        BulkVisible($(List).find(".CheckBoxItem:checked").length > 0) ;
                         if(CheckBoxHeader.is(":checked") &&
                             !$(ev.currentTarget).is(":checked")) {
                             CheckBoxHeader.prop('checked', false);
@@ -591,7 +691,19 @@ $(document).ready(function (){
                         $(SubRows).fadeToggle() ;
                     });
             });
-            // $(Table).find(".Table__BulkTools")
+            $(Table).find(".Table__PrintMenu").each((_ , PrintMenu) => {
+                $(PrintMenu).find(".PrintMenu__Button").click(() => {
+                    $(PrintMenu).find(".PrintMenu__Menu.Dropdown")
+                        .addClass("Show").trigger("ShowChange") ;
+                });
+            })
+
+            function BulkVisible(IsVisible = Boolean) {
+                if(BulkTools && IsVisible)
+                    $(BulkTools).addClass("Show") ;
+                else
+                    $(BulkTools).removeClass("Show") ;
+            }
         });
     });
 
@@ -631,14 +743,15 @@ $(document).ready(function (){
                                $(Bulk).append(DeleteInput) ;
                                IsHaveDeleteInput = true ;
                            }
+                           $(ClosestForm).attr("method" , "post") ;
                        } else {
                            if(IsHaveDeleteInput) {
                                $(Bulk).find("input[value='delete']").remove() ;
                                IsHaveDeleteInput = false ;
                            }
+                           $(ClosestForm).attr("method" , Method) ;
                        }
                         $(ClosestForm).attr("action" , Action) ;
-                        $(ClosestForm).attr("method" , Method) ;
                     });
                 });
             else
@@ -652,7 +765,30 @@ $(document).ready(function (){
     $(".MessageProcess").ready(function (){
         $(".MessageProcess").each((_ , Message) => {
             $(Message).find(".MessageProcess__Close")
-                .click(() => { $(Message).removeClass("Show") });
+                .click(() => {
+                    $(Message).remove();
+                });
+        });
+    });
+
+    /*===========================================
+	=           Notification Component       =
+    =============================================*/
+    $(".Notification").ready(function() {
+        $(".Notification").each((_ , Notification) => {
+            $(Notification).find(".Notification__Remove i").click(() => {
+                LoaderView() ;
+                $.ajax({
+                   url : "d" ,
+                   type : "delete" ,
+                   dataType : 'text' ,
+                }).done(() => {
+                    LoaderHidden() ;
+                    $(Notification).remove() ;
+                }).fail(() => {
+                    LoaderHidden() ;
+                });
+            });
         });
     });
 
@@ -666,8 +802,137 @@ window.onload = function (){
     $(".Loader--Page").ready(function () {
         $(this).find(".Loader--Page").remove();
     });
+
+    GetFullParams() ;
 }
 
+    /*===========================================
+	=           Profile Page       =
+    =============================================*/
+    $(".ProfilePage").ready(function (){
+        $(".ProfilePage").find("form.ChangeImage").each((Index , Value)=>{
+            const InputFile = $(Value).find("#ImageChange");
+            InputFile.change(()=>{
+                //Check Image
+                $(Value).submit();
+            });
+        });
+    });
+
+    /*===========================================
+	=           Popup Component       =
+    =============================================*/
+    $(".Popup").ready(function (){
+        $(".Popup").each((Index , Value)=> {
+            $(Value).find(".Popup__Close").click(()=>{
+                $(Value).removeClass("Open");
+            });
+        });
+    });
+    $(".OpenPopup").ready(function (){
+        $(".OpenPopup").each((Index , Value)=>{
+            const PopupName = $(Value).attr("data-popUp");
+            let PopupElement ;
+            $(".Popup").each((Index_2 , PopupValue)=>{
+                if($(PopupValue).attr("data-name") === PopupName)
+                    PopupElement = PopupValue ;
+            });
+            $(Value).click(()=>{
+                $(PopupElement).addClass("Open");
+            });
+        });
+    });
+
+    /*===========================================
+	=           Duplicate Form       =
+    =============================================*/
+
+    $("#duplicateDoc").click(function(){
+        var clone = $("#documentForm").last().clone(true);
+        console.log('clone ', clone, clone.val())
+        clone.val("");
+        clone.find("input").each(function() {
+            $(this).val("");
+            console.log('id', $(this).id)
+        });
+        clone.appendTo($("#parentForm"));
+
+    });
+
+    /*===========================================
+	=           Taps Layout       =
+    =============================================*/
+    $(".Taps").ready(function () {
+        $(".Taps").each((Index , TapElement) => {
+           let CurrentTap , CurrentPanel ;
+           $(TapElement).find(".Taps__Item").each((Index_2 , TapItem) => {
+              const ContentAttribute = $(TapItem).attr("data-content");
+              let PanelElement ;
+              $(TapElement).find(".Taps__Panel").each((Index_3 , PanelItem)=> {
+                  if($(PanelItem).attr("data-panel") === ContentAttribute)
+                      PanelElement = PanelItem ;
+              });
+              if(Index_2 === 0)
+                  Select(TapItem , PanelElement);
+              $(TapItem).click(()=> Select(TapItem , PanelElement));
+           });
+
+           function Select(TapButton , Panel) {
+               $(CurrentTap).removeClass("Active");
+               $(CurrentPanel).removeClass("Active");
+               CurrentTap = TapButton ;
+               CurrentPanel = Panel ;
+               $(CurrentTap).addClass("Active") ;
+               $(CurrentPanel).addClass("Active");
+           }
+        });
+    });
+
+    /*===========================================
+	=           Dropdown       =
+    =============================================*/
+    $(".Dropdown").ready(function (){
+        $(".Dropdown").each((_ , Dropdown)=>{
+            $(Dropdown).on("ShowChange" , function (){
+                if($(Dropdown).hasClass("Show"))
+                    closeOutSide($(Dropdown)[0] , ()=>{
+                        $(Dropdown).removeClass("Show");
+                    });
+            });
+        });
+    });
+
+    /*===========================================
+	=           Table Layout       =
+    =============================================*/
+    $(".Table").ready(function () {
+        $(".Table").each((_ , Table) => {
+            $(Table).find(".Table__List").each((_ , List)=>{
+                $(List).find(".HeaderList").each((_ , HeaderList) => {
+                    $(HeaderList).find(".CheckBoxItem").change((ev) => {
+                        if($(ev.currentTarget).is(":checked"))
+                            $(List).find(".DataItem").each((_ , Item) => {
+                                $(Item).find(".CheckBoxItem").prop('checked', true);
+                            });
+                        else
+                            $(List).find(".DataItem").each((_ , Item) => {
+                                $(Item).find(".CheckBoxItem").prop('checked', false);
+                            });
+                    });
+                });
+                $(List).find(".DataItem").each((_ , DataItem) => {
+                    $(DataItem).find(".CheckBoxItem").change((ev) => {
+                        const CheckBoxHeader = $(List).find(".HeaderList .CheckBoxItem") ;
+                        if(CheckBoxHeader.is(":checked") &&
+                            !$(ev.currentTarget).is(":checked")) {
+                            CheckBoxHeader.prop('checked', false);
+                        }
+                    });
+                });
+            });
+            // $(Table).find(".Table__BulkTools")
+        });
+    });
 
 /*===========================================
 =           Functions       =
@@ -684,6 +949,11 @@ function closeOutSide(ElementTarget = HTMLElement,
             $(document)[0].removeEventListener("click" , EventClick);
         }
     }
+}
+
+function GetFullParams() {
+    const URL = window.location.href ;
+    return URL.split("?")[1] ;
 }
 
 

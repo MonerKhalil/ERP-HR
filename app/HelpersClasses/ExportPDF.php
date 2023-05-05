@@ -27,7 +27,7 @@ class ExportPDF
      */
     private static function PDF($head , $body): Dompdf|\Barryvdh\DomPDF\PDF
     {
-        return PDF::loadView('', [
+        return PDF::loadView('System.Pages.Docs.tablePrint', [
             "data" => [
                 "head" => $head,
                 "body" => $body,

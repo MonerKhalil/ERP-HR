@@ -181,6 +181,7 @@ img {
 .Logo__SystemName {
   color: #fff;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .ArrowRight {
@@ -201,6 +202,14 @@ img {
 
 .Justify-Content-End {
   justify-content: end !important;
+}
+
+.Justify-Content-Center {
+  justify-content: center !important;
+}
+
+.Overflow-Hidden {
+  overflow: hidden;
 }
 
 .ReplaceOldBackGround {
@@ -309,7 +318,7 @@ html[lang=ar] .Right {
 
 body {
   font-family: Roboto, sans-serif;
-  color: #6c7a87;
+  color: #b2b2b2;
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.5;
@@ -344,6 +353,10 @@ p {
 .Dropdown {
   position: relative;
   background-color: #1b2633;
+  transition: all 0.3s;
+}
+.Dropdown__Item {
+  cursor: pointer;
   transition: all 0.3s;
 }
 
@@ -421,6 +434,9 @@ p {
 .Form__Input .Input__Field {
   /* Chrome, Safari, Edge, Opera */
   /* Firefox */
+}
+.Form__Input .Input__Field:-internal-autofill-selected {
+  background-color: transparent !important;
 }
 .Form__Input .Input__Field::-webkit-outer-spin-button, .Form__Input .Input__Field::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -903,6 +919,10 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   padding-right: 0;
   padding-left: 0;
 }
+.Card__Inner.py1 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 .Card__ToolsGroup {
   position: relative;
   display: flex;
@@ -930,6 +950,11 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   background-color: #10C093;
   border-radius: 50%;
 }
+.Card__Pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .Card__Header {
   margin-bottom: 1.5rem;
 }
@@ -948,6 +973,14 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 }
 .Card--Dark {
   background-color: #1A202E;
+}
+@media only screen and (max-width: 35.99em) {
+  .Card__Pagination {
+    justify-content: center;
+  }
+  .Card__Pagination .Pagination--Numbers {
+    display: none;
+  }
 }
 
 .Loader {
@@ -1191,30 +1224,10 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 }
 
 .MessageProcessContainer {
-  position: fixed;
-  bottom: 7.4rem;
-  max-width: 60rem;
+  position: relative;
   width: 100%;
-  padding: 0 2rem;
-  transform: translateX(-50%);
-}
-
-html[lang=en] .MessageProcessContainer {
-  left: 50%;
-}
-@media only screen and (min-width: 75em) {
-  html[lang=en] .MessageProcessContainer {
-    left: calc(50% + 7rem);
-  }
-}
-
-html[lang=ar] .MessageProcessContainer {
-  right: 50%;
-}
-@media only screen and (min-width: 75em) {
-  html[lang=ar] .MessageProcessContainer {
-    right: calc(50% + 7rem);
-  }
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .MessageProcess {
@@ -1222,6 +1235,7 @@ html[lang=ar] .MessageProcessContainer {
   visibility: hidden;
   opacity: 0;
   width: 100%;
+  background-color: #1A202E;
   transition: all 0.3s;
 }
 .MessageProcess__MainContent {
@@ -1254,26 +1268,22 @@ html[lang=ar] .MessageProcessContainer {
   border: 0;
   height: 1px;
   margin: 1rem 0;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+  background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
 .MessageProcess__Body {
   padding: 0 1rem;
 }
 .MessageProcess--Success .MessageProcess__MainContent {
-  background-color: #dff0d8;
-  color: #3c763d;
+  color: #51cb53;
 }
 .MessageProcess--Error .MessageProcess__MainContent {
-  background-color: #f2dede;
   color: #f93542;
 }
 .MessageProcess--Warning .MessageProcess__MainContent {
-  background-color: #fcf8e3;
-  color: #8a6d3b;
+  color: #d9a242;
 }
 .MessageProcess--Info .MessageProcess__MainContent {
-  background-color: #d9edf7;
-  color: #31708f;
+  color: #38a9e1;
 }
 .MessageProcess.Show {
   visibility: visible;
@@ -1445,7 +1455,6 @@ html[lang=en] .TextEditorContent__Content li {
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content {
   max-height: 20rem;
   overflow-y: auto;
-  padding: 0 1.5rem;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content::-webkit-scrollbar {
   width: 0.4rem;
@@ -1461,49 +1470,30 @@ html[lang=en] .TextEditorContent__Content li {
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content:hover::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.2705882353);
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item {
-  position: relative;
-  display: flex;
-  padding: 1.5rem 0 0;
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification {
+  padding: 1rem 1.5rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Icon {
   width: 4rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon i {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Icon i {
   font-size: 2rem;
-  padding: 0.5rem;
-  border-radius: 50%;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon--Send i {
-  color: #1EE0AC;
-  background-color: #193E40;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationIcon--Receive i {
-  color: #F4BD0E;
-  background-color: #393828;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationDetails {
-  flex: 1;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationDetails .NotificationSummery {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationTitle {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   line-height: 1.4;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationDetails .NotificationDate {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationDescription {
+  font-size: 1.1rem;
+}
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationDate {
   font-size: 1rem;
   font-weight: 400;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationRemove {
-  cursor: pointer;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationRemove i {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Remove i {
   font-size: 1.4rem;
-  transition: color 0.3s;
-}
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .NotificationRemove:hover i {
-  color: #10C093;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Footer {
   padding: 1rem 2rem;
@@ -1647,7 +1637,7 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
   position: relative;
 }
 .NavigationsMenu__NavigationsGroup .NavigationsGroup__NavItem:not(:last-child), .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem:not(:last-child) {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .NavigationsMenu__NavigationsGroup .NavigationsGroup__NavItem .Title, .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem .Title {
   position: relative;
@@ -1656,7 +1646,7 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
 .NavigationsMenu__NavigationsGroup .NavigationsGroup__NavItem .Title .NavName, .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem .Title .NavName {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
   color: #fff;
 }
@@ -1755,6 +1745,9 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
     padding: 1rem 0;
   }
   .NavigationsMenu:not(.Open) .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > .Title .ArrowRight {
+    display: none;
+  }
+  .NavigationsMenu:not(.Open) .NavigationsMenu__NavigationsGroup .NavigationsGroup__SubItems {
     display: none;
   }
 }
@@ -2336,12 +2329,47 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 .Table {
   position: relative;
 }
+.Table__BulkTools {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.Table__BulkTools.Show {
+  visibility: visible;
+  opacity: 1;
+}
 .Table__BulkTools .BulkTools {
   position: relative;
 }
 .Table__BulkTools .BulkTools .Form {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+.Table__PrintMenu {
+  position: relative;
+}
+.Table__PrintMenu .PrintMenu__Menu {
+  position: absolute;
+  border-radius: 5px;
+  visibility: hidden;
+  opacity: 0;
+  top: 100%;
+  right: 0;
+  overflow: hidden;
+  z-index: 2;
+}
+.Table__PrintMenu .PrintMenu__Menu .Dropdown__Item {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+}
+.Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
+  background-color: #2d3f54;
+  color: #fff;
+}
+.Table__PrintMenu .PrintMenu__Menu.Show {
+  visibility: visible;
+  opacity: 1;
 }
 .Table__ContentTable {
   position: relative;
@@ -2380,7 +2408,7 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 .Table__Table .Item__Col.Link a:hover {
   color: #10C093;
 }
-.Table__Table .Item__Col .fitContent {
+.Table__Table .Item__Col.fitContent {
   width: 1%;
 }
 .Table__Table .Item__Col--Check {
@@ -2430,19 +2458,6 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   visibility: visible;
   opacity: 1;
 }
-.Table__Pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-@media only screen and (max-width: 35.99em) {
-  .Table__Pagination {
-    justify-content: center;
-  }
-  .Table__Pagination .Pagination--Numbers {
-    display: none;
-  }
-}
 
 html[lang=en] .Table__Table .Item__Col:first-child {
   padding-left: 2.4rem;
@@ -2451,6 +2466,10 @@ html[lang=en] .Table__Table .Item__Col:last-child {
   padding-right: 2.4rem;
 }
 
+html[lang=ar] .Table__PrintMenu .PrintMenu__Menu {
+  right: initial;
+  left: 0;
+}
 html[lang=ar] .Table__Table .Item__Col:first-child {
   padding-right: 2.4rem;
 }
@@ -2533,6 +2552,67 @@ html[lang=ar] .Cookies.Show {
   color: #b6c6e3;
   letter-spacing: 3px;
   text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.Notification {
+  position: relative;
+  transition: all 0.3s;
+}
+.Notification__Content {
+  display: flex;
+}
+.Notification__Icon {
+  width: 7rem;
+}
+.Notification__Icon i {
+  font-size: 4rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+.Notification__Icon--Send i {
+  color: #1EE0AC;
+  background-color: #193E40;
+}
+.Notification__Icon--Receive i {
+  color: #F4BD0E;
+  background-color: #393828;
+}
+.Notification__Details {
+  flex: 1;
+}
+.Notification__Details > *:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.Notification__Details > *:last-child {
+  margin: 0;
+}
+.Notification__Details .NotificationTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #dadada;
+}
+.Notification__Details .NotificationDescription {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+.Notification__Details .NotificationDate {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #6c7a87;
+}
+.Notification__Remove {
+  cursor: pointer;
+}
+.Notification__Remove i {
+  font-size: 2rem;
+  transition: color 0.3s;
+}
+.Notification__Remove:hover i {
+  color: #10C093;
+}
+.Notification:hover {
+  background-color: #202738;
 }
 
 .FooterPage {
@@ -2870,15 +2950,24 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   padding: 1rem;
 }
 .PrintPage__CompanyInfo .ImageCompany {
-  width: 13rem;
+  width: 10rem;
 }
 .PrintPage__CompanyInfo .ImageCompany > img {
   width: 100%;
   border-radius: 50%;
 }
+.PrintPage__CompanyInfo .DescriptionCompany {
+  flex: 1;
+}
+.PrintPage__CompanyInfo .DescriptionCompany .Text {
+  display: flex;
+  flex-wrap: wrap;
+}
 .PrintPage__CompanyInfo .DescriptionCompany .Text > * {
+  width: 50%;
+  padding: 1rem;
   margin-bottom: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: #b6c6e3;
 }
@@ -2897,6 +2986,30 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 }
 .PrintPage .ListData--CustomPrint .ListData__Item .Data_Col {
   padding: 1.5rem 1rem;
+}
+.PrintPage .Table__Table .Item__Col {
+  width: 1%;
+}
+
+.NotificationPage {
+  position: relative;
+}
+.NotificationPage__Buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+.NotificationPage__NotificationList .Notification:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 5px;
+  background-color: #000;
+  background-color: #35393f;
 }
 
 /**

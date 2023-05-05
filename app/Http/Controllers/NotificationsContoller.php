@@ -21,7 +21,7 @@ class NotificationsContoller extends Controller
             default:
             $data = $user->notifications();
         }
-        return $this->responseSuccess("notifications.show",compact("data"));
+        return $this->responseSuccess("System.Pages.Actors.notification",compact("data"));
     }
 
     public function clearNotifications(){

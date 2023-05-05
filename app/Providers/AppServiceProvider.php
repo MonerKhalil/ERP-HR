@@ -28,4 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
       //  Audit::observe(AuditObserver::class);
     }
+//    public function boot()
+//    {
+//        Audit::observe(AuditObserver::class);
+//    }
 }
