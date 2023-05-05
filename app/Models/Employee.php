@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Http\Requests\BaseRequest;
-use App\Rules\ArrayOfObjects;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Validation\Rule;
 
