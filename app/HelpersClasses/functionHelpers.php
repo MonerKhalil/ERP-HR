@@ -1,6 +1,8 @@
 <?php
 
 use App\HelpersClasses\MessagesFlash;
+use App\Models\Address;
+use App\Models\Country;
 use Illuminate\Support\Facades\Session;
 
 function FilterDataRequest(){
@@ -26,4 +28,12 @@ function Success(){
 function PathStorage($path)
 {
     return asset('storage/'.$path);
+}
+
+function countries(){
+    return Country::query()->pluck("country_name","id")->toArray();
+}
+
+function address($id_Country){
+    return Address::query()->where("country_id",$id_Country)->pluck("city","id")->toArray();
 }

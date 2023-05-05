@@ -27,6 +27,14 @@ class Employee extends BaseModel
             ->with("country");
     }
 
+    public function session_decision(){
+        return $this->belongsToMany(SessionDecision::class,"member_session_decisions",
+            "employee_id",
+            "session_decision_id",
+            "id",
+            "id");
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc

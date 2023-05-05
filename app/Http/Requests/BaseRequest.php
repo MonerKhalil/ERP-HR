@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TextRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -82,7 +83,7 @@ class BaseRequest extends FormRequest
             $this->rule = 'sometimes';
         }
 
-        return "$this->rule|mimes:pdf|max:10000";
+        return "$this->rule|mimes:pdf,docx|max:10000";
     }
 
     /**
@@ -102,7 +103,7 @@ class BaseRequest extends FormRequest
             $temp_rules[] = $isRequired ? "required" : "nullable";
         }
         $temp_rules[] = "string";
-//        $temp_rules[] = new TextRule();
+        $temp_rules[] = new TextRule();
         return $this->min_max_Rule($temp_rules, $min, $max);
     }
 

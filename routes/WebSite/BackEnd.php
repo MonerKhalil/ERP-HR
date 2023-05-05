@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\DecisionController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SessionDecisionController;
+use App\Http\Controllers\TypeDecisionController;
+use App\Http\Controllers\TypeInstitutionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,4 +66,26 @@ Route::middleware(['auth'])->group(function (){
    =============================================*/
 
     Route::resource("roles", RoleController::class);
+    /*===========================================
+        =         Start System Routes        =
+   =============================================*/
+
+    Route::prefix("system")->name("system.")->group(function (){
+        Route::resource('type_institutions', TypeInstitutionController::class)->except([
+            "edit","create","show"
+        ]);
+        Route::resource('institutions', InstitutionController::class)->except([
+            "edit","create","show"
+        ]);
+        Route::resource('type_decisions', TypeDecisionController::class)->except([
+            "edit","create","show"
+        ]);
+        Route::resource('session_decisions', SessionDecisionController::class);
+        Route::resource('decisions', DecisionController::class);
+    });
+
+
+    /*===========================================
+    =         End System Routes        =
+   =============================================*/
 });
