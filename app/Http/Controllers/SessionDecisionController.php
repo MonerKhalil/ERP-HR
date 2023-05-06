@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 
 class SessionDecisionController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System.Pages.Actors.sessionView";
     public const Folder = "session_decisions";
     public const IndexRoute = "system.session_decisions.index";
 
@@ -39,8 +39,9 @@ class SessionDecisionController extends Controller
      */
     public function create()
     {
-        $employees = Employee::query()->select(["id"."first_name","last_name"])->get();
-        return $this->responseSuccess("",compact("employees"));
+        $employees = Employee::query()->select(["id","first_name","last_name"])->get();
+        return $this->responseSuccess("System.Pages.Actors.sessionForm" ,
+            compact("employees"));
     }
 
 
@@ -91,7 +92,8 @@ class SessionDecisionController extends Controller
     public function edit(SessionDecision $sessionDecision)
     {
         $data = SessionDecision::with(["members","moderator"])->find($sessionDecision->id);
-        return $this->responseSuccess("",compact("data"));
+        return $this->responseSuccess("System.Pages.Actors.sessionForm" ,
+            compact("data"));
     }
 
     public function update(SessionDecisionRequest $request, SessionDecision $sessionDecision)

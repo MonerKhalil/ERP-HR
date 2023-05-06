@@ -84,7 +84,7 @@
                                         </div>
                                         @if(count($users) > 0)
                                             <div class="Card__Inner p0">
-                                            <div class="Table__ContentTable">
+                                                <div class="Table__ContentTable">
                                                     <div class="Table__Table">
                                                         <div class="Item HeaderList">
                                                             <div class="Item__Col Item__Col--Check">
@@ -127,7 +127,7 @@
                                                         @endforeach
                                                     </div>
                                             </div>
-                                        </div>
+                                            </div>
                                         @else
                                             @include("System.Components.noData")
                                         @endif

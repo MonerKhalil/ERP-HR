@@ -177,10 +177,18 @@
     "/*         Session Form Page         */": "",
 
     "sessionForm" : "تسجيل جلسة" ,
+    "sessionNumber" : "رقم الجلسة",
     "sessionDate" : "تارخ الجلسة",
     "sessionTitle" : "عنوان الجلسة",
     "sessionDirection" : "الهدف من الجلسة",
-    "sessionMemberNumber" : "عدد الاعضاء",
+    "sessionMember" : "اعضاء الجلسة",
+    "sessionModerator" : "رئيس الجلسة" ,
+    "memberInSession": "عضو في الجلسة" ,
+    "createSession" : "انشاء جلسة",
+    "viewDetails" : "عرض التفاصيل",
+    "editSessionInfo" : "تعديل معلومات الجلسة" ,
+    "viewDecision" : "عرض القرارات" ,
+    "addDecision" : "اضافة قرار" ,
 
     "/*         Session View Page         */": "",
 

@@ -124,7 +124,7 @@ $(document).ready(function (){
      */
 
     function SelectorOperation( SelectorInfo = {
-        Operation : "InitializeSelector" | "Clone" | "Clear" ,
+        Operation : "InitializeSelector" | "SetRequired" | "ResetRequired" | "Clone" | "Clear" ,
         Selector : HTMLElement ,
         OptionContent : HTMLElement | undefined ,
         Option : HTMLElement | undefined
@@ -132,6 +132,12 @@ $(document).ready(function (){
         switch (SelectorInfo.Operation) {
             case "InitializeSelector" :
                 InitializeSelectorElement() ;
+                break ;
+            case "SetRequired" :
+                SetRequired() ;
+                break ;
+            case "ResetRequired" :
+                ResetRequired() ;
                 break ;
             case "Clone" :
                 CloneSelector() ;
@@ -212,6 +218,18 @@ $(document).ready(function (){
             $(SelectorInfo.Selector).find(".Selector__SelectForm")
                 .attr("value" , "");
             $(SelectorInfo.Selector).attr("data-selected" , "");
+        }
+
+        function ResetRequired() {
+            $(SelectorInfo.Selector).attr("data-required" , false) ;
+            $(SelectorInfo.Selector).find(".Selector__SelectForm")
+                .prop("required" , false) ;
+        }
+
+        function SetRequired() {
+            $(SelectorInfo.Selector).attr("data-required" , true) ;
+            $(SelectorInfo.Selector).find(".Selector__SelectForm")
+                .prop("required" , true) ;
         }
     }
 
@@ -1107,7 +1125,7 @@ $(document).ready(function (){
             const FieldsName = $(ParentSelector).attr("data-ReadonlyNames") ;
             const Location = $(ParentSelector).attr("data-Location") ;
             const TitleReadOnly = $(ParentSelector).attr("data-TitleField") ;
-            const MinFieldsRead = $(ParentSelector).attr("data-RequiredNum") ;
+            const MinFieldsRead = Number($(ParentSelector).attr("data-RequiredNum")) ;
             let CounterID = 0 ;
             let ValueSelected = 0 ;
             const AllValues = $(ParentSelector)
@@ -1149,6 +1167,11 @@ $(document).ready(function (){
                         if(ValueSelected === AllValues)
                             $(ParentSelector).show();
                         ValueSelected-- ;
+                        if(ValueSelected < MinFieldsRead)
+                            SelectorOperation({
+                                Operation : "SetRequired" ,
+                                Selector : $(ParentSelector).find(".Selector").get(0) ,
+                            });
                         $(ReadOnlyElement).remove() ;
                     });
                     $(ev.target).hide() ;
@@ -1157,6 +1180,11 @@ $(document).ready(function (){
                         Selector : $(ParentSelector).find(".Selector").get(0) ,
                     });
                     ValueSelected++ ;
+                    if(ValueSelected >= MinFieldsRead)
+                        SelectorOperation({
+                            Operation : "ResetRequired",
+                            Selector : $(ParentSelector).find(".Selector").get(0) ,
+                        });
                     if(ValueSelected === AllValues)
                         $(ParentSelector).hide();
                 });

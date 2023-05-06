@@ -250,10 +250,18 @@
     "/*         Session Form Page         */": "",
 
     "sessionForm" : "session register" ,
+    "sessionNumber" : "session number",
     "sessionDate" : "session date",
     "sessionTitle" : "session title",
     "sessionDirection" : "session direction",
-    "sessionMemberNumber" : "Member Number",
+    "sessionMember" : "session member",
+    "sessionModerator" : "session moderator",
+    "memberInSession": "member in session" ,
+    "createSession" : "create session",
+    "viewDetails" : "view details",
+    "editSessionInfo" : "edit session info" ,
+    "viewDecision" : "view decision" ,
+    "addDecision" : "add decision" ,
 
     "/*         Session View Page         */": "",
 

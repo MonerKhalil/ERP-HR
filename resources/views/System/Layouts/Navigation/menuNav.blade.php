@@ -133,14 +133,14 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-13" class="NavName">
+                                    <a href="{{route("system.session_decisions.index")}}" class="NavName">
                                         <span class="Label">@lang("viewSessions")</span>
                                     </a>
                                 </div>
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-12" class="NavName">
+                                    <a href="{{route("system.session_decisions.create")}}" class="NavName">
                                         <span class="Label">@lang("addSession")</span>
                                     </a>
                                 </div>
@@ -223,7 +223,7 @@
                 </ul>
             </main>
             <footer class="NavigationsMenu__Footer">
-                
+
             </footer>
         </div>
     </div>
