@@ -29,9 +29,20 @@
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
-                                            <div class="Card__Inner">
+                                            <div class="Card__Inner py1">
                                                 <div class="Table__Head">
-                                                    <div class="Justify-Content-End Card__ToolsGroup">
+                                                    <div class="Card__ToolsGroup">
+                                                        <div class="Card__Tools Table__BulkTools">
+                                                            @include("System.Components.bulkAction" , [
+                                                                "Options" => [ [
+                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"
+                                                                ] , [
+                                                                    "Label" => __("normalDelete")
+                                                                    , "Action" => route("users.multi.delete")
+                                                                    , "Method" => "delete"
+                                                                ] ]
+                                                            ])
+                                                        </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
                                                                 <li>
@@ -42,10 +53,23 @@
                                                                 <li>
                                                                     <span class="SearchTools__Separate"></span>
                                                                 </li>
-                                                                <li>
-                                                                    <a href="#">
-                                                                        <i class="material-icons IconClick">print</i>
-                                                                    </a>
+                                                                <li class="Table__PrintMenu">
+                                                                    <i class="material-icons IconClick PrintMenu__Button"
+                                                                       title="Print">print</i>
+                                                                    <div class="Dropdown PrintMenu__Menu">
+                                                                        <ul class="Dropdown__Content">
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
+                                                                                    @lang("printTablePDFFile")
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
+                                                                                    @lang("printTableXlsxFile")
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -56,61 +80,147 @@
                                                 <div class="Table__ContentTable">
                                                     <table class="Left Table__Table" >
                                                         <tr class="Item HeaderList">
+                                                            <th class="Item__Col Item__Col--Check">
+                                                                <input id="ItemRow_Main" class="CheckBoxItem"
+                                                                       type="checkbox" hidden>
+                                                                <label for="ItemRow_Main" class="CheckBoxRow">
+                                                                    <i class="material-icons ">
+                                                                        check_small
+                                                                    </i>
+                                                                </label>
+                                                            </th>
                                                             <th class="Item__Col">#</th>
                                                             <th class="Item__Col">@lang("sessionName")</th>
                                                             <th class="Item__Col">@lang("sessionTitle")</th>
                                                             <th class="Item__Col">@lang("sessionDate")</th>
-                                                            <th class="Item__Col">@lang("sessionDecisions")</th>
-                                                            <th class="Item__Col">@lang("sessionDetails")</th>
+                                                            <th class="Item__Col">المزيد</th>
                                                         </tr>
-                                                            <tbody class="GroupRows">
-                                                                <tr class="GroupRows__MainRow">
-                                                                    <td class="Item__Col">1</td>
-                                                                    <td class="Item__Col">Session One</td>
-                                                                    <td class="Item__Col">About Habd</td>
-                                                                    <td class="Item__Col">12-2-2022</td>
-                                                                    <td class="Item__Col Item__Col--Details">
-                                                                        <span class="Details__Button">@lang("decisions")</span>
-                                                                    </td>
-                                                                    <td class="Item__Col Link">
-                                                                        <a href="#">@lang("details")</a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="GroupRows__SubRows">
-                                                                    <td class="Item__Col" colspan="6">
-                                                                        <div class="Table__ContentTable">
-                                                                            <table class="Left Table__Table">
-                                                                                <thead>
-                                                                                    <tr class="Item HeaderList">
-                                                                                        <th class="Item__Col">#</th>
-                                                                                        <th class="Item__Col">@lang("decisionType")</th>
-                                                                                        <th class="Item__Col">@lang("decisionNumber")</th>
-                                                                                        <th class="Item__Col">@lang("dateDecision")</th>
-                                                                                        <th class="Item__Col">@lang("dateDecisionEnd")</th>
-                                                                                        <th class="Item__Col">@lang("download")</th>
-                                                                                        <th class="Item__Col">@lang("details")</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr class="Item DataItem">
-                                                                                        <td class="Item__Col">1</td>
-                                                                                        <td class="Item__Col">Type 1</td>
-                                                                                        <td class="Item__Col">33</td>
-                                                                                        <td class="Item__Col">12-2-2022</td>
-                                                                                        <td class="Item__Col">-</td>
-                                                                                        <td class="Item__Col Link">
-                                                                                            <a href="#">Download</a>
-                                                                                        </td>
-                                                                                        <td class="Item__Col Link">
-                                                                                            <a href="#">Details</a>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
+                                                        <tr class="Item DataItem">
+                                                            <td class="Item__Col Item__Col--Check">
+                                                                <input id="1"
+                                                                       class="CheckBoxItem" type="checkbox"
+                                                                       name="name[]" value="1" hidden>
+                                                                <label for="1" class="CheckBoxRow">
+                                                                    <i class="material-icons ">
+                                                                        check_small
+                                                                    </i>
+                                                                </label>
+                                                            </td>
+                                                            <td class="Item__Col">1</td>
+                                                            <td class="Item__Col">Session One</td>
+                                                            <td class="Item__Col">About Habd</td>
+                                                            <td class="Item__Col">12-2-2022</td>
+                                                            <td class="Item__Col MoreDropdown">
+                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                   data-MenuName="Details">
+                                                                    more_horiz
+                                                                </i>
+                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                     data-MenuName="Details">
+                                                                    <ul class="Dropdown__Content">
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                عرض التفاصيل
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                عرض القرارات
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                اضافة قرار
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="Item DataItem">
+                                                            <td class="Item__Col Item__Col--Check">
+                                                                <input id="1"
+                                                                       class="CheckBoxItem" type="checkbox"
+                                                                       name="name[]" value="1" hidden>
+                                                                <label for="1" class="CheckBoxRow">
+                                                                    <i class="material-icons ">
+                                                                        check_small
+                                                                    </i>
+                                                                </label>
+                                                            </td>
+                                                            <td class="Item__Col">1</td>
+                                                            <td class="Item__Col">Session One</td>
+                                                            <td class="Item__Col">About Habd</td>
+                                                            <td class="Item__Col">12-2-2022</td>
+                                                            <td class="Item__Col MoreDropdown">
+                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                   data-MenuName="Details_2">
+                                                                    more_horiz
+                                                                </i>
+                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                     data-MenuName="Details_2">
+                                                                    <ul class="Dropdown__Content">
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                عرض التفاصيل
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                عرض القرارات
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                اضافة قرار
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="Item DataItem">
+                                                            <td class="Item__Col Item__Col--Check">
+                                                                <input id="1"
+                                                                       class="CheckBoxItem" type="checkbox"
+                                                                       name="name[]" value="1" hidden>
+                                                                <label for="1" class="CheckBoxRow">
+                                                                    <i class="material-icons ">
+                                                                        check_small
+                                                                    </i>
+                                                                </label>
+                                                            </td>
+                                                            <td class="Item__Col">1</td>
+                                                            <td class="Item__Col">Session One</td>
+                                                            <td class="Item__Col">About Habd</td>
+                                                            <td class="Item__Col">12-2-2022</td>
+                                                            <td class="Item__Col MoreDropdown">
+                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                   data-MenuName="Details_3">
+                                                                    more_horiz
+                                                                </i>
+                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                     data-MenuName="Details_3">
+                                                                    <ul class="Dropdown__Content">
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                عرض التفاصيل
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                عرض القرارات
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="Dropdown__Item">
+                                                                                اضافة قرار
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>

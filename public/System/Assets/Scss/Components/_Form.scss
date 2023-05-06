@@ -11,13 +11,19 @@
 
     &__Input ,
     &__Date ,
-    &__Search {
+    &__Search ,
+    &__UploadFile ,
+    &__Textarea ,
+    &__FieldReadOnly {
         position: relative;
         width: 100%;
 
         .Date ,
         .Input ,
-        .Search {
+        .Search ,
+        .UploadFile ,
+        .Textarea ,
+        .FieldReadOnly {
 
             &__Area {
                 position: relative;
@@ -172,17 +178,58 @@
 
     }
 
-    &__Select {
+    &__UploadFile {
 
+        .UploadFile {
+
+            &__Area {
+
+                &.SelectedFile {
+
+                    .UploadFile__Field {
+
+                        &::before {
+                            visibility: hidden;
+                        }
+                    }
+
+                    .UploadFile__Label {
+                        top: 0;
+                        left: 1.5rem;
+                        transform: translateY(-50%);
+                        font-size: 1.3rem;
+                        padding: 0 0.5rem;
+                    }
+                }
+            }
+
+            &__Field {
+                position: relative;
+
+                &::-webkit-file-upload-button {
+                    display: none;
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left : 0 ;
+                    top : 0 ;
+                    width : 100% ;
+                    height: 100% ;
+                }
+
+            }
+
+            &__Label {
+
+            }
+        }
     }
 
-    &__Search {
+    &__TextEditor {
 
-    }
-
-    &__Textarea {
-
-        .Textarea {
+        .TextEditor {
 
             &__Area {
 
@@ -196,7 +243,26 @@
             &__Field {
 
             }
+        }
 
+    }
+
+    &__Textarea {
+
+        .Textarea {
+
+            &__Field {
+
+                &:focus ~ .Textarea__Label ,
+                &:not(:placeholder-shown) ~ .Textarea__Label {
+                    top: 0;
+                    left: 1.5rem;
+                    transform: translateY(-50%);
+                    font-size: 1.3rem;
+                    padding: 0 0.5rem;
+                    width: fit-content;
+                }
+            }
         }
     }
 
@@ -239,6 +305,40 @@
         }
     }
 
+    &__FieldReadOnly {
+
+        .FieldReadOnly {
+
+            &__Label {
+                top: 0;
+                left: 1.5rem;
+                transform: translateY(-50%);
+                font-size: 1.3rem;
+                padding: 0 0.5rem;
+            }
+
+            &__Value {
+                position: absolute ;
+                top : 1rem ;
+                left : 2rem ;
+                font-size: 1.5rem ;
+            }
+
+            &__Close {
+                position: absolute;
+                top: 50%;
+                right: 1rem;
+                transform: translateY(-50%);
+                cursor: pointer;
+                transition: color .3s;
+
+                &:hover {
+                    color : $TertiaryColor-Project ;
+                }
+            }
+        }
+    }
+
     //Theme Form
 
     &--Dark {
@@ -247,11 +347,17 @@
 
             &__Input ,
             &__Date ,
-            &__Search {
+            &__Search ,
+            &__UploadFile ,
+            &__FieldReadOnly ,
+            &__Textarea, {
 
                 .Input ,
                 .Date ,
-                .Search {
+                .Search ,
+                .UploadFile ,
+                .FieldReadOnly ,
+                .Textarea {
 
                     &__Field {
                         color : $TextColor ;
@@ -285,6 +391,20 @@
                     &__Field {
 
                         &:not(:placeholder-shown) ~ .Date__Label {
+                            background-color: $BackGroundColor_Extra-3;
+                        }
+                    }
+                }
+            }
+
+            &__Textarea {
+
+                .Textarea {
+
+                    &__Field {
+
+                        &:focus ~ .Textarea__Label ,
+                        &:not(:placeholder-shown) ~ .Textarea__Label {
                             background-color: $BackGroundColor_Extra-3;
                         }
                     }
@@ -366,6 +486,37 @@
                     }
                 }
             }
+
+            &__UploadFile {
+
+                .UploadFile {
+
+                    &__Field {
+
+                        &::before {
+                            background: #1A202E;
+                        }
+                    }
+
+                    &__Label {
+                        background-color: $BackGroundColor_Extra-3;
+                    }
+                }
+            }
+
+            &__FieldReadOnly {
+
+                .FieldReadOnly {
+
+                    &__Label {
+                        background-color: $BackGroundColor_Extra-3;
+                    }
+
+                    &__Value {
+                        color : $TextColor ;
+                    }
+                }
+            }
         }
     }
 
@@ -376,10 +527,16 @@
     .Form {
 
         &__Input ,
-        &__Date {
+        &__Date ,
+        &__UploadFile ,
+        &__Textarea ,
+        &__FieldReadOnly {
 
             .Input ,
-            .Date {
+            .Date ,
+            .UploadFile ,
+            .Textarea ,
+            .FieldReadOnly{
 
                 &__Label {
                     left : initial ;
@@ -429,6 +586,40 @@
                         left: initial;
                         right : 1.5rem
                     }
+                }
+            }
+        }
+
+        &__UploadFile {
+
+            .UploadFile {
+
+                &__Area {
+
+                    &.SelectedFile {
+
+                        .UploadFile__Label {
+                            top: 0;
+                            left: initial;
+                            right: 1.5rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__FieldReadOnly {
+
+            .FieldReadOnly {
+
+                &__Value {
+                    left : initial ;
+                    right: 2rem ;
+                }
+
+                &__Close {
+                    right : initial;
+                    left : 1rem;
                 }
             }
         }

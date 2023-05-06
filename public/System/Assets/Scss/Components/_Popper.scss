@@ -1,0 +1,47 @@
+
+.Popper {
+
+    &--MoreMenuTable {
+
+        &.MenuPopper {
+
+        }
+
+        &.MenuTarget {
+
+            &.Dropdown {
+                transform: scale(0.95);
+                opacity: 0;
+                visibility: hidden;
+                border-radius: $BorderRadiusValue ;
+                overflow: hidden;
+                transition: none;
+
+                .Dropdown {
+
+                    &__Item {
+                        display: block;
+                        min-width: 15rem;
+                        padding: 1rem 1.5rem;
+                        color: #fff;
+                        cursor: pointer;
+                        transition: all 0.3s;
+
+                        &:hover {
+                            background-color: #171a21;
+                        }
+                    }
+                }
+
+                &.Show {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: scale(1);
+                }
+            }
+
+
+
+        }
+    }
+}

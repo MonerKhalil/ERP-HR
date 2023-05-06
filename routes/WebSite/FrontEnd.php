@@ -78,3 +78,15 @@ Route::get('/Test-14', function () {
 Route::get('/Test-15', function () {
     return view('System/Pages/Actors/Diwan_User/viewCorrespondenses');
 });
+
+Route::get('/Test-17', function () {
+    return view('System/Pages/Actors/decisionView');
+});
+
+Route::get('/Test-18', function () {
+    return view('System/Pages/Actors/decisionDetails');
+});
+
+Route::get('/Test-19', function () {
+    return view('System/Pages/Actors/sessionDetails');
+});
