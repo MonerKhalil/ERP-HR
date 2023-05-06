@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Institution;
+use App\Models\Document_education;
 
-class InstitutionRequest extends BaseRequest
+class Document_educationRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,7 +13,7 @@ class InstitutionRequest extends BaseRequest
      */
     public function rules()
     {
-        $callback = (new Institution)->validationRules();
+        $callback = (new Document_education())->validationRules();
 
         return $callback($this);
     }

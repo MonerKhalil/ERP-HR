@@ -26,6 +26,13 @@ class Decision extends BaseModel
         return $this->belongsTo(SessionDecision::class,"session_decision_id","id");
     }
 
+    public function employees(){
+        return $this->belongsToMany(Employee::class,"employee_decisions",
+            "decision_id",
+            "employee_id",
+            "id",
+            "id");
+    }
 
     /**
      * Description: To check front end validation
@@ -38,6 +45,8 @@ class Decision extends BaseModel
             return [
                 "type_decision_id" => [$rule, Rule::exists("type_decisions","id")],
                 "session_decision_id" => [$rule, Rule::exists("session_decisions","id")],
+                "employees" => [$rule,"array"],
+                "employees.*" => [Rule::exists("employees","id")],
                 "effect_salary" => [$rule, Rule::in(self::effectSalary())],
                 "date" => $validator->afterDateOrNowRules($rule === 'required'),
                 "content" => $validator->textRule($rule === 'required'),

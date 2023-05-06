@@ -25,7 +25,12 @@ class BaseRequest extends FormRequest
      */
     public function isUpdatedRequest(): bool
     {
-        return request()->isMethod("PUT") || is_numeric(strpos($this->route()->getName(), "update")) || is_numeric(strpos($this->route()->getName(), "edit"));
+        $Final = false;
+        $routeName = is_null($this->route()) ? "" : $this->route()->getName();
+        if (!is_null($routeName)){
+            $Final = is_numeric(strpos($routeName, "update")) || is_numeric(strpos($routeName, "edit"));
+        }
+        return request()->isMethod("PUT") || $Final;
     }
 
     /**
@@ -123,6 +128,9 @@ class BaseRequest extends FormRequest
         } elseif ($max !== null && $min !== null) {
             $tempRule[] = "min:" . $min;
             $tempRule[] = "max:" . $max;
+        }else{
+            $tempRule[]="min:1";
+            $tempRule[]="max:255";
         }
         return $tempRule;
     }

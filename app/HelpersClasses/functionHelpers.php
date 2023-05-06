@@ -35,5 +35,5 @@ function countries(){
 }
 
 function address($id_Country){
-    return Address::query()->where("country_id",$id_Country)->pluck("city","id")->toArray();
+    return Address::query()->where("country_id",$id_Country)->pluck("name","id")->toArray();
 }

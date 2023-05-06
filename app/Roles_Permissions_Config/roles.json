@@ -4,8 +4,6 @@
             "users" : "a",
             "roles" : "a",
             "employees": "a",
-            "type_institutions": "a",
-            "institutions": "a",
             "session_decisions": "a",
             "type_decisions": "a",
             "decisions": "a"

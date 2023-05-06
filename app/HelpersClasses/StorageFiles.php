@@ -31,11 +31,11 @@ class StorageFiles
         $fileNameFinal = strtolower(time() . Str::random(5) . '-' . Str::slug($file_base_name)) . '.' . $file->getClientOriginalExtension();
         if (in_array($ext, self::Ex_FILE)) {
             return Storage::disk(is_null($disk) ? self::DISK : $disk)
-                ->putFileAs($pathDir . "/" . self::FOLDER_FILES . "/", $file, $fileNameFinal);
+                ->putFileAs($pathDir . "/" . self::FOLDER_FILES, $file, $fileNameFinal);
         }
         if (in_array($ext, self::EX_IMG)) {
             return Storage::disk(is_null($disk) ? self::DISK : $disk)
-                ->putFileAs($pathDir . "/" . self::FOLDER_IMAGES . "/", $file, $fileNameFinal);
+                ->putFileAs($pathDir . "/" . self::FOLDER_IMAGES , $file, $fileNameFinal);
         }
         throw new MainException("you cant upload current file !!!");
     }

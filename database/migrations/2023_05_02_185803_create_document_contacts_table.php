@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('institutions', function (Blueprint $table) {
+        Schema::create('document_contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("type_institution_id")->constrained("type_institutions")->restrictOnDelete();
-            $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
-            $table->string("name");
-            $table->string("address_details")->nullable();
-            $table->string("image")->nullable();
-            $table->text("description")->nullable();
-            $table->date("date_created")->nullable();
-            $table->boolean("is_active")->default(true);
+            #Add Columns
+            $table->foreignId("contact_id")->constrained("contacts")->cascadeOnDelete();
+            $table->string("document_path");
+            $table->bigInteger("document_number");
+            $table->enum("document_type",["family_card","identification","passport"]);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->timestamps();
@@ -37,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('institutions');
+        Schema::dropIfExists('document_informations');
     }
 };

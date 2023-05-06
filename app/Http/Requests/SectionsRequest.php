@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\TypeInstitution;
+use App\Models\Sections;
 
-class TypeInstitutionRequest extends BaseRequest
+class SectionsRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,7 +13,7 @@ class TypeInstitutionRequest extends BaseRequest
      */
     public function rules()
     {
-        $callback = (new TypeInstitution)->validationRules();
+        $callback = (new Sections)->validationRules();
 
         return $callback($this);
     }

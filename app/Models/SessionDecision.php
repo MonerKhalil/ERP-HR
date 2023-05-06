@@ -12,18 +12,14 @@ class SessionDecision extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "institution_id","moderator_id","name","date_session","file","image","description",
+        "moderator_id","name","date_session","file","image","description",
         "created_by","updated_by","is_active",
     ];
 
     // Add relationships between tables section
 
-    public function institution(){
-        return $this->belongsTo(Institution::class,"institution_id","id");
-    }
-
     public function moderator(){
-        return $this->belongsTo(Employee::class,"institution_id","id");
+        return $this->belongsTo(Employee::class,"moderator_id","id");
     }
 
     public function members(){
@@ -44,7 +40,6 @@ class SessionDecision extends BaseModel
         return function (BaseRequest $validator) {
             $rule = $validator->isUpdatedRequest() ? "sometimes" : "required";
             return [
-                "institution_id" => ["nullable", Rule::exists("type_institutions","id")],
                 "moderator_id" => [$rule, Rule::exists("employees","id")],
                 "name" => $validator->textRule($rule === "required",null,3,255),
                 "date_session" => $validator->dateRules($rule === "required"),

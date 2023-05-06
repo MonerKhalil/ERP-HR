@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('type_institutions', function (Blueprint $table) {
+        Schema::create('employee_decisions', function (Blueprint $table) {
             $table->id();
-            $table->string("name")->unique();
+            $table->foreignId("decision_id")->constrained("decisions")->restrictOnDelete();
+            $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_institutions');
+        Schema::dropIfExists('employee_decisions');
     }
 };

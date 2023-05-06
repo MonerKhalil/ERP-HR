@@ -11,6 +11,7 @@ class EmployeeDecision extends BaseModel
 
     protected $fillable = [
         #Add Attributes
+        "decision_id","employee_id",
         "created_by","updated_by","is_active",
     ];
 

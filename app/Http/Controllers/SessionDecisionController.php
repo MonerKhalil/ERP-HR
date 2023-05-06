@@ -13,7 +13,7 @@ use Illuminate\Support\Arr;
 class SessionDecisionController extends Controller
 {
     public const NameBlade = "";
-    public const Folder = "institutions";
+    public const Folder = "session_decisions";
     public const IndexRoute = "system.session_decisions.index";
 
     public function __construct()
@@ -90,7 +90,7 @@ class SessionDecisionController extends Controller
      */
     public function edit(SessionDecision $sessionDecision)
     {
-        $data = SessionDecision::with(["members","moderator","institution"])->find($sessionDecision->id);
+        $data = SessionDecision::with(["members","moderator"])->find($sessionDecision->id);
         return $this->responseSuccess("",compact("data"));
     }
 
@@ -130,7 +130,6 @@ class SessionDecisionController extends Controller
      */
     public function destroy(SessionDecision $sessionDecision)
     {
-        $sessionDecision->members()->delete();
         $sessionDecision->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }

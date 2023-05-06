@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('education_datas', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            #Add Columns
-
-            $table->foreignId("employee_id")->constrained("employees")->cascadeOnDelete();
-            $table->foreignId("id_ed_lev")->constrained("education_levels")->cascadeOnDelete();
-            $table->date("grant_date");
-            $table->string("college_name");
-            $table->integer("amount_impact_salary")->unsigned();
+            $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
+            $table->string("name")->unique();
+            $table->text("details")->nullable();
+            $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->timestamps();
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('education_datas');
+        Schema::dropIfExists('sections');
     }
 };
