@@ -2,8 +2,6 @@
 
 namespace App\HelpersClasses;
 
-use Barryvdh\DomPDF\Facade\Pdf;
-use Dompdf\Dompdf;
 use Illuminate\Http\Response;
 
 class ExportPDF
@@ -22,16 +20,25 @@ class ExportPDF
     /**
      * @param $head
      * @param $body
-     * @return Dompdf|\Barryvdh\DomPDF\PDF
+     * @return mixed
      * @author moner khalil
      */
-    private static function PDF($head , $body): Dompdf|\Barryvdh\DomPDF\PDF
+    private static function PDF($head , $body)
     {
-        return PDF::loadView('System.Pages.Docs.tablePrint', [
+        $contxt = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE,
+            ]
+        ]);
+        $pdf = \PDF::setOptions(['isHTML5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $pdf->getDomPDF()->setHttpContext($contxt);
+        return $pdf->loadView('System.Pages.Docs.tablePrint', [
             "data" => [
                 "head" => $head,
                 "body" => $body,
             ]
-        ])->setPaper('a4');
+        ])->setPaper('A4','portrait');
     }
 }

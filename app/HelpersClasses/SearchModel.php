@@ -19,7 +19,7 @@ class SearchModel
      * @return mixed
      * @author moner khalil
      */
-    public function getDataFilter($queryBuilder, array $filter = null,callable $callback = null): mixed
+    public function getDataFilter($queryBuilder, array $filter = null,bool $isAll = false,callable $callback = null): mixed
     {
         foreach ($this->filterSearchAttributes($filter) as $key => $value){
             $queryBuilder = $queryBuilder->where($key,"LIKE","%".strtolower($value)."%");
@@ -27,6 +27,9 @@ class SearchModel
 
         if (!is_null($callback)){
             return $callback($queryBuilder);
+        }
+        if ($isAll){
+            return $queryBuilder->get();
         }
 
         return $this->dataPaginate($queryBuilder);

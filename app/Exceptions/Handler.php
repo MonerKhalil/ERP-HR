@@ -41,6 +41,12 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (Throwable $e) {
+            dd($e);
+            $url = \Illuminate\Support\Facades\Route::current();
+            $url = ( ($url != null) && ($url->getPrefix() == 'api') );
+            if ($url){
+                return response()->json(['error'=>$e->getMessage()]);
+            }
             if ($e instanceof ValidationException) {
                 MessagesFlash::Errors($e->errors());
                 return \redirect()->back();

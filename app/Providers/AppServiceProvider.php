@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Observers\AuditObserver;
 use Illuminate\Support\ServiceProvider;
-use OwenIt\Auditing\Models\Audit;
+//use OwenIt\Auditing\Models\Audit;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Audit::observe(AuditObserver::class);
+      //  Audit::observe(AuditObserver::class);
     }
 //    public function boot()
 //    {

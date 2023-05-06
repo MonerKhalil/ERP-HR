@@ -36,15 +36,15 @@
                                         <div class="Card__Inner">
                                             <div class="ProfilePage__Image">
                                                 @if(!$IsVisitor && $IsHavePermissionEditUser)
-                                                    <form class="ChangeImage"
+                                                    <form class="ChangeImage" enctype="multipart/form-data"
                                                           action="{{$IsVisitor ? route("users.update",$user->id) : route("profile.update")}}"
                                                           method="post">
                                                         @csrf
                                                         <input type="file" id="ImageChange"
-                                                               name="image" accept="image/jpeg" hidden>
+                                                               name="image" accept="image/png, image/gif, image/jpeg, image/jpg, image/svg" hidden>
                                                         <label for="ImageChange" style="display: block">
                                                             <div class="UserImage">
-                                                                <img src="{{$user->image ?? @asset("System/Assets/Images/Avatar.jpg")}}"
+                                                                <img src="{{PathStorage($user->image) ?? @asset("System/Assets/Images/Avatar.jpg")}}"
                                                                      alt="ImageUser">
                                                                 <div class="UserImage__Edit">
                                                                     <i class="material-icons EditIcon">edit</i>

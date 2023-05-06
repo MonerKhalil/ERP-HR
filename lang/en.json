@@ -8,6 +8,8 @@
     "created": "created",
     "updated": "updated",
     "deleted": "deleted",
+    "err_image_upload": "The previous image has not been successfully uploaded, please return the previous process again",
+    "err_file_upload": "The previous file has not been successfully uploaded, please return the previous process again",
 
     "/*         Header         */": "",
 

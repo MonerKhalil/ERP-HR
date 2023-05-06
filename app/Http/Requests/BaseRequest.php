@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TextRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,7 +25,12 @@ class BaseRequest extends FormRequest
      */
     public function isUpdatedRequest(): bool
     {
-        return request()->isMethod("PUT") || is_numeric(strpos($this->route()->getName(), "update")) || is_numeric(strpos($this->route()->getName(), "edit"));
+        $Final = false;
+        $routeName = is_null($this->route()) ? "" : $this->route()->getName();
+        if (!is_null($routeName)){
+            $Final = is_numeric(strpos($routeName, "update")) || is_numeric(strpos($routeName, "edit"));
+        }
+        return request()->isMethod("PUT") || $Final;
     }
 
     /**
@@ -40,7 +46,6 @@ class BaseRequest extends FormRequest
         if ($this->isUpdatedRequest()) {
             $this->rule = 'sometimes';
         }
-
         return "$this->rule|mimes:jpeg,png,jpg,gif,svg|max:256";
     }
 
@@ -83,7 +88,7 @@ class BaseRequest extends FormRequest
             $this->rule = 'sometimes';
         }
 
-        return "$this->rule|mimes:pdf|max:10000";
+        return "$this->rule|mimes:pdf,docx|max:10000";
     }
 
     /**
@@ -93,17 +98,17 @@ class BaseRequest extends FormRequest
      * @param bool|null $isNullable
      * @param null $min
      * @param null $max
-     * @return string
+     * @return array
      * @author moner khalil
      */
-    public function textRule(bool $isRequired = null, bool $isNullable = null, $min = null, $max = null): string
+    public function textRule(bool $isRequired = null, bool $isNullable = null, $min = null, $max = null)
     {
         $temp_rules = [];
         if (!is_null($isRequired)) {
             $temp_rules[] = $isRequired ? "required" : "nullable";
         }
         $temp_rules[] = "string";
-//        $temp_rules[] = new TextRule();
+        $temp_rules[] = new TextRule();
         return $this->min_max_Rule($temp_rules, $min, $max);
     }
 
@@ -123,6 +128,9 @@ class BaseRequest extends FormRequest
         } elseif ($max !== null && $min !== null) {
             $tempRule[] = "min:" . $min;
             $tempRule[] = "max:" . $max;
+        }else{
+            $tempRule[]="min:1";
+            $tempRule[]="max:255";
         }
         return $tempRule;
     }

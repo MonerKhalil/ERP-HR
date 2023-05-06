@@ -16,5 +16,6 @@ class EmployeeRequest extends BaseRequest
         $callback = (new Employee)->validationRules();
 
         return $callback($this);
+
     }
 }
