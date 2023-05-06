@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('document_informations', function (Blueprint $table) {
+        Schema::create('member_session_decisions', function (Blueprint $table) {
             $table->id();
-            #Add Columns
-            $table->foreignId("contacts_id")->constrained("contacts")->cascadeOnDelete();
-            $table->enum("document_type",["family_card","identification","passport"]);
-            $table->bigInteger("document_number");
-            $table->string("document_path");
+            $table->foreignId("session_decision_id")->constrained("session_decisions")->restrictOnDelete();
+            $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
+            $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->timestamps();
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_informations');
+        Schema::dropIfExists('member_session_decisions');
     }
 };

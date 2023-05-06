@@ -9,27 +9,40 @@ use Illuminate\Validation\Rule;
 class Education_data extends BaseModel
 {
     use HasFactory;
-
+    protected $table = "education_data";
     protected $fillable = [
         #Add Attributes
-        "created_by","updated_by",
         "employee_id","id_ed_lev","grant_date",
         "college_name","amount_impact_salary",
+        "is_active","created_by","updated_by",
     ];
+
     // Add relationships between tables section
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id', 'id')
-            ->withDefault();
-    }
-    public function document_education()
-    {
-        $this->hasMany(Document_education::class,"id_education","id");
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
-    public function Education_level()
+    public function education_level()
     {
-        $this->belongsTo(Education_level::class,"id_ed_lev","id") ->withDefault();;
+        return $this->belongsTo(Education_level::class,"id_ed_lev","id");
+    }
+
+    public function document_education()
+    {
+        return $this->hasMany(Document_education::class,"id_education","id");
+    }
+
+    public function canEdit(){
+        $employee = $this->employee()->user->id ?? null;
+        if(!is_null($employee)){
+            return $employee == auth()->id()
+                ||
+                auth()->user()->can("update_employees")
+                ||
+                auth()->user()->can("all_employees");
+        }
+        return false;
     }
 
     /**
@@ -39,13 +52,12 @@ class Education_data extends BaseModel
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
+            $rule = $validator->isUpdatedRequest() ? "sometimes" : "required";
             return [
-                "employee_id"=> ['required', Rule::exists('employees', 'id')],
-                "id_ed_lev"=>['required', Rule::exists('education_levels', 'id')],
-                "grant_date"=>['required', 'date'],
-                "college_name"=>['required', 'string', 'min:3', 'max:255',],
+                "id_ed_lev"=>[$rule, Rule::exists('education_levels', 'id')],
+                "grant_date"=> $validator->dateRules($rule==="required"),
+                "college_name"=>$validator->textRule($rule==="required"),
                 "amount_impact_salary"=>['numeric', 'min:0', 'max:1000000'],
-                "document_education_path"=>['required','array' ]
             ];
         };
     }

@@ -3,7 +3,10 @@
         "super_admin" : {
             "users" : "a",
             "roles" : "a",
-            "employees": "a"
+            "employees": "a",
+            "session_decisions": "a",
+            "type_decisions": "a",
+            "decisions": "a"
         },
         "user" : {
             "users" : ["r"],

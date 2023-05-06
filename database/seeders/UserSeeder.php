@@ -16,6 +16,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
+        for ($i = 0;$i<1000;$i++){
+            User::create([
+                "name" => 'mmm'.$i,
+                "email" => 'mmm'.$i,
+                "password" => 'mmm'.$i,
+            ]);
+        }
     }
 }

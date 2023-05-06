@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('education_datas', function (Blueprint $table) {
+        Schema::create('session_decisions', function (Blueprint $table) {
             $table->id();
-            #Add Columns
-
-            $table->foreignId("employee_id")->constrained("employees")->cascadeOnDelete();
-            $table->foreignId("id_ed_lev")->constrained("education_levels")->cascadeOnDelete();
-            $table->date("grant_date");
-            $table->string("college_name");
-            $table->integer("amount_impact_salary")->unsigned();
+            $table->foreignId("moderator_id")->constrained("employees")->restrictOnDelete();
+            $table->string("name");
+            $table->date("date_session");
+            $table->string("file")->nullable();
+            $table->string("image")->nullable();
+            $table->text("description")->nullable();
+            $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->timestamps();
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('education_datas');
+        Schema::dropIfExists('session_decisions');
     }
 };

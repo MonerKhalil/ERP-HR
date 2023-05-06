@@ -1,15 +1,24 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DecisionController;
+use App\Http\Controllers\EducationDataController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\NotificationsContoller;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SessionDecisionController;
+use App\Http\Controllers\TypeDecisionController;
 use App\Http\Controllers\UserController;
+use App\Http\Requests\DataAllEmployeeRequest;
+use App\Http\Requests\DocumentContactRequest;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth'])->group(function (){
+Route::group([],function (){
     Route::get("",[HomeController::class,"HomeView"])->name("home");
     Route::prefix("user")->controller(ProfileUserController::class)->group(function (){
         /*===========================================
@@ -28,7 +37,7 @@ Route::middleware(['auth'])->group(function (){
         =         Start Notification Routes        =
        =============================================*/
 
-        Route::prefix("notifications")->controller(NotificationsContoller::class)
+        Route::prefix("notifications")->controller(NotificationsController::class)
         ->group(function(){
             Route::get("show","getNotifications")->name("notifications.show");
             Route::delete("clear","clearNotifications")->name("notifications.clear");
@@ -39,7 +48,7 @@ Route::middleware(['auth'])->group(function (){
         /*===========================================
         =         End Notification Routes        =
        =============================================*/
-        
+
     });
 
     /*===========================================
@@ -61,4 +70,50 @@ Route::middleware(['auth'])->group(function (){
    =============================================*/
 
     Route::resource("roles", RoleController::class);
+    /*===========================================
+        =         Start System Routes        =
+   =============================================*/
+
+    Route::prefix("system")->name("system.")->group(function (){
+        Route::resource('type_decisions', TypeDecisionController::class)->except([
+            "edit","create","show"
+        ]);
+        Route::resource('session_decisions', SessionDecisionController::class);
+        Route::resource('decisions', DecisionController::class)->except(["update"]);
+        Route::post("decisions/{decision}",[DecisionController::class,"update"])->name("decisions.update");
+        Route::resource('employees', EmployeeController::class)->except([
+            "show","edit","update",
+        ]);
+        Route::get("employees/show/{employee?}",[EmployeeController::class,"show"])->name("employees.show");
+        Route::get("employees/edit/{employee?}",[EmployeeController::class,"edit"])->name("employees.edit");
+        Route::post("employees/update/{employee?}",[EmployeeController::class,"update"])->name("employees.update");
+        #contact_data
+        Route::post("employees/edit/contact/{contact}",[ContactController::class,"updateContact"])->name("employees.contact.update");
+        Route::post("employees/add/contact_document/{contact}",[ContactController::class,"addContactDocument"])->name("employees.contact_document.add");
+        Route::post("employees/edit/contact_document/{contact_document}",[ContactController::class,"updateContactDocument"])->name("employees.contact_document.update");
+        #education_data
+        Route::post("employees/edit/education_data/{education_data}",[EducationDataController::class,"updateEducationData"])->name("employees.education_data.update");
+        Route::post("employees/add/education_document/{education_data}",[EducationDataController::class,"addEducationDocument"])->name("employees.education_document.add");
+        Route::post("employees/edit/education_document/{education_document}",[EducationDataController::class,"updateContactDocument"])->name("employees.education_document.update");
+    });
+    /*===========================================
+    =         End System Routes        =
+   =============================================*/
+
+    /*===========================================
+    =         Start Ajax Routes        =
+   =============================================*/
+
+    Route::prefix("ajax")->controller(AjaxController::class)->group(function (){
+        Route::get("get/address","getAllAddressCountry")->name("get.address");
+    });
+
+    /*===========================================
+    =         End Ajax Routes        =
+   =============================================*/
+
 });
+
+
+
+Route::post("mmm",[EmployeeController::class,"store"]);

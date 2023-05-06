@@ -41,8 +41,9 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (Throwable $e) {
-          $url = \Illuminate\Support\Facades\Route::current();
-            $url != null && $url->getPrefix() == 'api';
+            dd($e);
+            $url = \Illuminate\Support\Facades\Route::current();
+            $url = ( ($url != null) && ($url->getPrefix() == 'api') );
             if ($url){
                 return response()->json(['error'=>$e->getMessage()]);
             }
