@@ -20,6 +20,10 @@ class Employee extends BaseModel
         ,"created_by", "updated_by", "is_active",
     ];
 
+    protected $appends = [
+        "name",
+    ];
+
     // Add relationships between tables section
 
     public function user()
@@ -56,6 +60,10 @@ class Employee extends BaseModel
             "decision_id",
             "id",
             "id");
+    }
+
+    public function getNameAttribute(){
+        return $this->first_name . " " . $this->last_name;
     }
 
     /**

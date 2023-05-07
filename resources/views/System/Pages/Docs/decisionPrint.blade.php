@@ -3838,11 +3838,26 @@
                                                     <div class="PrintPage__Data">
                                                         <div class="ListData__Item ListData__Item--NoAction">
                                                             <div class="Data_Col">
+                                                            <span class="Data_Label">
+                                                                @lang("decisionNumber")
+                                                            </span>
+                                                                <span class="Data_Value">
+                                                                    {{$data->number}}
+                                                            </span>
+                                                            </div>
+                                                            <div class="Data_Col Data_Col--End">
+                                                                <i class="material-icons">
+                                                                    verified
+                                                                </i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ListData__Item ListData__Item--NoAction">
+                                                            <div class="Data_Col">
                                                                 <span class="Data_Label">
-                                                                    Name 1
+                                                                    @lang("decisionType")
                                                                 </span>
                                                                 <span class="Data_Value">
-                                                                        Value 1
+                                                                        {{$data->type_decision->name ?? ""}}
                                                                 </span>
                                                             </div>
                                                             <div class="Data_Col Data_Col--End">
@@ -3854,10 +3869,10 @@
                                                         <div class="ListData__Item ListData__Item--NoAction">
                                                             <div class="Data_Col">
                                                             <span class="Data_Label">
-                                                                Name 1
+                                                                @lang("dateDecision")
                                                             </span>
                                                                 <span class="Data_Value">
-                                                                    Value 1
+                                                                    {{$data->date}}
                                                             </span>
                                                             </div>
                                                             <div class="Data_Col Data_Col--End">
@@ -3869,25 +3884,10 @@
                                                         <div class="ListData__Item ListData__Item--NoAction">
                                                             <div class="Data_Col">
                                                             <span class="Data_Label">
-                                                                Name 1
+                                                                @lang("sessionName")
                                                             </span>
                                                                 <span class="Data_Value">
-                                                                    Value 1
-                                                            </span>
-                                                            </div>
-                                                            <div class="Data_Col Data_Col--End">
-                                                                <i class="material-icons">
-                                                                    verified
-                                                                </i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ListData__Item ListData__Item--NoAction">
-                                                            <div class="Data_Col">
-                                                            <span class="Data_Label">
-                                                                Name 1
-                                                            </span>
-                                                                <span class="Data_Value">
-                                                                    Value 1
+                                                                    {{$data->session_decision->name  ?? ""}}
                                                             </span>
                                                             </div>
                                                             <div class="Data_Col Data_Col--End">
@@ -3916,12 +3916,7 @@
                                                                 <div class="TextEditorContent__Content">
                                                                     <div class="Card Content">
                                                                         <div class="Card__Inner">
-                                                                            <p>Lorem ipsum dolor sit amet, consectetur
-                                                                                adipisicing elit. Aliquid animi aut
-                                                                                autem, delectus dolorum eaque eligendi
-                                                                                eos et facilis fugit magnam numquam
-                                                                                perferendis perspiciatis provident quam
-                                                                                quos saepe tempora voluptas.</p>
+                                                                            <p>{{$data->content}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>

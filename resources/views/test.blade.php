@@ -19,13 +19,21 @@
                 <table class='table table-light table-striped table-bordered' id='excel-table' style="background-color: transparent; border:2px solid black; margin-top:15px;">
                     <tr>
                         @foreach($data['head'] as $value)
-                            <th class="text-center">{{$value}}</th>
+                            @if(is_array($value) && isset($value['head']))
+                                <th class="text-center">{{$value['head']}}</th>
+                            @else
+                                <th class="text-center">{{$value}}</th>
+                            @endif
                         @endforeach
                     </tr>
-                    @foreach($data['body'] as $value)
+                    @foreach($data['body'] as $item)
                         <tr>
-                            @foreach($value as $item)
-                                <td class="text-center">{{$item}}</td>
+                            @foreach($data['head'] as $value)
+                                @if(is_array($value) && isset($value['head']))
+                                    <td class="text-center">{{ $item->{$value['relationFunc']}->{$value['key']} }}</td>
+                                @else
+                                    <td class="text-center">{{ $item->{$value} }}</td>
+                                @endif
                             @endforeach
                         </tr>
                     @endforeach

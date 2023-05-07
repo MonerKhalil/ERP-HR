@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Decision;
 use Illuminate\Database\Seeder;
 
 class DecisionSeeder extends Seeder
@@ -14,6 +14,19 @@ class DecisionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        for ($i = 1;$i<=20;$i++){
+            Decision::create([
+                "type_decision_id" => $i,
+                "session_decision_id" => $i,
+                "number" => $i,
+                "effect_salary" => "decrement",
+                "value" => $i,
+                "rate" => $i,
+                "date" => now(),
+                "content" => "akmsa".$i,
+                "image" => "akmsa".$i,
+                "end_date_decision" => now(),
+            ]);
+        }
     }
 }

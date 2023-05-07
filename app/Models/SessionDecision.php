@@ -30,6 +30,10 @@ class SessionDecision extends BaseModel
         "id");
     }
 
+    public function decisions(){
+        return $this->hasMany(Decision::class,"session_decision_id","id");
+    }
+
 
     /**
      * Description: To check front end validation

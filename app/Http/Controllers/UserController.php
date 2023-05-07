@@ -8,22 +8,18 @@ use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
 use App\Http\Requests\UserRequest;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Exceptions\UnauthorizedException;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UserController extends Controller
 {
@@ -234,25 +230,13 @@ class UserController extends Controller
     public function ExportXls(BaseRequest $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'],$data['body']),self::Folder.".xlsx");
+        return Excel::download(new TableCustomExport($data['head'],$data['body'],"test"),self::Folder.".xlsx");
     }
 
     public function ExportPDF(BaseRequest $request)
     {
         $data = $this->MainExportData($request);
-        $options = new Options();
-//        $options->setChroot(public_path());
-        $options->setIsRemoteEnabled(true);
-        $dompdf = new Dompdf($options);
-        $dompdf->setPaper("A4","landscape");
-        $view = view('System.Pages.Docs.tablePrint',compact('data'));
-        $dompdf->loadHtml($view);
-        $dompdf->render();
-        return $dompdf->stream();
-//        $pdf = App::make('snappy.pdf');
-//        return \PDF::loadView("System.Pages.Docs.tablePrint",compact('data'))->download("xxx.pdf");
-//        return $this->responseSuccess('pdf',compact('data'));
-//        return ExportPDF::downloadPDF($data['head'],$data['body']);
+        return ExportPDF::downloadPDF($data['head'],$data['body']);
     }
 
     /**
@@ -274,7 +258,7 @@ class UserController extends Controller
         $users = MyApp::Classes()->Search->getDataFilter($query,null,true);
         return [
             "head" => $head,
-            "body" => $users->toArray(),
+            "body" => $users,
         ];
     }
 }
