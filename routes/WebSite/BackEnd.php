@@ -13,12 +13,10 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionDecisionController;
 use App\Http\Controllers\TypeDecisionController;
 use App\Http\Controllers\UserController;
-use App\Http\Requests\DataAllEmployeeRequest;
-use App\Http\Requests\DocumentContactRequest;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group([],function (){
+Route::middleware(["auth"])->group(function (){
     Route::get("",[HomeController::class,"HomeView"])->name("home");
     Route::prefix("user")->controller(ProfileUserController::class)->group(function (){
         /*===========================================
@@ -75,12 +73,38 @@ Route::group([],function (){
    =============================================*/
 
     Route::prefix("system")->name("system.")->group(function (){
+        /*===========================================
+            =         Start Decisions Routes        =
+        =============================================*/
         Route::resource('type_decisions', TypeDecisionController::class)->except([
             "edit","create","show"
         ]);
         Route::resource('session_decisions', SessionDecisionController::class);
+        Route::prefix("session_decisions")->name("session_decisions.")
+            ->controller(SessionDecisionController::class)->group(function (){
+            Route::post('export/xlsx',"ExportXls")->name("export.xls");
+            Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+            Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+        });
         Route::resource('decisions', DecisionController::class)->except(["update"]);
         Route::post("decisions/{decision}",[DecisionController::class,"update"])->name("decisions.update");
+        Route::prefix("decisions")->name("decisions.")
+            ->controller(DecisionController::class)->group(function (){
+            Route::get("print/pdf/{decision}","PrintDecision")->name("print.pdf");
+            Route::post('export/xlsx',"ExportXls")->name("export.xls");
+            Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+            Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+        });
+        Route::get("decisions/create/session_decisions/{session_decisions}",[DecisionController::class,"addDecisions"])->name("decisions.session_decisions.add");
+
+        /*===========================================
+            =         End Decisions Routes        =
+       =============================================*/
+
+        /*===========================================
+            =         Start Employees Routes        =
+       =============================================*/
+
         Route::resource('employees', EmployeeController::class)->except([
             "show","edit","update",
         ]);
@@ -95,6 +119,9 @@ Route::group([],function (){
         Route::post("employees/edit/education_data/{education_data}",[EducationDataController::class,"updateEducationData"])->name("employees.education_data.update");
         Route::post("employees/add/education_document/{education_data}",[EducationDataController::class,"addEducationDocument"])->name("employees.education_document.add");
         Route::post("employees/edit/education_document/{education_document}",[EducationDataController::class,"updateContactDocument"])->name("employees.education_document.update");
+        /*===========================================
+            =         End Employees Routes        =
+       =============================================*/
     });
     /*===========================================
     =         End System Routes        =
