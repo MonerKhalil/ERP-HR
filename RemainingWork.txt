@@ -8,3 +8,13 @@ SessionView : {
 SessionEdit : {
     Is Member Session in view or not
 }
+
+ViewUser : {
+    View Users Need Bulk For Print Just Checked
+    Error Back When Delete Row By Bulk Action
+}
+
+ViewRole : {
+    View Roles Need Bulk For Print & Delete Just Checked
+    Error Back Search By Start & End Date
+}

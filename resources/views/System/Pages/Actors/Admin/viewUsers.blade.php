@@ -39,7 +39,9 @@
                                                     <div class="Card__Tools Table__BulkTools">
                                                         @include("System.Components.bulkAction" , [
                                                             "Options" => [ [
-                                                                "Label" => __("print") , "Action" => "#" , "Method" => "B"
+                                                                "Label" => __("print")
+                                                                , "Action" => "#"
+                                                                , "Method" => "B"
                                                             ] , [
                                                                 "Label" => __("normalDelete")
                                                                 , "Action" => route("users.multi.delete")
@@ -118,10 +120,22 @@
                                                                 <div class="Item__Col">#{{$User["id"]}}</div>
                                                                 <div class="Item__Col">{{$User["email"]}}</div>
                                                                 <div class="Item__Col">{{$User["created_at"]}}</div>
-                                                                <div class="Item__Col Item__Col--Details">
-                                                                    <a href="{{route("users.show" , $User["id"])}}">
-                                                                        <span class="Details__Button">@lang("details")</span>
-                                                                    </a>
+                                                                <div class="Item__Col MoreDropdown">
+                                                                    <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                       data-MenuName="UserMore_{{$User["id"]}}">
+                                                                        more_horiz
+                                                                    </i>
+                                                                    <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                         data-MenuName="UserMore_{{$User["id"]}}">
+                                                                        <ul class="Dropdown__Content">
+                                                                            <li>
+                                                                                <a href="{{route("users.show" , $User["id"])}}"
+                                                                                   class="Dropdown__Item">
+                                                                                    @lang("viewDetails")
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         @endforeach
