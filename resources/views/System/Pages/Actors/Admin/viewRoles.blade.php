@@ -93,7 +93,7 @@
                                                                         </i>
                                                                     </label>
                                                                 </div>
-                                                                <div class="Item__Col"><span>@lang("id")</span></div>
+                                                                <div class="Item__Col">#</div>
                                                                 <div class="Item__Col"><span>@lang("roleName")</span></div>
                                                                 <div class="Item__Col"><span>@lang("createDate")</span></div>
                                                                 <div class="Item__Col"><span>@lang("more")</span></div>
@@ -113,10 +113,22 @@
                                                                     <div class="Item__Col">{{$Role["id"]}}</div>
                                                                     <div class="Item__Col">{{$Role["name"]}}</div>
                                                                     <div class="Item__Col">{{$Role["created_at"]}}</div>
-                                                                    <div class="Item__Col Item__Col--Details">
-                                                                        <a href="{{route("roles.edit" , $Role["id"])}}">
-                                                                            <span class="Details__Button">@lang("details")</span>
-                                                                        </a>
+                                                                    <div class="Item__Col MoreDropdown">
+                                                                        <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                           data-MenuName="RoleMore_{{$Role["id"]}}">
+                                                                            more_horiz
+                                                                        </i>
+                                                                        <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                             data-MenuName="RoleMore_{{$Role["id"]}}">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{route("roles.edit" , $Role["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("viewDetails")
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             @endforeach
@@ -147,4 +159,18 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("PopupPage")
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [ ['Type' => 'text' , 'Info' =>
+                ['Name' => "filter[name]" , 'Placeholder' => __("roleName")]] , ['Type' => 'number' , 'Info' =>
+                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]
+                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
+                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
+                ]
+            ] ]
+    ])
+    @include("System.Components.fileOptions")
 @endsection
