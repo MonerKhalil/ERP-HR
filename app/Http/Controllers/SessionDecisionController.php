@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TableCustomExport;
+use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
+use App\Http\Requests\BaseRequest;
 use App\Models\Employee;
 use App\Models\SessionDecision;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\SessionDecisionRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SessionDecisionController extends Controller
 {
@@ -80,7 +85,9 @@ class SessionDecisionController extends Controller
      */
     public function show(SessionDecision $sessionDecision)
     {
-        //
+        $sessionDecision = SessionDecision::with(["moderator","members","decisions"])
+            ->findOrFail($sessionDecision->id);
+        return $this->responseSuccess("...",compact("sessionDecision"));
     }
 
     /**
@@ -92,8 +99,8 @@ class SessionDecisionController extends Controller
     public function edit(SessionDecision $sessionDecision)
     {
         $data = SessionDecision::with(["members","moderator"])->find($sessionDecision->id);
-        return $this->responseSuccess("System.Pages.Actors.sessionForm" ,
-            compact("data"));
+        $employees = Employee::query()->select(["id","first_name","last_name"])->get();
+        return $this->responseSuccess("System.Pages.Actors.sessionForm",compact("data",'employees'));
     }
 
     public function update(SessionDecisionRequest $request, SessionDecision $sessionDecision)
@@ -136,13 +143,53 @@ class SessionDecisionController extends Controller
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
-    public function ExportXls()
+    public function MultiDelete(Request $request)
     {
-        //
+        $request->validate([
+            "ids" => ["array","required"],
+            "ids.*" => ["required",Rule::exists("session_decisions","id")],
+        ]);
+        SessionDecision::query()->whereIn("id",$request->ids)->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
-    public function ExportPDF()
+    public function ExportXls(BaseRequest $request)
     {
-        //
+        $data = $this->MainExportData($request);
+        return Excel::download(new TableCustomExport($data['head'],$data['body'],"test"),self::Folder.".xlsx");
+    }
+
+    public function ExportPDF(BaseRequest $request)
+    {
+        $data = $this->MainExportData($request);
+        return ExportPDF::downloadPDF($data['head'],$data['body']);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @author moner khalil
+     */
+    private function MainExportData(Request $request): array
+    {
+        $request->validate([
+            "ids" => ["sometimes","array"],
+            "ids.*" => ["sometimes",Rule::exists("session_decisions","id")],
+        ]);
+        $query = SessionDecision::query();
+        $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $head = [
+            [
+                "head"=> "moderator",
+                "relationFunc" => "moderator",
+                "key" => "name",
+            ],
+            "name","description","date_session", "created_at",
+        ];
+        return [
+            "head" => $head,
+            "body" => $data,
+        ];
     }
 }

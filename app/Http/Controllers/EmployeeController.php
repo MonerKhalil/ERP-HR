@@ -16,10 +16,10 @@ class EmployeeController extends Controller
     const Folder = "users";
     const IndexRoute = "employees.index";
 
-    public function __construct()
-    {
-        $this->addMiddlewarePermissionsToFunctions(app(Employee::class)->getTable());
-    }
+//    public function __construct()
+//    {
+//        $this->addMiddlewarePermissionsToFunctions(app(Employee::class)->getTable());
+//    }
 
     public function index()
     {
@@ -65,6 +65,7 @@ class EmployeeController extends Controller
                 }
             }
             DB::commit();
+            return $employee;
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
             DB::rollBack();

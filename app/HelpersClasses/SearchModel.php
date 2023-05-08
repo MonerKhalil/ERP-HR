@@ -19,10 +19,20 @@ class SearchModel
      * @return mixed
      * @author moner khalil
      */
-    public function getDataFilter($queryBuilder, array $filter = null,bool $isAll = false,callable $callback = null): mixed
+    public function getDataFilter($queryBuilder, array $filter = null
+        ,bool $isAll = null,string $isFilterDate_SetColumn = null,callable $callback = null): mixed
     {
-        foreach ($this->filterSearchAttributes($filter) as $key => $value){
+        $filterFinal = $this->filterSearchAttributes($filter);
+
+        foreach ($filterFinal as $key => $value){
             $queryBuilder = $queryBuilder->where($key,"LIKE","%".strtolower($value)."%");
+        }
+
+        if (isset($filterFinal['start_date']) && isset($filterFinal['end_date'])){
+            if (strtotime($filter['start_date']) <= strtotime($filter['end_date'])){
+                $queryBuilder = is_null($isFilterDate_SetColumn) ? $queryBuilder->whereBetween("created_at",[$filterFinal['start_date'],$filterFinal['end_date']])
+                : $queryBuilder->whereBetween($isFilterDate_SetColumn,[$filterFinal['start_date'],$filterFinal['end_date']]);
+            }
         }
 
         if (!is_null($callback)){
@@ -47,7 +57,7 @@ class SearchModel
 
         $queryBuilder = $queryBuilder->orderBy("id","desc");
 
-        if (is_string($tempCount)){
+        if ($tempCount === "all"){
             return $queryBuilder->get();
         }
 

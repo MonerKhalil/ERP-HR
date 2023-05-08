@@ -10,11 +10,11 @@ class ExportPDF
         return self::PDF($head,$body)->stream();
     }
 
-    public static function downloadPDF(array $head ,mixed $body,$fileName = null): Response
+    public static function downloadPDF(array $head ,mixed $body,string $blade = null,$fileName = null): Response
     {
         $fileName = is_null($fileName) ? "document".time() : $fileName;
         $fileName .= ".pdf";
-        return self::PDF($head,$body)->download($fileName);
+        return self::PDF($head,$body,$blade)->download($fileName);
     }
 
     /**
@@ -23,22 +23,15 @@ class ExportPDF
      * @return mixed
      * @author moner khalil
      */
-    private static function PDF($head , $body)
+    private static function PDF($head , $body,$blade = null)
     {
-        $contxt = stream_context_create([
-            'ssl' => [
-                'verify_peer' => FALSE,
-                'verify_peer_name' => FALSE,
-                'allow_self_signed' => TRUE,
-            ]
-        ]);
-        $pdf = \PDF::setOptions(['isHTML5ParserEnabled' => true, 'isRemoteEnabled' => true]);
-        $pdf->getDomPDF()->setHttpContext($contxt);
-        return $pdf->loadView('System.Pages.Docs.tablePrint', [
+        $blade = is_null($blade) ? "System.Pages.Docs.tablePrint" : $blade;
+        ini_set("pcre.backtrack_limit", "5000000");
+        return \PDF::loadView($blade, [
             "data" => [
                 "head" => $head,
                 "body" => $body,
             ]
-        ])->setPaper('A4','portrait');
+        ]);
     }
 }
