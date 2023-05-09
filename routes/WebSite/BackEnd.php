@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\NotificationsContoller;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\RoleController;
@@ -39,7 +41,7 @@ Route::middleware(['auth'])->group(function (){
         /*===========================================
         =         End Notification Routes        =
        =============================================*/
-        
+
     });
 
     /*===========================================
@@ -61,4 +63,25 @@ Route::middleware(['auth'])->group(function (){
    =============================================*/
 
     Route::resource("roles", RoleController::class);
+
+    /*===========================================
+     =        contract  Routes        =
+     =============================================*/
+    Route::resources([
+        "contract"=>ContractController::class,
+        "language" => LanguageSkillController::class
+    ]);
+    Route::get('contract/data/trash', [ContractController::class, 'trash'])
+        ->name('contract.trash');
+    Route::put('contract/{contract}/restore', [ContractController::class, 'restore'])
+        ->name('contract.restore');
+    Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
+        ->name('contract.force-delete');
 });
+
+Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
+    ->name('language_skill.trash');
+Route::put('language/{language}/restore', [LanguageSkillController::class, 'restore'])
+    ->name('language_skill.restore');
+Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
+    ->name('language_skill.force-delete');

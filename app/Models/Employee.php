@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Validation\Rule;
 
@@ -36,8 +37,13 @@ class Employee extends BaseModel
     {
         return $this->hasMany(Education_data::class, 'employee_id', 'id');
     }
+    public function contract(){
+        return $this->hasOne(Contract::class,'employee_id','id')->withDefault();
+    }
+    public function language_skill(){
 
-
+        return $this->hasMany(Language_skill::class,'employee_id','id');
+    }
     /**
      * Description: To check front end validation
      * @inheritDoc

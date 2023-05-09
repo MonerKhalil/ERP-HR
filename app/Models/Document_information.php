@@ -23,7 +23,7 @@ class Document_information extends BaseModel
     public function contact(){
         $this->belongsTo(Contact::class,"id_education","id" );
     }
-        /**
+    /**
      * Description: To check front end validation
      * @inheritDoc
      * @author moner khalil
