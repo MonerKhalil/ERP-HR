@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuditController;
-use App\Http\Controllers\ContractController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\NotificationsContoller;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\RoleController;
@@ -78,6 +76,72 @@ Route::middleware(['auth'])->group(function (){
     Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
         ->name('contract.force-delete');
 });
+    /*===========================================
+        =         Start System Routes        =
+   =============================================*/
+
+    Route::prefix("system")->name("system.")->group(function (){
+        /*===========================================
+            =         Start Decisions Routes        =
+        =============================================*/
+        Route::resource('type_decisions', TypeDecisionController::class)->except([
+            "edit","create","show"
+        ]);
+        Route::resource('session_decisions', SessionDecisionController::class);
+        Route::prefix("session_decisions")->name("session_decisions.")
+            ->controller(SessionDecisionController::class)->group(function (){
+            Route::post('export/xlsx',"ExportXls")->name("export.xls");
+            Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+            Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+        });
+        Route::resource('decisions', DecisionController::class)->except(["update"]);
+        Route::post("decisions/{decision}",[DecisionController::class,"update"])->name("decisions.update");
+        Route::prefix("decisions")->name("decisions.")
+            ->controller(DecisionController::class)->group(function (){
+            Route::get("print/pdf/{decision}","PrintDecision")->name("print.pdf");
+            Route::post('export/xlsx',"ExportXls")->name("export.xls");
+            Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+            Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+        });
+        Route::get("decisions/create/session_decisions/{session_decisions}",[DecisionController::class,"addDecisions"])->name("decisions.session_decisions.add");
+
+        /*===========================================
+            =         End Decisions Routes        =
+       =============================================*/
+
+        /*===========================================
+            =         Start Employees Routes        =
+       =============================================*/
+
+        Route::resource('employees', EmployeeController::class)->except([
+            "show","edit","update",
+        ]);
+        Route::get("employees/show/{employee?}",[EmployeeController::class,"show"])->name("employees.show");
+        Route::get("employees/edit/{employee?}",[EmployeeController::class,"edit"])->name("employees.edit");
+        Route::post("employees/update/{employee?}",[EmployeeController::class,"update"])->name("employees.update");
+        #contact_data
+        Route::post("employees/edit/contact/{contact}",[ContactController::class,"updateContact"])->name("employees.contact.update");
+        Route::post("employees/add/contact_document/{contact}",[ContactController::class,"addContactDocument"])->name("employees.contact_document.add");
+        Route::post("employees/edit/contact_document/{contact_document}",[ContactController::class,"updateContactDocument"])->name("employees.contact_document.update");
+        #education_data
+        Route::post("employees/edit/education_data/{education_data}",[EducationDataController::class,"updateEducationData"])->name("employees.education_data.update");
+        Route::post("employees/add/education_document/{education_data}",[EducationDataController::class,"addEducationDocument"])->name("employees.education_document.add");
+        Route::post("employees/edit/education_document/{education_document}",[EducationDataController::class,"updateContactDocument"])->name("employees.education_document.update");
+        /*===========================================
+            =         End Employees Routes        =
+       =============================================*/
+    });
+    /*===========================================
+    =         End System Routes        =
+   =============================================*/
+
+    /*===========================================
+    =         Start Ajax Routes        =
+   =============================================*/
+
+    Route::prefix("ajax")->controller(AjaxController::class)->group(function (){
+        Route::get("get/address","getAllAddressCountry")->name("get.address");
+    });
 
 Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
     ->name('language_skill.trash');
@@ -85,3 +149,13 @@ Route::put('language/{language}/restore', [LanguageSkillController::class, 'rest
     ->name('language_skill.restore');
 Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
     ->name('language_skill.force-delete');
+
+    /*===========================================
+    =         End Ajax Routes        =
+   =============================================*/
+
+});
+
+
+
+Route::post("mmm",[EmployeeController::class,"store"]);

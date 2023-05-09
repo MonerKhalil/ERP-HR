@@ -3834,18 +3834,28 @@
                                                         <table class="Table__Table">
                                                             <thead>
                                                             <tr class="Item HeaderList">
-                                                                @foreach($data["head"] as $Head)
-                                                                    <th class="Item__Col">
-                                                                        <span>{{$Head}}</span>
-                                                                    </th>
+                                                                @foreach($data["head"] as $value)
+                                                                    @if(is_array($value) && isset($value['head']))
+                                                                        <th class="Item__Col">
+                                                                            <span>{{$value['head']}}</span>
+                                                                        </th>
+                                                                    @else
+                                                                        <th class="Item__Col">
+                                                                            <span>{{$value}}</span>
+                                                                        </th>
+                                                                    @endif
                                                                 @endforeach
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            @foreach($data["body"] as $Row)
+                                                            @foreach($data["body"] as $item)
                                                                 <tr class="Item DataItem">
-                                                                    @foreach($Row as $DataColumn)
-                                                                        <td class="Item__Col">{{$DataColumn}}</td>
+                                                                    @foreach($data['head'] as $value)
+                                                                        @if(is_array($value) && isset($value['head']))
+                                                                            <td class="Item__Col">{{ $item->{$value['relationFunc']}->{$value['key']} ?? "" }}</td>
+                                                                        @else
+                                                                            <td class="Item__Col">{{ $item->{$value} ?? "" }}</td>
+                                                                        @endif
                                                                     @endforeach
                                                                 </tr>
                                                             @endforeach

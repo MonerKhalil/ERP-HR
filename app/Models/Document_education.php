@@ -30,10 +30,16 @@ class Document_education extends BaseModel
     public function validationRules()
     {
         return function (BaseRequest $validator) {
-            return [
-                "document_education_path" =>['required','array' ],
-                "id_education" =>['required', Rule::exists('education_datas', 'id')],
-            ];
+            if ($validator->isUpdatedRequest()){
+                return [
+                    "document_education_path" => $validator->imageRule(true),
+                ];
+            }else{
+                return [
+                    "document_education_path" =>['required','array'],
+                    "document_education_path.*" => $validator->imageRule(true),
+                ];
+            }
         };
     }
 }

@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('education_levels', function (Blueprint $table) {
             $table->id();
-            #Add Columns
-            $table->string("name");
+            $table->string("name")->unique();
             $table->timestamps();
             $table->softDeletes();
         });

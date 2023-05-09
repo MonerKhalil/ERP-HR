@@ -81,15 +81,92 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="Col-4-md Col-6-sm"  >
+                                                                    <div class="Col-4-md Col-6-sm">
                                                                         <div class="Form__Group">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.selector" , [
-                                                                                        'Name' => "SessionName" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => __("sessionName") ,
-                                                                                        "Options" => [ ["Label" => "First Session" , "Value" => "1"] ,
-                                                                                                       ["Label" => "Second Session" , "Value" => "2"]]
+                                                                                        'Name' => "Type" , "Required" => "true" ,
+                                                                                        "DefaultValue" => "" , "Label" => "نوع التأثير على الراتب" ,
+                                                                                        "Options" => [ ["Label" => "حسم" , "Value" => "0"] ,
+                                                                                                       ["Label" => "اضافة" , "Value" => "1"]]
+                                                                                    ])
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Input">
+                                                                                <div class="Input__Area">
+                                                                                    <input id="DiscountAmountSalary" class="Input__Field" type="number"
+                                                                                           name="PhoneNumber" placeholder="قيمة الحسم من الراتب" required>
+                                                                                    <label class="Input__Label" for="DiscountAmountSalary">قيمة الحسم من الراتب</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Input">
+                                                                                <div class="Input__Area">
+                                                                                    <input id="IncreasesAmountSalary" class="Input__Field" type="number"
+                                                                                           name="PhoneNumber" placeholder="قيمة الاضافة على الراتب" required>
+                                                                                    <label class="Input__Label" for="IncreasesAmountSalary">قيمة الاضافة على الراتب</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Input">
+                                                                                <div class="Input__Area">
+                                                                                    <input id="DiscountAmountFinancial" class="Input__Field" type="number"
+                                                                                           name="PhoneNumber" placeholder="قيمة الحسم من الحوافز" required>
+                                                                                    <label class="Input__Label" for="DiscountAmountFinancial">قيمة الحسم من الحوافز</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Input">
+                                                                                <div class="Input__Area">
+                                                                                    <input id="IncreasesAmountFinancial" class="Input__Field" type="number"
+                                                                                           name="PhoneNumber" placeholder="قيمة الاضافة على الحوافز" required>
+                                                                                    <label class="Input__Label" for="IncreasesAmountFinancial">قيمة الاضافة على الحوافز</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ListData">
+                                                        <div class="ListData__Head">
+                                                            <h4 class="ListData__Title">
+                                                                الموظفين المتأثرين بالقرار
+                                                            </h4>
+                                                        </div>
+                                                        <div class="ListData__Content">
+                                                            <div class="ListData__CustomItem">
+                                                                <div class="Row GapC-1-5">
+                                                                    <div class="Selector2Readonly Col-4-md Col-6-sm"
+                                                                         data-ClassContainer="Col-4-md Col-6-sm"
+                                                                         data-ReadonlyNames="names[]"
+                                                                         data-TitleField="الموظف"
+                                                                         data-RequiredNum="1"
+                                                                         data-Location="Before">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Select">
+                                                                                <div class="Select__Area">
+                                                                                    @include("System.Components.selector" , [
+                                                                                        'Name' => "Member" , "Required" => "true" ,
+                                                                                        "DefaultValue" => "" , "Label" => "حدد الاعضاء" ,
+                                                                                        "Options" => [ ["Label" => "انس بكار" , "Value" => "1"] ,
+                                                                                                       ["Label" => "احمد امير الحلو" , "Value" => "2"] ,
+                                                                                                       ["Label" => "منير خليل" , "Value" => "3"]]
                                                                                     ])
                                                                                 </div>
                                                                             </div>
@@ -112,11 +189,12 @@
                                                                 <div class="Row">
                                                                     <div class="Col">
                                                                         <div class="Form__Group">
-                                                                            <div class="Form__Textarea">
-                                                                                <div class="Textarea__Area">
+                                                                            <div class="Form__TextEditor">
+                                                                                <div class="TextEditor__Area">
                                                                                     <div class="trumbowyg-dark">
-                                                                            <textarea id="DecisionEditor" class="TextEditor Textarea__Field"
-                                                                                      placeholder="Your text as placeholder" required></textarea>
+                                                                                        <textarea id="DecisionEditor" class="TextEditor TextEditor__Field"
+                                                                                                  placeholder="Your text as placeholder" required>
+                                                                                        </textarea>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

@@ -8,6 +8,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Authentication Process       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     const Token = $(`meta[name="csrf-token"]`).prop('content') ;
     const RememberStorage = localStorage.getItem("Remember") ;
     $(".AuthenticationPage").ready(function (){
@@ -118,37 +123,70 @@ $(document).ready(function (){
      * @author Amir Alhloo
      */
 
-    $(".Selector").ready(function (){
-        $(".Selector").each((_ , Selector)=> {
+    function SelectorOperation( SelectorInfo = {
+        Operation : "InitializeSelector" | "SetRequired" | "ResetRequired" | "Clone" | "Clear" ,
+        Selector : HTMLElement ,
+        OptionContent : HTMLElement | undefined ,
+        Option : HTMLElement | undefined
+    }) {
+        switch (SelectorInfo.Operation) {
+            case "InitializeSelector" :
+                InitializeSelectorElement() ;
+                break ;
+            case "SetRequired" :
+                SetRequired() ;
+                break ;
+            case "ResetRequired" :
+                ResetRequired() ;
+                break ;
+            case "Clone" :
+                CloneSelector() ;
+                break;
+            case "Clear" :
+                ClearSelector() ;
+                break ;
+        }
 
-            $(Selector).find(".Selector__Main").click(() => {
-                $(Selector).toggleClass("Open");
-                closeOutSide($(Selector)[0] , ()=> {
-                    $(Selector).removeClass("Open");
+        function InitializeSelectorElement() {
+
+            $(SelectorInfo.Selector).find(".Selector__Main").click(() => {
+                $(SelectorInfo.Selector).toggleClass("Open");
+                closeOutSide($(SelectorInfo.Selector)[0] , ()=> {
+                    $(SelectorInfo.Selector).removeClass("Open");
                 });
             });
-            CreateSelect($(Selector).attr("data-name")
-                , $(Selector).attr("data-required"));
-            $(Selector).find(".Selector__Options .Selector__Option")
+
+            CreateSelect($(SelectorInfo.Selector).attr("data-name")
+                , $(SelectorInfo.Selector).attr("data-required"));
+
+            $(SelectorInfo.Selector).find(".Selector__Options .Selector__Option")
                 .each((Index_3 , Value_3) => {
                     $(Value_3).click(() => {
                         const OptionValue = $(Value_3).attr("data-option");
-                        $(Selector).toggleClass("Open");
+                        $(SelectorInfo.Selector).toggleClass("Open");
                         ClickSelect($(Value_3).text() , OptionValue);
                     });
                 });
-            if($(Selector).attr("data-selected"))
-                DefaultValue($(Selector).attr("data-selected")) ;
+
+            if($(SelectorInfo.Selector).attr("data-selected"))
+                DefaultValue($(SelectorInfo.Selector).attr("data-selected")) ;
 
             function CreateSelect(Name = String , IsRequired) {
                 const Required = IsRequired ? "required" : "" ;
-                const InputElement = `<input type="text" value=""
+                if($(SelectorInfo.Selector).find(".Selector__SelectForm").length > 0) {
+                    const InputSelector = $(SelectorInfo.Selector)
+                        .find(".Selector__SelectForm").get(0) ;
+                    $(InputSelector).attr("name" , Name) ;
+                    $(InputSelector).prop('required', Required === "required");
+                } else {
+                    const InputElement = `<input type="text" value=""
                     name="${Name}" class="Selector__SelectForm" ${Required} hidden>` ;
-                $(Selector).append(InputElement);
+                    $(SelectorInfo.Selector).append(InputElement);
+                }
             }
 
             function DefaultValue(Value = String) {
-                $(Selector).find(".Selector__Options .Selector__Option")
+                $(SelectorInfo.Selector).find(".Selector__Options .Selector__Option")
                     .each((_ , Option) => {
                         if($(Option).attr("data-option") === Value) {
                             ClickSelect($(Option).text() , Value);
@@ -158,25 +196,51 @@ $(document).ready(function (){
 
             function ClickSelect(OptionSelected = String
                 , ValueOption = String) {
-                const InputField = $(Selector).find(".Selector__SelectForm").get(0) ;
-                $(Selector).addClass("Selected");
-                $(Selector).find(".Selector__Main .Selector__WordChoose")
+                const InputField = $(SelectorInfo.Selector).find(".Selector__SelectForm").get(0) ;
+                $(SelectorInfo.Selector).addClass("Selected");
+                $(SelectorInfo.Selector).find(".Selector__Main .Selector__WordChoose")
                     .text(OptionSelected);
                 $(InputField).attr("value" , ValueOption);
                 $(InputField).valid() ;
-                $(Selector).attr("data-selected" , ValueOption);
+                $(SelectorInfo.Selector).attr("data-selected" , ValueOption);
             }
+        }
+
+        function CloneSelector() {
+            $(SelectorInfo.Selector).off()
+            InitializeSelectorElement(SelectorInfo.Selector) ;
+        }
+
+        function ClearSelector() {
+            $(SelectorInfo.Selector).removeClass("Selected");
+            $(SelectorInfo.Selector).find(".Selector__Main .Selector__WordChoose")
+                .text("");
+            $(SelectorInfo.Selector).find(".Selector__SelectForm")
+                .attr("value" , "");
+            $(SelectorInfo.Selector).attr("data-selected" , "");
+        }
+
+        function ResetRequired() {
+            $(SelectorInfo.Selector).attr("data-required" , false) ;
+            $(SelectorInfo.Selector).find(".Selector__SelectForm")
+                .prop("required" , false) ;
+        }
+
+        function SetRequired() {
+            $(SelectorInfo.Selector).attr("data-required" , true) ;
+            $(SelectorInfo.Selector).find(".Selector__SelectForm")
+                .prop("required" , true) ;
+        }
+    }
+
+    $(".Selector").ready(function (){
+        $(".Selector").each((_ , Selector)=> {
+            SelectorOperation({
+                Operation : "InitializeSelector" ,
+                Selector : Selector
+            }) ;
         });
     });
-
-    function ClearSelector(Selector = HTMLElement) {
-        $(Selector).removeClass("Selected");
-        $(Selector).find(".Selector__Main .Selector__WordChoose")
-            .text("");
-        $(Selector).find(".Selector__SelectForm")
-            .attr("value" , "");
-        $(Selector).attr("data-selected" , "");
-    }
 
     /*===========================================
 	=           Multi Selector       =
@@ -221,16 +285,77 @@ $(document).ready(function (){
      * @author Amir Alhloo
      */
 
-    $("form").ready(function (){
-        $("form").each((Index , Value)=> {
+    function FormOperation(FormInfo = {
+        Operation : "InitializeForm" | "RefreshValidationForm" | "CloneFields" ,
+        FormElement : HTMLFormElement ,
+        ClonePart : {
+            ElementPart : HTMLElement ,
+            WithClear : false
+        } | undefined
+    }) {
+
+        switch (FormInfo.Operation) {
+            case "InitializeForm" :
+                InitializeForm() ;
+                RefreshValidationForm() ;
+                break ;
+            case "RefreshValidationForm" :
+                RefreshValidationForm() ;
+                break ;
+            case "CloneFields" :
+                CloneField() ;
+                RefreshValidationForm() ;
+                break ;
+        }
+
+        function InitializeForm() {
+            if($(FormInfo.FormElement).hasClass("FilterForm")) {
+                const ActionForm = $(FormInfo.FormElement).attr("action") ;
+                const Params = GetFullParams() ;
+                if(Params !== undefined)
+                    $(FormInfo.FormElement).attr("action" , `${ActionForm}?${Params}`);
+            }
+            $(FormInfo.FormElement).find("input , textarea").each((_ , Field) => {
+                $(Field).on("blur" , function () {
+                    $(Field).valid() ;
+                });
+            });
+            $(FormInfo.FormElement).find(".Form__Input--Password").each((_ , Field)=> {
+                InitialFieldPassword(Field);
+            });
+            $(FormInfo.FormElement).find(".Form__Date").each((_ , Field)=> {
+                InitialFieldDate(Field);
+            });
+            $(FormInfo.FormElement).find(".Form__UploadFile").each((_ , UploadFile) => {
+                InitialFieldUpload(UploadFile) ;
+            });
+            $(FormInfo.FormElement).find(".RestButton").each((_ , Buttons) => {
+                $(Buttons).click(()=> {
+                    $(FormInfo.FormElement).find(`.Date__Field , .Input__Field , .Textarea__Field`)
+                        .each((_ , Field) => {
+                            $(Field).val("");
+                        });
+                    $(FormInfo.FormElement).find(`.Selector`).each((_ , Selector) => {
+                        SelectorOperation({
+                            Operation : "Clear" ,
+                            Selector : Selector
+                        });
+                    });
+                });
+            });
+            $(FormInfo.FormElement).find(".TextEditor").each((_ , TextEditor) => {
+                InitialFieldEditor(TextEditor) ;
+            });
+        }
+
+        function RefreshValidationForm() {
             $.validator.addMethod("RegexPassword"
-                , function (Value , Element) {
-                return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
-            } ,
+                , function (Value) {
+                    return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
+                } ,
                 LanguagePage === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
-                    : "The password must contain from 8 to 15 characters"
-            );
-            $(Value).validate({
+                    : "The password must contain from 8 to 15 characters");
+            $(FormInfo.FormElement).validate({
 
                 ignore : ".IgnoreValidate" ,
 
@@ -279,120 +404,166 @@ $(document).ready(function (){
                     }
                 }
             });
-            $(Value).find("input , textarea").each((_ , Field) => {
-                $(Field).on("blur" , function () {
-                    $(Field).valid() ;
-                });
-            });
-            if($(Value).hasClass("FilterForm")) {
-                const ActionForm = $(Value).attr("action") ;
-                const Params = GetFullParams() ;
-                if(Params !== undefined)
-                    $(Value).attr("action" , `${ActionForm}?${Params}`);
-            }
-        });
-    })
-    $(".Form").ready(function () {
-        $(".Form").each((_ , Form) => {
-            $(Form).find(".Form__Input--Password").each((Index , Value)=> {
-                $(Value).find(".Input__Icon").click((Icon)=>{
-                    const InputField = $(Value).find(".Input__Field") ;
-                    const IsView = InputField.attr("type") === 'password' ;
-                    if(IsView)
-                        InputField.attr("type" , "text");
-                    else
-                        InputField.attr("type" , "password");
-                });
-            });
-            $(Form).find(".Form__Date").each((Index , Value)=> {
-                const Input = $(Value).find("input").get(0) ;
-                if($(Input).hasClass("RangeData")) {
-                    let IsDetermine = false ;
-                    const InputAria = $(Value).find(".Date__Area").get(0) ;
-                    const InputStartDate = $(Input).attr("date-StartDateName") ;
-                    const InputEndDate = $(Input).attr("date-EndDateName") ;
-                    $(Input).flatpickr({
-                        mode: "range" ,
-                        onClose: function(selectedDates, dateStr, instance) {
+        }
 
-                            if(selectedDates.length > 1) {
-                                let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
-                                let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
-                                if(dateStart && dateEnd) {
-                                    if(new Date(dateStart).getTime() >
-                                        new Date(dateEnd).getTime()) {
-                                        let Temp = dateEnd ;
-                                        dateStart = dateEnd ;
-                                        dateEnd = Temp ;
-                                    }
-                                    if(IsDetermine) {
-                                        const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
-                                        const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
-                                        $(StartDateInput).attr("value" , dateStart) ;
-                                        $(EndDateInput).attr("value" , dateEnd) ;
-                                    } else {
-                                        const InputElements = `
+        function InitialFieldPassword(Field = HTMLElement) {
+            $(Field).find(".Input__Icon").click(()=>{
+                const InputField = $(Field).find(".Input__Field") ;
+                const IsView = InputField.attr("type") === 'password' ;
+                if(IsView)
+                    InputField.attr("type" , "text");
+                else
+                    InputField.attr("type" , "password");
+            });
+        }
+
+        function InitialFieldDate(Field = HTMLElement) {
+            const Input = $(Field).find("input").get(0) ;
+            if($(Input).hasClass("RangeData")) {
+                let IsDetermine = false ;
+                const InputAria = $(Field).find(".Date__Area").get(0) ;
+                const InputStartDate = $(Input).attr("date-StartDateName") ;
+                const InputEndDate = $(Input).attr("date-EndDateName") ;
+                $(Input).flatpickr({
+                    mode: "range" ,
+                    onClose: function(selectedDates, dateStr, instance) {
+
+                        if(selectedDates.length > 1) {
+                            let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
+                            let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
+                            if(dateStart && dateEnd) {
+                                if(new Date(dateStart).getTime() >
+                                    new Date(dateEnd).getTime()) {
+                                    let Temp = dateEnd ;
+                                    dateStart = dateEnd ;
+                                    dateEnd = Temp ;
+                                }
+                                if(IsDetermine) {
+                                    const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                                    const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                                    $(StartDateInput).attr("value" , dateStart) ;
+                                    $(EndDateInput).attr("value" , dateEnd) ;
+                                } else {
+                                    const InputElements = `
                                         <input class="IgnoreValidate StartDate" type="hidden"
                                                name="${InputStartDate}" value="${dateStart}">
                                         <input class="IgnoreValidate EndDate" type="hidden"
                                                name="${InputEndDate}" value="${dateEnd}">
                                     `;
-                                        $(InputAria).append(InputElements) ;
-                                        IsDetermine = true ;
-                                    }
-                                }
-                            } else {
-                                if(IsDetermine) {
-                                    const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
-                                    const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
-                                    $(StartDateInput).remove() ;
-                                    $(EndDateInput).remove() ;
-                                    IsDetermine = false ;
+                                    $(InputAria).append(InputElements) ;
+                                    IsDetermine = true ;
                                 }
                             }
+                        } else {
+                            if(IsDetermine) {
+                                const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                                const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                                $(StartDateInput).remove() ;
+                                $(EndDateInput).remove() ;
+                                IsDetermine = false ;
+                            }
                         }
-                    });
-                }
-                else {
-                    $(Input).flatpickr();
-                }
+                    }
+                });
+            }
+            else {
+                $(Input).flatpickr();
+            }
+        }
+
+        function InitialFieldUpload(Field = HTMLElement) {
+            $(Field).find(".UploadFile__Field").on("change" , (ev) => {
+                const PathFile = $(ev.target).val() ;
+                if(PathFile !== undefined && PathFile !== "")
+                    $(Field).find(".UploadFile__Area")
+                        .addClass("SelectedFile") ;
+                else
+                    $(Field).find(".UploadFile__Area")
+                        .removeClass("SelectedFile") ;
             });
-            $(Form).find(".RestButton").each((_ , Buttons) => {
-                $(Buttons).click(()=> {
-                    $(Form).find(`.Date__Field , .Input__Field , .Textarea__Field`)
-                        .each((_ , Field) => {
-                       $(Field).val("");
-                    });
-                    $(Form).find(`.Selector`).each((_ , Selector) => {
-                        ClearSelector(Selector);
-                    });
+        }
+
+        function InitialFieldEditor(TextEditor = HTMLElement) {
+            const Model = $(TextEditor).trumbowyg({
+                lang: LanguagePage === "ar" ? 'ar' : 'en' ,
+                tagsToRemove: ['script' , 'link'] ,
+                btns: [
+                    ['viewHTML'],
+                    ['undo', 'redo'],
+                    ['formatting'],
+                    ['strong', 'em', 'del'],
+                    ['superscript', 'subscript'],
+                    ['link'],
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                    ['removeformat'],
+                ]
+            }).get(0) ;
+            $(Model).on("tbwinit" , function () {
+                $('.trumbowyg-editor').on("blur" , function(){
+                    $(TextEditor).valid() ;
                 });
             });
-            $(Form).find(".TextEditor").each((_ , TextEditor) => {
-                const Model = $(TextEditor).trumbowyg({
-                    lang: LanguagePage === "ar" ? 'ar' : 'en' ,
-                    tagsToRemove: ['script' , 'link'] ,
-                    btns: [
-                        ['viewHTML'],
-                        ['undo', 'redo'],
-                        ['formatting'],
-                        ['strong', 'em', 'del'],
-                        ['superscript', 'subscript'],
-                        ['link'],
-                        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                        ['unorderedList', 'orderedList'],
-                        ['horizontalRule'],
-                        ['removeformat'],
-                    ]
-                }).get(0) ;
-                $(Model).on("tbwinit" , function (ev) {
-                    $('.trumbowyg-editor').on("blur" , function(){
-                        $(TextEditor).valid() ;
-                    });
+        }
+
+        function CloneField() {
+            $(FormInfo.ClonePart.ElementPart).off() ;
+            $(FormInfo.ClonePart.ElementPart).find("input , textarea").each((_ , Field) => {
+                $(Field).on("blur" , function () {
+                    $(Field).valid() ;
                 });
+            });
+            $(FormInfo.ClonePart.ElementPart).find(".Form__Input").each((_ , Field) => {
+                if(FormInfo.ClonePart.WithClear)
+                    $(Field).find("Input__Field").val("") ;
+            });
+            $(FormInfo.ClonePart.ElementPart).find(".Form__Input--Password").each((_ , Field)=> {
+                if(FormInfo.ClonePart.WithClear)
+                    $(Field).find(".Input__Field").val("") ;
+                InitialFieldPassword(Field);
+            });
+            $(FormInfo.ClonePart.ElementPart).find(".Form__Date").each((_ , Field)=> {
+                if(FormInfo.ClonePart.WithClear)
+                    $(Field).find(".Date__Field").val("") ;
+                InitialFieldDate(Field);
+            });
+            $(FormInfo.ClonePart.ElementPart).find(".Form__UploadFile").each((_ , UploadFile) => {
+                if(FormInfo.ClonePart.WithClear) {
+                    $(UploadFile).find(".UploadFile__Area")
+                        .removeClass("SelectedFile") ;
+                    $(UploadFile).find(".UploadFile__Field").val("");
+                }
+                InitialFieldUpload(UploadFile) ;
+            });
+            $(FormInfo.ClonePart.ElementPart).find(".TextEditor").each((_ , TextEditor) => {
+                if(FormInfo.ClonePart.WithClear)
+                    $(FormInfo.ClonePart.ElementPart).find(".Textarea__Field").val("") ;
+                InitialFieldEditor(TextEditor) ;
+            });
+            $(FormInfo.ClonePart.ElementPart).find(".Selector").each((_ , Selector) => {
+                if(FormInfo.ClonePart.WithClear)
+                    SelectorOperation({
+                        Operation : "Clear" ,
+                        Selector : Selector ,
+                    }) ;
+                SelectorOperation({
+                    Operation : "Clone" ,
+                    Selector : Selector ,
+                }) ;
+            });
+        }
+    }
+
+    $(".Form").ready(function () {
+        $(".Form").each((_ , Form) => {
+            FormOperation({
+                Operation : "InitializeForm" ,
+                FormElement : Form ,
             });
         });
     });
+
     $(".AnchorSubmit").ready(function () {
         $(".AnchorSubmit").each((_ , Anchor) => {
             const FormName = $(Anchor).attr("data-form") ;
@@ -405,6 +576,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Menu And Header       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     function IsOpen() {
         return Header.hasClass("OpenMenu") &&
             MenuNav.hasClass("Open") ;
@@ -543,6 +719,7 @@ $(document).ready(function (){
                 if($(Dropdown).hasClass("Show"))
                     closeOutSide($(Dropdown)[0] , ()=>{
                         $(Dropdown).removeClass("Show");
+                        console.log("Dropdown") ;
                     });
             });
         });
@@ -551,6 +728,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Drag & Drop       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".DragDrop").ready(function() {
         let ItemTarget = undefined ;
         let LastZone = undefined ;
@@ -645,6 +827,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Drag & Drop By Click       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".DragDropClick").ready(function (){
 
     });
@@ -652,6 +839,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Table Layout       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Table").ready(function () {
         $(".Table").each((_ , Table) => {
             const BulkTools =  $(Table).find(".Table__BulkTools").get(0) ?? undefined ;
@@ -696,7 +888,14 @@ $(document).ready(function (){
                     $(PrintMenu).find(".PrintMenu__Menu.Dropdown")
                         .addClass("Show").trigger("ShowChange") ;
                 });
-            })
+            });
+            $(Table).find(".Item__Col.MoreDropdown").each((_ , MoreDropdown) => {
+                const DropdownMenu = $(MoreDropdown).find(".Dropdown").get(0) ;
+               $(MoreDropdown).find(".More__Button").click(() => {
+                   $(DropdownMenu).toggleClass("Show")
+                       .trigger("ShowChange") ;
+               });
+            });
 
             function BulkVisible(IsVisible = Boolean) {
                 if(BulkTools && IsVisible)
@@ -710,6 +909,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Cookies Page       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Cookies").ready(function () {
         if(document.cookie === "") {
             $(".Cookies").addClass("Show");
@@ -727,6 +931,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Bulk Tools       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".BulkTools").ready(function (){
         $(".BulkTools").each((_ , Bulk) => {
             const ClosestForm = $(Bulk).closest("form").get(0) ;
@@ -762,6 +971,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Message Process Component       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".MessageProcess").ready(function (){
         $(".MessageProcess").each((_ , Message) => {
             $(Message).find(".MessageProcess__Close")
@@ -774,6 +988,11 @@ $(document).ready(function (){
     /*===========================================
 	=           Notification Component       =
     =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
     $(".Notification").ready(function() {
         $(".Notification").each((_ , Notification) => {
             $(Notification).find(".Notification__Remove i").click(() => {
@@ -792,6 +1011,289 @@ $(document).ready(function (){
         });
     });
 
+    /*===========================================
+	=           Filter Selector       =
+    =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
+    function initializeFilterSelector(SelectorInfo = {
+        Operation : "InitializeMainSelector" | "InitializeTargetSelector" ,
+        MainSelector : HTMLElement ,
+        TargetSelector : HTMLElement ,
+    }) {
+
+        switch (SelectorInfo.Operation) {
+            case "InitializeMainSelector" :
+                initializeMainSelector() ;
+                break ;
+            case "InitializeTargetSelector" :
+                initializeSubSelectorBefore() ;
+                break ;
+        }
+
+        function initializeMainSelector() {
+            const TargetName = $(SelectorInfo.MainSelector).attr("data-TargetSelectorName") ;
+            const RouteURL = $(SelectorInfo.MainSelector).attr("data-Route") ;
+            const Method = $(SelectorInfo.MainSelector).attr("data-Method") ;
+            const DataName = $(SelectorInfo.MainSelector).attr("data-ParamsName") ;
+            let SelectorTarget = undefined ;
+            $(document).find(".FilterSelectorTarget")
+                .each((_ , FilterSelectorTarget) => {
+                    const SelectorName = $(FilterSelectorTarget)
+                        .find(".Selector").attr("data-name");
+                    if(SelectorName === TargetName)
+                        SelectorTarget = FilterSelectorTarget ;
+                });
+            if(SelectorTarget === undefined)
+                return ;
+            $(SelectorInfo.MainSelector).find(".Selector .Selector__Options .Selector__Option")
+                .click((ev) => {
+                    LoaderView() ;
+                    const ValueName = $(ev.target).attr("data-option") ;
+                    $.ajax({
+                        url: `${RouteURL}?${DataName}=${ValueName}`,
+                        type: `${Method}`,
+                        dataType: "json",
+                        success : function (ResponseData) {
+                            const OptionsContent = $(SelectorTarget)
+                                .find(".Selector .Selector__Options").get(0) ;
+                            /* Foreach on ResponseData Var To Append into Options Element */
+                            initializeSubSelectorAfter(SelectorTarget);
+                        }
+                    }).done(() => {
+                        LoaderHidden() ;
+                    }).fail(() => {
+                        LoaderHidden() ;
+                    });
+                });
+        }
+
+        function initializeSubSelectorBefore() {
+            $(SelectorInfo.TargetSelector).hide() ;
+            $(SelectorInfo.TargetSelector).off() ;
+        }
+
+        function initializeSubSelectorAfter(SelectorParent = HTMLElement) {
+            const SelectorTarget = $(SelectorParent).find(".Selector").get(0) ;
+            SelectorOperation({
+                Operation : "InitializeSelector" ,
+                Selector : SelectorTarget
+            });
+            if($(SelectorParent).hasClass("FilterSelector"))
+                initializeFilterSelector({
+                    Operation : "InitializeMainSelector" ,
+                    MainSelector : SelectorParent
+                });
+            $(SelectorParent).show() ;
+        }
+
+        // function DeactivateSubSelector() {
+        //
+        // }
+    }
+
+
+    $(".FilterSelector").ready(function() {
+        $(".FilterSelector:not(.FilterSelectorTarget)").each((_ , FilterSelector) => {
+            initializeFilterSelector({
+                Operation : "InitializeMainSelector" ,
+                MainSelector : FilterSelector
+            });
+        });
+        $(".FilterSelectorTarget").each((_ , SelectorTarget) => {
+            initializeFilterSelector({
+                Operation : "InitializeTargetSelector" ,
+                TargetSelector : SelectorTarget
+            });
+        });
+    });
+
+    /*===========================================
+	=           Selector2Readonly       =
+    =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
+    $(".Selector2Readonly").ready(function () {
+        $(".Selector2Readonly").each((_ , ParentSelector) => {
+            const ClassContainer = $(ParentSelector).attr("data-ClassContainer") ;
+            const FieldsName = $(ParentSelector).attr("data-ReadonlyNames") ;
+            const Location = $(ParentSelector).attr("data-Location") ;
+            const TitleReadOnly = $(ParentSelector).attr("data-TitleField") ;
+            const MinFieldsRead = Number($(ParentSelector).attr("data-RequiredNum")) ;
+            let CounterID = 0 ;
+            let ValueSelected = 0 ;
+            const AllValues = $(ParentSelector)
+                .find(".Selector .Selector__Options .Selector__Option").length ;
+            $(ParentSelector).find(".Selector .Selector__Options .Selector__Option")
+                .click((ev) => {
+                    const OptionValue = $(ev.target).attr("data-option") ;
+                    const OptionLabel = $(ev.target).text() ;
+                    const ReadOnlyElement = $(`
+                        <div class="ReadonlySelector ${ClassContainer}">
+                            <div class="Form__Group">
+                                <div class="Form__FieldReadOnly">
+                                    <div class="FieldReadOnly__Area">
+                                        <input id="LeaderSession${CounterID}"
+                                               class="FieldReadOnly__Field"
+                                               style="color: transparent"
+                                               type="text" name="${FieldsName}"
+                                               value="${OptionValue}" readonly
+                                               placeholder="Test" required >
+                                        <label class="FieldReadOnly__Label"
+                                               for="LeaderSession${CounterID}">
+                                               ${TitleReadOnly}
+                                       </label>
+                                        <span class="FieldReadOnly__Value">${OptionLabel}</span>
+                                        <i class="material-icons FieldReadOnly__Close">
+                                            cancel
+                                        </i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).get(0) ;
+                    if(Location === "Before")
+                        $(ParentSelector).before($(ReadOnlyElement)) ;
+                    else
+                        $(ParentSelector).after($(ReadOnlyElement)) ;
+                    $(ReadOnlyElement).find(".FieldReadOnly__Close").click(() => {
+                        $(ev.target).show() ;
+                        if(ValueSelected === AllValues)
+                            $(ParentSelector).show();
+                        ValueSelected-- ;
+                        if(ValueSelected < MinFieldsRead)
+                            SelectorOperation({
+                                Operation : "SetRequired" ,
+                                Selector : $(ParentSelector).find(".Selector").get(0) ,
+                            });
+                        $(ReadOnlyElement).remove() ;
+                    });
+                    $(ev.target).hide() ;
+                    SelectorOperation({
+                        Operation : "Clear" ,
+                        Selector : $(ParentSelector).find(".Selector").get(0) ,
+                    });
+                    ValueSelected++ ;
+                    if(ValueSelected >= MinFieldsRead)
+                        SelectorOperation({
+                            Operation : "ResetRequired",
+                            Selector : $(ParentSelector).find(".Selector").get(0) ,
+                        });
+                    if(ValueSelected === AllValues)
+                        $(ParentSelector).hide();
+                });
+        });
+    });
+
+    /*===========================================
+	=           Menu Popper      =
+    =============================================*/
+
+    /*
+    * for fix overflow
+    */
+
+    /**
+     * @author Amir Alhloo
+     */
+
+    $(".MenuPopper").ready(function (){
+        $(".MenuPopper").each((_ , MenuObject) => {
+            const MenuName = $(MenuObject).attr("data-MenuName") ;
+            const TargetMenu = $(document)
+                .find(`.MenuTarget[data-MenuName="${MenuName}"]`).get(0) ;
+            if(TargetMenu === undefined)
+                return ;
+            if($(TargetMenu).hasClass("Dropdown")) {
+                const ParentMenu = $(TargetMenu).parent().get(0) ;
+                const PopperDropdown = Popper.createPopper(MenuObject
+                    , TargetMenu , {
+                        placement: (LanguagePage === "ar") ? 'bottom-start' : 'bottom-end',
+                    });
+                $(TargetMenu).on("ShowChange" , function (){
+                    if($(TargetMenu).hasClass("Show")) {
+                        $(TargetMenu).appendTo("body") ;
+                        PopperDropdown.update();
+                        closeOutSide($(TargetMenu)[0] , ()=>{
+                            $(TargetMenu).appendTo(ParentMenu) ;
+                            PopperDropdown.update();
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+
+    /*===========================================
+    =           Fields Visibility        =
+    =============================================*/
+
+    $(".VisibilityOption").ready(function () {
+        $(".VisibilityOption").each((_ , VisibilityOption) => {
+            const TargetName = $(VisibilityOption).attr("data-ElementsTargetName");
+            $(VisibilityOption).find(".Selector").each((_ , Selectors) => {
+                $(Selectors).find(".Selector__Option").each((_ , Option) => {
+                    const ValueOption = $(Option).attr("data-option") ;
+                    $(Option).click(() => {
+                        TriggerName(TargetName , ValueOption);
+                    });
+                });
+                TriggerName(TargetName , '') ;
+            });
+            $(VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
+                TriggerName(TargetName , $(this).val());
+            })
+        });
+    });
+
+    function TriggerName(NameElement = String , ValueSelected = String) {
+        $(".VisibilityTarget").each((_ , VisibilityTarget) => {
+            const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
+            if(ElementName === NameElement) {
+                const ElementValue = $(VisibilityTarget).attr("data-TargetValue") ;
+                $(VisibilityTarget).hide();
+                console.log(ValueSelected , ElementValue) ;
+                if(ValueSelected === ElementValue)
+                    $(VisibilityTarget).show();
+            }
+        });
+    }
+
+    /*===========================================
+	=           Duplicate Form       =
+    =============================================*/
+
+    /**
+     * @author Anas Bakkar
+     */
+
+    $("#duplicateDoc").click(function(){
+        const Clone = $("#documentForm").last().clone(false);
+        const Form = $("#documentForm").closest(".Form").get(0) ;
+        Clone.appendTo($("#parentForm"));
+        FormOperation({
+            Operation : "CloneFields" ,
+            FormElement : Form ,
+            ClonePart : {
+                ElementPart : Clone ,
+                WithClear : true
+            }
+        });
+    });
+
+
+    /*===========================================
+	=           Person Names       =
+    =============================================*/
+
+
 });
 
 window.onload = function (){
@@ -805,134 +1307,6 @@ window.onload = function (){
 
     GetFullParams() ;
 }
-
-    /*===========================================
-	=           Profile Page       =
-    =============================================*/
-    $(".ProfilePage").ready(function (){
-        $(".ProfilePage").find("form.ChangeImage").each((Index , Value)=>{
-            const InputFile = $(Value).find("#ImageChange");
-            InputFile.change(()=>{
-                //Check Image
-                $(Value).submit();
-            });
-        });
-    });
-
-    /*===========================================
-	=           Popup Component       =
-    =============================================*/
-    $(".Popup").ready(function (){
-        $(".Popup").each((Index , Value)=> {
-            $(Value).find(".Popup__Close").click(()=>{
-                $(Value).removeClass("Open");
-            });
-        });
-    });
-    $(".OpenPopup").ready(function (){
-        $(".OpenPopup").each((Index , Value)=>{
-            const PopupName = $(Value).attr("data-popUp");
-            let PopupElement ;
-            $(".Popup").each((Index_2 , PopupValue)=>{
-                if($(PopupValue).attr("data-name") === PopupName)
-                    PopupElement = PopupValue ;
-            });
-            $(Value).click(()=>{
-                $(PopupElement).addClass("Open");
-            });
-        });
-    });
-
-    /*===========================================
-	=           Duplicate Form       =
-    =============================================*/
-
-    $("#duplicateDoc").click(function(){
-        var clone = $("#documentForm").last().clone(true);
-        console.log('clone ', clone, clone.val())
-        clone.val("");
-        clone.find("input").each(function() {
-            $(this).val("");
-            console.log('id', $(this).id)
-        });
-        clone.appendTo($("#parentForm"));
-
-    });
-
-    /*===========================================
-	=           Taps Layout       =
-    =============================================*/
-    $(".Taps").ready(function () {
-        $(".Taps").each((Index , TapElement) => {
-           let CurrentTap , CurrentPanel ;
-           $(TapElement).find(".Taps__Item").each((Index_2 , TapItem) => {
-              const ContentAttribute = $(TapItem).attr("data-content");
-              let PanelElement ;
-              $(TapElement).find(".Taps__Panel").each((Index_3 , PanelItem)=> {
-                  if($(PanelItem).attr("data-panel") === ContentAttribute)
-                      PanelElement = PanelItem ;
-              });
-              if(Index_2 === 0)
-                  Select(TapItem , PanelElement);
-              $(TapItem).click(()=> Select(TapItem , PanelElement));
-           });
-
-           function Select(TapButton , Panel) {
-               $(CurrentTap).removeClass("Active");
-               $(CurrentPanel).removeClass("Active");
-               CurrentTap = TapButton ;
-               CurrentPanel = Panel ;
-               $(CurrentTap).addClass("Active") ;
-               $(CurrentPanel).addClass("Active");
-           }
-        });
-    });
-
-    /*===========================================
-	=           Dropdown       =
-    =============================================*/
-    $(".Dropdown").ready(function (){
-        $(".Dropdown").each((_ , Dropdown)=>{
-            $(Dropdown).on("ShowChange" , function (){
-                if($(Dropdown).hasClass("Show"))
-                    closeOutSide($(Dropdown)[0] , ()=>{
-                        $(Dropdown).removeClass("Show");
-                    });
-            });
-        });
-    });
-
-    /*===========================================
-	=           Table Layout       =
-    =============================================*/
-    $(".Table").ready(function () {
-        $(".Table").each((_ , Table) => {
-            $(Table).find(".Table__List").each((_ , List)=>{
-                $(List).find(".HeaderList").each((_ , HeaderList) => {
-                    $(HeaderList).find(".CheckBoxItem").change((ev) => {
-                        if($(ev.currentTarget).is(":checked"))
-                            $(List).find(".DataItem").each((_ , Item) => {
-                                $(Item).find(".CheckBoxItem").prop('checked', true);
-                            });
-                        else
-                            $(List).find(".DataItem").each((_ , Item) => {
-                                $(Item).find(".CheckBoxItem").prop('checked', false);
-                            });
-                    });
-                });
-                $(List).find(".DataItem").each((_ , DataItem) => {
-                    $(DataItem).find(".CheckBoxItem").change((ev) => {
-                        const CheckBoxHeader = $(List).find(".HeaderList .CheckBoxItem") ;
-                        if(CheckBoxHeader.is(":checked") &&
-                            !$(ev.currentTarget).is(":checked")) {
-                            CheckBoxHeader.prop('checked', false);
-                        }
-                    });
-                });
-            });
-            // $(Table).find(".Table__BulkTools")
-        });
-    });
 
 /*===========================================
 =           Functions       =

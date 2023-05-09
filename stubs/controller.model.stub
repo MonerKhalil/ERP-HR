@@ -5,6 +5,7 @@ namespace {{ namespace }};
 use {{ namespacedModel }};
 use {{ rootNamespace }}Http\Controllers\Controller;
 use App\Http\Requests\{{ model }}Request;
+use Illuminate\Http\Request;
 
 class {{ class }} extends Controller
 {
@@ -85,6 +86,11 @@ class {{ class }} extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    public function MultiDelete(Request $request)
     {
         //
     }

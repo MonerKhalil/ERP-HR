@@ -2,142 +2,91 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
-use App\Models\Document_education;
-use App\Models\Document_information;
-use App\Models\Education_data;
+
+use App\Exceptions\MainException;
+use App\HelpersClasses\MessagesFlash;
+use App\HelpersClasses\MyApp;
+use App\Http\Requests\Document_educationRequest;
 use App\Http\Requests\Education_dataRequest;
-use App\Models\User;
+use App\Models\Document_education;
+use App\Models\Education_data;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class EducationDataController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->addMiddlewarePermissionsToFunctions(app(Education_data::class)->getTable());
-//    }
-
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Education_dataRequest $request
+     * @param $education_data
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @author moner khalil
      */
-    public function index()
+    public function updateEducationData(Education_dataRequest $request , $education_data)
     {
-        $user = User::find(1);
-        //$contacts =$user->employee()->with('contacts')->select(DB::raw(['contacts as x' ]))->first();
-        $education_data = $user->employee()->with('education_data')->get();
-
-        return \response()->json([
-            'education_data' => $education_data,
-        ]);
-
-        return view('dashboard.contact.index', compact('$contacts'));
+        $education_data = Education_data::query()->findOrFail($education_data);
+        if (!$education_data->canEdit()){
+            throw UnauthorizedException::forPermissions(["update_employees"]);
+        }
+        $education_data->update($request->validated());
+        return $this->responseSuccess(null,null,"update",null,true);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @throws MainException
      */
-    public function create()
-    {
-        return view('dashboard.education.create', [
-            'education degree' => Education_level::all(),
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Education_dataRequest $request)
-    {
-        DB::beginTransaction();
+    public function addEducationDocument(Document_educationRequest $request, $education_data){
         try {
-            if ($request->hasFile('document_path')) {
-                $education_data= Education_data::create($request->except(['document_path']));
-                $docList = $request->file('document_path');
-                foreach ($docList as $photo) {
-                    $newPhoto = time() . $photo->getClientOriginalName();
-                    Document_education::create([
-                        "id_education" => $education_data->id,
-                        "document_path" => 'uploads/doc_contact/' . $newPhoto,
+            $education_data = Education_data::query()->findOrFail($education_data);
+            if (!$education_data->canEdit()){
+                throw UnauthorizedException::forPermissions(["update_employees"]);
+            }
+            DB::beginTransaction();
+            if (!is_null($request->document_education_path)){
+                foreach ($request->document_education_path as $item){
+                    $temp = $item;
+                    $temp = MyApp::Classes()->storageFiles
+                        ->Upload($temp,"employees/document_contact");
+                    $education_data->document_education()->create([
+                        "document_education_path" => $temp,
                     ]);
-                    $photo->move('uploads/doc_education', $newPhoto);
                 }
-            } else {
-                dd("not has file");
             }
             DB::commit();
-        } catch (\Exception $exception) {
+            return $this->responseSuccess(null,null,"create",null,true);
+        }catch (\Exception $exception){
             DB::rollBack();
+            throw new MainException($exception->getMessage());
         }
-
-
-        return \response()->json([
-            'Education_data' => $education_data,
-        ]);
-        return redirect()->route('dashboard.employee.create')
-            ->with('success', 'Category created!');/////
     }
+
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Education_data  $education_data
-     * @return \Illuminate\Http\Response
+     * @param Document_educationRequest $request
+     * @param $education_document
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @throws MainException
+     * @author moner khalil
      */
-    public function show( $id)
-    {
-      //  $education_data = Education_data::findorFail($id);
-        $education_data=Education_data::where(["id"=>$id])->with("document_education")->get();
-        return view('dashboard.education.edit', compact('education_data'));
+    public function updateEducationDocument(Document_educationRequest $request, $education_document){
+        $education_document = Document_education::query()->findOrFail($education_document);
+        if (!($education_document->document_education()->canEdit() ?? true)){
+            throw UnauthorizedException::forPermissions(["update_employees"]);
+        }
+        if (!is_null($request->document_education_path)){
+            $document_path = MyApp::Classes()->storageFiles->Upload($request->document_education_path);
+            if (is_bool($document_path)){
+                MessagesFlash::Errors(__("err_image_upload"));
+                return redirect()->back();
+            }
+            MyApp::Classes()->storageFiles->deleteFile($education_document->document_education_path);
+            $education_document->update([
+                "document_education_path" => $document_path,
+            ]);
+        }
+        return $this->responseSuccess(null,null,"update",null,true);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Education_data  $education_data
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $education_data=Education_data::where(["id"=>$id])->with("document_education")->get();
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Education_data  $education_data
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Education_dataRequest $request, Education_data $education_data)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Education_data  $education_data
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Education_data $education_data)
-    {
-        //
-    }
-
-    public function ExportXls()
-    {
-        //
-    }
-
-    public function ExportPDF()
+    public function destroy()
     {
         //
     }

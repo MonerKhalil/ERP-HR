@@ -13,27 +13,38 @@ class Contact extends BaseModel
     protected $fillable = [
         #Add Attributes
         "address_id","employee_id","work_number","address_details",
-        "private_number","address_type","email",
+        "private_number1","private_number2","address_type","email",
         "created_by","updated_by","is_active",
     ];
 
-
-    // Add relationships between tables section
     public function employee()
     {
-
-        return $this->belongsTo(Employee::class, 'employee_id', 'id')
-            ->withDefault();
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
+
     public function address()
     {
         return $this->belongsTo(Address::class, "address_id", "id")
             ->with("country");
     }
-    public function document_information()
+
+    public function document_contact()
     {
-        $this->hasMany(Document_information::class,"contacts_id","id");
+        return $this->hasMany(DocumentContact::class,"contact_id","id");
     }
+
+    public function canEdit(){
+        $employee = $this->employee()->user->id ?? null;
+        if(!is_null($employee)){
+            return $employee == auth()->id()
+                ||
+                auth()->user()->can("update_employees")
+                ||
+                auth()->user()->can("all_employees");
+        }
+        return false;
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc
@@ -41,20 +52,19 @@ class Contact extends BaseModel
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
+            $employee = is_null($validator->route("employee")) ? "" : $validator->route("employee")->id;
+            $rule = $validator->isUpdatedRequest() ? "sometimes" : "required";
             return [
-                "address_id" => ['required', Rule::exists('addresses', 'id')],
-                "employee_id"=> ['required', Rule::exists('employees', 'id')],
-                "work_number"=> ['required','min:7', 'max:15' , Rule::unique('contacts', 'work_number')],
-                "address_details"=>['nullable','string','min:7', 'max:80' ],
-                "private_number"=>['required','min:7', 'max:15' , Rule::unique('contacts', 'private_number')],
-                "address_type"=>['required', Rule::in(["house","clinic","office"])],
-                "email"=>['required', 'string', 'email'],
-               // "contacts_id"=>['required', Rule::exists('contacts', 'id')],
-                "document_type"=>['required', Rule::in(["family_card","identification","passport"])],
-                "document_number"=>['required','numeric','min:0', 'max:1000000'],
-                "document_path"=>['required','array' ],
+                "address_id" => [$rule, Rule::exists('addresses', 'id')],
+                "work_number"=> [$rule ,
+                    !$validator->isUpdatedRequest() ?  Rule::unique('contacts', 'work_number')
+                        : Rule::unique('contacts', 'work_number')->ignore($employee,"employee_id")],
+                "address_details" => $validator->textRule(false,true),
+                "private_number1"=>[$rule,"numeric"],
+                "private_number2"=>[$rule, "numeric"],
+                "email" => [$rule, 'string', 'email'],
+                "address_type"=>[$rule, Rule::in(["house","clinic","office"])],
             ];
         };
     }
-
 }
