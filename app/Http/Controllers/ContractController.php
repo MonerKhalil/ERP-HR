@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\HelpersClasses\MyApp;
 use App\Models\Contract;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ContractRequest;
 use App\Models\Employee;
+use App\Models\Sections;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use PHPUnit\Exception;
 
 class ContractController extends Controller
 {
+    const Folder = "users";
+    const IndexRoute = "employees.contract.index";
+
 //    public function __construct()
 //    {
 //        $this->addMiddlewarePermissionsToFunctions(app(Contract::class)->getTable());
@@ -22,8 +25,8 @@ class ContractController extends Controller
 
     public function index()
     {
+        $contracts = MyApp::Classes()->Search->getDataFilter(Contract::query());
         $request = request();
-
         $contracts = Contract::filter($request->query())
             ->get();
 
@@ -52,11 +55,11 @@ class ContractController extends Controller
 //            })
 //            ->get();
 
-        return Response()->json([
-            'contracts' => $contracts,
-//            'education' => $education,
-//            'contact'=>$contact,
-        ]);
+//        return Response()->json([
+//            'contracts' => $contracts,
+////            'education' => $education,
+////            'contact'=>$contact,
+//        ]);
 
         return $this->responseSuccess("", compact("contracts"));
 
@@ -64,11 +67,16 @@ class ContractController extends Controller
 
     public function create()
     {
-        return view('dashboard.contract.create', [
-            'contract_type' => ["permanent", "temporary"],
-            'user_name' => User::query()->pluck('name', "id"),
-            //'section_name' =>Section::query()->pluck('name',"id"),
-        ]);
+        return $this->responseSuccess("", $this->shareByBlade());
+    }
+
+    private function shareByBlade()
+    {
+
+        $contract_type = ["permanent", "temporary"];
+        $user_name = User::query()->pluck('name', "id")->toArray();
+        $sections = Sections::query()->pluck("name", "id")->toArray();
+        return compact('contract_type', 'user_name', 'sections');
     }
 
     public function store(ContractRequest $request)
@@ -77,86 +85,103 @@ class ContractController extends Controller
             DB::beginTransaction();
             Contract::create($request->validated());
             DB::commit();
-        } catch (Exception $e) {
+            return $this->responseSuccess(null, null, "create", self::IndexRoute);
+        } catch (Exception $exception) {
             DB::rollBack();
-            return redirect()->route('dashboard.contact.create')
-                ->with('info', 'Record not found!');
+            throw new MainException($exception->getMessage());
         }
-        return redirect()->route('dashboard.contact.create')
-            ->with('success', 'contact created!');
     }
 
-    public function show($id)
+    public function show($contract = null)
     {
-        $contract = Contract::findOrFail($id);
-        return view('dashboard.categories.show', [
-            'contract' => $contract
-        ]);
 
+        //        $contractQuery=    User::join('employees', 'employees.user_id', '=', 'users.id')
+//            ->join('contracts', 'contracts.employee_id', '=', 'employees.id')
+//            ->where('users.id', 1);
 
-    }
+        if (is_null($contract)) {
+            $contractQuery = Contract::with([
+                "employee" => function ($q) {
+                    return $q->with(["user"])
+                        ->where('employees.user_id', Auth()->id())
+                        ->get();
+                },
+            ]);
+            $employee_id = Employee::where("user_id", Auth()->id())->pluck("id");
+            $contract = $contractQuery->where("employee_id", $employee_id)->get();
+        } else {
+            $contractQuery = Contract::with([
+                "employee" => function ($q) {
+                    return $q->with(["user"])->get();
+                },
+            ]);
+            $contract = $contractQuery->findOrFail($contract);
 
-    public function edit($id)
-    {
-        try {
-            $contract = Contract::findOrFail($id);
-        } catch (Exception $e) {
-            return redirect()->route('dashboard.contract.index')
-                ->with('info', 'Record not found!');
         }
-        return view('dashboard.contract.edite', compact('contract'), [
-            'contract_type' => ["permanent", "temporary"],
-            'user_name' => User::query()->pluck('name', "id"),
-            //'section_name' =>Section::query()->pluck('name',"id"),
-        ]);
+        return $this->responseSuccess("", compact("contract"));
+    }
+
+    public function edit($contract = null)
+    {
+        $data = $this->shareByBlade();
+        if (is_null($contract)) {
+            $contractQuery = Contract::with([
+                "employee" => function ($q) {
+                    return $q->with(["user"])
+                        ->where('employees.user_id', Auth()->id())
+                        ->get();
+                },
+            ]);
+            $employee_id = Employee::where("user_id", Auth()->id())->pluck("id");
+            $data['contract'] = $contractQuery->where("employee_id", $employee_id)->get();
+        } else {
+            $contractQuery = Contract::with([
+                "employee" => function ($q) {
+                    return $q->with(["user"])->get();
+                },
+            ]);
+            $data['contract'] = $contractQuery->findOrFail($contract);
+
+        }
+        return $this->responseSuccess("", $data);
     }
 
 
-    public function update(ContractRequest $request, $id)
+    public function update(ContractRequest $request, $contract)
     {
-        $contract = Contract::find($id);
-        if (!is_null($contract))
-            $contract->update($request->validated());
-        return Redirect::route('dashboard.contract.index')
-            ->with('success', 'Contract updated!');
+        $employeeQuery = Contract::query();
+        $employee_id =is_null($contract)? Employee::where("user_id", Auth()->id())->pluck("id"):null;
+        $employee = is_null($contract) ? $employeeQuery->where("employee_id",$employee_id)->firstOrFail()
+            : $employeeQuery->findOrFail($contract);
+        $employee->update($request->validated());
+        return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
 
     public function destroy($id)
     {
-        try {
-            DB::beginTransaction();
-            Contract::destroy($id);
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-            return redirect()->route('dashboard.contract.index')
-                ->with('info', 'error!');
-        }
-        return Redirect::route('dashboard.contract.index')
-            ->with('success', 'Contract deleted!');
+        Contract::destroy($id);
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
 
     public function trash()
     {
         $contracts = Contract::onlyTrashed()->paginate();
-        return view('dashboard.contract.trash', compact('contracts'));
+        return $this->responseSuccess(null,compact('contracts'));
     }
 
     public function restore($id)
     {
         $contract = Contract::onlyTrashed()->findOrFail($id);
         $contract->restore();
-        return redirect()->route('dashboard.contract.trash')
-            ->with('succes', 'Contract restored!');
+
     }
 
     public function forceDelete($id)
     {
         $contract = Contract::onlyTrashed()->findOrFail($id);
         $contract->forceDelete();
-        return redirect()->route('dashboard.contract.trash')
-            ->with('success', 'contract deleted forever!');
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
     public function ExportXls()

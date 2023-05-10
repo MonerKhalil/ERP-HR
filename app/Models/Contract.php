@@ -16,7 +16,7 @@ class Contract extends BaseModel
     protected $fillable = [
         #Add Attributes#",
         "employee_id", "contract_type", "contract_number", "contract_date", "contract_finish_date",
-        "contract_direct_date"/*, "id_section"*/,
+        "contract_direct_date", "section_id", "salary",
         "created_by", "updated_by", "is_active",
     ];
 
@@ -32,7 +32,7 @@ class Contract extends BaseModel
     {
 
         $builder->when($filters['first_name'] ?? false, function ($builder, $value) {
-            $builder->whereExists(function($query) use ($value) {
+            $builder->whereExists(function ($query) use ($value) {
                 $query->select("employees.first_name")
                     ->from('employees')
                     ->whereRaw('employees.id = contracts.employee_id')
@@ -48,7 +48,7 @@ class Contract extends BaseModel
         });
         $builder->when($filters['contract_date'] ?? false, function ($builder, $value) {
             ////0+1
-            $builder->whereBetween('contract_date', [$value[0],$value[1]]);
+            $builder->whereBetween('contract_date', [$value[0], $value[1]]);
         });
 
     }
@@ -65,28 +65,17 @@ class Contract extends BaseModel
         return function (BaseRequest $validator) {
             $contactID = $validator->route('contract') ?? 0;
             return [
-                "employee_id" => ['required', Rule::exists('employees', 'id')],
+                "employee_id" => ['required', Rule::exists('employees', 'id'), Rule::unique('employees', 'id')->ignore($contactID)],
                 "contract_type" => ['required', Rule::in(["permanent", "temporary"])],
                 "contract_date" => ['required', 'date'],
                 "contract_finish_date" => ['required', 'date'],
                 "contract_direct_date" => ['required', 'date'],
-                // "id_section" => ['required',/*Rule::exists('sections', 'id')*/],
+                "section_id" => ['required', Rule::exists('sections', 'id')],
                 "contract_number" => ['required', 'min:0',
-                    'max:1000000', Rule::unique('contracts', 'contract_number')->ignore($contactID)]
+                    'max:1000000', Rule::unique('contracts', 'contract_number')->ignore($contactID)],
+                "salary" => ['required', 'numeric']
             ];
         };
     }
 }
-//$EmployeeId = $validator->route('contract')->id ?? auth()->id();
-//$rule = $validator->isUpdatedRequest();
-//$rules= [
-//    "employee_id"=>['required',Rule::exists('employees', 'id')],
-//    "contract_type"=>['required',Rule::in(["permanent", "temporary"])],
-//    "contract_date"=>['required', 'date'],
-//    "contract_finish_date"=>['required', 'date'],
-//    "contract_direct_date"=>['required', 'date'],
-//    "id_section"=>['required',/*Rule::exists('sections', 'id')*/],
-//];
-//$rules["contract_number"] = $rule ? ['required', 'min:0', 'max:1000000', Rule::unique('contracts', 'contract_number')->ignore($EmployeeId)] :
-//    ['numeric', 'min:0', 'max:1000000',Rule::unique('contracts','contract_number')];
-//return $rules;
+

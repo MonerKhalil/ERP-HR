@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
+use App\HelpersClasses\MyApp;
+use App\Models\Employee;
 use App\Models\Membership;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MembershipRequest;
@@ -12,6 +15,8 @@ use PHPUnit\Exception;
 
 class MembershipController extends Controller
 {
+    const Folder = "users";
+    const IndexRoute = "employees.membership.index";
 //    public function __construct()
 //    {
 //        $this->addMiddlewarePermissionsToFunctions(app(Membership::class)->getTable());
@@ -20,15 +25,15 @@ class MembershipController extends Controller
 
     public function index()
     {
-        //
+        $membership = MyApp::Classes()->Search->getDataFilter(Membership::query());
+        return $this->responseSuccess("", compact("membership"));
     }
 
 
     public function create()
     {
-        return view('dashboard.membership.create', [
-            'membership_types' => Membership_type::query()->pluck('name','id'),
-        ]);
+        $membership_types = Membership_type::query()->pluck('name', 'id')->toArray();
+        return $this->responseSuccess("", compact('membership_types'));
     }
 
 
@@ -38,84 +43,73 @@ class MembershipController extends Controller
             DB::beginTransaction();
             Membership::create($request->validated());
             DB::commit();
-        } catch (Exception $e) {
+            return $this->responseSuccess(null, null, "create", self::IndexRoute);
+        } catch (Exception $exception) {
             DB::rollBack();
-            return redirect()->route('dashboard.membership.create')
-                ->with('info', 'Record not found!');
+            throw new MainException($exception->getMessage());
         }
-        return redirect()->route('dashboard.membership.create')
-            ->with('success', 'membership created!');
     }
 
 
-    public function show($id)
+    public function show($membership = null)
     {
-        $membership = Membership::findOrFail($id);
-        return view('dashboard.membership.show', [
-            'membership' => $membership
-        ]);
+
+        $membershipQuery = Membership::with(["employee"]);
+        $membership = is_null($membership) ? $membershipQuery->where("employee_id",
+            Employee::where("user_id", Auth()->id())->pluck("id"))->firstOrFail()
+            : $membershipQuery->findOrFail($membership);
+        return $this->responseSuccess("", compact("membership"));
     }
 
 
-    public function edit($id)
+    public function edit($membership = null)
     {
-        try {
-            $membership = Membership::findOrFail($id);
-        } catch (Exception $e) {
-            return redirect()->route('dashboard.membership.index')
-                ->with('info', 'Record not found!');
-        }
-        return view('dashboard.membership.edite', compact('membership'), [
-            'membership_types' => Membership_type::query()->pluck('name','id'),
-        ]);
+
+        $data = Membership_type::query()->pluck('name', 'id')->toArray();
+
+        $membershipQuery = Membership::with(["employee"]);
+        $data['membership'] = is_null($membership) ?
+            $membershipQuery->where("employee_id", Employee::where("user_id", Auth()->id())->pluck("id"))->firstOrFail()
+            : $membershipQuery->findOrFail($membership);
+        return $this->responseSuccess("", $data);
     }
 
 
-    public function update(MembershipRequest $request, $id)
+    public function update(MembershipRequest $request, $membership)
     {
-        $membership = Membership::find($id);
-        if (!is_null($membership))
-            $membership->update($request->validated());
-        return Redirect::route('dashboard.membership.index')
-            ->with('success', 'Contract updated!');
+        $membershipQuery = Membership::query();
+        $employee_id =is_null($membership)? Employee::where("user_id", Auth()->id())->pluck("id"):null;
+        $membership = is_null($membership) ? $membershipQuery->where("employee_id",$employee_id)->firstOrFail()
+            : $membershipQuery->findOrFail($membership);
+        $membership->update($request->validated());
+        return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
 
-    public function destroy($id)
+    public function destroy($membership)
     {
-        try {
-            DB::beginTransaction();
-            Membership::destroy($id);
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-            return redirect()->route('dashboard.membership.index')
-                ->with('info', 'error!');
-        }
-        return Redirect::route('dashboard.membership.index')
-            ->with('success', 'Contract deleted!');
+        Membership::destroy($membership);
+        return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
 
 
     public function trash()
     {
-        $membership = Membership::onlyTrashed()->paginate();
-        return view('dashboard.membership.trash', compact('membership'));
+        $contracts = Membership::onlyTrashed()->paginate();
+        return $this->responseSuccess(null, compact('contracts'));
     }
 
     public function restore($id)
     {
-        $membership = Membership::onlyTrashed()->paginate();
-        $membership->restore();
-        return redirect()->route('dashboard.membership.trash')
-            ->with('success', 'Contract restored!');
+        $contract = Membership::onlyTrashed()->findOrFail($id);
+        $contract->restore();
+
     }
 
     public function forceDelete($id)
     {
-        $membership = Membership::onlyTrashed()->findOrFail($id);
-        $membership->forceDelete();
-        return redirect()->route('dashboard.membership.trash')
-            ->with('success', 'membership deleted forever!');
+        $contract = Membership::onlyTrashed()->findOrFail($id);
+        $contract->forceDelete();
+        return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
 
 

@@ -66,6 +66,17 @@ class Employee extends BaseModel
         return $this->first_name . " " . $this->last_name;
     }
 
+    public function contract(){
+
+        return $this->hasOne(Contract::class,'employee_id','id')->withDefault();
+    }
+    public function language_skill(){
+
+        return $this->hasMany(Language_skill::class,'employee_id','id');
+    }
+    public function membership(){
+        return $this->hasMany(Membership::class,'employee_id','id');
+    }
     /**
      * Description: To check front end validation
      * @inheritDoc
