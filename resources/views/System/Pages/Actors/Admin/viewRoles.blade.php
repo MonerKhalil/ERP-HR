@@ -19,12 +19,14 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="#"
+                                    <form name="PrintAllTablePDF"
+                                          action="#"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx"
+                                          action="#"
                                           class="FilterForm"
                                           method="post">
                                         @csrf

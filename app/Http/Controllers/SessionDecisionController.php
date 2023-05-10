@@ -87,7 +87,7 @@ class SessionDecisionController extends Controller
     {
         $sessionDecision = SessionDecision::with(["moderator","members","decisions"])
             ->findOrFail($sessionDecision->id);
-        return $this->responseSuccess("...",compact("sessionDecision"));
+        return $this->responseSuccess("System/Pages/Actors/sessionDetails",compact("sessionDecision"));
     }
 
     /**
@@ -126,7 +126,7 @@ class SessionDecisionController extends Controller
         }
         $sessionDecision->update($data);
         if (isset($request->members)){
-            $sessionDecision->members()->syncWithoutDetaching($request->members);
+            $sessionDecision->members()->sync($request->members);
         }
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }

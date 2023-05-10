@@ -29,7 +29,7 @@
                                                         نوع القرار
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
+                                                        {{$decision->type_decision["name"]}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -39,7 +39,7 @@
                                                         رقم القرار
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
+                                                        {{$decision["number"]}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -49,10 +49,85 @@
                                                         تاريخ القرار
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
+                                                        {{$decision["date"]}}
                                                     </span>
                                                 </div>
                                             </div>
+                                            @if($decision["effect_salary"] != "none")
+                                                <div class="ListData__Item ListData__Item--NoAction">
+                                                    <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        نوع التأثير على الراتب
+                                                    </span>
+                                                        <span class="Data_Value">
+                                                        {{$decision["effect_salary"]}}
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                                @if($decision["effect_salary"] == "increment")
+                                                    <div class="ListData__Item ListData__Item--NoAction">
+                                                        <div class="Data_Col">
+                                                            <span class="Data_Label">
+                                                                قيمة الاضافة على الراتب
+                                                            </span>
+                                                            <span class="Data_Value">
+                                                                {{$decision["value"]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ListData__Item ListData__Item--NoAction">
+                                                        <div class="Data_Col">
+                                                            <span class="Data_Label">
+                                                                قيمة الاضافة على الحوافز
+                                                            </span>
+                                                            <span class="Data_Value">
+                                                                {{$decision["rate"]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div class="ListData__Item ListData__Item--NoAction">
+                                                        <div class="Data_Col">
+                                                            <span class="Data_Label">
+                                                                قيمة الحسم من الراتب
+                                                            </span>
+                                                            <span class="Data_Value">
+                                                                {{$decision["value"]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ListData__Item ListData__Item--NoAction">
+                                                        <div class="Data_Col">
+                                                            <span class="Data_Label">
+                                                                نسبة الحسم من الحوافز
+                                                            </span>
+                                                            <span class="Data_Value">
+                                                                {{$decision["rate"]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ListData__Item ListData__Item--NoAction">
+                                                        <div class="Data_Col">
+                                                            <span class="Data_Label">
+                                                                تاريخ الانشاء على النظام
+                                                            </span>
+                                                            <span class="Data_Value">
+                                                                {{$decision["created_at"]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ListData__Item ListData__Item--NoAction">
+                                                        <div class="Data_Col">
+                                                            <span class="Data_Label">
+                                                                تاريخ التعديل على النظام
+                                                            </span>
+                                                            <span class="Data_Value">
+                                                                {{$decision["updated_at"]}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="ListData NotResponsive">
@@ -66,12 +141,7 @@
                                                 <div class="TextEditorContent__Content">
                                                     <div class="Card Content">
                                                         <div class="Card__Inner">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit. Aliquid animi aut
-                                                                autem, delectus dolorum eaque eligendi
-                                                                eos et facilis fugit magnam numquam
-                                                                perferendis perspiciatis provident quam
-                                                                quos saepe tempora voluptas.</p>
+                                                            {{$decision["content"]}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -86,11 +156,14 @@
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
-                                                <form action="#" method="post"
-                                                      class="Form Form--Dark">
-                                                    <button class="Button Button--Primary">طباعة القرار</button>
-                                                    <button class="Button Button--Primary">تعديل قرار</button>
-                                                </form>
+                                                <a href="{{route("system.decisions.print.pdf" , $decision["id"])}}"
+                                                   class="Button Button--Primary">
+                                                    طباعة القرار
+                                                </a>
+                                                <a href="{{route("system.decisions.edit" , $decision["id"])}}"
+                                                   class="Button Button--Primary">
+                                                    تعديل قرار
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

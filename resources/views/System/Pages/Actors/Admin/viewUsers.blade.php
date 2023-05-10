@@ -39,9 +39,13 @@
                                                     <div class="Card__Tools Table__BulkTools">
                                                         @include("System.Components.bulkAction" , [
                                                             "Options" => [ [
-                                                                "Label" => __("print")
-                                                                , "Action" => "#"
-                                                                , "Method" => "B"
+                                                                "Label" => "طباعة pdf"
+                                                                , "Action" => route("users.pdf")
+                                                                , "Method" => "post"
+                                                            ] , [
+                                                                "Label" => "طباعة xlsx"
+                                                                , "Action" => route("users.xls")
+                                                                , "Method" => "post"
                                                             ] , [
                                                                 "Label" => __("normalDelete")
                                                                 , "Action" => route("users.multi.delete")

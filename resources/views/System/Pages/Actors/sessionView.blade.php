@@ -17,12 +17,13 @@
                             <div class="Card ViewSessionPage__TableUsers">
                                 <div class="Table">
                                     <form name="PrintAllTablePDF"
-                                          action="#"
+                                          action="{{route("system.session_decisions.export.pdf")}}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx"
+                                          action="{{route("system.session_decisions.export.xls")}}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -36,12 +37,16 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => __("print") ,
-                                                                    "Action" => "" ,
-                                                                    "Method" => "B"
+                                                                    "Label" => "طباعة pdf" ,
+                                                                    "Action" => route("system.session_decisions.export.pdf") ,
+                                                                    "Method" => "post"
+                                                                ] , [
+                                                                    "Label" => "طباعة xlsx" ,
+                                                                    "Action" => route("system.session_decisions.export.xls") ,
+                                                                    "Method" => "post"
                                                                 ] , [
                                                                     "Label" => __("normalDelete")
-                                                                    , "Action" => ""
+                                                                    , "Action" => route("system.session_decisions.multi.delete")
                                                                     , "Method" => "delete"
                                                                 ] ]
                                                             ])
@@ -105,7 +110,7 @@
                                                                     <td class="Item__Col Item__Col--Check">
                                                                         <input id="{{$DataSession["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="name[]" value="{{$DataSession["id"]}}" hidden>
+                                                                               name="ids[]" value="{{$DataSession["id"]}}" hidden>
                                                                         <label for="{{$DataSession["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small
@@ -138,12 +143,14 @@
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="#" class="Dropdown__Item">
+                                                                                    <a href="{{route("system.decisions.session_decisions.show" , $DataSession["id"])}}"
+                                                                                       class="Dropdown__Item">
                                                                                         @lang("viewDecision")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="#" class="Dropdown__Item">
+                                                                                    <a href="{{route("system.decisions.session_decisions.add" , $DataSession["id"])}}"
+                                                                                       class="Dropdown__Item">
                                                                                         @lang("addDecision")
                                                                                     </a>
                                                                                 </li>
@@ -189,7 +196,7 @@
                     ['Name' => "filter[name]" , 'Placeholder' => __("sessionName")]
                 ] , ['Type' => 'dateRange' , 'Info' =>
                 ['Name' => "filter[date_session]" , 'Placeholder' => __("sessionDate") ,
-                 "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[start_date]"]
+                 "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"]
             ] ]
     ])
 @endsection
