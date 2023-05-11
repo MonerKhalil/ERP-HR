@@ -16,12 +16,14 @@
                         <div class="Col">
                             <div class="Card ViewDecision__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="#"
+                                    <form name="PrintAllTablePDF"
+                                          action="{{route("system.decisions.export.pdf")}}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx"
+                                          action="{{route("system.decisions.export.xls")}}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -35,10 +37,16 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"
+                                                                    "Label" => "طباعة كـ pdf" ,
+                                                                     "Action" => route("system.decisions.export.pdf") ,
+                                                                     "Method" => "post"
+                                                                ] , [
+                                                                    "Label" => "طباعة كـ xlsx" ,
+                                                                     "Action" => route("system.decisions.export.xls") ,
+                                                                     "Method" => "post"
                                                                 ] , [
                                                                     "Label" => __("normalDelete")
-                                                                    , "Action" => route("users.multi.delete")
+                                                                    , "Action" => route("system.decisions.multi.delete")
                                                                     , "Method" => "delete"
                                                                 ] ]
                                                             ])
@@ -76,168 +84,91 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="Card__Inner p0">
-                                                <div class="Table__ContentTable">
-                                                    <table class="Left Table__Table" >
-                                                        <tr class="Item HeaderList">
-                                                            <th class="Item__Col Item__Col--Check">
-                                                                <input id="ItemRow_Main" class="CheckBoxItem"
-                                                                       type="checkbox" hidden>
-                                                                <label for="ItemRow_Main" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </th>
-                                                            <th class="Item__Col">#</th>
-                                                            <th class="Item__Col">نوع القرار</th>
-                                                            <th class="Item__Col">رقم القرار</th>
-                                                            <th class="Item__Col">تاريخ القرار</th>
-                                                            <th class="Item__Col">تاريخ انتهاء القرار</th>
-                                                            <th class="Item__Col">المزيد</th>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="1"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="name[]" value="1" hidden>
-                                                                <label for="1" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">1</td>
-                                                            <td class="Item__Col">مكافئة</td>
-                                                            <td class="Item__Col">33</td>
-                                                            <td class="Item__Col">12-2-2022</td>
-                                                            <td class="Item__Col">--</td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="Details">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="Details">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                طباعة القرار
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                تعديل قرار
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="1"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="name[]" value="1" hidden>
-                                                                <label for="1" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">1</td>
-                                                            <td class="Item__Col">مكافئة</td>
-                                                            <td class="Item__Col">33</td>
-                                                            <td class="Item__Col">12-2-2022</td>
-                                                            <td class="Item__Col">--</td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="Details_2">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="Details_2">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                طباعة القرار
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                تعديل قرار
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="1"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="name[]" value="1" hidden>
-                                                                <label for="1" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">1</td>
-                                                            <td class="Item__Col">مكافئة</td>
-                                                            <td class="Item__Col">33</td>
-                                                            <td class="Item__Col">12-2-2022</td>
-                                                            <td class="Item__Col">--</td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="Details_3">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="Details_3">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                طباعة القرار
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="Dropdown__Item">
-                                                                                تعديل قرار
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            @if(count($data) > 0)
+                                                <div class="Card__Inner p0">
+                                                    <div class="Table__ContentTable">
+                                                        <table class="Left Table__Table" >
+                                                            <tr class="Item HeaderList">
+                                                                <th class="Item__Col Item__Col--Check">
+                                                                    <input id="ItemRow_Main" class="CheckBoxItem"
+                                                                           type="checkbox" hidden>
+                                                                    <label for="ItemRow_Main" class="CheckBoxRow">
+                                                                        <i class="material-icons ">
+                                                                            check_small
+                                                                        </i>
+                                                                    </label>
+                                                                </th>
+                                                                <th class="Item__Col">#</th>
+                                                                <th class="Item__Col">نوع القرار</th>
+                                                                <th class="Item__Col">رقم القرار</th>
+                                                                <th class="Item__Col">تاريخ القرار</th>
+                                                                <th class="Item__Col">تاريخ انتهاء القرار</th>
+                                                                <th class="Item__Col">المزيد</th>
+                                                            </tr>
+                                                            @foreach($data as $DecisionData)
+                                                                <tr class="Item DataItem">
+                                                                    <td class="Item__Col Item__Col--Check">
+                                                                        <input id="{{$DecisionData["id"]}}"
+                                                                               class="CheckBoxItem" type="checkbox"
+                                                                               name="ids[]" value="{{$DecisionData["id"]}}" hidden>
+                                                                        <label for="{{$DecisionData["id"]}}" class="CheckBoxRow">
+                                                                            <i class="material-icons ">
+                                                                                check_small
+                                                                            </i>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td class="Item__Col">{{$DecisionData["id"]}}</td>
+                                                                    <td class="Item__Col">{{$DecisionData->type_decision["name"]}}</td>
+                                                                    <td class="Item__Col">{{$DecisionData["number"]}}</td>
+                                                                    <td class="Item__Col">{{$DecisionData["date"]}}</td>
+                                                                    <td class="Item__Col">{{$DecisionData["end_date_decision"] ?? "-"}}</td>
+                                                                    <td class="Item__Col MoreDropdown">
+                                                                        <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                           data-MenuName="MoreDecision_{{$DecisionData["id"]}}">
+                                                                            more_horiz
+                                                                        </i>
+                                                                        <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                             data-MenuName="MoreDecision_{{$DecisionData["id"]}}">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{route("system.decisions.show" , $DecisionData["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض التفاصيل
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{route("system.decisions.print.pdf" , $DecisionData["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        طباعة القرار
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{route("system.decisions.edit" , $DecisionData["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        تعديل قرار
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                @include("System.Components.noData")
+                                            @endif
                                             <div class="Card__Inner">
-{{--                                                <div class="Card__Pagination">--}}
-{{--                                                    @include("System.Components.paginationNum" , [--}}
-{{--                                                        "PaginationData" => $users ,--}}
-{{--                                                        "PartsViewNum" => 5--}}
-{{--                                                    ])--}}
-{{--                                                    @include("System.Components.paginationSelect" , [--}}
-{{--                                                        "PaginationData" => $users--}}
-{{--                                                    ])--}}
-{{--                                                </div>--}}
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $data ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $data
+                                                    ])
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -252,24 +183,28 @@
 @endsection
 
 @section("PopupPage")
+
+    @php
+        $DecisionTypes = [] ;
+        foreach ($type_decisions as $Index=>$Decisions) {
+            array_push($DecisionTypes , [ "Label" => $Decisions , "Value" => $Index ]) ;
+        }
+    @endphp
+
     @include("System.Components.searchForm" , [
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'number' , 'Info' =>
-                ['Name' => "" , 'Placeholder' => 'Session ID'] ] , ['Type' => 'text' , 'Info' =>
-                    ['Name' => "" , 'Placeholder' => 'Session Title']
-                ] , ['Type' => 'dateRange' , 'Info' =>
-                ['Name' => "" , 'Placeholder' => 'Session Date' , "StartDateName" => ""
-                , "EndDateName" => ""]
-            ] , ['Type' => 'number' , 'Info' =>
-                ['Name' => "" , 'Placeholder' => 'Decision ID']
-            ] , ['Type' => 'text' , 'Info' =>
-                    ['Name' => "" , 'Placeholder' => 'Decision Title']
-                ] , ['Type' => 'dateRange' , 'Info' =>
-                ['Name' => "" , 'Placeholder' => 'Decision Date' , "StartDateName" => ""
-                , "EndDateName" => ""]
-            ] , ['Type' => 'dateRange' , 'Info' =>
-                ['Name' => "" , 'Placeholder' => 'Session Date End' , "StartDateName" => ""
-                , "EndDateName" => ""] ]
+                ['Name' => "filter[id]" , 'Placeholder' => 'Decision ID'] ] ,
+                ['Type' => 'select' , 'Info' =>
+                    ['Name' => "filter[type_decision_id]" , 'Placeholder' => 'Decision Type' ,
+                    "Options" => $DecisionTypes] ] , ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[number]" , 'Placeholder' => 'Decision Number'] ] ,
+                ['Type' => 'dateRange' , 'Info' =>
+                    ['Name' => "date" , 'Placeholder' => 'Decision Date'
+                    , "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"] ] ,
+                 ['Type' => 'dateRange' , 'Info' =>
+                    ['Name' => "end_date_decision" , 'Placeholder' => 'Decision End Date'
+                    , "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"] ]
             ]
     ])
 @endsection

@@ -29,7 +29,7 @@
                                                         اسم الجلسة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
+                                                        {{$sessionDecision["name"]}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -39,17 +39,7 @@
                                                         تاريخ الجلسة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="ListData__Item ListData__Item--NoAction">
-                                                <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        عنوان الجلسة
-                                                    </span>
-                                                    <span class="Data_Value">
-                                                        Value 1
+                                                        {{$sessionDecision["date_session"]}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -59,7 +49,7 @@
                                                         الهدف من الجلسة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
+                                                        {{$sessionDecision["description"]}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -69,7 +59,8 @@
                                                         رئيس الجلسة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
+                                                        {{$sessionDecision->moderator["first_name"].$sessionDecision->
+                                                            moderator["last_name"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -79,7 +70,29 @@
                                                         اعضاء الجلسة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        Value 1
+                                                        @foreach($sessionDecision->members as $Members)
+                                                            {{$Members["first_name"].$Members["last_name"]}} ,
+                                                        @endforeach
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        تاريخ الاضافة على النظام
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$sessionDecision["created_at"]}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        تاريخ لتعديل على النظام
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$sessionDecision["updated_at"]}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -93,11 +106,14 @@
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
-                                                <form action="#" method="post"
-                                                      class="Form Form--Dark">
-                                                    <button class="Button Button--Primary">عرض القرارات</button>
-                                                    <button class="Button Button--Primary">تعديل الجلسة</button>
-                                                </form>
+                                                <a  href="{{route("system.decisions.session_decisions.show" , $sessionDecision["id"])}}"
+                                                    class="Button Button--Primary">
+                                                    عرض القرارات
+                                                </a>
+                                                <a  href="{{route("system.session_decisions.edit" , $sessionDecision["id"])}}"
+                                                    class="Button Button--Primary">
+                                                    تعديل الجلسة
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

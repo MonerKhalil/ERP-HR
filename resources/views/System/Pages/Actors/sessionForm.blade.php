@@ -33,8 +33,7 @@
                                                         action="{{route("system.session_decisions.update" , $data["id"])}}"
                                                       @else
                                                         action="{{route("system.session_decisions.store")}}"
-                                                      @endif
-                                                >
+                                                      @endif>
                                                     @csrf
                                                     @if(isset($data))
                                                         @method("put")
@@ -125,6 +124,17 @@
                                                                      data-ReadonlyNames="members[]"
                                                                      data-TitleField="@lang("memberInSession")"
                                                                      data-RequiredNum="1"
+                                                                     @if(isset($data))
+                                                                         <?php
+                                                                             $MembersIDs = null ;
+                                                                             foreach ($data->members as $Member)
+                                                                                 if($MembersIDs != null)
+                                                                                     $MembersIDs = $MembersIDs.",".$Member["id"] ;
+                                                                                 else
+                                                                                     $MembersIDs = $Member["id"]."" ;
+                                                                         ?>
+                                                                        data-DefaultValues="{{$MembersIDs}}"
+                                                                     @endif
                                                                      data-Location="Before">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">

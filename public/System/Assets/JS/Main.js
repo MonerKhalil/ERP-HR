@@ -349,6 +349,8 @@ $(document).ready(function (){
         }
 
         function RefreshValidationForm() {
+            $(FormInfo).removeData("validator") ;
+            $(FormInfo).removeData("unobtrusiveValidation") ;
             $.validator.addMethod("RegexPassword"
                 , function (Value) {
                     return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
@@ -465,8 +467,30 @@ $(document).ready(function (){
                         }
                     }
                 });
-            }
-            else {
+            } else if($(Input).hasClass("DateMinToday")) {
+                $(Input).flatpickr({
+                    minDate: "today"
+                });
+            } else if($(Input).hasClass("DateEndFromStart")) {
+                const TargetDateStartName = $(Input).attr("data-StartDateName") ;
+                if(TargetDateStartName !== undefined) {
+                    const EndDateObject = $(Input).flatpickr({
+                        disable: [
+                            function() {
+                                return true;
+                            }
+                        ]
+                    });
+                    const DateStartEle = $(document)
+                        .find(`.Date__Field[TargetDateStartName="${TargetDateStartName}"]`).get(0) ;
+                    $(DateStartEle).on("change" , function () {
+                        const CurrentSelected = DateStartEle._flatpickr.selectedDates ;
+                        EndDateObject.set("disable" , []) ;
+                        EndDateObject.clear();
+                        EndDateObject.set("minDate" , CurrentSelected[0]) ;
+                    });
+                }
+            } else {
                 $(Input).flatpickr();
             }
         }
@@ -1126,15 +1150,35 @@ $(document).ready(function (){
             const Location = $(ParentSelector).attr("data-Location") ;
             const TitleReadOnly = $(ParentSelector).attr("data-TitleField") ;
             const MinFieldsRead = Number($(ParentSelector).attr("data-RequiredNum")) ;
+            let ValuesDefault = undefined  ;
             let CounterID = 0 ;
             let ValueSelected = 0 ;
-            const AllValues = $(ParentSelector)
+            let AllValues = $(ParentSelector)
                 .find(".Selector .Selector__Options .Selector__Option").length ;
+
+            if($(ParentSelector).attr("data-DefaultValues") !== undefined)
+                ValuesDefault = $(ParentSelector).attr("data-DefaultValues").split(",");
+
+
             $(ParentSelector).find(".Selector .Selector__Options .Selector__Option")
-                .click((ev) => {
-                    const OptionValue = $(ev.target).attr("data-option") ;
-                    const OptionLabel = $(ev.target).text() ;
-                    const ReadOnlyElement = $(`
+                .each((_ , OptionElement) => {
+                    if(ValuesDefault !== undefined) {
+                        const TempValue = $(OptionElement).attr("data-option") ;
+                        for (let i = 0; i < ValuesDefault.length ; i++) {
+                            if(ValuesDefault[i] === TempValue)
+                                SelectedOption(OptionElement) ;
+                        }
+                    }
+                    $(OptionElement).click(() => {
+                        SelectedOption(OptionElement) ;
+                    });
+                });
+
+            function SelectedOption(OptionSelector = HTMLElement) {
+                const OptionValue = $(OptionSelector).attr("data-option") ;
+                const OptionLabel = $(OptionSelector).text() ;
+                const OptionForm = $(OptionSelector).closest("form").get(0) ;
+                const ReadOnlyElement = $(`
                         <div class="ReadonlySelector ${ClassContainer}">
                             <div class="Form__Group">
                                 <div class="Form__FieldReadOnly">
@@ -1158,36 +1202,44 @@ $(document).ready(function (){
                             </div>
                         </div>
                     `).get(0) ;
-                    if(Location === "Before")
-                        $(ParentSelector).before($(ReadOnlyElement)) ;
-                    else
-                        $(ParentSelector).after($(ReadOnlyElement)) ;
-                    $(ReadOnlyElement).find(".FieldReadOnly__Close").click(() => {
-                        $(ev.target).show() ;
-                        if(ValueSelected === AllValues)
-                            $(ParentSelector).show();
-                        ValueSelected-- ;
-                        if(ValueSelected < MinFieldsRead)
-                            SelectorOperation({
-                                Operation : "SetRequired" ,
-                                Selector : $(ParentSelector).find(".Selector").get(0) ,
-                            });
-                        $(ReadOnlyElement).remove() ;
-                    });
-                    $(ev.target).hide() ;
-                    SelectorOperation({
-                        Operation : "Clear" ,
-                        Selector : $(ParentSelector).find(".Selector").get(0) ,
-                    });
-                    ValueSelected++ ;
-                    if(ValueSelected >= MinFieldsRead)
+                if(Location === "Before")
+                    $(ParentSelector).before($(ReadOnlyElement)) ;
+                else
+                    $(ParentSelector).after($(ReadOnlyElement)) ;
+                $(ReadOnlyElement).find(".FieldReadOnly__Close").click(() => {
+                    $(OptionSelector).show() ;
+                    if(ValueSelected === AllValues)
+                        $(ParentSelector).show();
+                    ValueSelected-- ;
+                    if(ValueSelected < MinFieldsRead)
                         SelectorOperation({
-                            Operation : "ResetRequired",
+                            Operation : "SetRequired" ,
                             Selector : $(ParentSelector).find(".Selector").get(0) ,
                         });
-                    if(ValueSelected === AllValues)
-                        $(ParentSelector).hide();
+                    $(ReadOnlyElement).remove() ;
+                    FormOperation({
+                        Operation : "RefreshValidationForm",
+                        FormElement : OptionForm
+                    });
                 });
+                $(OptionSelector).hide() ;
+                SelectorOperation({
+                    Operation : "Clear" ,
+                    Selector : $(ParentSelector).find(".Selector").get(0) ,
+                });
+                ValueSelected++ ;
+                if(ValueSelected >= MinFieldsRead)
+                    SelectorOperation({
+                        Operation : "ResetRequired",
+                        Selector : $(ParentSelector).find(".Selector").get(0) ,
+                    });
+                if(ValueSelected === AllValues)
+                    $(ParentSelector).hide();
+                FormOperation({
+                    Operation : "RefreshValidationForm",
+                    FormElement : OptionForm
+                });
+            }
         });
     });
 
@@ -1257,11 +1309,14 @@ $(document).ready(function (){
         $(".VisibilityTarget").each((_ , VisibilityTarget) => {
             const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
             if(ElementName === NameElement) {
-                const ElementValue = $(VisibilityTarget).attr("data-TargetValue") ;
+                const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
                 $(VisibilityTarget).hide();
-                console.log(ValueSelected , ElementValue) ;
-                if(ValueSelected === ElementValue)
-                    $(VisibilityTarget).show();
+                if(ElementValue !== undefined)
+                    for (let i = 0; i < ElementValue.length; i++)
+                        if(ElementValue[i] === ValueSelected){
+                            $(VisibilityTarget).show();
+                            break ;
+                        }
             }
         });
     }
