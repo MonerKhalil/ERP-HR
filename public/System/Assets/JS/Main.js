@@ -934,6 +934,42 @@ window.onload = function (){
         });
     });
 
+    /*===========================================
+    =           Fields Visibility        =
+    =============================================*/
+
+    $(".VisibilityOption").ready(function () {
+        $(".VisibilityOption").each((_ , VisibilityOption) => {
+            const TargetName = $(VisibilityOption).attr("data-ElementsTargetName");
+            $(VisibilityOption).find(".Selector").each((_ , Selectors) => {
+                $(Selectors).find(".Selector__Option").each((_ , Option) => {
+                    const ValueOption = $(Option).attr("data-option") ;
+                    $(Option).click(() => {
+                        TriggerName(TargetName , ValueOption);
+                    });
+                });
+                TriggerName(TargetName , '') ;
+            });
+            $(VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
+                TriggerName(TargetName , $(this).val());
+            })
+        });
+    });
+
+    function TriggerName(NameElement = String , ValueSelected = String) {
+        $(".VisibilityTarget").each((_ , VisibilityTarget) => {
+            const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
+            if(ElementName === NameElement) {
+                const ElementValue = $(VisibilityTarget).attr("data-TargetValue") ;
+                $(VisibilityTarget).hide();
+                console.log(ValueSelected , ElementValue) ;
+                if(ValueSelected === ElementValue)
+                    $(VisibilityTarget).show();
+            }
+        });
+    }
+
+
 /*===========================================
 =           Functions       =
 =============================================*/

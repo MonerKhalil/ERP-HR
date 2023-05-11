@@ -223,7 +223,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="VisibilityOption Form__Group"
+                                                                         data-ElementsTargetName="OnlyMarriedFields">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
                                                                                 @include("System.Components.selector" , ['Name' => "familyStatus" , "Required" => "true" , "Label" => __('familyStatus'),"DefaultValue" => "",
@@ -232,7 +233,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm" id="wivesNumber">
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="OnlyMarriedFields"
+                                                                     data-TargetValue="0"
+                                                                     id="wivesNumber">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
@@ -247,7 +251,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm" id="childrenNumber">
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="OnlyMarriedFields"
+                                                                     data-TargetValue="0"
+                                                                     id="childrenNumber">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
@@ -332,14 +339,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-12-xs">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Button">
-                                                                            <button class="Button Send"
-                                                                                    type="submit">@lang("addEmployee")</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+{{--                                                                <div class="Col-12-xs">--}}
+{{--                                                                    <div class="Form__Group">--}}
+{{--                                                                        <div class="Form__Button">--}}
+{{--                                                                            <button class="Button Send"--}}
+{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
                                                             </div>
                                                         </form>
                                                     </div>
@@ -505,14 +512,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-12-xs">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Button">
-                                                                            <button class="Button Send"
-                                                                                    type="submit">@lang("addEmployee")</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+{{--                                                                <div class="Col-12-xs">--}}
+{{--                                                                    <div class="Form__Group">--}}
+{{--                                                                        <div class="Form__Button">--}}
+{{--                                                                            <button class="Button Send"--}}
+{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
                                                             </div>
                                                         </form>
                                                     </div>
@@ -595,20 +602,28 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-12-xs">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Button">
-                                                                            <button class="Button Send"
-                                                                                    type="submit">@lang("addEmployee")</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+{{--                                                                <div class="Col-12-xs">--}}
+{{--                                                                    <div class="Form__Group">--}}
+{{--                                                                        <div class="Form__Button">--}}
+{{--                                                                            <button class="Button Send"--}}
+{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Col-12-xs">
+                                <div class="Form__Group">
+                                    <div class="Form__Button">
+                                        <button class="Button Send"
+                                                type="submit">@lang("addEmployee")</button>
                                     </div>
                                 </div>
                             </div>

@@ -78,3 +78,7 @@ Route::get('/Test-14', function () {
 Route::get('/Test-15', function () {
     return view('System/Pages/Actors/Diwan_User/viewCorrespondenses');
 });
+
+Route::get('/Test-21', function () {
+    return view('System/Pages/Actors/HR_Manager/viewEmployee');
+});
