@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Education_level;
-use App\Models\Sections;
-use App\Models\TypeDecision;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -28,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EmployeeSeeder::class);
         $this->call(SessionDecisionSeeder::class);
         $this->call(DecisionSeeder::class);
+        $this->call(LanguageSeeder::class);
+        $this->call(membershipTypesSeeder::class);
     }
 }
