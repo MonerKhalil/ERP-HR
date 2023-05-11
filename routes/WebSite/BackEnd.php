@@ -72,36 +72,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource("roles", RoleController::class);
 
-    /*===========================================
-     =        contract languageSkill membership Routes        =
-     =============================================*/
-    Route::resources(
-        [
-            "contract" => ContractController::class,
-            "languageSkill" => LanguageSkillController::class,
-            "membership" => MembershipController::class,
-        ]);
 
-    Route::get('contract/data/trash', [ContractController::class, 'trash'])
-        ->name('contract.trash');
-    Route::put('contract/{contract}/restore', [ContractController::class, 'restore'])
-        ->name('contract.restore');
-    Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
-        ->name('contract.force-delete');
-
-    Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
-        ->name('language_skill.trash');
-    Route::put('language/{language}/restore', [LanguageSkillController::class, 'restore'])
-        ->name('language_skill.restore');
-    Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
-        ->name('language_skill.force-delete');
-
-    Route::get('membership/data/trash', [MembershipController::class, 'trash'])
-        ->name('membership.trash');
-    Route::put('membership/{membership}/restore', [MembershipController::class, 'restore'])
-        ->name('membership.restore');
-    Route::delete('membership/{membership}/force-delete', [MembershipController::class, 'forceDelete'])
-        ->name('membership.force-delete');
     /*===========================================
         =         Start System Routes        =
    =============================================*/
@@ -156,6 +127,63 @@ Route::middleware(['auth'])->group(function () {
         /*===========================================
             =         End Employees Routes        =
        =============================================*/
+        /*===========================================
+           =        contract languageSkill membership Routes        =
+          =============================================*/
+
+        Route::resource('contract', ContractController::class)->except([
+            "show", "edit", "update",
+        ]);
+        Route::resource('languageSkill', LanguageSkillController::class)->except([
+            "show", "edit", "update",
+        ]);
+        Route::resource('membership', MembershipController::class)->except([
+            "show", "edit", "update",
+        ]);
+        Route::get("contract/show/{contract?}", [ContractController::class, "show"])->name("employees.contract.show");
+        Route::get("contract/edit/{contract?}", [ContractController::class, "edit"])->name("employees.contract.edit");
+        Route::post("contract/update/{contract?}", [ContractController::class, "update"])->name("employees.contract.update");
+
+        Route::get("languageSkill/show/{languageSkill?}", [LanguageSkillController::class, "show"])->name("employees.languageSkill.show");
+        Route::get("languageSkill/edit/{languageSkill?}", [LanguageSkillController::class, "edit"])->name("employees.languageSkill.edit");
+        Route::post("languageSkill/update/{languageSkill?}", [LanguageSkillController::class, "update"])->name("employees.languageSkill.update");
+
+        Route::get("membership/show/{membership?}", [MembershipController::class, "show"])->name("employees.membership.show");
+        Route::get("membership/edit/{membership?}", [MembershipController::class, "edit"])->name("employees.membership.edit");
+        Route::post("membership/update/{membership?}", [MembershipController::class, "update"])->name("employees.membership.update");
+
+
+        Route::get('contract/data/trash', [ContractController::class, 'trash'])
+            ->name('employees.contract.trash');
+        Route::put('contract/{contract}/restore', [ContractController::class, 'restore'])
+            ->name('employees.contract.restore');
+        Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
+            ->name('employees.contract.force-delete');
+
+        Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
+            ->name('employees.language_skill.trash');
+        Route::put('language/{language}/restore', [LanguageSkillController::class, 'restore'])
+            ->name('employees.language_skill.restore');
+        Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
+            ->name('employees.language_skill.force-delete');
+
+        Route::get('membership/data/trash', [MembershipController::class, 'trash'])
+            ->name('membership.trash');
+        Route::put('membership/{membership}/restore', [MembershipController::class, 'restore'])
+            ->name('membership.restore');
+        Route::delete('membership/{membership}/force-delete', [MembershipController::class, 'forceDelete'])
+            ->name('membership.force-delete');
+
+
+
+
+
+
+
+
+
+
+
     });
     /*===========================================
     =         End System Routes        =
