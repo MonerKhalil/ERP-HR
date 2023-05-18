@@ -100,7 +100,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/pdf', "ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete", "MultiDelete")->name("multi.delete");
             });
-        Route::get("decisions/create/session_decisions/{session_decisions}", [DecisionController::class, "addDecisions"])->name("decisions.session_decisions.add");
+      Route::get("decisions/create/session_decisions/{session_decisions}", [DecisionController::class, "addDecisions"])->name("decisions.session_decisions.add");
+      Route::get("decisions/show/session_decisions/{session_decisions}",[DecisionController::class,"showDecisionsSession"])->name("decisions.session_decisions.show");
 
         /*===========================================
             =         End Decisions Routes        =

@@ -1,12 +1,9 @@
 SessionView : {
-    Bulk Action ,
-    Print Table ,
-    Pagination Test ,
     Search By Start & End Date
 } ,
 
 SessionEdit : {
-    Is Member Session in view or not
+    Fix Update Validation in Jquery validation
 }
 
 ViewUser : {

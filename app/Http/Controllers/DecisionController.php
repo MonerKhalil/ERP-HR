@@ -21,7 +21,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class DecisionController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System.Pages.Actors.decisionView";
     public const Folder = "decisions";
     public const IndexRoute = "system.decisions.index";
 
@@ -41,7 +41,9 @@ class DecisionController extends Controller
     {
         $q = Decision::with(["type_decision", "session_decision"]);
         $data = MyApp::Classes()->Search->getDataFilter($q, null, null, "date");
-        return $this->responseSuccess(self::NameBlade, compact("data"));
+        $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
+        return $this->responseSuccess(self::NameBlade ,
+            compact("data" , "type_decisions"));
     }
 
     public function create()
@@ -56,10 +58,11 @@ class DecisionController extends Controller
     public function addDecisions($session_decisions)
     {
         $session_decisions = SessionDecision::query()->where("id", $session_decisions)->firstOrFail();
-        $employees = Employee::query()->select(["id" . "first_name", "last_name"])->get();
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
         $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
         $type_effects = Decision::effectSalary();
-        return $this->responseSuccess("", compact("employees", "session_decisions", "type_decisions", "type_effects"));
+        return $this->responseSuccess("System.Pages.Actors.decisionForm",
+            compact("employees", "session_decisions", "type_decisions", "type_effects"));
     }
 
 
@@ -95,7 +98,15 @@ class DecisionController extends Controller
     {
         $decision = Decision::with(["type_decision", "session_decision", "employees"])
             ->where("id", $decision->id)->firstOrFail();
-        return $this->responseSuccess("", compact("decision"));
+        return $this->responseSuccess("System.Pages.Actors.decisionDetails",
+            compact("decision"));
+    }
+
+    public function showDecisionsSession($session_decisions){
+        $query = SessionDecision::query()->findOrFail($session_decisions)->decisions();
+        $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
+        $data = MyApp::Classes()->Search->getDataFilter($query, null, null, "date");
+        return $this->responseSuccess(self::NameBlade , compact("data" , "type_decisions"));
     }
 
     /**
@@ -107,12 +118,13 @@ class DecisionController extends Controller
     public function edit(Decision $decision)
     {
         $session_decisions = SessionDecision::query()->pluck("name", "id")->toArray();
-        $employees = Employee::query()->select(["id" . "first_name", "last_name"])->get();
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
         $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
         $type_effects = Decision::effectSalary();
         $decision = Decision::with(["type_decision", "session_decision", "employees"])
             ->where("id", $decision->id)->firstOrFail();
-        return $this->responseSuccess("", compact("decision", "employees", "session_decisions", "type_decisions", "type_effects"));
+        return $this->responseSuccess("System.Pages.Actors.decisionForm",
+            compact("decision", "employees", "session_decisions", "type_decisions", "type_effects"));
     }
 
     public function update(DecisionRequest $request, Decision $decision)
