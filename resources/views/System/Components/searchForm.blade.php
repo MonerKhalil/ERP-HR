@@ -16,18 +16,18 @@
                                     </h3>
                                     <div class="Popup__Body">
                                         <div class="Row GapC-1-5">
-                                                <div class="Col">
-                                                    <div class="Form__Group">
-                                                        <div class="Form__Input">
-                                                            <div class="Input__Area">
-                                                                <input id="SearchField" class="Input__Field"
-                                                                       type="text" name="{{$SearchForm['Name']}}"
-                                                                       placeholder="{{$SearchForm['Placeholder']}}">
-                                                                <label class="Input__Label" for="SearchField">{{$SearchForm['Placeholder']}}</label>
-                                                            </div>
+                                            <div class="Col">
+                                                <div class="Form__Group">
+                                                    <div class="Form__Input">
+                                                        <div class="Input__Area">
+                                                            <input id="SearchField" class="Input__Field"
+                                                                   type="text" name="{{$SearchForm['Name']}}"
+                                                                   placeholder="{{$SearchForm['Placeholder']}}">
+                                                            <label class="Input__Label" for="SearchField">{{$SearchForm['Placeholder']}}</label>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -147,6 +147,61 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    emoji_food_beverage
+                                </i>
+                                <span class="Label">الاجازات</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-34" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">اجازاتي</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-36" class="NavName">
+                                        <!-- Admin -->
+                                        <span class="Label">عرض الاجازات</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="/Test-32" class="NavName">
+                                        <span class="Label">طلب اجازة</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- Admin -->
+                                    <a href="/Test-31" class="NavName">
+                                        <span class="Label">انواع الاجازات</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="/Test-30" class="NavName">
+                                        <span class="Label">اضافة نوع جديد</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup Visible-phoneLandscape">
                     <li class="NavigationsGroup__Title">
