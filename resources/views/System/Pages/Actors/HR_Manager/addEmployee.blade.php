@@ -232,7 +232,8 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm" id="wivesNumber">
+                                                                            <div class="Col-4-md Col-6-sm"
+                                                                                 id="wivesNumber">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
@@ -247,7 +248,8 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm" id="childrenNumber">
+                                                                            <div class="Col-4-md Col-6-sm"
+                                                                                 id="childrenNumber">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
@@ -332,14 +334,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-12-xs">
-                                                                                <div class="Form__Group">
-                                                                                    <div class="Form__Button">
-                                                                                        <button class="Button Send"
-                                                                                                type="submit">@lang("addEmployee")</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -365,11 +359,13 @@
                                                                     <div class="ListData__Content">
                                                                         <div class="Row GapC-1-5">
                                                                             <div id="parentForm">
-                                                                                <div class="Row GapC-1-5" id="documentForm">
+                                                                                <div class="Row GapC-1-5"
+                                                                                     id="documentForm">
                                                                                     <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
                                                                                             <div class="Form__Select">
-                                                                                                <div class="Select__Area">
+                                                                                                <div
+                                                                                                    class="Select__Area">
                                                                                                     @include("System.Components.selector" , ['Name' => "documentType" , "Required" => "true" , "Label" => __('documentType'),"DefaultValue" => "",
                                                                                                                 "OptionsValues" => [("ID"), ("passport")],])
                                                                                                 </div>
@@ -378,13 +374,18 @@
                                                                                     </div>
                                                                                     <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
-                                                                                            <div class="Form__UploadFile">
-                                                                                                <div class="UploadFile__Area">
-                                                                                                    <input id="docId" type="file"
-                                                                                                           class="UploadFile__Field" name="EmpDocId"
+                                                                                            <div
+                                                                                                class="Form__UploadFile">
+                                                                                                <div
+                                                                                                    class="UploadFile__Area">
+                                                                                                    <input id="docId"
+                                                                                                           type="file"
+                                                                                                           class="UploadFile__Field"
+                                                                                                           name="EmpDocId"
                                                                                                            placeholder="@lang("chooseDocument")">
-                                                                                                    <label class="UploadFile__Label"
-                                                                                                           for="docId">
+                                                                                                    <label
+                                                                                                        class="UploadFile__Label"
+                                                                                                        for="docId">
                                                                                                         @lang("chooseDocument")
                                                                                                     </label>
                                                                                                 </div>
@@ -394,14 +395,16 @@
                                                                                     <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
                                                                                             <div class="Form__Input">
-                                                                                                <div class="Input__Area">
+                                                                                                <div
+                                                                                                    class="Input__Area">
                                                                                                     <input id="docId"
                                                                                                            class="Input__Field"
                                                                                                            type="number"
                                                                                                            name="EmpDocId"
                                                                                                            placeholder="@lang("documentID")">
-                                                                                                    <label class="Input__Label"
-                                                                                                           for="EmpDocId">@lang("documentID")</label>
+                                                                                                    <label
+                                                                                                        class="Input__Label"
+                                                                                                        for="EmpDocId">@lang("documentID")</label>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -528,14 +531,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-12-xs">
-                                                                                <div class="Form__Group">
-                                                                                    <div class="Form__Button">
-                                                                                        <button class="Button Send"
-                                                                                                type="submit">@lang("addEmployee")</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -606,7 +601,8 @@
                                                                                         <input type="file"
                                                                                                class="UploadFile__Field"
                                                                                                placeholder="@lang("chooseDocument")">
-                                                                                        <label class="UploadFile__Label">
+                                                                                        <label
+                                                                                            class="UploadFile__Label">
                                                                                             @lang("chooseDocument")
                                                                                         </label>
                                                                                     </div>
@@ -628,14 +624,6 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="Col-12-xs">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Button">
-                                                                                    <button class="Button Send"
-                                                                                            type="submit">@lang("addEmployee")</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
@@ -645,6 +633,15 @@
                                             </div>
                                         </div>
 
+                                    </div>
+
+                                </div>
+                                <div class="Col-12-xs">
+                                    <div class="Form__Group">
+                                        <div class="Form__Button">
+                                            <button class="Button Send"
+                                                    type="submit">@lang("addEmployee")</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

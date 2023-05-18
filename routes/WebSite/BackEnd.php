@@ -130,16 +130,18 @@ Route::middleware(['auth'])->group(function () {
         /*===========================================
            =        contract languageSkill membership Routes        =
           =============================================*/
+Route::group([ 'as' => 'employees.',],function (){
+    Route::resource('contract', ContractController::class)->except([
+        "show", "edit", "update",
+    ]);
+    Route::resource('languageSkill', LanguageSkillController::class)->except([
+        "show", "edit", "update",
+    ]);
+    Route::resource('membership', MembershipController::class)->except([
+        "show", "edit", "update",
+    ]);
+});
 
-        Route::resource('contract', ContractController::class)->except([
-            "show", "edit", "update",
-        ]);
-        Route::resource('languageSkill', LanguageSkillController::class)->except([
-            "show", "edit", "update",
-        ]);
-        Route::resource('membership', MembershipController::class)->except([
-            "show", "edit", "update",
-        ]);
         Route::get("contract/show/{contract?}", [ContractController::class, "show"])->name("employees.contract.show");
         Route::get("contract/edit/{contract?}", [ContractController::class, "edit"])->name("employees.contract.edit");
         Route::post("contract/update/{contract?}", [ContractController::class, "update"])->name("employees.contract.update");
