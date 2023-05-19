@@ -6,7 +6,9 @@ use App\HelpersClasses\MyApp;
 use App\Models\TypeDecision;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TypeDecisionRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class TypeDecisionController extends Controller
 {
@@ -94,6 +96,16 @@ class TypeDecisionController extends Controller
     public function destroy(TypeDecision $typeDecision)
     {
         $typeDecision->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+    }
+
+    public function MultiDelete(Request $request)
+    {
+        $request->validate([
+            "ids" => ["array","required"],
+            "ids.*" => ["required",Rule::exists("type_decisions","id")],
+        ]);
+        TypeDecision::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 

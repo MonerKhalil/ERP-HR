@@ -16,10 +16,10 @@ class EmployeeController extends Controller
     const Folder = "users";
     const IndexRoute = "employees.index";
 
-//    public function __construct()
-//    {
-//        $this->addMiddlewarePermissionsToFunctions(app(Employee::class)->getTable());
-//    }
+    public function __construct()
+    {
+        $this->addMiddlewarePermissionsToFunctions(app(Employee::class)->getTable());
+    }
 
     public function index()
     {

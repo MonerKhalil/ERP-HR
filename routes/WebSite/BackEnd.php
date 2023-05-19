@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DataEndServiceController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DecisionController;
 use App\Http\Controllers\EducationDataController;
@@ -11,7 +13,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\PositionEmployeeController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionDecisionController;
 use App\Http\Controllers\TypeDecisionController;
@@ -71,37 +76,7 @@ Route::middleware(['auth'])->group(function () {
    =============================================*/
 
     Route::resource("roles", RoleController::class);
-
-    /*===========================================
-     =        contract languageSkill membership Routes        =
-     =============================================*/
-    Route::resources(
-        [
-            "contract" => ContractController::class,
-            "languageSkill" => LanguageSkillController::class,
-            "membership" => MembershipController::class,
-        ]);
-
-    Route::get('contract/data/trash', [ContractController::class, 'trash'])
-        ->name('contract.trash');
-    Route::put('contract/{contract}/restore', [ContractController::class, 'restore'])
-        ->name('contract.restore');
-    Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
-        ->name('contract.force-delete');
-
-    Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
-        ->name('language_skill.trash');
-    Route::put('language/{language}/restore', [LanguageSkillController::class, 'restore'])
-        ->name('language_skill.restore');
-    Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
-        ->name('language_skill.force-delete');
-
-    Route::get('membership/data/trash', [MembershipController::class, 'trash'])
-        ->name('membership.trash');
-    Route::put('membership/{membership}/restore', [MembershipController::class, 'restore'])
-        ->name('membership.restore');
-    Route::delete('membership/{membership}/force-delete', [MembershipController::class, 'forceDelete'])
-        ->name('membership.force-delete');
+    Route::delete("roles/multi/delete",[RoleController::class,"MultiDelete"])->name("roles.multi.delete");
     /*===========================================
         =         Start System Routes        =
    =============================================*/
@@ -113,6 +88,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('type_decisions', TypeDecisionController::class)->except([
             "edit", "create", "show"
         ]);
+        Route::delete("type_decisions/multi/delete",[TypeDecisionController::class,"MultiDelete"])->name("type_decisions.multi.delete");
         Route::resource('session_decisions', SessionDecisionController::class);
         Route::prefix("session_decisions")->name("session_decisions.")
             ->controller(SessionDecisionController::class)->group(function () {
@@ -135,6 +111,49 @@ Route::middleware(['auth'])->group(function () {
         /*===========================================
             =         End Decisions Routes        =
        =============================================*/
+        Route::resource('conferences', ConferenceController::class);
+        Route::prefix("conferences")->name("conferences.")
+            ->controller(ConferenceController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::prefix("request_end_services")->name("request_end_services.")
+            ->controller(RequestEndServiceController::class)->group(function (){
+                Route::get("all","allRequest")->name("index");
+                Route::get("show/my/requests/{employee?}","showMyRequest")->name("show.my.request");
+                Route::get("create","create")->name("create");
+                Route::post("store","store")->name("store");
+                Route::get("show/{request}","showRequest")->name("show.request");
+                Route::post("accept/{id_request}","accept")->name("accept.request");
+                Route::delete("cancel/multi","cancelMultiRequest")->name("multi.cancel.request");
+            });
+
+        Route::resource('data_end_services', DataEndServiceController::class);
+        Route::prefix("data_end_services")->name("data_end_services.")
+            ->controller(DataEndServiceController::class)->group(function (){
+                Route::get("add/employee/{employee}","createFromEmployee")->name("employee.create");
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::resource('positions', PositionController::class);
+        Route::prefix("positions")->name("positions.")
+            ->controller(PositionController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::resource('position_employees', PositionEmployeeController::class);
+        Route::prefix("position_employees")->name("position_employees.")
+            ->controller(PositionEmployeeController::class)->group(function (){
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+
 
         /*===========================================
             =         Start Employees Routes        =
@@ -157,6 +176,54 @@ Route::middleware(['auth'])->group(function () {
         /*===========================================
             =         End Employees Routes        =
        =============================================*/
+
+        /*===========================================
+           =        contract languageSkill membership Routes        =
+          =============================================*/
+Route::group([ 'as' => 'employees.',],function (){
+    Route::resource('contract', ContractController::class)->except([
+        "show", "edit", "update",
+    ]);
+    Route::resource('languageSkill', LanguageSkillController::class)->except([
+        "show", "edit", "update",
+    ]);
+    Route::resource('membership', MembershipController::class)->except([
+        "show", "edit", "update",
+    ]);
+});
+
+        Route::get("contract/show/{contract?}", [ContractController::class, "show"])->name("employees.contract.show");
+        Route::get("contract/edit/{contract?}", [ContractController::class, "edit"])->name("employees.contract.edit");
+        Route::post("contract/update/{contract?}", [ContractController::class, "update"])->name("employees.contract.update");
+
+        Route::get("languageSkill/show/{languageSkill?}", [LanguageSkillController::class, "show"])->name("employees.languageSkill.show");
+        Route::get("languageSkill/edit/{languageSkill?}", [LanguageSkillController::class, "edit"])->name("employees.languageSkill.edit");
+        Route::post("languageSkill/update/{languageSkill?}", [LanguageSkillController::class, "update"])->name("employees.languageSkill.update");
+
+        Route::get("membership/show/{membership?}", [MembershipController::class, "show"])->name("employees.membership.show");
+        Route::get("membership/edit/{membership?}", [MembershipController::class, "edit"])->name("employees.membership.edit");
+        Route::post("membership/update/{membership?}", [MembershipController::class, "update"])->name("employees.membership.update");
+
+        Route::get('contract/data/trash', [ContractController::class, 'trash'])
+            ->name('employees.contract.trash');
+        Route::put('contract/{contract}/restore', [ContractController::class, 'restore'])
+            ->name('employees.contract.restore');
+        Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
+            ->name('employees.contract.force-delete');
+
+        Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
+            ->name('employees.language_skill.trash');
+        Route::put('language/{language}/restore', [LanguageSkillController::class, 'restore'])
+            ->name('employees.language_skill.restore');
+        Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
+            ->name('employees.language_skill.force-delete');
+
+        Route::get('membership/data/trash', [MembershipController::class, 'trash'])
+            ->name('membership.trash');
+        Route::put('membership/{membership}/restore', [MembershipController::class, 'restore'])
+            ->name('membership.restore');
+        Route::delete('membership/{membership}/force-delete', [MembershipController::class, 'forceDelete'])
+            ->name('membership.force-delete');
     });
     /*===========================================
     =         End System Routes        =
@@ -166,16 +233,12 @@ Route::middleware(['auth'])->group(function () {
     =         Start Ajax Routes        =
    =============================================*/
 
-    Route::prefix("ajax")->controller(AjaxController::class)->group(function () {
-        Route::get("get/address", "getAllAddressCountry")->name("get.address");
+    Route::prefix("ajax")->controller(AjaxController::class)->group(function (){
+        Route::get("get/address","getAllAddressCountry")->name("get.address");
+        Route::get("get/employee","getEmployeesSection")->name("get.employee");
     });
-
 
     /*===========================================
     =         End Ajax Routes        =
    =============================================*/
-
-
-    Route::post("mmm", [EmployeeController::class, "store"]);
-
 });

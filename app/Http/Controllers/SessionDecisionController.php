@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MessagesFlash;
@@ -12,6 +13,7 @@ use App\Models\SessionDecision;
 use App\Http\Requests\SessionDecisionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -33,7 +35,7 @@ class SessionDecisionController extends Controller
      */
     public function index()
     {
-        $data = MyApp::Classes()->Search->getDataFilter(SessionDecision::query());
+        $data = MyApp::Classes()->Search->getDataFilter(SessionDecision::query(),null,null,"date_session");
         return $this->responseSuccess(self::NameBlade,compact("data"));
     }
 
@@ -55,26 +57,33 @@ class SessionDecisionController extends Controller
      */
     public function store(SessionDecisionRequest $request)
     {
-        $data = Arr::except($request->validated(),["members"]);
-        if (isset($data['image'])){
-            $image = MyApp::Classes()->storageFiles->Upload($data['image']);
-            if (is_bool($image)){
-                MessagesFlash::Errors(__("err_image_upload"));
-                return redirect()->back();
+        try {
+            DB::beginTransaction();
+            $data = Arr::except($request->validated(),["members"]);
+            if (isset($data['image'])){
+                $image = MyApp::Classes()->storageFiles->Upload($data['image']);
+                if (is_bool($image)){
+                    MessagesFlash::Errors(__("err_image_upload"));
+                    return redirect()->back();
+                }
+                $data['image'] = $image;
             }
-            $data['image'] = $image;
-        }
-        if (isset($data['file'])){
-            $file = MyApp::Classes()->storageFiles->Upload($data['file']);
-            if (is_bool($file)){
-                MessagesFlash::Errors(__("err_file_upload"));
-                return redirect()->back();
+            if (isset($data['file'])){
+                $file = MyApp::Classes()->storageFiles->Upload($data['file']);
+                if (is_bool($file)){
+                    MessagesFlash::Errors(__("err_file_upload"));
+                    return redirect()->back();
+                }
+                $data['file'] = $file;
             }
-            $data['file'] = $file;
+            $Session = SessionDecision::query()->create($data);
+            $Session->members()->attach($request->members);
+            DB::commit();
+            return $this->responseSuccess(null,null,"create",self::IndexRoute);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            throw new MainException($exception->getMessage());
         }
-        $Session = SessionDecision::query()->create($data);
-        $Session->members()->syncWithoutDetaching($request->members);
-        return $this->responseSuccess(null,null,"create",self::IndexRoute);
     }
 
     /**
@@ -103,32 +112,42 @@ class SessionDecisionController extends Controller
         return $this->responseSuccess("System.Pages.Actors.sessionForm",compact("data",'employees'));
     }
 
+    /**
+     * @throws MainException
+     */
     public function update(SessionDecisionRequest $request, SessionDecision $sessionDecision)
     {
-        $data = Arr::except($request->validated(),["members"]);
-        if (isset($data['image'])){
-            $image = MyApp::Classes()->storageFiles->Upload($data['image']);
-            if (is_bool($image)){
-                MessagesFlash::Errors(__("err_image_upload"));
-                return redirect()->back();
+        try {
+            DB::beginTransaction();
+            $data = Arr::except($request->validated(),["members"]);
+            if (isset($data['image'])){
+                $image = MyApp::Classes()->storageFiles->Upload($data['image']);
+                if (is_bool($image)){
+                    MessagesFlash::Errors(__("err_image_upload"));
+                    return redirect()->back();
+                }
+                $data['image'] = $image;
+                MyApp::Classes()->storageFiles->deleteFile($sessionDecision->image);
             }
-            $data['image'] = $image;
-            MyApp::Classes()->storageFiles->deleteFile($sessionDecision->image);
-        }
-        if (isset($data['file'])){
-            $file = MyApp::Classes()->storageFiles->Upload($data['file']);
-            if (is_bool($file)){
-                MessagesFlash::Errors(__("err_file_upload"));
-                return redirect()->back();
+            if (isset($data['file'])){
+                $file = MyApp::Classes()->storageFiles->Upload($data['file']);
+                if (is_bool($file)){
+                    MessagesFlash::Errors(__("err_file_upload"));
+                    return redirect()->back();
+                }
+                $data['file'] = $file;
+                MyApp::Classes()->storageFiles->deleteFile($sessionDecision->file);
             }
-            $data['file'] = $file;
-            MyApp::Classes()->storageFiles->deleteFile($sessionDecision->file);
+            $sessionDecision->update($data);
+            if (isset($request->members)){
+                $sessionDecision->members()->sync($request->members);
+            }
+            DB::commit();
+            return $this->responseSuccess(null,null,"update",self::IndexRoute);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            throw new MainException($exception->getMessage());
         }
-        $sessionDecision->update($data);
-        if (isset($request->members)){
-            $sessionDecision->members()->sync($request->members);
-        }
-        return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
 
     /**

@@ -26,9 +26,9 @@ class ContractController extends Controller
     public function index()
     {
         $contracts = MyApp::Classes()->Search->getDataFilter(Contract::query());
-        $request = request();
-        $contracts = Contract::filter($request->query())
-            ->get();
+       // $request = request();
+       // $contracts = Contract::filter($request->query())
+          //  ->get();
 
 //       $contracts=Contract::with('employee')
 //        ->filter($request->query())
@@ -61,22 +61,23 @@ class ContractController extends Controller
 ////            'contact'=>$contact,
 //        ]);
 
-        return $this->responseSuccess("", compact("contracts"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContracts", compact("contracts"));
 
     }
 
     public function create()
     {
-        return $this->responseSuccess("", $this->shareByBlade());
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.addContract", $this->shareByBlade());
     }
 
     private function shareByBlade()
     {
 
         $contract_type = ["permanent", "temporary"];
-        $user_name = User::query()->pluck('name', "id")->toArray();
+        // I need to add an empty option at the first
+        $employees_names = Employee::query()->pluck('first_name', "id")->toArray();
         $sections = Sections::query()->pluck("name", "id")->toArray();
-        return compact('contract_type', 'user_name', 'sections');
+        return compact('contract_type', 'employees_names', 'sections');
     }
 
     public function store(ContractRequest $request)
@@ -116,7 +117,6 @@ class ContractController extends Controller
                 },
             ]);
             $contract = $contractQuery->findOrFail($contract);
-
         }
         return $this->responseSuccess("", compact("contract"));
     }

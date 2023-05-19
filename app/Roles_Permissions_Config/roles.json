@@ -6,7 +6,12 @@
             "employees": "a",
             "session_decisions": "a",
             "type_decisions": "a",
-            "decisions": "a"
+            "decisions": "a",
+            "conferences": "a",
+            "positions": "a",
+            "position_employees": "a",
+            "data_end_services": "a",
+            "request_end_services": "a"
         },
         "user" : {
             "users" : ["r"],

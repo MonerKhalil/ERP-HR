@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\HelpersClasses\MessagesFlash;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -41,7 +42,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (Throwable $e) {
-            dd($e);
+//            dd($e);
 //            $url = \Illuminate\Support\Facades\Route::current();
 //            $url = ( ($url != null) && ($url->getPrefix() == 'api') );
 //            if ($url){
@@ -49,6 +50,10 @@ class Handler extends ExceptionHandler
 //            }
             if ($e instanceof ValidationException) {
                 MessagesFlash::Errors($e->errors());
+                return \redirect()->back();
+            }
+            if ($e instanceof AuthorizationException){
+                MessagesFlash::Errors($e->getMessage());
                 return \redirect()->back();
             }
             if ($e instanceof AuthenticationException) {

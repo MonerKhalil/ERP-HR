@@ -25,14 +25,14 @@
                                                     <h3>@lang("contractInfo")</h3>
                                                 </div>
                                             </div>
-                                            <form class="Form Form--Dark">
+                                            <form class="Form Form--Dark" action="">
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
                                                                     @include("System.Components.selector" , ['Name' => "employeeName" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => [("Test1"), ("Test2")],])
+                                                                                "OptionsValues" => $employees_names,])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -42,7 +42,7 @@
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
                                                                     @include("System.Components.selector" , ['Name' => "contractType" , "Required" => "true" , "Label" => __('contractType'),"DefaultValue" => "",
-                                                                                "OptionsValues" => [__("permanent"), __("temporary")],])
+                                                                                "OptionsValues" => $contract_type,])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -112,7 +112,7 @@
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
                                                                     @include("System.Components.selector" , ['Name' => "DepartmentName" , "Required" => "true" , "Label" => __('DepartmentName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => [__("Diwan"), __("HR"), __("Administrative")],])
+                                                                                "OptionsValues" => $sections,])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -122,7 +122,7 @@
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
                                                                     @include("System.Components.selector" , ['Name' => "managerName" , "Required" => "true" , "Label" => __('managerName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => [("Test1"), ("Test2")],])
+                                                                                "OptionsValues" => $employees_names,])
                                                                 </div>
                                                             </div>
                                                         </div>

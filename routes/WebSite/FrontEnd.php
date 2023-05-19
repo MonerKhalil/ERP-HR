@@ -43,6 +43,9 @@ Route::get('/Test-15', function () {
     return view('System/Pages/Actors/Diwan_User/viewCorrespondenses');
 });
 
+Route::get('/Test-17', function () {
+    return view('System/Pages/Actors/decisionView');
+
 Route::get('/Test-20', function () {
     return view('System/Pages/Actors/HR_Manager/reportEmployeesForm');
 });
@@ -54,6 +57,9 @@ Route::get('/Test-30', function () {
 Route::get('/Test-31', function () {
     return view('System/Pages/Actors/Vacations/vacationTypesView');
 });
+
+Route::get('/Test-21', function () {
+    return view('System/Pages/Actors/HR_Manager/viewEmployee');
 
 Route::get('/Test-32', function () {
     return view('System/Pages/Actors/Vacations/vacationRequest');
@@ -73,4 +79,5 @@ Route::get('/Test-35', function () {
 
 Route::get('/Test-36', function () {
     return view('System/Pages/Actors/Vacations/allVacationsView');
+
 });

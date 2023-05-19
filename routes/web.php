@@ -20,8 +20,6 @@ Route::get('xxx', function (Request $request) {
 });
 
 require __DIR__.'/auth.php';
-require __DIR__."/employee.php";
-require __DIR__."/contact.php";
 require __DIR__."/WebSite/"."FrontEnd.php";
 require __DIR__."/WebSite/"."BackEnd.php";
 
