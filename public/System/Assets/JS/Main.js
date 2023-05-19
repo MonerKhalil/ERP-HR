@@ -286,9 +286,11 @@ $(document).ready(function (){
      */
 
     function FormOperation(FormInfo = {
-        Operation : "InitializeForm" | "RefreshValidationForm" | "CloneFields" ,
+        Operation : "InitializeForm" | "RefreshValidationForm" |
+            "CloneFields" | "IgnoreField" | "NotIgnoreField" ,
         FormElement : HTMLFormElement ,
         ClonePart : {
+            ElementTarget : HTMLElement | undefined ,
             ElementPart : HTMLElement ,
             WithClear : false
         } | undefined
@@ -306,6 +308,12 @@ $(document).ready(function (){
                 CloneField() ;
                 RefreshValidationForm() ;
                 break ;
+            case "NotIgnoreField" :
+                ActiveField() ;
+                break ;
+            case "IgnoreField" :
+                IgnoreField() ;
+                break ;
         }
 
         function InitializeForm() {
@@ -316,6 +324,9 @@ $(document).ready(function (){
                     $(FormInfo.FormElement).attr("action" , `${ActionForm}?${Params}`);
             }
             $(FormInfo.FormElement).find("input , textarea").each((_ , Field) => {
+                $(Field).attr("data-FieldID" , 1) ;
+            });
+            $(FormInfo.FormElement).find("input:not(.Date__Field) , textarea").each((_ , Field) => {
                 $(Field).on("blur" , function () {
                     $(Field).valid() ;
                 });
@@ -324,7 +335,7 @@ $(document).ready(function (){
                 InitialFieldPassword(Field);
             });
             $(FormInfo.FormElement).find(".Form__Date").each((_ , Field)=> {
-                InitialFieldDate(Field);
+                InitialFieldDate(Field) ;
             });
             $(FormInfo.FormElement).find(".Form__UploadFile").each((_ , UploadFile) => {
                 InitialFieldUpload(UploadFile) ;
@@ -349,8 +360,8 @@ $(document).ready(function (){
         }
 
         function RefreshValidationForm() {
-            $(FormInfo).removeData("validator") ;
-            $(FormInfo).removeData("unobtrusiveValidation") ;
+            $(FormInfo.FormElement).removeData("validator") ;
+            $(FormInfo.FormElement).removeData("unobtrusiveValidation") ;
             $.validator.addMethod("RegexPassword"
                 , function (Value) {
                     return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
@@ -421,15 +432,15 @@ $(document).ready(function (){
 
         function InitialFieldDate(Field = HTMLElement) {
             const Input = $(Field).find("input").get(0) ;
+            let FlatPickerObject ;
             if($(Input).hasClass("RangeData")) {
                 let IsDetermine = false ;
                 const InputAria = $(Field).find(".Date__Area").get(0) ;
                 const InputStartDate = $(Input).attr("date-StartDateName") ;
                 const InputEndDate = $(Input).attr("date-EndDateName") ;
-                $(Input).flatpickr({
+                FlatPickerObject = $(Input).flatpickr({
                     mode: "range" ,
                     onClose: function(selectedDates, dateStr, instance) {
-
                         if(selectedDates.length > 1) {
                             let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
                             let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
@@ -468,13 +479,13 @@ $(document).ready(function (){
                     }
                 });
             } else if($(Input).hasClass("DateMinToday")) {
-                $(Input).flatpickr({
+                FlatPickerObject = $(Input).flatpickr({
                     minDate: "today"
                 });
             } else if($(Input).hasClass("DateEndFromStart")) {
                 const TargetDateStartName = $(Input).attr("data-StartDateName") ;
                 if(TargetDateStartName !== undefined) {
-                    const EndDateObject = $(Input).flatpickr({
+                    const EndDateObject = FlatPickerObject = $(Input).flatpickr({
                         disable: [
                             function() {
                                 return true;
@@ -490,9 +501,25 @@ $(document).ready(function (){
                         EndDateObject.set("minDate" , CurrentSelected[0]) ;
                     });
                 }
+            } else if($(Input).hasClass("MultiDate")) {
+                FlatPickerObject = $(Input).flatpickr({
+                    mode: "multiple"
+                });
+            } else if($(Input).hasClass("TimeNoDate")) {
+                FlatPickerObject = $(Input).flatpickr({
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "H:i"
+                });
             } else {
-                $(Input).flatpickr();
+                FlatPickerObject = $(Input).flatpickr();
             }
+            if($(Input).hasClass("MinimumNow")) {
+                FlatPickerObject.set("minDate" , new Date());
+            }
+            FlatPickerObject.set("onClose" , function() {
+                $(Input).valid() ;
+            });
         }
 
         function InitialFieldUpload(Field = HTMLElement) {
@@ -531,9 +558,43 @@ $(document).ready(function (){
             });
         }
 
+        function ActiveField() {
+            $(FormInfo.ClonePart.ElementPart)
+                .find("input , textarea").each((_ , Field) => {
+                $(Field).removeClass("IgnoreValidate");
+            });
+            RefreshValidationForm() ;
+        }
+
+        function IgnoreField() {
+            $(FormInfo.ClonePart.ElementPart)
+                .find("input , textarea").each((_ , Field) => {
+                    $(Field).addClass("IgnoreValidate");
+            });
+            RefreshValidationForm() ;
+        }
+
         function CloneField() {
             $(FormInfo.ClonePart.ElementPart).off() ;
             $(FormInfo.ClonePart.ElementPart).find("input , textarea").each((_ , Field) => {
+                const FieldCloneNum = Number($(Field).attr("data-FieldID")) + 1 ;
+                $(Field).attr("data-FieldID" , FieldCloneNum) ;
+                if(FieldCloneNum) {
+                    const OldInputID = $(Field).attr("id") ;
+                    if(OldInputID) {
+                        const NewInputID = `${OldInputID}_${FieldCloneNum}` ;
+                        $(Field).attr("id" , NewInputID) ;
+                        $(Field).siblings("label").attr("for" , NewInputID) ;
+                    }
+                } else {
+                    $(Field).attr("data-FieldID" , 1) ;
+                }
+            });
+            $(FormInfo.ClonePart.ElementTarget).find("input , textarea").each((_ , Field) => {
+                const FieldCloneNum = Number($(Field).attr("data-FieldID")) + 1 ;
+                $(Field).attr("data-FieldID" , FieldCloneNum) ;
+            });
+            $(FormInfo.ClonePart.ElementPart).find("input:not(.Date__Field) , textarea").each((_ , Field) => {
                 $(Field).on("blur" , function () {
                     $(Field).valid() ;
                 });
@@ -1287,10 +1348,24 @@ $(document).ready(function (){
     =           Fields Visibility        =
     =============================================*/
 
-    $(".VisibilityOption").ready(function () {
-        $(".VisibilityOption").each((_ , VisibilityOption) => {
-            const TargetName = $(VisibilityOption).attr("data-ElementsTargetName");
-            $(VisibilityOption).find(".Selector").each((_ , Selectors) => {
+    function initializeFieldsVisibility(FieldInfo = {
+        Operation : "InitializeVisibilityOption" | "InitializeVisibilityTarget" ,
+        VisibilityOption : HTMLElement ,
+        VisibilityTarget : HTMLElement ,
+    }) {
+
+        switch (FieldInfo.Operation) {
+            case "InitializeVisibilityOption" :
+                InitVisibilityOption() ;
+                break ;
+            case "InitializeVisibilityTarget" :
+                InitVisibilityTarget() ;
+                break ;
+        }
+
+        function InitVisibilityOption() {
+            const TargetName = $(FieldInfo.VisibilityOption).attr("data-ElementsTargetName") ;
+            $(FieldInfo.VisibilityOption).find(".Selector").each((_ , Selectors) => {
                 $(Selectors).find(".Selector__Option").each((_ , Option) => {
                     const ValueOption = $(Option).attr("data-option") ;
                     $(Option).click(() => {
@@ -1298,28 +1373,68 @@ $(document).ready(function (){
                     });
                 });
                 TriggerName(TargetName , '') ;
-            });
-            $(VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
+            }) ;
+            $(FieldInfo.VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
                 TriggerName(TargetName , $(this).val());
-            })
+            }) ;
+        }
+
+        function InitVisibilityTarget() {
+
+        }
+
+        function TriggerName(NameElement = String , ValueSelected = String) {
+            $(".VisibilityTarget").each((_ , VisibilityTarget) => {
+                const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
+                if(ElementName === NameElement) {
+                    const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
+                    {
+                        $(VisibilityTarget).hide();
+                        $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                            const FormElement = $(FieldGroup).closest("form").get(0) ;
+                            FormOperation({
+                                Operation : "IgnoreField" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                        });
+                    }
+
+                    if(ElementValue !== undefined)
+                        for (let i = 0; i < ElementValue.length; i++)
+                            if(ElementValue[i] === ValueSelected){
+                                {
+                                    $(VisibilityTarget).show();
+                                    $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                                        const FormElement = $(FieldGroup).closest("form").get(0) ;
+                                        FormOperation({
+                                            Operation : "NotIgnoreField" ,
+                                            FormElement : FormElement ,
+                                            ClonePart : {
+                                                ElementPart : FieldGroup ,
+                                            }
+                                        });
+                                    });
+                                }
+                                break ;
+                            }
+                }
+            });
+        }
+
+    }
+
+    $(".VisibilityOption").ready(function () {
+        $(".VisibilityOption").each((_ , VisibilityOption) => {
+            initializeFieldsVisibility({
+                Operation : "InitializeVisibilityOption" ,
+                VisibilityOption : VisibilityOption ,
+                VisibilityTarget : undefined
+            });
         });
     });
-
-    function TriggerName(NameElement = String , ValueSelected = String) {
-        $(".VisibilityTarget").each((_ , VisibilityTarget) => {
-            const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
-            if(ElementName === NameElement) {
-                const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
-                $(VisibilityTarget).hide();
-                if(ElementValue !== undefined)
-                    for (let i = 0; i < ElementValue.length; i++)
-                        if(ElementValue[i] === ValueSelected){
-                            $(VisibilityTarget).show();
-                            break ;
-                        }
-            }
-        });
-    }
 
     /*===========================================
 	=           Duplicate Form       =
@@ -1343,10 +1458,108 @@ $(document).ready(function (){
         });
     });
 
+    /*===========================================
+	=           Duplicate Form       =
+    =============================================*/
+
+    /**
+     * @author Amir Alhloo
+     */
+
+    function DuplicateFrom(InfoParam = {
+        MainForm : HTMLFormElement ,
+        ButtonClone : HTMLElement ,
+        TargetElement : HTMLElement ,
+        ParentContainer : HTMLElement ,
+        ClearClone : Boolean
+    }) {
+        let CloneElement = undefined ;
+        InitializeDuplicateFrom() ;
+
+        function InitializeDuplicateFrom() {
+            CloneProcess() ;
+            AppendClone() ;
+        }
+
+        function CloneProcess() {
+            CloneElement = $(InfoParam.TargetElement).clone(false) ;
+            FormOperation({
+                Operation : "CloneFields" ,
+                FormElement : InfoParam.MainForm ,
+                ClonePart : {
+                    ElementTarget : InfoParam.TargetElement ,
+                    ElementPart : CloneElement ,
+                    WithClear : InfoParam.ClearClone
+                }
+            });
+        }
+
+        function AppendClone() {
+            const TargetAppend = CloneElement.appendTo($(InfoParam.ParentContainer)) ;
+            FormOperation({
+                Operation : "RefreshValidationForm" ,
+                FormElement : InfoParam.MainForm ,
+                ClonePart : {
+                    ElementPart: TargetAppend,
+                    WithClear: false
+                }
+            }) ;
+        }
+    }
+
+    $(".ButtonCloneForm").ready(function(){
+        $(".ButtonCloneForm").each((_ , ButtonClone) => {
+            const TargetElementName = $(ButtonClone).attr("data-TargetElementName") ;
+            const IsCleanClone = $(ButtonClone).attr("data-IsCloneClear") ?? true ;
+            const TargetElement = $(document).find(`.CloneItem[data-NameElement=${TargetElementName}]`).get(0);
+            const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
+            const FormTarget = $(TargetElement).closest("form").get(0) ;
+            const MainCloneClear = $(TargetElement).clone(false);
+            $(ButtonClone).click(() => {
+                DuplicateFrom({
+                    MainForm : FormTarget ,
+                    ButtonClone : ButtonClone ,
+                    TargetElement : MainCloneClear ,
+                    ParentContainer : TargetParentClone ,
+                    ClearClone : IsCleanClone
+                });
+            });
+        });
+    });
 
     /*===========================================
-	=           Person Names       =
+	=           Pages Setting       =
     =============================================*/
+
+    $("#VacationListDate").ready(function () {
+        const VacationListElement = $("#VacationListDate").get(0) ;
+        const ParentCloneElement = $(VacationListElement).find(".ParentClone").get(0) ;
+        const MainCloneElement = $(VacationListElement).find(".CloneItem").get(0) ;
+        let CountClone = 1 ;
+        let IsMainCloneLabelView = false ;
+        $(VacationListElement).find(".ButtonCloneForm").click(() => {
+            if(!IsMainCloneLabelView) {
+                $(MainCloneElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+                IsMainCloneLabelView = true ;
+            }
+            const LastClone = $(ParentCloneElement).find(".ListData__Group")
+                .last().get(0) ;
+            const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
+            const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
+            $(SelectorVisibility).attr("data-ElementsTargetName"
+                , `${AttributeLastClone}__${CountClone}`) ;
+            $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
+                $(Value).attr("data-TargetName" ,
+                    `${$(Value).attr("data-TargetName")}__${CountClone}`);
+            });
+            $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+            initializeFieldsVisibility({
+                Operation : "InitializeVisibilityOption" ,
+                VisibilityOption : SelectorVisibility ,
+                VisibilityTarget : undefined ,
+            });
+        });
+    });
 
 
 });
