@@ -1,5 +1,11 @@
 @extends("System.Pages.globalPage")
 
+
+@php
+
+@endphp
+
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--AddDecisionPage">
         <div class="AddDecisionPage">
@@ -19,8 +25,12 @@
                                     <div class="Card__Content">
                                         <div class="Card__Inner">
                                             <div class="Card__Body">
-                                                <form class="Form Form--Dark" action="#" method="post">
+                                                <form class="Form Form--Dark"
+                                                      action="{{route("system.decisions.store")}}"
+                                                      method="post">
                                                     @csrf
+                                                    <input name="session_decision_id"
+                                                           value="{{(isset($decision)) ? $decision["session_decision_id"] : $session_decisions["id"]}}" hidden>
                                                     <div class="ListData">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
@@ -32,13 +42,21 @@
                                                                 <div class="Row GapC-1-5">
                                                                     <div class="Col-4-md Col-6-sm">
                                                                         <div class="Form__Group">
-                                                                            <div class="Form__Select">
+                                                                            <div class="VisibilityOption Form__Select"
+                                                                                 data-ElementsTargetName="DecisionFieldTarget">
                                                                                 <div class="Select__Area">
+                                                                                    @php
+                                                                                        $DecisionTypes = [] ;
+                                                                                        foreach ($type_decisions as $Index=>$DecisionType) {
+                                                                                            array_push($DecisionTypes , [ "Label" => $DecisionType
+                                                                                                , "Value" => $Index ]) ;
+                                                                                        }
+                                                                                    @endphp
                                                                                     @include("System.Components.selector" , [
-                                                                                        'Name' => "Type" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => __("decisionType") ,
-                                                                                        "Options" => [ ["Label" => "Decision" , "Value" => "Decision"] ,
-                                                                                                       ["Label" => "Administrative Order" , "Value" => "Administrative order"]]
+                                                                                        'Name' => "type_decision_id" , "Required" => "true" ,
+                                                                                        "DefaultValue" => isset($decision) ? $decision["type_decision_id"] : ""
+                                                                                         , "Label" => __("decisionType") ,
+                                                                                        "Options" => $DecisionTypes
                                                                                     ])
                                                                                 </div>
                                                                             </div>
@@ -49,7 +67,8 @@
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="DecisionNumber" class="Input__Field" type="number"
-                                                                                           name="PhoneNumber" placeholder="@lang("decisionNumber")" required>
+                                                                                           value="{{(isset($decision)) ? $decision["number"] : ""}}"
+                                                                                           name="number" placeholder="@lang("decisionNumber")" required>
                                                                                     <label class="Input__Label" for="DecisionNumber">@lang("decisionNumber")</label>
                                                                                 </div>
                                                                             </div>
@@ -59,8 +78,10 @@
                                                                         <div class="Form__Group">
                                                                             <div class="Form__Date">
                                                                                 <div class="Date__Area">
-                                                                                    <input id="DateDecision" class="Date__Field"
-                                                                                           type="date" name="DateDecision"
+                                                                                    <input id="DateDecision" class="DateMinToday Date__Field"
+                                                                                           TargetDateStartName="StartDateDecision"
+                                                                                           value="{{isset($decision) ? $decision["date"] : ""}}"
+                                                                                           type="date" name="date"
                                                                                            placeholder="@lang("dateDecision")" required>
                                                                                     <label class="Date__Label" for="DateDecision">@lang("dateDecision")</label>
                                                                                 </div>
@@ -71,8 +92,12 @@
                                                                         <div class="Form__Group">
                                                                             <div class="Form__Date">
                                                                                 <div class="Date__Area">
-                                                                                    <input id="DateDecisionEnd" class="Date__Field"
-                                                                                           type="date" name="DateDecision"
+                                                                                    <input id="DateDecisionEnd"
+                                                                                           class="DateEndFromStart Date__Field"
+                                                                                           data-StartDateName="StartDateDecision"
+                                                                                           value="{{(isset($decision) && ($decision["end_date_decision"] != null)) ?
+                                                                                                    $decision["end_date_decision"] : ""}}"
+                                                                                           type="date" name="end_date_decision"
                                                                                            placeholder="@lang("dateDecisionEnd")">
                                                                                     <label class="Date__Label" for="DateDecisionEnd">
                                                                                         @lang("dateDecisionEnd")
@@ -81,15 +106,125 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="Col-4-md Col-6-sm"  >
+                                                                    <div class="VisibilityOption Col-4-md Col-6-sm"
+                                                                         data-ElementsTargetName="BonesPunishmentFields">
                                                                         <div class="Form__Group">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
+                                                                                    @php
+                                                                                        $EffectDecisionTypes = [] ;
+                                                                                        foreach ($type_effects as $EffectType) {
+                                                                                            array_push($EffectDecisionTypes , [ "Label" => $EffectType
+                                                                                                , "Value" => $EffectType ]) ;
+                                                                                        }
+                                                                                    @endphp
                                                                                     @include("System.Components.selector" , [
-                                                                                        'Name' => "SessionName" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => __("sessionName") ,
-                                                                                        "Options" => [ ["Label" => "First Session" , "Value" => "1"] ,
-                                                                                                       ["Label" => "Second Session" , "Value" => "2"]]
+                                                                                        'Name' => "effect_salary" , "Required" => "true" ,
+                                                                                        "DefaultValue" => (isset($decision) ? $decision["effect_salary"] : "")
+                                                                                        , "Label" => "نوع التأثير على الراتب" ,
+                                                                                        "Options" => $EffectDecisionTypes
+                                                                                    ])
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+{{--                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                         data-TargetName="BonesPunishmentFields"--}}
+{{--                                                                         data-TargetValue="1">--}}
+{{--                                                                        <div class="Form__Group">--}}
+{{--                                                                            <div class="Form__Input">--}}
+{{--                                                                                <div class="Input__Area">--}}
+{{--                                                                                    <input id="DiscountAmountSalary" class="Input__Field" type="number"--}}
+{{--                                                                                           name="value" placeholder="قيمة الحسم من الراتب" required>--}}
+{{--                                                                                    <label class="Input__Label" for="DiscountAmountSalary">قيمة الحسم من الراتب</label>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                         data-TargetName="BonesPunishmentFields"--}}
+{{--                                                                         data-TargetValue="0">--}}
+{{--                                                                        <div class="Form__Group">--}}
+{{--                                                                            <div class="Form__Input">--}}
+{{--                                                                                <div class="Input__Area">--}}
+{{--                                                                                    <input id="IncreasesAmountSalary" class="Input__Field" type="number"--}}
+{{--                                                                                           name="value" placeholder="قيمة الاضافة على الراتب" required>--}}
+{{--                                                                                    <label class="Input__Label" for="IncreasesAmountSalary">قيمة الاضافة على الراتب</label>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                         data-TargetName="BonesPunishmentFields"--}}
+{{--                                                                         data-TargetValue="1">--}}
+{{--                                                                        <div class="Form__Group">--}}
+{{--                                                                            <div class="Form__Input">--}}
+{{--                                                                                <div class="Input__Area">--}}
+{{--                                                                                    <input id="DiscountAmountFinancial" class="Input__Field" type="number"--}}
+{{--                                                                                           name="value" placeholder="قيمة الحسم من الحوافز" required>--}}
+{{--                                                                                    <label class="Input__Label" for="DiscountAmountFinancial">نسبة الحسم من الحوافز</label>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                         data-TargetName="BonesPunishmentFields"--}}
+{{--                                                                         data-TargetValue="0">--}}
+{{--                                                                        <div class="Form__Group">--}}
+{{--                                                                            <div class="Form__Input">--}}
+{{--                                                                                <div class="Input__Area">--}}
+{{--                                                                                    <input id="IncreasesAmountFinancial" class="Input__Field" type="number"--}}
+{{--                                                                                           name="value" placeholder="قيمة الاضافة على الحوافز" required>--}}
+{{--                                                                                    <label class="Input__Label" for="IncreasesAmountFinancial">قيمة الاضافة على الحوافز</label>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ListData">
+                                                        <div class="ListData__Head">
+                                                            <h4 class="ListData__Title">
+                                                                الموظفين المتأثرين بالقرار
+                                                            </h4>
+                                                        </div>
+                                                        <div class="ListData__Content">
+                                                            <div class="ListData__CustomItem">
+                                                                <div class="Row GapC-1-5">
+                                                                    <div class="Selector2Readonly Col-4-md Col-6-sm"
+                                                                         data-ClassContainer="Col-4-md Col-6-sm"
+                                                                         data-ReadonlyNames="employees[]"
+                                                                         data-TitleField="الموظف"
+                                                                         @if(isset($decision))
+                                                                             <?php
+                                                                                 $EmployeesIDs = null ;
+                                                                                 foreach ($decision->employees as $Employee)
+                                                                                     if($EmployeesIDs != null)
+                                                                                         $EmployeesIDs = $EmployeesIDs.",".$Employee["id"] ;
+                                                                                     else
+                                                                                         $EmployeesIDs = $Employee["id"]."" ;
+                                                                                 ?>
+                                                                                 data-DefaultValues="{{$EmployeesIDs}}"
+                                                                         @endif
+                                                                         data-RequiredNum="1"
+                                                                         data-Location="Before">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Select">
+                                                                                <div class="Select__Area">
+                                                                                    @php
+                                                                                        $EmployeesList = [] ;
+                                                                                        foreach ($employees as $Employees) {
+                                                                                            array_push($EmployeesList , [
+                                                                                                "Label" => $Employees["first_name"].$Employees["last_name"]
+                                                                                                , "Value" => $Employees["id"] ]) ;
+                                                                                        }
+                                                                                    @endphp
+                                                                                    @include("System.Components.selector" , [
+                                                                                        'Name' => "Member" , "Required" => "true" ,
+                                                                                        "DefaultValue" => "" , "Label" => "حدد الاعضاء" ,
+                                                                                        "Options" => $EmployeesList
                                                                                     ])
                                                                                 </div>
                                                                             </div>
@@ -112,11 +247,17 @@
                                                                 <div class="Row">
                                                                     <div class="Col">
                                                                         <div class="Form__Group">
-                                                                            <div class="Form__Textarea">
-                                                                                <div class="Textarea__Area">
+                                                                            <div class="Form__TextEditor">
+                                                                                <div class="TextEditor__Area">
                                                                                     <div class="trumbowyg-dark">
-                                                                            <textarea id="DecisionEditor" class="TextEditor Textarea__Field"
-                                                                                      placeholder="Your text as placeholder" required></textarea>
+                                                                                        <textarea id="DecisionEditor"
+                                                                                                  class="TextEditor TextEditor__Field"
+                                                                                                  placeholder="Your text as placeholder"
+                                                                                                  name="content" required>
+                                                                                            @if(isset($decision))
+                                                                                                {{$decision["content"]}}
+                                                                                            @endif
+                                                                                        </textarea>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

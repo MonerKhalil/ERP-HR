@@ -21,7 +21,6 @@ class AuditController extends Controller
         $dataFilter = $request->filter;
         $user = auth()->user();
         $queryAudit = $user->notifications()->where("data->type","audit");
-        $data = null;
         if (!is_null($dataFilter)){
             $idsNotificationsFilter = $queryAudit->get()->map(function ($item) {
                 return $this->resolveDataItem($item);

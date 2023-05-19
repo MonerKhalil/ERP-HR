@@ -2,8 +2,6 @@
 
 namespace App\HelpersClasses;
 
-use Barryvdh\DomPDF\Facade\Pdf;
-use Dompdf\Dompdf;
 use Illuminate\Http\Response;
 
 class ExportPDF
@@ -12,26 +10,28 @@ class ExportPDF
         return self::PDF($head,$body)->stream();
     }
 
-    public static function downloadPDF(array $head ,mixed $body,$fileName = null): Response
+    public static function downloadPDF(array $head ,mixed $body,string $blade = null,$fileName = null): Response
     {
         $fileName = is_null($fileName) ? "document".time() : $fileName;
         $fileName .= ".pdf";
-        return self::PDF($head,$body)->download($fileName);
+        return self::PDF($head,$body,$blade)->download($fileName);
     }
 
     /**
      * @param $head
      * @param $body
-     * @return Dompdf|\Barryvdh\DomPDF\PDF
+     * @return mixed
      * @author moner khalil
      */
-    private static function PDF($head , $body): Dompdf|\Barryvdh\DomPDF\PDF
+    private static function PDF($head , $body,$blade = null)
     {
-        return PDF::loadView('System.Pages.Docs.tablePrint', [
+        $blade = is_null($blade) ? "System.Pages.Docs.tablePrint" : $blade;
+        ini_set("pcre.backtrack_limit", "5000000");
+        return \PDF::loadView($blade, [
             "data" => [
                 "head" => $head,
                 "body" => $body,
             ]
-        ])->setPaper('a4');
+        ]);
     }
 }

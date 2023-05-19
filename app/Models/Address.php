@@ -11,7 +11,7 @@ class Address extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "country_id","city",
+        "country_id","name",
         "created_by","updated_by","is_active",
     ];
 

@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LanguageSkillController;
+use App\Http\Controllers\MembershipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +22,39 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/*
+ *****************************test********************
+ */
+Route::resources(
+    [
+        "contract" => ContractController::class,
+        "languageSkill" => LanguageSkillController::class,
+        "membership" => MembershipController::class,
+    ]);
+
+Route::get('contract/data/trash', [ContractController::class, 'trash'])
+    ->name('contract.trash');
+Route::put('contract/{contract}/restore', [ContractController::class, 'restore'])
+    ->name('contract.restore');
+Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
+    ->name('contract.force-delete');
+
+
+
+Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
+    ->name('language_skill.trash');
+Route::put('language/{language}/restore', [LanguageSkillController::class, 'restore'])
+    ->name('language_skill.restore');
+Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
+    ->name('language_skill.force-delete');
+
+Route::get('membership/data/trash', [LanguageSkillController::class, 'trash'])
+    ->name('membership.trash');
+Route::put('membership/{membership}/restore', [LanguageSkillController::class, 'restore'])
+    ->name('membership.restore');
+Route::delete('membership/{membership}/force-delete', [LanguageSkillController::class, 'forceDelete'])
+    ->name('membership.force-delete');
+/*
+ *****************************test********************
+ */
