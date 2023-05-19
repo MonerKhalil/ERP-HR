@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                 "name" => 'mmm'.$i,
                 "email" => 'mmm'.$i,
                 "password" => 'mmm'.$i,
+                "created_at" => now(),
             ]);
         }
     }

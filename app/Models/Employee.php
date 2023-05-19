@@ -46,6 +46,14 @@ class Employee extends BaseModel
         return $this->hasMany(Education_data::class, 'employee_id', 'id');
     }
 
+    public function conferences(){
+        return $this->belongsToMany(Conference::class,"conference_employees"
+            ,"employee_id"
+            ,"conference_id"
+            ,"id"
+            ,"id");
+    }
+
     public function session_decision(){
         return $this->belongsToMany(SessionDecision::class,"member_session_decisions",
             "employee_id",

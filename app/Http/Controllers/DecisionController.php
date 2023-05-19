@@ -39,9 +39,11 @@ class DecisionController extends Controller
      */
     public function index(Request $request)
     {
+        $type_decisions = TypeDecision::query()->pluck("name","id")->toArray();
+        $session_decision = SessionDecision::query()->pluck("name","id")->toArray();
         $q = Decision::with(["type_decision", "session_decision"]);
         $data = MyApp::Classes()->Search->getDataFilter($q, null, null, "date");
-        return $this->responseSuccess(self::NameBlade, compact("data"));
+        return $this->responseSuccess(self::NameBlade, compact("data","type_decisions","session_decision"));
     }
 
     public function create()
@@ -82,7 +84,9 @@ class DecisionController extends Controller
                 $data['image'] = $image;
             }
             $decision = Decision::create($data);
-            $decision->employees()->syncWithoutDetaching($request->employees);
+            if (isset($request->employees)){
+                $decision->employees()->attach($request->employees);
+            }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
         } catch (\Exception $exception) {
@@ -130,7 +134,7 @@ class DecisionController extends Controller
             }
             $decision = $decision->update($data);
             if (isset($request->employees)) {
-                $decision->employees()->syncWithoutDetaching($request->employees);
+                $decision->employees()->sync($request->employees);
             }
             DB::commit();
             return $this->responseSuccess(null, null, "update", self::IndexRoute);

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Sections;
+use App\Models\Position;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SectionsSeeder extends Seeder
+class PositionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,11 +15,11 @@ class SectionsSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1 ; $i<=10;$i++){
-            Sections::create([
-                "address_id" => $i,
-                "name" => "section_".$i,
-                "details" => "xxxxxxxxxxxxx".$i,
+        for ($i = 1 ; $i<=20;$i++){
+            Position::create([
+                "name" => "Position_".$i,
+                "rate_salary" => $i,
+                "rate_stimulus" => $i,
                 "created_at" => now(),
             ]);
         }
