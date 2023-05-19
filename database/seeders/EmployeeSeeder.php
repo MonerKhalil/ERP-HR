@@ -38,6 +38,7 @@ class EmployeeSeeder extends Seeder
                 "military_service" => "performer",
                 "family_status" => "married",
                 "birth_date" => now(),
+                "created_at" => now(),
             ]);
         }
     }

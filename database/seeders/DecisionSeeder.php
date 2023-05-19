@@ -26,6 +26,7 @@ class DecisionSeeder extends Seeder
                 "content" => "akmsa".$i,
                 "image" => "akmsa".$i,
                 "end_date_decision" => now(),
+                "created_at" => now(),
             ]);
         }
     }

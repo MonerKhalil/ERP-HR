@@ -31,8 +31,8 @@ class AuditObserver
                 "new_values" => $auditData['new_values'],
                 "date" => now(),
                 "route_name" => [
-                    "show" => $tableName.".show",
-                    "index" => $tableName.".index",
+                    "show" => route("system.".$tableName.".show",$auditData['auditable_id']),
+                    "index" => route("system.".$tableName.".index"),
                 ],
             ];
             $users = User::query()->get();
