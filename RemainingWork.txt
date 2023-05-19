@@ -1,0 +1,17 @@
+SessionView : {
+    Search By Start & End Date
+} ,
+
+SessionEdit : {
+    Fix Update Validation in Jquery validation
+}
+
+ViewUser : {
+    View Users Need Bulk For Print Just Checked
+    Error Back When Delete Row By Bulk Action
+}
+
+ViewRole : {
+    View Roles Need Bulk For Print & Delete Just Checked
+    Error Back Search By Start & End Date
+}

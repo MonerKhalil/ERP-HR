@@ -104,14 +104,14 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="#" class="NavName">
+                                    <a href="/Test-6" class="NavName">
                                         <span class="Label">@lang("viewEmployees")</span>
                                     </a>
                                 </div>
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="#" class="NavName">
+                                    <a href="/Test-5" class="NavName">
                                         <span class="Label">@lang("addEmployee")</span>
                                     </a>
                                 </div>
@@ -133,14 +133,14 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-7" class="NavName">
+                                    <a href="{{route("system.session_decisions.index")}}" class="NavName">
                                         <span class="Label">@lang("viewSessions")</span>
                                     </a>
                                 </div>
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-6" class="NavName">
+                                    <a href="{{route("system.session_decisions.create")}}" class="NavName">
                                         <span class="Label">@lang("addSession")</span>
                                     </a>
                                 </div>

@@ -367,46 +367,142 @@ p {
   position: relative;
   width: 100%;
 }
-.Form__Input, .Form__Date, .Form__Search {
+.Form__Input, .Form__Date, .Form__Search, .Form__UploadFile, .Form__Textarea, .Form__FieldReadOnly {
   position: relative;
   width: 100%;
 }
 .Form__Input .Date__Area,
 .Form__Input .Input__Area,
-.Form__Input .Search__Area, .Form__Date .Date__Area,
+.Form__Input .Search__Area,
+.Form__Input .UploadFile__Area,
+.Form__Input .Textarea__Area,
+.Form__Input .FieldReadOnly__Area, .Form__Date .Date__Area,
 .Form__Date .Input__Area,
-.Form__Date .Search__Area, .Form__Search .Date__Area,
+.Form__Date .Search__Area,
+.Form__Date .UploadFile__Area,
+.Form__Date .Textarea__Area,
+.Form__Date .FieldReadOnly__Area, .Form__Search .Date__Area,
 .Form__Search .Input__Area,
-.Form__Search .Search__Area {
+.Form__Search .Search__Area,
+.Form__Search .UploadFile__Area,
+.Form__Search .Textarea__Area,
+.Form__Search .FieldReadOnly__Area, .Form__UploadFile .Date__Area,
+.Form__UploadFile .Input__Area,
+.Form__UploadFile .Search__Area,
+.Form__UploadFile .UploadFile__Area,
+.Form__UploadFile .Textarea__Area,
+.Form__UploadFile .FieldReadOnly__Area, .Form__Textarea .Date__Area,
+.Form__Textarea .Input__Area,
+.Form__Textarea .Search__Area,
+.Form__Textarea .UploadFile__Area,
+.Form__Textarea .Textarea__Area,
+.Form__Textarea .FieldReadOnly__Area, .Form__FieldReadOnly .Date__Area,
+.Form__FieldReadOnly .Input__Area,
+.Form__FieldReadOnly .Search__Area,
+.Form__FieldReadOnly .UploadFile__Area,
+.Form__FieldReadOnly .Textarea__Area,
+.Form__FieldReadOnly .FieldReadOnly__Area {
   position: relative;
   border: 1px solid #96A2B4;
   border-radius: 5px;
 }
 .Form__Input .Date__Area.Error,
 .Form__Input .Input__Area.Error,
-.Form__Input .Search__Area.Error, .Form__Date .Date__Area.Error,
+.Form__Input .Search__Area.Error,
+.Form__Input .UploadFile__Area.Error,
+.Form__Input .Textarea__Area.Error,
+.Form__Input .FieldReadOnly__Area.Error, .Form__Date .Date__Area.Error,
 .Form__Date .Input__Area.Error,
-.Form__Date .Search__Area.Error, .Form__Search .Date__Area.Error,
+.Form__Date .Search__Area.Error,
+.Form__Date .UploadFile__Area.Error,
+.Form__Date .Textarea__Area.Error,
+.Form__Date .FieldReadOnly__Area.Error, .Form__Search .Date__Area.Error,
 .Form__Search .Input__Area.Error,
-.Form__Search .Search__Area.Error {
+.Form__Search .Search__Area.Error,
+.Form__Search .UploadFile__Area.Error,
+.Form__Search .Textarea__Area.Error,
+.Form__Search .FieldReadOnly__Area.Error, .Form__UploadFile .Date__Area.Error,
+.Form__UploadFile .Input__Area.Error,
+.Form__UploadFile .Search__Area.Error,
+.Form__UploadFile .UploadFile__Area.Error,
+.Form__UploadFile .Textarea__Area.Error,
+.Form__UploadFile .FieldReadOnly__Area.Error, .Form__Textarea .Date__Area.Error,
+.Form__Textarea .Input__Area.Error,
+.Form__Textarea .Search__Area.Error,
+.Form__Textarea .UploadFile__Area.Error,
+.Form__Textarea .Textarea__Area.Error,
+.Form__Textarea .FieldReadOnly__Area.Error, .Form__FieldReadOnly .Date__Area.Error,
+.Form__FieldReadOnly .Input__Area.Error,
+.Form__FieldReadOnly .Search__Area.Error,
+.Form__FieldReadOnly .UploadFile__Area.Error,
+.Form__FieldReadOnly .Textarea__Area.Error,
+.Form__FieldReadOnly .FieldReadOnly__Area.Error {
   border-color: #f93542;
 }
 .Form__Input .Date__Area.Error .Input__Label,
 .Form__Input .Input__Area.Error .Input__Label,
-.Form__Input .Search__Area.Error .Input__Label, .Form__Date .Date__Area.Error .Input__Label,
+.Form__Input .Search__Area.Error .Input__Label,
+.Form__Input .UploadFile__Area.Error .Input__Label,
+.Form__Input .Textarea__Area.Error .Input__Label,
+.Form__Input .FieldReadOnly__Area.Error .Input__Label, .Form__Date .Date__Area.Error .Input__Label,
 .Form__Date .Input__Area.Error .Input__Label,
-.Form__Date .Search__Area.Error .Input__Label, .Form__Search .Date__Area.Error .Input__Label,
+.Form__Date .Search__Area.Error .Input__Label,
+.Form__Date .UploadFile__Area.Error .Input__Label,
+.Form__Date .Textarea__Area.Error .Input__Label,
+.Form__Date .FieldReadOnly__Area.Error .Input__Label, .Form__Search .Date__Area.Error .Input__Label,
 .Form__Search .Input__Area.Error .Input__Label,
-.Form__Search .Search__Area.Error .Input__Label {
+.Form__Search .Search__Area.Error .Input__Label,
+.Form__Search .UploadFile__Area.Error .Input__Label,
+.Form__Search .Textarea__Area.Error .Input__Label,
+.Form__Search .FieldReadOnly__Area.Error .Input__Label, .Form__UploadFile .Date__Area.Error .Input__Label,
+.Form__UploadFile .Input__Area.Error .Input__Label,
+.Form__UploadFile .Search__Area.Error .Input__Label,
+.Form__UploadFile .UploadFile__Area.Error .Input__Label,
+.Form__UploadFile .Textarea__Area.Error .Input__Label,
+.Form__UploadFile .FieldReadOnly__Area.Error .Input__Label, .Form__Textarea .Date__Area.Error .Input__Label,
+.Form__Textarea .Input__Area.Error .Input__Label,
+.Form__Textarea .Search__Area.Error .Input__Label,
+.Form__Textarea .UploadFile__Area.Error .Input__Label,
+.Form__Textarea .Textarea__Area.Error .Input__Label,
+.Form__Textarea .FieldReadOnly__Area.Error .Input__Label, .Form__FieldReadOnly .Date__Area.Error .Input__Label,
+.Form__FieldReadOnly .Input__Area.Error .Input__Label,
+.Form__FieldReadOnly .Search__Area.Error .Input__Label,
+.Form__FieldReadOnly .UploadFile__Area.Error .Input__Label,
+.Form__FieldReadOnly .Textarea__Area.Error .Input__Label,
+.Form__FieldReadOnly .FieldReadOnly__Area.Error .Input__Label {
   color: #f93542;
 }
 .Form__Input .Date__Field,
 .Form__Input .Input__Field,
-.Form__Input .Search__Field, .Form__Date .Date__Field,
+.Form__Input .Search__Field,
+.Form__Input .UploadFile__Field,
+.Form__Input .Textarea__Field,
+.Form__Input .FieldReadOnly__Field, .Form__Date .Date__Field,
 .Form__Date .Input__Field,
-.Form__Date .Search__Field, .Form__Search .Date__Field,
+.Form__Date .Search__Field,
+.Form__Date .UploadFile__Field,
+.Form__Date .Textarea__Field,
+.Form__Date .FieldReadOnly__Field, .Form__Search .Date__Field,
 .Form__Search .Input__Field,
-.Form__Search .Search__Field {
+.Form__Search .Search__Field,
+.Form__Search .UploadFile__Field,
+.Form__Search .Textarea__Field,
+.Form__Search .FieldReadOnly__Field, .Form__UploadFile .Date__Field,
+.Form__UploadFile .Input__Field,
+.Form__UploadFile .Search__Field,
+.Form__UploadFile .UploadFile__Field,
+.Form__UploadFile .Textarea__Field,
+.Form__UploadFile .FieldReadOnly__Field, .Form__Textarea .Date__Field,
+.Form__Textarea .Input__Field,
+.Form__Textarea .Search__Field,
+.Form__Textarea .UploadFile__Field,
+.Form__Textarea .Textarea__Field,
+.Form__Textarea .FieldReadOnly__Field, .Form__FieldReadOnly .Date__Field,
+.Form__FieldReadOnly .Input__Field,
+.Form__FieldReadOnly .Search__Field,
+.Form__FieldReadOnly .UploadFile__Field,
+.Form__FieldReadOnly .Textarea__Field,
+.Form__FieldReadOnly .FieldReadOnly__Field {
   display: block;
   width: 100%;
   font-family: inherit;
@@ -419,11 +515,35 @@ p {
 }
 .Form__Input .Date__Label,
 .Form__Input .Input__Label,
-.Form__Input .Search__Label, .Form__Date .Date__Label,
+.Form__Input .Search__Label,
+.Form__Input .UploadFile__Label,
+.Form__Input .Textarea__Label,
+.Form__Input .FieldReadOnly__Label, .Form__Date .Date__Label,
 .Form__Date .Input__Label,
-.Form__Date .Search__Label, .Form__Search .Date__Label,
+.Form__Date .Search__Label,
+.Form__Date .UploadFile__Label,
+.Form__Date .Textarea__Label,
+.Form__Date .FieldReadOnly__Label, .Form__Search .Date__Label,
 .Form__Search .Input__Label,
-.Form__Search .Search__Label {
+.Form__Search .Search__Label,
+.Form__Search .UploadFile__Label,
+.Form__Search .Textarea__Label,
+.Form__Search .FieldReadOnly__Label, .Form__UploadFile .Date__Label,
+.Form__UploadFile .Input__Label,
+.Form__UploadFile .Search__Label,
+.Form__UploadFile .UploadFile__Label,
+.Form__UploadFile .Textarea__Label,
+.Form__UploadFile .FieldReadOnly__Label, .Form__Textarea .Date__Label,
+.Form__Textarea .Input__Label,
+.Form__Textarea .Search__Label,
+.Form__Textarea .UploadFile__Label,
+.Form__Textarea .Textarea__Label,
+.Form__Textarea .FieldReadOnly__Label, .Form__FieldReadOnly .Date__Label,
+.Form__FieldReadOnly .Input__Label,
+.Form__FieldReadOnly .Search__Label,
+.Form__FieldReadOnly .UploadFile__Label,
+.Form__FieldReadOnly .Textarea__Label,
+.Form__FieldReadOnly .FieldReadOnly__Label {
   position: absolute;
   top: 1rem;
   left: 2rem;
@@ -487,9 +607,41 @@ p {
   font-size: 1.6rem;
   cursor: pointer;
 }
-.Form__Textarea .Textarea__Label {
+.Form__UploadFile .UploadFile__Area.SelectedFile .UploadFile__Field::before {
+  visibility: hidden;
+}
+.Form__UploadFile .UploadFile__Area.SelectedFile .UploadFile__Label {
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  padding: 0 0.5rem;
+}
+.Form__UploadFile .UploadFile__Field {
+  position: relative;
+}
+.Form__UploadFile .UploadFile__Field::-webkit-file-upload-button {
+  display: none;
+}
+.Form__UploadFile .UploadFile__Field::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.Form__TextEditor .TextEditor__Label {
   display: inline-block;
   margin-bottom: 1rem;
+}
+.Form__Textarea .Textarea__Field:focus ~ .Textarea__Label, .Form__Textarea .Textarea__Field:not(:placeholder-shown) ~ .Textarea__Label {
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  padding: 0 0.5rem;
+  width: fit-content;
 }
 .Form__Link .Link__Anchor {
   font-size: 1.4rem;
@@ -510,29 +662,104 @@ p {
   background-color: #10C093;
   color: #fff;
 }
+.Form__FieldReadOnly .FieldReadOnly__Label {
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  padding: 0 0.5rem;
+}
+.Form__FieldReadOnly .FieldReadOnly__Value {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  font-size: 1.5rem;
+}
+.Form__FieldReadOnly .FieldReadOnly__Close {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.Form__FieldReadOnly .FieldReadOnly__Close:hover {
+  color: #10C093;
+}
 .Form--Dark .Form__Input .Input__Field,
 .Form--Dark .Form__Input .Date__Field,
-.Form--Dark .Form__Input .Search__Field, .Form--Dark .Form__Date .Input__Field,
+.Form--Dark .Form__Input .Search__Field,
+.Form--Dark .Form__Input .UploadFile__Field,
+.Form--Dark .Form__Input .FieldReadOnly__Field,
+.Form--Dark .Form__Input .Textarea__Field, .Form--Dark .Form__Date .Input__Field,
 .Form--Dark .Form__Date .Date__Field,
-.Form--Dark .Form__Date .Search__Field, .Form--Dark .Form__Search .Input__Field,
+.Form--Dark .Form__Date .Search__Field,
+.Form--Dark .Form__Date .UploadFile__Field,
+.Form--Dark .Form__Date .FieldReadOnly__Field,
+.Form--Dark .Form__Date .Textarea__Field, .Form--Dark .Form__Search .Input__Field,
 .Form--Dark .Form__Search .Date__Field,
-.Form--Dark .Form__Search .Search__Field {
+.Form--Dark .Form__Search .Search__Field,
+.Form--Dark .Form__Search .UploadFile__Field,
+.Form--Dark .Form__Search .FieldReadOnly__Field,
+.Form--Dark .Form__Search .Textarea__Field, .Form--Dark .Form__UploadFile .Input__Field,
+.Form--Dark .Form__UploadFile .Date__Field,
+.Form--Dark .Form__UploadFile .Search__Field,
+.Form--Dark .Form__UploadFile .UploadFile__Field,
+.Form--Dark .Form__UploadFile .FieldReadOnly__Field,
+.Form--Dark .Form__UploadFile .Textarea__Field, .Form--Dark .Form__FieldReadOnly .Input__Field,
+.Form--Dark .Form__FieldReadOnly .Date__Field,
+.Form--Dark .Form__FieldReadOnly .Search__Field,
+.Form--Dark .Form__FieldReadOnly .UploadFile__Field,
+.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Field,
+.Form--Dark .Form__FieldReadOnly .Textarea__Field, .Form--Dark .Form__Textarea .Input__Field,
+.Form--Dark .Form__Textarea .Date__Field,
+.Form--Dark .Form__Textarea .Search__Field,
+.Form--Dark .Form__Textarea .UploadFile__Field,
+.Form--Dark .Form__Textarea .FieldReadOnly__Field,
+.Form--Dark .Form__Textarea .Textarea__Field {
   color: #96A2B4;
   background-color: transparent;
 }
 .Form--Dark .Form__Input .Input__Field::placeholder,
 .Form--Dark .Form__Input .Date__Field::placeholder,
-.Form--Dark .Form__Input .Search__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
+.Form--Dark .Form__Input .Search__Field::placeholder,
+.Form--Dark .Form__Input .UploadFile__Field::placeholder,
+.Form--Dark .Form__Input .FieldReadOnly__Field::placeholder,
+.Form--Dark .Form__Input .Textarea__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
 .Form--Dark .Form__Date .Date__Field::placeholder,
-.Form--Dark .Form__Date .Search__Field::placeholder, .Form--Dark .Form__Search .Input__Field::placeholder,
+.Form--Dark .Form__Date .Search__Field::placeholder,
+.Form--Dark .Form__Date .UploadFile__Field::placeholder,
+.Form--Dark .Form__Date .FieldReadOnly__Field::placeholder,
+.Form--Dark .Form__Date .Textarea__Field::placeholder, .Form--Dark .Form__Search .Input__Field::placeholder,
 .Form--Dark .Form__Search .Date__Field::placeholder,
-.Form--Dark .Form__Search .Search__Field::placeholder {
+.Form--Dark .Form__Search .Search__Field::placeholder,
+.Form--Dark .Form__Search .UploadFile__Field::placeholder,
+.Form--Dark .Form__Search .FieldReadOnly__Field::placeholder,
+.Form--Dark .Form__Search .Textarea__Field::placeholder, .Form--Dark .Form__UploadFile .Input__Field::placeholder,
+.Form--Dark .Form__UploadFile .Date__Field::placeholder,
+.Form--Dark .Form__UploadFile .Search__Field::placeholder,
+.Form--Dark .Form__UploadFile .UploadFile__Field::placeholder,
+.Form--Dark .Form__UploadFile .FieldReadOnly__Field::placeholder,
+.Form--Dark .Form__UploadFile .Textarea__Field::placeholder, .Form--Dark .Form__FieldReadOnly .Input__Field::placeholder,
+.Form--Dark .Form__FieldReadOnly .Date__Field::placeholder,
+.Form--Dark .Form__FieldReadOnly .Search__Field::placeholder,
+.Form--Dark .Form__FieldReadOnly .UploadFile__Field::placeholder,
+.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Field::placeholder,
+.Form--Dark .Form__FieldReadOnly .Textarea__Field::placeholder, .Form--Dark .Form__Textarea .Input__Field::placeholder,
+.Form--Dark .Form__Textarea .Date__Field::placeholder,
+.Form--Dark .Form__Textarea .Search__Field::placeholder,
+.Form--Dark .Form__Textarea .UploadFile__Field::placeholder,
+.Form--Dark .Form__Textarea .FieldReadOnly__Field::placeholder,
+.Form--Dark .Form__Textarea .Textarea__Field::placeholder {
   color: transparent;
 }
 .Form--Dark .Form__Input .Input__Field:focus ~ .Input__Label, .Form--Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   background-color: #1B202D;
 }
 .Form--Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+  background-color: #1B202D;
+}
+.Form--Dark .Form__Textarea .Textarea__Field:focus ~ .Textarea__Label, .Form--Dark .Form__Textarea .Textarea__Field:not(:placeholder-shown) ~ .Textarea__Label {
   background-color: #1B202D;
 }
 .Form--Dark .Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked {
@@ -565,10 +792,40 @@ p {
 .Form--Dark .Form__Link .Link__Anchor:hover {
   color: #10C093;
 }
+.Form--Dark .Form__UploadFile .UploadFile__Field::before {
+  background: #1A202E;
+}
+.Form--Dark .Form__UploadFile .UploadFile__Label {
+  background-color: #1B202D;
+}
+.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Label {
+  background-color: #1B202D;
+}
+.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Value {
+  color: #96A2B4;
+}
 
 html[lang=ar] .Form__Input .Input__Label,
-html[lang=ar] .Form__Input .Date__Label, html[lang=ar] .Form__Date .Input__Label,
-html[lang=ar] .Form__Date .Date__Label {
+html[lang=ar] .Form__Input .Date__Label,
+html[lang=ar] .Form__Input .UploadFile__Label,
+html[lang=ar] .Form__Input .Textarea__Label,
+html[lang=ar] .Form__Input .FieldReadOnly__Label, html[lang=ar] .Form__Date .Input__Label,
+html[lang=ar] .Form__Date .Date__Label,
+html[lang=ar] .Form__Date .UploadFile__Label,
+html[lang=ar] .Form__Date .Textarea__Label,
+html[lang=ar] .Form__Date .FieldReadOnly__Label, html[lang=ar] .Form__UploadFile .Input__Label,
+html[lang=ar] .Form__UploadFile .Date__Label,
+html[lang=ar] .Form__UploadFile .UploadFile__Label,
+html[lang=ar] .Form__UploadFile .Textarea__Label,
+html[lang=ar] .Form__UploadFile .FieldReadOnly__Label, html[lang=ar] .Form__Textarea .Input__Label,
+html[lang=ar] .Form__Textarea .Date__Label,
+html[lang=ar] .Form__Textarea .UploadFile__Label,
+html[lang=ar] .Form__Textarea .Textarea__Label,
+html[lang=ar] .Form__Textarea .FieldReadOnly__Label, html[lang=ar] .Form__FieldReadOnly .Input__Label,
+html[lang=ar] .Form__FieldReadOnly .Date__Label,
+html[lang=ar] .Form__FieldReadOnly .UploadFile__Label,
+html[lang=ar] .Form__FieldReadOnly .Textarea__Label,
+html[lang=ar] .Form__FieldReadOnly .FieldReadOnly__Label {
   left: initial;
   right: 2rem;
 }
@@ -587,6 +844,19 @@ html[lang=ar] .Form__Input--Password .Input__Icon {
 html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   left: initial;
   right: 1.5rem;
+}
+html[lang=ar] .Form__UploadFile .UploadFile__Area.SelectedFile .UploadFile__Label {
+  top: 0;
+  left: initial;
+  right: 1.5rem;
+}
+html[lang=ar] .Form__FieldReadOnly .FieldReadOnly__Value {
+  left: initial;
+  right: 2rem;
+}
+html[lang=ar] .Form__FieldReadOnly .FieldReadOnly__Close {
+  right: initial;
+  left: 1rem;
 }
 
 .Button, .Button:link, .Button:visited {
@@ -1300,6 +1570,31 @@ html[lang=ar] .TextEditorContent__Content li {
 
 html[lang=en] .TextEditorContent__Content li {
   margin-left: 1.7rem;
+}
+
+.Popper--MoreMenuTable.MenuTarget.Dropdown {
+  transform: scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: none;
+}
+.Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item {
+  display: block;
+  min-width: 15rem;
+  padding: 1rem 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item:hover {
+  background-color: #171a21;
+}
+.Popper--MoreMenuTable.MenuTarget.Dropdown.Show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
 }
 
 .HeaderPage {
