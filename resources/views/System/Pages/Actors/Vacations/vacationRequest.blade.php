@@ -125,7 +125,7 @@
                                                                                 <div class="Date__Area">
                                                                                     <input id="VacationEndTime"
                                                                                            class="TimeNoDate Date__Field"
-                                                                                           type="text" name="VacationStartTime"
+                                                                                           type="text" name="VacationEndTime"
                                                                                            placeholder="تنتهي عند الساعة"
                                                                                            required>
                                                                                     <label class="Date__Label"

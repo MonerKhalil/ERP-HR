@@ -286,9 +286,11 @@ $(document).ready(function (){
      */
 
     function FormOperation(FormInfo = {
-        Operation : "InitializeForm" | "RefreshValidationForm" | "CloneFields" ,
+        Operation : "InitializeForm" | "RefreshValidationForm" |
+            "CloneFields" | "IgnoreField" | "NotIgnoreField" ,
         FormElement : HTMLFormElement ,
         ClonePart : {
+            ElementTarget : HTMLElement | undefined ,
             ElementPart : HTMLElement ,
             WithClear : false
         } | undefined
@@ -306,6 +308,12 @@ $(document).ready(function (){
                 CloneField() ;
                 RefreshValidationForm() ;
                 break ;
+            case "NotIgnoreField" :
+                ActiveField() ;
+                break ;
+            case "IgnoreField" :
+                IgnoreField() ;
+                break ;
         }
 
         function InitializeForm() {
@@ -316,6 +324,9 @@ $(document).ready(function (){
                     $(FormInfo.FormElement).attr("action" , `${ActionForm}?${Params}`);
             }
             $(FormInfo.FormElement).find("input , textarea").each((_ , Field) => {
+                $(Field).attr("data-FieldID" , 1) ;
+            });
+            $(FormInfo.FormElement).find("input:not(.Date__Field) , textarea").each((_ , Field) => {
                 $(Field).on("blur" , function () {
                     $(Field).valid() ;
                 });
@@ -324,7 +335,7 @@ $(document).ready(function (){
                 InitialFieldPassword(Field);
             });
             $(FormInfo.FormElement).find(".Form__Date").each((_ , Field)=> {
-                InitialFieldDate(Field);
+                InitialFieldDate(Field) ;
             });
             $(FormInfo.FormElement).find(".Form__UploadFile").each((_ , UploadFile) => {
                 InitialFieldUpload(UploadFile) ;
@@ -349,8 +360,8 @@ $(document).ready(function (){
         }
 
         function RefreshValidationForm() {
-            $(FormInfo).removeData("validator") ;
-            $(FormInfo).removeData("unobtrusiveValidation") ;
+            $(FormInfo.FormElement).removeData("validator") ;
+            $(FormInfo.FormElement).removeData("unobtrusiveValidation") ;
             $.validator.addMethod("RegexPassword"
                 , function (Value) {
                     return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
@@ -503,10 +514,12 @@ $(document).ready(function (){
             } else {
                 FlatPickerObject = $(Input).flatpickr();
             }
-
             if($(Input).hasClass("MinimumNow")) {
                 FlatPickerObject.set("minDate" , new Date());
             }
+            FlatPickerObject.set("onClose" , function() {
+                $(Input).valid() ;
+            });
         }
 
         function InitialFieldUpload(Field = HTMLElement) {
@@ -545,9 +558,43 @@ $(document).ready(function (){
             });
         }
 
+        function ActiveField() {
+            $(FormInfo.ClonePart.ElementPart)
+                .find("input , textarea").each((_ , Field) => {
+                $(Field).removeClass("IgnoreValidate");
+            });
+            RefreshValidationForm() ;
+        }
+
+        function IgnoreField() {
+            $(FormInfo.ClonePart.ElementPart)
+                .find("input , textarea").each((_ , Field) => {
+                    $(Field).addClass("IgnoreValidate");
+            });
+            RefreshValidationForm() ;
+        }
+
         function CloneField() {
             $(FormInfo.ClonePart.ElementPart).off() ;
             $(FormInfo.ClonePart.ElementPart).find("input , textarea").each((_ , Field) => {
+                const FieldCloneNum = Number($(Field).attr("data-FieldID")) + 1 ;
+                $(Field).attr("data-FieldID" , FieldCloneNum) ;
+                if(FieldCloneNum) {
+                    const OldInputID = $(Field).attr("id") ;
+                    if(OldInputID) {
+                        const NewInputID = `${OldInputID}_${FieldCloneNum}` ;
+                        $(Field).attr("id" , NewInputID) ;
+                        $(Field).siblings("label").attr("for" , NewInputID) ;
+                    }
+                } else {
+                    $(Field).attr("data-FieldID" , 1) ;
+                }
+            });
+            $(FormInfo.ClonePart.ElementTarget).find("input , textarea").each((_ , Field) => {
+                const FieldCloneNum = Number($(Field).attr("data-FieldID")) + 1 ;
+                $(Field).attr("data-FieldID" , FieldCloneNum) ;
+            });
+            $(FormInfo.ClonePart.ElementPart).find("input:not(.Date__Field) , textarea").each((_ , Field) => {
                 $(Field).on("blur" , function () {
                     $(Field).valid() ;
                 });
@@ -1306,15 +1353,15 @@ $(document).ready(function (){
         VisibilityOption : HTMLElement ,
         VisibilityTarget : HTMLElement ,
     }) {
+
         switch (FieldInfo.Operation) {
             case "InitializeVisibilityOption" :
                 InitVisibilityOption() ;
                 break ;
             case "InitializeVisibilityTarget" :
-
+                InitVisibilityTarget() ;
                 break ;
         }
-
 
         function InitVisibilityOption() {
             const TargetName = $(FieldInfo.VisibilityOption).attr("data-ElementsTargetName") ;
@@ -1341,11 +1388,36 @@ $(document).ready(function (){
                 const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
                 if(ElementName === NameElement) {
                     const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
-                    $(VisibilityTarget).hide();
+                    {
+                        $(VisibilityTarget).hide();
+                        $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                            const FormElement = $(FieldGroup).closest("form").get(0) ;
+                            FormOperation({
+                                Operation : "IgnoreField" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                        });
+                    }
+
                     if(ElementValue !== undefined)
                         for (let i = 0; i < ElementValue.length; i++)
                             if(ElementValue[i] === ValueSelected){
-                                $(VisibilityTarget).show();
+                                {
+                                    $(VisibilityTarget).show();
+                                    $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                                        const FormElement = $(FieldGroup).closest("form").get(0) ;
+                                        FormOperation({
+                                            Operation : "NotIgnoreField" ,
+                                            FormElement : FormElement ,
+                                            ClonePart : {
+                                                ElementPart : FieldGroup ,
+                                            }
+                                        });
+                                    });
+                                }
                                 break ;
                             }
                 }
@@ -1353,7 +1425,6 @@ $(document).ready(function (){
         }
 
     }
-
 
     $(".VisibilityOption").ready(function () {
         $(".VisibilityOption").each((_ , VisibilityOption) => {
@@ -1416,6 +1487,7 @@ $(document).ready(function (){
                 Operation : "CloneFields" ,
                 FormElement : InfoParam.MainForm ,
                 ClonePart : {
+                    ElementTarget : InfoParam.TargetElement ,
                     ElementPart : CloneElement ,
                     WithClear : InfoParam.ClearClone
                 }
@@ -1423,7 +1495,15 @@ $(document).ready(function (){
         }
 
         function AppendClone() {
-            CloneElement.appendTo($(InfoParam.ParentContainer));
+            const TargetAppend = CloneElement.appendTo($(InfoParam.ParentContainer)) ;
+            FormOperation({
+                Operation : "RefreshValidationForm" ,
+                FormElement : InfoParam.MainForm ,
+                ClonePart : {
+                    ElementPart: TargetAppend,
+                    WithClear: false
+                }
+            }) ;
         }
     }
 
