@@ -3890,6 +3890,11 @@
                 </div>
             </footer>
         </div>
+        <script>
+            window.onload = function () {
+                javascript:window.print();
+            };
+        </script>
     </body>
 
 </html>
