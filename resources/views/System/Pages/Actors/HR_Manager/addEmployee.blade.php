@@ -1,7 +1,7 @@
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    <section class="MainContent__Section MainContent__Section--AddEmployeePage">
+    <div class="MainContent__Section MainContent__Section--AddEmployeePage">
         <div class="AddEmployeePage">
             <div class="AddEmployeePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
@@ -36,13 +36,13 @@
                                         </li>
                                     </ul>
                                     <div class="Taps__Content">
+                                        <form class="Form Form--Dark">
+                                            <div class="Taps__Panel" data-panel="personalInfo">
+                                                <div class="Card">
+                                                    <div class="Card__Content">
+                                                        <div class="Card__Inner">
+                                                            <div class="Card__Body">
 
-                                        <div class="Taps__Panel" data-panel="personalInfo">
-                                            <div class="Card">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Body">
-                                                            <form class="Form Form--Dark">
                                                                 <div class="ListData">
                                                                     <div class="ListData__Head">
                                                                         <h4 class="ListData__Title">
@@ -337,19 +337,17 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="Taps__Panel" data-panel="contactInfo">
-                                            <div class="Card">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Body">
-                                                            <form class="Form Form--Dark">
+                                            <div class="Taps__Panel" data-panel="contactInfo">
+                                                <div class="Card">
+                                                    <div class="Card__Content">
+                                                        <div class="Card__Inner">
+                                                            <div class="Card__Body">
                                                                 <div class="ListData">
                                                                     <div class="ListData__Head">
                                                                         <h4 class="ListData__Title">
@@ -475,49 +473,6 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="VisibilityOption Form__Group"
-                                                                         data-ElementsTargetName="OnlyMarriedFields">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @include("System.Components.selector" , ['Name' => "familyStatus" , "Required" => "true" , "Label" => __('familyStatus'),"DefaultValue" => "",
-                                                                                            "OptionsValues" => [__("married"), __("widowed")],])
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                     data-TargetName="OnlyMarriedFields"
-                                                                     data-TargetValue="0"
-                                                                     id="wivesNumber">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="wivesNum"
-                                                                                       class="Input__Field"
-                                                                                       type="text"
-                                                                                       name="EmpWivesNumber"
-                                                                                       placeholder="@lang("wivesNumber")">
-                                                                                <label class="Input__Label"
-                                                                                       for="wivesNum">@lang("wivesNumber")</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                     data-TargetName="OnlyMarriedFields"
-                                                                     data-TargetValue="0"
-                                                                     id="childrenNumber">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="childrenNum"
-                                                                                       class="Input__Field"
-                                                                                       type="text"
-                                                                                       name="EmpChildrenNum"
-                                                                                       placeholder="@lang("childrenNumber")">
-                                                                                <label class="Input__Label"
-                                                                                       for="childrenNum">@lang("childrenNumber")</label>
                                                                             </div>
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
@@ -577,232 +532,113 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </form>
-                                                        </div>
-=======
-{{--                                                                <div class="Col-12-xs">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Button">--}}
-{{--                                                                            <button class="Button Send"--}}
-{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="Taps__Panel" data-panel="educationInfo">
-                                            <div class="Card">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Body">
-                                                            <form class="Form Form--Dark">
-                                                                <div class="ListData__Head">
-                                                                    <h4 class="ListData__Title">
-                                                                        @lang("educationInfo")
-                                                                    </h4>
-                                                                </div>
-                                                                <div class="ListData__Content">
-                                                                    <div class="Row GapC-1-5">
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Select">
-                                                                                    <div class="Select__Area">
-                                                                                        @include("System.Components.selector" , ['Name' => "educationDegree" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => "",
-                                                                                                    "OptionsValues" => [("9"), ("12"),("college")],])
+                                            <div class="Taps__Panel" data-panel="educationInfo">
+                                                <div class="Card">
+                                                    <div class="Card__Content">
+                                                        <div class="Card__Inner">
+                                                            <div class="Card__Body">
+                                                                <form class="Form Form--Dark">
+                                                                    <div class="ListData__Head">
+                                                                        <h4 class="ListData__Title">
+                                                                            @lang("educationInfo")
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Row GapC-1-5">
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @include("System.Components.selector" , ['Name' => "educationDegree" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => [("9"), ("12"),("college")],])
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Date">
-                                                                                    <div class="Date__Area">
-                                                                                        <input id="dateOfIssuance"
-                                                                                               class="Date__Field"
-                                                                                               type="text"
-                                                                                               name="dateOfIssuance"
-                                                                                               placeholder="@lang("dateOfIssuance")">
-                                                                                        <label class="Date__Label"
-                                                                                               for="dateOfIssuance">@lang("dateOfIssuance")</label>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Date">
+                                                                                        <div class="Date__Area">
+                                                                                            <input id="dateOfIssuance"
+                                                                                                   class="Date__Field"
+                                                                                                   type="text"
+                                                                                                   name="dateOfIssuance"
+                                                                                                   placeholder="@lang("dateOfIssuance")">
+                                                                                            <label class="Date__Label"
+                                                                                                   for="dateOfIssuance">@lang("dateOfIssuance")</label>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Input">
-                                                                                    <div class="Input__Area">
-                                                                                        <input id="collegeName"
-                                                                                               class="Input__Field"
-                                                                                               type="text"
-                                                                                               name="EmpCollegeName"
-                                                                                               placeholder="@lang("collegeName")">
-                                                                                        <label class="Input__Label"
-                                                                                               for="collegeName">@lang("collegeName")</label>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="collegeName"
+                                                                                                   class="Input__Field"
+                                                                                                   type="text"
+                                                                                                   name="EmpCollegeName"
+                                                                                                   placeholder="@lang("collegeName")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="collegeName">@lang("collegeName")</label>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__UploadFile">
-                                                                                    <div class="UploadFile__Area">
-                                                                                        <input type="file"
-                                                                                               class="UploadFile__Field"
-                                                                                               placeholder="@lang("chooseDocument")">
-                                                                                        <label
-                                                                                            class="UploadFile__Label">
-                                                                                            @lang("chooseDocument")
-                                                                                        </label>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__UploadFile">
+                                                                                        <div class="UploadFile__Area">
+                                                                                            <input type="file"
+                                                                                                   class="UploadFile__Field"
+                                                                                                   placeholder="@lang("chooseDocument")">
+                                                                                            <label
+                                                                                                class="UploadFile__Label">
+                                                                                                @lang("chooseDocument")
+                                                                                            </label>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Input">
-                                                                                    <div class="Input__Area">
-                                                                                        <input id="salaryImpact"
-                                                                                               class="Input__Field"
-                                                                                               type="number"
-                                                                                               name="salaryImpact"
-                                                                                               placeholder="@lang("salaryImpact")">
-                                                                                        <label class="Input__Label"
-                                                                                               for="salaryImpact">@lang("salaryImpact")</label>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="salaryImpact"
+                                                                                                   class="Input__Field"
+                                                                                                   type="number"
+                                                                                                   name="salaryImpact"
+                                                                                                   placeholder="@lang("salaryImpact")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="salaryImpact">@lang("salaryImpact")</label>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-
-{{--                                                                <div class="Col-12-xs">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Button">--}}
-{{--                                                                            <button class="Button Send"--}}
-{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                </form>
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
+                                        </form>
                                     </div>
-
-                                </div>
-                                <div class="Col-12-xs">
-                                    <div class="Form__Group">
-                                        <div class="Form__Button">
-                                            <button class="Button Send"
-                                                    type="submit">@lang("addEmployee")</button>
-                                        <div class="Taps__Panel" data-panel="educationInfo">
-                                            <div class="Card">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Header">
-                                                            <div class="Card__Title">
-                                                                <h3>@lang("educationInfo")</h3>
-                                                            </div>
-                                                        </div>
-                                                        <form class="Form Form--Dark">
-                                                            <div class="Row GapC-1-5">
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @include("System.Components.selector" , ['Name' => "educationDegree" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => "",
-                                                                                            "OptionsValues" => [("9"), ("12"),("college")],])
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Date">
-                                                                            <div class="Date__Area">
-                                                                                <input id="dateOfIssuance"
-                                                                                       class="Date__Field"
-                                                                                       type="text"
-                                                                                       name="dateOfIssuance"
-                                                                                       placeholder="@lang("dateOfIssuance")">
-                                                                                <label class="Date__Label"
-                                                                                       for="dateOfIssuance">@lang("dateOfIssuance")</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="collegeName"
-                                                                                       class="Input__Field"
-                                                                                       type="text"
-                                                                                       name="EmpCollegeName"
-                                                                                       placeholder="@lang("collegeName")">
-                                                                                <label class="Input__Label"
-                                                                                       for="collegeName">@lang("collegeName")</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Button">
-                                                                            <input class="Button Send"
-                                                                                   type="file">@lang("chooseDocument")
-                                                                            >
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="salaryImpact"
-                                                                                       class="Input__Field"
-                                                                                       type="number"
-                                                                                       name="salaryImpact"
-                                                                                       placeholder="@lang("salaryImpact")">
-                                                                                <label class="Input__Label"
-                                                                                       for="salaryImpact">@lang("salaryImpact")</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-{{--                                                                <div class="Col-12-xs">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Button">--}}
-{{--                                                                            <button class="Button Send"--}}
-{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                    <div class="Col-12-xs">
+                                        <div class="Form__Group">
+                                            <div class="Form__Button">
+                                                <button class="Button Send"
+                                                        type="submit">@lang("addEmployee")</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="Col-12-xs">
-                                <div class="Form__Group">
-                                    <div class="Form__Button">
-                                        <button class="Button Send"
-                                                type="submit">@lang("addEmployee")</button>
                                     </div>
                                 </div>
                             </div>
@@ -811,5 +647,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @endsection

@@ -1,24 +1,15 @@
 
 <?php
+
     $TypeMessage = null ;
-    $ErrorsName = ['email' , 'name' , 'password'] ; // Add Error Name
-    $SuccessName = [] ; // Add Success Name
-    foreach ($ErrorsName as $Error) {
-        if(!is_null(Error($Error))) {
-            $TypeMessage = "Error" ;
-            $Message = Error($Error) ;
-            break ;
-        }
+    if(!is_null(Error())) {
+        $TypeMessage = "Error" ;
+        $Message = Error() ;
+    } else if(!is_null(Success())) {
+        $TypeMessage = "Success" ;
+        $Message = Success() ;
     }
-    if($TypeMessage == null) {
-        foreach ($SuccessName as $Success) {
-            if(!is_null(Success($Success))) {
-                $TypeMessage = "Success" ;
-                $Message = Success($Success) ;
-                break ;
-            }
-        }
-    }
+
 ?>
 
 @if($TypeMessage != null)
@@ -51,7 +42,6 @@
         </div>
     </div>
 @endif
-
 
 {{--
     Type : Success || Error || Warning || Info
