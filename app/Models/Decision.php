@@ -43,25 +43,32 @@ class Decision extends BaseModel
         return function (BaseRequest $validator) {
             dd($validator);
             $rule = !$validator->isUpdatedRequest() ? "required" : "sometimes";
-            return [
+            $rules = [
                 "type_decision_id" => [$rule, Rule::exists("type_decisions","id")],
                 "session_decision_id" => [$rule, Rule::exists("session_decisions","id")],
                 "employees" => ["sometimes","array"],
                 "employees.*" => [Rule::exists("employees","id")],
+                "number" => [$rule, "numeric",Rule::unique("decisions","number")],
                 "effect_salary" => [$rule, Rule::in(self::effectSalary())],
-                "date" => $validator->afterDateOrNowRules(true),
+                "date" => $validator->dateRules(true),
                 "content" => [$rule,"string"],
                 "end_date_decision" => $validator->afterDateOrNowRules(false,'date'),
                 "value" => [Rule::requiredIf(function ()use($validator){
                     return isset($validator->effect_salary) &&
                         ($validator->effect_salary=="increment" || $validator->effect_salary=="decrement");
-                }),"numeric","min:1"],
+                }),Rule::when(isset($validator->effect_salary) &&
+                    ($validator->effect_salary=="none"),"nullable"),"numeric","min:1"],
                 "rate" => [Rule::requiredIf(function ()use($validator){
                     return isset($validator->effect_salary) &&
                         ($validator->effect_salary=="increment" || $validator->effect_salary=="decrement");
-                }),"numeric","min:1","max:100"],
+                }),Rule::when(isset($validator->effect_salary) &&
+                    ($validator->effect_salary=="none"),"nullable"),"numeric","min:1","max:100"],
                 "image" => $validator->imageRule(false),
             ];
+            if ($validator->isUpdatedRequest()){
+                $rules['number'] =  [$rule,Rule::unique("decisions","number")->ignore($validator->route('decision')->id)];
+            }
+            return $rules;
         };
     }
 

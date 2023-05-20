@@ -13,8 +13,7 @@ class ExportPDF
     public static function downloadPDF(array $head ,mixed $body,string $blade = null,$fileName = null): Response
     {
         $fileName = is_null($fileName) ? "document".time() : $fileName;
-        $fileName .= ".pdf";
-        return self::PDF($head,$body,$blade)->download($fileName);
+        return self::PDF($head,$body,$blade);
     }
 
     /**
@@ -26,12 +25,18 @@ class ExportPDF
     private static function PDF($head , $body,$blade = null)
     {
         $blade = is_null($blade) ? "System.Pages.Docs.tablePrint" : $blade;
-        ini_set("pcre.backtrack_limit", "5000000");
-        return \PDF::loadView($blade, [
+        return \response()->view($blade,[
             "data" => [
                 "head" => $head,
                 "body" => $body,
             ]
         ]);
+//        ini_set("pcre.backtrack_limit", "5000000");
+//        return \PDF::loadView($blade, [
+//            "data" => [
+//                "head" => $head,
+//                "body" => $body,
+//            ]
+//        ]);
     }
 }
