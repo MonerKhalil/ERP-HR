@@ -49,7 +49,7 @@ class DecisionController extends Controller
     public function create()
     {
         $session_decisions = SessionDecision::query()->pluck("name", "id")->toArray();
-        $employees = Employee::query()->select(["id" . "first_name", "last_name"])->get();
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
         $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
         $type_effects = Decision::effectSalary();
         return $this->responseSuccess("", compact("employees", "session_decisions", "type_decisions", "type_effects"));
@@ -142,7 +142,8 @@ class DecisionController extends Controller
                 }
                 $data['image'] = $image;
             }
-            $decision = $decision->update($data);
+            $decision->update($data);
+
             if (isset($request->employees)) {
                 $decision->employees()->sync($request->employees);
             }
@@ -172,9 +173,9 @@ class DecisionController extends Controller
 
     public function PrintDecision($decision)
     {
-        $decision = Decision::with(["type_decision", "session_decision"])
+        $data = Decision::with(["type_decision", "session_decision"])
             ->where("id",$decision)->firstOrFail();
-        return response()->view("System.Pages.Docs.decisionPrint",compact('decision'));
+        return response()->view("System.Pages.Docs.decisionPrint",compact('data'));
     }
 
     public function ExportXls(BaseRequest $request)
