@@ -614,29 +614,39 @@ p {
   font-size: 1.6rem;
   cursor: pointer;
 }
-.Form__UploadFile .UploadFile__Area.SelectedFile .UploadFile__Field::before {
-  visibility: hidden;
+.Form__UploadFile .FileUpload__Label {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: all 0.3s;
 }
-.Form__UploadFile .UploadFile__Area.SelectedFile .UploadFile__Label {
+.Form__UploadFile .FileUpload__FileName {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  padding: 1.05rem 2rem;
+  border-radius: 4px;
+  color: #96A2B4;
+  visibility: hidden;
+  opacity: 0;
+  word-break: break-all;
+  transition: all 0.4s;
+}
+.Form__UploadFile .FileUpload.Selected .FileUpload__Label {
   top: 0;
   left: 1.5rem;
   transform: translateY(-50%);
   font-size: 1.3rem;
   padding: 0 0.5rem;
 }
-.Form__UploadFile .UploadFile__Field {
-  position: relative;
-}
-.Form__UploadFile .UploadFile__Field::-webkit-file-upload-button {
-  display: none;
-}
-.Form__UploadFile .UploadFile__Field::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+.Form__UploadFile .FileUpload.Selected .FileUpload__FileName {
+  visibility: visible;
+  opacity: 1;
 }
 .Form__TextEditor .TextEditor__Label {
   display: inline-block;
@@ -799,11 +809,11 @@ p {
 .Form--Dark .Form__Link .Link__Anchor:hover {
   color: #10C093;
 }
-.Form--Dark .Form__UploadFile .UploadFile__Field::before {
-  background: #1A202E;
-}
-.Form--Dark .Form__UploadFile .UploadFile__Label {
+.Form--Dark .Form__UploadFile .FileUpload__Label {
   background-color: #1B202D;
+}
+.Form--Dark .Form__UploadFile .FileUpload__FileName {
+  color: #96A2B4;
 }
 .Form--Dark .Form__FieldReadOnly .FieldReadOnly__Label {
   background-color: #1B202D;
@@ -852,10 +862,17 @@ html[lang=ar] .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   left: initial;
   right: 1.5rem;
 }
-html[lang=ar] .Form__UploadFile .UploadFile__Area.SelectedFile .UploadFile__Label {
-  top: 0;
+html[lang=ar] .Form__UploadFile .FileUpload__Label {
+  left: initial;
+  right: 2rem;
+}
+html[lang=ar] .Form__UploadFile .FileUpload.Selected .FileUpload__Label {
   left: initial;
   right: 1.5rem;
+}
+html[lang=ar] .Form__UploadFile .FileUpload.Selected .FileUpload__FileName {
+  visibility: visible;
+  opacity: 1;
 }
 html[lang=ar] .Form__FieldReadOnly .FieldReadOnly__Value {
   left: initial;

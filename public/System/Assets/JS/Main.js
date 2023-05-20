@@ -564,6 +564,23 @@ $(document).ready(function (){
         }
 
         function InitialFieldUpload(Field = HTMLElement) {
+
+            const FieldComponent = $(Field).find(".FileUpload").get(0) ;
+            const InputFile = $(FieldComponent).find(".FileUpload__InputFile").get(0) ;
+            const FieldValue = $(FieldComponent).find(".FileUpload__FileName").get(0) ;
+            $(InputFile).on("change" , function () {
+                AddFile($(InputFile).val()) ;
+            });
+            if($(InputFile).attr("value"))
+                AddFile($(InputFile).attr("value")) ;
+
+            function AddFile(PathFile) {
+                $(FieldComponent).addClass("Selected") ;
+                $(FieldValue).text(PathFile) ;
+                $(InputFile).attr("value" , PathFile) ;
+            }
+
+
             if($(Field).find(".UploadFile__Field").attr("value") !== "") {
                 $(Field).find(".UploadFile__Area")
                     .addClass("SelectedFile") ;
