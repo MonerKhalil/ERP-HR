@@ -28,7 +28,7 @@
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form action="#" method="post">
+                                    <form action="#" class="Form Form--Dark" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
                                             <div class="Card__Inner py1">
@@ -171,9 +171,13 @@
                                                         "PaginationData" => $data ,
                                                         "PartsViewNum" => 5
                                                     ])
-                                                    @include("System.Components.paginationSelect" , [
-                                                        "PaginationData" => $data
+                                                    @include("System.Components.ItemCount" , [
+                                                        "SelectorName" => "ItemNumInPage" ,
+                                                        "CountItemPage" => [10 , 20 , 30]
                                                     ])
+{{--                                                    @include("System.Components.paginationSelect" , [--}}
+{{--                                                        "PaginationData" => $data--}}
+{{--                                                    ])--}}
                                                 </div>
                                             </div>
                                         </div>

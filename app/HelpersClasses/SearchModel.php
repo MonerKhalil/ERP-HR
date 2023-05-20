@@ -23,7 +23,7 @@ class SearchModel
         ,bool $isAll = null,string $isFilterDate_SetColumn = null,callable $callback = null): mixed
     {
         $filterFinal = $this->filterSearchAttributes($filter);
-
+//        dd($filterFinal);
         foreach ($filterFinal as $key => $value){
             $queryBuilder = $queryBuilder->where($key,"LIKE","%".strtolower($value)."%");
         }

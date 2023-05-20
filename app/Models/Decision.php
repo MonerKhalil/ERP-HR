@@ -41,6 +41,7 @@ class Decision extends BaseModel
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
+            dd($validator);
             $rule = !$validator->isUpdatedRequest() ? "required" : "sometimes";
             return [
                 "type_decision_id" => [$rule, Rule::exists("type_decisions","id")],

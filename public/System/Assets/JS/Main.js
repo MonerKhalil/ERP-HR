@@ -287,7 +287,8 @@ $(document).ready(function (){
 
     function FormOperation(FormInfo = {
         Operation : "InitializeForm" | "RefreshValidationForm" |
-            "CloneFields" | "IgnoreField" | "NotIgnoreField" ,
+            "CloneFields" | "DisabledForm" | "EnabledForm"
+            | "IgnoreField" | "NotIgnoreField" ,
         FormElement : HTMLFormElement ,
         ClonePart : {
             ElementTarget : HTMLElement | undefined ,
@@ -313,6 +314,12 @@ $(document).ready(function (){
                 break ;
             case "IgnoreField" :
                 IgnoreField() ;
+                break
+            case "DisabledForm" :
+                DisabledField() ;
+                break ;
+            case "EnabledForm" :
+                EnabledField() ;
                 break ;
         }
 
@@ -342,10 +349,13 @@ $(document).ready(function (){
             });
             $(FormInfo.FormElement).find(".RestButton").each((_ , Buttons) => {
                 $(Buttons).click(()=> {
-                    $(FormInfo.FormElement).find(`.Date__Field , .Input__Field , .Textarea__Field`)
+                    $(FormInfo.FormElement).find(`.Input__Field , .Textarea__Field`)
                         .each((_ , Field) => {
                             $(Field).val("");
                         });
+                    $(FormInfo.FormElement).find(".Date__Field").each((_ , Field) => {
+                        Field._flatpickr.clear();
+                    });
                     $(FormInfo.FormElement).find(`.Selector`).each((_ , Selector) => {
                         SelectorOperation({
                             Operation : "Clear" ,
@@ -434,50 +444,67 @@ $(document).ready(function (){
             const Input = $(Field).find("input").get(0) ;
             let FlatPickerObject ;
             if($(Input).hasClass("RangeData")) {
-                let IsDetermine = false ;
                 const InputAria = $(Field).find(".Date__Area").get(0) ;
+                let IsDetermine = $(InputAria).find(".StartDate").length > 0 ;
                 const InputStartDate = $(Input).attr("date-StartDateName") ;
                 const InputEndDate = $(Input).attr("date-EndDateName") ;
                 FlatPickerObject = $(Input).flatpickr({
                     mode: "range" ,
                     onClose: function(selectedDates, dateStr, instance) {
                         if(selectedDates.length > 1) {
-                            let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
-                            let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
-                            if(dateStart && dateEnd) {
-                                if(new Date(dateStart).getTime() >
-                                    new Date(dateEnd).getTime()) {
-                                    let Temp = dateEnd ;
-                                    dateStart = dateEnd ;
-                                    dateEnd = Temp ;
-                                }
-                                if(IsDetermine) {
-                                    const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
-                                    const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
-                                    $(StartDateInput).attr("value" , dateStart) ;
-                                    $(EndDateInput).attr("value" , dateEnd) ;
-                                } else {
-                                    const InputElements = `
+                            AddValue(selectedDates, dateStr, instance) ;
+                        } else {
+                            DeleteValue() ;
+                        }
+                        $(Input).valid() ;
+                    }
+                });
+                $(Input).on("change" , function () {
+                    if($(Input).val() === "")
+                        DeleteValue() ;
+                })
+                DeleteValue() ;
+
+                function AddValue(selectedDates, dateStr, instance) {
+                    let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
+                    let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
+                    if(dateStart && dateEnd) {
+                        if(new Date(dateStart).getTime() >
+                            new Date(dateEnd).getTime()) {
+                            let Temp = dateEnd ;
+                            dateStart = dateEnd ;
+                            dateEnd = Temp ;
+                        }
+                        if(IsDetermine) {
+                            const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                            const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                            $(StartDateInput).attr("value" , dateStart) ;
+                            $(EndDateInput).attr("value" , dateEnd) ;
+                        } else {
+                            const InputElements = `
                                         <input class="IgnoreValidate StartDate" type="hidden"
                                                name="${InputStartDate}" value="${dateStart}">
                                         <input class="IgnoreValidate EndDate" type="hidden"
                                                name="${InputEndDate}" value="${dateEnd}">
                                     `;
-                                    $(InputAria).append(InputElements) ;
-                                    IsDetermine = true ;
-                                }
-                            }
-                        } else {
-                            if(IsDetermine) {
-                                const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
-                                const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
-                                $(StartDateInput).remove() ;
-                                $(EndDateInput).remove() ;
-                                IsDetermine = false ;
-                            }
+                            $(InputAria).append(InputElements) ;
+                            IsDetermine = true ;
                         }
                     }
-                });
+                }
+
+                function DeleteValue() {
+
+                    if(IsDetermine) {
+                        const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                        const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                        $(StartDateInput).remove() ;
+                        $(EndDateInput).remove() ;
+                        IsDetermine = false ;
+                    }
+
+                }
+
             } else if($(Input).hasClass("DateMinToday")) {
                 FlatPickerObject = $(Input).flatpickr({
                     minDate: "today"
@@ -517,9 +544,13 @@ $(document).ready(function (){
             if($(Input).hasClass("MinimumNow")) {
                 FlatPickerObject.set("minDate" , new Date());
             }
-            FlatPickerObject.set("onClose" , function() {
-                $(Input).valid() ;
-            });
+
+            if(!$(Input).hasClass("RangeData")) {
+                FlatPickerObject.set("onClose" , function() {
+                    $(Input).valid() ;
+                });
+            }
+
         }
 
         function InitialFieldUpload(Field = HTMLElement) {
@@ -572,6 +603,20 @@ $(document).ready(function (){
                     $(Field).addClass("IgnoreValidate");
             });
             RefreshValidationForm() ;
+        }
+
+        function DisabledField() {
+            $(FormInfo.ClonePart.ElementPart).find("input , textarea")
+                .each((_ , Value) => {
+                    $(Value).prop("disabled" , true) ;
+                });
+        }
+
+        function EnabledField() {
+            $(FormInfo.ClonePart.ElementPart).find("input , textarea")
+                .each((_ , Value) => {
+                    $(Value).prop("disabled" , false) ;
+                });
         }
 
         function CloneField() {
@@ -1399,6 +1444,13 @@ $(document).ready(function (){
                                     ElementPart : FieldGroup ,
                                 }
                             });
+                            FormOperation({
+                                Operation : "DisabledForm" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup
+                                }
+                            })
                         });
                     }
 
@@ -1411,6 +1463,13 @@ $(document).ready(function (){
                                         const FormElement = $(FieldGroup).closest("form").get(0) ;
                                         FormOperation({
                                             Operation : "NotIgnoreField" ,
+                                            FormElement : FormElement ,
+                                            ClonePart : {
+                                                ElementPart : FieldGroup ,
+                                            }
+                                        });
+                                        FormOperation({
+                                            Operation : "EnabledForm" ,
                                             FormElement : FormElement ,
                                             ClonePart : {
                                                 ElementPart : FieldGroup ,
