@@ -141,7 +141,7 @@
                                                 <div class="TextEditorContent__Content">
                                                     <div class="Card Content">
                                                         <div class="Card__Inner">
-                                                            {{$decision["content"]}}
+                                                            {!! $decision["content"] !!}
                                                         </div>
                                                     </div>
                                                 </div>

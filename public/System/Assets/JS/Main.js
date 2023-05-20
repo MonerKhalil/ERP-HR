@@ -522,11 +522,21 @@ $(document).ready(function (){
                     const DateStartEle = $(document)
                         .find(`.Date__Field[TargetDateStartName="${TargetDateStartName}"]`).get(0) ;
                     $(DateStartEle).on("change" , function () {
+                        DateEndSet() ;
+                    });
+                    if(DateStartEle._flatpickr.selectedDates.length > 0) {
+                        DateEndSet() ;
+                        if($(Input).attr("value")) {
+                            EndDateObject.setDate($(Input).attr("value")) ;
+                        }
+                    }
+
+                    function DateEndSet() {
                         const CurrentSelected = DateStartEle._flatpickr.selectedDates ;
                         EndDateObject.set("disable" , []) ;
                         EndDateObject.clear();
                         EndDateObject.set("minDate" , CurrentSelected[0]) ;
-                    });
+                    }
                 }
             } else if($(Input).hasClass("MultiDate")) {
                 FlatPickerObject = $(Input).flatpickr({
@@ -554,6 +564,10 @@ $(document).ready(function (){
         }
 
         function InitialFieldUpload(Field = HTMLElement) {
+            if($(Field).find(".UploadFile__Field").attr("value") !== "") {
+                $(Field).find(".UploadFile__Area")
+                    .addClass("SelectedFile") ;
+            }
             $(Field).find(".UploadFile__Field").on("change" , (ev) => {
                 const PathFile = $(ev.target).val() ;
                 if(PathFile !== undefined && PathFile !== "")
@@ -1410,6 +1424,7 @@ $(document).ready(function (){
 
         function InitVisibilityOption() {
             const TargetName = $(FieldInfo.VisibilityOption).attr("data-ElementsTargetName") ;
+            const DataDefault =$(FieldInfo.VisibilityOption).attr("data-VisibilityDefault") ;
             $(FieldInfo.VisibilityOption).find(".Selector").each((_ , Selectors) => {
                 $(Selectors).find(".Selector__Option").each((_ , Option) => {
                     const ValueOption = $(Option).attr("data-option") ;
@@ -1417,7 +1432,10 @@ $(document).ready(function (){
                         TriggerName(TargetName , ValueOption);
                     });
                 });
-                TriggerName(TargetName , '') ;
+                if(DataDefault)
+                    TriggerName(TargetName , DataDefault) ;
+                else
+                    TriggerName(TargetName , '') ;
             }) ;
             $(FieldInfo.VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
                 TriggerName(TargetName , $(this).val());

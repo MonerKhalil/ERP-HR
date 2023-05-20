@@ -1,5 +1,16 @@
 @extends("System.Pages.globalPage")
 
+@php
+    $IncrementValue = $DecrementValue = $IncrementRate = $DecrementRate = null ;
+    if(isset($decision) && $decision["effect_salary"] == "increment") {
+        $IncrementValue = $decision["value"] ;
+        $IncrementRate = $decision["rate"] ;
+    } else if(isset($decision) && $decision["effect_salary"] == "decrement") {
+        $DecrementValue = $decision["value"] ;
+        $DecrementRate = $decision["rate"] ;
+    }
+@endphp
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--AddDecisionPage">
         <div class="AddDecisionPage">
@@ -24,7 +35,8 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Body">
                                                     <form class="Form Form--Dark"
-                                                          action="{{route("system.decisions.store")}}"
+                                                          action="{{isset($decision) ? route("system.decisions.update" , $decision["id"])
+                                                                : route("system.decisions.store")}}"
                                                           enctype="multipart/form-data"
                                                           method="post">
                                                         @csrf
@@ -113,6 +125,7 @@
                                                                                                id="DecisionImage"
                                                                                                name="image"
                                                                                                class="UploadFile__Field"
+                                                                                               value="{{(isset($decision)) ? PathStorage($decision["image"]) : "" }}"
                                                                                                accept="image/png, image/gif, image/jpeg, image/jpg, image/svg"
                                                                                                placeholder="صورة عن القرار">
                                                                                         <label class="UploadFile__Label" for="DecisionImage">
@@ -123,6 +136,9 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="VisibilityOption Col-4-md Col-6-sm"
+                                                                             @if(isset($decision))
+                                                                                data-VisibilityDefault="{{$decision["effect_salary"]}}"
+                                                                             @endif
                                                                              data-ElementsTargetName="BonesPunishmentFields">
                                                                             <div class="Form__Group">
                                                                                 <div class="Form__Select">
@@ -151,7 +167,9 @@
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="DiscountAmountSalary" class="Input__Field" type="number"
-                                                                                               name="value" placeholder="قيمة الحسم من الراتب" required>
+                                                                                               value="{{$DecrementValue ?? ""}}"
+                                                                                               name="value"
+                                                                                               placeholder="قيمة الحسم من الراتب" required>
                                                                                         <label class="Input__Label" for="DiscountAmountSalary">قيمة الحسم من الراتب</label>
                                                                                     </div>
                                                                                 </div>
@@ -164,6 +182,7 @@
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="IncreasesAmountSalary" class="Input__Field" type="number"
+                                                                                               value="{{ $IncrementValue ?? "" }}"
                                                                                                name="value" placeholder="قيمة الاضافة على الراتب" required>
                                                                                         <label class="Input__Label" for="IncreasesAmountSalary">قيمة الاضافة على الراتب</label>
                                                                                     </div>
@@ -177,6 +196,7 @@
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="DiscountAmountFinancial" class="Input__Field" type="number"
+                                                                                               value="{{ $DecrementRate ?? "" }}"
                                                                                                name="rate" placeholder="نسبة الحسم من الحوافز" required>
                                                                                         <label class="Input__Label" for="DiscountAmountFinancial">نسبة الحسم من الحوافز</label>
                                                                                     </div>
@@ -190,6 +210,7 @@
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="IncreasesAmountFinancial" class="Input__Field" type="number"
+                                                                                               value="{{ $IncrementRate ?? "" }}"
                                                                                                name="rate" placeholder="نسبة الاضافة على الحوافز" required>
                                                                                         <label class="Input__Label" for="IncreasesAmountFinancial">نسبة الاضافة على الحوافز</label>
                                                                                     </div>
