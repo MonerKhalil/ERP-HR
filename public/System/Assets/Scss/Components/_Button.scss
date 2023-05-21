@@ -4,15 +4,16 @@
     & ,
     &:link ,
     &:visited {
-        position: relative;
-        display: inline-block;
+        position: relative ;
+        display: inline-block ;
         border-radius: $BorderRadiusValue ;
-        border: none;
-        font-size: 1.6rem;
+        border: none ;
+        font-size: 1.6rem ;
         padding: 1rem 2rem ;
-        outline: none;
-        cursor: pointer;
-        transition: all .3s;
+        line-height: inherit ;
+        outline: none ;
+        cursor: pointer ;
+        transition: all .3s ;
     }
 
     &:hover {

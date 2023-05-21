@@ -81,3 +81,11 @@ Route::get('/Test-35', function () {
 Route::get('/Test-36', function () {
     return view('System/Pages/Actors/Vacations/allVacationsView');
 });
+
+Route::get('/Test-37', function () {
+    return view('System/Pages/Actors/Overtime/newTypeAdd');
+});
+
+Route::get('/Test-38', function () {
+    return view('System/Pages/Actors/Overtime/newTypeView');
+});

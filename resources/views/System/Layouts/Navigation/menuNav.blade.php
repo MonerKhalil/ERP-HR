@@ -202,6 +202,43 @@
                             </li>
                         </ul>
                     </li>
+
+
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    more_time
+                                </i>
+                                <span class="Label">العمل الاضافي</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-37" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">اضافة نوع جديد</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-38" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">عرض جميع الانواع</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup Visible-phoneLandscape">
                     <li class="NavigationsGroup__Title">
