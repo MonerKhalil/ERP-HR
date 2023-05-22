@@ -59,7 +59,7 @@ class DataEndService extends BaseModel
                 "reason_other" => ["string","max:255",new TextRule(),Rule::requiredIf(function ()use($validator){
                     return $validator->reason === "other";
                 })],
-                "start_break_date" => $validator->date(true),
+                "start_break_date" => $validator->dateRules(true),
                 "end_break_date" => $validator->afterDateOrNowRules(true,"start_break_date"),
                 "description" => ["nullable","string"],
             ];

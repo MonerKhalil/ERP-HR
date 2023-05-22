@@ -113,7 +113,7 @@ class RequestEndServiceController extends Controller
     public function accept(BaseRequest $request,$id_request){
         $request->validate([
             "decision_id" => ["required",Rule::exists("decisions","id")],
-            "start_break_date" => $request->date(true),
+            "start_break_date" => $request->dateRules(true),
             "end_break_date" => $request->afterDateOrNowRules(true,"start_break_date"),
         ]);
         $id_request = DataEndService::query()->findOrFail($id_request);
