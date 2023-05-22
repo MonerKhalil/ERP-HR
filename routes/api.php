@@ -58,4 +58,4 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
 /*
  *****************************test********************
  */
-Route::post("mmm",[\App\Http\Controllers\DecisionController::class,"update"]);
+Route::post("mmm",[\App\Http\Controllers\DataEndServiceController::class,"store"]);
