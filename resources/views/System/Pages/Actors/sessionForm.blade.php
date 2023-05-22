@@ -65,7 +65,7 @@
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Date">
                                                                             <div class="Date__Area">
-                                                                                <input id="SessionDate" class="Date__Field"
+                                                                                <input id="SessionDate" class="Date__Field MinimumNow"
                                                                                        @if(isset($data))
                                                                                             value="{{$data["date_session"]}}"
                                                                                        @endif

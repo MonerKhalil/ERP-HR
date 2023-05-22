@@ -85,6 +85,13 @@ img {
   white-space: nowrap;
 }
 
+.Separate--1 {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #000;
+}
+
 .Container--Header {
   width: 100%;
   margin: 0 auto;
@@ -1456,17 +1463,24 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   gap: 1.5rem;
 }
 .Pagination--Select .Pagination__PageWord, .Pagination--Select .Pagination__PageOf {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
-.Pagination--Select .Input__Field {
+.Pagination--Select .Form__Group {
+  width: fit-content;
+}
+.Pagination--Select .Form__Group .Input__Area {
+  border-color: #52565c;
+}
+.Pagination--Select .Form__Group .Input__Field {
   min-width: 7rem;
-  padding: 0.5rem 1rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
 }
 .Pagination__List {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
 }
 .Pagination__Number a, .Pagination__Previous a, .Pagination__Next a, .Pagination__Points {
   display: block;
@@ -1491,6 +1505,19 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 .Pagination__Next a {
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+html[lang=ar] .Pagination__Previous a {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+html[lang=ar] .Pagination__Next a {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 .MessageProcessContainer {
@@ -1595,6 +1622,23 @@ html[lang=en] .TextEditorContent__Content li {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+
+.ItemCount {
+  position: relative;
+}
+.ItemCount__Selector .Selector {
+  width: 15rem;
+}
+.ItemCount__Selector .Selector__Main {
+  padding: 0.5rem 2rem;
+  outline: 1px solid #415772;
+}
+.ItemCount__Selector .Selector__WordLabel {
+  font-size: 1.2rem;
+}
+.ItemCount__Selector .Selector.Selected .Selector__WordLabel {
+  display: none;
 }
 
 .HeaderPage {
@@ -2146,6 +2190,14 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   text-transform: uppercase;
   font-weight: 800;
   color: #96A2B4;
+}
+.ListData__GroupTitle {
+  padding: 2.5rem 1rem 0.5rem 1rem;
+}
+.ListData__GroupTitle .Title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #e9e9e9;
 }
 .ListData__Item .Data_Col {
   flex-grow: 1;

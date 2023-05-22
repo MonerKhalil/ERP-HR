@@ -1,10 +1,8 @@
 SessionView : {
+    Print PDF When Check One Row ,
+    Print Xlsx When Check One Row ,
     Search By Start & End Date
 } ,
-
-SessionEdit : {
-    Fix Update Validation in Jquery validation
-}
 
 ViewUser : {
     View Users Need Bulk For Print Just Checked
@@ -15,3 +13,6 @@ ViewRole : {
     View Roles Need Bulk For Print & Delete Just Checked
     Error Back Search By Start & End Date
 }
+
++ Selector Problem With Footer
+
