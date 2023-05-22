@@ -5,7 +5,7 @@
         <div class="ViewUsers">
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __("viewContracts") ,
+                    'mainTitle' => __("viewCourses") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => __("titleViewUsers")
                 ])
@@ -36,15 +36,15 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-{{--                                                            @include("System.Components.bulkAction" , [--}}
-{{--                                                                "Options" => [ [--}}
-{{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
-{{--                                                                ] , [--}}
-{{--                                                                    "Label" => __("normalDelete")--}}
-{{--                                                                    , "Action" => route("users.multi.delete")--}}
-{{--                                                                    , "Method" => "delete"--}}
-{{--                                                                ] ]--}}
-{{--                                                            ])--}}
+                                                            {{--                                                            @include("System.Components.bulkAction" , [--}}
+                                                            {{--                                                                "Options" => [ [--}}
+                                                            {{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
+                                                            {{--                                                                ] , [--}}
+                                                            {{--                                                                    "Label" => __("normalDelete")--}}
+                                                            {{--                                                                    , "Action" => route("users.multi.delete")--}}
+                                                            {{--                                                                    , "Method" => "delete"--}}
+                                                            {{--                                                                ] ]--}}
+                                                            {{--                                                            ])--}}
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -56,30 +56,30 @@
                                                                 <li>
                                                                     <span class="SearchTools__Separate"></span>
                                                                 </li>
-{{--                                                                <li class="Table__PrintMenu">--}}
-{{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
-{{--                                                                       title="Print">print</i>--}}
-{{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
-{{--                                                                        <ul class="Dropdown__Content">--}}
-{{--                                                                            <li class="Dropdown__Item">--}}
-{{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
-{{--                                                                                    @lang("printTablePDFFile")--}}
-{{--                                                                                </a>--}}
-{{--                                                                            </li>--}}
-{{--                                                                            <li class="Dropdown__Item">--}}
-{{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
-{{--                                                                                    @lang("printTableXlsxFile")--}}
-{{--                                                                                </a>--}}
-{{--                                                                            </li>--}}
-{{--                                                                        </ul>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </li>--}}
+                                                                {{--                                                                <li class="Table__PrintMenu">--}}
+                                                                {{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
+                                                                {{--                                                                       title="Print">print</i>--}}
+                                                                {{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
+                                                                {{--                                                                        <ul class="Dropdown__Content">--}}
+                                                                {{--                                                                            <li class="Dropdown__Item">--}}
+                                                                {{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
+                                                                {{--                                                                                    @lang("printTablePDFFile")--}}
+                                                                {{--                                                                                </a>--}}
+                                                                {{--                                                                            </li>--}}
+                                                                {{--                                                                            <li class="Dropdown__Item">--}}
+                                                                {{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
+                                                                {{--                                                                                    @lang("printTableXlsxFile")--}}
+                                                                {{--                                                                                </a>--}}
+                                                                {{--                                                                            </li>--}}
+                                                                {{--                                                                        </ul>--}}
+                                                                {{--                                                                    </div>--}}
+                                                                {{--                                                                </li>--}}
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if(count($contracts) > 0)
+                                            @if(count($data) > 0)
                                                 <div class="Card__Inner p0">
                                                     <div class="Table__ContentTable">
                                                         <div class="Table__Table">
@@ -94,38 +94,38 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="Item__Col">#</div>
-                                                                <div class="Item__Col"><span>@lang("employee id")</span></div>
-                                                                <div class="Item__Col"><span>@lang("contract type")</span></div>
-                                                                <div class="Item__Col"><span>@lang("contract date")</span></div>
-                                                                <div class="Item__Col"><span>@lang("contract finish date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("name")</span></div>
+                                                                <div class="Item__Col"><span>@lang("type")</span></div>
+                                                                <div class="Item__Col"><span>@lang("start_date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("end_date")</span></div>
                                                             </div>
-                                                            @foreach($contracts as $contract)
+                                                            @foreach($data as $Course)
                                                                 <div class="Item DataItem">
                                                                     <div class="Item__Col Item__Col--Check">
-                                                                        <input id="ItemRow_{{$contract["id"]}}"
+                                                                        <input id="ItemRow_{{$Course["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="contracts[]" value="{{$contract["id"]}}" hidden>
-                                                                        <label for="ItemRow_{{$contract["id"]}}" class="CheckBoxRow">
+                                                                               name="Courses[]" value="{{$Course["id"]}}" hidden>
+                                                                        <label for="ItemRow_{{$Course["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small
                                                                             </i>
                                                                         </label>
                                                                     </div>
-                                                                    <div class="Item__Col">{{$contract["id"]}}</div>
-                                                                    <div class="Item__Col">{{$contract["employee_id"]}}</div>
-                                                                    <div class="Item__Col">{{$contract["contract_type"]}}</div>
-                                                                    <div class="Item__Col">{{$contract["contract_date"]}}</div>
-                                                                    <div class="Item__Col">{{$contract["contract_finish_date"]}}</div>
+                                                                    <div class="Item__Col">{{$Course["id"]}}</div>
+                                                                    <div class="Item__Col">{{$Course["name"]}}</div>
+                                                                    <div class="Item__Col">{{$Course["type"]}}</div>
+                                                                    <div class="Item__Col">{{$Course["start_date"]}}</div>
+                                                                    <div class="Item__Col">{{$Course["end_date"]}}</div>
                                                                     <div class="Item__Col MoreDropdown">
                                                                         <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                           data-MenuName="RoleMore_{{$contract["id"]}}">
+                                                                           data-MenuName="RoleMore_{{$Course["id"]}}">
                                                                             more_horiz
                                                                         </i>
                                                                         <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                             data-MenuName="RoleMore_{{$contract["id"]}}">
+                                                                             data-MenuName="RoleMore_{{$Course["id"]}}">
                                                                             <ul class="Dropdown__Content">
                                                                                 <li>
-                                                                                    <a href="{{route("system.employees.contract.show" , $contract["id"])}}"
+                                                                                    <a href="{{route("system.conferences.show" , $Course["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         @lang("viewDetails")
                                                                                     </a>
@@ -144,11 +144,11 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Pagination">
                                                     @include("System.Components.paginationNum" , [
-                                                        "PaginationData" => $contracts ,
+                                                        "PaginationData" => $data ,
                                                         "PartsViewNum" => 5
                                                     ])
                                                     @include("System.Components.paginationSelect" , [
-                                                        "PaginationData" => $contracts
+                                                        "PaginationData" => $data
                                                     ])
                                                 </div>
 

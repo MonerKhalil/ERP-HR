@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ConferenceController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System.Pages.Actors.HR_Manager.viewCourses";
     public const IndexRoute = "system.conferences.index";
 
     public function __construct()
@@ -48,7 +48,7 @@ class ConferenceController extends Controller
         $countries = countries();
         $types = ["course","conference"];
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
-        return $this->responseSuccess("",compact("employees","types","countries"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.addCourse",compact("employees","types","countries"));
     }
 
     /**
