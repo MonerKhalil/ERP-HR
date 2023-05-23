@@ -24,12 +24,12 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = MyApp::Classes()->Search->getDataFilter(Employee::query()->whereNot("user_id",auth()->id()));
-        return $this->responseSuccess("",compact("employees"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployees",compact("employees"));
     }
 
     public function create()
     {
-        return $this->responseSuccess("",$this->shareByBlade());
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.addEmployee",$this->shareByBlade());
     }
 
     /**
@@ -89,7 +89,7 @@ class EmployeeController extends Controller
         ]);
         $employee = is_null($employee) ? $employeeQuery->where("user_id",auth()->id())->firstOrFail()
             : $employeeQuery->findOrFail($employee);
-        return $this->responseSuccess("",compact("employee"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployee",compact("employee"));
     }
 
     public function edit($employee = null)

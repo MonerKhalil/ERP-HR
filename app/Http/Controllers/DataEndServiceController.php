@@ -16,16 +16,16 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class DataEndServiceController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System.Pages.Actors.HR_Manager.employeeEndOfServiceForm";
     public const Folder = "data_end_services";
     public const IndexRoute = "system.data_end_services.index";
 
-    public function __construct()
-    {
-        $table = app(DataEndService::class)->getTable();
-        $this->addMiddlewarePermissionsToFunctions($table);
-        $this->middleware(["permission:create_".$table."|all_".$table])->only(["create","store","createFromEmployee"]);
-    }
+//    public function __construct()
+//    {
+//        $table = app(DataEndService::class)->getTable();
+//        $this->addMiddlewarePermissionsToFunctions($table);
+//        $this->middleware(["permission:create_".$table."|all_".$table])->only(["create","store","createFromEmployee"]);
+//    }
 
     /**
      * Display a listing of the resource.
@@ -36,10 +36,10 @@ class DataEndServiceController extends Controller
     {
         $DataEnd = DataEndService::with(["employee","decision"])->whereNotNull("decision_id");
         $employees = Employee::query()->select(["first_name","last_name","id"])->get();
-        $decisions = Decision::query()->pluck("name","id")->toArray();
+//        $decisions = Decision::query()->pluck("name","id")->toArray();
         $reason = DataEndService::Reasons();
         $data = MyApp::Classes()->Search->getDataFilter($DataEnd);
-        return $this->responseSuccess(self::NameBlade,compact("data",'reason','decisions','employees'));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployeesEOF",compact("data",'reason','employees'));
     }
 
     /**
@@ -50,9 +50,9 @@ class DataEndServiceController extends Controller
     public function create()
     {
         $employees = Employee::query()->select(["first_name","last_name","id"])->get();
-        $decision = Decision::query()->pluck("name","id")->toArray();
+//        $decision = Decision::query()->pluck("name","id")->toArray();
         $reason = DataEndService::Reasons();
-        return $this->responseSuccess("",compact("employees","reason","decision"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.employeeEndOfServiceForm",compact("employees","reason"));
     }
 
     public function createFromEmployee($employee){
@@ -84,7 +84,7 @@ class DataEndServiceController extends Controller
     public function show(DataEndService $dataEndService)
     {
         $dataEndService = DataEndService::with(["employee","decision"])->findOrFail($dataEndService->id);
-        return $this->responseSuccess("...",compact("dataEndService"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployeeEOF",compact("dataEndService"));
     }
 
     /**
