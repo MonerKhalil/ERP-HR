@@ -1454,6 +1454,16 @@ $(document).ready(function (){
                 else
                     TriggerName(TargetName , '') ;
             }) ;
+            $(FieldInfo.VisibilityOption).find(".MultiSelector").each((_ , MultiSelector) => {
+                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox").each((_ , Option) => {
+                    $(Option).on("change" , function () {
+                       // if($(Option).is(':checked'))
+                       //     TriggerName(TargetName , "") ;
+                       // else
+                       //     TriggerName(TargetName , "") ;
+                    });
+                });
+            });
             $(FieldInfo.VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
                 TriggerName(TargetName , $(this).val());
             }) ;
@@ -1514,6 +1524,23 @@ $(document).ready(function (){
                                 }
                                 break ;
                             }
+                }
+            });
+        }
+
+        function TriggerNameMulti(NameElement = String , NameCheckBox = String ,
+                                  ValueSelected = String) {
+            $(".VisibilityTarget").each((_ , VisibilityTarget) => {
+                // Insert CheckboxNum For Know How Many Checkboxes Checked For it
+                const ElementName = $(VisibilityTarget).attr("data-TargetName");
+                if(ElementName === NameElement) {
+                    const ElementNames = $(VisibilityTarget).attr("data-TargetCheckboxNames").split(",") ?? undefined ;
+                    const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
+                    for (let i = 0; i < ElementNames.length ; i++)
+                        if(ElementNames[i] === NameCheckBox) {
+                            if(ElementValue[i] === ValueSelected)
+                                $(".VisibilityTarget").show();
+                        }
                 }
             });
         }

@@ -19,18 +19,6 @@
         <link rel="stylesheet" href='{{asset('System/Assets/Lib/Libraries.css')}}' type="text/css" />
         {{-- Main CSS System --}}
         <link rel="stylesheet" href='{{asset('System/Assets/CSS/Style.css')}}' type="text/css" />
-        {{-- CSS Extra--}}
-        <style>
-
-            /* Custom CSS */
-
-            .FooterPage .RowFooter{
-                display: flex;
-                justify-content: space-between;
-                align-content: center;
-            }
-
-        </style>
 
     </head>
 

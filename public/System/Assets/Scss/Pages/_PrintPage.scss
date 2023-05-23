@@ -75,5 +75,28 @@
         }
     }
 
-    
+    .FooterPage {
+
+        .RowFooter {
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+        }
+    }
+
+    .Report {
+
+        .Table {
+
+            &__Table {
+
+                .GroupRows {
+
+                    &__SubRows {
+                        display: table-row;
+                    }
+                }
+            }
+        }
+    }
 }

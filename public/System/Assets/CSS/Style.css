@@ -245,6 +245,20 @@ img {
   display: initial;
 }
 
+.px-0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.py-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
+}
+
 @media only screen and (max-width: 74.99em) {
   .Visible-desktop {
     display: initial !important;
@@ -2763,7 +2777,7 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 }
 .Table__Table .GroupRows__SubRows {
   display: none;
-  background-color: #161a22;
+  background-color: #151735;
 }
 .Table__Table .Item {
   display: table-row;
@@ -3357,6 +3371,14 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 .PrintPage .ListData--CustomPrint .ListData__Item .Data_Col {
   padding: 1.5rem 1rem;
 }
+.PrintPage .FooterPage .RowFooter {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+.PrintPage .Report .Table__Table .GroupRows__SubRows {
+  display: table-row;
+}
 
 .NotificationPage {
   position: relative;
@@ -3377,6 +3399,29 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   border-radius: 5px;
   background-color: #000;
   background-color: #35393f;
+}
+
+.RollSettingPage .Card--NewRoll {
+  position: sticky;
+  top: 6rem;
+}
+.RollSettingPage .Card--NewRoll .Col--DragDropTarget {
+  max-height: 30rem;
+  overflow-y: auto;
+}
+.RollSettingPage .Card--NewRoll .Col--DragDropTarget::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.RollSettingPage .Card--NewRoll .Col--DragDropTarget::-webkit-scrollbar-track, .RollSettingPage .Card--NewRoll .Col--DragDropTarget::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.RollSettingPage .Card--NewRoll .Col--DragDropTarget:hover::-webkit-scrollbar-track {
+  background-color: rgba(24, 24, 24, 0.8705882353);
+}
+.RollSettingPage .Card--NewRoll .Col--DragDropTarget:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2705882353);
 }
 
 /**
