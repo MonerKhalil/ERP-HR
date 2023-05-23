@@ -10,7 +10,7 @@ Route::get('/Test-11', function () {
     return view('System/Pages/Docs/decisionPrint');
 });
 
-Route::get('/Test-8', function () {
+Route::get('/Test-10', function () {
     return view('System/Pages/Docs/tablePrint');
 });
 
@@ -57,11 +57,6 @@ Route::get('/Test-30', function () {
 
 Route::get('/Test-31', function () {
     return view('System/Pages/Actors/Vacations/vacationTypesView');
-});
-
-
-Route::get('/Test-20', function () {
-    return view('System/Pages/Actors/HR_Manager/reportEmployeesForm');
 });
 
 Route::get('/Test-21', function () {
