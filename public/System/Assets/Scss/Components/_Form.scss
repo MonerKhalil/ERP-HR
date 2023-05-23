@@ -49,7 +49,6 @@
                 padding: 1.3rem 2rem;
                 border-radius: $BorderRadiusValue - 1px ;
                 transition: all .4s;
-
             }
 
             &__Label {
@@ -180,53 +179,50 @@
 
     &__UploadFile {
 
-        .UploadFile {
+        .FileUpload {
 
-            &__Area {
+            &__Label {
+                position: absolute ;
+                top : 1rem ;
+                left : 2rem ;
+                font-size: 1.5rem ;
+                font-weight: 700;
+                transition: all .3s;
+            }
 
-                &.SelectedFile {
+            &__FileName {
+                display: block;
+                width: 100%;
+                font-family: inherit;
+                font-size: 1.5rem;
+                outline: none;
+                border: none;
+                padding: 1.05rem 2rem;
+                border-radius: 4px;
+                color : #96A2B4 ;
+                visibility: hidden;
+                opacity: 0 ;
+                word-break: break-all ;
+                transition: all 0.4s;
+            }
 
-                    .UploadFile__Field {
+            &.Selected {
 
-                        &::before {
-                            visibility: hidden;
-                        }
-                    }
+                .FileUpload {
 
-                    .UploadFile__Label {
+                    &__Label {
                         top: 0;
                         left: 1.5rem;
                         transform: translateY(-50%);
                         font-size: 1.3rem;
                         padding: 0 0.5rem;
                     }
+
+                    &__FileName {
+                       visibility: visible ;
+                        opacity: 1 ;
+                    }
                 }
-            }
-
-            &__Field {
-                position: relative;
-
-                &::-webkit-file-upload-button {
-                    display: none;
-                }
-
-                &::before {
-                    content: "";
-                    position: absolute;
-                    left : 0 ;
-                    top : 0 ;
-                    width : 100% ;
-                    height: 100% ;
-                }
-
-            }
-
-            &__Label {
-
-            }
-
-            &__FileName {
-
             }
         }
     }
@@ -493,17 +489,14 @@
 
             &__UploadFile {
 
-                .UploadFile {
-
-                    &__Field {
-
-                        &::before {
-                            background: #1A202E;
-                        }
-                    }
+                .FileUpload {
 
                     &__Label {
-                        background-color: $BackGroundColor_Extra-3;
+                        background-color : $BackGroundColor_Extra-3 ;
+                    }
+
+                    &__FileName {
+                        color : $TextColor ;
                     }
                 }
             }
@@ -596,16 +589,25 @@
 
         &__UploadFile {
 
-            .UploadFile {
+            .FileUpload {
 
-                &__Area {
+                &__Label {
+                    left : initial ;
+                    right : 2rem ;
+                }
 
-                    &.SelectedFile {
+                &.Selected {
 
-                        .UploadFile__Label {
-                            top: 0;
-                            left: initial;
-                            right: 1.5rem;
+                    .FileUpload {
+
+                        &__Label {
+                            left: initial ;
+                            right: 1.5rem ;
+                        }
+
+                        &__FileName {
+                            visibility: visible ;
+                            opacity: 1 ;
                         }
                     }
                 }

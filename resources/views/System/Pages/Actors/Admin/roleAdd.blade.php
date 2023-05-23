@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="Col-6-md">
-                                <div class="Card">
+                                <div class="Card Card--NewRoll">
                                     <div class="Card__Content">
                                         <div class="Card__InnerGroup">
                                             <div class="Card__Inner pb0">
@@ -108,7 +108,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="Col">
+                                                        <div class="Col Col--DragDropTarget">
                                                             <div class="Card Card--Border">
                                                                 <div class="Card__Body">
                                                                     <div class="ListData">

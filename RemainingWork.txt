@@ -1,9 +1,3 @@
-SessionView : {
-    Print PDF When Check One Row ,
-    Print Xlsx When Check One Row ,
-    Search By Start & End Date
-} ,
-
 ViewUser : {
     View Users Need Bulk For Print Just Checked
     Error Back When Delete Row By Bulk Action
@@ -15,4 +9,5 @@ ViewRole : {
 }
 
 + Selector Problem With Footer
++ When Submit Form And Any Field is Not Valid the error created in fail location
 

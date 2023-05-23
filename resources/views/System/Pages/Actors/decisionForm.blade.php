@@ -121,16 +121,20 @@
                                                                             <div class="Form__Group">
                                                                                 <div class="Form__UploadFile">
                                                                                     <div class="UploadFile__Area">
-                                                                                        <input type="file"
-                                                                                               id="DecisionImage"
-                                                                                               name="image"
-                                                                                               class="UploadFile__Field"
-                                                                                               value="{{(isset($decision)) ? PathStorage($decision["image"]) : "" }}"
-                                                                                               accept="image/png, image/gif, image/jpeg, image/jpg, image/svg"
-                                                                                               placeholder="صورة عن القرار">
-                                                                                        <label class="UploadFile__Label" for="DecisionImage">
-                                                                                            صورة عن القرار
-                                                                                        </label>
+{{--                                                                                        <input type="file"--}}
+{{--                                                                                               id="DecisionImage"--}}
+{{--                                                                                               name="image"--}}
+{{--                                                                                               class="UploadFile__Field"--}}
+{{--                                                                                               value="{{(isset($decision)) ? PathStorage($decision["image"]) : "" }}"--}}
+{{--                                                                                               accept="image/png, image/gif, image/jpeg, image/jpg, image/svg"--}}
+{{--                                                                                               placeholder="صورة عن القرار">--}}
+                                                                                        @include("System.Components.fileUpload" , [
+                                                                                            "FieldID" => "DecisionImage" ,
+                                                                                            "FieldName" => "image" ,
+                                                                                            "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
+                                                                                            "LabelField" => "صورة عن القرار" ,
+                                                                                            "AcceptFiles" => "image/png, image/gif, image/jpeg, image/jpg, image/svg"
+                                                                                        ])
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

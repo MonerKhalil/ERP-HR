@@ -564,6 +564,23 @@ $(document).ready(function (){
         }
 
         function InitialFieldUpload(Field = HTMLElement) {
+
+            const FieldComponent = $(Field).find(".FileUpload").get(0) ;
+            const InputFile = $(FieldComponent).find(".FileUpload__InputFile").get(0) ;
+            const FieldValue = $(FieldComponent).find(".FileUpload__FileName").get(0) ;
+            $(InputFile).on("change" , function () {
+                AddFile($(InputFile).val()) ;
+            });
+            if($(InputFile).attr("value"))
+                AddFile($(InputFile).attr("value")) ;
+
+            function AddFile(PathFile) {
+                $(FieldComponent).addClass("Selected") ;
+                $(FieldValue).text(PathFile) ;
+                $(InputFile).attr("value" , PathFile) ;
+            }
+
+
             if($(Field).find(".UploadFile__Field").attr("value") !== "") {
                 $(Field).find(".UploadFile__Area")
                     .addClass("SelectedFile") ;
@@ -1437,6 +1454,16 @@ $(document).ready(function (){
                 else
                     TriggerName(TargetName , '') ;
             }) ;
+            $(FieldInfo.VisibilityOption).find(".MultiSelector").each((_ , MultiSelector) => {
+                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox").each((_ , Option) => {
+                    $(Option).on("change" , function () {
+                       // if($(Option).is(':checked'))
+                       //     TriggerName(TargetName , "") ;
+                       // else
+                       //     TriggerName(TargetName , "") ;
+                    });
+                });
+            });
             $(FieldInfo.VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
                 TriggerName(TargetName , $(this).val());
             }) ;
@@ -1497,6 +1524,23 @@ $(document).ready(function (){
                                 }
                                 break ;
                             }
+                }
+            });
+        }
+
+        function TriggerNameMulti(NameElement = String , NameCheckBox = String ,
+                                  ValueSelected = String) {
+            $(".VisibilityTarget").each((_ , VisibilityTarget) => {
+                // Insert CheckboxNum For Know How Many Checkboxes Checked For it
+                const ElementName = $(VisibilityTarget).attr("data-TargetName");
+                if(ElementName === NameElement) {
+                    const ElementNames = $(VisibilityTarget).attr("data-TargetCheckboxNames").split(",") ?? undefined ;
+                    const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
+                    for (let i = 0; i < ElementNames.length ; i++)
+                        if(ElementNames[i] === NameCheckBox) {
+                            if(ElementValue[i] === ValueSelected)
+                                $(".VisibilityTarget").show();
+                        }
                 }
             });
         }
@@ -1603,6 +1647,20 @@ $(document).ready(function (){
             });
         });
     });
+
+
+    /*===========================================
+	=           Venobox      =
+    =============================================*/
+    $(".venobox").ready(function () {
+        $(".venobox").each((_ , VenoBox) => {
+            $(VenoBox).venobox({
+                framewidth : "100vw" ,
+                frameheight : "100vh"
+            });
+        });
+    });
+
 
     /*===========================================
 	=           Pages Setting       =
