@@ -102,55 +102,6 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="VisibilityOption Col-4-md Col-6-sm"
-                                                                         data-ElementsTargetName="DependedOn">
-                                                                        <div class="Form__Group">
-                                                                            <div class="Form__Select">
-                                                                                <div class="Select__Area">
-                                                                                    @include("System.Components.selector" , [
-                                                                                        'Name' => "HourVacationApply" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "يرتكز على" ,
-                                                                                        "Options" => [
-                                                                                            [ "Label" => "ساعات عمل" , "Value" => "0"] ,
-                                                                                            [ "Label" => "ايام عمل" , "Value" => "1"]
-                                                                                        ]
-                                                                                    ])
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                         data-TargetName="DependedOn"
-                                                                         data-TargetValue="0">
-                                                                        <div class="Form__Group">
-                                                                            <div class="Form__Input">
-                                                                                <div class="Input__Area">
-                                                                                    <input id="VacationDurationYear" class="Input__Field"
-                                                                                           type="number" name="VacationDurationYear"
-                                                                                           min="1" max="24"
-                                                                                           placeholder="عدد الساعات الواجب تحقيقها">
-                                                                                    <label class="Input__Label"
-                                                                                           for="VacationDurationYear">
-                                                                                        عدد الساعات الواجب تحقيقها
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
-                                                                            <div class="Form__Input">
-                                                                                <div class="Input__Area">
-                                                                                    <input id="VacationDurationYear" class="Input__Field"
-                                                                                           type="number" name="VacationDurationYear"
-                                                                                           placeholder="سقف الراتب الاضافي لهذا النوع في اليوم">
-                                                                                    <label class="Input__Label" for="VacationDurationYear">
-                                                                                        سقف الراتب الاضافي لهذا النوع في اليوم
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -1659,6 +1659,11 @@ html[lang=en] .TextEditorContent__Content li {
   display: none;
 }
 
+.Report__Content .ListData__Item .Data_Col {
+  padding: 1rem;
+  color: #fff;
+}
+
 .HeaderPage {
   position: sticky;
   top: 0;
@@ -2758,7 +2763,7 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 }
 .Table__Table .GroupRows__SubRows {
   display: none;
-  background-color: #11151e;
+  background-color: #161a22;
 }
 .Table__Table .Item {
   display: table-row;

@@ -47,7 +47,7 @@ Route::get('/Test-17', function () {
 });
 
 Route::get('/Test-20', function () {
-    return view('System/Pages/Actors/HR_Manager/reportEmployeesForm');
+    return view('System/Pages/Actors/Reports/reportEmployeesForm');
 });
 
 Route::get('/Test-30', function () {
@@ -88,4 +88,24 @@ Route::get('/Test-37', function () {
 
 Route::get('/Test-38', function () {
     return view('System/Pages/Actors/Overtime/newTypeView');
+});
+
+Route::get('/Test-39', function () {
+    return view('System/Pages/Actors/Overtime/requestOvertimeForm');
+});
+
+Route::get('/Test-40', function () {
+    return view('System/Pages/Actors/Overtime/requestOvertimeView');
+});
+
+Route::get('/Test-41', function () {
+    return view('System/Pages/Actors/Overtime/requestOvertimeDetails');
+});
+
+Route::get('/Test-42', function () {
+    return view('System/Pages/Actors/Reports/reportEmployeesView');
+});
+
+Route::get('/Test-43', function () {
+    return view('System/Pages/Docs/reportPrint');
 });

@@ -5,7 +5,7 @@
         <div class="NewTypeViewPage">
             <div class="NewTypeViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض انواع العمل الاضافي" ,
+                    'mainTitle' => "عرض طلبات العمل الاضافي" ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -98,10 +98,12 @@
                                                                 </label>
                                                             </th>
                                                             <th class="Item__Col">#</th>
-                                                            <th class="Item__Col">اسم النوع</th>
-                                                            <th class="Item__Col">طبيعة النوع</th>
-                                                            <th class="Item__Col">من تاريخ</th>
-                                                            <th class="Item__Col">حتى تاريخ</th>
+                                                            <th class="Item__Col">الموظف الطالب</th>
+                                                            <th class="Item__Col">نوع العمل الاضافي</th>
+                                                            <th class="Item__Col">تبدأ من تاريخ</th>
+                                                            <th class="Item__Col">تنتهي عند تاريخ</th>
+                                                            <th class="Item__Col">نوع مدة العمل الاضافي</th>
+                                                            <th class="Item__Col">يبدأ العمل الاضافي</th>
                                                             <th class="Item__Col">المزيد</th>
                                                         </tr>
                                                         <tr class="Item DataItem">
@@ -119,16 +121,22 @@
                                                                 1
                                                             </td>
                                                             <td class="Item__Col">
-                                                                عطلة الاعياد
+                                                                امير
                                                             </td>
                                                             <td class="Item__Col">
-                                                                مؤقت
+                                                                اعياد
                                                             </td>
                                                             <td class="Item__Col">
                                                                 10-5-2021
                                                             </td>
                                                             <td class="Item__Col">
                                                                 13-5-2021
+                                                            </td>
+                                                            <td class="Item__Col">
+                                                                يوم كامل
+                                                            </td>
+                                                            <td class="Item__Col">
+                                                                في اي وقت
                                                             </td>
                                                             <td class="Item__Col MoreDropdown">
                                                                 <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
@@ -139,7 +147,7 @@
                                                                      data-MenuName="TypeOvertime_1">
                                                                     <ul class="Dropdown__Content">
                                                                         <li>
-                                                                            <a href="#"
+                                                                            <a href="/Test-41"
                                                                                class="Dropdown__Item">
                                                                                 عرض التفاصيل
                                                                             </a>
@@ -150,29 +158,35 @@
                                                         </tr>
                                                         <tr class="Item DataItem">
                                                             <td class="Item__Col Item__Col--Check">
-                                                                <input id="2"
+                                                                <input id="1"
                                                                        class="CheckBoxItem" type="checkbox"
                                                                        name="ids[]" value="1" hidden>
-                                                                <label for="2" class="CheckBoxRow">
+                                                                <label for="1" class="CheckBoxRow">
                                                                     <i class="material-icons ">
                                                                         check_small
                                                                     </i>
                                                                 </label>
                                                             </td>
                                                             <td class="Item__Col">
-                                                                2
+                                                                1
                                                             </td>
                                                             <td class="Item__Col">
-                                                                عطلة الاعياد
+                                                                امير
                                                             </td>
                                                             <td class="Item__Col">
-                                                                مؤقت
+                                                                اعياد
                                                             </td>
                                                             <td class="Item__Col">
                                                                 10-5-2021
                                                             </td>
                                                             <td class="Item__Col">
                                                                 13-5-2021
+                                                            </td>
+                                                            <td class="Item__Col">
+                                                                يوم كامل
+                                                            </td>
+                                                            <td class="Item__Col">
+                                                                في اي وقت
                                                             </td>
                                                             <td class="Item__Col MoreDropdown">
                                                                 <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
@@ -183,7 +197,7 @@
                                                                      data-MenuName="TypeOvertime_2">
                                                                     <ul class="Dropdown__Content">
                                                                         <li>
-                                                                            <a href="#"
+                                                                            <a href="/Test-41"
                                                                                class="Dropdown__Item">
                                                                                 عرض التفاصيل
                                                                             </a>
@@ -194,29 +208,35 @@
                                                         </tr>
                                                         <tr class="Item DataItem">
                                                             <td class="Item__Col Item__Col--Check">
-                                                                <input id="3"
+                                                                <input id="1"
                                                                        class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="3" hidden>
-                                                                <label for="3" class="CheckBoxRow">
+                                                                       name="ids[]" value="1" hidden>
+                                                                <label for="1" class="CheckBoxRow">
                                                                     <i class="material-icons ">
                                                                         check_small
                                                                     </i>
                                                                 </label>
                                                             </td>
                                                             <td class="Item__Col">
-                                                                3
+                                                                1
                                                             </td>
                                                             <td class="Item__Col">
-                                                                عطلة الاعياد
+                                                                امير
                                                             </td>
                                                             <td class="Item__Col">
-                                                                مؤقت
+                                                                اعياد
                                                             </td>
                                                             <td class="Item__Col">
                                                                 10-5-2021
                                                             </td>
                                                             <td class="Item__Col">
                                                                 13-5-2021
+                                                            </td>
+                                                            <td class="Item__Col">
+                                                                يوم كامل
+                                                            </td>
+                                                            <td class="Item__Col">
+                                                                في اي وقت
                                                             </td>
                                                             <td class="Item__Col MoreDropdown">
                                                                 <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
@@ -227,7 +247,7 @@
                                                                      data-MenuName="TypeOvertime_3">
                                                                     <ul class="Dropdown__Content">
                                                                         <li>
-                                                                            <a href="#"
+                                                                            <a href="/Test-41"
                                                                                class="Dropdown__Item">
                                                                                 عرض التفاصيل
                                                                             </a>
@@ -240,15 +260,15 @@
                                                 </div>
                                             </div>
                                             <div class="Card__Inner">
-{{--                                                <div class="Card__Pagination">--}}
-{{--                                                    @include("System.Components.paginationNum" , [--}}
-{{--                                                        "PaginationData" => $data ,--}}
-{{--                                                        "PartsViewNum" => 5--}}
-{{--                                                    ])--}}
-{{--                                                    @include("System.Components.paginationSelect" , [--}}
-{{--                                                        "PaginationData" => $data--}}
-{{--                                                    ])--}}
-{{--                                                </div>--}}
+                                                {{--                                                <div class="Card__Pagination">--}}
+                                                {{--                                                    @include("System.Components.paginationNum" , [--}}
+                                                {{--                                                        "PaginationData" => $data ,--}}
+                                                {{--                                                        "PartsViewNum" => 5--}}
+                                                {{--                                                    ])--}}
+                                                {{--                                                    @include("System.Components.paginationSelect" , [--}}
+                                                {{--                                                        "PaginationData" => $data--}}
+                                                {{--                                                    ])--}}
+                                                {{--                                                </div>--}}
                                             </div>
                                         </div>
                                     </form>
