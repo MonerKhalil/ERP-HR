@@ -92,7 +92,7 @@
 
             &__SubRows {
                 display: none;
-                background-color: darken($BackGroundColor , 5%);
+                background-color: #151735;
             }
         }
 
@@ -212,6 +212,7 @@
             }
         }
     }
+
 }
 
 @include Language(English) {

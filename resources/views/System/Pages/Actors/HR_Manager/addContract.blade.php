@@ -25,13 +25,14 @@
                                                     <h3>@lang("contractInfo")</h3>
                                                 </div>
                                             </div>
-                                            <form class="Form Form--Dark" action="">
+                                            <form class="Form Form--Dark" action="{{route("system.employees.contract.store")}}" method="post">
+                                                @csrf
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "employeeName" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",
                                                                                 "OptionsValues" => $employees_names,])
                                                                 </div>
                                                             </div>
@@ -41,7 +42,7 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "contractType" , "Required" => "true" , "Label" => __('contractType'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "contract_type" , "Required" => "true" , "Label" => __('contractType'),"DefaultValue" => "",
                                                                                 "OptionsValues" => $contract_type,])
                                                                 </div>
                                                             </div>
@@ -51,13 +52,28 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Input">
                                                                 <div class="Input__Area">
-                                                                    <input id="contractNumber"
+                                                                    <input id="contract_number"
                                                                            class="Input__Field"
                                                                            type="number"
-                                                                           name="contractNumber"
+                                                                           name="contract_number"
                                                                            placeholder="@lang("contractNumber")">
                                                                     <label class="Input__Label"
-                                                                           for="contractNumber">@lang("contractNumber")</label>
+                                                                           for="contract_number">@lang("contractNumber")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="Col-4-md Col-6-sm">
+                                                        <div class="Form__Group">
+                                                            <div class="Form__Input">
+                                                                <div class="Input__Area">
+                                                                    <input id="salary"
+                                                                           class="Input__Field"
+                                                                           type="number"
+                                                                           name="salary"
+                                                                           placeholder="@lang("baseSalary")">
+                                                                    <label class="Input__Label"
+                                                                           for="salary">@lang("baseSalary")</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -66,13 +82,13 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Date">
                                                                 <div class="Date__Area">
-                                                                    <input id="dateOfContract"
+                                                                    <input id="contract_date"
                                                                            class="Date__Field"
                                                                            type="text"
-                                                                           name="dateOfContract"
+                                                                           name="contract_date"
                                                                            placeholder="@lang("dateOfContract")">
                                                                     <label class="Date__Label"
-                                                                           for="dateOfContract">@lang("dateOfContract")</label>
+                                                                           for="contract_date">@lang("dateOfContract")</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -81,13 +97,13 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Date">
                                                                 <div class="Date__Area">
-                                                                    <input id="dateOfExpiration"
+                                                                    <input id="contract_finish_date"
                                                                            class="Date__Field"
                                                                            type="text"
-                                                                           name="dateOfExpiration"
+                                                                           name="contract_finish_date"
                                                                            placeholder="@lang("dateOfExpiration")">
                                                                     <label class="Date__Label"
-                                                                           for="dateOfExpiration">@lang("dateOfExpiration")</label>
+                                                                           for="contract_finish_date">@lang("dateOfExpiration")</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -96,13 +112,13 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Date">
                                                                 <div class="Date__Area">
-                                                                    <input id="dateOfStart"
+                                                                    <input id="contract_direct_date"
                                                                            class="Date__Field"
                                                                            type="text"
-                                                                           name="dateOfStart"
+                                                                           name="contract_direct_date"
                                                                            placeholder="@lang("dateOfStart")">
                                                                     <label class="Date__Label"
-                                                                           for="dateOfStart">@lang("dateOfStart")</label>
+                                                                           for="contract_direct_date">@lang("dateOfStart")</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -111,7 +127,7 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "DepartmentName" , "Required" => "true" , "Label" => __('DepartmentName'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "section_id" , "Required" => "true" , "Label" => __('DepartmentName'),"DefaultValue" => "",
                                                                                 "OptionsValues" => $sections,])
                                                                 </div>
                                                             </div>

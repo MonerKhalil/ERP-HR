@@ -52,7 +52,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("firstName")</span>
-                                                                            <span class="Data_Value">Anas</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->first_name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -61,7 +62,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("lastName")</span>
-                                                                            <span class="Data_Value">Bakkar</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->last_name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -70,7 +72,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("fatherName")</span>
-                                                                            <span class="Data_Value">Haidar</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->father_name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -79,7 +82,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("motherName")</span>
-                                                                            <span class="Data_Value"> </span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->mother_name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -88,7 +92,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("gender")</span>
-                                                                            <span class="Data_Value">Male</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->gender}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -98,7 +103,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("placeOfBirth")</span>
                                                                             <span
-                                                                                class="Data_Value">Dier Al-Asafeer</span>
+                                                                                class="Data_Value">{{$employee->birth_place}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -107,7 +112,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("dateOfBirth")</span>
-                                                                            <span class="Data_Value">1/1/2001</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->birth_date}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -116,7 +122,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("nationality")</span>
-                                                                            <span class="Data_Value">Syrian</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->nationality}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -140,7 +147,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("dossierNumber")</span>
-                                                                            <span class="Data_Value">12</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->NP_registration}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -151,7 +159,7 @@
                                                                                 <span
                                                                                     class="Data_Label">@lang("registerNumber")</span>
                                                                                 <span
-                                                                                    class="Data_Value">دير العصافير 9</span>
+                                                                                    class="Data_Value">{{$employee->NP_registration}}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -161,7 +169,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("nationalNumber")</span>
-                                                                            <span class="Data_Value">03340001127</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->national_number}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -170,7 +179,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("familyStatus")</span>
-                                                                            <span class="Data_Value">married</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->family_status}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -179,7 +189,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("wivesNumber")</span>
-                                                                            <span class="Data_Value">married</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->number_wives}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -188,7 +199,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("childrenNumber")</span>
-                                                                            <span class="Data_Value">2</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->number_child}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -197,7 +209,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("militaryService")</span>
-                                                                            <span class="Data_Value">exempt</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->military_service}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -206,7 +219,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("profession")</span>
-                                                                            <span class="Data_Value">حدادددد</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->current_job}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -215,7 +229,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("jobPosition")</span>
-                                                                            <span class="Data_Value">Front-End</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->job_site}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -224,7 +239,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("insuranceNumber")</span>
-                                                                            <span class="Data_Value">52568</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->number_insurance}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -233,7 +249,8 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("personnelNumber")</span>
-                                                                            <span class="Data_Value">27</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->number_self}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -259,146 +276,114 @@
                                                                 <div id="parentForm">
                                                                     <div class="Row GapC-1-5" id="documentForm">
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Select">
-                                                                                    <div class="Select__Area">
-                                                                                        @include("System.Components.selector" , ['Name' => "documentType" , "Required" => "true" , "Label" => __('documentType'),"DefaultValue" => "",
-                                                                                                    "OptionsValues" => [("ID"), ("passport")],])
-                                                                                    </div>
+                                                                            <div class="ListData__Content">
+                                                                                <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("documentType")</span>
+                                                                                    <span
+                                                                                        class="Data_Value">{{$employee->document_type}}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Button">
-                                                                                    <input class="Button Send"
-                                                                                           type="file">@lang("chooseDocument")
-                                                                                    >
+                                                                            <div class="ListData__Content">
+                                                                                <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("document")</span>
+                                                                                    <span
+                                                                                        class="Data_Value">--</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Input">
-                                                                                    <div class="Input__Area">
-                                                                                        <input id="docId"
-                                                                                               class="Input__Field"
-                                                                                               type="number"
-                                                                                               name="EmpDocId"
-                                                                                               placeholder="@lang("documentID")">
-                                                                                        <label class="Input__Label"
-                                                                                               for="EmpDocId">@lang("documentID")</label>
-                                                                                    </div>
+                                                                            <div class="ListData__Content">
+                                                                                <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("documentID")</span>
+                                                                                    <span
+                                                                                        class="Data_Value">{{$employee->document_number}}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-12-xs">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Button">
-                                                                            <button class="Button Send"
-                                                                                    id="duplicateDoc">@lang("addAnotherDocument")</button>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("personalPhone")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->private_number1}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="personalPhone"
-                                                                                       class="Input__Field"
-                                                                                       type="number"
-                                                                                       name="EmpPersonalPhone"
-                                                                                       placeholder="@lang("personalPhone")">
-                                                                                <label class="Input__Label"
-                                                                                       for="EmpPersonalPhone">@lang("personalPhone")</label>
-                                                                            </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("workPhone")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->work_number}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="workPhone"
-                                                                                       class="Input__Field"
-                                                                                       type="number"
-                                                                                       name="EmpWorkPhone"
-                                                                                       placeholder="@lang("workPhone")">
-                                                                                <label class="Input__Label"
-                                                                                       for="EmpWorkPhone">@lang("workPhone")</label>
-                                                                            </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("email")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->email}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="email"
-                                                                                       class="Input__Field"
-                                                                                       type="email"
-                                                                                       name="EmpEmail"
-                                                                                       placeholder="@lang("email")">
-                                                                                <label class="Input__Label"
-                                                                                       for="EmpEmail">@lang("email")</label>
-                                                                            </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("countryName")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->country}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @include("System.Components.selector" , ['Name' => "countryName" , "Required" => "true" , "Label" => __('countryName'),"DefaultValue" => "",
-                                                                                            "OptionsValues" => [__("syria"), __("jordan")],])
-                                                                            </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("cityName")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->cityName}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @include("System.Components.selector" , ['Name' => "cityName" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => "",
-                                                                                            "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
-                                                                            </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("districtName")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->districtName}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @include("System.Components.selector" , ['Name' => "districtName" , "Required" => "true" , "Label" => __('district'),"DefaultValue" => "",
-                                                                                            "OptionsValues" => [__("Mazzah"), __("Barzeh"), __('Duma')],])
-                                                                            </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("addressType")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->addressType}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @include("System.Components.selector" , ['Name' => "addressType" , "Required" => "true" , "Label" => __('addressType'),"DefaultValue" => "",
-                                                                                            "OptionsValues" => [__("Home"), __("Bureau")],])
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="address"
-                                                                                       class="Input__Field"
-                                                                                       type="text"
-                                                                                       name="EmpAddress"
-                                                                                       placeholder="@lang("address")">
-                                                                                <label class="Input__Label"
-                                                                                       for="address">@lang("address")</label>
-                                                                            </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("address")</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->address}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -425,16 +410,20 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("educationDegree")</span>
-                                                                            <span class="Data_Value">college</span>
+                                                                            <span
+                                                                                class="Data_Value">{{$employee->college_name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="ListData__Content">
-                                                                        <div class="Data_Col">
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="ListData__Content">
+                                                                            <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("dateOfIssuance")</span>
-                                                                            <span class="Data_Value">25/7/2020</span>
+                                                                                <span
+                                                                                    class="Data_Value">{{$employee->grant_date}}</span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -443,16 +432,7 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("collegeName")</span>
-                                                                            <span class="Data_Value">ITE</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Button">
-                                                                            <input class="Button Send"
-                                                                                   type="file">@lang("chooseDocument")
-                                                                            >
+                                                                            <span class="Data_Value">{{$employee->grant_date}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -461,7 +441,7 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("salaryImpact")</span>
-                                                                            <span class="Data_Value">25</span>
+                                                                            <span class="Data_Value">{{$employee->amount_impact_salary}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

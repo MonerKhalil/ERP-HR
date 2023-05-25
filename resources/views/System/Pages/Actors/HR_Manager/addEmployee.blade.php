@@ -36,13 +36,13 @@
                                         </li>
                                     </ul>
                                     <div class="Taps__Content">
-                                        <form class="Form Form--Dark">
+                                        <form class="Form Form--Dark"  action="{{route("system.employees.store")}}" method="post">
+                                            @csrf
                                             <div class="Taps__Panel" data-panel="personalInfo">
                                                 <div class="Card">
                                                     <div class="Card__Content">
                                                         <div class="Card__Inner">
                                                             <div class="Card__Body">
-
                                                                 <div class="ListData">
                                                                     <div class="ListData__Head">
                                                                         <h4 class="ListData__Title">
@@ -58,7 +58,7 @@
                                                                                             <input id="FirstName"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpFirstName"
+                                                                                                   name="first_name"
                                                                                                    placeholder="@lang("firstName")">
                                                                                             <label class="Input__Label"
                                                                                                    for="FirstName">@lang("firstName")</label>
@@ -73,7 +73,7 @@
                                                                                             <input id="EmpLastName"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="LastName"
+                                                                                                   name="last_name"
                                                                                                    placeholder="@lang("lastName")">
                                                                                             <label class="Input__Label"
                                                                                                    for="LastName">@lang("lastName")</label>
@@ -88,7 +88,7 @@
                                                                                             <input id="FatherName"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpFatherName"
+                                                                                                   name="father_name"
                                                                                                    placeholder="@lang("fatherName")">
                                                                                             <label class="Input__Label"
                                                                                                    for="FatherName">@lang("fatherName")</label>
@@ -103,7 +103,7 @@
                                                                                             <input id="MotherName"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpMotherName"
+                                                                                                   name="mother_name"
                                                                                                    placeholder="@lang("motherName")">
                                                                                             <label class="Input__Label"
                                                                                                    for="MotherName">@lang("motherName")</label>
@@ -116,7 +116,7 @@
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
                                                                                             @include("System.Components.selector" , ['Name' => "gender" , "Required" => "true" , "Label" => __('gender'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("male"), __("female")],])
+                                                                                                        "OptionsValues" => $gender,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -128,7 +128,7 @@
                                                                                             <input id="placeOfBirth"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpPlaceOfBirth"
+                                                                                                   name="birth_place"
                                                                                                    placeholder="@lang("placeOfBirth")">
                                                                                             <label class="Input__Label"
                                                                                                    for="placeOfBirth">@lang("placeOfBirth")</label>
@@ -143,7 +143,7 @@
                                                                                             <input id="dateOfBirth"
                                                                                                    class="Date__Field"
                                                                                                    type="text"
-                                                                                                   name="dateOfBirth"
+                                                                                                   name="birth_date"
                                                                                                    placeholder="@lang("dateOfBirth")">
                                                                                             <label class="Date__Label"
                                                                                                    for="dateOfBirth">@lang("dateOfBirth")</label>
@@ -158,7 +158,7 @@
                                                                                             <input id="nationality"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpNationality"
+                                                                                                   name="nationality"
                                                                                                    placeholder="@lang("nationality")">
                                                                                             <label class="Input__Label"
                                                                                                    for="nationality">@lang("nationality")</label>
@@ -184,7 +184,7 @@
                                                                                             <input id="DossierNumber"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpDossierNumber"
+                                                                                                   name="number_file"
                                                                                                    placeholder="@lang("dossierNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="DossierNumber">@lang("dossierNumber")</label>
@@ -199,7 +199,7 @@
                                                                                             <input id="registerNumber"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpRegisterNumber"
+                                                                                                   name="NP_registration"
                                                                                                    placeholder="@lang("registerNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="registerNumber">@lang("registerNumber")</label>
@@ -214,7 +214,7 @@
                                                                                             <input id="nationalNumber"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpNationalNumber"
+                                                                                                   name="number_national"
                                                                                                    placeholder="@lang("nationalNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="nationalNumber">@lang("nationalNumber")</label>
@@ -226,8 +226,8 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "familyStatus" , "Required" => "true" , "Label" => __('familyStatus'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("married"), __("widowed")],])
+                                                                                            @include("System.Components.selector" , ['Name' => "family_status" , "Required" => "true" , "Label" => __('familyStatus'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => $family_status,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -240,7 +240,7 @@
                                                                                             <input id="wivesNum"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpWivesNumber"
+                                                                                                   name="number_wives"
                                                                                                    placeholder="@lang("wivesNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="wivesNum">@lang("wivesNumber")</label>
@@ -256,7 +256,7 @@
                                                                                             <input id="childrenNum"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpChildrenNum"
+                                                                                                   name="number_child"
                                                                                                    placeholder="@lang("childrenNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="childrenNum">@lang("childrenNumber")</label>
@@ -268,8 +268,8 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "militaryService" , "Required" => "true" , "Label" => __('militaryService'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("done"), __("exempt")],])
+                                                                                            @include("System.Components.selector" , ['Name' => "military_service" , "Required" => "true" , "Label" => __('militaryService'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => $military_service,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -281,7 +281,7 @@
                                                                                             <input id="profession"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpProfession"
+                                                                                                   name="current_job"
                                                                                                    placeholder="@lang("profession")">
                                                                                             <label class="Input__Label"
                                                                                                    for="profession">@lang("profession")</label>
@@ -296,7 +296,7 @@
                                                                                             <input id="jobPosition"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpJobPosition"
+                                                                                                   name="job_site"
                                                                                                    placeholder="@lang("jobPosition")">
                                                                                             <label class="Input__Label"
                                                                                                    for="jobPosition">@lang("jobPosition")</label>
@@ -311,7 +311,7 @@
                                                                                             <input id="insuranceNumber"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
-                                                                                                   name="EmpInsuranceNumber"
+                                                                                                   name="number_insurance"
                                                                                                    placeholder="@lang("insuranceNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="insuranceNumber">@lang("insuranceNumber")</label>
@@ -326,7 +326,7 @@
                                                                                             <input id="personnelNumber"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
-                                                                                                   name="EmpPersonnelNumber"
+                                                                                                   name="number_file"
                                                                                                    placeholder="@lang("personnelNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="personnelNumber">@lang("personnelNumber")</label>
@@ -364,7 +364,7 @@
                                                                                             <div class="Form__Select">
                                                                                                 <div
                                                                                                     class="Select__Area">
-                                                                                                    @include("System.Components.selector" , ['Name' => "documentType" , "Required" => "true" , "Label" => __('documentType'),"DefaultValue" => "",
+                                                                                                    @include("System.Components.selector" , ['Name' => "document_type" , "Required" => "true" , "Label" => __('documentType'),"DefaultValue" => "",
                                                                                                                 "OptionsValues" => [("ID"), ("passport")],])
                                                                                                 </div>
                                                                                             </div>
@@ -379,7 +379,7 @@
                                                                                                     <input id="docId"
                                                                                                            type="file"
                                                                                                            class="UploadFile__Field"
-                                                                                                           name="EmpDocId"
+                                                                                                           name="document_path"
                                                                                                            placeholder="@lang("chooseDocument")">
                                                                                                     <label
                                                                                                         class="UploadFile__Label"
@@ -398,7 +398,7 @@
                                                                                                     <input id="docId"
                                                                                                            class="Input__Field"
                                                                                                            type="number"
-                                                                                                           name="EmpDocId"
+                                                                                                           name="document_number"
                                                                                                            placeholder="@lang("documentID")">
                                                                                                     <label
                                                                                                         class="Input__Label"
@@ -436,7 +436,7 @@
                                                                                             <input id="personalPhone"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
-                                                                                                   name="EmpPersonalPhone"
+                                                                                                   name="private_number1"
                                                                                                    placeholder="@lang("personalPhone")">
                                                                                             <label class="Input__Label"
                                                                                                    for="EmpPersonalPhone">@lang("personalPhone")</label>
@@ -451,7 +451,7 @@
                                                                                             <input id="workPhone"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
-                                                                                                   name="EmpWorkPhone"
+                                                                                                   name="work_number"
                                                                                                    placeholder="@lang("workPhone")">
                                                                                             <label class="Input__Label"
                                                                                                    for="EmpWorkPhone">@lang("workPhone")</label>
@@ -466,7 +466,7 @@
                                                                                             <input id="email"
                                                                                                    class="Input__Field"
                                                                                                    type="email"
-                                                                                                   name="EmpEmail"
+                                                                                                   name="email"
                                                                                                    placeholder="@lang("email")">
                                                                                             <label class="Input__Label"
                                                                                                    for="EmpEmail">@lang("email")</label>
@@ -478,7 +478,7 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "countryName" , "Required" => "true" , "Label" => __('countryName'),"DefaultValue" => "",
+                                                                                            @include("System.Components.selector" , ['Name' => "country_name" , "Required" => "true" , "Label" => __('countryName'),"DefaultValue" => "",
                                                                                                         "OptionsValues" => [__("syria"), __("jordan")],])
                                                                                         </div>
                                                                                     </div>
@@ -569,7 +569,7 @@
                                                                                             <input id="dateOfIssuance"
                                                                                                    class="Date__Field"
                                                                                                    type="text"
-                                                                                                   name="dateOfIssuance"
+                                                                                                   name="grant_date"
                                                                                                    placeholder="@lang("dateOfIssuance")">
                                                                                             <label class="Date__Label"
                                                                                                    for="dateOfIssuance">@lang("dateOfIssuance")</label>
@@ -584,7 +584,7 @@
                                                                                             <input id="collegeName"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpCollegeName"
+                                                                                                   name="college_name"
                                                                                                    placeholder="@lang("collegeName")">
                                                                                             <label class="Input__Label"
                                                                                                    for="collegeName">@lang("collegeName")</label>
@@ -598,6 +598,7 @@
                                                                                         <div class="UploadFile__Area">
                                                                                             <input type="file"
                                                                                                    class="UploadFile__Field"
+                                                                                                   name="document_education_path"
                                                                                                    placeholder="@lang("chooseDocument")">
                                                                                             <label
                                                                                                 class="UploadFile__Label">
@@ -614,7 +615,7 @@
                                                                                             <input id="salaryImpact"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
-                                                                                                   name="salaryImpact"
+                                                                                                   name="amount_impact_salary"
                                                                                                    placeholder="@lang("salaryImpact")">
                                                                                             <label class="Input__Label"
                                                                                                    for="salaryImpact">@lang("salaryImpact")</label>
@@ -630,15 +631,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="Col-12-xs">
-                                        <div class="Form__Group">
-                                            <div class="Form__Button">
-                                                <button class="Button Send"
-                                                        type="submit">@lang("addEmployee")</button>
+                                            <div class="Col-12-xs">
+                                                <div class="Form__Group">
+                                                    <div class="Form__Button">
+                                                        <button class="Button Send"
+                                                                type="submit">@lang("addEmployee")</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             #Add Columns
             $table->foreignId("section_id")->constrained("sections")->restrictOnDelete();
-            $table->foreignId("employee_id")->unique()->constrained("employees")->restrictOnDelete();
+            $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
             $table->enum("contract_type", ["permanent", "temporary"]);
             $table->bigInteger("contract_number")->unsigned()->unique();
             $table->date("contract_date");

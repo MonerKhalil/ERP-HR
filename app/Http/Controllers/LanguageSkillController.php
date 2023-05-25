@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\MainException;
+use App\Exports\TableCustomExport;
+use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
+use App\Models\Contract;
 use App\Models\Employee;
 use App\Models\Language_skill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Language_skillRequest;
+use http\Env\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 use PHPUnit\Exception;
 
 class LanguageSkillController extends Controller
@@ -22,9 +28,10 @@ class LanguageSkillController extends Controller
 //    }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $language = MyApp::Classes()->Search->getDataFilter(Language_skill::query());
+        $q = Language_skill::with('employee');
+        $language= MyApp::Classes()->Search->getDataFilter($q);
         return $this->responseSuccess("",compact("language"));
     }
 
@@ -116,15 +123,62 @@ class LanguageSkillController extends Controller
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
-
-
-    public function ExportXls()
+    public function MultiLanguageDelete(Request $request)
     {
-        //
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("language_skills", "id")],
+        ]);
+        try {
+            DB::beginTransaction();
+            Language_skill::query()->whereIn("id", $request->ids)->delete();
+            DB::commit();
+            $this->responseSuccess(null, null, "delete", self::IndexRoute);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new MainException($e->getMessage());
+        }
     }
 
-    public function ExportPDF()
+    public function ExportXls(Request $request)
     {
-        //
+        $data = $this->MainExportData($request);
+        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+    }
+
+    public function ExportPDF(Request $request)
+    {
+        $data = $this->MainExportData($request);
+        return ExportPDF::downloadPDF($data['head'],$data['body']);
+    }
+
+    private function MainExportData(Request $request): array
+    {
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("language_skills", "id")],
+        ]);
+
+
+        $query = LanguageSkillController::query();
+        $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $head = [
+            [
+                "head" => "name_language",
+                "relationFunc" => "language",
+                "key" => "name",
+            ] ,
+            [
+                "head"=> "name_employee",
+                "relationFunc" => "employee",
+                "key" => "name",
+            ],
+            "read","write","created_at",
+        ];
+        return [
+            "head" => $head,
+            "body" => $data,
+        ];
     }
 }
