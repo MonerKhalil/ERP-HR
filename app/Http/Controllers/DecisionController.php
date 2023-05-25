@@ -39,17 +39,17 @@ class DecisionController extends Controller
      */
     public function index(Request $request)
     {
+        $type_decisions = TypeDecision::query()->pluck("name","id")->toArray();
+        $session_decision = SessionDecision::query()->pluck("name","id")->toArray();
         $q = Decision::with(["type_decision", "session_decision"]);
         $data = MyApp::Classes()->Search->getDataFilter($q, null, null, "date");
-        $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
-        return $this->responseSuccess(self::NameBlade ,
-            compact("data" , "type_decisions"));
+        return $this->responseSuccess(self::NameBlade, compact("data","type_decisions","session_decision"));
     }
 
     public function create()
     {
         $session_decisions = SessionDecision::query()->pluck("name", "id")->toArray();
-        $employees = Employee::query()->select(["id" . "first_name", "last_name"])->get();
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
         $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
         $type_effects = Decision::effectSalary();
         return $this->responseSuccess("", compact("employees", "session_decisions", "type_decisions", "type_effects"));
@@ -85,7 +85,9 @@ class DecisionController extends Controller
                 $data['image'] = $image;
             }
             $decision = Decision::create($data);
-            $decision->employees()->syncWithoutDetaching($request->employees);
+            if (isset($request->employees)){
+                $decision->employees()->attach($request->employees);
+            }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
         } catch (\Exception $exception) {
@@ -140,9 +142,10 @@ class DecisionController extends Controller
                 }
                 $data['image'] = $image;
             }
-            $decision = $decision->update($data);
+            $decision->update($data);
+
             if (isset($request->employees)) {
-                $decision->employees()->syncWithoutDetaching($request->employees);
+                $decision->employees()->sync($request->employees);
             }
             DB::commit();
             return $this->responseSuccess(null, null, "update", self::IndexRoute);
@@ -170,12 +173,9 @@ class DecisionController extends Controller
 
     public function PrintDecision($decision)
     {
-        $decision = Decision::with(["type_decision", "session_decision"])
+        $data = Decision::with(["type_decision", "session_decision"])
             ->where("id",$decision)->firstOrFail();
-//        return response()->view("System.Pages.Docs.decisionPrint",compact('decision'));
-        return \PDF::loadView("System.Pages.Docs.decisionPrint", [
-            "data" => $decision
-        ]);
+        return response()->view("System.Pages.Docs.decisionPrint",compact('data'));
     }
 
     public function ExportXls(BaseRequest $request)

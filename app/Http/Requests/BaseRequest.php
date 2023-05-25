@@ -56,7 +56,7 @@ class BaseRequest extends FormRequest
     public function dateRules(bool $isReq = null): string
     {
         if (!is_null($isReq)) {
-            $this->rule = $isReq ? 'required' : 'sometimes';
+            $this->rule = $isReq ? 'required' : 'nullable';
         }
 
         return "$this->rule|date";

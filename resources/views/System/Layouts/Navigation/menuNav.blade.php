@@ -104,20 +104,111 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-6" class="NavName">
+                                    <a href="{{route("system.employees.index")}}" class="NavName">
                                         <span class="Label">@lang("viewEmployees")</span>
                                     </a>
                                 </div>
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-5" class="NavName">
+                                    <a href="{{route("system.employees.create")}}" class="NavName">
                                         <span class="Label">@lang("addEmployee")</span>
                                     </a>
                                 </div>
                             </li>
                         </ul>
                     </li>
+
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    description
+                                </i>
+                                <span class="Label">@lang("contracts")</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("system.employees.contract.index")}}" class="NavName">
+                                        <span class="Label">@lang("viewContracts")</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("system.employees.contract.create")}}" class="NavName">
+                                        <span class="Label">@lang("addContract")</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    menu_book
+                                </i>
+                                <span class="Label">@lang("courses")</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("system.conferences.index")}}" class="NavName">
+                                        <span class="Label">@lang("viewCourses")</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("system.conferences.create")}}" class="NavName">
+                                        <span class="Label">@lang("addCourse")</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    description
+                                </i>
+                                <span class="Label">@lang("EmployeesEOF")</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("system.data_end_services.index")}}" class="NavName">
+                                        <span class="Label">@lang("viewEOF")</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("system.data_end_services.create")}}" class="NavName">
+                                        <span class="Label">@lang("addEOF")</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -146,6 +237,120 @@
                                 </div>
                             </li>
                         </ul>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    emoji_food_beverage
+                                </i>
+                                <span class="Label">الاجازات</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-34" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">اجازاتي</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-36" class="NavName">
+                                        <!-- Admin -->
+                                        <span class="Label">عرض الاجازات</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="/Test-32" class="NavName">
+                                        <span class="Label">طلب اجازة</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- Admin -->
+                                    <a href="/Test-31" class="NavName">
+                                        <span class="Label">انواع الاجازات</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="/Test-30" class="NavName">
+                                        <span class="Label">اضافة نوع جديد</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    more_time
+                                </i>
+                                <span class="Label">العمل الاضافي</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-37" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">اضافة نوع جديد</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-38" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">عرض جميع الانواع</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-39" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">اضافة طلب</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-40" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">عرض الطلبات</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="NavigationsGroup__NavItem">
+                        <div class="Title">
+                            <a href="/Test-20" class="NavName">
+                                <i class="material-icons Icon">
+                                    description
+                                </i>
+                                <span class="Label">
+                                    التقارير
+                                </span>
+                            </a>
+                        </div>
                     </li>
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup Visible-phoneLandscape">

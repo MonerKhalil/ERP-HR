@@ -286,9 +286,12 @@ $(document).ready(function (){
      */
 
     function FormOperation(FormInfo = {
-        Operation : "InitializeForm" | "RefreshValidationForm" | "CloneFields" ,
+        Operation : "InitializeForm" | "RefreshValidationForm" |
+            "CloneFields" | "DisabledForm" | "EnabledForm"
+            | "IgnoreField" | "NotIgnoreField" ,
         FormElement : HTMLFormElement ,
         ClonePart : {
+            ElementTarget : HTMLElement | undefined ,
             ElementPart : HTMLElement ,
             WithClear : false
         } | undefined
@@ -306,6 +309,18 @@ $(document).ready(function (){
                 CloneField() ;
                 RefreshValidationForm() ;
                 break ;
+            case "NotIgnoreField" :
+                ActiveField() ;
+                break ;
+            case "IgnoreField" :
+                IgnoreField() ;
+                break
+            case "DisabledForm" :
+                DisabledField() ;
+                break ;
+            case "EnabledForm" :
+                EnabledField() ;
+                break ;
         }
 
         function InitializeForm() {
@@ -316,6 +331,9 @@ $(document).ready(function (){
                     $(FormInfo.FormElement).attr("action" , `${ActionForm}?${Params}`);
             }
             $(FormInfo.FormElement).find("input , textarea").each((_ , Field) => {
+                $(Field).attr("data-FieldID" , 1) ;
+            });
+            $(FormInfo.FormElement).find("input:not(.Date__Field) , textarea").each((_ , Field) => {
                 $(Field).on("blur" , function () {
                     $(Field).valid() ;
                 });
@@ -324,17 +342,20 @@ $(document).ready(function (){
                 InitialFieldPassword(Field);
             });
             $(FormInfo.FormElement).find(".Form__Date").each((_ , Field)=> {
-                InitialFieldDate(Field);
+                InitialFieldDate(Field) ;
             });
             $(FormInfo.FormElement).find(".Form__UploadFile").each((_ , UploadFile) => {
                 InitialFieldUpload(UploadFile) ;
             });
             $(FormInfo.FormElement).find(".RestButton").each((_ , Buttons) => {
                 $(Buttons).click(()=> {
-                    $(FormInfo.FormElement).find(`.Date__Field , .Input__Field , .Textarea__Field`)
+                    $(FormInfo.FormElement).find(`.Input__Field , .Textarea__Field`)
                         .each((_ , Field) => {
                             $(Field).val("");
                         });
+                    $(FormInfo.FormElement).find(".Date__Field").each((_ , Field) => {
+                        Field._flatpickr.clear();
+                    });
                     $(FormInfo.FormElement).find(`.Selector`).each((_ , Selector) => {
                         SelectorOperation({
                             Operation : "Clear" ,
@@ -349,8 +370,8 @@ $(document).ready(function (){
         }
 
         function RefreshValidationForm() {
-            $(FormInfo).removeData("validator") ;
-            $(FormInfo).removeData("unobtrusiveValidation") ;
+            $(FormInfo.FormElement).removeData("validator") ;
+            $(FormInfo.FormElement).removeData("unobtrusiveValidation") ;
             $.validator.addMethod("RegexPassword"
                 , function (Value) {
                     return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
@@ -421,60 +442,77 @@ $(document).ready(function (){
 
         function InitialFieldDate(Field = HTMLElement) {
             const Input = $(Field).find("input").get(0) ;
+            let FlatPickerObject ;
             if($(Input).hasClass("RangeData")) {
-                let IsDetermine = false ;
                 const InputAria = $(Field).find(".Date__Area").get(0) ;
+                let IsDetermine = $(InputAria).find(".StartDate").length > 0 ;
                 const InputStartDate = $(Input).attr("date-StartDateName") ;
                 const InputEndDate = $(Input).attr("date-EndDateName") ;
-                $(Input).flatpickr({
+                FlatPickerObject = $(Input).flatpickr({
                     mode: "range" ,
                     onClose: function(selectedDates, dateStr, instance) {
-
                         if(selectedDates.length > 1) {
-                            let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
-                            let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
-                            if(dateStart && dateEnd) {
-                                if(new Date(dateStart).getTime() >
-                                    new Date(dateEnd).getTime()) {
-                                    let Temp = dateEnd ;
-                                    dateStart = dateEnd ;
-                                    dateEnd = Temp ;
-                                }
-                                if(IsDetermine) {
-                                    const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
-                                    const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
-                                    $(StartDateInput).attr("value" , dateStart) ;
-                                    $(EndDateInput).attr("value" , dateEnd) ;
-                                } else {
-                                    const InputElements = `
+                            AddValue(selectedDates, dateStr, instance) ;
+                        } else {
+                            DeleteValue() ;
+                        }
+                        $(Input).valid() ;
+                    }
+                });
+                $(Input).on("change" , function () {
+                    if($(Input).val() === "")
+                        DeleteValue() ;
+                })
+                DeleteValue() ;
+
+                function AddValue(selectedDates, dateStr, instance) {
+                    let dateStart = instance.formatDate(selectedDates[0], "d/m/Y");
+                    let dateEnd = instance.formatDate(selectedDates[1], "d/m/Y");
+                    if(dateStart && dateEnd) {
+                        if(new Date(dateStart).getTime() >
+                            new Date(dateEnd).getTime()) {
+                            let Temp = dateEnd ;
+                            dateStart = dateEnd ;
+                            dateEnd = Temp ;
+                        }
+                        if(IsDetermine) {
+                            const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                            const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                            $(StartDateInput).attr("value" , dateStart) ;
+                            $(EndDateInput).attr("value" , dateEnd) ;
+                        } else {
+                            const InputElements = `
                                         <input class="IgnoreValidate StartDate" type="hidden"
                                                name="${InputStartDate}" value="${dateStart}">
                                         <input class="IgnoreValidate EndDate" type="hidden"
                                                name="${InputEndDate}" value="${dateEnd}">
                                     `;
-                                    $(InputAria).append(InputElements) ;
-                                    IsDetermine = true ;
-                                }
-                            }
-                        } else {
-                            if(IsDetermine) {
-                                const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
-                                const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
-                                $(StartDateInput).remove() ;
-                                $(EndDateInput).remove() ;
-                                IsDetermine = false ;
-                            }
+                            $(InputAria).append(InputElements) ;
+                            IsDetermine = true ;
                         }
                     }
-                });
+                }
+
+                function DeleteValue() {
+
+                    if(IsDetermine) {
+                        const StartDateInput = $(InputAria).find(".StartDate").get(0) ;
+                        const EndDateInput = $(InputAria).find(".EndDate").get(0) ;
+                        $(StartDateInput).remove() ;
+                        $(EndDateInput).remove() ;
+                        IsDetermine = false ;
+                    }
+
+                }
+
             } else if($(Input).hasClass("DateMinToday")) {
-                $(Input).flatpickr({
+                FlatPickerObject = $(Input).flatpickr({
                     minDate: "today"
                 });
             } else if($(Input).hasClass("DateEndFromStart")) {
                 const TargetDateStartName = $(Input).attr("data-StartDateName") ;
                 if(TargetDateStartName !== undefined) {
-                    const EndDateObject = $(Input).flatpickr({
+                    const EndDateObject = FlatPickerObject = $(Input).flatpickr({
                         disable: [
                             function() {
                                 return true;
@@ -484,18 +522,69 @@ $(document).ready(function (){
                     const DateStartEle = $(document)
                         .find(`.Date__Field[TargetDateStartName="${TargetDateStartName}"]`).get(0) ;
                     $(DateStartEle).on("change" , function () {
+                        DateEndSet() ;
+                    });
+                    if(DateStartEle._flatpickr.selectedDates.length > 0) {
+                        DateEndSet() ;
+                        if($(Input).attr("value")) {
+                            EndDateObject.setDate($(Input).attr("value")) ;
+                        }
+                    }
+
+                    function DateEndSet() {
                         const CurrentSelected = DateStartEle._flatpickr.selectedDates ;
                         EndDateObject.set("disable" , []) ;
                         EndDateObject.clear();
                         EndDateObject.set("minDate" , CurrentSelected[0]) ;
-                    });
+                    }
                 }
+            } else if($(Input).hasClass("MultiDate")) {
+                FlatPickerObject = $(Input).flatpickr({
+                    mode: "multiple"
+                });
+            } else if($(Input).hasClass("TimeNoDate")) {
+                FlatPickerObject = $(Input).flatpickr({
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "H:i"
+                });
             } else {
-                $(Input).flatpickr();
+                FlatPickerObject = $(Input).flatpickr();
             }
+            if($(Input).hasClass("MinimumNow")) {
+                FlatPickerObject.set("minDate" , new Date());
+            }
+
+            if(!$(Input).hasClass("RangeData")) {
+                FlatPickerObject.set("onClose" , function() {
+                    $(Input).valid() ;
+                });
+            }
+
         }
 
         function InitialFieldUpload(Field = HTMLElement) {
+
+            const FieldComponent = $(Field).find(".FileUpload").get(0) ;
+            const InputFile = $(FieldComponent).find(".FileUpload__InputFile").get(0) ;
+            const FieldValue = $(FieldComponent).find(".FileUpload__FileName").get(0) ;
+            $(InputFile).on("change" , function () {
+                AddFile($(InputFile).val()) ;
+            });
+            if($(InputFile).attr("value"))
+                AddFile($(InputFile).attr("value")) ;
+
+            function AddFile(PathFile) {
+                $(FieldComponent).addClass("Selected") ;
+                $(FieldValue).text(PathFile) ;
+                $(InputFile).attr("value" , PathFile) ;
+            }
+
+
+            if($(Field).find(".UploadFile__Field").attr("value") !== "") {
+                $(Field).find(".UploadFile__Area")
+                    .addClass("SelectedFile") ;
+            }
             $(Field).find(".UploadFile__Field").on("change" , (ev) => {
                 const PathFile = $(ev.target).val() ;
                 if(PathFile !== undefined && PathFile !== "")
@@ -531,9 +620,57 @@ $(document).ready(function (){
             });
         }
 
+        function ActiveField() {
+            $(FormInfo.ClonePart.ElementPart)
+                .find("input , textarea").each((_ , Field) => {
+                $(Field).removeClass("IgnoreValidate");
+            });
+            RefreshValidationForm() ;
+        }
+
+        function IgnoreField() {
+            $(FormInfo.ClonePart.ElementPart)
+                .find("input , textarea").each((_ , Field) => {
+                    $(Field).addClass("IgnoreValidate");
+            });
+            RefreshValidationForm() ;
+        }
+
+        function DisabledField() {
+            $(FormInfo.ClonePart.ElementPart).find("input , textarea")
+                .each((_ , Value) => {
+                    $(Value).prop("disabled" , true) ;
+                });
+        }
+
+        function EnabledField() {
+            $(FormInfo.ClonePart.ElementPart).find("input , textarea")
+                .each((_ , Value) => {
+                    $(Value).prop("disabled" , false) ;
+                });
+        }
+
         function CloneField() {
             $(FormInfo.ClonePart.ElementPart).off() ;
             $(FormInfo.ClonePart.ElementPart).find("input , textarea").each((_ , Field) => {
+                const FieldCloneNum = Number($(Field).attr("data-FieldID")) + 1 ;
+                $(Field).attr("data-FieldID" , FieldCloneNum) ;
+                if(FieldCloneNum) {
+                    const OldInputID = $(Field).attr("id") ;
+                    if(OldInputID) {
+                        const NewInputID = `${OldInputID}_${FieldCloneNum}` ;
+                        $(Field).attr("id" , NewInputID) ;
+                        $(Field).siblings("label").attr("for" , NewInputID) ;
+                    }
+                } else {
+                    $(Field).attr("data-FieldID" , 1) ;
+                }
+            });
+            $(FormInfo.ClonePart.ElementTarget).find("input , textarea").each((_ , Field) => {
+                const FieldCloneNum = Number($(Field).attr("data-FieldID")) + 1 ;
+                $(Field).attr("data-FieldID" , FieldCloneNum) ;
+            });
+            $(FormInfo.ClonePart.ElementPart).find("input:not(.Date__Field) , textarea").each((_ , Field) => {
                 $(Field).on("blur" , function () {
                     $(Field).valid() ;
                 });
@@ -1287,39 +1424,138 @@ $(document).ready(function (){
     =           Fields Visibility        =
     =============================================*/
 
-    $(".VisibilityOption").ready(function () {
-        $(".VisibilityOption").each((_ , VisibilityOption) => {
-            const TargetName = $(VisibilityOption).attr("data-ElementsTargetName");
-            $(VisibilityOption).find(".Selector").each((_ , Selectors) => {
+    function initializeFieldsVisibility(FieldInfo = {
+        Operation : "InitializeVisibilityOption" | "InitializeVisibilityTarget" ,
+        VisibilityOption : HTMLElement ,
+        VisibilityTarget : HTMLElement ,
+    }) {
+
+        switch (FieldInfo.Operation) {
+            case "InitializeVisibilityOption" :
+                InitVisibilityOption() ;
+                break ;
+            case "InitializeVisibilityTarget" :
+                InitVisibilityTarget() ;
+                break ;
+        }
+
+        function InitVisibilityOption() {
+            const TargetName = $(FieldInfo.VisibilityOption).attr("data-ElementsTargetName") ;
+            const DataDefault =$(FieldInfo.VisibilityOption).attr("data-VisibilityDefault") ;
+            $(FieldInfo.VisibilityOption).find(".Selector").each((_ , Selectors) => {
                 $(Selectors).find(".Selector__Option").each((_ , Option) => {
                     const ValueOption = $(Option).attr("data-option") ;
                     $(Option).click(() => {
                         TriggerName(TargetName , ValueOption);
                     });
                 });
-                TriggerName(TargetName , '') ;
+                if(DataDefault)
+                    TriggerName(TargetName , DataDefault) ;
+                else
+                    TriggerName(TargetName , '') ;
+            }) ;
+            $(FieldInfo.VisibilityOption).find(".MultiSelector").each((_ , MultiSelector) => {
+                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox").each((_ , Option) => {
+                    $(Option).on("change" , function () {
+                       // if($(Option).is(':checked'))
+                       //     TriggerName(TargetName , "") ;
+                       // else
+                       //     TriggerName(TargetName , "") ;
+                    });
+                });
             });
-            $(VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
+            $(FieldInfo.VisibilityOption).find(".CheckBox__Input").on('change', ()=>{
                 TriggerName(TargetName , $(this).val());
-            })
+            }) ;
+        }
+
+        function InitVisibilityTarget() {
+
+        }
+
+        function TriggerName(NameElement = String , ValueSelected = String) {
+            $(".VisibilityTarget").each((_ , VisibilityTarget) => {
+                const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
+                if(ElementName === NameElement) {
+                    const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
+                    {
+                        $(VisibilityTarget).hide();
+                        $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                            const FormElement = $(FieldGroup).closest("form").get(0) ;
+                            FormOperation({
+                                Operation : "IgnoreField" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                            FormOperation({
+                                Operation : "DisabledForm" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup
+                                }
+                            })
+                        });
+                    }
+
+                    if(ElementValue !== undefined)
+                        for (let i = 0; i < ElementValue.length; i++)
+                            if(ElementValue[i] === ValueSelected){
+                                {
+                                    $(VisibilityTarget).show();
+                                    $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                                        const FormElement = $(FieldGroup).closest("form").get(0) ;
+                                        FormOperation({
+                                            Operation : "NotIgnoreField" ,
+                                            FormElement : FormElement ,
+                                            ClonePart : {
+                                                ElementPart : FieldGroup ,
+                                            }
+                                        });
+                                        FormOperation({
+                                            Operation : "EnabledForm" ,
+                                            FormElement : FormElement ,
+                                            ClonePart : {
+                                                ElementPart : FieldGroup ,
+                                            }
+                                        });
+                                    });
+                                }
+                                break ;
+                            }
+                }
+            });
+        }
+
+        function TriggerNameMulti(NameElement = String , NameCheckBox = String ,
+                                  ValueSelected = String) {
+            $(".VisibilityTarget").each((_ , VisibilityTarget) => {
+                // Insert CheckboxNum For Know How Many Checkboxes Checked For it
+                const ElementName = $(VisibilityTarget).attr("data-TargetName");
+                if(ElementName === NameElement) {
+                    const ElementNames = $(VisibilityTarget).attr("data-TargetCheckboxNames").split(",") ?? undefined ;
+                    const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
+                    for (let i = 0; i < ElementNames.length ; i++)
+                        if(ElementNames[i] === NameCheckBox) {
+                            if(ElementValue[i] === ValueSelected)
+                                $(".VisibilityTarget").show();
+                        }
+                }
+            });
+        }
+
+    }
+
+    $(".VisibilityOption").ready(function () {
+        $(".VisibilityOption").each((_ , VisibilityOption) => {
+            initializeFieldsVisibility({
+                Operation : "InitializeVisibilityOption" ,
+                VisibilityOption : VisibilityOption ,
+                VisibilityTarget : undefined
+            });
         });
     });
-
-    function TriggerName(NameElement = String , ValueSelected = String) {
-        $(".VisibilityTarget").each((_ , VisibilityTarget) => {
-            const ElementName =  $(VisibilityTarget).attr("data-TargetName") ;
-            if(ElementName === NameElement) {
-                const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
-                $(VisibilityTarget).hide();
-                if(ElementValue !== undefined)
-                    for (let i = 0; i < ElementValue.length; i++)
-                        if(ElementValue[i] === ValueSelected){
-                            $(VisibilityTarget).show();
-                            break ;
-                        }
-            }
-        });
-    }
 
     /*===========================================
 	=           Duplicate Form       =
@@ -1343,11 +1579,122 @@ $(document).ready(function (){
         });
     });
 
-
     /*===========================================
-	=           Person Names       =
+	=           Duplicate Form       =
     =============================================*/
 
+    /**
+     * @author Amir Alhloo
+     */
+
+    function DuplicateFrom(InfoParam = {
+        MainForm : HTMLFormElement ,
+        ButtonClone : HTMLElement ,
+        TargetElement : HTMLElement ,
+        ParentContainer : HTMLElement ,
+        ClearClone : Boolean
+    }) {
+        let CloneElement = undefined ;
+        InitializeDuplicateFrom() ;
+
+        function InitializeDuplicateFrom() {
+            CloneProcess() ;
+            AppendClone() ;
+        }
+
+        function CloneProcess() {
+            CloneElement = $(InfoParam.TargetElement).clone(false) ;
+            FormOperation({
+                Operation : "CloneFields" ,
+                FormElement : InfoParam.MainForm ,
+                ClonePart : {
+                    ElementTarget : InfoParam.TargetElement ,
+                    ElementPart : CloneElement ,
+                    WithClear : InfoParam.ClearClone
+                }
+            });
+        }
+
+        function AppendClone() {
+            const TargetAppend = CloneElement.appendTo($(InfoParam.ParentContainer)) ;
+            FormOperation({
+                Operation : "RefreshValidationForm" ,
+                FormElement : InfoParam.MainForm ,
+                ClonePart : {
+                    ElementPart: TargetAppend,
+                    WithClear: false
+                }
+            }) ;
+        }
+    }
+
+    $(".ButtonCloneForm").ready(function(){
+        $(".ButtonCloneForm").each((_ , ButtonClone) => {
+            const TargetElementName = $(ButtonClone).attr("data-TargetElementName") ;
+            const IsCleanClone = $(ButtonClone).attr("data-IsCloneClear") ?? true ;
+            const TargetElement = $(document).find(`.CloneItem[data-NameElement=${TargetElementName}]`).get(0);
+            const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
+            const FormTarget = $(TargetElement).closest("form").get(0) ;
+            const MainCloneClear = $(TargetElement).clone(false);
+            $(ButtonClone).click(() => {
+                DuplicateFrom({
+                    MainForm : FormTarget ,
+                    ButtonClone : ButtonClone ,
+                    TargetElement : MainCloneClear ,
+                    ParentContainer : TargetParentClone ,
+                    ClearClone : IsCleanClone
+                });
+            });
+        });
+    });
+
+
+    /*===========================================
+	=           Venobox      =
+    =============================================*/
+    $(".venobox").ready(function () {
+        $(".venobox").each((_ , VenoBox) => {
+            $(VenoBox).venobox({
+                framewidth : "100vw" ,
+                frameheight : "100vh"
+            });
+        });
+    });
+
+
+    /*===========================================
+	=           Pages Setting       =
+    =============================================*/
+
+    $("#VacationListDate").ready(function () {
+        const VacationListElement = $("#VacationListDate").get(0) ;
+        const ParentCloneElement = $(VacationListElement).find(".ParentClone").get(0) ;
+        const MainCloneElement = $(VacationListElement).find(".CloneItem").get(0) ;
+        let CountClone = 1 ;
+        let IsMainCloneLabelView = false ;
+        $(VacationListElement).find(".ButtonCloneForm").click(() => {
+            if(!IsMainCloneLabelView) {
+                $(MainCloneElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+                IsMainCloneLabelView = true ;
+            }
+            const LastClone = $(ParentCloneElement).find(".ListData__Group")
+                .last().get(0) ;
+            const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
+            const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
+            $(SelectorVisibility).attr("data-ElementsTargetName"
+                , `${AttributeLastClone}__${CountClone}`) ;
+            $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
+                $(Value).attr("data-TargetName" ,
+                    `${$(Value).attr("data-TargetName")}__${CountClone}`);
+            });
+            $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+            initializeFieldsVisibility({
+                Operation : "InitializeVisibilityOption" ,
+                VisibilityOption : SelectorVisibility ,
+                VisibilityTarget : undefined ,
+            });
+        });
+    });
 
 });
 
@@ -1362,6 +1709,7 @@ window.onload = function (){
 
     GetFullParams() ;
 }
+
 
 /*===========================================
 =           Functions       =

@@ -15,13 +15,6 @@
                     <div class="MessageProcessContainer">
                         @include("System.Components.messageProcess")
                     </div>
-                    <div class="Form__Button">
-                        <button class="Button Send">
-                            <a href="{{route("system.employees.contract.create")}}">
-                                Add New Contract
-                            </a>
-                        </button>
-                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
@@ -43,15 +36,15 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-                                                            {{--                                                            @include("System.Components.bulkAction" , [--}}
-                                                            {{--                                                                "Options" => [ [--}}
-                                                            {{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
-                                                            {{--                                                                ] , [--}}
-                                                            {{--                                                                    "Label" => __("normalDelete")--}}
-                                                            {{--                                                                    , "Action" => route("users.multi.delete")--}}
-                                                            {{--                                                                    , "Method" => "delete"--}}
-                                                            {{--                                                                ] ]--}}
-                                                            {{--                                                            ])--}}
+{{--                                                            @include("System.Components.bulkAction" , [--}}
+{{--                                                                "Options" => [ [--}}
+{{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
+{{--                                                                ] , [--}}
+{{--                                                                    "Label" => __("normalDelete")--}}
+{{--                                                                    , "Action" => route("users.multi.delete")--}}
+{{--                                                                    , "Method" => "delete"--}}
+{{--                                                                ] ]--}}
+{{--                                                            ])--}}
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -63,24 +56,24 @@
                                                                 <li>
                                                                     <span class="SearchTools__Separate"></span>
                                                                 </li>
-                                                                {{--                                                                <li class="Table__PrintMenu">--}}
-                                                                {{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
-                                                                {{--                                                                       title="Print">print</i>--}}
-                                                                {{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
-                                                                {{--                                                                        <ul class="Dropdown__Content">--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
-                                                                {{--                                                                                    @lang("printTablePDFFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
-                                                                {{--                                                                                    @lang("printTableXlsxFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                        </ul>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </li>--}}
+{{--                                                                <li class="Table__PrintMenu">--}}
+{{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
+{{--                                                                       title="Print">print</i>--}}
+{{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
+{{--                                                                        <ul class="Dropdown__Content">--}}
+{{--                                                                            <li class="Dropdown__Item">--}}
+{{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
+{{--                                                                                    @lang("printTablePDFFile")--}}
+{{--                                                                                </a>--}}
+{{--                                                                            </li>--}}
+{{--                                                                            <li class="Dropdown__Item">--}}
+{{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
+{{--                                                                                    @lang("printTableXlsxFile")--}}
+{{--                                                                                </a>--}}
+{{--                                                                            </li>--}}
+{{--                                                                        </ul>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </li>--}}
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -118,6 +111,7 @@
                                                                             </i>
                                                                         </label>
                                                                     </div>
+                                                                    <div class="Item__Col">{{$contract["id"]}}</div>
                                                                     <div class="Item__Col">{{$contract["employee_id"]}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_type"]}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_date"]}}</div>
@@ -131,7 +125,7 @@
                                                                              data-MenuName="RoleMore_{{$contract["id"]}}">
                                                                             <ul class="Dropdown__Content">
                                                                                 <li>
-                                                                                    <a href="{{route("system.employees.contract.edit" , $contract["id"])}}"
+                                                                                    <a href="{{route("system.employees.contract.show" , $contract["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         @lang("viewDetails")
                                                                                     </a>
@@ -157,6 +151,7 @@
                                                         "PaginationData" => $contracts
                                                     ])
                                                 </div>
+
                                             </div>
                                         </div>
                                     </form>

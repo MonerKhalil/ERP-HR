@@ -21,7 +21,7 @@ use PHPUnit\Exception;
 class ContractController extends Controller
 {
     const Folder = "users";
-    const IndexRoute = "employees.contract.index";
+    const IndexRoute = "system.employees.contract.index";
 
 //    public function __construct()
 //    {
@@ -125,7 +125,7 @@ class ContractController extends Controller
             ]);
             $contract = $contractQuery->findOrFail($contract);
         }
-        return $this->responseSuccess("", compact("contract"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContract", compact("contract"));
     }
 
     public function edit($contract = null)

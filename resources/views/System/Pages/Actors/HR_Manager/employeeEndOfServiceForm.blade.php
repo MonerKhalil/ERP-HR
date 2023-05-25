@@ -25,14 +25,15 @@
                                                     <h3>@lang("contractInfo")</h3>
                                                 </div>
                                             </div>
-                                            <form class="Form Form--Dark">
+                                            <form class="Form Form--Dark" action="{{route("system.data_end_services.store")}}" method="post">
+                                                @csrf
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "employeeName" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => [("Test1"), ("Test2")],])
+                                                                    @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",
+                                                                                "OptionsValues" => $employees,])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -41,8 +42,8 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "EOSReason" , "Required" => "true" , "Label" => __('EOSReason'),"DefaultValue" => "",
-                                                                                "OptionsValues" => [__("retirement"), __("militaryService")],])
+                                                                    @include("System.Components.selector" , ['Name' => "reason" , "Required" => "true" , "Label" => __('EOSReason'),"DefaultValue" => "",
+                                                                                "OptionsValues" => $reason,])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -54,7 +55,7 @@
                                                                     <input id="EOSStartDate"
                                                                            class="Date__Field"
                                                                            type="text"
-                                                                           name="EOSStartDate"
+                                                                           name="start_break_date"
                                                                            placeholder="@lang("EOSStartDate")">
                                                                     <label class="Date__Label"
                                                                            for="EOSStartDate">@lang("EOSStartDate")</label>
@@ -69,7 +70,7 @@
                                                                     <input id="EOSEndDate"
                                                                            class="Date__Field"
                                                                            type="text"
-                                                                           name="EOSEndDate"
+                                                                           name="end_break_date"
                                                                            placeholder="@lang("EOSEndDate")">
                                                                     <label class="Date__Label"
                                                                            for="EOSEndDate">@lang("EOSEndDate")</label>
@@ -84,7 +85,7 @@
                                                                     <input id="decisionNumber"
                                                                            class="Input__Field"
                                                                            type="number"
-                                                                           name="decisionNumber"
+                                                                           name="decision_id"
                                                                            placeholder="@lang("decisionNumber")">
                                                                     <label class="Input__Label"
                                                                            for="decisionNumber">@lang("decisionNumber")</label>
@@ -92,21 +93,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="Col-4-md Col-6-sm">
-                                                        <div class="Form__Group">
-                                                            <div class="Form__Date">
-                                                                <div class="Date__Area">
-                                                                    <input id="decisionDate"
-                                                                           class="Date__Field"
-                                                                           type="text"
-                                                                           name="decisionDate"
-                                                                           placeholder="@lang("decisionDate")">
-                                                                    <label class="Date__Label"
-                                                                           for="decisionDate">@lang("decisionDate")</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="Col-4-md Col-6-sm">--}}
+{{--                                                        <div class="Form__Group">--}}
+{{--                                                            <div class="Form__Date">--}}
+{{--                                                                <div class="Date__Area">--}}
+{{--                                                                    <input id="decisionDate"--}}
+{{--                                                                           class="Date__Field"--}}
+{{--                                                                           type="text"--}}
+{{--                                                                           name="decisionDate"--}}
+{{--                                                                           placeholder="@lang("decisionDate")">--}}
+{{--                                                                    <label class="Date__Label"--}}
+{{--                                                                           for="decisionDate">@lang("decisionDate")</label>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                     <div class="Col-12-xs">
                                                         <div class="Form__Group">
                                                             <div class="Form__Button">

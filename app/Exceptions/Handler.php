@@ -3,9 +3,11 @@
 namespace App\Exceptions;
 
 use App\HelpersClasses\MessagesFlash;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -42,13 +44,17 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (Throwable $e) {
             dd($e);
-//            $url = \Illuminate\Support\Facades\Route::current();
-//            $url = ( ($url != null) && ($url->getPrefix() == 'api') );
-//            if ($url){
-//                return response()->json(['error'=>$e->getMessage()]);
-//            }
+            $url = Route::current();
+            $url = ( ($url != null) && ($url->getPrefix() == 'api') );
+            if ($url){
+                return response()->json(['error'=>$e->errors()]);
+            }
             if ($e instanceof ValidationException) {
                 MessagesFlash::Errors($e->errors());
+                return \redirect()->back();
+            }
+            if ($e instanceof AuthorizationException){
+                MessagesFlash::Errors($e->getMessage());
                 return \redirect()->back();
             }
             if ($e instanceof AuthenticationException) {

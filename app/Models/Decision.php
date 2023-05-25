@@ -42,19 +42,32 @@ class Decision extends BaseModel
     public function validationRules(){
         return function (BaseRequest $validator) {
             $rule = !$validator->isUpdatedRequest() ? "required" : "sometimes";
-            return [
+            $rules = [
                 "type_decision_id" => [$rule, Rule::exists("type_decisions","id")],
                 "session_decision_id" => [$rule, Rule::exists("session_decisions","id")],
-                "employees" => [$rule,"array"],
+                "employees" => ["sometimes","array"],
                 "employees.*" => [Rule::exists("employees","id")],
+                "number" => [$rule, "numeric",Rule::unique("decisions","number")],
                 "effect_salary" => [$rule, Rule::in(self::effectSalary())],
-                "date" => $validator->afterDateOrNowRules($rule === 'required'),
-                "content" => $validator->textRule($rule === 'required'),
+                "date" => $validator->dateRules(true),
+                "content" => [$rule,"string"],
                 "end_date_decision" => $validator->afterDateOrNowRules(false,'date'),
-                "value" => ["nullable","numeric","min:1"],
-                "rate" => ["nullable","numeric","min:1"],
+                "value" => [Rule::requiredIf(function ()use($validator){
+                    return isset($validator->effect_salary) &&
+                        ($validator->effect_salary=="increment" || $validator->effect_salary=="decrement");
+                }),Rule::when(isset($validator->effect_salary) &&
+                    ($validator->effect_salary=="none"),"nullable"),"numeric","min:1"],
+                "rate" => [Rule::requiredIf(function ()use($validator){
+                    return isset($validator->effect_salary) &&
+                        ($validator->effect_salary=="increment" || $validator->effect_salary=="decrement");
+                }),Rule::when(isset($validator->effect_salary) &&
+                    ($validator->effect_salary=="none"),"nullable"),"numeric","min:1","max:100"],
                 "image" => $validator->imageRule(false),
             ];
+            if ($validator->isUpdatedRequest()){
+                $rules['number'] =  [$rule,Rule::unique("decisions","number")->ignore($validator->route('decision')->id)];
+            }
+            return $rules;
         };
     }
 

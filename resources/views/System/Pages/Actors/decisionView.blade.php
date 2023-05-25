@@ -204,7 +204,7 @@
                     , "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"] ] ,
                  ['Type' => 'dateRange' , 'Info' =>
                     ['Name' => "end_date_decision" , 'Placeholder' => 'Decision End Date'
-                    , "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"] ]
+                    , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ]
             ]
     ])
 @endsection

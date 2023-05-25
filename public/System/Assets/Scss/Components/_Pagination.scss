@@ -16,21 +16,37 @@
 
             &__PageWord ,
             &__PageOf {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
+
         }
 
-        .Input__Field {
-            min-width: 7rem ;
-            padding: .5rem 1rem;
+        .Form {
+
+            &__Group {
+                width: fit-content ;
+
+                .Input__Area {
+                    border-color : #52565c;
+                }
+
+                .Input__Field {
+                    min-width: 7rem ;
+                    padding: 1.5rem 1rem ;
+                    text-align: center ;
+                }
+
+            }
+
         }
+
     }
 
     &__List {
         position: relative;
         display: flex;
         flex-wrap: wrap ;
-        align-items: center;
+        align-items: baseline;
     }
 
     &__Number a,
@@ -73,4 +89,29 @@
         }
     }
 
+}
+
+@include Language(Arabic) {
+
+    .Pagination {
+
+        &__Previous {
+
+            a {
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+                border-bottom-right-radius: $BorderRadiusValue;
+                border-top-right-radius: $BorderRadiusValue;
+            }
+        }
+
+        &__Next {
+
+            a {border-bottom-right-radius: 0;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: $BorderRadiusValue;
+                border-top-left-radius: $BorderRadiusValue;
+            }
+        }
+    }
 }

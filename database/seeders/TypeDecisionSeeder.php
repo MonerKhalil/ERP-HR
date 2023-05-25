@@ -18,6 +18,7 @@ class TypeDecisionSeeder extends Seeder
         for ($i = 1;$i<=20;$i++){
             TypeDecision::create([
                 "name" => "type".$i,
+                "created_at" => now(),
             ]);
         }
     }

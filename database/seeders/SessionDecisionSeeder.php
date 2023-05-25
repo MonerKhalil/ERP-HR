@@ -23,6 +23,7 @@ class SessionDecisionSeeder extends Seeder
                 "file" => "akmsa".$i,
                 "image" => "akmsa".$i,
                 "description" => "akmsa".$i,
+                "created_at" => now(),
             ]);
         }
     }

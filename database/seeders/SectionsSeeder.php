@@ -20,6 +20,7 @@ class SectionsSeeder extends Seeder
                 "address_id" => $i,
                 "name" => "section_".$i,
                 "details" => "xxxxxxxxxxxxx".$i,
+                "created_at" => now(),
             ]);
         }
     }

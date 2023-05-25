@@ -1,5 +1,6 @@
 @extends("System.Pages.globalPage")
 
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--DecisionDetailsPage">
         <div class="DecisionDetailsPage">
@@ -106,28 +107,39 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                        <div class="Data_Col">
+                                                @endif
+                                            @endif
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        صورة عن القرار
+                                                    </span>
+                                                    <a href="{{PathStorage($decision["image"])}}"
+                                                       class="venobox Data_Value">
+                                                        اضغط لعرض الصورة
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
                                                             <span class="Data_Label">
                                                                 تاريخ الانشاء على النظام
                                                             </span>
-                                                            <span class="Data_Value">
+                                                    <span class="Data_Value">
                                                                 {{$decision["created_at"]}}
                                                             </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                        <div class="Data_Col">
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
                                                             <span class="Data_Label">
                                                                 تاريخ التعديل على النظام
                                                             </span>
-                                                            <span class="Data_Value">
+                                                    <span class="Data_Value">
                                                                 {{$decision["updated_at"]}}
                                                             </span>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endif
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="ListData NotResponsive">
@@ -141,7 +153,7 @@
                                                 <div class="TextEditorContent__Content">
                                                     <div class="Card Content">
                                                         <div class="Card__Inner">
-                                                            {{$decision["content"]}}
+                                                            {!! $decision["content"] !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -164,6 +176,15 @@
                                                    class="Button Button--Primary">
                                                     تعديل قرار
                                                 </a>
+                                                <form class="Form"
+                                                      style="display: inline-block" method="post"
+                                                      action="{{route("system.decisions.destroy" , $decision["id"])}}">
+                                                    @csrf
+                                                    @method("delete")
+                                                    <button type="submit" class="Button Button--Danger">
+                                                        حذف قرار
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -175,4 +196,9 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("extraScripts")
+    {{-- JS VenoBox --}}
+    <script src="{{asset("System/Assets/Lib/venobox/dist/venobox.min.js")}}"></script>
 @endsection
