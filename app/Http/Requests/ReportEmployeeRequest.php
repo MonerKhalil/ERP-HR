@@ -38,6 +38,7 @@ class ReportEmployeeRequest extends BaseRequest
             "to_decision_date" => $this->afterDateOrNowRules(false,"from_decision_date"),
             'form_salary' => ['nullable','numeric','min:1'],
             'to_salary' => ['nullable','numeric','min:'.$this->input('form_salary')],
+            'salary' => ['nullable','numeric'],
         ];
     }
 }

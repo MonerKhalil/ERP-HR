@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\HelpersClasses\MyApp;
 use App\Http\Requests\ReportEmployeeRequest;
-use App\Models\Conference;
 use App\Models\Education_level;
 use App\Models\Employee;
 use App\Models\Language;
@@ -11,7 +11,6 @@ use App\Models\Membership_type;
 use App\Models\Position;
 use App\Models\Sections;
 use App\Models\TypeDecision;
-use Illuminate\Database\Eloquent\Builder;
 
 class ReportEmployeeController extends Controller
 {
@@ -58,10 +57,13 @@ class ReportEmployeeController extends Controller
             $this->finalQueryFilter->where("family_status",$request->family_status) : $this->finalQueryFilter;
         //CurrentJob
         $this->finalQueryFilter = !is_null($request->current_job) ?
-            $this->finalQueryFilter->where("current_job",$request->current_job) : $this->finalQueryFilter;
+            $this->finalQueryFilter->where("current_job","LIKE","%".$request->current_job."%") : $this->finalQueryFilter;
         //ContractType
         $this->finalQueryFilter = !is_null($request->contract_type) ?
-            $this->finalQueryFilter->where("contract_type",$request->contract_type) : $this->finalQueryFilter;
+            $this->finalQueryFilter->with("contract")
+                ->whereHas("contract",function ($q) use ($request){
+                    $q->where("contract_type",$request->contract_type);
+                }) : $this->finalQueryFilter;
         //EducationLevel
         $this->finalQueryFilter = !is_null($request->education_level_id) ?
             $this->finalQueryFilter
@@ -69,7 +71,7 @@ class ReportEmployeeController extends Controller
                 $q->where("id_ed_lev",$request->education_level_id);
             }) : $this->finalQueryFilter;
         //LanguageSkill
-        $this->finalQueryFilter = !is_null($request->education_level_id) ?
+        $this->finalQueryFilter = !is_null($request->language_id) ?
             $this->finalQueryFilter
                 ->whereHas("language_skill",function ($q)use($request){
                     $q->where("language_id",$request->language_id)
@@ -90,7 +92,7 @@ class ReportEmployeeController extends Controller
         $this->finalQueryFilter = !is_null($request->position_id) ?
             $this->finalQueryFilter->with("positions")
                 ->whereHas("positions",function ($q)use($request){
-                    $q->where("id",$request->position_id);
+                    $q->where("position_id",$request->position_id);
                 }) : $this->finalQueryFilter;
         //Conference
         $this->finalQueryFilter = $this->CompareDateStatic($request->from_conference_date,$request->to_conference_date,
@@ -99,7 +101,7 @@ class ReportEmployeeController extends Controller
         $this->finalQueryFilter = $this->CompareDateStatic($request->from_decision_date,$request->to_decision_date,
             "date","decision_employees");
         $this->finalQueryFilter = !is_null($request->type_decision_id) ?
-            $this->finalQueryFilter
+            $this->finalQueryFilter->with("decision_employees")
                 ->whereHas("decision_employees",function ($q)use($request){
                     $q->where("type_decision_id",$request->type_decision_id);
                 }) : $this->finalQueryFilter;
@@ -109,13 +111,22 @@ class ReportEmployeeController extends Controller
                 ->whereHas("contract",function ($q) use ($request){
                     $q->whereBetween("salary",[$request->form_salary,$request->to_salary]);
                 }) : $this->finalQueryFilter;
-        dd($this->finalQueryFilter->get()->toArray());
+        $this->finalQueryFilter = !is_null($request->salary) ?
+            $this->finalQueryFilter->with("contract")
+                ->whereHas("contract",function ($q) use ($request){
+                    $q->where("salary","<=",$request->salary);
+                }) : $this->finalQueryFilter;
+        //Final
+        $finalData = MyApp::Classes()->Search->dataPaginate($this->finalQueryFilter);
+        return $this->responseSuccess("...",compact("finalData"));
     }
 
     private function CompareDateStatic($from_date,$to_date,$name_column,$relation = null){
-        $compareTwoDate = [$from_date,$to_date];
         if (!is_null($from_date) && !is_null($to_date)){
-            if (strtotime($from_date) <= strtotime($to_date)){
+            $from_date = MyApp::Classes()->stringProcess->DateFormat($from_date);
+            $to_date = MyApp::Classes()->stringProcess->DateFormat($to_date);
+            if (is_string($from_date) && is_string($to_date) && ($from_date <= $to_date)){
+                $compareTwoDate = [$from_date,$to_date];
                 if (!is_null($relation)){
                     $this->finalQueryFilter = $this->finalQueryFilter->with($relation)
                         ->whereHas($relation,function ($q) use ($from_date,$to_date,$name_column,$compareTwoDate){

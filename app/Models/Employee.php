@@ -89,7 +89,7 @@ class Employee extends BaseModel
 
     public function contract(){
 
-        return $this->hasMany(Contract::class,'employee_id','id')->withDefault();
+        return $this->hasMany(Contract::class,'employee_id','id');
     }
     public function language_skill(){
 

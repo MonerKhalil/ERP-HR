@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone_number');
             $table->string('fax_number');
-            $table->enum('type',[]);
+            $table->enum('type',["xx","yy"]);
             $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
             $table->foreignId("section_id")->constrained("sections")->restrictOnDelete();
             $table->boolean("is_active")->default(true);

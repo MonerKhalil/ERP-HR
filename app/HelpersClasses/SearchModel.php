@@ -3,9 +3,8 @@
 namespace App\HelpersClasses;
 
 
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
-use Mpdf\Tag\U;
 
 class SearchModel
 {
@@ -30,14 +29,20 @@ class SearchModel
 
         foreach ($filterFinal as $key => $value){
             if (!is_null($value) && Schema::hasColumn($queryBuilder->getQuery()->from,$key)){
+                $temp = MyApp::Classes()->stringProcess->DateFormat($value);
+                if (str_contains($key,"date") && is_string($temp)){
+                    $value = $temp;
+                }
                 $queryBuilder = $queryBuilder->where($key,"LIKE","%".$value."%");
             }
         }
 
         if (isset($filterFinal['start_date_filter']) && isset($filterFinal['end_date_filter'])){
-            if (strtotime($filterFinal['start_date_filter']) <= strtotime($filterFinal['end_date_filter'])){
+            $from = MyApp::Classes()->stringProcess->DateFormat($filterFinal['start_date_filter']);
+            $to = MyApp::Classes()->stringProcess->DateFormat($filterFinal['end_date_filter']);
+            if ( is_string($from) && is_string($to) && ($from <= $to) ){
                 $isFilterDate_SetColumn = is_null($isFilterDate_SetColumn) ? "created_at" : $isFilterDate_SetColumn;
-                $queryBuilder = $queryBuilder->whereBetween($isFilterDate_SetColumn,[$filterFinal['start_date_filter'],$filterFinal['end_date_filter']]);
+                $queryBuilder = $queryBuilder->whereBetween($isFilterDate_SetColumn,[$from,$to]);
             }
         }
 
