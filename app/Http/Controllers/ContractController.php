@@ -12,7 +12,7 @@ use App\Http\Requests\ContractRequest;
 use App\Models\Employee;
 use App\Models\Sections;
 use App\Models\User;
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,51 +23,16 @@ class ContractController extends Controller
     const Folder = "users";
     const IndexRoute = "system.employees.contract.index";
 
-//    public function __construct()
-//    {
-//        $this->addMiddlewarePermissionsToFunctions(app(Contract::class)->getTable());
-//    }
-
-
-    public function index(Request $request)
+    public function __construct()
     {
-        $q = Contract::with('employee');
-        $contracts = MyApp::Classes()->Search->getDataFilter($q);
-        // $request = request();
-        // $contracts = Contract::filter($request->query())
-        //  ->get();
-
-//       $contracts=Contract::with('employee')
-//        ->filter($request->query())
-//            ->get();
-//       $employees= Employee::query()->where("first_name",$request->name);
-        //  $contracts=Contract::
+        $this->addMiddlewarePermissionsToFunctions(app(Employee::class)->getTable());
+    }
 
 
-//        $contracts = DB::table('employees')
-//            ->join('contracts', function ($join) use ($x) {
-//                $join->on('employees.id', '=', 'contracts.employee_id')
-////                    ->when($request['contract_type'] ?? false, function ($builder, $value) {
-////                        $builder->where('contracts.contract_type', '=', "$value");
-////                    })
-////                    ->when($filters['contract_number'] ?? false, function ($builder, $value) {
-////                        $builder->where('contracts.contract_number', 'LIKE', "%{$value}%");
-////                    })
-////                    ->when($filters['first_name'] ?? false, function ($builder, $value) {
-////                        $builder->where('employees.first_name', 'LIKE', "%{$value}%");
-////                    });
-//                    ->where('contracts.contract_number', '=', $x)
-//                    ->where('contract_type', '=', "permanent")
-//                    ->where('employees.first_name', 'LIKE', "hamza");
-//            })
-//            ->get();
-
-//        return Response()->json([
-//            'contracts' => $contracts,
-////            'education' => $education,
-////            'contact'=>$contact,
-//        ]);
-
+    public function index()
+    {
+        $contracts = Contract::with('employee');
+        $contracts = MyApp::Classes()->Search->getDataFilter($contracts);
         return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContracts", compact("contracts"));
 
     }
@@ -102,11 +67,6 @@ class ContractController extends Controller
 
     public function show($contract = null)
     {
-
-        //        $contractQuery=    User::join('employees', 'employees.user_id', '=', 'users.id')
-//            ->join('contracts', 'contracts.employee_id', '=', 'employees.id')
-//            ->where('users.id', 1);
-
         if (is_null($contract)) {
             $contractQuery = Contract::with([
                 "employee" => function ($q) {

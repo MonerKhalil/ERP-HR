@@ -36,6 +36,19 @@ class Employee extends BaseModel
         return $this->belongsTo(Sections::class, "section_id", "id");
     }
 
+    public function positions(){
+        return $this->belongsToMany(Position::class,"position_employees"
+            ,"employee_id"
+            ,"position_id"
+            ,"id"
+            ,"id");
+    }
+
+    public function data_end_service(){
+        return $this->hasMany(DataEndService::class,"employee_id","id")
+            ->where("is_request_end_services",false);
+    }
+
     public function contact()
     {
         return $this->hasMany(Contact::class, 'employee_id', 'id');
@@ -51,7 +64,7 @@ class Employee extends BaseModel
             ,"employee_id"
             ,"conference_id"
             ,"id"
-            ,"id");
+            ,"id")->with("address");
     }
 
     public function session_decision(){
@@ -67,7 +80,7 @@ class Employee extends BaseModel
             "employee_id",
             "decision_id",
             "id",
-            "id");
+            "id")->with("type_decision");
     }
 
     public function getNameAttribute(){
@@ -76,7 +89,7 @@ class Employee extends BaseModel
 
     public function contract(){
 
-        return $this->hasMany(Contract::class,'employee_id','id')->withDefault();
+        return $this->hasMany(Contract::class,'employee_id','id');
     }
     public function language_skill(){
 

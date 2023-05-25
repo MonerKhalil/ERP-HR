@@ -2,6 +2,9 @@
 
 namespace App\HelpersClasses;
 
+use DateTime;
+use Illuminate\Support\Carbon;
+
 class StringProcess
 {
     /**
@@ -46,5 +49,30 @@ class StringProcess
         }
 
         return ($i > 0) ? substr($nSlug, 0, strlen($slug)) . '-' . $i : $slug;
+    }
+
+    /**
+     * @description Check String is Date and Convert to YYYY-MM-DD
+     * @param string $inputString
+     * @return false|string
+     * @author moner khalil
+     */
+    public function DateFormat(string $inputString){
+        $formats = [
+            'Y-m-d',
+            'd-m-Y',
+            'd/m/Y',
+            'm/d/Y',
+        ];
+        $isValid = false;
+        foreach ($formats as $format) {
+            $date = DateTime::createFromFormat($format, $inputString);
+            if ($date !== false && $date->format($format) === $inputString) {
+                $isValid = true;
+                $inputString = Carbon::createFromFormat($format, $inputString)->format('Y-m-d');
+                break;
+            }
+        }
+        return $isValid ? $inputString : false;
     }
 }

@@ -42,7 +42,14 @@ class DecisionController extends Controller
         $type_decisions = TypeDecision::query()->pluck("name","id")->toArray();
         $session_decision = SessionDecision::query()->pluck("name","id")->toArray();
         $q = Decision::with(["type_decision", "session_decision"]);
-        $data = MyApp::Classes()->Search->getDataFilter($q, null, null, "date");
+        if (isset($request->filter["start_date"]) && isset($request->filter["end_date"])){
+            $from = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date"]);
+            $to = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date"]);
+            if ( is_string($from) && is_string($to) && ($from <= $to) ){
+                $q = $q->whereBetween("date",[$from,$to]);
+            }
+        }
+        $data = MyApp::Classes()->Search->getDataFilter($q, null, null, "end_date_decision");
         return $this->responseSuccess(self::NameBlade, compact("data","type_decisions","session_decision"));
     }
 
@@ -104,10 +111,17 @@ class DecisionController extends Controller
             compact("decision"));
     }
 
-    public function showDecisionsSession($session_decisions){
+    public function showDecisionsSession(Request $request,$session_decisions){
         $query = SessionDecision::query()->findOrFail($session_decisions)->decisions();
         $type_decisions = TypeDecision::query()->pluck("name", "id")->toArray();
-        $data = MyApp::Classes()->Search->getDataFilter($query, null, null, "date");
+        if (isset($request->filter["start_date"]) && isset($request->filter["end_date"])){
+            $from = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date"]);
+            $to = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date"]);
+            if ( is_string($from) && is_string($to) && ($from <= $to) ){
+                $query = $query->whereBetween("date",[$from,$to]);
+            }
+        }
+        $data = MyApp::Classes()->Search->getDataFilter($query, null, null, "end_date_decision");
         return $this->responseSuccess(self::NameBlade , compact("data" , "type_decisions"));
     }
 

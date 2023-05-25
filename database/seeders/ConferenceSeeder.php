@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Conference;
+use App\Models\ConferenceEmployee;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -25,6 +26,13 @@ class ConferenceSeeder extends Seeder
                 "rate_effect_salary" => $i,
                 "address_details" => "kmaskmaskm".$i,
                 "type" => "conference",
+                "created_at" => now(),
+            ]);
+        }
+        for ($i = 1 ; $i<=10;$i++){
+            ConferenceEmployee::create([
+                "employee_id" => $i,
+                "conference_id" => $i,
                 "created_at" => now(),
             ]);
         }

@@ -16,6 +16,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\ReportEmployeeController;
 use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionDecisionController;
@@ -162,6 +163,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class)->except([
             "show", "edit", "update",
         ]);
+        Route::get("employees/report",[ReportEmployeeController::class,"showCreateReport"])->name("employees.report");
+        Route::post("employees/report",[ReportEmployeeController::class,"Report"]);
         Route::get("employees/show/{employee?}", [EmployeeController::class, "show"])->name("employees.show");
         Route::get("employees/edit/{employee?}", [EmployeeController::class, "edit"])->name("employees.edit");
         Route::post("employees/update/{employee?}", [EmployeeController::class, "update"])->name("employees.update");

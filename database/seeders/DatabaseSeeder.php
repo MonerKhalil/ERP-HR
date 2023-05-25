@@ -20,15 +20,16 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(AddressSeeder::class);
-        $this->call(EducationLevelSeeder::class);
         $this->call(SectionsSeeder::class);
         $this->call(TypeDecisionSeeder::class);
         $this->call(EmployeeSeeder::class);
+        $this->call(EducationLevelSeeder::class);
         $this->call(SessionDecisionSeeder::class);
         $this->call(DecisionSeeder::class);
         $this->call(ConferenceSeeder::class);
         $this->call(PositionSeeder::class);
         $this->call(LanguageSeeder::class);
         $this->call(membershipTypesSeeder::class);
+        $this->call(DataEndServiceSeeder::class);
     }
 }
