@@ -31,35 +31,37 @@
                                                             <div class="ListData__CustomItem pt-0">
                                                                 <div class="Row GapC-1-5">
                                                                     {{-- Main --}}
-                                                                    <div class="Col-12">
+                                                                    <div class="VisibilityOption Col-12"
+                                                                         data-ElementsTargetName="CreateReportBy">
                                                                         <div class="Form__Group">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.multiSelector" , [
                                                                                         'Name' => "Type" , "Required" => "true" ,
                                                                                         "DefaultValue" => "" , "Label" => "تقرير حسب" ,
-                                                                                        "Options" => [ ["Label" => "تاريخ المباشرة" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "مكان العمل" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "تاريخ الميلاد" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "الجنس" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "الوضع العائلي" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "المهنة" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "تاريخ انتهاء الخدمة" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "نوع العقد" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "الحاصلين على التأمين" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "الدرجة العلمية" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "المهارات اللغوية" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "العضويات" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "تاريخ العمل لاول مرة" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "المنصب الوظيفي" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "تاريخ المكافئات" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "تاريخ العقوبات" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "تاريخ المرتمرات والدورات" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "التقييم" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "العمل الاضافي" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "مجال الرواتب" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "حد راتب" , "Value" => "Decision" , "Name" => "s"] ,
-                                                                                                       ["Label" => "الفئة الوظيفية" , "Value" => "Decision" , "Name" => "s"] ,
+                                                                                        "Options" => [ ["Label" => "تاريخ المباشرة" , "Value" => "Decision" , "Name" => "1"] ,
+                                                                                                       ["Label" => "مكان العمل" , "Value" => "Decision" , "Name" => "2"] ,
+                                                                                                       ["Label" => "تاريخ الميلاد" , "Value" => "Decision" , "Name" => "3"] ,
+                                                                                                       ["Label" => "الجنس" , "Value" => "Decision" , "Name" => "4"] ,
+                                                                                                       ["Label" => "الوضع العائلي" , "Value" => "Decision" , "Name" => "5"] ,
+                                                                                                       ["Label" => "المهنة" , "Value" => "Decision" , "Name" => "6"] ,
+                                                                                                       ["Label" => "تاريخ انتهاء الخدمة" , "Value" => "Decision" , "Name" => "7"] ,
+                                                                                                       ["Label" => "نوع العقد" , "Value" => "Decision" , "Name" => "8"] ,
+                                                                                                       ["Label" => "الحاصلين على التأمين" , "Value" => "Decision" , "Name" => "9"] ,
+                                                                                                       ["Label" => "الدرجة العلمية" , "Value" => "Decision" , "Name" => "10"] ,
+                                                                                                       ["Label" => "المهارات اللغوية" , "Value" => "Decision" , "Name" => "11"] ,
+                                                                                                       ["Label" => "العضويات" , "Value" => "Decision" , "Name" => "12"] ,
+                                                                                                       ["Label" => "تاريخ العمل لاول مرة" , "Value" => "Decision" , "Name" => "13"] ,
+                                                                                                       ["Label" => "المنصب الوظيفي" , "Value" => "Decision" , "Name" => "14"] ,
+                                                                                                       ["Label" => "تاريخ المكافئات" , "Value" => "Decision" , "Name" => "15"] ,
+                                                                                                       ["Label" => "تاريخ العقوبات" , "Value" => "Decision" , "Name" => "16"] ,
+                                                                                                       ["Label" => "تاريخ المرتمرات والدورات" , "Value" => "Decision" , "Name" => "17"] ,
+                                                                                                       ["Label" => "التقييم" , "Value" => "Decision" , "Name" => "18"] ,
+                                                                                                       ["Label" => "العمل الاضافي" , "Value" => "Decision" , "Name" => "19"] ,
+                                                                                                       ["Label" => "مجال الرواتب" , "Value" => "Decision" , "Name" => "20"] ,
+                                                                                                       ["Label" => "حد راتب" , "Value" => "Decision" , "Name" => "21"] ,
+                                                                                                       ["Label" => "الفئة الوظيفية" , "Value" => "Decision" , "Name" => "22"] ,
+                                                                                                       ["Label" => "الدرجة العملية" , "Value" => "Decision" , "Name" => "23"] ,
                                                                                         ]
                                                                                     ])
                                                                                 </div>
@@ -71,7 +73,9 @@
                                                         </div>
                                                     </div>
                                                     {{-- Sub Date --}}
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="1">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ المباشرة
@@ -113,7 +117,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="3">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ الميلاد
@@ -154,7 +160,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="7">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ انتهاء الخدمة
@@ -195,7 +203,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="13">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ العمل لاول مرة
@@ -236,7 +246,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="15">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ الكافئة
@@ -277,7 +289,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="16">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ العقوبة
@@ -319,7 +333,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="17">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ الدورات والمؤتمرات
@@ -361,8 +377,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
-                                                        <div class="ListData__Head">
+                                                    <div class="VisibilityTarget ListData">
+                                                        <div class="ListData__Head"
+                                                             data-TargetName="CreateReportBy"
+                                                             data-TargetCheckboxName="18">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ التقييم
                                                             </h4>
@@ -403,7 +421,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="19">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب تاريخ العمل الاضافي
@@ -446,7 +466,9 @@
                                                         </div>
                                                     </div>
                                                     {{-- Employee Information --}}
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="4,5,6,11,22,23">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب معلومات الموظف
@@ -554,7 +576,9 @@
                                                         </div>
                                                     </div>
                                                     {{-- Work Employee Information --}}
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="8,12,22,18">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب معلومات عمل الموظف
@@ -628,7 +652,9 @@
                                                         </div>
                                                     </div>
                                                     {{-- Salary Employee Information --}}
-                                                    <div class="ListData">
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="20,21">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب معلومات راتب الموظف

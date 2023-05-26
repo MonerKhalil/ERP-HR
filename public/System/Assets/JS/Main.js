@@ -1455,12 +1455,13 @@ $(document).ready(function (){
                     TriggerName(TargetName , '') ;
             }) ;
             $(FieldInfo.VisibilityOption).find(".MultiSelector").each((_ , MultiSelector) => {
-                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox").each((_ , Option) => {
-                    $(Option).on("change" , function () {
-                       // if($(Option).is(':checked'))
-                       //     TriggerName(TargetName , "") ;
-                       // else
-                       //     TriggerName(TargetName , "") ;
+                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox")
+                    .each((_ , OptionCheckbox) => {
+                        TriggerNameMulti(TargetName , $(OptionCheckbox).attr("name")
+                            , $(OptionCheckbox).is(":checked")) ;
+                    $(OptionCheckbox).on("change" , function () {
+                        TriggerNameMulti(TargetName , $(OptionCheckbox).attr("name")
+                            , $(OptionCheckbox).is(":checked")) ;
                     });
                 });
             });
@@ -1528,19 +1529,68 @@ $(document).ready(function (){
             });
         }
 
-        function TriggerNameMulti(NameElement = String , NameCheckBox = String ,
-                                  ValueSelected = String) {
+        function TriggerNameMulti(NameElement = String , NameCheckBox = String
+                                  , IsChecked = Boolean) {
             $(".VisibilityTarget").each((_ , VisibilityTarget) => {
-                // Insert CheckboxNum For Know How Many Checkboxes Checked For it
+                let CheckedNumOption = Number($(VisibilityTarget).attr("data-CheckedNumber"));
+                if(!CheckedNumOption) {
+                    $(VisibilityTarget).attr("data-CheckedNumber" , 0) ;
+                    CheckedNumOption = 0 ;
+                }
                 const ElementName = $(VisibilityTarget).attr("data-TargetName");
                 if(ElementName === NameElement) {
-                    const ElementNames = $(VisibilityTarget).attr("data-TargetCheckboxNames").split(",") ?? undefined ;
-                    const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
-                    for (let i = 0; i < ElementNames.length ; i++)
-                        if(ElementNames[i] === NameCheckBox) {
-                            if(ElementValue[i] === ValueSelected)
-                                $(".VisibilityTarget").show();
+                    const CheckboxesName = $(VisibilityTarget).attr("data-TargetCheckboxName")
+                        .split(",") ?? undefined ;
+                    for (let i = 0; i < CheckboxesName.length ; i++) {
+                        if(CheckboxesName[i] === NameCheckBox) {
+                            if(IsChecked)
+                                CheckedNumOption++ ;
+                            else if(CheckedNumOption > 0)
+                                CheckedNumOption-- ;
+                            break ;
                         }
+                    }
+                    if(CheckedNumOption > 0) {
+                        $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                            const FormElement = $(FieldGroup).closest("form").get(0) ;
+                            FormOperation({
+                                Operation : "NotIgnoreField" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                            FormOperation({
+                                Operation : "EnabledForm" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                        });
+                        $(VisibilityTarget).show();
+                    }
+                    else {
+                        $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                            const FormElement = $(FieldGroup).closest("form").get(0) ;
+                            FormOperation({
+                                Operation : "IgnoreField" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                            FormOperation({
+                                Operation : "DisabledForm" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup
+                                }
+                            })
+                        });
+                        $(VisibilityTarget).hide();
+                    }
+                    $(VisibilityTarget).attr("data-CheckedNumber" , CheckedNumOption) ;
                 }
             });
         }
