@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\MainException;
+use App\Exports\TableCustomExport;
+use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
+use App\Http\Requests\BaseRequest;
 use App\Models\Contract;
 use App\Http\Requests\ContractRequest;
 use App\Models\Employee;
 use App\Models\Sections;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 use PHPUnit\Exception;
 
 class ContractController extends Controller
@@ -17,50 +23,16 @@ class ContractController extends Controller
     const Folder = "users";
     const IndexRoute = "system.employees.contract.index";
 
-//    public function __construct()
-//    {
-//        $this->addMiddlewarePermissionsToFunctions(app(Contract::class)->getTable());
-//    }
+    public function __construct()
+    {
+        $this->addMiddlewarePermissionsToFunctions(app(Employee::class)->getTable());
+    }
 
 
     public function index()
     {
-        $contracts = MyApp::Classes()->Search->getDataFilter(Contract::query());
-       // $request = request();
-       // $contracts = Contract::filter($request->query())
-          //  ->get();
-
-//       $contracts=Contract::with('employee')
-//        ->filter($request->query())
-//            ->get();
-//       $employees= Employee::query()->where("first_name",$request->name);
-        //  $contracts=Contract::
-
-
-//        $contracts = DB::table('employees')
-//            ->join('contracts', function ($join) use ($x) {
-//                $join->on('employees.id', '=', 'contracts.employee_id')
-////                    ->when($request['contract_type'] ?? false, function ($builder, $value) {
-////                        $builder->where('contracts.contract_type', '=', "$value");
-////                    })
-////                    ->when($filters['contract_number'] ?? false, function ($builder, $value) {
-////                        $builder->where('contracts.contract_number', 'LIKE', "%{$value}%");
-////                    })
-////                    ->when($filters['first_name'] ?? false, function ($builder, $value) {
-////                        $builder->where('employees.first_name', 'LIKE', "%{$value}%");
-////                    });
-//                    ->where('contracts.contract_number', '=', $x)
-//                    ->where('contract_type', '=', "permanent")
-//                    ->where('employees.first_name', 'LIKE', "hamza");
-//            })
-//            ->get();
-
-//        return Response()->json([
-//            'contracts' => $contracts,
-////            'education' => $education,
-////            'contact'=>$contact,
-//        ]);
-
+        $contracts = Contract::with('employee');
+        $contracts = MyApp::Classes()->Search->getDataFilter($contracts);
         return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContracts", compact("contracts"));
 
     }
@@ -95,11 +67,6 @@ class ContractController extends Controller
 
     public function show($contract = null)
     {
-
-        //        $contractQuery=    User::join('employees', 'employees.user_id', '=', 'users.id')
-//            ->join('contracts', 'contracts.employee_id', '=', 'employees.id')
-//            ->where('users.id', 1);
-
         if (is_null($contract)) {
             $contractQuery = Contract::with([
                 "employee" => function ($q) {
@@ -150,24 +117,24 @@ class ContractController extends Controller
     public function update(ContractRequest $request, $contract)
     {
         $employeeQuery = Contract::query();
-        $employee_id =is_null($contract)? Employee::where("user_id", Auth()->id())->pluck("id"):null;
-        $employee = is_null($contract) ? $employeeQuery->where("employee_id",$employee_id)->firstOrFail()
+        $employee_id = is_null($contract) ? Employee::where("user_id", Auth()->id())->pluck("id") : null;
+        $employee = is_null($contract) ? $employeeQuery->where("employee_id", $employee_id)->firstOrFail()
             : $employeeQuery->findOrFail($contract);
         $employee->update($request->validated());
-        return $this->responseSuccess(null,null,"update",self::IndexRoute);
+        return $this->responseSuccess(null, null, "update", self::IndexRoute);
     }
 
     public function destroy($id)
     {
         Contract::destroy($id);
-        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
 
 
     public function trash()
     {
         $contracts = Contract::onlyTrashed()->paginate();
-        return $this->responseSuccess(null,compact('contracts'));
+        return $this->responseSuccess(null, compact('contracts'));
     }
 
     public function restore($id)
@@ -181,16 +148,67 @@ class ContractController extends Controller
     {
         $contract = Contract::onlyTrashed()->findOrFail($id);
         $contract->forceDelete();
-        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
 
-    public function ExportXls()
+    public function MultiContractsDelete(Request $request)
     {
-        //
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("contracts", "id")],
+        ]);
+        try {
+            DB::beginTransaction();
+            Contract::query()->whereIn("id", $request->ids)->delete();
+            DB::commit();
+            $this->responseSuccess(null, null, "delete", self::IndexRoute);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new MainException($e->getMessage());
+        }
     }
 
-    public function ExportPDF()
+    public function ExportXls(Request $request)
     {
-        //
+        $data = $this->MainExportData($request);
+        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+    }
+
+    public function ExportPDF(Request $request)
+    {
+        $data = $this->MainExportData($request);
+        return ExportPDF::downloadPDF($data['head'],$data['body']);
+    }
+
+    private function MainExportData(Request $request): array
+    {
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("contracts", "id")],
+          //  "contracts.*.user_id" => ["required", Rule::exists("users", "id")],
+        ]);
+
+
+        $query = Contract::query();
+        $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $head = [
+            [
+                "head" => "name_section",
+                "relationFunc" => "section",
+                "key" => "name",
+            ] ,
+            [
+                "head"=> "name_employee",
+                "relationFunc" => "employee",
+                "key" => "name",
+            ],
+            "contract_type", "contract_number", "contract_date", "contract_finish_date",
+            "contract_direct_date", "salary","created_at",
+        ];
+        return [
+            "head" => $head,
+            "body" => $data,
+        ];
     }
 }

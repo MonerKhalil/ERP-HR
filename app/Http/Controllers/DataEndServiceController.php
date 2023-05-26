@@ -20,12 +20,12 @@ class DataEndServiceController extends Controller
     public const Folder = "data_end_services";
     public const IndexRoute = "system.data_end_services.index";
 
-//    public function __construct()
-//    {
-//        $table = app(DataEndService::class)->getTable();
-//        $this->addMiddlewarePermissionsToFunctions($table);
-//        $this->middleware(["permission:create_".$table."|all_".$table])->only(["create","store","createFromEmployee"]);
-//    }
+    public function __construct()
+    {
+        $table = app(DataEndService::class)->getTable();
+        $this->addMiddlewarePermissionsToFunctions($table);
+        $this->middleware(["permission:create_".$table."|all_".$table])->only(["create","store","createFromEmployee"]);
+    }
 
     /**
      * Display a listing of the resource.

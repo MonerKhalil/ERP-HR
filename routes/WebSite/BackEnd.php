@@ -16,6 +16,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\ReportEmployeeController;
 use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionDecisionController;
@@ -162,6 +163,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class)->except([
             "show", "edit", "update",
         ]);
+        Route::get("employees/report",[ReportEmployeeController::class,"showCreateReport"])->name("employees.report");
+        Route::post("employees/report",[ReportEmployeeController::class,"Report"]);
         Route::get("employees/show/{employee?}", [EmployeeController::class, "show"])->name("employees.show");
         Route::get("employees/edit/{employee?}", [EmployeeController::class, "edit"])->name("employees.edit");
         Route::post("employees/update/{employee?}", [EmployeeController::class, "update"])->name("employees.update");
@@ -180,29 +183,38 @@ Route::middleware(['auth'])->group(function () {
         /*===========================================
            =        contract languageSkill membership Routes        =
           =============================================*/
-Route::group([ 'as' => 'employees.',],function (){
-    Route::resource('contract', ContractController::class)->except([
-        "show", "edit", "update",
-    ]);
-    Route::resource('languageSkill', LanguageSkillController::class)->except([
-        "show", "edit", "update",
-    ]);
-    Route::resource('membership', MembershipController::class)->except([
-        "show", "edit", "update",
-    ]);
-});
+        Route::group(['as' => 'employees.',], function () {
+            Route::resource('contract', ContractController::class)->except([
+                "show", "edit", "update",
+            ]);
+            Route::resource('languageSkill', LanguageSkillController::class)->except([
+                "show", "edit", "update",
+            ]);
+            Route::resource('membership', MembershipController::class)->except([
+                "show", "edit", "update",
+            ]);
+        });
 
         Route::get("contract/show/{contract?}", [ContractController::class, "show"])->name("employees.contract.show");
         Route::get("contract/edit/{contract?}", [ContractController::class, "edit"])->name("employees.contract.edit");
         Route::post("contract/update/{contract?}", [ContractController::class, "update"])->name("employees.contract.update");
+        Route::delete("contract/multi/delete", [ContractController::class,"MultiContractsDelete"])->name("employees.contract.multi.delete");
+        Route::post('export/xlsx',[ContractController::class,"ExportXls"])->name("employees.contract.export.xls");
+        Route::post('export/pdf',[ContractController::class,"ExportPDF"])->name("employees.contract.export.pdf");
 
         Route::get("languageSkill/show/{languageSkill?}", [LanguageSkillController::class, "show"])->name("employees.languageSkill.show");
         Route::get("languageSkill/edit/{languageSkill?}", [LanguageSkillController::class, "edit"])->name("employees.languageSkill.edit");
         Route::post("languageSkill/update/{languageSkill?}", [LanguageSkillController::class, "update"])->name("employees.languageSkill.update");
+        Route::delete("contract/multi/delete", [LanguageSkillController::class,"MultiLanguageDelete"])->name("employees.languageSkill.multi.delete");
+        Route::post('export/xlsx',[LanguageSkillController::class,"ExportXls"])->name("employees.languageSkill.export.xls");
+        Route::post('export/pdf',[LanguageSkillController::class,"ExportPDF"])->name("employees.languageSkill.export.pdf");
 
         Route::get("membership/show/{membership?}", [MembershipController::class, "show"])->name("employees.membership.show");
         Route::get("membership/edit/{membership?}", [MembershipController::class, "edit"])->name("employees.membership.edit");
         Route::post("membership/update/{membership?}", [MembershipController::class, "update"])->name("employees.membership.update");
+        Route::delete("contract/multi/delete", [MembershipController::class,"MultiMembershipDelete"])->name("employees.membership.multi.delete");
+        Route::post('export/xlsx',[MembershipController::class,"ExportXls"])->name("employees.membership.export.xls");
+        Route::post('export/pdf',[MembershipController::class,"ExportPDF"])->name("employees.membership.export.pdf");
 
         Route::get('contract/data/trash', [ContractController::class, 'trash'])
             ->name('employees.contract.trash');

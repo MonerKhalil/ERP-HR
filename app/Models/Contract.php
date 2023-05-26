@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 
 class Contract extends BaseModel
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         #Add Attributes#",
@@ -26,6 +26,10 @@ class Contract extends BaseModel
     {
 
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
+    }
+    public function section()
+    {
+        return $this->belongsTo(Sections::class, 'section_id', 'id');
     }
 
     public function scopeFilter(Builder $builder, $filters)
@@ -65,7 +69,7 @@ class Contract extends BaseModel
         return function (BaseRequest $validator) {
             $contactID = $validator->route('contract') ?? 0;
             return [
-                "employee_id" => ['required', Rule::exists('employees', 'id'), Rule::unique('employees', 'id')->ignore($contactID)],
+                "employee_id" => ['required', Rule::exists('employees', 'id'),/* Rule::unique('employees', 'id')->ignore($contactID)*/],
                 "contract_type" => ['required', Rule::in(["permanent", "temporary"])],
                 "contract_date" => ['required', 'date'],
                 "contract_finish_date" => ['required', 'date'],

@@ -2,25 +2,20 @@
 
 namespace App\Models;
 
-use App\Http\Requests\BaseRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Requests\BaseRequest;
 
-class Sections extends BaseModel
+class Correspondence_source_dest extends BaseModel
 {
     use HasFactory;
 
     protected $fillable = [
         #Add Attributes
-        "address_id" ,"name","details",
         "created_by","updated_by","is_active",
     ];
 
     // Add relationships between tables section
 
-    public function contracts(){
-        return $this->hasMany(Contract::class,"section_id","id");
-
-    }
     /**
      * Description: To check front end validation
      * @inheritDoc

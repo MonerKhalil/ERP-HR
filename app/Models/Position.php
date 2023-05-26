@@ -19,6 +19,14 @@ class Position extends BaseModel
 
     // Add relationships between tables section
 
+    public function employees(){
+        return $this->belongsToMany(Employee::class,"position_employees"
+            ,"position_id"
+            ,"employee_id"
+            ,"id"
+            ,"id");
+    }
+
     public function position_employees(){
         return $this->hasMany(PositionEmployee::class,"position_id","id")
             ->with(["position","employee","decision","section"]);
