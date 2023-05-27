@@ -143,7 +143,7 @@ class LanguageSkillController extends Controller
     public function ExportXls(Request $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+        return Excel::download(new TableCustomExport($data['head'], $data['body']), self::Folder . ".xlsx");
     }
 
     public function ExportPDF(Request $request)

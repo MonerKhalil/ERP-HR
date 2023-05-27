@@ -7,17 +7,18 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class TableCustomExport implements FromView
 {
-    private $head,$body,$blade;
-    public function __construct($head,$body,$blade)
+    private $head,$body,$blade,$data;
+    public function __construct($head,$body,$blade = null,array $dataMore=null)
     {
         $this->head = $head;
         $this->body = $body;
-        $this->blade = $blade;
+        $this->blade = is_null($blade) ? "GeneralXlsxTable" : $blade ;
+        $this->data = is_null($dataMore) ? [] : $dataMore ;
     }
 
     public function view(): View
     {
-        return \view($this->blade,[
+        return \view($this->blade,$this->data + [
             "data" => [
                 "head" => $this->head,
                 "body" => $this->body,

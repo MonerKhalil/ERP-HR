@@ -140,7 +140,7 @@ class DataEndServiceController extends Controller
     public function ExportXls(BaseRequest $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'],$data['body'],"test"),".xlsx");
+        return Excel::download(new TableCustomExport($data['head'],$data['body']),"dataEndService.xlsx");
     }
 
     public function ExportPDF(BaseRequest $request)
