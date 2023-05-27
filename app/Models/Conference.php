@@ -43,9 +43,9 @@ class Conference extends BaseModel
 //            $rule = $validator->isUpdatedRequest() ? "sometimes" : "required";
             return [
                 "name" => $validator->textRule(true),
-                "type" => ["required",Rule::in(["course","conference"])],
+//                "type" => ["required",Rule::in(["course","conference"])],
                 "name_party" => $validator->textRule(true),
-                "address_id" => ["required", Rule::exists('addresses', 'id')],
+//                "address_id" => ["required", Rule::exists('addresses', 'id')],
                 "address_details" => $validator->textRule(false),
                 "rate_effect_salary" => ["required","numeric","min:1","max:100"],
                 "start_date" => $validator->dateRules(true),

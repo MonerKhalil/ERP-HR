@@ -34,13 +34,14 @@
                                                                 <div class="Select__Area">
                                                                     @php
                                                                         $EmployeesList = [] ;
-                                                                                        foreach ($employees as $Employee) {
+                                                                                        foreach ($employee as $Employe) {
                                                                                             array_push($EmployeesList , [
-                                                                                                "Label" => $Employee["first_name"].$Employee["last_name"]
-                                                                                                , "Value" => $Employee["id"] ]) ;
+                                                                                                "Label" => $Employe["first_name"].$Employe["last_name"]
+                                                                                                , "Value" => $Employe["id"] ]) ;
                                                                                         }
                                                                     @endphp
-                                                                    @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" =>
+                                                                        isset($dataEndService)? $dataEndService["employee_id"] : "",
                                                                                 "Options" => $EmployeesList,])
                                                                 </div>
                                                             </div>
@@ -52,13 +53,18 @@
                                                                 <div class="Select__Area">
                                                                     @php
                                                                         $reasons = [] ;
+                                                                        $default_value = "";
                                                                                         foreach ($reason as $index=>$reason1) {
+                                                                                            if($reason1 == $dataEndService["reason"]){
+                                                                                $default_value = $index;
+                                                                            }
                                                                                             array_push($reasons , [
                                                                                                 "Label" => $reason1
                                                                                                 , "Value" => $index ]) ;
                                                                                         }
                                                                     @endphp
-                                                                    @include("System.Components.selector" , ['Name' => "reason" , "Required" => "true" , "Label" => __('EOSReason'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "reason" , "Required" => "true" , "Label" => __('EOSReason'),"DefaultValue" =>
+                                                                             isset($dataEndService)? $default_value : "",
                                                                                 "Options" => $reasons,])
                                                                 </div>
                                                             </div>
@@ -72,6 +78,9 @@
                                                                            class="Date__Field"
                                                                            type="text"
                                                                            name="start_break_date"
+                                                                           @if(isset($dataEndService))
+                                                                           value="{{$dataEndService["start_break_date"]}}"
+                                                                           @endif
                                                                            placeholder="@lang("EOSStartDate")">
                                                                     <label class="Date__Label"
                                                                            for="EOSStartDate">@lang("EOSStartDate")</label>
@@ -86,6 +95,9 @@
                                                                     <input id="EOSEndDate"
                                                                            class="Date__Field"
                                                                            type="text"
+                                                                           @if(isset($dataEndService))
+                                                                           value="{{$dataEndService["end_break_date"]}}"
+                                                                           @endif
                                                                            name="end_break_date"
                                                                            placeholder="@lang("EOSEndDate")">
                                                                     <label class="Date__Label"
@@ -101,6 +113,9 @@
                                                                     <input id="decisionNumber"
                                                                            class="Input__Field"
                                                                            type="number"
+                                                                           @if(isset($dataEndService))
+                                                                           value="{{$dataEndService["decision_id"]}}"
+                                                                           @endif
                                                                            name="decision_id"
                                                                            placeholder="@lang("decisionNumber")">
                                                                     <label class="Input__Label"
@@ -109,21 +124,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
-{{--                                                    <div class="Col-4-md Col-6-sm">--}}
-{{--                                                        <div class="Form__Group">--}}
-{{--                                                            <div class="Form__Date">--}}
-{{--                                                                <div class="Date__Area">--}}
-{{--                                                                    <input id="decisionDate"--}}
-{{--                                                                           class="Date__Field"--}}
-{{--                                                                           type="text"--}}
-{{--                                                                           name="decisionDate"--}}
-{{--                                                                           placeholder="@lang("decisionDate")">--}}
-{{--                                                                    <label class="Date__Label"--}}
-{{--                                                                           for="decisionDate">@lang("decisionDate")</label>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
+                                                    {{--                                                    <div class="Col-4-md Col-6-sm">--}}
+                                                    {{--                                                        <div class="Form__Group">--}}
+                                                    {{--                                                            <div class="Form__Date">--}}
+                                                    {{--                                                                <div class="Date__Area">--}}
+                                                    {{--                                                                    <input id="decisionDate"--}}
+                                                    {{--                                                                           class="Date__Field"--}}
+                                                    {{--                                                                           type="text"--}}
+                                                    {{--                                                                           name="decisionDate"--}}
+                                                    {{--                                                                           placeholder="@lang("decisionDate")">--}}
+                                                    {{--                                                                    <label class="Date__Label"--}}
+                                                    {{--                                                                           for="decisionDate">@lang("decisionDate")</label>--}}
+                                                    {{--                                                                </div>--}}
+                                                    {{--                                                            </div>--}}
+                                                    {{--                                                        </div>--}}
+                                                    {{--                                                    </div>--}}
                                                     <div class="Col-12-xs">
                                                         <div class="Form__Group">
                                                             <div class="Form__Button">

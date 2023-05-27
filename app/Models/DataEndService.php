@@ -55,7 +55,8 @@ class DataEndService extends BaseModel
             return [
                 "employee_id" => ["required",Rule::exists("employees","id")],
                 "decision_id" => ["required",Rule::exists("decisions","id")],
-                "reason" => ["required",Rule::in(self::Reasons())],
+                "reason" => ["required"],
+//                Rule::in(self::Reasons())
                 "reason_other" => ["string","max:255",new TextRule(),Rule::requiredIf(function ()use($validator){
                     return $validator->reason === "other";
                 })],
