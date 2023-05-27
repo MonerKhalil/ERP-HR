@@ -36,15 +36,15 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-                                                            {{--                                                            @include("System.Components.bulkAction" , [--}}
-                                                            {{--                                                                "Options" => [ [--}}
-                                                            {{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
-                                                            {{--                                                                ] , [--}}
-                                                            {{--                                                                    "Label" => __("normalDelete")--}}
-                                                            {{--                                                                    , "Action" => route("users.multi.delete")--}}
-                                                            {{--                                                                    , "Method" => "delete"--}}
-                                                            {{--                                                                ] ]--}}
-                                                            {{--                                                            ])--}}
+                                                                                                                        @include("System.Components.bulkAction" , [
+                                                                                                                            "Options" => [ [
+                                                                                                                                "Label" => __("print") , "Action" => "#" , "Method" => "B"
+                                                                                                                            ] , [
+                                                                                                                                "Label" => __("normalDelete")
+                                                                                                                                , "Action" => route("users.multi.delete")
+                                                                                                                                , "Method" => "delete"
+                                                                                                                            ] ]
+                                                                                                                        ])
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -128,6 +128,14 @@
                                                                                     <a href="{{route("system.data_end_services.show" , $item["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         @lang("viewDetails")
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{route("system.data_end_services.edit" , $item["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("editDetails")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
