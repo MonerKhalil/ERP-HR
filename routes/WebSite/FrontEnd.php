@@ -10,7 +10,7 @@ Route::get('/Test-11', function () {
     return view('System/Pages/Docs/decisionPrint');
 });
 
-Route::get('/Test-8', function () {
+Route::get('/Test-10', function () {
     return view('System/Pages/Docs/tablePrint');
 });
 
@@ -48,7 +48,7 @@ Route::get('/Test-17', function () {
 });
 
 Route::get('/Test-20', function () {
-    return view('System/Pages/Actors/HR_Manager/reportEmployeesForm');
+    return view('System/Pages/Actors/Reports/reportEmployeesForm');
 });
 
 Route::get('/Test-30', function () {
@@ -57,11 +57,6 @@ Route::get('/Test-30', function () {
 
 Route::get('/Test-31', function () {
     return view('System/Pages/Actors/Vacations/vacationTypesView');
-});
-
-
-Route::get('/Test-20', function () {
-    return view('System/Pages/Actors/HR_Manager/reportEmployeesForm');
 });
 
 Route::get('/Test-21', function () {
@@ -86,4 +81,32 @@ Route::get('/Test-35', function () {
 
 Route::get('/Test-36', function () {
     return view('System/Pages/Actors/Vacations/allVacationsView');
+});
+
+Route::get('/Test-37', function () {
+    return view('System/Pages/Actors/Overtime/newTypeAdd');
+});
+
+Route::get('/Test-38', function () {
+    return view('System/Pages/Actors/Overtime/newTypeView');
+});
+
+Route::get('/Test-39', function () {
+    return view('System/Pages/Actors/Overtime/requestOvertimeForm');
+});
+
+Route::get('/Test-40', function () {
+    return view('System/Pages/Actors/Overtime/requestOvertimeView');
+});
+
+Route::get('/Test-41', function () {
+    return view('System/Pages/Actors/Overtime/requestOvertimeDetails');
+});
+
+Route::get('/Test-42', function () {
+    return view('System/Pages/Actors/Reports/reportEmployeesView');
+});
+
+Route::get('/Test-43', function () {
+    return view('System/Pages/Docs/reportPrint');
 });

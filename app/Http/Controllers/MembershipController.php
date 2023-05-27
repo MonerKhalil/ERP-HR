@@ -11,6 +11,7 @@ use App\Http\Requests\MembershipRequest;
 use App\Models\Membership_type;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 use PHPUnit\Exception;
 
 class MembershipController extends Controller
@@ -111,15 +112,63 @@ class MembershipController extends Controller
         $contract->forceDelete();
         return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
-
-
-    public function ExportXls()
+    public function MultiMembershipDelete(Request $request)
     {
-        //
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("contracts", "id")],
+        ]);
+        try {
+            DB::beginTransaction();
+            Membership::query()->whereIn("id", $request->ids)->delete();
+            DB::commit();
+            $this->responseSuccess(null, null, "delete", self::IndexRoute);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new MainException($e->getMessage());
+        }
     }
 
-    public function ExportPDF()
+    public function ExportXls(Request $request)
     {
-        //
+        $data = $this->MainExportData($request);
+        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+    }
+
+    public function ExportPDF(Request $request)
+    {
+        $data = $this->MainExportData($request);
+        return ExportPDF::downloadPDF($data['head'],$data['body']);
+    }
+
+    private function MainExportData(Request $request): array
+    {
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("contracts", "id")],
+            //  "contracts.*.user_id" => ["required", Rule::exists("users", "id")],
+        ]);
+
+
+        $query = Membership::query();
+        $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $head = [
+            [
+                "head" => "membership_type",
+                "relationFunc" => "membership_type",
+                "key" => "name",
+            ] ,
+            [
+                "head"=> "name_employee",
+                "relationFunc" => "employee",
+                "key" => "name",
+            ],
+             "number_membership", "branch", "date_start", "date_end","created_at",
+        ];
+        return [
+            "head" => $head,
+            "body" => $data,
+        ];
     }
 }

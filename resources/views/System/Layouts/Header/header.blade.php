@@ -190,11 +190,19 @@
                             </li>
                         </ul>
                         <div class="UserImage">
-                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                            @if(auth()->user()->image)
+                                <img src="{{PathStorage(auth()->user()->image)}}" alt="#">
+                            @else
+                                <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                            @endif
                             <div class="Dropdown">
                                 <div class="Dropdown__Header">
                                     <div class="UserImage">
-                                        <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                        @if(auth()->user()->image)
+                                            <img src="{{PathStorage(auth()->user()->image)}}" alt="#">
+                                        @else
+                                            <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                        @endif
                                     </div>
                                     <div class="UserDetails">
                                         <div class="UserName">

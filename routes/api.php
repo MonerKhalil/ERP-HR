@@ -40,6 +40,10 @@ Route::put('contract/{contract}/restore', [ContractController::class, 'restore']
 Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
     ->name('contract.force-delete');
 
+Route::post('contract/export/xlsx', [ContractController::class, 'ExportXls'])->name("export.xls");
+Route::post('contract/export/pdf',[ContractController::class, 'ExportPDF'] )->name("export.pdf");
+Route::delete("contract/multi/delete", [ContractController::class, 'MultiDelete'])->name("multi.delete");
+
 
 
 Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
@@ -58,4 +62,4 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
 /*
  *****************************test********************
  */
-Route::post("mmm",[\App\Http\Controllers\DataEndServiceController::class,"store"]);
+Route::post("mmm",[\App\Http\Controllers\ReportEmployeeController::class,"Report"]);

@@ -17,6 +17,10 @@ class Sections extends BaseModel
 
     // Add relationships between tables section
 
+    public function contracts(){
+        return $this->hasMany(Contract::class,"section_id","id");
+
+    }
     /**
      * Description: To check front end validation
      * @inheritDoc
