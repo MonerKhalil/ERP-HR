@@ -31,9 +31,9 @@ class ReportEmployeeController extends Controller
         $membership_type = Membership_type::query()->pluck("name","id")->toArray();
         $position = Position::query()->pluck("name","id")->toArray();
         $type_decision = TypeDecision::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("sections","gender",
-            "contract_type","education_level","language","language_skills_read_write","membership_type"
-            ,"position","type_decision",
+        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesForm",
+            compact("sections","gender", "contract_type","education_level","language"
+                ,"language_skills_read_write","membership_type","position","type_decision",
         ));
     }
 
@@ -118,7 +118,7 @@ class ReportEmployeeController extends Controller
                 }) : $this->finalQueryFilter;
         //Final
         $finalData = MyApp::Classes()->Search->dataPaginate($this->finalQueryFilter);
-        return $this->responseSuccess("...",compact("finalData"));
+        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesView",compact("finalData"));
     }
 
     private function CompareDateStatic($from_date,$to_date,$name_column,$relation = null){

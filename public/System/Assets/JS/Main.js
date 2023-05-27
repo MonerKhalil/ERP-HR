@@ -1280,24 +1280,38 @@ $(document).ready(function (){
      * @author Amir Alhloo
      */
 
-    $(".Selector2Readonly").ready(function () {
-        $(".Selector2Readonly").each((_ , ParentSelector) => {
-            const ClassContainer = $(ParentSelector).attr("data-ClassContainer") ;
-            const FieldsName = $(ParentSelector).attr("data-ReadonlyNames") ;
-            const Location = $(ParentSelector).attr("data-Location") ;
-            const TitleReadOnly = $(ParentSelector).attr("data-TitleField") ;
-            const MinFieldsRead = Number($(ParentSelector).attr("data-RequiredNum")) ;
+    function OperationSelector2ReadOnly(SelectorInfo = {
+        MainSelector : HTMLElement ,
+        Operation : "SelectorInit" | "SelectorRest"
+    }) {
+
+        switch (SelectorInfo.Operation) {
+            case "SelectorInit" :
+                SelectorInit();
+                break ;
+            case "SelectorRest" :
+                SelectorRest();
+                break ;
+        }
+
+        function SelectorInit() {
+            const ClassContainer = $(SelectorInfo.MainSelector).attr("data-ClassContainer") ;
+            const FieldsName = $(SelectorInfo.MainSelector).attr("data-ReadonlyNames") ;
+            const Location = $(SelectorInfo.MainSelector).attr("data-Location") ;
+            const TitleReadOnly = $(SelectorInfo.MainSelector).attr("data-TitleField") ;
+            const MinFieldsRead = Number($(SelectorInfo.MainSelector).attr("data-RequiredNum")) ;
+            const MaxFieldsRead = Number($(SelectorInfo.MainSelector).attr("data-MaxRequiredNum")) ;
             let ValuesDefault = undefined  ;
-            let CounterID = 0 ;
-            let ValueSelected = 0 ;
-            let AllValues = $(ParentSelector)
+            let AllValues = $(SelectorInfo.MainSelector)
                 .find(".Selector .Selector__Options .Selector__Option").length ;
 
-            if($(ParentSelector).attr("data-DefaultValues") !== undefined)
-                ValuesDefault = $(ParentSelector).attr("data-DefaultValues").split(",");
+            $(SelectorInfo.MainSelector).attr("CounterID" , 0) ;
+            $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , 0) ;
 
+            if($(SelectorInfo.MainSelector).attr("data-DefaultValues") !== undefined)
+                ValuesDefault = $(SelectorInfo.MainSelector).attr("data-DefaultValues").split(",");
 
-            $(ParentSelector).find(".Selector .Selector__Options .Selector__Option")
+            $(SelectorInfo.MainSelector).find(".Selector .Selector__Options .Selector__Option")
                 .each((_ , OptionElement) => {
                     if(ValuesDefault !== undefined) {
                         const TempValue = $(OptionElement).attr("data-option") ;
@@ -1315,6 +1329,8 @@ $(document).ready(function (){
                 const OptionValue = $(OptionSelector).attr("data-option") ;
                 const OptionLabel = $(OptionSelector).text() ;
                 const OptionForm = $(OptionSelector).closest("form").get(0) ;
+                let CounterID = Number($(SelectorInfo.MainSelector).attr("CounterID")) ;
+                let ValueSelected = Number($(SelectorInfo.MainSelector).attr("ValueSelectedNum")) ;
                 const ReadOnlyElement = $(`
                         <div class="ReadonlySelector ${ClassContainer}">
                             <div class="Form__Group">
@@ -1340,43 +1356,75 @@ $(document).ready(function (){
                         </div>
                     `).get(0) ;
                 if(Location === "Before")
-                    $(ParentSelector).before($(ReadOnlyElement)) ;
+                    $(SelectorInfo.MainSelector).before($(ReadOnlyElement)) ;
                 else
-                    $(ParentSelector).after($(ReadOnlyElement)) ;
+                    $(SelectorInfo.MainSelector).after($(ReadOnlyElement)) ;
                 $(ReadOnlyElement).find(".FieldReadOnly__Close").click(() => {
                     $(OptionSelector).show() ;
                     if(ValueSelected === AllValues)
-                        $(ParentSelector).show();
+                        $(SelectorInfo.MainSelector).show();
                     ValueSelected-- ;
                     if(ValueSelected < MinFieldsRead)
                         SelectorOperation({
                             Operation : "SetRequired" ,
-                            Selector : $(ParentSelector).find(".Selector").get(0) ,
+                            Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
                         });
-                    $(ReadOnlyElement).remove() ;
+                    if(ValueSelected < MaxFieldsRead) {
+                        $(SelectorInfo.MainSelector).show();
+                        SelectorOperation({
+                            Operation : "SetRequired" ,
+                            Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
+                        });
+                    }
+                    $(ReadOnlyElement).remove();
                     FormOperation({
                         Operation : "RefreshValidationForm",
                         FormElement : OptionForm
                     });
+                    $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , ValueSelected);
                 });
                 $(OptionSelector).hide() ;
                 SelectorOperation({
                     Operation : "Clear" ,
-                    Selector : $(ParentSelector).find(".Selector").get(0) ,
+                    Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
                 });
                 ValueSelected++ ;
-                if(ValueSelected >= MinFieldsRead)
+                if(ValueSelected >= MinFieldsRead) {
                     SelectorOperation({
                         Operation : "ResetRequired",
-                        Selector : $(ParentSelector).find(".Selector").get(0) ,
+                        Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
                     });
+                } else if(ValueSelected >= MaxFieldsRead) {
+                    SelectorOperation({
+                        Operation : "ResetRequired",
+                        Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
+                    });
+                    $(SelectorInfo.MainSelector).hide();
+                }
                 if(ValueSelected === AllValues)
-                    $(ParentSelector).hide();
+                    $(SelectorInfo.MainSelector).hide();
                 FormOperation({
                     Operation : "RefreshValidationForm",
                     FormElement : OptionForm
                 });
+                $(SelectorInfo.MainSelector).attr("CounterID" , CounterID) ;
             }
+        }
+
+        function SelectorRest() {
+            $(SelectorInfo.MainSelector).attr("CounterID" , 0) ;
+            $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , 0) ;
+
+        }
+
+    }
+
+    $(".Selector2Readonly").ready(function () {
+        $(".Selector2Readonly").each((_ , ParentSelector) => {
+            OperationSelector2ReadOnly({
+                MainSelector : ParentSelector ,
+                Operation : "SelectorInit"
+            });
         });
     });
 
@@ -1642,12 +1690,33 @@ $(document).ready(function (){
         ButtonClone : HTMLElement ,
         TargetElement : HTMLElement ,
         ParentContainer : HTMLElement ,
+        Operation : "InitClone" | "RestByRemove" | "RestByClearData" | "ChangeTargetClone" ,
         ClearClone : Boolean
     }) {
         let CloneElement = undefined ;
-        InitializeDuplicateFrom() ;
+
+        switch (InfoParam.Operation) {
+            case "InitClone" :
+                InitializeDuplicateFrom() ;
+                break ;
+            case "RestByRemove" :
+                RestByRemove() ;
+                break ;
+            case "RestByClearData" :
+                RestByClearData() ;
+                break ;
+            case "ChangeTargetClone" :
+                ChangeTargetClone() ;
+                break ;
+        }
 
         function InitializeDuplicateFrom() {
+            $(InfoParam.ButtonClone).click(() => {
+                EventClickButtonClone() ;
+            });
+        }
+
+        function EventClickButtonClone() {
             CloneProcess() ;
             AppendClone() ;
         }
@@ -1663,6 +1732,12 @@ $(document).ready(function (){
                     WithClear : InfoParam.ClearClone
                 }
             });
+            $(CloneElement).find(".Selector2Readonly").each((_ , Selector) => {
+                OperationSelector2ReadOnly({
+                    MainSelector : Selector ,
+                    Operation : "SelectorInit"
+                });
+            });
         }
 
         function AppendClone() {
@@ -1676,6 +1751,17 @@ $(document).ready(function (){
                 }
             }) ;
         }
+
+        function RestByRemove() {
+            $(InfoParam.ParentContainer).children().remove();
+        }
+
+        function ChangeTargetClone() {
+            $(InfoParam.ButtonClone).off();
+            InitializeDuplicateFrom();
+        }
+
+        function RestByClearData() {} // All Data In Inputs Deleted
     }
 
     $(".ButtonCloneForm").ready(function(){
@@ -1686,18 +1772,16 @@ $(document).ready(function (){
             const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
             const FormTarget = $(TargetElement).closest("form").get(0) ;
             const MainCloneClear = $(TargetElement).clone(false);
-            $(ButtonClone).click(() => {
-                DuplicateFrom({
-                    MainForm : FormTarget ,
-                    ButtonClone : ButtonClone ,
-                    TargetElement : MainCloneClear ,
-                    ParentContainer : TargetParentClone ,
-                    ClearClone : IsCleanClone
-                });
+            DuplicateFrom({
+                MainForm : FormTarget ,
+                ButtonClone : ButtonClone ,
+                TargetElement : MainCloneClear ,
+                ParentContainer : TargetParentClone ,
+                Operation : "InitClone" ,
+                ClearClone : IsCleanClone
             });
         });
     });
-
 
     /*===========================================
 	=           Venobox      =
@@ -1717,33 +1801,101 @@ $(document).ready(function (){
     =============================================*/
 
     $("#VacationListDate").ready(function () {
-        const VacationListElement = $("#VacationListDate").get(0) ;
-        const ParentCloneElement = $(VacationListElement).find(".ParentClone").get(0) ;
-        const MainCloneElement = $(VacationListElement).find(".CloneItem").get(0) ;
-        let CountClone = 1 ;
-        let IsMainCloneLabelView = false ;
-        $(VacationListElement).find(".ButtonCloneForm").click(() => {
-            if(!IsMainCloneLabelView) {
-                $(MainCloneElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
-                IsMainCloneLabelView = true ;
-            }
-            const LastClone = $(ParentCloneElement).find(".ListData__Group")
-                .last().get(0) ;
-            const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
-            const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
-            $(SelectorVisibility).attr("data-ElementsTargetName"
-                , `${AttributeLastClone}__${CountClone}`) ;
-            $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
-                $(Value).attr("data-TargetName" ,
-                    `${$(Value).attr("data-TargetName")}__${CountClone}`);
-            });
-            $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
-            initializeFieldsVisibility({
-                Operation : "InitializeVisibilityOption" ,
-                VisibilityOption : SelectorVisibility ,
-                VisibilityTarget : undefined ,
+        const VacationListDate = $("#VacationListDate").get(0) ;
+        const VacationTypeSelector = $("#VacationType").find(".Selector").get(0) ;
+        const ButtonClone = $(VacationListDate).find(".ButtonCloneForm").get(0) ;
+        const TargetElementName = $(ButtonClone).attr("data-TargetElementName") ;
+        const IsCleanClone = $(ButtonClone).attr("data-IsCloneClear") ?? true ;
+        const TargetElement = $(document).find(`.CloneItem[data-NameElement=${TargetElementName}]`).get(0);
+        const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
+        const FormTarget = $(TargetElement).closest("form").get(0) ;
+        const Except = $(VacationListDate).attr("data-ValueExcept").split(",") ;
+        const MainCloneClear = $(TargetElement).clone(false);
+        $(VacationTypeSelector).find(".Selector__Option").each((_ , Option) => {
+            // Save Option Select
+            $(Option).click(() => {
+                DuplicateFrom({
+                    Operation : "RestByRemove" ,
+                    ParentContainer : TargetParentClone
+                });
+                const SelectorType_Clone = $(MainCloneClear).find("#VacationNaturalID").get(0) ;
+                const SelectorType_Main = $(TargetElement).find("#VacationNaturalID").get(0) ;
+                const OptionValue = $(Option).attr("data-option") ;
+                if(IsValueContentInArray(Except , OptionValue)) {
+                    ExceptValueApply(SelectorType_Main) ;
+                    ExceptValueApply(SelectorType_Clone) ;
+                } else {
+                    ExceptValueNotApply(SelectorType_Main) ;
+                    ExceptValueNotApply(SelectorType_Clone) ;
+                    InitVacationListPage() ;
+                }
+                DuplicateFrom({
+                    MainForm : FormTarget ,
+                    ButtonClone : ButtonClone ,
+                    TargetElement : MainCloneClear ,
+                    ParentContainer : TargetParentClone ,
+                    Operation : "ChangeTargetClone" ,
+                    ClearClone : true
+                });
             });
         });
+        InitVacationListPage() ;
+
+        function ExceptValueApply(EleTarget = HTMLElement) {
+            $(EleTarget).css("display" , "none") ;
+            FormOperation({
+                Operation : "IgnoreField" ,
+                FormElement : FormTarget ,
+                ClonePart : {
+                    ElementPart : EleTarget ,
+                    WithClear : false
+                }
+            });
+        }
+
+        function ExceptValueNotApply(EleTarget = HTMLElement) {
+            $(EleTarget).css("display" , "initial") ;
+            FormOperation({
+                Operation : "NotIgnoreField" ,
+                FormElement : FormTarget ,
+                ClonePart : {
+                    ElementPart : EleTarget ,
+                    WithClear : false
+                }
+            });
+        }
+
+        function InitVacationListPage() {
+            setTimeout(() => {
+                let CountClone = 1 ;
+                let IsMainCloneLabelView = false ;
+                console.log($(VacationListDate).find(".ButtonCloneForm")) ;
+                $(VacationListDate).find(".ButtonCloneForm").click(() => {
+                    console.log("sss") ;
+                    if(!IsMainCloneLabelView) {
+                        $(TargetElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+                        IsMainCloneLabelView = true ;
+                    }
+                    const LastClone = $(TargetParentClone).find(".ListData__Group")
+                        .last().get(0) ;
+                    const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
+                    const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
+                    $(SelectorVisibility).attr("data-ElementsTargetName"
+                        , `${AttributeLastClone}__${CountClone}`) ;
+                    $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
+                        $(Value).attr("data-TargetName" ,
+                            `${$(Value).attr("data-TargetName")}__${CountClone}`);
+                    });
+                    $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+                    initializeFieldsVisibility({
+                        Operation : "InitializeVisibilityOption" ,
+                        VisibilityOption : SelectorVisibility ,
+                        VisibilityTarget : undefined ,
+                    });
+                });
+            } , 1) ;
+        }
+
     });
 
 });
@@ -1781,6 +1933,13 @@ function closeOutSide(ElementTarget = HTMLElement,
 function GetFullParams() {
     const URL = window.location.href ;
     return URL.split("?")[1] ;
+}
+
+function IsValueContentInArray(ArrayList = Array , Value) {
+    for (let i = 0; i < ArrayList.length ; i++)
+        if(ArrayList[i] === Value)
+            return true ;
+    return false ;
 }
 
 

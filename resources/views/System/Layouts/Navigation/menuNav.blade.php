@@ -342,7 +342,7 @@
                     </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
-                            <a href="/Test-20" class="NavName">
+                            <a href="{{route("system.employees.report")}}" class="NavName">
                                 <i class="material-icons Icon">
                                     description
                                 </i>
