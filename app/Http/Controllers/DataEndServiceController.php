@@ -50,6 +50,7 @@ class DataEndServiceController extends Controller
     public function create()
     {
         $employees = Employee::query()->select(["first_name","last_name","id"])->get();
+//        dd($employees);
 //        $decision = Decision::query()->pluck("name","id")->toArray();
         $reason = DataEndService::Reasons();
         return $this->responseSuccess("System.Pages.Actors.HR_Manager.employeeEndOfServiceForm",compact("employees","reason"));
@@ -97,9 +98,9 @@ class DataEndServiceController extends Controller
     {
         $dataEndService = DataEndService::with(["employee","decision"])->findOrFail($dataEndService->id);
         $employee = Employee::query()->select(["first_name","last_name","id"])->get();
-        $decision = Decision::query()->pluck("name","id")->toArray();
+//        $decision = Decision::query()->pluck("name","id")->toArray();
         $reason = DataEndService::Reasons();
-        return $this->responseSuccess("",compact("dataEndService","employee","reason","decision"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editEOF",compact("dataEndService","employee","reason"));
     }
 
     /**

@@ -29,7 +29,7 @@
                                                     <h3>@lang("contractInfo")</h3>
                                                 </div>
                                             </div>
-                                            <form class="Form Form--Dark" action="{{route("system.employees.contract.store")}}" method="post">
+                                            <form class="Form Form--Dark" action="{{route("system.employees.contract.update",$data["contract"]["id"])}}" method="post">
                                                 @csrf
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
@@ -38,13 +38,14 @@
                                                                 <div class="Select__Area">
                                                                     @php
                                                                         $EmployeesList = [] ;
-                                                                        foreach ($employees_names as $Employee) {
+                                                                        foreach ($data['employees_names'] as $Employee) {
                                                                             array_push($EmployeesList , [
                                                                                 "Label" => $Employee["first_name"]
                                                                                 , "Value" => $Employee["id"] ]) ;
                                                                         }
                                                                     @endphp
-                                                                    @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),
+                                                                        "DefaultValue" => isset($data["contract"])? $data["contract"]["employee_id"] : "",
                                                                                 "Options" => $EmployeesList,])
                                                                 </div>
                                                             </div>
@@ -56,13 +57,19 @@
                                                                 <div class="Select__Area">
                                                                     @php
                                                                         $CotnractTypes = [] ;
-                                                                        foreach ($contract_type as $index=>$type) {
+                                                                        $default_value = "";
+                                                                        foreach ($data['contract_type'] as $index=>$type) {
+                                                                            if($type == $data['contract']['contract_type']){
+                                                                                $default_value = $index;
+                                                                            }
                                                                             array_push($CotnractTypes , [
                                                                                 "Label" => $type
-                                                                                , "Value" => $index]);
+                                                                                , "Value" => $index ]) ;
                                                                         }
+
                                                                     @endphp
-                                                                    @include("System.Components.selector" , ['Name' => "contract_type" , "Required" => "true" , "Label" => __('contractType'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "contract_type" , "Required" => "true" , "Label" => __('contractType') ,
+                                                                        "DefaultValue" =>isset($data["contract"])? $default_value : "",
                                                                                 "Options" => $CotnractTypes])
                                                                 </div>
                                                             </div>
@@ -76,6 +83,9 @@
                                                                            class="Input__Field"
                                                                            type="number"
                                                                            name="contract_number"
+                                                                           @if(isset($data))
+                                                                           value="{{$data["contract"]["contract_number"]}}"
+                                                                           @endif
                                                                            placeholder="@lang("contractNumber")">
                                                                     <label class="Input__Label"
                                                                            for="contract_number">@lang("contractNumber")</label>
@@ -91,6 +101,9 @@
                                                                            class="Input__Field"
                                                                            type="number"
                                                                            name="salary"
+                                                                           @if(isset($data))
+                                                                           value="{{$data["contract"]["salary"]}}"
+                                                                           @endif
                                                                            placeholder="@lang("baseSalary")">
                                                                     <label class="Input__Label"
                                                                            for="salary">@lang("baseSalary")</label>
@@ -104,9 +117,12 @@
                                                                 <div class="Date__Area">
                                                                     <input id="contract_date"
                                                                            class="Date__Field"
-                                                                           TargetDateStartName="ContractDate"
                                                                            type="text"
+                                                                           TargetDateStartName="ContractDate"
                                                                            name="contract_date"
+                                                                           @if(isset($data))
+                                                                           value="{{$data["contract"]["contract_date"]}}"
+                                                                           @endif
                                                                            placeholder="@lang("dateOfContract")">
                                                                     <label class="Date__Label"
                                                                            for="contract_date">@lang("dateOfContract")</label>
@@ -120,9 +136,12 @@
                                                                 <div class="Date__Area">
                                                                     <input id="contract_finish_date"
                                                                            class="DateEndFromStart Date__Field"
-                                                                           type="text"
                                                                            data-StartDateName="ContractDate"
+                                                                           type="text"
                                                                            name="contract_finish_date"
+                                                                           @if(isset($data))
+                                                                           value="{{$data["contract"]["contract_finish_date"]}}"
+                                                                           @endif
                                                                            placeholder="@lang("dateOfExpiration")">
                                                                     <label class="Date__Label"
                                                                            for="contract_finish_date">@lang("dateOfExpiration")</label>
@@ -135,10 +154,13 @@
                                                             <div class="Form__Date">
                                                                 <div class="Date__Area">
                                                                     <input id="contract_direct_date"
-                                                                           class="DateEndFromStart Date__Field"
-                                                                           data-StartDateName="ContractDate"
+                                                                           class="Date__Field"
                                                                            type="text"
+                                                                           TargetDateStartName="ContractDate"
                                                                            name="contract_direct_date"
+                                                                           @if(isset($data))
+                                                                           value="{{$data["contract"]["contract_direct_date"]}}"
+                                                                           @endif
                                                                            placeholder="@lang("dateOfStart")">
                                                                     <label class="Date__Label"
                                                                            for="contract_direct_date">@lang("dateOfStart")</label>
@@ -150,18 +172,9 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "section_id" , "Required" => "true" , "Label" => __('DepartmentName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => $sections,])
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="Col-4-md Col-6-sm">
-                                                        <div class="Form__Group">
-                                                            <div class="Form__Select">
-                                                                <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "managerName" , "Required" => "true" , "Label" => __('managerName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => $employees_names,])
+                                                                    @include("System.Components.selector" , ['Name' => "section_id" , "Required" => "true" , "Label" => __('DepartmentName'),"DefaultValue" =>
+                                                                        isset($data["contract"])? $data["contract"]['sesction_id'] : "",
+                                                                                "OptionsValues" => $data['sections'],])
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -47,9 +47,10 @@ class ContractController extends Controller
 
         $contract_type = ["permanent", "temporary"];
         // I need to add an empty option at the first
-        $employees_names = Employee::query()->pluck('first_name', "id")->toArray();
+        $employees_names = Employee::query()->select('first_name', "id")->get();
         $sections = Sections::query()->pluck("name", "id")->toArray();
-        return compact('contract_type', 'employees_names', 'sections');
+        $data = [];
+        return compact('contract_type', 'employees_names', 'sections', 'data');
     }
 
     public function store(ContractRequest $request)
@@ -110,7 +111,7 @@ class ContractController extends Controller
             $data['contract'] = $contractQuery->findOrFail($contract);
 
         }
-        return $this->responseSuccess("", $data);
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editContract",  compact("data"));
     }
 
 
