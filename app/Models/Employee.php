@@ -31,6 +31,10 @@ class Employee extends BaseModel
         return $this->belongsTo(User::class, "user_id", "id");
     }
 
+    public function nationality_country(){
+        return $this->belongsTo(Country::class,"nationality","id");
+    }
+
     public function section()
     {
         return $this->belongsTo(Sections::class, "section_id", "id");
@@ -89,11 +93,11 @@ class Employee extends BaseModel
 
     public function contract(){
 
-        return $this->hasMany(Contract::class,'employee_id','id');
+        return $this->hasMany(Contract::class,'employee_id','id')->orderBy("id","desc");
     }
     public function language_skill(){
 
-        return $this->hasMany(Language_skill::class,'employee_id','id');
+        return $this->hasMany(Language_skill::class,'employee_id','id')->with("language");
     }
     public function membership(){
         return $this->hasMany(Membership::class,'employee_id','id');

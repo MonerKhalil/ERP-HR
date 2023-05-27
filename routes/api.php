@@ -62,4 +62,4 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
 /*
  *****************************test********************
  */
-Route::post("mmm",[\App\Http\Controllers\ReportEmployeeController::class,"Report"]);
+Route::get("mmm",[\App\Http\Controllers\ReportEmployeeController::class,"ReportXlsx"]);

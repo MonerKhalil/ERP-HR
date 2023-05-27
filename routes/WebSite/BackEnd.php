@@ -163,8 +163,14 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class)->except([
             "show", "edit", "update",
         ]);
+        #Report
         Route::get("employees/report",[ReportEmployeeController::class,"showCreateReport"])->name("employees.report");
         Route::post("employees/report",[ReportEmployeeController::class,"Report"]);
+        Route::post("employees/report/xlsx",[ReportEmployeeController::class,"ReportXlsx"])->name("employees.report.xlsx");
+        Route::post("employees/report/pdf",[ReportEmployeeController::class,"ReportPdf"])->name("employees.report.pdf");
+        #Print Pdf and Xlsx
+        Route::post('employees/export/xlsx',[EmployeeController::class,"ExportXls"])->name("employees.export.xls");
+        Route::post('employees/export/pdf',[EmployeeController::class,"ExportPDF"])->name("employees.export.pdf");
         Route::get("employees/show/{employee?}", [EmployeeController::class, "show"])->name("employees.show");
         Route::get("employees/edit/{employee?}", [EmployeeController::class, "edit"])->name("employees.edit");
         Route::post("employees/update/{employee?}", [EmployeeController::class, "update"])->name("employees.update");

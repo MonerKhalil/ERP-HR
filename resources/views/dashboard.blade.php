@@ -25,5 +25,7 @@
     @if(Session::has(Messages::$suc))
         <h2>{{Session::get(Messages::$suc)}}</h2>
     @endif
+   <h2> {{request('section_id')}}</h2>
+
 </body>
 </html>
