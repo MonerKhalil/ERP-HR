@@ -4,8 +4,9 @@ namespace App\Exports;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class TableCustomExport implements FromView
+class TableCustomExport implements FromView ,ShouldAutoSize
 {
     private $head,$body,$blade,$data;
     public function __construct($head,$body,$blade = null,array $dataMore=null)
