@@ -64,6 +64,23 @@
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
                                                                         <div class="Form__Group">
+                                                                            <div class="VisibilityOption Form__Select"
+                                                                                 data-ElementsTargetName="VacationTypeFields">
+                                                                                <div class="Select__Area">
+                                                                                    @include("System.Components.selector" , [
+                                                                                        'Name' => "HolidayDays" , "Required" => "true" ,
+                                                                                        "DefaultValue" => "" , "Label" => "ايام الاجازات" ,
+                                                                                        "Options" => [
+                                                                                            [ "Label" => "مفتوحة" , "Value" => "0"] ,
+                                                                                            [ "Label" => "محددة" , "Value" => "1"]
+                                                                                        ]
+                                                                                    ])
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="VacationDurationYear" class="Input__Field"

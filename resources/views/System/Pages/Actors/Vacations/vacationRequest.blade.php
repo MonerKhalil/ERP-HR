@@ -31,7 +31,7 @@
                                                         <div class="ListData__Content">
                                                             <div class="ListData__CustomItem">
                                                                 <div class="Row GapC-1-5">
-                                                                    <div class="Col-4-md Col-6-sm">
+                                                                    <div id="VacationType" class="Col-4-md Col-6-sm">
                                                                         <div class="Form__Group">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
@@ -52,7 +52,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="VacationListDate" class="ListData">
+                                                    <div id="VacationListDate"
+                                                         data-ValueExcept="1,2"
+                                                         class="ListData">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 ايام واوقات الاجازة المرادة
@@ -60,7 +62,7 @@
                                                         </div>
                                                         <div class="ListData__Content">
                                                             <div class="CloneItem ListData__Group"
-                                                                 data-NameElement="VacationDetails">
+                                                                 data-NameElement="VacationDate">
                                                                 <div class="ListData__GroupTitle">
                                                                     <span class="Title"></span>
                                                                 </div>
@@ -70,18 +72,18 @@
                                                                             <div class="Form__Date">
                                                                                 <div class="Date__Area">
                                                                                     <input id="VacationFromDate"
-                                                                                           class="MinimumNow Date__Field"
+                                                                                           class="RangeData MinimumNow Date__Field"
                                                                                            type="text" name="VacationFromDate"
                                                                                            placeholder="يوم الاجازات المرادة"
                                                                                            required>
                                                                                     <label class="Date__Label" for="VacationFromDate">
-                                                                                        يوم الاجازات المرادة
+                                                                                        ايام الاجازات المرادة
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="Col-4-md Col-6-sm">
+                                                                    <div id="VacationNaturalID" class="Col-4-md Col-6-sm">
                                                                         <div class="Form__Group">
                                                                             <div class="VisibilityOption Form__Select"
                                                                                  data-ElementsTargetName="VacationNaturalFields">
@@ -153,11 +155,11 @@
                                                                 </div>
                                                             </div>
                                                             <div class="ParentClone"
-                                                                 data-NameElement="VacationDetails"></div>
+                                                                 data-NameElement="VacationDate"></div>
                                                             <div class="Row GapC-1-5">
                                                                 <div class="Col-12 Center">
                                                                     <i class="ButtonCloneForm material-icons Button Button--Primary"
-                                                                       data-TargetElementName="VacationDetails"
+                                                                       data-TargetElementName="VacationDate"
                                                                        data-IsCloneClear="true"
                                                                        title="Add Another Day">add</i>
                                                                 </div>

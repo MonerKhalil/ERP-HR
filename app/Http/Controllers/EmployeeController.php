@@ -96,7 +96,8 @@ class EmployeeController extends Controller
         ]);
         $employee = is_null($employee) ? $employeeQuery->where("user_id",auth()->id())->firstOrFail()
             : $employeeQuery->findOrFail($employee);
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployee",compact("employee"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployee" ,
+            compact("employee"));
     }
 
     public function edit($employee = null)

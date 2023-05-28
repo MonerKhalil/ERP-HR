@@ -11,3 +11,9 @@ ViewRole : {
 + Selector Problem With Footer
 + When Submit Form And Any Field is Not Valid the error created in fail location
 
+{
+    نسبة التقيم بالنسبة للتقرير لسا ما نعملت
+    بقيان لسا تبع شغلة اللغات بحيث ازا تم اختيار لغة فبتنحذف من الحقول التانية تبع اللغات بالتقرير
+    مراجعة الكود الهاص بالـ Readonly + كود الـ Visibility
+    تزبيط الـ Id's جوات كل الـ Selector Multi
+}
