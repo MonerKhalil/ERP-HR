@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TableCustomExport;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\ReportEmployeeRequest;
 use App\Models\Education_level;
@@ -11,6 +12,7 @@ use App\Models\Membership_type;
 use App\Models\Position;
 use App\Models\Sections;
 use App\Models\TypeDecision;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportEmployeeController extends Controller
 {
@@ -18,6 +20,9 @@ class ReportEmployeeController extends Controller
 
     public function __construct()
     {
+        $table = app(Employee::class)->getTable();
+        $this->middleware(["permission:read_".$table."|all_".$table])->only(["showCreateReport","Report"]);
+        $this->middleware(["permission:export_".$table."|all_".$table])->only(["ReportXlsx","ReportPdf"]);
         $this->finalQueryFilter = Employee::query();
     }
 
@@ -38,6 +43,53 @@ class ReportEmployeeController extends Controller
     }
 
     public function Report(ReportEmployeeRequest $request){
+        $dataSelected = array_filter($request->validated(),function($var){return !is_null($var);});
+        $finalData = MyApp::Classes()->Search->dataPaginate($this->MainQueryReport($request));
+        return $this->responseSuccess("...",compact("finalData","dataSelected"));
+    }
+
+    public function ReportPdf(ReportEmployeeRequest $request){
+        $dataSelected = array_filter($request->validated(),function($var){return !is_null($var);});
+        $query = $this->MainQueryReport($request);
+        $finalData = isset($request->ids) && is_array($request->ids) ?
+            $query->whereIn("id",$request->ids) : $query;
+        $finalData = $finalData->get();
+        return $this->responseSuccess("...",compact("finalData","dataSelected"));
+    }
+
+    public function ReportXlsx(ReportEmployeeRequest $request){
+        $data = $this->ExportXlsxData($request);
+        $dataSelected = array_filter($request->validated(),function($var){return !is_null($var);});
+        return Excel::download(new TableCustomExport($data['head'],$data['body'],"ReportEmployee",["dataSelected"=>$dataSelected]),"ReportEmployee.xlsx");
+    }
+
+    private function ExportXlsxData(ReportEmployeeRequest $request): array
+    {
+        $query = $this->MainQueryReport($request);
+        $query = isset($request->ids) && is_array($request->ids) ?
+            $query->whereIn("id",$request->ids) : $query;
+        $data = $query->get();
+        $head = [
+            [
+                "head"=> "department",
+                "relationFunc" => "section",
+                "key" => "name",
+            ],
+            "name",
+            [
+                "head"=> "nationality",
+                "relationFunc" => "nationality_country",
+                "key" => "country_name",
+            ],
+            "NP_registration","number_national","number_self","gender","current_job","military_service", "family_status","birth_date",
+        ];
+        return [
+            "head" => $head,
+            "body" => $data,
+        ];
+    }
+
+    private function MainQueryReport($request){
         //Sections
         $this->finalQueryFilter = !is_null($request->section_id) ?
             $this->finalQueryFilter->where("section_id",$request->section_id) : $this->finalQueryFilter;
@@ -68,19 +120,19 @@ class ReportEmployeeController extends Controller
         $this->finalQueryFilter = !is_null($request->education_level_id) ?
             $this->finalQueryFilter
                 ->whereHas("education_data",function ($q)use($request){
-                $q->where("id_ed_lev",$request->education_level_id);
-            }) : $this->finalQueryFilter;
+                    $q->where("id_ed_lev",$request->education_level_id);
+                }) : $this->finalQueryFilter;
         //LanguageSkill
         $this->finalQueryFilter = !is_null($request->language_id) ?
             $this->finalQueryFilter
                 ->whereHas("language_skill",function ($q)use($request){
                     $q->where("language_id",$request->language_id)
-                    ->when(!is_null($request->language_write),function ($q) use($request){
-                        $q->where("write",$request->language_write);
-                    })
-                    ->when(!is_null($request->language_read),function ($q) use($request){
-                        $q->where("read",$request->language_read);
-                    });
+                        ->when(!is_null($request->language_write),function ($q) use($request){
+                            $q->where("write",$request->language_write);
+                        })
+                        ->when(!is_null($request->language_read),function ($q) use($request){
+                            $q->where("read",$request->language_read);
+                        });
                 }) : $this->finalQueryFilter;
         //MembershipType
         $this->finalQueryFilter = !is_null($request->membership_type_id) ?
@@ -96,7 +148,7 @@ class ReportEmployeeController extends Controller
                 }) : $this->finalQueryFilter;
         //Conference
         $this->finalQueryFilter = $this->CompareDateStatic($request->from_conference_date,$request->to_conference_date,
-        "start_date","conferences");
+            "start_date","conferences");
         //Decision
         $this->finalQueryFilter = $this->CompareDateStatic($request->from_decision_date,$request->to_decision_date,
             "date","decision_employees");
@@ -116,9 +168,7 @@ class ReportEmployeeController extends Controller
                 ->whereHas("contract",function ($q) use ($request){
                     $q->where("salary","<=",$request->salary);
                 }) : $this->finalQueryFilter;
-        //Final
-        $finalData = MyApp::Classes()->Search->dataPaginate($this->finalQueryFilter);
-        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesView",compact("finalData"));
+        return $this->finalQueryFilter->orderBy("id","desc");
     }
 
     private function CompareDateStatic($from_date,$to_date,$name_column,$relation = null){
