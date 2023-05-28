@@ -47,10 +47,6 @@ Route::get('/Test-17', function () {
     return view('System/Pages/Actors/decisionView');
 });
 
-Route::get('/Test-20', function () {
-    return view('System/Pages/Actors/Reports/reportEmployeesForm');
-});
-
 Route::get('/Test-30', function () {
     return view('System/Pages/Actors/Vacations/newTypeForm');
 });

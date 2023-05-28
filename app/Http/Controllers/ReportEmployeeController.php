@@ -36,9 +36,9 @@ class ReportEmployeeController extends Controller
         $membership_type = Membership_type::query()->pluck("name","id")->toArray();
         $position = Position::query()->pluck("name","id")->toArray();
         $type_decision = TypeDecision::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("sections","gender",
-            "contract_type","education_level","language","language_skills_read_write","membership_type"
-            ,"position","type_decision",
+        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesForm",
+            compact("sections","gender", "contract_type","education_level","language"
+                ,"language_skills_read_write","membership_type","position","type_decision",
         ));
     }
 

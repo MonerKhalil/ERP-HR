@@ -1,5 +1,9 @@
 @extends("System.Pages.globalPage")
 
+{{--@php--}}
+{{--    dd($finalData);--}}
+{{--@endphp--}}
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--ReportEmployeesView">
         <div class="ReportEmployeesView">
@@ -29,7 +33,7 @@
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
-                                            <div class="Card__Inner">
+                                            <div class="Card__Inner py1">
                                                 <div class="Table__Head">
                                                     <div class="Justify-Content-End Card__ToolsGroup">
                                                         <div class="Card__Tools Card__SearchTools">
@@ -56,7 +60,7 @@
                                                                 اسم الموظف
                                                             </th>
                                                             <th class="Item__Col">
-                                                                الجنس
+                                                                رقم الاضبارة
                                                             </th>
                                                             <th class="Item__Col">
                                                                 تاريخ التوظيف
@@ -65,26 +69,27 @@
                                                                 المزيد
                                                             </th>
                                                         </tr>
-                                                        <tbody class="GroupRows">
-                                                            <tr class="GroupRows__MainRow">
-                                                                <td class="Item__Col">
-                                                                    1
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    امير
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    ذكر
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    10-10-2010
-                                                                </td>
-                                                                <td class="Item__Col Item__Col--Details">
-                                                                    <span class="Details__Button">@lang("details")</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="GroupRows__SubRows">
-                                                                <td class="Item__Col" colspan="5">
+                                                        @foreach($finalData as $RowData)
+                                                            <tbody class="GroupRows">
+                                                                <tr class="GroupRows__MainRow">
+                                                                    <td class="Item__Col">
+                                                                        {{ $RowData["id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $RowData["first_name"] . $RowData["last_name"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $RowData["gender"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        _
+                                                                    </td>
+                                                                    <td class="Item__Col Item__Col--Details">
+                                                                        <span class="Details__Button">@lang("details")</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="GroupRows__SubRows">
+                                                                    <td class="Item__Col" colspan="5">
                                                                     <div class="Report">
                                                                         <div class="Report__Content">
                                                                             <div class="ListData NotResponsive">
@@ -124,8 +129,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                            </tr>
-                                                        </tbody>
+                                                                </tr>
+                                                            </tbody>
+                                                        @endforeach
                                                     </table>
                                                 </div>
                                             </div>

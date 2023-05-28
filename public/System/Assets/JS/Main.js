@@ -124,10 +124,15 @@ $(document).ready(function (){
      */
 
     function SelectorOperation( SelectorInfo = {
-        Operation : "InitializeSelector" | "SetRequired" | "ResetRequired" | "Clone" | "Clear" ,
+        Operation : "InitializeSelector" | "SetRequired" | "ResetRequired" | "RemoveAllOption"
+            | "SetOption" | "Clone" | "Clear" ,
         Selector : HTMLElement ,
         OptionContent : HTMLElement | undefined ,
-        Option : HTMLElement | undefined
+        Option : HTMLElement | undefined ,
+        InsertOption : {
+            Label : String ,
+            Value : String
+        } | undefined
     }) {
         switch (SelectorInfo.Operation) {
             case "InitializeSelector" :
@@ -144,6 +149,12 @@ $(document).ready(function (){
                 break;
             case "Clear" :
                 ClearSelector() ;
+                break ;
+            case "RemoveAllOption" :
+                RemoveAllOption() ;
+                break ;
+            case "SetOption" :
+                SetOption() ;
                 break ;
         }
 
@@ -193,17 +204,6 @@ $(document).ready(function (){
                         }
                     });
             }
-
-            function ClickSelect(OptionSelected = String
-                , ValueOption = String) {
-                const InputField = $(SelectorInfo.Selector).find(".Selector__SelectForm").get(0) ;
-                $(SelectorInfo.Selector).addClass("Selected");
-                $(SelectorInfo.Selector).find(".Selector__Main .Selector__WordChoose")
-                    .text(OptionSelected);
-                $(InputField).attr("value" , ValueOption);
-                $(InputField).valid() ;
-                $(SelectorInfo.Selector).attr("data-selected" , ValueOption);
-            }
         }
 
         function CloneSelector() {
@@ -231,6 +231,40 @@ $(document).ready(function (){
             $(SelectorInfo.Selector).find(".Selector__SelectForm")
                 .prop("required" , true) ;
         }
+
+        function RemoveAllOption() {
+            $(SelectorInfo.Selector).find(".Selector__Options")
+                .children().remove();
+            ClearSelector() ;
+        }
+
+        function SetOption() {
+            const OptionElement = `
+                <li class="Selector__Option"
+                    data-option="${SelectorInfo.InsertOption.Value}">
+                    ${SelectorInfo.InsertOption.Label}
+                </li>
+            ` ;
+            const NewOption = $(OptionElement).appendTo($(SelectorInfo.Selector)
+                .find(".Selector__Options").get(0)) ;
+            $(NewOption).click(() => {
+                const OptionValue = $(NewOption).attr("data-option");
+                $(SelectorInfo.Selector).toggleClass("Open");
+                ClickSelect($(NewOption).text() , OptionValue);
+            });
+        }
+
+        function ClickSelect(OptionSelected = String
+            , ValueOption = String) {
+            const InputField = $(SelectorInfo.Selector).find(".Selector__SelectForm").get(0) ;
+            $(SelectorInfo.Selector).addClass("Selected");
+            $(SelectorInfo.Selector).find(".Selector__Main .Selector__WordChoose")
+                .text(OptionSelected);
+            $(InputField).attr("value" , ValueOption);
+            $(InputField).valid() ;
+            $(SelectorInfo.Selector).attr("data-selected" , ValueOption);
+        }
+
     }
 
     $(".Selector").ready(function (){
@@ -287,7 +321,7 @@ $(document).ready(function (){
 
     function FormOperation(FormInfo = {
         Operation : "InitializeForm" | "RefreshValidationForm" |
-            "CloneFields" | "DisabledForm" | "EnabledForm"
+            "CloneFields" | "DisabledForm" | "EnabledForm" | "RestFields"
             | "IgnoreField" | "NotIgnoreField" ,
         FormElement : HTMLFormElement ,
         ClonePart : {
@@ -321,6 +355,9 @@ $(document).ready(function (){
             case "EnabledForm" :
                 EnabledField() ;
                 break ;
+            case "RestFields" :
+                ClearFields(FormInfo.ClonePart.ElementTarget) ;
+                break ;
         }
 
         function InitializeForm() {
@@ -349,19 +386,7 @@ $(document).ready(function (){
             });
             $(FormInfo.FormElement).find(".RestButton").each((_ , Buttons) => {
                 $(Buttons).click(()=> {
-                    $(FormInfo.FormElement).find(`.Input__Field , .Textarea__Field`)
-                        .each((_ , Field) => {
-                            $(Field).val("");
-                        });
-                    $(FormInfo.FormElement).find(".Date__Field").each((_ , Field) => {
-                        Field._flatpickr.clear();
-                    });
-                    $(FormInfo.FormElement).find(`.Selector`).each((_ , Selector) => {
-                        SelectorOperation({
-                            Operation : "Clear" ,
-                            Selector : Selector
-                        });
-                    });
+                    ClearFields(FormInfo.FormElement) ;
                 });
             });
             $(FormInfo.FormElement).find(".TextEditor").each((_ , TextEditor) => {
@@ -712,6 +737,22 @@ $(document).ready(function (){
                     Operation : "Clone" ,
                     Selector : Selector ,
                 }) ;
+            });
+        }
+
+        function ClearFields(PartOfForm = HTMLElement) {
+            $(PartOfForm).find(`.Input__Field , .Textarea__Field`)
+                .each((_ , Field) => {
+                    $(Field).val("");
+                });
+            $(PartOfForm).find(".Date__Field").each((_ , Field) => {
+                Field._flatpickr.clear();
+            });
+            $(PartOfForm).find(`.Selector`).each((_ , Selector) => {
+                SelectorOperation({
+                    Operation : "Clear" ,
+                    Selector : Selector
+                });
             });
         }
     }
@@ -1280,24 +1321,38 @@ $(document).ready(function (){
      * @author Amir Alhloo
      */
 
-    $(".Selector2Readonly").ready(function () {
-        $(".Selector2Readonly").each((_ , ParentSelector) => {
-            const ClassContainer = $(ParentSelector).attr("data-ClassContainer") ;
-            const FieldsName = $(ParentSelector).attr("data-ReadonlyNames") ;
-            const Location = $(ParentSelector).attr("data-Location") ;
-            const TitleReadOnly = $(ParentSelector).attr("data-TitleField") ;
-            const MinFieldsRead = Number($(ParentSelector).attr("data-RequiredNum")) ;
+    function OperationSelector2ReadOnly(SelectorInfo = {
+        MainSelector : HTMLElement ,
+        Operation : "SelectorInit" | "SelectorRest"
+    }) {
+
+        switch (SelectorInfo.Operation) {
+            case "SelectorInit" :
+                SelectorInit();
+                break ;
+            case "SelectorRest" :
+                SelectorRest();
+                break ;
+        }
+
+        function SelectorInit() {
+            const ClassContainer = $(SelectorInfo.MainSelector).attr("data-ClassContainer") ;
+            const FieldsName = $(SelectorInfo.MainSelector).attr("data-ReadonlyNames") ;
+            const Location = $(SelectorInfo.MainSelector).attr("data-Location") ;
+            const TitleReadOnly = $(SelectorInfo.MainSelector).attr("data-TitleField") ;
+            const MinFieldsRead = Number($(SelectorInfo.MainSelector).attr("data-RequiredNum")) ;
+            const MaxFieldsRead = Number($(SelectorInfo.MainSelector).attr("data-MaxRequiredNum")) ;
             let ValuesDefault = undefined  ;
-            let CounterID = 0 ;
-            let ValueSelected = 0 ;
-            let AllValues = $(ParentSelector)
+            let AllValues = $(SelectorInfo.MainSelector)
                 .find(".Selector .Selector__Options .Selector__Option").length ;
 
-            if($(ParentSelector).attr("data-DefaultValues") !== undefined)
-                ValuesDefault = $(ParentSelector).attr("data-DefaultValues").split(",");
+            $(SelectorInfo.MainSelector).attr("CounterID" , 0) ;
+            $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , 0) ;
 
+            if($(SelectorInfo.MainSelector).attr("data-DefaultValues") !== undefined)
+                ValuesDefault = $(SelectorInfo.MainSelector).attr("data-DefaultValues").split(",");
 
-            $(ParentSelector).find(".Selector .Selector__Options .Selector__Option")
+            $(SelectorInfo.MainSelector).find(".Selector .Selector__Options .Selector__Option")
                 .each((_ , OptionElement) => {
                     if(ValuesDefault !== undefined) {
                         const TempValue = $(OptionElement).attr("data-option") ;
@@ -1315,6 +1370,8 @@ $(document).ready(function (){
                 const OptionValue = $(OptionSelector).attr("data-option") ;
                 const OptionLabel = $(OptionSelector).text() ;
                 const OptionForm = $(OptionSelector).closest("form").get(0) ;
+                let CounterID = Number($(SelectorInfo.MainSelector).attr("CounterID")) ;
+                let ValueSelected = Number($(SelectorInfo.MainSelector).attr("ValueSelectedNum")) ;
                 const ReadOnlyElement = $(`
                         <div class="ReadonlySelector ${ClassContainer}">
                             <div class="Form__Group">
@@ -1340,43 +1397,75 @@ $(document).ready(function (){
                         </div>
                     `).get(0) ;
                 if(Location === "Before")
-                    $(ParentSelector).before($(ReadOnlyElement)) ;
+                    $(SelectorInfo.MainSelector).before($(ReadOnlyElement)) ;
                 else
-                    $(ParentSelector).after($(ReadOnlyElement)) ;
+                    $(SelectorInfo.MainSelector).after($(ReadOnlyElement)) ;
                 $(ReadOnlyElement).find(".FieldReadOnly__Close").click(() => {
                     $(OptionSelector).show() ;
                     if(ValueSelected === AllValues)
-                        $(ParentSelector).show();
+                        $(SelectorInfo.MainSelector).show();
                     ValueSelected-- ;
                     if(ValueSelected < MinFieldsRead)
                         SelectorOperation({
                             Operation : "SetRequired" ,
-                            Selector : $(ParentSelector).find(".Selector").get(0) ,
+                            Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
                         });
-                    $(ReadOnlyElement).remove() ;
+                    if(ValueSelected < MaxFieldsRead) {
+                        $(SelectorInfo.MainSelector).show();
+                        SelectorOperation({
+                            Operation : "SetRequired" ,
+                            Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
+                        });
+                    }
+                    $(ReadOnlyElement).remove();
                     FormOperation({
                         Operation : "RefreshValidationForm",
                         FormElement : OptionForm
                     });
+                    $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , ValueSelected);
                 });
                 $(OptionSelector).hide() ;
                 SelectorOperation({
                     Operation : "Clear" ,
-                    Selector : $(ParentSelector).find(".Selector").get(0) ,
+                    Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
                 });
                 ValueSelected++ ;
-                if(ValueSelected >= MinFieldsRead)
+                if(ValueSelected >= MinFieldsRead) {
                     SelectorOperation({
                         Operation : "ResetRequired",
-                        Selector : $(ParentSelector).find(".Selector").get(0) ,
+                        Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
                     });
+                } else if(ValueSelected >= MaxFieldsRead) {
+                    SelectorOperation({
+                        Operation : "ResetRequired",
+                        Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
+                    });
+                    $(SelectorInfo.MainSelector).hide();
+                }
                 if(ValueSelected === AllValues)
-                    $(ParentSelector).hide();
+                    $(SelectorInfo.MainSelector).hide();
                 FormOperation({
                     Operation : "RefreshValidationForm",
                     FormElement : OptionForm
                 });
+                $(SelectorInfo.MainSelector).attr("CounterID" , CounterID) ;
             }
+        }
+
+        function SelectorRest() {
+            $(SelectorInfo.MainSelector).attr("CounterID" , 0) ;
+            $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , 0) ;
+
+        }
+
+    }
+
+    $(".Selector2Readonly").ready(function () {
+        $(".Selector2Readonly").each((_ , ParentSelector) => {
+            OperationSelector2ReadOnly({
+                MainSelector : ParentSelector ,
+                Operation : "SelectorInit"
+            });
         });
     });
 
@@ -1455,12 +1544,13 @@ $(document).ready(function (){
                     TriggerName(TargetName , '') ;
             }) ;
             $(FieldInfo.VisibilityOption).find(".MultiSelector").each((_ , MultiSelector) => {
-                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox").each((_ , Option) => {
-                    $(Option).on("change" , function () {
-                       // if($(Option).is(':checked'))
-                       //     TriggerName(TargetName , "") ;
-                       // else
-                       //     TriggerName(TargetName , "") ;
+                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox")
+                    .each((_ , OptionCheckbox) => {
+                        TriggerNameMulti(TargetName , $(OptionCheckbox).attr("name")
+                            , $(OptionCheckbox).is(":checked")) ;
+                    $(OptionCheckbox).on("change" , function () {
+                        TriggerNameMulti(TargetName , $(OptionCheckbox).attr("name")
+                            , $(OptionCheckbox).is(":checked")) ;
                     });
                 });
             });
@@ -1528,19 +1618,68 @@ $(document).ready(function (){
             });
         }
 
-        function TriggerNameMulti(NameElement = String , NameCheckBox = String ,
-                                  ValueSelected = String) {
+        function TriggerNameMulti(NameElement = String , NameCheckBox = String
+                                  , IsChecked = Boolean) {
             $(".VisibilityTarget").each((_ , VisibilityTarget) => {
-                // Insert CheckboxNum For Know How Many Checkboxes Checked For it
+                let CheckedNumOption = Number($(VisibilityTarget).attr("data-CheckedNumber"));
+                if(!CheckedNumOption) {
+                    $(VisibilityTarget).attr("data-CheckedNumber" , 0) ;
+                    CheckedNumOption = 0 ;
+                }
                 const ElementName = $(VisibilityTarget).attr("data-TargetName");
                 if(ElementName === NameElement) {
-                    const ElementNames = $(VisibilityTarget).attr("data-TargetCheckboxNames").split(",") ?? undefined ;
-                    const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
-                    for (let i = 0; i < ElementNames.length ; i++)
-                        if(ElementNames[i] === NameCheckBox) {
-                            if(ElementValue[i] === ValueSelected)
-                                $(".VisibilityTarget").show();
+                    const CheckboxesName = $(VisibilityTarget).attr("data-TargetCheckboxName")
+                        .split(",") ?? undefined ;
+                    for (let i = 0; i < CheckboxesName.length ; i++) {
+                        if(CheckboxesName[i] === NameCheckBox) {
+                            if(IsChecked)
+                                CheckedNumOption++ ;
+                            else if(CheckedNumOption > 0)
+                                CheckedNumOption-- ;
+                            break ;
                         }
+                    }
+                    if(CheckedNumOption > 0) {
+                        $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                            const FormElement = $(FieldGroup).closest("form").get(0) ;
+                            FormOperation({
+                                Operation : "NotIgnoreField" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                            FormOperation({
+                                Operation : "EnabledForm" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                        });
+                        $(VisibilityTarget).show();
+                    }
+                    else {
+                        $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
+                            const FormElement = $(FieldGroup).closest("form").get(0) ;
+                            FormOperation({
+                                Operation : "IgnoreField" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup ,
+                                }
+                            });
+                            FormOperation({
+                                Operation : "DisabledForm" ,
+                                FormElement : FormElement ,
+                                ClonePart : {
+                                    ElementPart : FieldGroup
+                                }
+                            })
+                        });
+                        $(VisibilityTarget).hide();
+                    }
+                    $(VisibilityTarget).attr("data-CheckedNumber" , CheckedNumOption) ;
                 }
             });
         }
@@ -1592,12 +1731,33 @@ $(document).ready(function (){
         ButtonClone : HTMLElement ,
         TargetElement : HTMLElement ,
         ParentContainer : HTMLElement ,
+        Operation : "InitClone" | "RestByRemove" | "RestByClearData" | "ChangeTargetClone" ,
         ClearClone : Boolean
     }) {
         let CloneElement = undefined ;
-        InitializeDuplicateFrom() ;
+
+        switch (InfoParam.Operation) {
+            case "InitClone" :
+                InitializeDuplicateFrom() ;
+                break ;
+            case "RestByRemove" :
+                RestByRemove() ;
+                break ;
+            case "RestByClearData" :
+                RestByClearData() ;
+                break ;
+            case "ChangeTargetClone" :
+                ChangeTargetClone() ;
+                break ;
+        }
 
         function InitializeDuplicateFrom() {
+            $(InfoParam.ButtonClone).click(() => {
+                EventClickButtonClone() ;
+            });
+        }
+
+        function EventClickButtonClone() {
             CloneProcess() ;
             AppendClone() ;
         }
@@ -1613,6 +1773,12 @@ $(document).ready(function (){
                     WithClear : InfoParam.ClearClone
                 }
             });
+            $(CloneElement).find(".Selector2Readonly").each((_ , Selector) => {
+                OperationSelector2ReadOnly({
+                    MainSelector : Selector ,
+                    Operation : "SelectorInit"
+                });
+            });
         }
 
         function AppendClone() {
@@ -1626,6 +1792,17 @@ $(document).ready(function (){
                 }
             }) ;
         }
+
+        function RestByRemove() {
+            $(InfoParam.ParentContainer).children().remove();
+        }
+
+        function ChangeTargetClone() {
+            $(InfoParam.ButtonClone).off();
+            InitializeDuplicateFrom();
+        }
+
+        function RestByClearData() {} // All Data In Inputs Deleted
     }
 
     $(".ButtonCloneForm").ready(function(){
@@ -1636,18 +1813,16 @@ $(document).ready(function (){
             const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
             const FormTarget = $(TargetElement).closest("form").get(0) ;
             const MainCloneClear = $(TargetElement).clone(false);
-            $(ButtonClone).click(() => {
-                DuplicateFrom({
-                    MainForm : FormTarget ,
-                    ButtonClone : ButtonClone ,
-                    TargetElement : MainCloneClear ,
-                    ParentContainer : TargetParentClone ,
-                    ClearClone : IsCleanClone
-                });
+            DuplicateFrom({
+                MainForm : FormTarget ,
+                ButtonClone : ButtonClone ,
+                TargetElement : MainCloneClear ,
+                ParentContainer : TargetParentClone ,
+                Operation : "InitClone" ,
+                ClearClone : IsCleanClone
             });
         });
     });
-
 
     /*===========================================
 	=           Venobox      =
@@ -1667,35 +1842,282 @@ $(document).ready(function (){
     =============================================*/
 
     $("#VacationListDate").ready(function () {
-        const VacationListElement = $("#VacationListDate").get(0) ;
-        const ParentCloneElement = $(VacationListElement).find(".ParentClone").get(0) ;
-        const MainCloneElement = $(VacationListElement).find(".CloneItem").get(0) ;
-        let CountClone = 1 ;
-        let IsMainCloneLabelView = false ;
-        $(VacationListElement).find(".ButtonCloneForm").click(() => {
-            if(!IsMainCloneLabelView) {
-                $(MainCloneElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
-                IsMainCloneLabelView = true ;
+
+        $("#VacationListDate").each((_ , VacationList) => {
+            const ListDate = $("#VacationListDate").get(0);
+            const VacationTypeSelector = $("#VacationType").find(".Selector").get(0) ;
+            const ButtonClone = $(VacationList).find(".ButtonCloneForm").get(0) ;
+            const TargetElementName = $(ButtonClone).attr("data-TargetElementName") ;
+            const IsCleanClone = $(ButtonClone).attr("data-IsCloneClear") ?? true ;
+            const TargetElement = $(document).find(`.CloneItem[data-NameElement=${TargetElementName}]`).get(0);
+            const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
+            const FormTarget = $(TargetElement).closest("form").get(0) ;
+            const Except = $(VacationList).attr("data-ValueExcept").split(",") ;
+            const MainCloneClear = $(TargetElement).clone(false);
+            let CurrentValue = undefined ;
+
+            $(ListDate).hide() ;
+
+            $(VacationTypeSelector).find(".Selector__Option").each((_ , Option) => {
+                const OptionValue = $(Option).attr("data-option") ;
+                $(Option).click(() => {
+                    $(ListDate).show();
+                    if(CurrentValue && CurrentValue === OptionValue) {
+
+                    } else {
+                        DuplicateFrom({
+                            Operation : "RestByRemove" ,
+                            ParentContainer : TargetParentClone
+                        });
+                        if(IsValueContentInArray(Except , OptionValue)) {
+                            ExceptValueApply(TargetElement) ;
+                            ExceptValueApply(MainCloneClear) ;
+                            InitVacationListPage() ;
+                        } else {
+                            ExceptValueNotApply(TargetElement) ;
+                            ExceptValueNotApply(MainCloneClear) ;
+                            InitVacationListPage() ;
+                        }
+                        FormOperation({
+                            Operation : "RestFields" ,
+                            FormElement : FormTarget ,
+                            ClonePart : {
+                                ElementTarget : TargetElement
+                            }
+                        });
+                        DuplicateFrom({
+                            MainForm : FormTarget ,
+                            ButtonClone : ButtonClone ,
+                            TargetElement : MainCloneClear ,
+                            ParentContainer : TargetParentClone ,
+                            Operation : "ChangeTargetClone" ,
+                            ClearClone : true
+                        });
+                        CurrentValue = OptionValue ;
+                    }
+                });
+            });
+
+            InitVacationListPage() ;
+
+            function ExceptValueApply(EleTarget = HTMLElement) {
+                const SelectorType = $(EleTarget).find("#VacationNaturalID").get(0) ;
+                const StartDate = $(SelectorType).next().get(0) ;
+                const StartEnd = $(StartDate).next().get(0) ;
+                $(SelectorType).css("display" , "none") ;
+                $(StartDate).css("display" , "none") ;
+                $(StartEnd).css("display" , "none") ;
+                FormOperation({
+                    Operation : "IgnoreField" ,
+                    FormElement : FormTarget ,
+                    ClonePart : {
+                        ElementPart : SelectorType ,
+                        WithClear : false
+                    }
+                });
+                FormOperation({
+                    Operation : "IgnoreField" ,
+                    FormElement : FormTarget ,
+                    ClonePart : {
+                        ElementPart : StartDate ,
+                        WithClear : false
+                    }
+                });
+                FormOperation({
+                    Operation : "IgnoreField" ,
+                    FormElement : FormTarget ,
+                    ClonePart : {
+                        ElementPart : StartEnd ,
+                        WithClear : false
+                    }
+                });
             }
-            const LastClone = $(ParentCloneElement).find(".ListData__Group")
-                .last().get(0) ;
-            const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
-            const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
-            $(SelectorVisibility).attr("data-ElementsTargetName"
-                , `${AttributeLastClone}__${CountClone}`) ;
-            $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
-                $(Value).attr("data-TargetName" ,
-                    `${$(Value).attr("data-TargetName")}__${CountClone}`);
-            });
-            $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
-            initializeFieldsVisibility({
-                Operation : "InitializeVisibilityOption" ,
-                VisibilityOption : SelectorVisibility ,
-                VisibilityTarget : undefined ,
-            });
+
+            function ExceptValueNotApply(EleTarget = HTMLElement) {
+                const SelectorType = $(EleTarget).find("#VacationNaturalID").get(0) ;
+                const StartDate = $(SelectorType).next().get(0) ;
+                const StartEnd = $(StartDate).next().get(0) ;
+                $(SelectorType).css("display" , "initial") ;
+                $(StartDate).css("display" , "none") ;
+                $(StartEnd).css("display" , "none") ;
+                FormOperation({
+                    Operation : "NotIgnoreField" ,
+                    FormElement : FormTarget ,
+                    ClonePart : {
+                        ElementPart : SelectorType ,
+                        WithClear : false
+                    }
+                });
+                FormOperation({
+                    Operation : "NotIgnoreField" ,
+                    FormElement : FormTarget ,
+                    ClonePart : {
+                        ElementPart : StartDate ,
+                        WithClear : false
+                    }
+                });
+                FormOperation({
+                    Operation : "NotIgnoreField" ,
+                    FormElement : FormTarget ,
+                    ClonePart : {
+                        ElementPart : StartEnd ,
+                        WithClear : false
+                    }
+                });
+            }
+
+            function InitVacationListPage() {
+                setTimeout(() => {
+                    let CountClone = 1 ;
+                    let IsMainCloneLabelView = false ;
+                    $(VacationList).find(".ButtonCloneForm").click(() => {
+                        if(!IsMainCloneLabelView) {
+                            $(TargetElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+                            IsMainCloneLabelView = true ;
+                        }
+                        const LastClone = $(TargetParentClone).find(".ListData__Group")
+                            .last().get(0) ;
+                        const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
+                        const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
+                        $(SelectorVisibility).attr("data-ElementsTargetName"
+                            , `${AttributeLastClone}__${CountClone}`) ;
+                        $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
+                            $(Value).attr("data-TargetName" ,
+                                `${$(Value).attr("data-TargetName")}__${CountClone}`);
+                        });
+                        $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+                        initializeFieldsVisibility({
+                            Operation : "InitializeVisibilityOption" ,
+                            VisibilityOption : SelectorVisibility ,
+                            VisibilityTarget : undefined ,
+                        });
+                    });
+                } , 1) ;
+            }
+
         });
+
     });
 
+    $("#AddEmployeePage").ready(function () {
+
+        const PageAddEmployee = $("#AddEmployeePage").get(0) ;
+
+        $(PageAddEmployee).find(".Taps__Item").each((_ , Item) => {
+            $(Item).off();
+        });
+
+        $(PageAddEmployee).find(`.Taps__Panel .Form__Button Button.Next`).each((_ , Button) => {
+           $(Button).click(() => {
+               CheckValidation(Button , "After") ;
+           });
+        });
+
+        $(PageAddEmployee).find(`.Taps__Panel .Form__Button Button.Previous`).each((_ , Button) => {
+            $(Button).click(() => {
+                CheckValidation(Button , "Before") ;
+            });
+        });
+
+        function CheckValidation(ButtonCheck = HTMLButtonElement
+                                 , Move = "Before" | "After") {
+            const TapElement = $(ButtonCheck).closest(".Taps__Panel").get(0) ;
+            if(Move === "After") {
+                let IsAllCurrent = true ;
+                $(TapElement).find("input , textarea").each((_ , Field) => {
+                    if(!$(Field).valid())
+                        IsAllCurrent = false ;
+                });
+                if(IsAllCurrent)
+                    NextTab(TapElement , Move) ;
+            } else
+                NextTab(TapElement , Move) ;
+        }
+
+        function NextTab(CurrentTap = HTMLElement
+                         , Move = "Before" | "After") {
+            $(CurrentTap).removeClass("Active") ;
+            const CurrentPanelName = $(CurrentTap).attr("data-panel") ;
+            const CurrentButtonPanel = $(PageAddEmployee)
+                .find(`.Taps__Item[data-content="${CurrentPanelName}"]`).get(0);
+            let NextPanelName  , NextButtonPanel , NextPanel ;
+            if(Move === "After")
+                NextPanel = $(CurrentTap).next() ;
+            else
+                NextPanel = $(CurrentTap).prev() ;
+            NextPanelName = $(NextPanel).attr("data-panel") ;
+            NextButtonPanel = $(PageAddEmployee).find(`.Taps__Item[data-content="${NextPanelName}"]`)
+                .get(0);
+            $(CurrentButtonPanel).removeClass("Active") ;
+            $(NextButtonPanel).addClass("Active") ;
+            $(NextPanel).addClass("Active") ;
+        }
+
+    });
+
+    $("#State").ready(function () {
+        const StateElement = $("#State").get(0);
+        const URLGetCities = $(StateElement).attr("data-CityURL");
+        const Cities = $("#City").get(0);
+        const DefaultData = $(StateElement).attr("data-StateDefault");
+
+
+        if(DefaultData) {
+            ClickOption(DefaultData) ;
+        } else
+            $(Cities).hide() ;
+
+        $(StateElement).find(".Selector__Option").each((_, Option) => {
+            const ValueOption = $(Option).attr("data-option");
+            $(Option).click(() => {
+                ClickOption(ValueOption);
+            });
+        });
+
+        function ClickOption(ValueOption = String) {
+            LoaderView() ;
+            $.ajax({
+                url : `${URLGetCities}?id_country=${ValueOption}` ,
+                method : "GET" ,
+                success : function (Response) {
+                    const ArrayData = [] ;
+                    for(let i in Response)
+                        ArrayData[i] = Response[i];
+                    InsertCities(ArrayData) ;
+                    LoaderHidden() ;
+                } ,
+
+                error : function () {
+                    InsertCities([]) ;
+                    LoaderHidden() ;
+                }
+            });
+        }
+
+        function InsertCities(CitiesInfo = Array) {
+            const CitySelector = $(Cities).find(".Selector").get(0) ;
+            SelectorOperation({
+                Operation : "RemoveAllOption" ,
+                Selector : CitySelector ,
+            }) ;
+            if(CitiesInfo.length > 0) {
+                CitiesInfo.forEach((Value , Index) => {
+                    SelectorOperation({
+                        Operation : "SetOption" ,
+                        Selector : CitySelector ,
+                        InsertOption : {
+                            Label : Value ,
+                            Value : Index
+                        }
+                    });
+                }) ;
+                $(Cities).show() ;
+            } else {
+                $(Cities).hide() ;
+            }
+        }
+
+    });
 });
 
 window.onload = function (){
@@ -1731,6 +2153,13 @@ function closeOutSide(ElementTarget = HTMLElement,
 function GetFullParams() {
     const URL = window.location.href ;
     return URL.split("?")[1] ;
+}
+
+function IsValueContentInArray(ArrayList = Array , Value) {
+    for (let i = 0; i < ArrayList.length ; i++)
+        if(ArrayList[i] === Value)
+            return true ;
+    return false ;
 }
 
 
