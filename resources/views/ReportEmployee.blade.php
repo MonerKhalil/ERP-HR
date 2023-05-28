@@ -17,7 +17,7 @@
                                 <th class="text-center">{{$value}}</th>
                             @endif
                         @endforeach
-                        @if(isset($dataSelected['form_salary'])||isset($dataSelected['salary']))
+                        @if(isset($dataSelected['from_salary'])||isset($dataSelected['salary']))
                             <th class="text-center">{{__("salary")}}</th>
                         @endif
                         @if(isset($dataSelected['education_level_id']))
@@ -39,7 +39,7 @@
                                     <td class="text-center">{{ $item->{$value} }}</td>
                                 @endif
                             @endforeach
-                            @if(isset($dataSelected['form_salary'])||isset($dataSelected['salary']))
+                            @if(isset($dataSelected['from_salary'])||isset($dataSelected['salary']))
                                 <td class="text-center">{{ $item->contract()->first()->salary ?? "-"}}</td>
                             @endif
                             @if(isset($dataSelected['education_level_id']))

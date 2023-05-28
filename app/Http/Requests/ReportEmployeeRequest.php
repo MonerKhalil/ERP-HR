@@ -14,17 +14,29 @@ class ReportEmployeeRequest extends BaseRequest
     public function rules()
     {
         return [
-            "section_id" => ["nullable",Rule::exists("sections","id")],
-            "education_level_id" => ["nullable",Rule::exists("education_levels","id")],
-            "membership_type_id" => ["nullable",Rule::exists("membership_types","id")],
-            "position_id" => ["nullable",Rule::exists("positions","id")],
-            "type_decision_id" => ["nullable",Rule::exists("type_decisions","id")],
-            "language_id" => ["nullable",Rule::exists("languages","id")],
-            "language_read" => ["nullable",Rule::in(["Beginner","Intermediate","Advanced"])],
-            "language_write" => ["nullable",Rule::in(["Beginner","Intermediate","Advanced"])],
+            "section_id" => ["nullable","array"],
+            "section_id.*" => [Rule::exists("sections","id")],
+            "education_level_id" => ["nullable","array"],
+            "education_level_id.*" => [Rule::exists("education_levels","id")],
+            "membership_type_id" => ["nullable","array"],
+            "membership_type_id.*" => [Rule::exists("membership_types","id")],
+            "position_id" => ["nullable","array"],
+            "position_id.*" => [Rule::exists("positions","id")],
+            "type_decision_id" => ["nullable","array"],
+            "type_decision_id.*" => [Rule::exists("type_decisions","id")],
+            "languages" => ["nullable","array"],
+            "languages.*" => [Rule::requiredIf(function (){
+                return !is_null($this->input("languages"));
+            }),"array"],
+            "languages.*.language_id" => [Rule::requiredIf(function (){
+                return !is_null($this->input("languages"));
+            }),Rule::exists("languages","id")],
+            "languages.*.language_read" => ["nullable",Rule::in(["Beginner","Intermediate","Advanced"])],
+            "languages.*.language_write" => ["nullable",Rule::in(["Beginner","Intermediate","Advanced"])],
+            "family_status" => ["nullable","array"],
+            "family_status.*" => [Rule::in(["married","divorced","single"])],
+            "contract_type" => ['nullable', Rule::in(["permanent", "temporary","all"])],
             "gender" => ["nullable",Rule::in(["male","female"])],
-            "family_status" => ["nullable",Rule::in(["married","divorced","single"])],
-            "contract_type" => ['nullable', Rule::in(["permanent", "temporary"])],
             "current_job" => ["nullable","string"],
             "from_end_break_date" => $this->dateRules(false),
             "to_end_break_date" => $this->afterDateOrNowRules(false,"from_end_break_date"),
@@ -36,8 +48,8 @@ class ReportEmployeeRequest extends BaseRequest
             "to_conference_date" => $this->afterDateOrNowRules(false,"from_conference_date"),
             "from_decision_date" => $this->dateRules(false),
             "to_decision_date" => $this->afterDateOrNowRules(false,"from_decision_date"),
-            'form_salary' => ['nullable','numeric','min:1'],
-            'to_salary' => ['nullable','numeric','min:'.$this->input('form_salary')],
+            'from_salary' => ['nullable','numeric','min:1'],
+            'to_salary' => ['nullable','numeric','min:'.$this->input('from_salary')],
             'salary' => ['nullable','numeric'],
         ];
     }
