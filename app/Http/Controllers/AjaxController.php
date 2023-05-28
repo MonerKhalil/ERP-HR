@@ -6,9 +6,10 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class AjaxController extends Controller
-{
-    public function getAllAddressCountry(Request $request){
+class AjaxController extends Controller {
+
+    public function getAllAddressCountry(Request $request) {
+
         try {
             $request->validate([
                 "id_country" => ["required",Rule::exists("countries","id")]
@@ -21,7 +22,9 @@ class AjaxController extends Controller
         }
 
     }
-    public function getEmployeesSection(Request $request){
+
+    public function getEmployeesSection(Request $request) {
+
         try {
             $request->validate([
                 "id_section" => ["required",Rule::exists("sections","id")]
@@ -36,4 +39,5 @@ class AjaxController extends Controller
         }
 
     }
+
 }

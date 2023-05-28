@@ -1,7 +1,7 @@
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    <div class="MainContent__Section MainContent__Section--AddEmployeePage">
+    <div id="AddEmployeePage"  class="MainContent__Section MainContent__Section--AddEmployeePage">
         <div class="AddEmployeePage">
             <div class="AddEmployeePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
@@ -19,25 +19,27 @@
                             <div class="EmployeePage__Information">
                                 <div class="Card Card--Taps Taps">
                                     <ul class="Taps__List">
-                                        <li class="Taps__Item Taps__Item--Icon"
+                                        <li class="Taps__Item Taps__Item--Icon NotClickable"
                                             data-content="personalInfo">
                                             <i class="material-icons">face</i>
                                             @lang('personalInfo')
                                         </li>
-                                        <li class="Taps__Item Taps__Item--Icon"
+                                        <li class="Taps__Item Taps__Item--Icon NotClickable"
                                             data-content="contactInfo">
                                             <i class="material-icons">badge</i>
                                             @lang('contactInfo')
                                         </li>
-                                        <li class="Taps__Item Taps__Item--Icon"
+                                        <li class="Taps__Item Taps__Item--Icon NotClickable"
                                             data-content="educationInfo">
                                             <i class="material-icons">work</i>
                                             @lang('educationInfo')
                                         </li>
                                     </ul>
                                     <div class="Taps__Content">
-                                        <form class="Form Form--Dark"  action="{{route("system.employees.store")}}" method="post">
+                                        <form class="Form Form--Dark"
+                                              action="{{route("system.employees.store")}}" method="post">
                                             @csrf
+
                                             <div class="Taps__Panel" data-panel="personalInfo">
                                                 <div class="Card">
                                                     <div class="Card__Content">
@@ -337,6 +339,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="Form__Group">
+                                                                    <div class="Form__Button">
+                                                                        <button class="Next Button Send"
+                                                                                type="button">
+                                                                            الخطوة التالية
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -359,7 +369,7 @@
                                                                             <div id="parentForm">
                                                                                 <div class="Row GapC-1-5"
                                                                                      id="documentForm">
-                                                                                    <div class="Col-4-md Col-6-sm">
+                                                                                    <div class="Col-4-md Col-6-sm"`>
                                                                                         <div class="Form__Group">
                                                                                             <div class="Form__Select">
                                                                                                 <div
@@ -372,23 +382,36 @@
                                                                                     </div>
                                                                                     <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
-                                                                                            <div
-                                                                                                class="Form__UploadFile">
-                                                                                                <div
-                                                                                                    class="UploadFile__Area">
-                                                                                                    <input id="docId"
-                                                                                                           type="file"
-                                                                                                           class="UploadFile__Field"
-                                                                                                           name="document_path"
-                                                                                                           placeholder="@lang("chooseDocument")">
-                                                                                                    <label
-                                                                                                        class="UploadFile__Label"
-                                                                                                        for="docId">
-                                                                                                        @lang("chooseDocument")
-                                                                                                    </label>
+                                                                                            <div class="Form__UploadFile">
+                                                                                                <div class="UploadFile__Area">
+                                                                                                    @include("System.Components.fileUpload" , [
+                                                                                                        "FieldID" => "docId" ,
+                                                                                                        "FieldName" => "document_path" ,
+                                                                                                        "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
+                                                                                                        "LabelField" => __("chooseDocument") ,
+                                                                                                        "AcceptFiles" => "*"
+                                                                                                    ])
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
+{{--                                                                                        <div class="Form__Group">--}}
+{{--                                                                                            <div--}}
+{{--                                                                                                class="Form__UploadFile">--}}
+{{--                                                                                                <div--}}
+{{--                                                                                                    class="UploadFile__Area">--}}
+{{--                                                                                                    <input id="docId"--}}
+{{--                                                                                                           type="file"--}}
+{{--                                                                                                           class="UploadFile__Field"--}}
+{{--                                                                                                           name="document_path"--}}
+{{--                                                                                                           placeholder="@lang("chooseDocument")">--}}
+{{--                                                                                                    <label--}}
+{{--                                                                                                        class="UploadFile__Label"--}}
+{{--                                                                                                        for="docId">--}}
+{{--                                                                                                        @lang("chooseDocument")--}}
+{{--                                                                                                    </label>--}}
+{{--                                                                                                </div>--}}
+{{--                                                                                            </div>--}}
+{{--                                                                                        </div>--}}
                                                                                     </div>
                                                                                     <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
@@ -474,17 +497,30 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm">
+                                                                            <div id="State"
+                                                                                 data-CityURL="{{route("get.address")}}"
+                                                                                 class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "country_name" , "Required" => "true" , "Label" => __('countryName'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("syria"), __("jordan")],])
+                                                                                            @php
+                                                                                                $Countries = [] ;
+                                                                                                foreach ($countries as $Index => $Item) {
+                                                                                                    array_push($Countries , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Index ]) ;
+                                                                                                }
+                                                                                            @endphp
+                                                                                            @include("System.Components.selector" , [
+                                                                                                        'Name' => "country_name" , "Required" => "true"
+                                                                                                        , "Label" => __('countryName') ,"DefaultValue" => ""
+                                                                                                        , "Options" => $Countries
+                                                                                                    ])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm">
+                                                                            <div id="City" class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
@@ -494,7 +530,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm">
+                                                                            <div id="Address" class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
@@ -532,7 +568,18 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                                                                <div class="Form__Group">
+                                                                    <div class="Form__Button">
+                                                                        <button class="Previous Button Send"
+                                                                                type="button">
+                                                                            الخطوة السابقة
+                                                                        </button>
+                                                                        <button class="Next Button Send"
+                                                                                type="button">
+                                                                            الخطوة التالية
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -544,7 +591,7 @@
                                                     <div class="Card__Content">
                                                         <div class="Card__Inner">
                                                             <div class="Card__Body">
-                                                                <form class="Form Form--Dark">
+                                                                <div class="ListData">
                                                                     <div class="ListData__Head">
                                                                         <h4 class="ListData__Title">
                                                                             @lang("educationInfo")
@@ -596,17 +643,30 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__UploadFile">
                                                                                         <div class="UploadFile__Area">
-                                                                                            <input type="file"
-                                                                                                   class="UploadFile__Field"
-                                                                                                   name="document_education_path"
-                                                                                                   placeholder="@lang("chooseDocument")">
-                                                                                            <label
-                                                                                                class="UploadFile__Label">
-                                                                                                @lang("chooseDocument")
-                                                                                            </label>
+                                                                                            @include("System.Components.fileUpload" , [
+                                                                                                "FieldID" => "docEducation" ,
+                                                                                                "FieldName" => "document_education_path" ,
+                                                                                                "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
+                                                                                                "LabelField" => __("chooseDocument") ,
+                                                                                                "AcceptFiles" => "*"
+                                                                                            ])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                                {{--                                                                                <div class="Form__Group">--}}
+                                                                                {{--                                                                                    <div class="Form__UploadFile">--}}
+                                                                                {{--                                                                                        <div class="UploadFile__Area">--}}
+                                                                                {{--                                                                                            <input type="file"--}}
+                                                                                {{--                                                                                                   class="UploadFile__Field"--}}
+                                                                                {{--                                                                                                   name="document_education_path"--}}
+                                                                                {{--                                                                                                   placeholder="@lang("chooseDocument")">--}}
+                                                                                {{--                                                                                            <label--}}
+                                                                                {{--                                                                                                class="UploadFile__Label">--}}
+                                                                                {{--                                                                                                @lang("chooseDocument")--}}
+                                                                                {{--                                                                                            </label>--}}
+                                                                                {{--                                                                                        </div>--}}
+                                                                                {{--                                                                                    </div>--}}
+                                                                                {{--                                                                                </div>--}}
                                                                             </div>
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
@@ -625,20 +685,23 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </form>
+                                                                </div>
+                                                                <div class="Form__Group">
+                                                                    <div class="Form__Button">
+                                                                        <button class="Previous Button Send"
+                                                                                type="button">
+                                                                            الخطوة السابقة
+                                                                        </button>
+                                                                        <button class="Button Send"
+                                                                                type="submit">@lang("addEmployee")</button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="Col-12-xs">
-                                                <div class="Form__Group">
-                                                    <div class="Form__Button">
-                                                        <button class="Button Send"
-                                                                type="submit">@lang("addEmployee")</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                         </form>
                                     </div>
                                 </div>
