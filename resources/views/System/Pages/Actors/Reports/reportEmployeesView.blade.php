@@ -63,7 +63,7 @@
                                                                 رقم الاضبارة
                                                             </th>
                                                             <th class="Item__Col">
-                                                                تاريخ التوظيف
+                                                                الوظيفة الحالية
                                                             </th>
                                                             <th class="Item__Col">
                                                                 المزيد
@@ -76,13 +76,13 @@
                                                                         {{ $RowData["id"] }}
                                                                     </td>
                                                                     <td class="Item__Col">
-                                                                        {{ $RowData["first_name"] . $RowData["last_name"] }}
+                                                                        {{ $RowData["first_name"]." ".$RowData["last_name"] }}
                                                                     </td>
                                                                     <td class="Item__Col">
                                                                         {{ $RowData["gender"] }}
                                                                     </td>
                                                                     <td class="Item__Col">
-                                                                        _
+                                                                        {{ $RowData["current_job"] }}
                                                                     </td>
                                                                     <td class="Item__Col Item__Col--Details">
                                                                         <span class="Details__Button">@lang("details")</span>
@@ -94,36 +94,18 @@
                                                                         <div class="Report__Content">
                                                                             <div class="ListData NotResponsive">
                                                                                 <div class="ListData__Content">
-                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                        <div class="Data_Col">
-                                                                                            <span class="Data_Label">
-                                                                                                الدرجة العلمية
-                                                                                            </span>
-                                                                                            <span class="Data_Value">
-                                                                                                بكلوريا
-                                                                                            </span>
+                                                                                    @foreach($dataSelected as $Index => $ReportSelected)
+                                                                                        <div class="ListData__Item ListData__Item--NoAction">
+                                                                                            <div class="Data_Col">
+                                                                                        <span class="Data_Label">
+                                                                                            {{ $Index }}
+                                                                                        </span>
+                                                                                                <span class="Data_Value">
+                                                                                            {{ $ReportSelected }}
+                                                                                        </span>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                        <div class="Data_Col">
-                                                                                            <span class="Data_Label">
-                                                                                                نوع العقد
-                                                                                            </span>
-                                                                                            <span class="Data_Value">
-                                                                                                متدرب
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                        <div class="Data_Col">
-                                                                                            <span class="Data_Label">
-                                                                                                الوضع العائلي
-                                                                                            </span>
-                                                                                            <span class="Data_Value">
-                                                                                                عازب
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    @endforeach
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -136,15 +118,15 @@
                                                 </div>
                                             </div>
                                             <div class="Card__Inner">
-                                                {{--                                                <div class="Card__Pagination">--}}
-                                                {{--                                                    @include("System.Components.paginationNum" , [--}}
-                                                {{--                                                        "PaginationData" => $users ,--}}
-                                                {{--                                                        "PartsViewNum" => 5--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                    @include("System.Components.paginationSelect" , [--}}
-                                                {{--                                                        "PaginationData" => $users--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                </div>--}}
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $finalData ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $finalData
+                                                    ])
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

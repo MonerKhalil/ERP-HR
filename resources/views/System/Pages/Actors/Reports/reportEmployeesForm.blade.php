@@ -24,7 +24,7 @@
                                         <div class="Card__Inner">
                                             <div class="Card__Body">
                                                 <form class="Form Form--Dark"
-                                                      action="{{route("system.")}}" method="post">
+                                                      action="{{route("system.employees.report.final")}}" method="get">
                                                     @csrf
                                                     <div class="ListData">
                                                         <div class="ListData__Head">

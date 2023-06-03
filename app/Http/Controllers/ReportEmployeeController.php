@@ -45,7 +45,8 @@ class ReportEmployeeController extends Controller
     public function Report(ReportEmployeeRequest $request){
         $dataSelected = array_filter($request->validated(),function($var){return !is_null($var);});
         $finalData = MyApp::Classes()->Search->dataPaginate($this->MainQueryReport($request));
-        return $this->responseSuccess("...",compact("finalData","dataSelected"));
+        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesView"
+            ,compact("finalData","dataSelected"));
     }
 
     public function ReportPdf(ReportEmployeeRequest $request){
