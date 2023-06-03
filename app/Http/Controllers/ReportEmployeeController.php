@@ -29,16 +29,17 @@ class ReportEmployeeController extends Controller
     public function showCreateReport(){
         $sections = Sections::query()->pluck("name","id")->toArray();
         $gender = ["male","female"];
-        $contract_type = ["permanent", "temporary"];
+        $family_status = ["married","divorced","single"];
+        $contract_type = ["permanent", "temporary","all"];
         $education_level = Education_level::query()->pluck("name","id")->toArray();
         $language_skills_read_write = ["Beginner","Intermediate","Advanced"];
         $language = Language::query()->pluck("name","id")->toArray();
         $membership_type = Membership_type::query()->pluck("name","id")->toArray();
         $position = Position::query()->pluck("name","id")->toArray();
         $type_decision = TypeDecision::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesForm",
-            compact("sections","gender", "contract_type","education_level","language"
-                ,"language_skills_read_write","membership_type","position","type_decision",
+        return $this->responseSuccess("...",compact("sections","gender",
+            "contract_type","education_level","language","language_skills_read_write","membership_type"
+            ,"position","type_decision","family_status"
         ));
     }
 
@@ -61,7 +62,7 @@ class ReportEmployeeController extends Controller
     public function ReportXlsx(ReportEmployeeRequest $request){
         $data = $this->ExportXlsxData($request);
         $dataSelected = array_filter($request->validated(),function($var){return !is_null($var);});
-        return Excel::download(new TableCustomExport($data['head'],$data['body'],"ReportEmployee",["dataSelected"=>$dataSelected]),"ReportEmployee.xlsx");
+        return Excel::download(new TableCustomExport($data['head'],$data['body'],"ReportEmployeeFinal",["dataSelected"=>$dataSelected]),"ReportEmployee.xlsx");
     }
 
     private function ExportXlsxData(ReportEmployeeRequest $request): array
@@ -93,7 +94,55 @@ class ReportEmployeeController extends Controller
     private function MainQueryReport($request){
         //Sections
         $this->finalQueryFilter = !is_null($request->section_id) ?
-            $this->finalQueryFilter->where("section_id",$request->section_id) : $this->finalQueryFilter;
+            $this->finalQueryFilter->whereIn("section_id",$request->section_id) : $this->finalQueryFilter;
+        //ContractType
+        $this->finalQueryFilter = !is_null($request->contract_type) ?
+            $this->finalQueryFilter->with("contract")
+                ->whereHas("contract",function ($q) use ($request){
+                    $temp = $request->contract_type;
+                    $temp = $request->contract_type === "all" ? ["permanent", "temporary"] : [$temp];
+                    $q->whereIn("contract_type",$temp);
+                }) : $this->finalQueryFilter;
+        //EducationLevel
+        $this->finalQueryFilter = !is_null($request->education_level_id) ?
+            $this->finalQueryFilter
+                ->whereHas("education_data",function ($q)use($request){
+                    $q->whereIn("id_ed_lev",$request->education_level_id);
+                },"=",count($request->education_level_id)) : $this->finalQueryFilter;
+        //MembershipType
+        $this->finalQueryFilter = !is_null($request->membership_type_id) ?
+            $this->finalQueryFilter
+                ->whereHas("membership",function ($q)use($request){
+                    $q->whereIn("member_type_id",$request->membership_type_id);
+                },"=",count($request->membership_type_id)) : $this->finalQueryFilter;
+        //Position
+        $this->finalQueryFilter = !is_null($request->position_id) ?
+            $this->finalQueryFilter->with("positions")
+                ->whereHas("positions",function ($q)use($request){
+                    $q->whereIn("position_id",$request->position_id);
+                }) : $this->finalQueryFilter;
+        //Conference
+        $this->finalQueryFilter = $this->CompareDateStatic($request->from_conference_date,$request->to_conference_date,
+            "start_date","conferences");
+        //Decision
+        $this->finalQueryFilter = $this->CompareDateStatic($request->from_decision_date,$request->to_decision_date,
+            "date","decision_employees");
+        $this->finalQueryFilter = !is_null($request->type_decision_id) ?
+            $this->finalQueryFilter->with("decision_employees")
+                ->whereHas("decision_employees",function ($q)use($request){
+                    $q->whereIn("type_decision_id",$request->type_decision_id);
+                },"=",count($request->type_decision_id)) : $this->finalQueryFilter;
+        //Salary
+        $this->finalQueryFilter = !is_null($request->from_salary) && !is_null($request->to_salary) ?
+            $this->finalQueryFilter->with("contract")
+                ->whereHas("contract",function ($q) use ($request){
+                    $q->whereBetween("salary",[$request->from_salary,$request->to_salary]);
+                }) : $this->finalQueryFilter;
+        $this->finalQueryFilter = !is_null($request->salary) ?
+            $this->finalQueryFilter->with("contract")
+                ->whereHas("contract",function ($q) use ($request){
+                    $q->where("salary","<=",$request->salary);
+                }) : $this->finalQueryFilter;
         //DateContract
         $this->finalQueryFilter = $this->CompareDateStatic($request->from_contract_direct_date,$request->to_contract_direct_date
             ,"contract_direct_date","contract");
@@ -107,68 +156,13 @@ class ReportEmployeeController extends Controller
             $this->finalQueryFilter->where("gender",$request->gender) : $this->finalQueryFilter;
         //FamilyStatus
         $this->finalQueryFilter = !is_null($request->family_status) ?
-            $this->finalQueryFilter->where("family_status",$request->family_status) : $this->finalQueryFilter;
+            $this->finalQueryFilter->whereIn("family_status",$request->family_status) : $this->finalQueryFilter;
         //CurrentJob
         $this->finalQueryFilter = !is_null($request->current_job) ?
             $this->finalQueryFilter->where("current_job","LIKE","%".$request->current_job."%") : $this->finalQueryFilter;
-        //ContractType
-        $this->finalQueryFilter = !is_null($request->contract_type) ?
-            $this->finalQueryFilter->with("contract")
-                ->whereHas("contract",function ($q) use ($request){
-                    $q->where("contract_type",$request->contract_type);
-                }) : $this->finalQueryFilter;
-        //EducationLevel
-        $this->finalQueryFilter = !is_null($request->education_level_id) ?
-            $this->finalQueryFilter
-                ->whereHas("education_data",function ($q)use($request){
-                    $q->where("id_ed_lev",$request->education_level_id);
-                }) : $this->finalQueryFilter;
         //LanguageSkill
-        $this->finalQueryFilter = !is_null($request->language_id) ?
-            $this->finalQueryFilter
-                ->whereHas("language_skill",function ($q)use($request){
-                    $q->where("language_id",$request->language_id)
-                        ->when(!is_null($request->language_write),function ($q) use($request){
-                            $q->where("write",$request->language_write);
-                        })
-                        ->when(!is_null($request->language_read),function ($q) use($request){
-                            $q->where("read",$request->language_read);
-                        });
-                }) : $this->finalQueryFilter;
-        //MembershipType
-        $this->finalQueryFilter = !is_null($request->membership_type_id) ?
-            $this->finalQueryFilter
-                ->whereHas("membership",function ($q)use($request){
-                    $q->where("member_type_id",$request->membership_type_id);
-                }) : $this->finalQueryFilter;
-        //Position
-        $this->finalQueryFilter = !is_null($request->position_id) ?
-            $this->finalQueryFilter->with("positions")
-                ->whereHas("positions",function ($q)use($request){
-                    $q->where("position_id",$request->position_id);
-                }) : $this->finalQueryFilter;
-        //Conference
-        $this->finalQueryFilter = $this->CompareDateStatic($request->from_conference_date,$request->to_conference_date,
-            "start_date","conferences");
-        //Decision
-        $this->finalQueryFilter = $this->CompareDateStatic($request->from_decision_date,$request->to_decision_date,
-            "date","decision_employees");
-        $this->finalQueryFilter = !is_null($request->type_decision_id) ?
-            $this->finalQueryFilter->with("decision_employees")
-                ->whereHas("decision_employees",function ($q)use($request){
-                    $q->where("type_decision_id",$request->type_decision_id);
-                }) : $this->finalQueryFilter;
-        //Salary
-        $this->finalQueryFilter = !is_null($request->form_salary) && !is_null($request->to_salary) ?
-            $this->finalQueryFilter->with("contract")
-                ->whereHas("contract",function ($q) use ($request){
-                    $q->whereBetween("salary",[$request->form_salary,$request->to_salary]);
-                }) : $this->finalQueryFilter;
-        $this->finalQueryFilter = !is_null($request->salary) ?
-            $this->finalQueryFilter->with("contract")
-                ->whereHas("contract",function ($q) use ($request){
-                    $q->where("salary","<=",$request->salary);
-                }) : $this->finalQueryFilter;
+        $this->finalQueryFilter = $this->queryLanguageSkills($request);
+
         return $this->finalQueryFilter->orderBy("id","desc");
     }
 
@@ -191,4 +185,22 @@ class ReportEmployeeController extends Controller
         return $this->finalQueryFilter;
     }
 
+    private function queryLanguageSkills($request){
+        if (!is_null($request->languages)){
+            $employees = $this->finalQueryFilter->pluck("id")->toArray();
+            foreach ($request->languages as $language){
+                $employees = Employee::query()->whereHas("language_skill",function ($q) use ($language){
+                    $q->where("language_id",$language['language_id'])
+                        ->when(isset($language['language_write']),function ($q) use($language){
+                            $q->where("write",$language['language_write']);
+                        })
+                        ->when(!is_null($language['language_read']),function ($q) use($language){
+                            $q->where("read",$language['language_read']);
+                        });
+                    })->whereIn("id",$employees)->pluck("id")->toArray();
+            }
+            return $this->finalQueryFilter->with("language_skill")->whereIn("id",$employees);
+        }
+        return $this->finalQueryFilter;
+    }
 }
