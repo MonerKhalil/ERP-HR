@@ -43,6 +43,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        Schema::table("sections",function (Blueprint $table){
+            $table->foreignId("moderator_id")->after("id")->nullable()->constrained("employees")->restrictOnDelete();
+        });
     }
 
     /**

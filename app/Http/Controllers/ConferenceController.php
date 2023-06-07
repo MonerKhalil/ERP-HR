@@ -154,7 +154,7 @@ class ConferenceController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("conferences","id")],
         ]);
-        $query = Conference::query();
+        $query = Conference::with(["address"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [

@@ -94,14 +94,10 @@ class ReportEmployeeController extends Controller
         //Sections
         $this->finalQueryFilter = !is_null($request->section_id) ?
             $this->finalQueryFilter->whereIn("section_id",$request->section_id) : $this->finalQueryFilter;
-        //ContractType
-        $this->finalQueryFilter = !is_null($request->contract_type) ?
-            $this->finalQueryFilter->with("contract")
-                ->whereHas("contract",function ($q) use ($request){
-                    $temp = $request->contract_type;
-                    $temp = $request->contract_type === "all" ? ["permanent", "temporary"] : [$temp];
-                    $q->whereIn("contract_type",$temp);
-                }) : $this->finalQueryFilter;
+        //Contract
+        $this->finalQueryFilter = $this->queryContract($request);
+        //Decision
+        $this->finalQueryFilter = $this->queryDecision($request);
         //EducationLevel
         $this->finalQueryFilter = !is_null($request->education_level_id) ?
             $this->finalQueryFilter
@@ -123,28 +119,6 @@ class ReportEmployeeController extends Controller
         //Conference
         $this->finalQueryFilter = $this->CompareDateStatic($request->from_conference_date,$request->to_conference_date,
             "start_date","conferences");
-        //Decision
-        $this->finalQueryFilter = $this->CompareDateStatic($request->from_decision_date,$request->to_decision_date,
-            "date","decision_employees");
-        $this->finalQueryFilter = !is_null($request->type_decision_id) ?
-            $this->finalQueryFilter->with("decision_employees")
-                ->whereHas("decision_employees",function ($q)use($request){
-                    $q->whereIn("type_decision_id",$request->type_decision_id);
-                },"=",count($request->type_decision_id)) : $this->finalQueryFilter;
-        //Salary
-        $this->finalQueryFilter = !is_null($request->from_salary) && !is_null($request->to_salary) ?
-            $this->finalQueryFilter->with("contract")
-                ->whereHas("contract",function ($q) use ($request){
-                    $q->whereBetween("salary",[$request->from_salary,$request->to_salary]);
-                }) : $this->finalQueryFilter;
-        $this->finalQueryFilter = !is_null($request->salary) ?
-            $this->finalQueryFilter->with("contract")
-                ->whereHas("contract",function ($q) use ($request){
-                    $q->where("salary","<=",$request->salary);
-                }) : $this->finalQueryFilter;
-        //DateContract
-        $this->finalQueryFilter = $this->CompareDateStatic($request->from_contract_direct_date,$request->to_contract_direct_date
-            ,"contract_direct_date","contract");
         //DataEndService
         $this->finalQueryFilter = $this->CompareDateStatic($request->from_end_break_date,$request->to_end_break_date
             ,"end_break_date","data_end_service");
@@ -196,9 +170,72 @@ class ReportEmployeeController extends Controller
                         ->when(!is_null($language['language_read']),function ($q) use($language){
                             $q->where("read",$language['language_read']);
                         });
-                    })->whereIn("id",$employees)->pluck("id")->toArray();
+                })->whereIn("id",$employees)->pluck("id")->toArray();
             }
             return $this->finalQueryFilter->with("language_skill")->whereIn("id",$employees);
+        }
+        return $this->finalQueryFilter;
+    }
+
+    private function queryContract($request){
+        $from_date = MyApp::Classes()->stringProcess->DateFormat($request->from_contract_direct_date);
+        $to_date = MyApp::Classes()->stringProcess->DateFormat($request->to_contract_direct_date);
+        if ( (!is_null($request->contract_type))
+            ||
+            (!is_null($request->from_salary) && !is_null($request->to_salary))
+            ||
+            (!is_null($request->salary))
+            ||
+            (is_string($from_date) && is_string($to_date) && ($from_date <= $to_date))
+        ){
+            $this->finalQueryFilter = $this->finalQueryFilter->with("contract")
+                ->whereHas("contract",function ($q) use ($request,$from_date,$to_date){
+                    //ContractType
+                    if (!is_null($request->contract_type)){
+                        $temp = $request->contract_type;
+                        $temp = $request->contract_type === "all" ? ["permanent", "temporary"] : [$temp];
+                        $q = $q->whereIn("contract_type",$temp);
+                    }
+                    //Salary
+                    if ((!is_null($request->from_salary) && !is_null($request->to_salary))){
+                        $q = $q->whereBetween("salary",[$request->from_salary,$request->to_salary]);
+                    }
+                    if (!is_null($request->salary)){
+                        $q = $q->where("salary","<=",$request->salary);
+                    }
+                    if ((is_string($from_date) && is_string($to_date) && ($from_date <= $to_date))){
+                        $compareTwoDate = [$from_date,$to_date];
+                        $q->whereBetween("contract_direct_date",$compareTwoDate);
+                    }
+                });
+        }
+        return $this->finalQueryFilter;
+    }
+
+    private function queryDecision($request){
+        $from_date = MyApp::Classes()->stringProcess->DateFormat($request->from_decision_date);
+        $to_date = MyApp::Classes()->stringProcess->DateFormat($request->to_decision_date);
+        if (!is_null($request->type_decision_id)
+            &&
+            (is_string($from_date) && is_string($to_date) && ($from_date <= $to_date))
+        ){
+            $this->finalQueryFilter = $this->finalQueryFilter->with("decision_employees")
+                ->whereHas("decision_employees",function ($q) use ($request,$from_date,$to_date){
+                    $compareTwoDate = [$from_date,$to_date];
+                    $q->whereBetween("date",$compareTwoDate)
+                        ->whereIn("type_decision_id",$request->type_decision_id);
+                },"=",count($request->type_decision_id));
+        }elseif (!is_null($request->type_decision_id)){
+            $this->finalQueryFilter = $this->finalQueryFilter->with("decision_employees")
+                ->whereHas("decision_employees",function ($q) use ($request){
+                    $q->whereIn("type_decision_id",$request->type_decision_id);
+                },"=",count($request->type_decision_id));
+        }elseif ((is_string($from_date) && is_string($to_date) && ($from_date <= $to_date))){
+            $this->finalQueryFilter = $this->finalQueryFilter->with("decision_employees")
+                ->whereHas("decision_employees",function ($q) use ($request,$from_date,$to_date){
+                    $compareTwoDate = [$from_date,$to_date];
+                    $q->whereBetween("date",$compareTwoDate);
+                });
         }
         return $this->finalQueryFilter;
     }

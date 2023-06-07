@@ -161,7 +161,7 @@ class DataEndServiceController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("data_end_services","id")],
         ]);
-        $query = DataEndService::query();
+        $query = DataEndService::with(["employee","decision"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [

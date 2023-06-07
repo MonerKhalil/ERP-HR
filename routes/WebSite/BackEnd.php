@@ -11,6 +11,7 @@ use App\Http\Controllers\EducationDataController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageSkillController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PositionController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\ReportEmployeeController;
 use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\SessionDecisionController;
 use App\Http\Controllers\TypeDecisionController;
 use App\Http\Controllers\UserController;
@@ -115,6 +117,14 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('conferences', ConferenceController::class);
         Route::prefix("conferences")->name("conferences.")
             ->controller(ConferenceController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::resource('sections', SectionsController::class);
+        Route::prefix("sections")->name("sections.")
+            ->controller(SectionsController::class)->group(function (){
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
@@ -246,6 +256,25 @@ Route::middleware(['auth'])->group(function () {
     /*===========================================
     =         End System Routes        =
    =============================================*/
+
+    /*===========================================
+        =  Start Leaves Routes   =
+   =============================================*/
+
+    Route::prefix("system/leaves")->name("system.leaves.")->group(function (){
+        Route::resource('leave_types', LeaveTypeController::class);
+        Route::prefix("leave_types")->name("leave_types.")
+            ->controller(LeaveTypeController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+    });
+
+    /*===========================================
+        =  End Leaves Routes   =
+   =============================================*/
+
 
     /*===========================================
     =         Start Ajax Routes        =

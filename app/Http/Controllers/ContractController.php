@@ -190,7 +190,7 @@ class ContractController extends Controller
         ]);
 
 
-        $query = Contract::query();
+        $query = Contract::with(["employee","section"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [

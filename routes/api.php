@@ -5,8 +5,10 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\MembershipController;
+use App\Models\LeaveType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,5 +66,6 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
  */
 Route::post("mmm",[\App\Http\Controllers\ReportEmployeeController::class,"Report"]);
 Route::get("xxx",function (){
+    dd(Schema::getColumnType("leave_types", "id"));
     return view("Test");
 });
