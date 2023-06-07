@@ -76,11 +76,10 @@ class LanguageSkillController extends Controller
     public function edit($language_skill)
     {
         $data = $this->shareByBlade();
+        $language_skillQuery = Language_skill::with(["employee" ]);
         if (is_null($language_skill)) {
-            $language_skillQuery = Language_skill::with(["employee" ]);
             $data['language_skill']=$language_skillQuery->where("employee_id", Employee::where("user_id", Auth()->id())->pluck("id"))->firstOrFail();
         } else {
-            $language_skillQuery = Language_skill::with(["employee"]);
             $data['language_skill'] = $language_skillQuery->findOrFail($language_skill);
         }
         return $this->responseSuccess("", $data);
@@ -160,7 +159,7 @@ class LanguageSkillController extends Controller
         ]);
 
 
-        $query = LanguageSkillController::query();
+        $query = Language_skill::with(["language","employee"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [

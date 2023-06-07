@@ -7,11 +7,14 @@
             "session_decisions": "a",
             "type_decisions": "a",
             "decisions": "a",
+            "sections": "a",
             "conferences": "a",
             "positions": "a",
             "position_employees": "a",
             "data_end_services": "a",
-            "request_end_services": "a"
+            "request_end_services": "a",
+            "leave_types": "a",
+            "leaves": "a"
         },
         "user" : {
             "users" : ["r"],

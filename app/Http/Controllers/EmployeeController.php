@@ -173,7 +173,7 @@ class EmployeeController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("employees","id")],
         ]);
-        $query = Employee::query();
+        $query = Employee::with(["nationality_country","section"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [
