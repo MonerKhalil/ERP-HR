@@ -9,6 +9,8 @@ $(document).ready(function (){
 	=           Authentication Process       =
     =============================================*/
 
+
+
     /**
      * @author Amir Alhloo
      */
@@ -125,7 +127,7 @@ $(document).ready(function (){
 
     function SelectorOperation( SelectorInfo = {
         Operation : "InitializeSelector" | "SetRequired" | "ResetRequired" | "RemoveAllOption"
-            | "SetOption" | "Clone" | "Clear" ,
+            | "SetOption" | "Clone" | "Clear" | "GetData" | "HiddenOption" | "ShowOption"  ,
         Selector : HTMLElement ,
         OptionContent : HTMLElement | undefined ,
         Option : HTMLElement | undefined ,
@@ -134,6 +136,7 @@ $(document).ready(function (){
             Value : String
         } | undefined
     }) {
+
         switch (SelectorInfo.Operation) {
             case "InitializeSelector" :
                 InitializeSelectorElement() ;
@@ -155,6 +158,14 @@ $(document).ready(function (){
                 break ;
             case "SetOption" :
                 SetOption() ;
+                break ;
+            case "GetData" :
+                return GetDataSelector() ;
+            case "HiddenOption" :
+                HiddenOption();
+                break ;
+            case "ShowOption" :
+                VisibleOption();
                 break ;
         }
 
@@ -257,12 +268,51 @@ $(document).ready(function (){
         function ClickSelect(OptionSelected = String
             , ValueOption = String) {
             const InputField = $(SelectorInfo.Selector).find(".Selector__SelectForm").get(0) ;
+            const OldValue = $(InputField).val() ;
             $(SelectorInfo.Selector).addClass("Selected");
             $(SelectorInfo.Selector).find(".Selector__Main .Selector__WordChoose")
                 .text(OptionSelected);
             $(InputField).attr("value" , ValueOption);
             $(InputField).valid() ;
+            SendChanges(OldValue , ValueOption);
             $(SelectorInfo.Selector).attr("data-selected" , ValueOption);
+        }
+
+        function GetDataSelector() {
+            const SelectorValue = $(SelectorInfo.Selector).find("input").val() ;
+            const SelectorLabel = $(SelectorInfo.Selector)
+                .find(".Selector__Main .Selector__WordChoose").text();
+            return {
+                Value : SelectorValue ,
+                Label : SelectorLabel
+            } ;
+        }
+
+        function HiddenOption() {
+            $(SelectorInfo.Selector).find(".Selector__Options .Selector__Option")
+                .each((_ , Option) => {
+                   if($(Option).attr("data-option") ===
+                       SelectorInfo.InsertOption.Value) {
+                       $(Option).hide() ;
+                   }
+                });
+        }
+
+        function VisibleOption() {
+            $(SelectorInfo.Selector).find(".Selector__Options .Selector__Option")
+                .each((_ , Option) => {
+                    if($(Option).attr("data-option") ===
+                        SelectorInfo.InsertOption.Value) {
+                        $(Option).show() ;
+                    }
+                });
+        }
+
+        function SendChanges(OldValue = String , NewValue = String) {
+            $(SelectorInfo.Selector).trigger("ChangeValue" , [{
+                OldValue : OldValue ,
+                NewValue : NewValue
+            }]);
         }
 
     }
@@ -395,58 +445,68 @@ $(document).ready(function (){
         }
 
         function RefreshValidationForm() {
-            $(FormInfo.FormElement).removeData("validator") ;
-            $(FormInfo.FormElement).removeData("unobtrusiveValidation") ;
+            $(FormInfo.FormElement).removeData("validator");
+            $(FormInfo.FormElement).removeData("unobtrusiveValidation");
+            $(FormInfo.FormElement).validate().destroy();
             $.validator.addMethod("RegexPassword"
                 , function (Value) {
-                    return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value) ;
-                } ,
+                    return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value);
+                },
                 LanguagePage === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
                     : "The password must contain from 8 to 15 characters");
             $(FormInfo.FormElement).validate({
 
-                ignore : ".IgnoreValidate" ,
+                ignore: ".IgnoreValidate",
 
-                rules : {
+                rules: {
 
-                    "password" : {
-                        RegexPassword : true
-                    } ,
+                    "password": {
+                        RegexPassword: true
+                    },
 
-                    "re_password" : {
+                    "re_password": {
                         equalTo: "#Password"
                     }
-                } ,
+                },
 
-                success : function (ErrorLabel , FieldElement) {
-                    const Group = $(FieldElement).closest(".Form__Group").get(0) ;
-                    const ErrorElement = $(Group).find(".Form__Error") ;
-                    if(ErrorElement.length > 0)
-                        ErrorElement.remove() ;
-                } ,
+                success: function (ErrorLabel, FieldElement) {
+                    const Group = $(FieldElement).closest(".Form__Group").get(0);
+                    const ErrorElement = $(Group).find(".Form__Error");
+                    if (ErrorElement.length > 0)
+                        ErrorElement.remove();
+                },
 
-                errorPlacement : function (Error , Element) {
-                    const Group = $(Element).closest(".Form__Group").get(0) ;
-                    const ErrorElement = $(Group).find(".Form__Error") ;
-                    if(ErrorElement.length === 0) {
+                errorPlacement: function (Error, Element) {
+                    const Group = $(Element).closest(".Form__Group").get(0);
+                    const ErrorElement = $(Group).find(".Form__Error");
+                    if (ErrorElement.length === 0) {
                         const ErrorContainer = `<div class="Form__Error">
                             <div class="Error__Area">
                                 <small>${$(Error).text()}</small>
                             </div>
-                        </div>` ;
-                        $(Group).append(ErrorContainer) ;
+                        </div>`;
+                        $(Group).append(ErrorContainer);
                     } else {
                         $(ErrorElement).find(".Error__Area small")
-                            .text($(Error).text()) ;
+                            .text($(Error).text());
                     }
-                } ,
+                },
 
-                invalidHandler : function () {
-                    LoaderHidden() ;
-                } ,
+                invalidHandler: function () {
+                    LoaderHidden();
+                },
 
-                submitHandler : function (form) {
-                    if($(form).valid()) {
+                submitHandler: function (form) {
+
+                    // let IsValid = true;
+                    // console.log(form);
+                    // $(form).find("input , textarea").each((_, Field) => {
+                    //     console.log(_);
+                    //     if (!$(Field).valid())
+                    //         IsValid = false;
+                    // });
+
+                    if ($(form).valid()) {
                         LoaderView();
                         $(form).get(0).submit();
                     }
@@ -1675,7 +1735,7 @@ $(document).ready(function (){
                                 ClonePart : {
                                     ElementPart : FieldGroup
                                 }
-                            })
+                            });
                         });
                         $(VisibilityTarget).hide();
                     }
@@ -1734,6 +1794,7 @@ $(document).ready(function (){
         Operation : "InitClone" | "RestByRemove" | "RestByClearData" | "ChangeTargetClone" ,
         ClearClone : Boolean
     }) {
+
         let CloneElement = undefined ;
 
         switch (InfoParam.Operation) {
@@ -1791,6 +1852,7 @@ $(document).ready(function (){
                     WithClear: false
                 }
             }) ;
+            $(InfoParam.ButtonClone).trigger("DoneClone");
         }
 
         function RestByRemove() {
@@ -2118,6 +2180,100 @@ $(document).ready(function (){
         }
 
     });
+
+    $("#ReportLanguage").ready(function() {
+
+        $("#ReportLanguage").each((_ , ReportElement) => {
+
+            const ListLangSelect = [] ;
+
+            let CountLang = 0 ;
+
+            $(ReportElement).find("#AddLanguageButton")
+                .on("DoneClone" , function() {
+                    const LastChild = $(ReportElement).find(".ParentClone")
+                        .children().last().get(0) ;
+                    const SelectorElement = $(LastChild).find(".LanguageName .Selector").get(0) ;
+                    SettingNames(LastChild , false);
+                    EventSelector(SelectorElement);
+                    InitSelectorLang(SelectorElement);
+                });
+
+            $(ReportElement).find(".LanguageName").each((_ ,Lang) => {
+                EventSelector($(Lang).find(".Selector").get(0));
+            });
+
+            SettingNames($(ReportElement).find("#MainComponentLanguage").get(0));
+
+
+            function SettingNames(ContainerGroup = HTMLElement ,
+                                  IsDisabled = true) {
+                const FormEle = $(ContainerGroup).closest("form").get(0) ;
+                const LangName = $(ContainerGroup).find(".LanguageName input").get(0) ;
+                const LangWrite = $(ContainerGroup).find(".LanguageWrite input").get(0) ;
+                const LangRead = $(ContainerGroup).find(".LanguageRead input").get(0) ;
+                $(LangName).removeClass("IgnoreValidate");
+                $(LangName).attr("name" , `languages[${CountLang}][language_id]`) ;
+                $(LangName).prop("disabled", IsDisabled);
+                $(LangWrite).removeClass("IgnoreValidate");
+                $(LangWrite).attr("name" , `languages[${CountLang}][language_write]`) ;
+                $(LangWrite).prop("disabled", IsDisabled);
+                $(LangRead).removeClass("IgnoreValidate");
+                $(LangRead).attr("name" , `languages[${CountLang}][language_read]`) ;
+                $(LangRead).prop("disabled", IsDisabled);
+                CountLang++ ;
+                FormOperation({
+                    Operation : "RefreshValidationForm" ,
+                    FormElement : FormEle ,
+                }) ;
+            }
+
+            function InitSelectorLang(Selector = HTMLElement) {
+                ListLangSelect.forEach((Value) => {
+                    SelectorOperation( {
+                        Operation : "HiddenOption"  ,
+                        Selector : Selector ,
+                        InsertOption : {
+                            Value : Value
+                        }
+                    }) ;
+                });
+            }
+
+            function EventSelector(Selector = HTMLElement) {
+                $(Selector).on("ChangeValue" , function(e , DataSelector) {
+                    if(DataSelector.OldValue) {
+                        const Index = ListLangSelect.indexOf(DataSelector.OldValue);
+                        if (Index !== -1)
+                            ListLangSelect.splice(Index, 1);
+                    }
+                    ListLangSelect.push(DataSelector.NewValue) ;
+                    $(ReportElement).find(".LanguageName .Selector").each((_ , LangSelector) => {
+                        if(!$(LangSelector).is(Selector)) {
+                            SelectorOperation( {
+                                Operation : "HiddenOption"  ,
+                                Selector : LangSelector ,
+                                InsertOption : {
+                                    Value : DataSelector.NewValue
+                                }
+                            }) ;
+                            if(DataSelector.OldValue)
+                                SelectorOperation( {
+                                    Operation : "ShowOption"  ,
+                                    Selector : LangSelector ,
+                                    InsertOption : {
+                                        Value : DataSelector.OldValue
+                                    }
+                                }) ;
+                        }
+                    });
+                });
+            }
+
+        });
+
+    });
+
 });
 
 window.onload = function (){

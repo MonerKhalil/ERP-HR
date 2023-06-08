@@ -1,10 +1,13 @@
 @extends("System.Pages.globalPage")
 
 {{--@php--}}
-{{--    dd($position);--}}
+{{--    dd($membership_type);--}}
 {{--@endphp--}}
 
 @section("ContentPage")
+
+
+
     <section class="MainContent__Section MainContent__Section--ReportEmployeeFormPage">
         <div class="ReportEmployeeFormPage">
             <div class="ReportEmployeeFormPage__Breadcrumb">
@@ -24,7 +27,8 @@
                                         <div class="Card__Inner">
                                             <div class="Card__Body">
                                                 <form class="Form Form--Dark"
-                                                      action="{{route("system.employees.report.final")}}" method="get">
+                                                      action="{{route("system.employees.report.final")}}"
+                                                      method="get">
                                                     @csrf
                                                     <div class="ListData">
                                                         <div class="ListData__Head">
@@ -42,7 +46,7 @@
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.multiSelector" , [
-                                                                                        'Name' => "_" , "Required" => "true" ,
+                                                                                        'Name' => "_" ,
                                                                                         "NameIDs" => "ReportBY" , "DefaultValue" => "" , "Label" => "تقرير حسب" ,
                                                                                         "Options" => [ ["Label" => "تاريخ المباشرة" , "Value" => "Decision" , "Name" => "1"] ,
                                                                                                        ["Label" => "مكان العمل" , "Value" => "Decision" , "Name" => "2"] ,
@@ -67,7 +71,10 @@
                                                                                                        ["Label" => "حد راتب" , "Value" => "Decision" , "Name" => "21"] ,
                                                                                                        ["Label" => "الفئة الوظيفية" , "Value" => "Decision" , "Name" => "22"] ,
                                                                                                        ["Label" => "الدرجة العملية" , "Value" => "Decision" , "Name" => "23"] ,
-                                                                                                       ["Label" => "لقسم التابع له" , "Value" => "Decision" , "Name" => "24"]
+                                                                                                       ["Label" => "القسم التابع له" , "Value" => "Decision" , "Name" => "24"] ,
+                                                                                                       ["Label" => "نوع القرار المطبق بحق موظف" , "Value" => "Decision" , "Name" => "25"] ,
+                                                                                                       ["Label" => "تاريخ القرارات المطبقة على الموظف" , "Value" => "Decision" , "Name" => "26"] ,
+                                                                                                       ["Label" => "الوظيفة الحالية" , "Value" => "Decision" , "Name" => "27"]
                                                                                         ]
                                                                                     ])
                                                                                 </div>
@@ -207,6 +214,51 @@
                                                                                        required>
                                                                                 <label class="Date__Label"
                                                                                        for="ServiceEndDateTo">ينتهي عند تاريخ</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="VisibilityTarget ListData"
+                                                         data-TargetName="CreateReportBy"
+                                                         data-TargetCheckboxName="26">
+                                                        <div class="ListData__Head">
+                                                            <h4 class="ListData__Title">
+                                                                تقرير حسب تاريخ التقارير
+                                                            </h4>
+                                                        </div>
+                                                        <div class="ListData__Content">
+                                                            <div class="Row GapC-1-5">
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Date">
+                                                                            <div class="Date__Area">
+                                                                                <input id="DecisionDateFrom"
+                                                                                       name="from_decision_date"
+                                                                                       class="Date__Field"
+                                                                                       TargetDateStartName="StartDateDecisionDate"
+                                                                                       type="text" placeholder="يبدأ من تاريخ"
+                                                                                       required>
+                                                                                <label class="Date__Label"
+                                                                                       for="DecisionDateFrom">يبدأ من تاريخ</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Date">
+                                                                            <div class="Date__Area">
+                                                                                <input id="DecisionDateTo"
+                                                                                       name="to_decision_date"
+                                                                                       class="DateEndFromStart Date__Field"
+                                                                                       data-StartDateName="StartDateDecisionDate"
+                                                                                       type="text" placeholder="ينتهي عند تاريخ"
+                                                                                       required>
+                                                                                <label class="Date__Label"
+                                                                                       for="DecisionDateTo">ينتهي عند تاريخ</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -481,7 +533,7 @@
                                                     {{-- Employee Information --}}
                                                     <div class="VisibilityTarget ListData"
                                                          data-TargetName="CreateReportBy"
-                                                         data-TargetCheckboxName="4,10,14">
+                                                         data-TargetCheckboxName="4,5,10,14">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب معلومات الموظف
@@ -497,36 +549,46 @@
                                                                             <div class="Select__Area">
                                                                                 @php
                                                                                     $GenderTypes = [] ;
-                                                                                    foreach ($gender as $GenderType) {
+                                                                                    array_push($GenderTypes , [ "Label" => "All" ,
+                                                                                         "Value" => ""] ) ;
+                                                                                    foreach ($gender as $Index => $GenderType) {
                                                                                         array_push($GenderTypes , [ "Label" => $GenderType ,
-                                                                                             "Value" => $GenderType ]) ;
+                                                                                             "Value" => $GenderType] ) ;
                                                                                     }
                                                                                 @endphp
                                                                                 @include("System.Components.selector" , [
-                                                                                    'Name' => "gender" , "Required" => "true" ,
-                                                                                    "DefaultValue" => "" , "Label" => "الجنس" ,
-                                                                                    "Options" => $GenderTypes
+                                                                                        'Name' => "gender" , "DefaultValue" => "" ,
+                                                                                        "Label" => "الجنس" , "Required" => "true",
+                                                                                        "Options" => $GenderTypes
+                                                                                    ])
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="CreateReportBy"
+                                                                     data-TargetCheckboxName="5">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                @php
+                                                                                    $FamilyStatus = [] ;
+                                                                                    foreach ($family_status as $Level) {
+                                                                                        array_push($FamilyStatus , [ "Label" => $Level
+                                                                                            , "Value" => $Level , "Name" => "family_status[]"] ) ;
+                                                                                    }
+                                                                                @endphp
+
+                                                                                @include("System.Components.multiSelector" , [
+                                                                                    'Name' => "_" , "Required" => "true" ,
+                                                                                    "NameIDs" => "FamilyStatusID" ,
+                                                                                    "DefaultValue" => "" , "Label" => "الوضع العائلي" ,
+                                                                                    "Options" => $FamilyStatus
                                                                                 ])
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Select">--}}
-{{--                                                                            <div class="Select__Area">--}}
-{{--                                                                                @include("System.Components.selector" , [--}}
-{{--                                                                                    'Name' => "Type" , "Required" => "true" ,--}}
-{{--                                                                                    "DefaultValue" => "" , "Label" => "الوضع العائلي" ,--}}
-{{--                                                                                    "Options" => [--}}
-{{--                                                                                        ["Label" => "عازب" , "Value" => "Decision"] ,--}}
-{{--                                                                                        ["Label" => "متزوج" , "Value" => "Decision"]--}}
-{{--                                                                                    ]--}}
-{{--                                                                                ])--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
 {{--                                                                <div class="Col-4-md Col-6-sm">--}}
 {{--                                                                    <div class="Form__Group">--}}
 {{--                                                                        <div class="Form__Select">--}}
@@ -553,14 +615,15 @@
                                                                                     $EducationLevel = [] ;
                                                                                     foreach ($education_level as $index=>$Level) {
                                                                                         array_push($EducationLevel , [ "Label" => $Level
-                                                                                            , "Value" => $index ]) ;
+                                                                                            , "Value" => $index , "Name" => "education_level_id[]"] ) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , [
-                                                                                    'Name' => "education_level_id" ,
-                                                                                    "DefaultValue" => "" , "Label" => "الدرجة العلمية" ,
-                                                                                    "Options" => $EducationLevel
-                                                                                ])
+
+                                                                                @include("System.Components.multiSelector" , [
+                                                                                        'Name' => "_" , "NameIDs" => "EducationID" ,
+                                                                                        "DefaultValue" => "" , "Label" => "الدرجة العلمية" ,
+                                                                                        "Options" => $EducationLevel
+                                                                                    ])
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -575,14 +638,16 @@
                                                                                     $Positions = [] ;
                                                                                     foreach ($position as $index=>$ItemPosition) {
                                                                                         array_push($Positions , [ "Label" => $ItemPosition
-                                                                                            , "Value" => $index ]) ;
+                                                                                            , "Value" => $index , "Name" => "position_id[]" ]) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , [
-                                                                                    'Name' => "current_job",
-                                                                                    "DefaultValue" => "" , "Label" => "المنصب الوظيفي" ,
-                                                                                    "Options" => $Positions
-                                                                                ])
+
+                                                                                @include("System.Components.multiSelector" , [
+                                                                                        'Name' => "_" , "Required" => "true" ,
+                                                                                        "NameIDs" => "PositionID" , "DefaultValue" => "" ,
+                                                                                        "Label" => "المنصب الوظيفي" ,
+                                                                                        "Options" => $Positions
+                                                                                    ])
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -593,7 +658,7 @@
                                                     {{-- Work Employee Information --}}
                                                     <div class="VisibilityTarget ListData"
                                                          data-TargetName="CreateReportBy"
-                                                         data-TargetCheckboxName="8,12,22,18">
+                                                         data-TargetCheckboxName="8,12,18,22,24,25,27">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
                                                                 تقرير حسب معلومات عمل الموظف
@@ -609,34 +674,38 @@
                                                                             <div class="Select__Area">
                                                                                 @php
                                                                                     $ContractType = [] ;
-                                                                                    foreach ($contract_type as $index=>$Type) {
+                                                                                    foreach ($contract_type as $Type) {
                                                                                         array_push($ContractType , [ "Label" => $Type ,
-                                                                                             "Value" => $index ]) ;
+                                                                                             "Value" => $Type]) ;
                                                                                     }
                                                                                 @endphp
+
                                                                                 @include("System.Components.selector" , [
-                                                                                    'Name' => "contract_type" , "Required" => "true" ,
-                                                                                    "DefaultValue" => "" , "Label" => "نوع العقد" ,
-                                                                                    "Options" => $ContractType
-                                                                                ])
+                                                                                        'Name' => "contract_type" , "Required" => "true" ,
+                                                                                        "DefaultValue" => "" , "Label" => "نوع العقد" ,
+                                                                                        "Options" => $ContractType
+                                                                                    ])
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Input">--}}
-{{--                                                                            <div class="Input__Area">--}}
-{{--                                                                                <input id="RatingPercentage" class="Input__Field"--}}
-{{--                                                                                       type="number" name="name"--}}
-{{--                                                                                       placeholder="نسبة التقييم">--}}
-{{--                                                                                <label class="Input__Label" for="RatingPercentage">--}}
-{{--                                                                                    نسبة التقييم--}}
-{{--                                                                                </label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="CreateReportBy"
+                                                                     data-TargetCheckboxName="18">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Input">
+                                                                            <div class="Input__Area">
+                                                                                <input id="RatingPercentage" class="Input__Field"
+                                                                                       type="number" name="name"
+                                                                                       min="0" required
+                                                                                       placeholder="نسبة التقييم">
+                                                                                <label class="Input__Label" for="RatingPercentage">
+                                                                                    نسبة التقييم
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                      data-TargetName="CreateReportBy"
                                                                      data-TargetCheckboxName="24">
@@ -645,16 +714,82 @@
                                                                             <div class="Select__Area">
                                                                                 @php
                                                                                     $Departments = [] ;
-                                                                                    foreach ($type_decision as $index=>$Type) {
+                                                                                    foreach ($sections as $index=>$Type) {
                                                                                         array_push($Departments , [ "Label" => $Type
-                                                                                            , "Value" => $index ]) ;
+                                                                                            , "Value" => $index , "Name" => "section_id[]"]) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , [
-                                                                                    'Name' => "section_id" , "Required" => "true" ,
-                                                                                    "DefaultValue" => "" , "Label" => "القسم التابع له" ,
-                                                                                    "Options" => $Departments
-                                                                                ])
+
+                                                                                @include("System.Components.multiSelector" , [
+                                                                                        'Name' => "_" , "Required" => "true" ,
+                                                                                        "NameIDs" => "SessionID" , "DefaultValue" => "" ,
+                                                                                        "Label" => "القسم التابع له" ,
+                                                                                        "Options" => $Departments
+                                                                                    ])
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="CreateReportBy"
+                                                                     data-TargetCheckboxName="12">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                @php
+                                                                                    $MemberShip = [] ;
+                                                                                    foreach ($membership_type as $index=>$Type) {
+                                                                                        array_push($MemberShip , [ "Label" => $Type
+                                                                                            , "Value" => $index , "Name" => "membership_type_id[]"]) ;
+                                                                                    }
+                                                                                @endphp
+
+                                                                                @include("System.Components.multiSelector" , [
+                                                                                        'Name' => "_" , "Required" => "true" ,
+                                                                                        "NameIDs" => "MemberShipID" , "DefaultValue" => "" ,
+                                                                                        "Label" => "العضويات" ,
+                                                                                        "Options" => $MemberShip
+                                                                                    ])
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="CreateReportBy"
+                                                                     data-TargetCheckboxName="25">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                @php
+                                                                                    $TypeDecision = [] ;
+                                                                                    foreach ($type_decision as $index=>$Type) {
+                                                                                        array_push($TypeDecision , [ "Label" => $Type
+                                                                                            , "Value" => $index , "Name" => "type_decision_id[]"]) ;
+                                                                                    }
+                                                                                @endphp
+
+                                                                                @include("System.Components.multiSelector" , [
+                                                                                        'Name' => "_" , "Required" => "true" ,
+                                                                                        "NameIDs" => "DecisionID" , "DefaultValue" => "" ,
+                                                                                        "Label" => "نوع القرارات" ,
+                                                                                        "Options" => $TypeDecision
+                                                                                    ])
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="CreateReportBy"
+                                                                     data-TargetCheckboxName="27">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Input">
+                                                                            <div class="Input__Area">
+                                                                                <input id="CurrentJobID" class="Input__Field"
+                                                                                       type="text" name="current_job"
+                                                                                       placeholder="العمل الحالي">
+                                                                                <label class="Input__Label" for="CurrentJobID">
+                                                                                    العمل الحالي
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -724,7 +859,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="VisibilityTarget ListData"
                                                          data-TargetName="CreateReportBy"
                                                          data-TargetCheckboxName="11"
@@ -735,65 +869,62 @@
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
-                                                            <div class="CloneItem ListData__Group"
-                                                                 data-NameElement="LangData">
-                                                                <div class="Row GapC-1-5">
-                                                                    <div class="Selector2Readonly Col-4-md Col-6-sm"
-                                                                         data-ClassContainer="Col-4-md Col-6-sm"
-                                                                         data-ReadonlyNames="language_id[]"
-                                                                         data-MaxRequiredNum="1"
-                                                                         data-TitleField="اللغة">
-                                                                        <div class="Form__Group">
-                                                                            <div class="Form__Select">
-                                                                                <div class="Select__Area">
-                                                                                    @php
-                                                                                        $LangList = [] ;
-                                                                                        foreach ($language as $Index => $LangItem) {
-                                                                                            array_push($LangList , [
-                                                                                                "Label" => $LangItem
-                                                                                                , "Value" => $Index]) ;
-                                                                                        }
-                                                                                    @endphp
-                                                                                    @include("System.Components.selector" , [
-                                                                                        'Name' => "Member" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "اللغة المحددة" ,
-                                                                                        "Options" => $LangList
-                                                                                    ])
+                                                            <div id="MainComponentLanguage">
+                                                                <div class="CloneItem ListData__Group"
+                                                                     data-NameElement="LangData">
+                                                                    <div class="Row GapC-1-5">
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group LanguageName">
+                                                                                <div class="Form__Select">
+                                                                                    <div class="Select__Area">
+                                                                                        @php
+                                                                                            $LangList = [] ;
+                                                                                            foreach ($language as $Index => $LangItem) {
+                                                                                                array_push($LangList , [
+                                                                                                    "Label" => $LangItem , "Value" => $Index]) ;
+                                                                                            }
+                                                                                        @endphp
+                                                                                        @include("System.Components.selector" , [
+                                                                                            'Name' => "_" , "Required" => "true" ,
+                                                                                            "DefaultValue" => "" , "Label" => "اللغة المحددة" ,
+                                                                                            "Options" => $LangList
+                                                                                        ])
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    @php
-                                                                        $LangList = [] ;
-                                                                        foreach ($language_skills_read_write
-                                                                        as $Index=>$LangSkill) {
-                                                                            array_push($LangList , [
-                                                                                "Label" => $LangSkill
-                                                                                , "Value" => $Index]) ;
-                                                                        }
-                                                                    @endphp
-                                                                    <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
-                                                                            <div class="Form__Select">
-                                                                                <div class="Select__Area">
-                                                                                    @include("System.Components.selector" , [
-                                                                                        'Name' => "language_write" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "مهارة الكتابة" ,
-                                                                                        "Options" => $LangList
-                                                                                    ])
+                                                                        @php
+                                                                            $LangList = [] ;
+                                                                            foreach ($language_skills_read_write
+                                                                            as $LangSkill) {
+                                                                                array_push($LangList , [
+                                                                                    "Label" => $LangSkill
+                                                                                    , "Value" => $LangSkill]) ;
+                                                                            }
+                                                                        @endphp
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group LanguageWrite">
+                                                                                <div class="Form__Select">
+                                                                                    <div class="Select__Area">
+                                                                                        @include("System.Components.selector" , [
+                                                                                            'Name' => "_" , "Required" => "true" ,
+                                                                                            "DefaultValue" => "" , "Label" => "مهارة الكتابة" ,
+                                                                                            "Options" => $LangList
+                                                                                        ])
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
-                                                                            <div class="Form__Select">
-                                                                                <div class="Select__Area">
-                                                                                    @include("System.Components.selector" , [
-                                                                                        'Name' => "language_read" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "مهارة القراءة" ,
-                                                                                        "Options" => $LangList
-                                                                                    ])
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group LanguageRead">
+                                                                                <div class="Form__Select">
+                                                                                    <div class="Select__Area">
+                                                                                        @include("System.Components.selector" , [
+                                                                                            'Name' => "_" , "Required" => "true" ,
+                                                                                            "DefaultValue" => "" , "Label" => "مهارة القراءة" ,
+                                                                                            "Options" => $LangList
+                                                                                        ])
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -807,6 +938,7 @@
                                                                     <i class="ButtonCloneForm material-icons Button Button--Primary"
                                                                        data-TargetElementName="LangData"
                                                                        data-IsCloneClear="true"
+                                                                       id="AddLanguageButton"
                                                                        title="Add Another Day">add</i>
                                                                 </div>
                                                             </div>

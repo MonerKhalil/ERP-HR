@@ -1,7 +1,7 @@
 @extends("System.Pages.globalPage")
 
 {{--@php--}}
-{{--    dd($finalData);--}}
+{{--    dd($dataSelected);--}}
 {{--@endphp--}}
 
 @section("ContentPage")
@@ -20,12 +20,14 @@
                         <div class="Col">
                             <div class="Card ReportEmployeesView__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="#"
+                                    <form name="PrintAllTablePDF"
+                                          action="{{ route("system.employees.report.pdf") }}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx"
+                                          action="{{ route("system.employees.report.xlsx") }}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -38,12 +40,24 @@
                                                     <div class="Justify-Content-End Card__ToolsGroup">
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
-                                                                <li><i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
-                                                                       data-popUp="SearchAbout">filter_list</i></li>
-                                                                <li><span class="SearchTools__Separate"></span></li>
-                                                                <li><a href="#">
-                                                                        <i class="material-icons IconClick">print</i>
-                                                                    </a></li>
+                                                                <li class="Table__PrintMenu">
+                                                                    <i class="material-icons IconClick PrintMenu__Button"
+                                                                       title="Print">print</i>
+                                                                    <div class="Dropdown PrintMenu__Menu">
+                                                                        <ul class="Dropdown__Content">
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
+                                                                                    @lang("printTablePDFFile")
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
+                                                                                    @lang("printTableXlsxFile")
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -51,13 +65,16 @@
                                             </div>
                                             <div class="Card__Inner p0">
                                                 <div class="Table__ContentTable">
-                                                    <table class="Left Table__Table" >
+                                                    <table class="Table__Table" >
                                                         <tr class="Item HeaderList">
                                                             <th class="Item__Col">
                                                                 #
                                                             </th>
                                                             <th class="Item__Col">
                                                                 اسم الموظف
+                                                            </th>
+                                                            <th class="Item__Col">
+                                                                الجنس
                                                             </th>
                                                             <th class="Item__Col">
                                                                 رقم الاضبارة
@@ -82,6 +99,9 @@
                                                                         {{ $RowData["gender"] }}
                                                                     </td>
                                                                     <td class="Item__Col">
+                                                                        1
+                                                                    </td>
+                                                                    <td class="Item__Col">
                                                                         {{ $RowData["current_job"] }}
                                                                     </td>
                                                                     <td class="Item__Col Item__Col--Details">
@@ -89,22 +109,24 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="GroupRows__SubRows">
-                                                                    <td class="Item__Col" colspan="5">
+                                                                    <td class="Item__Col" colspan="6">
                                                                     <div class="Report">
                                                                         <div class="Report__Content">
                                                                             <div class="ListData NotResponsive">
                                                                                 <div class="ListData__Content">
                                                                                     @foreach($dataSelected as $Index => $ReportSelected)
-                                                                                        <div class="ListData__Item ListData__Item--NoAction">
-                                                                                            <div class="Data_Col">
-                                                                                        <span class="Data_Label">
-                                                                                            {{ $Index }}
-                                                                                        </span>
-                                                                                                <span class="Data_Value">
-                                                                                            {{ $ReportSelected }}
-                                                                                        </span>
+                                                                                        @if($Index != "gender")
+                                                                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                                                                <div class="Data_Col">
+                                                                                                    <span class="Data_Label">
+                                                                                                        {{ $Index }}
+                                                                                                    </span>
+                                                                                                    <span class="Data_Value">
+                                                                                                        {{ $ReportSelected }}
+                                                                                                    </span>
+                                                                                                </div>
                                                                                             </div>
-                                                                                        </div>
+                                                                                        @endif
                                                                                     @endforeach
                                                                                 </div>
                                                                             </div>
