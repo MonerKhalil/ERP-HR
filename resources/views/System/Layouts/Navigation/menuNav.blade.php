@@ -280,7 +280,7 @@
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
                                     <!-- Admin -->
-                                    <a href="/Test-31" class="NavName">
+                                    <a href="{{ route("system.leave_types.index") }}" class="NavName">
                                         <span class="Label">انواع الاجازات</span>
                                     </a>
                                 </div>
@@ -288,7 +288,7 @@
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
                                     <!-- User -->
-                                    <a href="/Test-30" class="NavName">
+                                    <a href="{{ route("system.leave_types.create") }}" class="NavName">
                                         <span class="Label">اضافة نوع جديد</span>
                                     </a>
                                 </div>

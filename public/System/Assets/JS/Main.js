@@ -1574,7 +1574,8 @@ $(document).ready(function (){
     =============================================*/
 
     function initializeFieldsVisibility(FieldInfo = {
-        Operation : "InitializeVisibilityOption" | "InitializeVisibilityTarget" ,
+        Operation : "InitializeVisibilityOption" | "InitializeVisibilityTarget" |
+         "ApplyFieldsVisibility",
         VisibilityOption : HTMLElement ,
         VisibilityTarget : HTMLElement ,
     }) {
@@ -1585,6 +1586,9 @@ $(document).ready(function (){
                 break ;
             case "InitializeVisibilityTarget" :
                 InitVisibilityTarget() ;
+                break ;
+            case "ApplyFieldsVisibility" :
+                ApplyFields() ;
                 break ;
         }
 
@@ -1619,6 +1623,27 @@ $(document).ready(function (){
             }) ;
         }
 
+        function ApplyFields() {
+            const TargetName = $(FieldInfo.VisibilityOption).attr("data-ElementsTargetName") ;
+            $(FieldInfo.VisibilityOption).find(".Selector").each((_ , Selectors) => {
+                const SelectorData = SelectorOperation({
+                    Operation : "GetData" ,
+                    Selector : Selectors ,
+                });
+                TriggerName(TargetName , SelectorData.Value);
+            }) ;
+            $(FieldInfo.VisibilityOption).find(".MultiSelector").each((_ , MultiSelector) => {
+                $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox")
+                    .each((_ , OptionCheckbox) => {
+                        TriggerNameMulti(TargetName , $(OptionCheckbox).attr("name")
+                            , $(OptionCheckbox).is(":checked")) ;
+                    });
+            });
+            $(FieldInfo.VisibilityOption).find(".CheckBox__Input").each((_ , CheckBox) => {
+                TriggerName(TargetName , $(CheckBox).val());
+            });
+        }
+
         function InitVisibilityTarget() {
 
         }
@@ -1630,6 +1655,10 @@ $(document).ready(function (){
                     const ElementValue = $(VisibilityTarget).attr("data-TargetValue").split(",") ?? undefined ;
                     {
                         $(VisibilityTarget).hide();
+                        $(VisibilityTarget).find(".VisibilityOption").each((_ , Option) => {
+                            const TargetName = $(Option).attr("data-ElementsTargetName") ;
+                            TriggerName(TargetName , "") ;
+                        });
                         $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
                             const FormElement = $(FieldGroup).closest("form").get(0) ;
                             FormOperation({
@@ -1654,6 +1683,12 @@ $(document).ready(function (){
                             if(ElementValue[i] === ValueSelected){
                                 {
                                     $(VisibilityTarget).show();
+                                    $(VisibilityTarget).find(".VisibilityOption").each((_ , Option) => {
+                                        initializeFieldsVisibility({
+                                            Operation : "ApplyFieldsVisibility",
+                                            VisibilityOption : Option
+                                        });
+                                    });
                                     $(VisibilityTarget).find(".Form__Group").each((_ , FieldGroup) => {
                                         const FormElement = $(FieldGroup).closest("form").get(0) ;
                                         FormOperation({
