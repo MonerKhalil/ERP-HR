@@ -18,6 +18,7 @@ class Employee extends BaseModel
         ,"number_self","number_child","number_wives","gender"
         ,"reason_exemption","military_service","family_status","birth_date"
         ,"created_by", "updated_by", "is_active",
+        "count_administrative_leaves","count_years_services"
     ];
 
     protected $appends = [
@@ -46,6 +47,24 @@ class Employee extends BaseModel
             ,"position_id"
             ,"id"
             ,"id");
+    }
+
+    private function tempLeaves(string $type){
+        return $this->hasMany(Leave::class,"employee_id","id")
+            ->with("leave_type")
+            ->where("status",$type);
+    }
+
+    public function leaves(){
+        return $this->tempLeaves("approve");
+    }
+
+    public function leaves_pending(){
+        return $this->tempLeaves("pending");
+    }
+
+    public function leaves_reject(){
+        return $this->tempLeaves("reject");
     }
 
     public function data_end_service(){

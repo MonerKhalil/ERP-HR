@@ -20,6 +20,14 @@ class LeaveType extends BaseModel
 
     // Add relationships between tables section
 
+    public function employees(){
+        return $this->belongsToMany(Employee::class,"leaves"
+            ,"leave_type_id"
+            ,"employee_id"
+            ,"id"
+            ,"id");
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc

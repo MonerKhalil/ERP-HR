@@ -37,6 +37,10 @@ return new class extends Migration
             $table->integer("number_wives")->default(0);
             $table->integer("number_child")->default(0);
             $table->date("birth_date");
+            //Settings
+            $table->integer("count_administrative_leaves")->nullable();
+            $table->integer("count_years_services")->nullable();
+            //EndSettings
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();

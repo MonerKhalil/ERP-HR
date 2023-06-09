@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class LeaveTypeController extends Controller
 {
     public const NameBlade = "";
-    public const IndexRoute = "";
+    public const IndexRoute = "system.leave_types.index";
 
     public function __construct()
     {

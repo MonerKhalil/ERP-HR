@@ -21,7 +21,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class EmployeeController extends Controller
 {
     const Folder = "employees";
-    const IndexRoute = "employees.index";
+    const IndexRoute = "system.employees.index";
 
     public function __construct()
     {

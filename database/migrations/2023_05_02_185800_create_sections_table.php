@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("work_setting_id")->constrained("work_settings")->restrictOnDelete();
             $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
             $table->string("name")->unique();
             $table->text("details")->nullable();

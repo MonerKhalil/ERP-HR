@@ -14,7 +14,9 @@
             "data_end_services": "a",
             "request_end_services": "a",
             "leave_types": "a",
-            "leaves": "a"
+            "leaves": "a",
+            "company_settings": "a",
+            "work_settings": "a"
         },
         "user" : {
             "users" : ["r"],

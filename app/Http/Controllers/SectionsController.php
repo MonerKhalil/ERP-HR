@@ -10,6 +10,7 @@ use App\Models\Employee;
 use App\Models\Sections;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SectionsRequest;
+use App\Models\WorkSetting;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class SectionsController extends Controller
 {
     public const NameBlade = "..";
-    public const IndexRoute = "";
+    public const IndexRoute = "system.sections.index";
 
     public function __construct()
     {
@@ -31,7 +32,7 @@ class SectionsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Sections::with(["address","moderator"]);
+        $query = Sections::with(["address","moderator","work_setting"]);
         if (isset($request->filter)&&isset($request->filter['moderator_name'])){
             $query = $query->whereHas("moderator",function ($q)use($request){
                 $q->where("first_name","like","%".$request->filter['moderator_name']."%")
@@ -49,8 +50,9 @@ class SectionsController extends Controller
      */
     public function create()
     {
+        $work_settings = WorkSetting::query()->get();
         $employees = Employee::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("..",compact("employees"));
+        return $this->responseSuccess("..",compact("employees","work_settings"));
     }
 
     /**
@@ -73,7 +75,7 @@ class SectionsController extends Controller
      */
     public function show(Sections $sections)
     {
-        $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
+        $sections = Sections::with(["employees","address","moderator","work_setting"])->findOrFail($sections->id);
         return $this->responseSuccess("...",compact("sections"));
     }
 
@@ -85,9 +87,10 @@ class SectionsController extends Controller
      */
     public function edit(Sections $sections)
     {
+        $work_settings = WorkSetting::query()->get();
         $employees = Employee::query()->pluck("name","id")->toArray();
         $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
-        return $this->responseSuccess("...",compact("sections","employees"));
+        return $this->responseSuccess("...",compact("work_settings","sections","employees"));
     }
 
     /**

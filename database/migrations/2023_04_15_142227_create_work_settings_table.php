@@ -13,19 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leaves', function (Blueprint $table) {
+        Schema::create('work_settings', function (Blueprint $table) {
             $table->id();
             #Add Columns
-            $table->foreignId("leave_type_id")->constrained("leave_types")->restrictOnDelete();
-            $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
-            $table->date("from_date");
-            $table->date("to_date");
-            $table->integer("count_days")->unsigned()->default(0);
-            $table->integer("count_hours")->unsigned()->default(0);
-            $table->integer("count_minutes")->unsigned()->default(0);
+            $table->string("name")->unique();
+            $table->integer("count_days_work_in_weeks");
+            $table->integer("count_hours_work_in_days");
+            $table->string("days_leaves_in_weeks");
+            $table->time("work_hours_from");
+            $table->time("work_hours_to");
             $table->text("description")->nullable();
-            $table->text("reject_details")->nullable();
-            $table->enum("status",["pending","approve","reject"])->default("pending");
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -41,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaves');
+        Schema::dropIfExists('work_settings');
     }
 };
