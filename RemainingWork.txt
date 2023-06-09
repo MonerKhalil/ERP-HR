@@ -13,7 +13,6 @@ ViewRole : {
 
 {
     نسبة التقيم بالنسبة للتقرير لسا ما نعملت
-    بالـ report عندما نريد عرض النتائج العملية تأخذ وقت طوييييل بسبب الـ jquery validation + ربط البليد تبع الطباعة بالـ Controller تبع الـ Report
     مراجعة الكود الهاص بالـ Readonly + كود الـ Visibility
     تزبيط الـ default تبع الـ Visibility الخاص بالـ multi selector
 }

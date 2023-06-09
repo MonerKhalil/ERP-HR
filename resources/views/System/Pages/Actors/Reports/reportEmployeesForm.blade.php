@@ -48,29 +48,30 @@
                                                                                     @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" ,
                                                                                         "NameIDs" => "ReportBY" , "DefaultValue" => "" , "Label" => "تقرير حسب" ,
-                                                                                        "Options" => [ ["Label" => "تاريخ المباشرة" , "Value" => "Decision" , "Name" => "1"] ,
-                                                                                                       ["Label" => "مكان العمل" , "Value" => "Decision" , "Name" => "2"] ,
+                                                                                        "Options" => [
+                                                                                                       ["Label" => "تاريخ المباشرة" , "Value" => "Decision" , "Name" => "1"] ,
+                                                                                                       /* ["Label" => "مكان العمل" , "Value" => "Decision" , "Name" => "2"] ,*/
                                                                                                        ["Label" => "تاريخ الميلاد" , "Value" => "Decision" , "Name" => "3"] ,
                                                                                                        ["Label" => "الجنس" , "Value" => "Decision" , "Name" => "4"] ,
                                                                                                        ["Label" => "الوضع العائلي" , "Value" => "Decision" , "Name" => "5"] ,
-                                                                                                       ["Label" => "المهنة" , "Value" => "Decision" , "Name" => "6"] ,
+                                                                                                       /*["Label" => "المهنة" , "Value" => "Decision" , "Name" => "6"] ,*/
                                                                                                        ["Label" => "تاريخ انتهاء الخدمة" , "Value" => "Decision" , "Name" => "7"] ,
                                                                                                        ["Label" => "نوع العقد" , "Value" => "Decision" , "Name" => "8"] ,
-                                                                                                       ["Label" => "الحاصلين على التأمين" , "Value" => "Decision" , "Name" => "9"] ,
+                                                                                                       /*["Label" => "الحاصلين على التأمين" , "Value" => "Decision" , "Name" => "9"] ,*/
                                                                                                        ["Label" => "الدرجة العلمية" , "Value" => "Decision" , "Name" => "10"] ,
                                                                                                        ["Label" => "المهارات اللغوية" , "Value" => "Decision" , "Name" => "11"] ,
                                                                                                        ["Label" => "العضويات" , "Value" => "Decision" , "Name" => "12"] ,
-                                                                                                       ["Label" => "تاريخ العمل لاول مرة" , "Value" => "Decision" , "Name" => "13"] ,
+                                                                                                       /*["Label" => "تاريخ العمل لاول مرة" , "Value" => "Decision" , "Name" => "13"] ,*/
                                                                                                        ["Label" => "المنصب الوظيفي" , "Value" => "Decision" , "Name" => "14"] ,
-                                                                                                       ["Label" => "تاريخ المكافئات" , "Value" => "Decision" , "Name" => "15"] ,
-                                                                                                       ["Label" => "تاريخ العقوبات" , "Value" => "Decision" , "Name" => "16"] ,
+                                                                                                       /*["Label" => "تاريخ المكافئات" , "Value" => "Decision" , "Name" => "15"] ,*/
+                                                                                                       /*["Label" => "تاريخ العقوبات" , "Value" => "Decision" , "Name" => "16"] ,*/
                                                                                                        ["Label" => "تاريخ المرتمرات والدورات" , "Value" => "Decision" , "Name" => "17"] ,
-                                                                                                       ["Label" => "التقييم" , "Value" => "Decision" , "Name" => "18"] ,
-                                                                                                       ["Label" => "العمل الاضافي" , "Value" => "Decision" , "Name" => "19"] ,
+                                                                                                       /*["Label" => "التقييم" , "Value" => "Decision" , "Name" => "18"] ,*/
+                                                                                                       /*["Label" => "العمل الاضافي" , "Value" => "Decision" , "Name" => "19"] ,*/
                                                                                                        ["Label" => "مجال الرواتب" , "Value" => "Decision" , "Name" => "20"] ,
                                                                                                        ["Label" => "حد راتب" , "Value" => "Decision" , "Name" => "21"] ,
-                                                                                                       ["Label" => "الفئة الوظيفية" , "Value" => "Decision" , "Name" => "22"] ,
-                                                                                                       ["Label" => "الدرجة العملية" , "Value" => "Decision" , "Name" => "23"] ,
+                                                                                                       /*["Label" => "الفئة الوظيفية" , "Value" => "Decision" , "Name" => "22"] ,*/
+                                                                                                       /*["Label" => "الدرجة العملية" , "Value" => "Decision" , "Name" => "23"] ,*/
                                                                                                        ["Label" => "القسم التابع له" , "Value" => "Decision" , "Name" => "24"] ,
                                                                                                        ["Label" => "نوع القرار المطبق بحق موظف" , "Value" => "Decision" , "Name" => "25"] ,
                                                                                                        ["Label" => "تاريخ القرارات المطبقة على الموظف" , "Value" => "Decision" , "Name" => "26"] ,
@@ -549,8 +550,6 @@
                                                                             <div class="Select__Area">
                                                                                 @php
                                                                                     $GenderTypes = [] ;
-                                                                                    array_push($GenderTypes , [ "Label" => "All" ,
-                                                                                         "Value" => ""] ) ;
                                                                                     foreach ($gender as $Index => $GenderType) {
                                                                                         array_push($GenderTypes , [ "Label" => $GenderType ,
                                                                                              "Value" => $GenderType] ) ;
@@ -689,23 +688,23 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                     data-TargetName="CreateReportBy"
-                                                                     data-TargetCheckboxName="18">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="RatingPercentage" class="Input__Field"
-                                                                                       type="number" name="name"
-                                                                                       min="0" required
-                                                                                       placeholder="نسبة التقييم">
-                                                                                <label class="Input__Label" for="RatingPercentage">
-                                                                                    نسبة التقييم
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+{{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                     data-TargetName="CreateReportBy"--}}
+{{--                                                                     data-TargetCheckboxName="18">--}}
+{{--                                                                    <div class="Form__Group">--}}
+{{--                                                                        <div class="Form__Input">--}}
+{{--                                                                            <div class="Input__Area">--}}
+{{--                                                                                <input id="RatingPercentage" class="Input__Field"--}}
+{{--                                                                                       type="number" name="name"--}}
+{{--                                                                                       min="0" required--}}
+{{--                                                                                       placeholder="نسبة التقييم">--}}
+{{--                                                                                <label class="Input__Label" for="RatingPercentage">--}}
+{{--                                                                                    نسبة التقييم--}}
+{{--                                                                                </label>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
                                                                 <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                      data-TargetName="CreateReportBy"
                                                                      data-TargetCheckboxName="24">
