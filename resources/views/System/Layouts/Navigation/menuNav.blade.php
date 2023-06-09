@@ -89,6 +89,7 @@
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("resumeSection")</span>
                     </li>
+
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -238,6 +239,7 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -293,6 +295,7 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -340,6 +343,39 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    edit_note
+                                </i>
+                                <span class="Label">التقييمات</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="/Test-44" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            اضافة نوع تقييم جديد
+                                        </span>
+                                    </a>
+                                    <a href="/Test-45" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            عرض انواع التقييم
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
                             <a href="{{route("system.employees.report")}}" class="NavName">

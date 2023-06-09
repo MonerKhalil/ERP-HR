@@ -78,6 +78,7 @@
         width: 100% ;
         font-size: 1.3rem;
         border-collapse: collapse;
+        text-align: center;
 
         .GroupRows {
             display : table-row-group;
@@ -130,6 +131,7 @@
 
                 &--Check {
                     line-height: 1;
+                    text-align: start ;
 
                     .CheckBoxItem:checked + .CheckBoxRow {
 

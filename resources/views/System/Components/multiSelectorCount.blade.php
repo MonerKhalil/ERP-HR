@@ -13,10 +13,10 @@
         <ul class="MultiSelector__Options">
             @foreach($Options as $Option)
                 <li class="MultiSelector__Option">
-                        <input id="{{$NameIDs}}_{{$Counter}}" name="{{$Option['Name']}}"
+                    <input id="{{$NameIDs}}_{{$Counter}}" name="{{$Option['Name']}}[{{$Counter}}]"
                            class="MultiSelector__InputCheckBox"
+{{--                           @if(isset($Required)) required @endif--}}
                            type="checkbox" value="{{$Option['Value']}}"
-                           @if(isset($Required)) required @endif
                            {{isset($Option['IsChecked']) && $Option['IsChecked'] ? "checked" : ""}}
                            hidden>
                     <label for="{{$NameIDs}}_{{$Counter}}" class="MultiSelector__Label">

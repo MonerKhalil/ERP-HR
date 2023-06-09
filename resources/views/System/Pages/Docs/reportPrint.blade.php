@@ -72,468 +72,72 @@
                                                                         <table class="Center Table__Table" >
                                                                             <thead>
                                                                                 <tr class="Item HeaderList">
-                                                                                <th class="Item__Col">
-                                                                                    #
-                                                                                </th>
-                                                                                <th class="Item__Col">
-                                                                                    اسم الموظف
-                                                                                </th>
-                                                                                <th class="Item__Col">
-                                                                                    الجنس
-                                                                                </th>
-                                                                                <th class="Item__Col">
-                                                                                    تاريخ التوظيف
-                                                                                </th>
-                                                                            </tr>
+                                                                                    <th class="Item__Col">
+                                                                                        #
+                                                                                    </th>
+                                                                                    <th class="Item__Col">
+                                                                                        اسم الموظف
+                                                                                    </th>
+                                                                                    <th class="Item__Col">
+                                                                                        الجنس
+                                                                                    </th>
+                                                                                    <th class="Item__Col">
+                                                                                        رقم الاضبارة
+                                                                                    </th>
+                                                                                    <th class="Item__Col">
+                                                                                        الوظيفة الحالية
+                                                                                    </th>
+                                                                                </tr>
                                                                             </thead>
-                                                                            <tbody class="GroupRows">
-                                                                                <tr class="GroupRows__MainRow Show">
-                                                                                    <td class="Item__Col">
-                                                                                        1
-                                                                                    </td>
-                                                                                    <td class="Item__Col">
-                                                                                        امير
-                                                                                    </td>
-                                                                                    <td class="Item__Col">
-                                                                                        ذكر
-                                                                                    </td>
-                                                                                    <td class="Item__Col">
-                                                                                        10-10-2010
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr class="Left GroupRows__SubRows">
-                                                                                    <td class="Item__Col" colspan="4">
-                                                                                        <div class="Report__Data">
-                                                                                            <div class="ListData NotResponsive">
-                                                                                                <div class="ListData__Content">
-                                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                        <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                            <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                        <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                            <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                        <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                            <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
+                                                                            @foreach($finalData as $RowData)
+                                                                                <tbody class="GroupRows">
+                                                                                    <tr class="GroupRows__MainRow">
+                                                                                        <td class="Item__Col">
+                                                                                            {{ $RowData["id"] }}
+                                                                                        </td>
+                                                                                        <td class="Item__Col">
+                                                                                            {{ $RowData["first_name"]." ".$RowData["last_name"] }}
+                                                                                        </td>
+                                                                                        <td class="Item__Col">
+                                                                                            {{ $RowData["gender"] }}
+                                                                                        </td>
+                                                                                        <td class="Item__Col">
+                                                                                            1
+                                                                                        </td>
+                                                                                        <td class="Item__Col">
+                                                                                            {{ $RowData["current_job"] }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    @if(count($dataSelected) != 0)
+                                                                                        <tr class="GroupRows__SubRows">
+                                                                                            <td class="Item__Col" colspan="6">
+                                                                                                <div class="Report">
+                                                                                                    <div class="Report__Content">
+                                                                                                        <div class="ListData NotResponsive">
+                                                                                                            <div class="ListData__Content">
+                                                                                                                @foreach($dataSelected as $Index => $ReportSelected)
+                                                                                                                    @if($Index != "gender")
+                                                                                                                        <div class="ListData__Item ListData__Item--NoAction">
+                                                                                                                            <div class="Data_Col">
+                                                                                                                            <span class="Data_Label">
+                                                                                                                                {{ $Index }}
+                                                                                                                            </span>
+                                                                                                                                <span class="Data_Value">
+                                                                                                                                {{ $ReportSelected }}
+                                                                                                                            </span>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    @endif
+                                                                                                                @endforeach
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                            <tbody class="GroupRows">
-                                                                            <tr class="GroupRows__MainRow Show">
-                                                                                <td class="Item__Col">
-                                                                                    1
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    امير
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    ذكر
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    10-10-2010
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="Left GroupRows__SubRows">
-                                                                                <td class="Item__Col" colspan="4">
-                                                                                    <div class="Report__Data">
-                                                                                        <div class="ListData NotResponsive">
-                                                                                            <div class="ListData__Content">
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                            <tbody class="GroupRows">
-                                                                            <tr class="GroupRows__MainRow Show">
-                                                                                <td class="Item__Col">
-                                                                                    1
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    امير
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    ذكر
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    10-10-2010
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="Left GroupRows__SubRows">
-                                                                                <td class="Item__Col" colspan="4">
-                                                                                    <div class="Report__Data">
-                                                                                        <div class="ListData NotResponsive">
-                                                                                            <div class="ListData__Content">
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                            <tbody class="GroupRows">
-                                                                            <tr class="GroupRows__MainRow Show">
-                                                                                <td class="Item__Col">
-                                                                                    1
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    امير
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    ذكر
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    10-10-2010
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="Left GroupRows__SubRows">
-                                                                                <td class="Item__Col" colspan="4">
-                                                                                    <div class="Report__Data">
-                                                                                        <div class="ListData NotResponsive">
-                                                                                            <div class="ListData__Content">
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                            <tbody class="GroupRows">
-                                                                            <tr class="GroupRows__MainRow Show">
-                                                                                <td class="Item__Col">
-                                                                                    1
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    امير
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    ذكر
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    10-10-2010
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="Left GroupRows__SubRows">
-                                                                                <td class="Item__Col" colspan="4">
-                                                                                    <div class="Report__Data">
-                                                                                        <div class="ListData NotResponsive">
-                                                                                            <div class="ListData__Content">
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                            <tbody class="GroupRows">
-                                                                            <tr class="GroupRows__MainRow Show">
-                                                                                <td class="Item__Col">
-                                                                                    1
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    امير
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    ذكر
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    10-10-2010
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="Left GroupRows__SubRows">
-                                                                                <td class="Item__Col" colspan="4">
-                                                                                    <div class="Report__Data">
-                                                                                        <div class="ListData NotResponsive">
-                                                                                            <div class="ListData__Content">
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                            <tbody class="GroupRows">
-                                                                            <tr class="GroupRows__MainRow Show">
-                                                                                <td class="Item__Col">
-                                                                                    1
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    امير
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    ذكر
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    10-10-2010
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="Left GroupRows__SubRows">
-                                                                                <td class="Item__Col" colspan="4">
-                                                                                    <div class="Report__Data">
-                                                                                        <div class="ListData NotResponsive">
-                                                                                            <div class="ListData__Content">
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                            <tbody class="GroupRows">
-                                                                            <tr class="GroupRows__MainRow Show">
-                                                                                <td class="Item__Col">
-                                                                                    1
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    امير
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    ذكر
-                                                                                </td>
-                                                                                <td class="Item__Col">
-                                                                                    10-10-2010
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="Left GroupRows__SubRows">
-                                                                                <td class="Item__Col" colspan="4">
-                                                                                    <div class="Report__Data">
-                                                                                        <div class="ListData NotResponsive">
-                                                                                            <div class="ListData__Content">
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الدرجة العلمية
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    بكلوريا
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    نوع العقد
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    متدرب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                                                                    <div class="Data_Col">
-                                                                                                <span class="Data_Label">
-                                                                                                    الوضع العائلي
-                                                                                                </span>
-                                                                                                        <span class="Data_Value">
-                                                                                                    عازب
-                                                                                                </span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                </tbody>
+                                                                            @endforeach
                                                                         </table>
                                                                     </div>
                                                                 </div>

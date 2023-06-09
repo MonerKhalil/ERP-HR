@@ -200,7 +200,7 @@ Route::middleware(['auth'])->group(function () {
         ]);
         #Report
         Route::get("employees/report",[ReportEmployeeController::class,"showCreateReport"])->name("employees.report");
-        Route::post("employees/report",[ReportEmployeeController::class,"Report"]);
+        Route::get("employees/report/final",[ReportEmployeeController::class,"Report"])->name("employees.report.final");
         Route::post("employees/report/xlsx",[ReportEmployeeController::class,"ReportXlsx"])->name("employees.report.xlsx");
         Route::post("employees/report/pdf",[ReportEmployeeController::class,"ReportPdf"])->name("employees.report.pdf");
         #Print Pdf and Xlsx

@@ -1,5 +1,6 @@
 @extends("System.Pages.globalPage")
 
+{{ dd($data) }}
 
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--Notification">
@@ -238,13 +239,13 @@
                                             </div>
                                             <div class="Card__Inner">
                                                 <div class="Card__Pagination">
-{{--                                                    @include("System.Components.paginationNum" , [--}}
-{{--                                                    "PaginationData" => $users ,--}}
-{{--                                                    "PartsViewNum" => 5--}}
-{{--                                                    ])--}}
-{{--                                                    @include("System.Components.paginationSelect" , [--}}
-{{--                                                        "PaginationData" => $users--}}
-{{--                                                    ])--}}
+                                                    @include("System.Components.paginationNum" , [
+                                                    "PaginationData" => $data ,
+                                                    "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $data
+                                                    ])
                                                 </div>
                                             </div>
                                         </div>

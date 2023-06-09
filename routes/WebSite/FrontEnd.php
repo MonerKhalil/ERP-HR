@@ -106,3 +106,15 @@ Route::get('/Test-42', function () {
 Route::get('/Test-43', function () {
     return view('System/Pages/Docs/reportPrint');
 });
+
+Route::get('/Test-44', function () {
+    return view('System/Pages/Actors/Evaluation/newTypeEvaluationForm');
+});
+
+Route::get('/Test-45', function () {
+    return view('System/Pages/Actors/Evaluation/newTypeEvaluationView');
+});
+
+Route::get('/Test-46', function () {
+    return view('System/Pages/Actors/Evaluation/newTypeEvaulationDetails');
+});
