@@ -12,13 +12,16 @@
     <title>Document</title>
 </head>
 <body>
+
     <h1>@lang("dashboard")</h1>
     @if(app()->getLocale()==="en")
         <form action="{{route("lang.change","ar")}}" method="get">
+            <input type="time" name="time">
             <button type="submit">change</button>
         </form>
     @else
         <form action="{{route("lang.change","en")}}" method="get">
+            <input type="time" name="time">
             <button type="submit">change</button>
         </form>
     @endif

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\LeaveRequest;
+use App\Models\CompanySetting;
 
-class LeaveRequestRequest extends BaseRequest
+class CompanySettingRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,7 +13,7 @@ class LeaveRequestRequest extends BaseRequest
      */
     public function rules()
     {
-        $callback = (new LeaveRequest)->validationRules();
+        $callback = (new CompanySetting)->validationRules();
 
         return $callback($this);
     }

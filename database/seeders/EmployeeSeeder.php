@@ -40,6 +40,7 @@ class EmployeeSeeder extends Seeder
                 "family_status" => "married",
                 "birth_date" => now(),
                 "created_at" => now(),
+                "count_administrative_leaves" => 14,
             ]);
         }
         for ($i = 1 ;$i<=10 ; $i++){

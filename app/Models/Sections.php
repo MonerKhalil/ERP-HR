@@ -13,11 +13,16 @@ class Sections extends BaseModel
 
     protected $fillable = [
         #Add Attributes
+        "work_setting_id",
         "moderator_id","address_id" ,"name","details",
         "created_by","updated_by","is_active",
     ];
 
     // Add relationships between tables section
+
+    public function work_setting(){
+        return $this->belongsTo(WorkSetting::class,"work_setting_id","id");
+    }
 
     public function moderator(){
         return $this->belongsTo(Employee::class,"moderator_id","id");
@@ -49,6 +54,7 @@ class Sections extends BaseModel
                 "name" => ["required",new TextRule(),"max:255",
                     !$validator->isUpdatedRequest() ? Rule::unique("sections","name")
                         : Rule::unique("sections","name")->ignore($section)],
+                "work_setting_id" => ["required", Rule::exists('work_settings', 'id')],
                 "address_id" => ["required", Rule::exists('addresses', 'id')],
                 "moderator_id" => ["nullable","numeric",Rule::exists("employees","id")],
                 "details" => ["nullable","string"],
