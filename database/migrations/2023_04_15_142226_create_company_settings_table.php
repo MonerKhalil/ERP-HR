@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('company_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("work_setting_id")->constrained("work_settings")->restrictOnDelete();
-            $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
-            $table->string("name")->unique();
-            $table->text("details")->nullable();
+            #Add Columns
+            $table->string("name");
+            $table->date("created_at_company");
+            $table->integer("count_administrative_leaves");
+            $table->integer("count_years_services_employees");
+            $table->integer("add_leaves_years_services_employees")->unsigned()->default(0);
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('company_settings');
     }
 };

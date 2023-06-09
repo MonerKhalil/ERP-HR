@@ -13,12 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('leave_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("work_setting_id")->constrained("work_settings")->restrictOnDelete();
-            $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
+            #Add Columns
             $table->string("name")->unique();
-            $table->text("details")->nullable();
+            $table->enum("type_effect_salary",["unpaid","paid","effect_salary"]);
+            $table->integer("rate_effect_salary")->unsigned()->nullable();
+            $table->enum("gender",["male","female","any"])->default("any");
+            $table->integer("max_days_per_years")->default(0);
+            $table->integer("max_days_per_month")->default(0);
+            $table->integer("years_employee_services")->default(0);
+            $table->boolean("leave_limited");
+            $table->boolean("is_hourly");
+            $table->integer("max_hours_per_day")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -34,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('leave_types');
     }
 };

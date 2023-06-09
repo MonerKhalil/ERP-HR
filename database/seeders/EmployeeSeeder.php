@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Employee;
+use App\Models\Sections;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -39,6 +40,12 @@ class EmployeeSeeder extends Seeder
                 "family_status" => "married",
                 "birth_date" => now(),
                 "created_at" => now(),
+                "count_administrative_leaves" => 14,
+            ]);
+        }
+        for ($i = 1 ;$i<=10 ; $i++){
+            Sections::query()->find($i)->update([
+                "moderator_id" => $i,
             ]);
         }
     }

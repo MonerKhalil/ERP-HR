@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('work_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("work_setting_id")->constrained("work_settings")->restrictOnDelete();
-            $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
+            #Add Columns
             $table->string("name")->unique();
-            $table->text("details")->nullable();
+            $table->integer("count_days_work_in_weeks");
+            $table->integer("count_hours_work_in_days");
+            $table->string("days_leaves_in_weeks");
+            $table->time("work_hours_from");
+            $table->time("work_hours_to");
+            $table->text("description")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -34,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('work_settings');
     }
 };
