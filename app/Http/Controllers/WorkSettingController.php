@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class WorkSettingController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Setting/workSetting";
     public const IndexRoute = "system.work_settings.index";
 
     public function __construct()

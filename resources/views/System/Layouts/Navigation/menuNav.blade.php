@@ -89,7 +89,6 @@
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("resumeSection")</span>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -119,7 +118,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -149,7 +147,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -179,7 +176,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -209,7 +205,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -239,7 +234,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -295,7 +289,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -343,7 +336,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -375,7 +367,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
                             <a href="{{route("system.employees.report")}}" class="NavName">
@@ -384,6 +375,35 @@
                                 </i>
                                 <span class="Label">
                                     التقارير
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="NavigationsMenu__NavigationsGroup">
+                    <li class="NavigationsGroup__Title">
+                        <span class="Title">الاعدادات</span>
+                    </li>
+                    <li class="NavigationsGroup__NavItem">
+                        <div class="Title">
+                            <a href="{{route("system.company_settings.show")}}" class="NavName">
+                                <i class="material-icons Icon">
+                                    widgets
+                                </i>
+                                <span class="Label">
+                                    اعدادات الشركة
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="NavigationsGroup__NavItem">
+                        <div class="Title">
+                            <a href="{{route("system.work_settings.index")}}" class="NavName">
+                                <i class="material-icons Icon">
+                                    room_preferences
+                                </i>
+                                <span class="Label">
+                                    اعدادات الدوام
                                 </span>
                             </a>
                         </div>
