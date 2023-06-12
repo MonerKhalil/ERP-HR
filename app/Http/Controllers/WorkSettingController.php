@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class WorkSettingController extends Controller
 {
-    public const NameBlade = "System/Pages/Actors/Setting/workSetting";
+    public const NameBlade = "System/Pages/Actors/Setting/Work/workSettingView";
     public const IndexRoute = "system.work_settings.index";
 
     public function __construct()
@@ -43,7 +43,8 @@ class WorkSettingController extends Controller
     public function create()
     {
         $days = Days();
-        return $this->responseSuccess("...",compact("days"));
+        return $this->responseSuccess("System/Pages/Actors/Setting/Work/workSettingForm" ,
+            compact("days"));
     }
 
     /**
@@ -80,7 +81,8 @@ class WorkSettingController extends Controller
      */
     public function show(WorkSetting $workSetting)
     {
-        return $this->responseSuccess("...",compact("workSetting"));
+        return $this->responseSuccess("System/Pages/Actors/Setting/Work/workSettingDetails" ,
+            compact("workSetting"));
     }
 
     /**
@@ -92,7 +94,8 @@ class WorkSettingController extends Controller
     public function edit(WorkSetting $workSetting)
     {
         $days = Days();
-        return $this->responseSuccess("...",compact("days","workSetting"));
+        return $this->responseSuccess("System/Pages/Actors/Setting/Work/workSettingForm" ,
+            compact("days","workSetting"));
     }
 
     /**

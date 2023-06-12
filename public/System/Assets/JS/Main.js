@@ -342,7 +342,11 @@ $(document).ready(function (){
                     $(MultiSelector).removeClass("Open");
                 });
             });
-            $(MultiSelector).find(".MultiSelector__InputCheckBox").on("change" , CheckBoxCountChecked);
+            $(MultiSelector).find(".MultiSelector__InputCheckBox").each((_ , CheckBoxItem) => {
+                if($(CheckBoxItem).is(":checked"))
+                    CheckBoxCountChecked() ;
+                $(CheckBoxItem).on("change" , CheckBoxCountChecked);
+            });
 
             function CheckBoxCountChecked() {
                 let Counter = $(MultiSelector)

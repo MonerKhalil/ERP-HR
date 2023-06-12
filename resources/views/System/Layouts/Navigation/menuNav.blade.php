@@ -396,17 +396,38 @@
                             </a>
                         </div>
                     </li>
-                    <li class="NavigationsGroup__NavItem">
+                    <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
-                            <a href="{{route("system.work_settings.index")}}" class="NavName">
+                            <div class="NavName">
                                 <i class="material-icons Icon">
                                     room_preferences
                                 </i>
-                                <span class="Label">
-                                    اعدادات الدوام
-                                </span>
-                            </a>
+                                <span class="Label">اعدادات الدوام</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
                         </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.work_settings.create") }}"
+                                       class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            اضافة نوع دوام جديد
+                                        </span>
+                                    </a>
+                                    <a href="{{ route("system.work_settings.index") }}"
+                                       class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            عرض انواع الدوام
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup Visible-phoneLandscape">
