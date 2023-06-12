@@ -18,10 +18,10 @@ class MainNotification extends Notification
      *
      * @return void
      */
-    public function __construct(mixed $data,string $type)
+    public function __construct(mixed $data,?string $type)
     {
         $this->data = $data;
-        $this->type = $type;
+        $this->type = is_null($type) ? "audit" : $type;
     }
 
     /**

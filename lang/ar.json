@@ -17,6 +17,14 @@
     "Thursday": "الخميس",
     "Friday": "الجمعة",
     "Saturday": "السبت",
+    "err_leaves_count": "لا يمكن اخذ اجازة لهذا الموظف بسبب تجاوز الحد المسموح به من نوع الاجازة السابقة .",
+    "err_leaves_gender": "هذا النوع من الاجازات غير متاح لهذا النوع من الجنس .",
+    "request_end_services" : "طلب نهاية خدمة.",
+    "accept_request_end_services" : "تمت الموافقة على طلب نهاية الخدمة بنجاح .",
+    "cancel_request_end_services" : "تمت رفض طلب نهاية الخدمة .",
+    "request_leave" : "طلب اجازة .",
+    "accept_request_leave" : "تمت الموافقة على طلب الاجازة بنجاح .",
+    "cancel_request_leave" : "تمت رفض طلب الاجازة .",
 
     "/*         Header         */": "",
 

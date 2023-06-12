@@ -172,6 +172,17 @@ class DataEndServiceController extends Controller
         ]);
         $query = DataEndService::with(["employee","decision"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
+            $query = $query->whereHas("employee",function ($q) use ($request){
+                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
+            });
+        }
+        if (isset($request->filter["number_decision"]) && !is_null($request->filter["number_decision"])){
+            $query = $query->whereHas("decision",function ($q) use ($request){
+                $q->where("number",$request->filter["number_decision"]);
+            });
+        }
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [
             [

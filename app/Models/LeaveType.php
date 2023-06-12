@@ -13,8 +13,12 @@ class LeaveType extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "name","type_effect_salary","rate_effect_salary","gender","max_days_per_years",
-        "max_days_per_month","years_employee_services","leave_limited","is_hourly","max_hours_per_day",
+        "name","type_effect_salary","rate_effect_salary","gender",
+        "max_days_per_years","years_employee_services",
+        "leave_limited","can_take_hours",
+        "is_hourly","max_hours_per_day",
+        "number_years_services_increment_days","count_days_increment_days",
+        "count_available_in_service",
         "created_by","updated_by","is_active",
     ];
 
@@ -49,16 +53,21 @@ class LeaveType extends BaseModel
                 "gender" => ["required",Rule::in(self::gender())],
                 "is_hourly" => ["required","boolean"],
                 "max_hours_per_day" => [Rule::requiredIf(function ()use($validator){
-                    return $validator->input("is_hourly") == "true" || $validator->input("is_hourly") == 1;
+                    return ($validator->input("is_hourly") == "true" || $validator->input("is_hourly") == 1)
+                        &&
+                        ($validator->input("leave_limited") == "false" || $validator->input("leave_limited") == 0);
                 }),"numeric"],
                 "leave_limited" => ["required","boolean"],
-                "max_days_per_month" => [Rule::requiredIf(function ()use($validator){
-                    return $validator->input("leave_limited") == "true" || $validator->input("leave_limited") == 1;
-                }),"numeric"],
+                "can_take_hours" => ["required","boolean"],
                 "max_days_per_years" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("leave_limited") == "true" || $validator->input("leave_limited") == 1;
-                }),"numeric"],
+                }),"numeric","min:1"],
                 "years_employee_services" => ["required","numeric","min:0"],
+                "number_years_services_increment_days" => ["nullable","numeric","min:1"],
+                "count_days_increment_days" => [Rule::requiredIf(function () use($validator){
+                    return $validator->input("number_years_services_increment_days") !== null;
+                }),"numeric","min:1"],
+                "count_available_in_service" => ["nullable","numeric","min:1"],
             ];
         };
     }
