@@ -729,6 +729,10 @@ p {
 .Form__FieldReadOnly .FieldReadOnly__Close:hover {
   color: #10C093;
 }
+.Form__Tips {
+  color: #86c1e7;
+  font-weight: 300;
+}
 .Form--Dark .Form__Input .Input__Field,
 .Form--Dark .Form__Input .Date__Field,
 .Form--Dark .Form__Input .Search__Field,

@@ -147,6 +147,43 @@
                                                             </div>
                                                         </div>
                                                     @endif
+                                                    @if($Field["Type"] == "NormalTime")
+                                                        <div class="Col-6-md">
+                                                            <div class="Form__Group">
+                                                                <div class="Form__Date">
+                                                                    <div class="Date__Area">
+                                                                        <input id="{{"Input".$Counter}}" class="TimeNoDate Date__Field"
+                                                                               type="time" name="{{$Field["Info"]["Name"]}}"
+                                                                               placeholder="{{$Field["Info"]["Placeholder"]}}"
+                                                                               @if(isset($Field["Info"]["Value"]))
+                                                                                    value="{{$Field["Info"]["Value"]}}"
+                                                                               @endif
+                                                                               @if(isset($Field["Info"]["Required"]))
+                                                                               required
+                                                                            @endif
+                                                                        >
+                                                                        <label class="Date__Label"
+                                                                               for="{{"Input".$Counter}}">{{$Field["Info"]["Placeholder"]}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    @if($Field["Type"] == "NormalMultiSelector")
+                                                        <div class="Col-6-md">
+                                                            <div class="Form__Group">
+                                                                <div class="Form__Date">
+                                                                    <div class="Date__Area">
+                                                                        @include("System.Components.multiSelector" , [
+                                                                            'Name' => "_" , "NameIDs" => $Field["Info"]["NameIDs"] ,
+                                                                            "Label" => $Field["Info"]["Label"] ,
+                                                                            "Options" => $Field["Info"]["Options"]
+                                                                        ])
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 <?php $Counter++?>
                                             @endforeach
                                         </div>

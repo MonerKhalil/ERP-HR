@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class LeaveTypeController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Vacations/vacationTypesView";
     public const IndexRoute = "system.leave_types.index";
 
     public function __construct()
@@ -29,12 +29,14 @@ class LeaveTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $gender = LeaveType::gender();
         $type_effect_salary = LeaveType::type_effect_salary();
         $data = MyApp::Classes()->Search->getDataFilter(LeaveType::query());
-        return $this->responseSuccess(self::NameBlade,compact("data","type_effect_salary","gender"));
+        return $this->responseSuccess(self::NameBlade
+            ,compact("data","type_effect_salary","gender"));
     }
 
     /**
@@ -46,7 +48,8 @@ class LeaveTypeController extends Controller
     {
         $gender = LeaveType::gender();
         $type_effect_salary = LeaveType::type_effect_salary();
-        return $this->responseSuccess("",compact("gender","type_effect_salary"));
+        return $this->responseSuccess("System/Pages/Actors/Vacations/newTypeForm"
+            ,compact("gender","type_effect_salary"));
     }
 
     /**
@@ -69,7 +72,8 @@ class LeaveTypeController extends Controller
      */
     public function show(LeaveType $leaveType)
     {
-        return $this->responseSuccess("...",compact("leaveType"));
+        return $this->responseSuccess("System/Pages/Actors/Vacations/vacationTypeDetails"
+            ,compact("leaveType"));
     }
 
     /**
@@ -82,7 +86,8 @@ class LeaveTypeController extends Controller
     {
         $gender = LeaveType::gender();
         $type_effect_salary = LeaveType::type_effect_salary();
-        return $this->responseSuccess("...",compact("leaveType","gender","type_effect_salary"));
+        return $this->responseSuccess("System/Pages/Actors/Vacations/newTypeForm"
+            ,compact("leaveType","gender","type_effect_salary"));
     }
 
     /**

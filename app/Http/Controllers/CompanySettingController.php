@@ -17,7 +17,8 @@ class CompanySettingController extends Controller
 
     public function show(){
         $setting = CompanySetting::query()->first();
-        return $this->responseSuccess("",compact("setting"));
+        return $this->responseSuccess("System/Pages/Actors/Setting/companySetting"
+            ,compact("setting"));
     }
 
     public function edit(CompanySettingRequest $request){

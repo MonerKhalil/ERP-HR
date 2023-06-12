@@ -1,33 +1,29 @@
 @extends("System.Pages.globalPage")
 
-{{--@php--}}
-{{--    dd($data[0]);--}}
-{{--@endphp--}}
-
 @section("ContentPage")
-    <section class="MainContent__Section MainContent__Section--ViewTypeVacationsPage">
-        <div class="ViewTypeVacationsPage">
-            <div class="ViewTypeVacationsPage__Breadcrumb">
+    <section class="MainContent__Section MainContent__Section--SettingWorkView">
+        <div class="SettingWorkViewPage">
+            <div class="SettingWorkViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض كل انواع الاجازات" ,
+                    'mainTitle' => "عرض انواع الدوام" ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
             </div>
-            <div class="ViewTypeVacationsPage__Content">
+            <div class="SettingWorkViewPage__Content">
                 <div class="Container--MainContent">
                     <div class="Row">
                         <div class="Col">
-                            <div class="Card ViewTypeVacationsPage__TableUsers">
+                            <div class="Card SettingWorkViewPage__TableUsers">
                                 <div class="Table">
                                     <form name="PrintAllTablePDF"
-                                          action="{{ route("system.leave_types.export.pdf") }}"
+                                          action="{{route("system.work_settings.export.pdf")}}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
                                     <form name="PrintAllTableXlsx"
-                                          action="{{ route("system.leave_types.export.xls") }}"
+                                          action="{{route("system.work_settings.export.xls")}}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -41,9 +37,9 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => "حذف الانواع" ,
-                                                                     "Action" => route("system.leave_types.multi.delete") ,
-                                                                     "Method" => "delete"
+                                                                    "Label" => __("normalDelete")
+                                                                    , "Action" => route("system.work_settings.multi.delete")
+                                                                    , "Method" => "delete"
                                                                 ] ]
                                                             ])
                                                         </div>
@@ -83,95 +79,61 @@
                                             @if(count($data) > 0)
                                                 <div class="Card__Inner p0">
                                                     <div class="Table__ContentTable">
-                                                        <table class="Center Table__Table" >
+                                                        <table class="Center Table__Table">
                                                             <tr class="Item HeaderList">
                                                                 <th class="Item__Col Item__Col--Check">
                                                                     <input id="ItemRow_Main" class="CheckBoxItem"
                                                                            type="checkbox" hidden>
                                                                     <label for="ItemRow_Main" class="CheckBoxRow">
-                                                                        <i class="material-icons ">
+                                                                        <i class="material-icons">
                                                                             check_small
                                                                         </i>
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">اسم الاجازة</th>
-                                                                <th class="Item__Col">نوع الاجازة</th>
-                                                                <th class="Item__Col">سنوات العمل الواجب تحقيقها</th>
-                                                                <th class="Item__Col">ايام الاجازة</th>
-                                                                <th class="Item__Col">عدد ايام الاجازة في السنة</th>
-                                                                <th class="Item__Col">عدد ايام الاجازة في الشهر</th>
-                                                                <th class="Item__Col">عدد الساعات المسموحة في اليوم</th>
+                                                                <th class="Item__Col">اسم النوع</th>
+                                                                <th class="Item__Col">ايام الدوام</th>
+                                                                <th class="Item__Col">ساعات العمل</th>
+                                                                <th class="Item__Col">يبدأ الدوام من الساعة</th>
+                                                                <th class="Item__Col">ينتهي الدوام عند الساعة</th>
                                                                 <th class="Item__Col">المزيد</th>
                                                             </tr>
-                                                            @foreach($data as $Index => $VacationTypeData)
+                                                            @foreach($data as $DataItem)
                                                                 <tr class="Item DataItem">
                                                                     <td class="Item__Col Item__Col--Check">
-                                                                        <input id="MoreRequestVacations_{{ $VacationTypeData["id"] }}"
-                                                                               class="CheckBoxItem" hidden
-                                                                               name="ids[]" type="checkbox"
-                                                                               value="{{ $VacationTypeData["id"] }}" >
-                                                                        <label for="MoreRequestVacations_{{ $VacationTypeData["id"] }}"
-                                                                               class="CheckBoxRow">
-                                                                            <i class="material-icons ">
+                                                                        <input id="{{$DataItem["id"]}}"
+                                                                               class="CheckBoxItem" type="checkbox"
+                                                                               name="ids[]" value="{{$DataItem["id"]}}" hidden>
+                                                                        <label for="{{$DataItem["id"]}}" class="CheckBoxRow">
+                                                                            <i class="material-icons">
                                                                                 check_small
                                                                             </i>
                                                                         </label>
                                                                     </td>
-                                                                    <td class="Item__Col">
-                                                                        {{ $VacationTypeData["id"] }}
-                                                                    </td>
-                                                                    <td class="Item__Col">
-                                                                        {{ $VacationTypeData["name"] }}
-                                                                    </td>
-                                                                    <td class="Item__Col">
-                                                                        {{ $VacationTypeData["type_effect_salary"] }}
-                                                                    </td>
-                                                                    <td class="Item__Col">
-                                                                        {{ $VacationTypeData["years_employee_services"] }}
-                                                                    </td>
-                                                                    <td class="Item__Col">
-                                                                        {{ $VacationTypeData["leave_limited"] ? "محددة" : "مفتوحة"}}
-                                                                    </td>
-                                                                    <td class="Item__Col">
-                                                                        @if($VacationTypeData["max_days_per_years"] != "")
-                                                                            {{ $VacationTypeData["max_days_per_years"] }}
-                                                                        @else
-                                                                            _
-                                                                        @endif
-                                                                    </td>
-                                                                    <td class="Item__Col">
-                                                                        @if($VacationTypeData["max_days_per_month"] != "")
-                                                                            {{ $VacationTypeData["max_days_per_month"] }}
-                                                                        @else
-                                                                            _
-                                                                        @endif
-                                                                    </td>
-                                                                    <td class="Item__Col">
-                                                                        @if($VacationTypeData["max_hours_per_day"] != "")
-                                                                            {{ $VacationTypeData["max_hours_per_day"] }}
-                                                                        @else
-                                                                            _
-                                                                        @endif
-                                                                    </td>
+                                                                    <td class="Item__Col">{{ $DataItem["id"] }}</td>
+                                                                    <td class="Item__Col">{{ $DataItem["name"] }}</td>
+                                                                    <td class="Item__Col">{{ $DataItem["count_days_work_in_weeks"] }}</td>
+                                                                    <td class="Item__Col">{{ $DataItem["count_hours_work_in_days"] }}</td>
+                                                                    <td class="Item__Col">{{ $DataItem["work_hours_from"] }}</td>
+                                                                    <td class="Item__Col">{{ $DataItem["work_hours_to"] }}</td>
                                                                     <td class="Item__Col MoreDropdown">
                                                                         <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                           data-MenuName="MoreTypeVacations_{{$VacationTypeData["id"]}}">
+                                                                           data-MenuName="MoreDecision_{{$DataItem["id"]}}">
                                                                             more_horiz
                                                                         </i>
                                                                         <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                             data-MenuName="MoreTypeVacations_{{$VacationTypeData["id"]}}">
+                                                                             data-MenuName="MoreDecision_{{$DataItem["id"]}}">
                                                                             <ul class="Dropdown__Content">
                                                                                 <li>
-                                                                                    <a href="{{ route("system.leave_types.show" , $VacationTypeData["id"]) }}"
+                                                                                    <a href="{{route("system.work_settings.show" , $DataItem["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         عرض التفاصيل
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="{{ route("system.leave_types.edit" , $VacationTypeData["id"]) }}"
+                                                                                    <a href="{{route("system.work_settings.edit" , $DataItem["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        تعديل النوع
+                                                                                        تعديل نوع
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -211,39 +173,21 @@
 @section("PopupPage")
 
     @include("System.Components.searchForm" , [
-            'InfoForm' => ["Route" => "" , "Method" => "get"] ,
-            'FilterForm' => [
-
-                    ['Type' => 'number' , 'Info' =>
-                        ['Name' => "filter[id]" , 'Placeholder' => 'رقم النوع'] ] ,
-
-
-                    ['Type' => 'text' , 'Info' =>
-                        ['Name' => "filter[name]" , 'Placeholder' => 'اسم النوع'] ] ,
-
-
-                    ['Type' => 'select' , 'Info' =>
-                        ['Name' => "filter[leave_limited]" , 'Placeholder' => 'ايام الاجازة' ,
-                        "Options" => [
-                           [ "Label" => "محدودة" , "Value" => "1" ] ,
-                           [ "Label" => "مفتوحة" , "Value" => "0" ] ,
-                        ]
-                    ] ] ,
-
-
-                    ['Type' => 'number' , 'Info' =>
-                        ['Name' => "filter[years_employee_services]" , 'Placeholder' => 'سنوات العمل الواجب تحقيقها'] ] ,
-
-
-                    ['Type' => 'number' , 'Info' =>
-                        ['Name' => "filter[max_days_per_years]" , 'Placeholder' => 'عدد ايام الاجازة في السنة'] ] ,
-
-                    ['Type' => 'number' , 'Info' =>
-                        ['Name' => "filter[max_days_per_month]" , 'Placeholder' => 'عدد ايام الاجازة في الشهر'] ] ,
-
-                    ['Type' => 'number' , 'Info' =>
-                        ['Name' => "filter[max_hours_per_day]" , 'Placeholder' => 'عدد الساعات المسموحة في اليوم'] ]
-                ]
-        ])
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [
+            ['Type' => 'text' , 'Info' =>
+                ['Name' => "filter[name]" , 'Placeholder' => 'اسم النوع'] ] ,
+            ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[count_days_work_in_weeks]" , 'Placeholder' => 'ايام الدوام'] ] ,
+            ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[count_hours_work_in_days]" , 'Placeholder' => 'ساعات العمل'] ] ,
+            ['Type' => 'NormalTime' , 'Info' =>
+                ['Name' => "filter[work_hours_from]" , 'Placeholder' => 'يبدأ الدوام من الساعة'] ] ,
+            ['Type' => 'NormalTime' , 'Info' =>
+                ['Name' => "filter[work_hours_to]" , 'Placeholder' => 'ينتهي الدوام عند الساعة'] ] ,
+            ['Type' => 'NormalTime' , 'Info' =>
+                ['Name' => "filter[work_hours_to]" , 'Placeholder' => 'ينتهي الدوام عند الساعة'] ] ,
+        ]
+    ])
 
 @endsection
