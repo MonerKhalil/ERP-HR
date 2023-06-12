@@ -20,7 +20,7 @@ class WorkSettingController extends Controller
 
     public function __construct()
     {
-//        $this->addMiddlewarePermissionsToFunctions(app(WorkSetting::class)->getTable());
+        $this->addMiddlewarePermissionsToFunctions(app(WorkSetting::class)->getTable());
     }
 
     /**

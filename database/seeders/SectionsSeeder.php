@@ -17,7 +17,6 @@ class SectionsSeeder extends Seeder
     {
         for ($i = 1 ; $i<=10;$i++){
             Sections::create([
-                "work_setting_id" => 1,
                 "address_id" => $i,
                 "name" => "section_".$i,
                 "details" => "xxxxxxxxxxxxx".$i,

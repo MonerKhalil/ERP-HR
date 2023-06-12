@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("work_setting_id")->constrained("work_settings")->restrictOnDelete();
             $table->foreignId("user_id")->unique()->constrained("users")->restrictOnDelete();
             $table->foreignId("section_id")->constrained("sections")->restrictOnDelete();
             $table->foreignId("nationality")->constrained("countries")->restrictOnDelete();
@@ -39,7 +40,7 @@ return new class extends Migration
             $table->date("birth_date");
             //Settings
             $table->integer("count_administrative_leaves")->nullable();
-            $table->integer("count_years_services")->nullable();
+            $table->integer("count_month_services")->nullable();
             //EndSettings
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();

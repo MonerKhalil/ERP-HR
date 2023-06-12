@@ -99,7 +99,41 @@ class LeaveTypeController extends Controller
      */
     public function update(LeaveTypeRequest $request, LeaveType $leaveType)
     {
-        $leaveType->update($request->validated());
+        if ($request->type_effect_salary !=="effect_salary"){
+            $effect_salary = 0;
+        }else{
+            $effect_salary = $request->rate_effect_salary;
+        }
+        if ($request->is_hourly != "true" || $request->is_hourly != 1){
+            $max_hours_per_day = 0;
+        }
+        else{
+            $max_hours_per_day = is_null($request->max_hours_per_day) ? $leaveType->max_hours_per_day : $request->max_hours_per_day;
+        }
+        if ($request->leave_limited != "true" || $request->is_hourly != 1){
+            $max_hours_per_day = 0;
+            $max_days_per_years = 0;
+        }else{
+            $max_days_per_years = is_null($request->max_days_per_years) ? $leaveType->max_days_per_years : $request->max_days_per_years;
+        }
+        if ($request->number_years_services_increment_days!==null){
+            $count_days_increment_days = $request->count_days_increment_days;
+        }else{
+            $count_days_increment_days = 0;
+        }
+        $leaveType->update([
+            "name" => is_null($request->name) ? $leaveType->name : $request->name,
+            "type_effect_salary" => $request->type_effect_salary,
+            "rate_effect_salary" => $effect_salary,
+            "gender" => $request->gender,
+            "is_hourly" => $request->is_hourly,
+            "leave_limited" => $request->leave_limited,
+            "max_hours_per_day" => $max_hours_per_day,
+            "max_days_per_years" => $max_days_per_years,
+            "years_employee_services" => $request->years_employee_services,
+            "number_years_services_increment_days" => $request->number_years_services_increment_days,
+            "count_days_increment_days" => $count_days_increment_days,
+        ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
 

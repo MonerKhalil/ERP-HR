@@ -17,6 +17,7 @@ class EmployeeSeeder extends Seeder
     {
         for ($i = 1 ;$i<=20 ; $i++){
             Employee::create([
+                "work_setting_id" => 1,
                 "user_id" => $i,
                 "section_id" => 1,
                 "nationality" => $i,

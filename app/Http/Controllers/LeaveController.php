@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class LeaveController extends Controller
 {
-    public function __construct()
-    {
-        $this->addMiddlewarePermissionsToFunctions(app(Leave::class)->getTable());
-    }
-
     /**
      * Display a listing of the resource.
      *

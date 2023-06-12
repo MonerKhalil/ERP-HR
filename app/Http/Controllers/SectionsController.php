@@ -32,7 +32,7 @@ class SectionsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Sections::with(["address","moderator","work_setting"]);
+        $query = Sections::with(["address","moderator"]);
         if (isset($request->filter)&&isset($request->filter['moderator_name'])){
             $query = $query->whereHas("moderator",function ($q)use($request){
                 $q->where("first_name","like","%".$request->filter['moderator_name']."%")
@@ -50,9 +50,8 @@ class SectionsController extends Controller
      */
     public function create()
     {
-        $work_settings = WorkSetting::query()->get();
         $employees = Employee::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("..",compact("employees","work_settings"));
+        return $this->responseSuccess("..",compact("employees"));
     }
 
     /**
@@ -75,7 +74,7 @@ class SectionsController extends Controller
      */
     public function show(Sections $sections)
     {
-        $sections = Sections::with(["employees","address","moderator","work_setting"])->findOrFail($sections->id);
+        $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
         return $this->responseSuccess("...",compact("sections"));
     }
 
@@ -87,10 +86,9 @@ class SectionsController extends Controller
      */
     public function edit(Sections $sections)
     {
-        $work_settings = WorkSetting::query()->get();
         $employees = Employee::query()->pluck("name","id")->toArray();
         $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
-        return $this->responseSuccess("...",compact("work_settings","sections","employees"));
+        return $this->responseSuccess("...",compact("sections","employees"));
     }
 
     /**
@@ -153,6 +151,12 @@ class SectionsController extends Controller
         ]);
         $query = Sections::with(["moderator","address"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        if (isset($request->filter)&&isset($request->filter['moderator_name'])){
+            $query = $query->whereHas("moderator",function ($q)use($request){
+                $q->where("first_name","like","%".$request->filter['moderator_name']."%")
+                    ->orWhere("last_name","like","%".$request->filter['moderator_name']."%");
+            });
+        }
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [
             "name"

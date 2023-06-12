@@ -13,8 +13,8 @@ class Leave extends BaseModel
         #Add Attributes
         "employee_id","leave_type_id"
         ,"from_date","to_date", "count_days",
-        "count_hours","count_minutes",
-        "description","status","reject_details",
+        "count_hours","minutes",
+        "description","status","reject_details","date_update_status",
         "created_by","updated_by","is_active",
     ];
 
@@ -39,5 +39,9 @@ class Leave extends BaseModel
 
             ];
         };
+    }
+
+    public static function status(){
+        return ["pending","approve","reject"];
     }
 }

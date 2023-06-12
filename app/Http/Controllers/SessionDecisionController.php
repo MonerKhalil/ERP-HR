@@ -197,7 +197,7 @@ class SessionDecisionController extends Controller
         ]);
         $query = SessionDecision::with(["moderator"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
-        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $data = MyApp::Classes()->Search->getDataFilter($query,null,true,"date_session");
         $head = [
             [
                 "head"=> "moderator",
