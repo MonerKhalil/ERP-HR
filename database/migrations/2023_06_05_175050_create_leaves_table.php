@@ -21,10 +21,10 @@ return new class extends Migration
             $table->date("from_date");
             $table->date("to_date");
             $table->integer("count_days")->unsigned()->default(0);
-            $table->integer("count_hours")->unsigned()->default(0);
-            $table->integer("count_minutes")->unsigned()->default(0);
+            $table->integer("minutes")->unsigned()->default(0);
             $table->text("description")->nullable();
             $table->text("reject_details")->nullable();
+            $table->date("date_update_status")->nullable();
             $table->enum("status",["pending","approve","reject"])->default("pending");
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();

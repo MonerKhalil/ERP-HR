@@ -13,6 +13,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\LeaveAdminController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
@@ -206,6 +207,7 @@ Route::middleware(['auth'])->group(function () {
         #Print Pdf and Xlsx
         Route::post('employees/export/xlsx',[EmployeeController::class,"ExportXls"])->name("employees.export.xls");
         Route::post('employees/export/pdf',[EmployeeController::class,"ExportPDF"])->name("employees.export.pdf");
+        Route::delete("employees/multi/delete",[EmployeeController::class,"ExportPDF"])->name("employees.multi.delete");
         Route::get("employees/show/{employee?}", [EmployeeController::class, "show"])->name("employees.show");
         Route::get("employees/edit/{employee?}", [EmployeeController::class, "edit"])->name("employees.edit");
         Route::post("employees/update/{employee?}", [EmployeeController::class, "update"])->name("employees.update");
@@ -238,6 +240,15 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+                Route::post("status/change/{leave}/{status}")
+                    ->whereIn("status",["approve","reject"])
+                    ->name("leave.status.change");
+            });
+        Route::resource('leaves', LeaveController::class);
+        Route::prefix("leaves")->name("leaves.")
+            ->controller(LeaveController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
             });
 
 

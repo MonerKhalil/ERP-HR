@@ -16,15 +16,30 @@ class LeaveAdminRequest extends BaseRequest
     {
         $leaveType = LeaveType::query()->find($this->input("leave_type_id"));
         $is_hourly = $leaveType->is_hourly ?? null;
-        $max_hours = $leaveType->max_hours_per_day ?? null;
+        if (!$this->isUpdatedRequest()){
+            return  [
+                "leave_type_id" => ["required",Rule::exists("leave_types","id")],
+                "employee_ids" => ["required","array"],
+                "employee_ids.*" => ["required",Rule::exists("employees","id")],
+                "from_hour" => [Rule::requiredIf(function ()use($is_hourly){
+                    return $is_hourly;
+                }),"date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
+                "to_hour" => [Rule::requiredIf(function (){
+                    return !is_null($this->input("from_hour"));
+                }),"after:from_hour","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
+                "description" => ["nullable","string"],
+                "from_date" => $this->dateRules(true),
+                "to_date" => $this->afterDateOrNowRules(true,"from_date"),
+            ];
+        }
         return [
             "leave_type_id" => ["required",Rule::exists("leave_types","id")],
-            "employee_ids" => ["required","array"],
-            "employee_ids.*" => ["required",Rule::exists("employees","id")],
-            "count_hours" => [Rule::requiredIf(function ()use($is_hourly){
+            "from_hour" => [Rule::requiredIf(function ()use($is_hourly){
                 return $is_hourly;
-            }),"numeric",!is_null($max_hours) ? "max:".$max_hours : "nullable",],
-            "count_minutes" => ["sometimes","numeric","min:1"],
+            }),"date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
+            "to_hour" => [Rule::requiredIf(function (){
+                return !is_null($this->input("from_hour"));
+            }),"after:from_hour","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
             "description" => ["nullable","string"],
             "from_date" => $this->dateRules(true),
             "to_date" => $this->afterDateOrNowRules(true,"from_date"),
