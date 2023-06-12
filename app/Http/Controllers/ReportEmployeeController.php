@@ -37,7 +37,8 @@ class ReportEmployeeController extends Controller
         $membership_type = Membership_type::query()->pluck("name","id")->toArray();
         $position = Position::query()->pluck("name","id")->toArray();
         $type_decision = TypeDecision::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("sections","gender",
+        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesForm"
+            ,compact("sections","gender",
             "contract_type","education_level","language","language_skills_read_write","membership_type"
             ,"position","type_decision","family_status"
         ));
@@ -46,7 +47,8 @@ class ReportEmployeeController extends Controller
     public function Report(ReportEmployeeRequest $request){
         $dataSelected = array_filter($request->validated(),function($var){return !is_null($var);});
         $finalData = MyApp::Classes()->Search->dataPaginate($this->MainQueryReport($request));
-        return $this->responseSuccess("...",compact("finalData","dataSelected"));
+        return $this->responseSuccess("System/Pages/Actors/Reports/reportEmployeesView"
+            ,compact("finalData","dataSelected"));
     }
 
     public function ReportPdf(ReportEmployeeRequest $request){
@@ -55,7 +57,8 @@ class ReportEmployeeController extends Controller
         $finalData = isset($request->ids) && is_array($request->ids) ?
             $query->whereIn("id",$request->ids) : $query;
         $finalData = $finalData->get();
-        return $this->responseSuccess("...",compact("finalData","dataSelected"));
+        return $this->responseSuccess("System/Pages/Docs/reportPrint"
+            ,compact("finalData","dataSelected"));
     }
 
     public function ReportXlsx(ReportEmployeeRequest $request){

@@ -16,8 +16,8 @@ class NotificationsController extends Controller
             default => $user->notifications(),
         };
         $data = MyApp::Classes()->Search->dataPaginate($data->whereNot("data->type","audit"));
-
-        return $this->responseSuccess("notifications.show",compact("data"));
+        return $this->responseSuccess("System/Pages/Actors/notification" ,
+            compact("data"));
     }
 
     public function clearNotifications(){

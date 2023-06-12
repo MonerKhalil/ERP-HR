@@ -2797,6 +2797,7 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   width: 100%;
   font-size: 1.3rem;
   border-collapse: collapse;
+  text-align: center;
 }
 .Table__Table .GroupRows {
   display: table-row-group;
@@ -2827,6 +2828,7 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 }
 .Table__Table .Item__Col--Check {
   line-height: 1;
+  text-align: start;
 }
 .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
   background-color: #10C093;
