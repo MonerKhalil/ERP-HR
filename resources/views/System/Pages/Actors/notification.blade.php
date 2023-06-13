@@ -1,13 +1,11 @@
 @extends("System.Pages.globalPage")
 
-{{ dd($data) }}
-
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--Notification">
         <div class="NotificationPage">
             <div class="NotificationPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "Notification" ,
+                    'mainTitle' => "الاشعارات" ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -43,175 +41,33 @@
                                             </div>
                                             <div class="Card__Inner p0">
                                                 <ul class="NotificationPage__NotificationList">
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Receive">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">
-                                                                        2hr ago
-                                                                    </p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
+                                                    @foreach($data as $NotificationItem)
+                                                        <li class="NotificationPage__Notification Notification">
+                                                            <div class="Card__Inner">
+                                                                <div class="Notification__Content">
+                                                                    <a href="{{ $NotificationItem["route_name"] }}"
+                                                                       class="Notification__Icon Notification__Icon--Receive">
+                                                                        <i class="material-icons">description</i>
+                                                                    </a>
+                                                                    <a href="{{ $NotificationItem["route_name"] }}"
+                                                                       class="Notification__Details">
+                                                                        <p class="NotificationTitle">
+                                                                            Please check your mail
+                                                                        </p>
+                                                                        <p class="NotificationDescription">
+                                                                            {{ $NotificationItem["body"] }} .
+                                                                        </p>
+                                                                        <p class="NotificationDate">
+                                                                            {{ $NotificationItem["date"] }}
+                                                                        </p>
+                                                                    </a>
+                                                                    <div class="Notification__Remove">
+                                                                        <i class="material-icons">close</i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Send">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">2hr ago</p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Receive">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">
-                                                                        2hr ago
-                                                                    </p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Send">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">2hr ago</p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Receive">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">
-                                                                        2hr ago
-                                                                    </p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Send">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">2hr ago</p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Receive">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">
-                                                                        2hr ago
-                                                                    </p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
+                                                    @endforeach
                                                     <li class="NotificationPage__Notification Notification">
                                                         <div class="Card__Inner">
                                                             <div class="Notification__Content">

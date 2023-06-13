@@ -188,7 +188,7 @@
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="ExperienceYears" class="Input__Field"
-                                                                                               type="text" name="years_employee_services"
+                                                                                               type="number" name="years_employee_services"
                                                                                                min="1" required
                                                                                                value="{{ isset($leaveType) ? $leaveType["years_employee_services"] : "" }}"
                                                                                                placeholder="عدد سنوات العمل">
@@ -199,7 +199,83 @@
                                                                                     <label class="Form__Tips"
                                                                                            for="ExperienceYears">
                                                                                         <small>
-                                                                                            عدد سنوات العمل التي يحتاجها الموظف للحصول عل هذا النوع من الاجازات
+                                                                                            عدد سنوات العمل التي يحتاج الموظف تحقيقها للحصول عل هذا النوع من الاجازات
+                                                                                        </small>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="ExperienceYearsExtra" class="Input__Field"
+                                                                                               type="number" name="number_years_services_increment_days"
+                                                                                               min="1" required
+                                                                                               value="{{ isset($leaveType) ? $leaveType["number_years_services_increment_days"] : "" }}"
+                                                                                               placeholder="عدد سنوات العمل الاضافية">
+                                                                                        <label class="Input__Label" for="ExperienceYearsExtra">
+                                                                                            عدد سنوات العمل الاضافية
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <label class="Form__Tips"
+                                                                                           for="ExperienceYearsExtra">
+                                                                                        <small>
+                                                                                            عدد سنوات العمل الاضافية التي يحتاجها الموظف من اجل زيادة اجازاته في المؤسسة
+                                                                                        </small>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="MaxExperienceYearsExtra" class="Input__Field"
+                                                                                               type="number" name="count_available_in_service"
+                                                                                               value="{{ isset($leaveType) ? $leaveType["count_available_in_service"] : "" }}"
+                                                                                               placeholder="عدد سنوات العمل المضافة" min="1" required>
+                                                                                        <label class="Input__Label" for="MaxExperienceYearsExtra">
+                                                                                            الحد الاقصى لسنوات العمل
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <label class="Form__Tips"
+                                                                                           for="MaxExperienceYearsExtra">
+                                                                                        <small>
+                                                                                            الحد الاقصى للسنوات التي سيزيد الاجازات من عندها ومن بعدها لن يتم زيادة ايام الاجازات
+                                                                                        </small>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="VacationDaysExtra" class="Input__Field" min="1"
+                                                                                               type="number" name="count_days_increment_days"
+                                                                                               value="{{ isset($leaveType) ? $leaveType["count_days_increment_days"] : "" }}"
+                                                                                               placeholder="عدد الايام المزادة">
+                                                                                        <label class="Input__Label" for="VacationDaysExtra">
+                                                                                            عدد الايام المزادة
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <label class="Form__Tips"
+                                                                                           for="VacationDaysExtra">
+                                                                                        <small>
+                                                                                            عدد الايام التي سيتم زيادتها على الاجازات في حال تحقيق العمل الاضافي
                                                                                         </small>
                                                                                     </label>
                                                                                 </div>
