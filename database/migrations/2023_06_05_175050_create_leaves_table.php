@@ -18,10 +18,14 @@ return new class extends Migration
             #Add Columns
             $table->foreignId("leave_type_id")->constrained("leave_types")->restrictOnDelete();
             $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
+
             $table->date("from_date");
             $table->date("to_date");
+            $table->time("from_time")->nullable();
+            $table->time("to_time")->nullable();
             $table->integer("count_days")->unsigned()->default(0);
-            $table->integer("minutes")->unsigned()->default(0);
+            $table->integer("minutes")->unsigned()->nullable();
+
             $table->text("description")->nullable();
             $table->text("reject_details")->nullable();
             $table->date("date_update_status")->nullable();

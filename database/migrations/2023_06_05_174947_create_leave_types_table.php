@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer("max_days_per_years")->default(0);
             $table->boolean("can_take_hours")->default(false);
             //check years services employee -> leave type -> true
-            $table->integer("years_employee_services")->default(0);
+            $table->integer("years_employee_services")->nullable();
             $table->boolean("leave_limited");
             $table->boolean("is_hourly");
             $table->integer("max_hours_per_day")->nullable();

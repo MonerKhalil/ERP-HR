@@ -57,7 +57,11 @@ class WorkSettingController extends Controller
         $daysLeaves = $request->days;
         $h_from = Carbon::parse($request->work_hours_from)->format("H:i:s");
         $h_to = Carbon::parse($request->work_hours_to)->format("H:i:s");
-        $count_days_work_in_weeks = count(Days()) - count($daysLeaves);
+        if (is_null($daysLeaves)){
+            $count_days_work_in_weeks = count(Days());
+        }else{
+            $count_days_work_in_weeks = count(Days()) - count($daysLeaves);
+        }
         $count_hours_work_in_days = Carbon::createFromFormat("H:i:s",$h_to)->diffInHours($h_from);
         $daysLeaves = implode(",",$daysLeaves);
         WorkSetting::create([
@@ -107,7 +111,11 @@ class WorkSettingController extends Controller
         $daysLeaves = $request->days;
         $h_from = Carbon::parse($request->work_hours_from)->format("H:i:s");
         $h_to = Carbon::parse($request->work_hours_to)->format("H:i:s");
-        $count_days_work_in_weeks = count(Days()) - count($daysLeaves);
+        if (is_null($daysLeaves)){
+            $count_days_work_in_weeks = count(Days());
+        }else{
+            $count_days_work_in_weeks = count(Days()) - count($daysLeaves);
+        }
         $count_hours_work_in_days = Carbon::createFromFormat("H:i:s",$h_to)->diffInHours($h_from);
         $daysLeaves = implode(",",$daysLeaves);
         $workSetting->update([

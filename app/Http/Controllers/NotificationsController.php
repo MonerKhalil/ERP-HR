@@ -36,4 +36,17 @@ class NotificationsController extends Controller
         return response()->json(["message"=>"Success Read Notification"]);
     }
 
+    /*
+    * @descriptions : Ajax Request -> Work Update Notification To Read
+    */
+    public function removeNotification(Request $request)
+    {
+        $notify = auth()->user()->notifications()->where("id",$request->id_notify)->first();
+        if (!is_null($notify)){
+            $notify->delete();
+            return response()->json(["message"=>"Success Read Notification"]);
+        }
+        return response()->json(["error"=>"dont exists id Notification"]);
+    }
+
 }

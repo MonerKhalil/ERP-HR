@@ -16,7 +16,8 @@
             "leave_types": "a",
             "leaves": "a",
             "company_settings": "a",
-            "work_settings": "a"
+            "work_settings": "a",
+            "public_holidays": "a"
         },
         "user" : {
             "users" : ["r"],
