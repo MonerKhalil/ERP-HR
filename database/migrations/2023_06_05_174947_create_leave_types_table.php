@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer("rate_effect_salary")->unsigned()->nullable();
             $table->enum("gender",["male","female","any"])->default("any");
             $table->integer("max_days_per_years")->default(0);
-            $table->boolean("can_take_hours")->default(false);
+            $table->boolean("can_take_hours")->nullable();
             //check years services employee -> leave type -> true
             $table->integer("years_employee_services")->nullable();
             $table->boolean("leave_limited");
