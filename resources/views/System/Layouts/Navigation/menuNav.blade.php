@@ -89,7 +89,6 @@
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("resumeSection")</span>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -119,7 +118,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -149,7 +147,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -179,7 +176,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -209,7 +205,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -239,7 +234,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -280,7 +274,7 @@
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
                                     <!-- Admin -->
-                                    <a href="/Test-31" class="NavName">
+                                    <a href="{{ route("system.leave_types.index") }}" class="NavName">
                                         <span class="Label">انواع الاجازات</span>
                                     </a>
                                 </div>
@@ -288,14 +282,13 @@
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
                                     <!-- User -->
-                                    <a href="/Test-30" class="NavName">
+                                    <a href="{{ route("system.leave_types.create") }}" class="NavName">
                                         <span class="Label">اضافة نوع جديد</span>
                                     </a>
                                 </div>
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -343,7 +336,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -375,7 +367,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
                             <a href="{{route("system.employees.report")}}" class="NavName">
@@ -387,6 +378,56 @@
                                 </span>
                             </a>
                         </div>
+                    </li>
+                </ul>
+                <ul class="NavigationsMenu__NavigationsGroup">
+                    <li class="NavigationsGroup__Title">
+                        <span class="Title">الاعدادات</span>
+                    </li>
+                    <li class="NavigationsGroup__NavItem">
+                        <div class="Title">
+                            <a href="{{route("system.company_settings.show")}}" class="NavName">
+                                <i class="material-icons Icon">
+                                    widgets
+                                </i>
+                                <span class="Label">
+                                    اعدادات الشركة
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    room_preferences
+                                </i>
+                                <span class="Label">اعدادات الدوام</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.work_settings.create") }}"
+                                       class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            اضافة نوع دوام جديد
+                                        </span>
+                                    </a>
+                                    <a href="{{ route("system.work_settings.index") }}"
+                                       class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            عرض انواع الدوام
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup Visible-phoneLandscape">
