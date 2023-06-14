@@ -26,7 +26,7 @@
                                                         @method("delete")
                                                         <button type="submit"
                                                                 class="Button Button--Primary">
-                                                            Clear All
+                                                            مسح الكل
                                                         </button>
                                                     </form>
                                                     <form action="{{route("notifications.edit")}}"
@@ -34,63 +34,89 @@
                                                         @csrf
                                                         @method("put")
                                                         <button class="Button Button--Primary">
-                                                            Read All
+                                                            قراءة الكل
                                                         </button>
                                                     </form>
                                                 </div>
                                             </div>
                                             <div class="Card__Inner p0">
                                                 <ul class="NotificationPage__NotificationList">
-                                                    @foreach($data as $NotificationItem)
-                                                        <li class="NotificationPage__Notification Notification">
-                                                            <div class="Card__Inner">
-                                                                <div class="Notification__Content">
-                                                                    <a href="{{ $NotificationItem["route_name"] }}"
-                                                                       class="Notification__Icon Notification__Icon--Receive">
-                                                                        <i class="material-icons">description</i>
-                                                                    </a>
-                                                                    <a href="{{ $NotificationItem["route_name"] }}"
-                                                                       class="Notification__Details">
-                                                                        <p class="NotificationTitle">
-                                                                            Please check your mail
-                                                                        </p>
-                                                                        <p class="NotificationDescription">
-                                                                            {{ $NotificationItem["body"] }} .
-                                                                        </p>
-                                                                        <p class="NotificationDate">
-                                                                            {{ $NotificationItem["date"] }}
-                                                                        </p>
-                                                                    </a>
-                                                                    <div class="Notification__Remove">
-                                                                        <i class="material-icons">close</i>
+                                                    @if(count($data) > 0)
+                                                        @foreach($data as $NotificationItem)
+                                                            <li class="NotificationPage__Notification Notification"
+                                                                data-NotificationID="{{ $NotificationItem["id"] }}">
+                                                                <div class="Card__Inner">
+                                                                    <div class="Notification__Content">
+                                                                        @php
+                                                                            $NotificationObject = GetNotificationIcon($NotificationItem["type"]) ;
+                                                                        @endphp
+                                                                        <a href="{{ $NotificationItem["route_name"] }}"
+                                                                           class="Notification__Icon Notification__Icon--{{ $NotificationObject->Color }}">
+                                                                            <i class="material-icons">
+                                                                                {{ $NotificationObject->Icon }}
+                                                                            </i>
+                                                                        </a>
+                                                                        <a href="{{ $NotificationItem["route_name"] }}"
+                                                                           class="Notification__Details">
+                                                                            <p class="NotificationTitle">
+                                                                                من
+                                                                                <span class="UserFrom">
+                                                                                <strong>
+                                                                                    {{ $NotificationItem["from"] }}
+                                                                                </strong>
+                                                                            </span> ,
+                                                                                {{ $NotificationItem["type"] }} .
+                                                                            </p>
+                                                                            <p class="NotificationDescription">
+                                                                                {{ $NotificationItem["body"] }} .
+                                                                            </p>
+                                                                            <p class="NotificationDate">
+                                                                                {{ $NotificationItem["date"] }}
+                                                                            </p>
+                                                                        </a>
+                                                                        <div class="Notification__Remove">
+                                                                            <i class="material-icons">close</i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                            </li>
+                                                        @endforeach
+                                                    @else
+                                                        <li class="NoData--V2">
+                                                            <div class="Icon">
+                                                                <i class="material-icons">
+                                                                    sentiment_dissatisfied
+                                                                </i>
+                                                            </div>
+                                                            <div class="Text">
+                                                                لا يوجد اشعارات لعرضها
                                                             </div>
                                                         </li>
-                                                    @endforeach
-                                                    <li class="NotificationPage__Notification Notification">
-                                                        <div class="Card__Inner">
-                                                            <div class="Notification__Content">
-                                                                <a href="#"
-                                                                   class="Notification__Icon Notification__Icon--Send">
-                                                                    <i class="material-icons">description</i>
-                                                                </a>
-                                                                <a href="#"
-                                                                   class="Notification__Details">
-                                                                    <p class="NotificationTitle">
-                                                                        Please check your mail
-                                                                    </p>
-                                                                    <p class="NotificationDescription">
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    </p>
-                                                                    <p class="NotificationDate">2hr ago</p>
-                                                                </a>
-                                                                <div class="Notification__Remove">
-                                                                    <i class="material-icons">close</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    @endif
+
+{{--                                                    <li class="NotificationPage__Notification Notification">--}}
+{{--                                                        <div class="Card__Inner">--}}
+{{--                                                            <div class="Notification__Content">--}}
+{{--                                                                <a href="#"--}}
+{{--                                                                   class="Notification__Icon Notification__Icon--Send">--}}
+{{--                                                                    <i class="material-icons">description</i>--}}
+{{--                                                                </a>--}}
+{{--                                                                <a href="#"--}}
+{{--                                                                   class="Notification__Details">--}}
+{{--                                                                    <p class="NotificationTitle">--}}
+{{--                                                                        Please check your mail--}}
+{{--                                                                    </p>--}}
+{{--                                                                    <p class="NotificationDescription">--}}
+{{--                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.--}}
+{{--                                                                    </p>--}}
+{{--                                                                    <p class="NotificationDate">2hr ago</p>--}}
+{{--                                                                </a>--}}
+{{--                                                                <div class="Notification__Remove">--}}
+{{--                                                                    <i class="material-icons">close</i>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </li>--}}
                                                 </ul>
                                             </div>
                                             <div class="Card__Inner">

@@ -29,144 +29,81 @@
                                         <span class="ReadAll">@lang("markRead")</span>
                                     </div>
                                     <ul class="Dropdown__Content">
-                                        <li class="Dropdown__Item">
-                                            <div class="Notification">
-                                                <div class="Notification__Content">
-                                                    <a href="#"
-                                                       class="Notification__Icon Notification__Icon--Send">
-                                                        <i class="material-icons">description</i>
-                                                    </a>
-                                                    <a href="#"
-                                                       class="Notification__Details">
-                                                        <p class="NotificationTitle">
-                                                            Please check your mail
-                                                        </p>
-                                                        <p class="NotificationDescription">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                        </p>
-                                                        <p class="NotificationDate">2hr ago</p>
-                                                    </a>
-                                                    <div class="Notification__Remove">
-                                                        <i class="material-icons">close</i>
+                                        @if(count(auth()->user()->notifications) > 0)
+                                            @foreach(auth()->user()->notifications as $NotificationItem)
+                                                <li class="Dropdown__Item">
+                                                    <div class="Notification"
+                                                         data-NotificationID="{{ $NotificationItem["id"] }}">
+                                                        <div class="Notification__Content">
+                                                            @php
+                                                                $NotificationObject = GetNotificationIcon($NotificationItem["type"]) ;
+                                                            @endphp
+                                                            <a href="{{ $NotificationItem["route_name"] }}"
+                                                               class="Notification__Icon Notification__Icon--{{ $NotificationObject->Color }}">
+                                                                <i class="material-icons">
+                                                                    {{ $NotificationObject->Icon }}
+                                                                </i>
+                                                            </a>
+                                                            <a href="{{ $NotificationItem["route_name"] }}"
+                                                               class="Notification__Details">
+                                                                <p class="NotificationTitle">
+                                                                    من
+                                                                    <span class="UserFrom">
+                                                                        <strong>
+                                                                            {{ $NotificationItem["from"] }}
+                                                                        </strong>
+                                                                    </span> ,
+                                                                    {{ $NotificationItem["type"] }} .
+                                                                </p>
+                                                                <p class="NotificationDescription">
+                                                                    {{ $NotificationItem["body"] }} .
+                                                                </p>
+                                                                <p class="NotificationDate">
+                                                                    {{ $NotificationItem["date"] }}
+                                                                </p>
+                                                            </a>
+                                                            <div class="Notification__Remove">
+                                                                <i class="material-icons">close</i>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <li class="NoData--V2 NoDataDropItem">
+                                                <div class="Icon">
+                                                    <i class="material-icons">
+                                                        sentiment_dissatisfied
+                                                    </i>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="Dropdown__Item">
-                                            <div class="Notification">
-                                                <div class="Notification__Content">
-                                                    <a href="#"
-                                                       class="Notification__Icon Notification__Icon--Send">
-                                                        <i class="material-icons">description</i>
-                                                    </a>
-                                                    <a href="#"
-                                                       class="Notification__Details">
-                                                        <p class="NotificationTitle">
-                                                            Please check your mail
-                                                        </p>
-                                                        <p class="NotificationDescription">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                        </p>
-                                                        <p class="NotificationDate">2hr ago</p>
-                                                    </a>
-                                                    <div class="Notification__Remove">
-                                                        <i class="material-icons">close</i>
-                                                    </div>
+                                                <div class="Text">
+                                                    لا يوجد اشعارات لعرضها
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="Dropdown__Item">
-                                            <div class="Notification">
-                                                <div class="Notification__Content">
-                                                    <a href="#"
-                                                       class="Notification__Icon Notification__Icon--Send">
-                                                        <i class="material-icons">description</i>
-                                                    </a>
-                                                    <a href="#"
-                                                       class="Notification__Details">
-                                                        <p class="NotificationTitle">
-                                                            Please check your mail
-                                                        </p>
-                                                        <p class="NotificationDescription">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                        </p>
-                                                        <p class="NotificationDate">2hr ago</p>
-                                                    </a>
-                                                    <div class="Notification__Remove">
-                                                        <i class="material-icons">close</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="Dropdown__Item">
-                                            <div class="Notification">
-                                                <div class="Notification__Content">
-                                                    <a href="#"
-                                                       class="Notification__Icon Notification__Icon--Send">
-                                                        <i class="material-icons">description</i>
-                                                    </a>
-                                                    <a href="#"
-                                                       class="Notification__Details">
-                                                        <p class="NotificationTitle">
-                                                            Please check your mail
-                                                        </p>
-                                                        <p class="NotificationDescription">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                        </p>
-                                                        <p class="NotificationDate">2hr ago</p>
-                                                    </a>
-                                                    <div class="Notification__Remove">
-                                                        <i class="material-icons">close</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="Dropdown__Item">
-                                            <div class="Notification">
-                                                <div class="Notification__Content">
-                                                    <a href="#"
-                                                       class="Notification__Icon Notification__Icon--Send">
-                                                        <i class="material-icons">description</i>
-                                                    </a>
-                                                    <a href="#"
-                                                       class="Notification__Details">
-                                                        <p class="NotificationTitle">
-                                                            Please check your mail
-                                                        </p>
-                                                        <p class="NotificationDescription">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                        </p>
-                                                        <p class="NotificationDate">2hr ago</p>
-                                                    </a>
-                                                    <div class="Notification__Remove">
-                                                        <i class="material-icons">close</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="Dropdown__Item">
-                                            <div class="Notification">
-                                                <div class="Notification__Content">
-                                                    <a href="#"
-                                                       class="Notification__Icon Notification__Icon--Send">
-                                                        <i class="material-icons">description</i>
-                                                    </a>
-                                                    <a href="#"
-                                                       class="Notification__Details">
-                                                        <p class="NotificationTitle">
-                                                            Please check your mail
-                                                        </p>
-                                                        <p class="NotificationDescription">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                        </p>
-                                                        <p class="NotificationDate">2hr ago</p>
-                                                    </a>
-                                                    <div class="Notification__Remove">
-                                                        <i class="material-icons">close</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        @endif
+{{--                                        <li class="Dropdown__Item">--}}
+{{--                                            <div class="Notification">--}}
+{{--                                                <div class="Notification__Content">--}}
+{{--                                                    <a href="#"--}}
+{{--                                                       class="Notification__Icon Notification__Icon--Send">--}}
+{{--                                                        <i class="material-icons">description</i>--}}
+{{--                                                    </a>--}}
+{{--                                                    <a href="#"--}}
+{{--                                                       class="Notification__Details">--}}
+{{--                                                        <p class="NotificationTitle">--}}
+{{--                                                            Please check your mail--}}
+{{--                                                        </p>--}}
+{{--                                                        <p class="NotificationDescription">--}}
+{{--                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.--}}
+{{--                                                        </p>--}}
+{{--                                                        <p class="NotificationDate">2hr ago</p>--}}
+{{--                                                    </a>--}}
+{{--                                                    <div class="Notification__Remove">--}}
+{{--                                                        <i class="material-icons">close</i>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
                                     </ul>
                                     <div class="Dropdown__Footer">
                                         <a href="{{route("notifications.show")}}" title="View All Notification">

@@ -71,26 +71,41 @@
                                                     </span>
                                                 </div>
                                             </div>
+{{--                                            <div class="ListData__Item ListData__Item--NoAction">--}}
+{{--                                                <div class="Data_Col">--}}
+{{--                                                    <span class="Data_Label">--}}
+{{--                                                        عدد الايام المسموحة بالشهر--}}
+{{--                                                    </span>--}}
+{{--                                                    <span class="Data_Value">--}}
+{{--                                                        {{$leaveType["max_days_per_month"] ?? "_"}}--}}
+{{--                                                    </span>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        عدد الايام المسموحة بالشهر
-                                                    </span>
-                                                    <span class="Data_Value">
-                                                        {{$leaveType["max_days_per_month"] ?? "_"}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="ListData__Item ListData__Item--NoAction">
-                                                <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        هل الاجازات الساعية متطبقة
+                                                        هل الاجازات الساعية مطبقة
                                                     </span>
                                                     <span class="Data_Value">
                                                         @if($leaveType["is_hourly"])
                                                             مطبق
                                                         @else
                                                             غير مطبق
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        هل يمكن تطبيقها كساعات غير محددة
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        @if($leaveType["can_take_hours"])
+                                                            نعم
+                                                        @else
+                                                            لا
                                                         @endif
                                                     </span>
                                                 </div>
@@ -112,20 +127,20 @@
                                     <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                معلومات خاصة بالموظف
+                                                 معلومات خاصة بالموظف التي تحق له الاجازة
                                             </h4>
                                         </div>
-                                        <div class="ListData__Content">
-                                            <div class="ListData__Item ListData__Item--NoAction">
-                                                <div class="Data_Col">
+                                        <div class="ListData__Item ListData__Item--NoAction">
+                                            <div class="Data_Col">
                                                     <span class="Data_Label">
                                                         الجنس
                                                     </span>
-                                                    <span class="Data_Value">
+                                                <span class="Data_Value">
                                                         {{$leaveType["gender"]}}
                                                     </span>
-                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="ListData__Content">
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
@@ -133,6 +148,36 @@
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["years_employee_services"] ?? "_"}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        عدد سنوات العمل الاضافية
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$leaveType["number_years_services_increment_days"] ?? "_"}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        عدد مرات زيادة الاجازات
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$leaveType["count_available_in_service"] ?? "_"}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        عدد الايام المزادة
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$leaveType["count_days_increment_days"] ?? "_"}}
                                                     </span>
                                                 </div>
                                             </div>

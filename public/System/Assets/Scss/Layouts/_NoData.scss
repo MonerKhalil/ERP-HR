@@ -20,3 +20,38 @@
     }
 
 }
+
+.NoData--V2 {
+    text-align: center;
+    margin: 4rem 0;
+
+    .Icon{
+        margin-bottom: 1.5rem;
+
+        i {
+            font-size: 10rem;
+        }
+    }
+
+    .Text {
+        font-size: 2rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    &.NoDataDropItem {
+
+        .Icon {
+
+            i {
+                font-size: 5rem;
+            }
+        }
+
+        .Text {
+            font-size: 1.4rem;
+        }
+
+    }
+
+}
