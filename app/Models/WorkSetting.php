@@ -34,8 +34,10 @@ class WorkSetting extends BaseModel
                     !$validator->isUpdatedRequest() ? Rule::unique("work_settings","name")
                         : Rule::unique("work_settings","name")->ignore($work_setting)],
                 //daysLeavesOnly
-                "days" => ["required","array"],
-                "days.*" => ["required",Rule::in(Days())],
+                "days" => ["nullable","array"],
+                "days.*" => [Rule::requiredIf(function ()use($validator){
+                    return !is_null($validator->input("days"));
+                }),Rule::in(Days())],
                 "work_hours_from" => ["required","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
                 "work_hours_to" => ["required","after:work_hours_from","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
                 "description" => ["nullable","string"],

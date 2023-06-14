@@ -8,17 +8,14 @@ use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
 use App\Http\Requests\LeaveAdminRequest;
-use App\Http\Requests\LeaveRequest;
 use App\Models\Employee;
 use App\Models\Leave;
 use App\Models\LeaveType;
 use App\Models\User;
 use App\Notifications\MainNotification;
+use App\Services\FinalDataStore;
 use App\Services\LeavesProcessService;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -33,7 +30,37 @@ class LeaveAdminController extends Controller
         $this->addMiddlewarePermissionsToFunctions($table);
         $this->middleware(["permission:update_".$table."|all_".$table])->only(["changeStatus"]);
     }
-
+    private function MainQuery($request){
+        $data = Leave::with(["leave_type","employee"]);
+        //search name employee
+        if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
+            $data = $data->whereHas("employee",function ($q) use ($request){
+                $q->where("first_name","Like","%".$request->filter["name_employee"]."%")
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
+            });
+        }
+        if (!is_null($request->filter["start_date_filter"]) && !is_null($request->filter["end_date_filter"]) ){
+            $fromDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date_filter"]);
+            $toDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date_filter"]);
+            if ( is_string($fromDate) && is_string($toDate) && ($fromDate <= $toDate) ){
+                $data = $data->where(function ($query) use ($fromDate,$toDate){
+                    $query->whereBetween('from_date', [$fromDate, $toDate])
+                        ->orWhereBetween('to_date', [$fromDate, $toDate])
+                        ->orWhere(function ($query) use ($fromDate, $toDate) {
+                            $query->where('from_date', '<', $fromDate)
+                                ->where('to_date', '>', $toDate);
+                        });
+                });
+            }
+        }
+        if (!is_null($request->filter["status"])){
+            $data = $data->where("status",$request->filter["status"]);
+        }
+        if (!is_null($request->filter["leave_type"])){
+            $data = $data->where("leave_type_id",$request->filter["leave_type"]);
+        }
+        return $data;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,17 +68,9 @@ class LeaveAdminController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Leave::with(["leave_type","employee"]);
         $status = Leave::status();
-        //search name employee
-        if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
-            $data = $data->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
-            });
-        }
-        //search select leave type..
         $leave_types = LeaveType::query()->pluck("name","id")->toArray();
+        $data = MyApp::Classes()->Search->dataPaginate($this->MainQuery($request));
         return $this->responseSuccess(self::NameBlade,compact("data","status","leave_types"));
     }
 
@@ -76,7 +95,7 @@ class LeaveAdminController extends Controller
             "from" => auth()->user()->name,
             "body" => $message,
             "date" => now(),
-            "route_name" => route("system.leaves.show",$leave->id),
+            "route_name" => route("system.leaves.show.leave",$leave->id),
         ],__("request_leave")));
         return $this->responseSuccess(null,null,"default",self::IndexRoute);
     }
@@ -95,111 +114,66 @@ class LeaveAdminController extends Controller
 
 
     /**
-     * @param LeaveRequest $request
+     * @param LeaveAdminRequest $request
      * @param LeavesProcessService $service
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
      * @throws MainException
      * @author moner khalil
      */
     public function store(LeaveAdminRequest $request, LeavesProcessService $service)
     {
-        try {
-            DB::beginTransaction();
-            $employees = Employee::with("section")->whereIn("id",$request->employee_ids)->get();
-            $leave_type = LeaveType::query()->find($request->leave_type_id);
-            foreach ($employees as $employee){
-                if ($service->checkAllProcess($request,$employee,$leave_type)){
-                    $data = [
-                        "employee_id" => $employee->id,
-                        "leave_type_id" => $leave_type->id,
-                        "from_date" => $request->from_date,
-                        "to_date" => $request->to_date,
-                    ];
-                    if (!is_null($request->count_hours)){
-                        $data["count_hours"] = $request->count_hours;
-                    }
-                    if (!is_null($request->minutes)){
-                        $data["minutes"] = $request->minutes;
-                    }
-                    $from = Carbon::parse($request->from_date)->format("Y-m-d");
-                    $to = Carbon::parse($request->to_date)->format("Y-m-d");
-                    $data["count_days"] = Carbon::createFromFormat("Y-m-d",$to)->diffInDays($from);
-                    $data["status"] = "approve";
-                    $data["description"] = $request->description;
-                    Leave::create($data);
-                }
-            }
-            DB::commit();
+        $employee = Employee::find($request->employee_id);
+        $leave_type = LeaveType::find($request->leave_type_id);
+        $checkCanLeave = $service->checkAllProcess($request,$employee,$leave_type);
+        if ($checkCanLeave instanceof FinalDataStore){
+            //Code Create Leave
+            Leave::create([
+                "employee_id" => $employee->id,
+                "leave_type_id" => $leave_type->id,
+                "from_date" => $checkCanLeave->fromDate,
+                "to_date" => $checkCanLeave->toDate,
+                "from_time" => $checkCanLeave->fromTime,
+                "to_time" => $checkCanLeave->toTime,
+                "count_days" => $checkCanLeave->countDays,
+                "minutes" => $checkCanLeave->MinutesInDays,
+                "description" => $request->description,
+                "status" => "approve",
+            ]);
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
-        }catch (Exception $exception){
-            DB::rollBack();
-            throw new MainException($exception->getMessage());
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Leave  $leave
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Leave $leave)
-    {
-        $leave = Leave::with(["leave_type","employee"])->find($leave);
-        return $this->responseSuccess("...",compact("leave"));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Leave  $leave
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Leave $leave)
-    {
-        $leave = Leave::with(["leave_type","employee"])->find($leave);
-        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("leave","leave_types"));
+        throw new MainException($checkCanLeave);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Leave  $leave
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Leave $leave
      * @return \Illuminate\Http\Response
+     * @throws MainException
      */
     public function update(LeaveAdminRequest $request, Leave $leave, LeavesProcessService $service)
     {
-        try {
-            DB::beginTransaction();
-            $employee = Employee::with("section")->where("id",$leave->employee_id)->first();
-            $leave_type = LeaveType::query()->find($request->leave_type_id);
-            if ($service->checkAllProcess($request,$employee,$leave_type)){
-                $data = [
-                    "employee_id" => $employee->id,
-                    "leave_type_id" => $leave_type->id,
-                    "from_date" => $request->from_date,
-                    "to_date" => $request->to_date,
-                ];
-                if (!is_null($request->count_hours)){
-                    $data["count_hours"] = $request->count_hours;
-                }
-                if (!is_null($request->minutes)){
-                    $data["minutes"] = $request->minutes;
-                }
-                $from = Carbon::parse($request->from_date)->format("Y-m-d");
-                $to = Carbon::parse($request->to_date)->format("Y-m-d");
-                $data["count_days"] = Carbon::createFromFormat("Y-m-d",$to)->diffInDays($from);
-                $data["status"] = "approve";
-                $data["description"] = $request->description;
-                $leave->update($data);
-            }
-            DB::commit();
+        $employee = Employee::find($leave->employee_id);
+        $leave_type = LeaveType::find($request->leave_type_id);
+        $checkCanLeave = $service->checkAllProcess($request,$employee,$leave_type,$leave->id);
+        if ($checkCanLeave instanceof FinalDataStore){
+            //Code Create Leave
+            $leave->update([
+                "employee_id" => $employee->id,
+                "leave_type_id" => $leave_type->id,
+                "from_date" => $checkCanLeave->fromDate,
+                "to_date" => $checkCanLeave->toDate,
+                "from_time" => $checkCanLeave->fromTime,
+                "to_time" => $checkCanLeave->toTime,
+                "count_days" => $checkCanLeave->countDays,
+                "minutes" => $checkCanLeave->MinutesInDays,
+                "description" => $request->description,
+                "status" => "approve",
+            ]);
             return $this->responseSuccess(null,null,"update",self::IndexRoute);
-        }catch (Exception $exception){
-            DB::rollBack();
-            throw new MainException($exception->getMessage());
         }
+        throw new MainException($checkCanLeave);
     }
 
     /**
@@ -247,15 +221,8 @@ class LeaveAdminController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("leaves","id")],
         ]);
-        $query = Leave::query();
+        $query = $this->MainQuery($request);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
-        //search name employee
-        if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
-            $query = $query->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
-            });
-        }
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [
             [

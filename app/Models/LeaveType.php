@@ -58,7 +58,7 @@ class LeaveType extends BaseModel
                         ($validator->input("leave_limited") == "false" || $validator->input("leave_limited") == 0);
                 }),"numeric"],
                 "leave_limited" => ["required","boolean"],
-                "can_take_hours" => ["required","boolean"],
+                "can_take_hours" => ["sometimes","boolean"],
                 "max_days_per_years" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("leave_limited") == "true" || $validator->input("leave_limited") == 1;
                 }),"numeric","min:1"],

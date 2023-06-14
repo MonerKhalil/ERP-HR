@@ -18,11 +18,12 @@ $leave_types = Permissions::getPermissions("leave_types");
 $leaves = Permissions::getPermissions("leaves");
 $company_settings = Permissions::OnlyPermissions("company_settings",["all","read"]);
 $work_settings = Permissions::getPermissions("work_settings");
+$public_holidays = Permissions::getPermissions("public_holidays");
 
 return array_merge($users,$roles,$employees
 ,$session_decisions,$type_decisions,$decisions,$sections,
 $conferences,$positions,$position_employees,$data_end_services,$request_end_services,
-$leave_types,$leaves,$company_settings,$work_settings,
+$leave_types,$leaves,$company_settings,$work_settings,$public_holidays,
 [
     #addPermissions
     #Example : "read_model"...
