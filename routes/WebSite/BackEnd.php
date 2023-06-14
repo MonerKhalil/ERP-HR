@@ -20,6 +20,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\ReportEmployeeController;
 use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\SessionDecisionController;
 use App\Http\Controllers\TypeDecisionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkSettingController;
+use App\Models\Leave;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get("show", "getNotifications")->name("notifications.show");
                 Route::delete("clear", "clearNotifications")->name("notifications.clear");
                 Route::put("edit/read", "editNotificationsToRead")->name("notifications.edit");
-
+                Route::delete("remove/notify", "removeNotification")->name("notify.remove");
             });
         Route::get("audit/show", [AuditController::class, "AllNotificationsAuditUserShow"])->name("audit.show");
         Route::get("audit/show/{audit}", [AuditController::class, "showAudit"])->name("audit.show.single");
@@ -176,9 +178,17 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
-        Route::resource('positions', PositionController::class);
+        Route::resource('positions', PositionController::class)->except("show");
         Route::prefix("positions")->name("positions.")
             ->controller(PositionController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::resource('public_holidays', PublicHolidayController::class)->except("show");
+        Route::prefix("public_holidays")->name("public_holidays.")
+            ->controller(PublicHolidayController::class)->group(function (){
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
@@ -207,7 +217,7 @@ Route::middleware(['auth'])->group(function () {
         #Print Pdf and Xlsx
         Route::post('employees/export/xlsx',[EmployeeController::class,"ExportXls"])->name("employees.export.xls");
         Route::post('employees/export/pdf',[EmployeeController::class,"ExportPDF"])->name("employees.export.pdf");
-        Route::delete("employees/multi/delete",[EmployeeController::class,"ExportPDF"])->name("employees.multi.delete");
+        Route::delete("employees/multi/delete",[EmployeeController::class,"MultiDelete"])->name("employees.multi.delete");
         Route::get("employees/show/{employee?}", [EmployeeController::class, "show"])->name("employees.show");
         Route::get("employees/edit/{employee?}", [EmployeeController::class, "edit"])->name("employees.edit");
         Route::post("employees/update/{employee?}", [EmployeeController::class, "update"])->name("employees.update");
@@ -234,7 +244,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
-        Route::resource('leaves_admin', LeaveAdminController::class);
+        Route::resource('leaves_admin', LeaveAdminController::class)->except(["show","edit"]);
         Route::prefix("leaves_admin")->name("leaves_admin.")
             ->controller(LeaveAdminController::class)->group(function (){
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
@@ -244,13 +254,21 @@ Route::middleware(['auth'])->group(function () {
                     ->whereIn("status",["approve","reject"])
                     ->name("leave.status.change");
             });
-        Route::resource('leaves', LeaveController::class);
         Route::prefix("leaves")->name("leaves.")
             ->controller(LeaveController::class)->group(function (){
-                Route::post('export/xlsx',"ExportXls")->name("export.xls");
-                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
-            });
-
+            Route::get("all/{status?}","ShowLeaves")
+                ->whereIn("status", Leave::status())
+                ->name("all.status");
+            Route::get("show/{leave}","Show")->name("show.leave");
+            Route::get("edit/{leave}","Edit")->name("edit.leave");
+            Route::put("update/{leave}","updateRequestLeave")->name("update.leave");
+            Route::get("request/create","createRequestLeave")->name("create.request");
+            Route::post("request/store","Store")->name("store.request");
+            Route::delete("request/delete/{leave}","Destroy")->name("remove.request");
+            Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
+            Route::get("show/leaves_type","LeavesTypeShow")->name("show.leavesType");
+            Route::get("count/leaves/{leave_type}","LeavesTypeShow")->name("show.leavesType");
+        });
 
         /*===========================================
         =        End Leaves Routes         =

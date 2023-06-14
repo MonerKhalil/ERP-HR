@@ -56,7 +56,7 @@ class Employee extends BaseModel
     private function tempLeaves(string $type){
         return $this->hasMany(Leave::class,"employee_id","id")
             ->with("leave_type")
-            ->where("status",$type);
+            ->where("status",$type)->orderBy("updated_at","desc");
     }
 
     public function leaves(){
