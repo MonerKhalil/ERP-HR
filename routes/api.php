@@ -65,7 +65,7 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
 /*
  *****************************test********************
  */
-Route::post("mmm",[\App\Http\Controllers\WorkSettingController::class,"update"]);
+Route::post("mmm",[\App\Http\Controllers\SectionsController::class,"show"]);
 Route::get("xxx",function (){
     $now = Carbon::create(0,0,0,17);
     dd($now->format("Y-m-d H:i:s A"));

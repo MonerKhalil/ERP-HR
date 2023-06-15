@@ -35,7 +35,8 @@ class SectionsController extends Controller
         $query = Sections::with(["address","moderator"]);
         $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
         $countries = countries();
-        if (isset($request->filter)&&isset($request->filter['moderator_name'])){
+        if (isset($request->filter) && isset($request->filter['moderator_name']) && 
+            !is_null($request->filter['moderator_name'])) {
             $query = $query->whereHas("moderator",function ($q)use($request){
                 $q->where("first_name","like","%".$request->filter['moderator_name']."%")
                     ->orWhere("last_name","like","%".$request->filter['moderator_name']."%");
@@ -75,10 +76,10 @@ class SectionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sections  $sections
+     * @param  \App\Models\Sections  $section
      * @return \Illuminate\Http\Response
      */
-    public function show(Sections $sections)
+    public function show(Sections $section)
     {
         $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
         return $this->responseSuccess("System/Pages/Actors/Sections/detailsSection" ,
@@ -88,15 +89,15 @@ class SectionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sections  $sections
+     * @param  \App\Models\Sections  $section
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sections $sections)
+    public function edit(Sections $section)
     {
         // From Amir
             $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
             $countries = countries();
-//        $employees = Employee::query()->pluck("name","id")->toArray();
+        //        $employees = Employee::query()->pluck("name","id")->toArray();
         $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
         return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
             compact("sections","employees" , "countries"));
@@ -109,9 +110,9 @@ class SectionsController extends Controller
      * @param  \App\Models\Sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function update(SectionsRequest $request, Sections $sections)
+    public function update(SectionsRequest $request, Sections $section)
     {
-        $sections->update($request->validated());
+        $section->update($request->validated());
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
 
@@ -121,9 +122,9 @@ class SectionsController extends Controller
      * @param  \App\Models\Sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sections $sections)
+    public function destroy(Sections $section)
     {
-        $sections->delete();
+        $section->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
@@ -162,7 +163,7 @@ class SectionsController extends Controller
         ]);
         $query = Sections::with(["moderator","address"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
-        if (isset($request->filter)&&isset($request->filter['moderator_name'])){
+        if (isset($request->filter)&&isset($request->filter['moderator_name'])&&!is_null($request->filter['moderator_name'])){
             $query = $query->whereHas("moderator",function ($q)use($request){
                 $q->where("first_name","like","%".$request->filter['moderator_name']."%")
                     ->orWhere("last_name","like","%".$request->filter['moderator_name']."%");
