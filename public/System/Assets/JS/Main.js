@@ -1263,16 +1263,30 @@ $(document).ready(function (){
         $(".Notification").each((_ , Notification) => {
             $(Notification).find(".Notification__Remove i").click(() => {
                 LoaderView() ;
+                const NotificationID = $(Notification).attr("data-NotificationID");
                 $.ajax({
                    url : "d" ,
                    type : "delete" ,
                    dataType : 'text' ,
                 }).done(() => {
+                    $(document).find(`.Notification[data-NotificationID=${NotificationID}]`)
+                        .remove();
                     LoaderHidden() ;
-                    $(Notification).remove() ;
                 }).fail(() => {
                     LoaderHidden() ;
                 });
+            });
+        });
+        $(".Alert--Notification .ReadAll").click(() => {
+            LoaderView() ;
+            $.ajax({
+                url : "d" ,
+                type : "post" ,
+                dataType : 'text' ,
+            }).done(() => {
+                LoaderHidden() ;
+            }).fail(() => {
+                LoaderHidden() ;
             });
         });
     });
