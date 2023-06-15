@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PublicHolidayController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Public_Holiday/publicHolidayView";
     public const IndexRoute = "system.public_holidays.index";
 
     public function __construct()
@@ -62,7 +62,7 @@ class PublicHolidayController extends Controller
      */
     public function create()
     {
-        return $this->responseSuccess("");
+        return $this->responseSuccess("System/Pages/Actors/Public_Holiday/publicHolidayForm");
     }
 
     /**
@@ -96,7 +96,8 @@ class PublicHolidayController extends Controller
      */
     public function edit(PublicHoliday $publicHoliday)
     {
-        return $this->responseSuccess("",compact('publicHoliday'));
+        return $this->responseSuccess("System/Pages/Actors/Public_Holiday/publicHolidayForm" ,
+            compact('publicHoliday'));
     }
 
     /**

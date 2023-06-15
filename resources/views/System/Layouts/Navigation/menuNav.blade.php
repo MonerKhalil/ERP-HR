@@ -406,6 +406,37 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    meeting_room
+                                </i>
+                                <span class="Label">العطل الرسمية</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.public_holidays.create") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            اضافة عطلة جديدة
+                                        </span>
+                                    </a>
+                                    <a href="{{ route("system.public_holidays.index") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            عرض كل العطل
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
                             <a href="{{route("system.employees.report")}}" class="NavName">
