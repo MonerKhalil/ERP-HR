@@ -24,7 +24,7 @@ class PublicHolidayController extends Controller
 
     private function MainQuery($request){
         $query = PublicHoliday::query();
-        if (!is_null($request->start_date_filter) && !is_null($request->end_date_filter) ){
+        if (isset($request->filter["start_date_filter"]) && isset($request->filter["end_date_filter"]) ){
             $fromDate = MyApp::Classes()->stringProcess->DateFormat($request->start_date_filter);
             $toDate = MyApp::Classes()->stringProcess->DateFormat($request->end_date_filter);
             if ( is_string($fromDate) && is_string($toDate) && ($fromDate <= $toDate) ){
@@ -38,7 +38,7 @@ class PublicHolidayController extends Controller
                 });
             }
         }
-        if (!is_null($request->filter["name"])){
+        if (isset($request->filter["name"]) && !is_null($request->filter["name"])){
             $query = $query->where("name","LIKE","%".$request->filter["name"],"%");
         }
         return $query;

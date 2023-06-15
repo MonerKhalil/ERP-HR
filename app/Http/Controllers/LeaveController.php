@@ -53,7 +53,7 @@ class LeaveController extends Controller
                 });
             }
         }
-        if (!is_null($request->filter["leave_type"])){
+        if (isset($request->filter["leave_type"]) && !is_null($request->filter["leave_type"])){
             $query = $query->where("leave_type_id",$request->filter["leave_type"]);
         }
 
@@ -188,7 +188,7 @@ class LeaveController extends Controller
         ]);
         $employee = auth()->user()->employee;
         if (is_null($employee)){
-            throw new \Exception("the user is not Employee...");
+            throw new MainException("the user is not Employee...");
         }
         Leave::query()->where("employee_id",$employee->id)
             ->where("status","pending")
@@ -198,12 +198,91 @@ class LeaveController extends Controller
     }
 
     public function LeavesTypeShow(){
-        $leaves_type = LeaveType::query()->pluck("name","id")->toArray();
+        $employee = auth()->user()->employee;
+        $leaves_type = LeaveType::query()->get()->filter(function ($item)use($employee){
+            if (!$item->leave_limited){
+                return true;
+            }
+            if ($item->gender != "any"){
+                return $item->gender == $employee->gender;
+            }
+            $services = floor($employee->count_month_services/12);
+            if ($services >= $item->years_employee_services){
+                return true;
+            }
+            return false;
+        });
         return $this->responseSuccess("...",compact("leaves_type"));
     }
 
+    /**
+     * @description get count leaves can use....
+     * Ajax.....
+     * @param $leave_type
+     * @return \Illuminate\Http\JsonResponse
+     * @throws MainException
+     */
     public function CountLeavesByType($leave_type){
-        $leave_type = LeaveType::query()->findOrFail($leave_type);
+        try {
+            $leave_type = LeaveType::query()->findOrFail($leave_type);
+            $employee = auth()->user()->employee;
+            if (is_null($employee)){
+                throw new MainException("the user is not Employee...");
+            }
+            $mainQuery = $employee->leaves()
+                ->where("leave_type_id",$leave_type->id)
+                ->whereYear("created_at",date("Y"));
+            $data = [];
+            if (!$leave_type->leave_limited){
+                $data = [
+                    "leave_limited" => false,
+                ];
+            }else{
+                //Days...
+                $services = floor($employee->count_month_services/12);
+                if (!is_null($leave_type->number_years_services_increment_days)
+                    && !is_null($leave_type->count_days_increment_days)
+                    && $services >= $leave_type->number_years_services_increment_days){
+                    $daysLeaveType = $leave_type->max_days_per_years + $leave_type->count_days_increment_days;
+                }else{
+                    $daysLeaveType = $leave_type->max_days_per_years;
+                }
 
+                if ($leave_type->is_hourly){
+                    $minutes = $mainQuery
+                        ->sum(DB::raw("leaves.count_days * leaves.minutes"));
+                    $hoursAllUsed = floor($minutes/60);
+                    $hoursLeaveType = $daysLeaveType * $leave_type->max_hours_per_day;
+                    $currentHours = $hoursLeaveType - $hoursAllUsed;
+                    $data = [
+                        "is_hourly" => true,
+                        "currentLeave" => $currentHours,//the value is hours
+                    ];
+                }else{
+                    $days = $mainQuery->sum("count_days");
+                    if ($leave_type->can_take_hours){
+                        $allMinutes = $mainQuery->sum("minutes");
+                        $allMinutes *= $days;
+                        $allHours = floor($allMinutes / 60);
+                        $hours_work_in_days_employee = $employee->work_setting->count_hours_work_in_days;
+                        $allDays = floor($allHours / $hours_work_in_days_employee);
+                        $finalDays = $daysLeaveType - $allDays;
+                    }else{
+                        $finalDays = $daysLeaveType - $days;
+                    }
+                    $data = [
+                        "is_hourly" => false,
+                        "currentLeave" => $finalDays,//the value is days
+                    ];
+                }
+            }
+            if (!is_null($leave_type->count_available_in_service)){
+                $countUsed = $mainQuery->count();
+                $data["count_available_in_service"] = $leave_type->count_available_in_service - $countUsed;
+            }
+            return response()->json(["data" => $data]);
+        }catch (\Exception $exception){
+            return response()->json(["error" => $exception->getMessage()]);
+        }
     }
 }

@@ -39,7 +39,7 @@ class LeaveAdminController extends Controller
                     ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
             });
         }
-        if (!is_null($request->filter["start_date_filter"]) && !is_null($request->filter["end_date_filter"]) ){
+        if (isset($request->filter["start_date_filter"]) && isset($request->filter["end_date_filter"]) ){
             $fromDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date_filter"]);
             $toDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date_filter"]);
             if ( is_string($fromDate) && is_string($toDate) && ($fromDate <= $toDate) ){
@@ -53,10 +53,10 @@ class LeaveAdminController extends Controller
                 });
             }
         }
-        if (!is_null($request->filter["status"])){
+        if (isset($request->filter["status"]) && !is_null($request->filter["status"])){
             $data = $data->where("status",$request->filter["status"]);
         }
-        if (!is_null($request->filter["leave_type"])){
+        if (isset($request->filter["leave_type"]) && !is_null($request->filter["leave_type"])){
             $data = $data->where("leave_type_id",$request->filter["leave_type"]);
         }
         return $data;
@@ -108,7 +108,7 @@ class LeaveAdminController extends Controller
     public function create()
     {
         $leave_types = LeaveType::query()->pluck("name","id")->toArray();
-        $employees = Employee::query()->pluck("name","id")->toArray();
+        $employees = Employee::query()->select(["id","first_name","last_name"])->get();
         return $this->responseSuccess("...",compact("employees","leave_types"));
     }
 
