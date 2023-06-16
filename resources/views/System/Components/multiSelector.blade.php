@@ -16,6 +16,7 @@
                         <input id="{{$NameIDs}}_{{$Counter}}" name="{{$Option['Name']}}"
                            class="MultiSelector__InputCheckBox"
                            type="checkbox" value="{{$Option['Value']}}"
+                           @if(isset($Required)) required @endif
                            {{isset($Option['IsChecked']) && $Option['IsChecked'] ? "checked" : ""}}
                            hidden>
                     <label for="{{$NameIDs}}_{{$Counter}}" class="MultiSelector__Label">

@@ -37,3 +37,22 @@ function countries(){
 function address($id_Country){
     return Address::query()->where("country_id",$id_Country)->pluck("name","id")->toArray();
 }
+
+function Days(){
+    return [
+        "Sunday",
+        "Monday" ,
+        "Tuesday" ,
+        "Wednesday",
+        "Thursday",
+        "Friday" ,
+        "Saturday",
+    ];
+}
+
+function GetNotificationIcon($Type) {
+    $NotificationType = new stdClass();
+    $NotificationType->Icon = "description" ;
+    $NotificationType->Color = "Send" ;
+    return $NotificationType ;
+}

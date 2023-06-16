@@ -7,6 +7,7 @@ use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\MembershipController;
 use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
@@ -66,8 +67,9 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
 /*
  *****************************test********************
  */
-Route::post("mmm",[\App\Http\Controllers\ReportEmployeeController::class,"Report"]);
+Route::post("mmm",[\App\Http\Controllers\SectionsController::class,"show"]);
 Route::get("xxx",function (){
-    dd(Schema::getColumnType("leave_types", "id"));
-    return view("Test");
+    $now = Carbon::create(0,0,0,17);
+    dd($now->format("Y-m-d H:i:s A"));
+//    $time = ;
 });

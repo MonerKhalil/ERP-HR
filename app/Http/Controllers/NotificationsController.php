@@ -16,8 +16,8 @@ class NotificationsController extends Controller
             default => $user->notifications(),
         };
         $data = MyApp::Classes()->Search->dataPaginate($data->whereNot("data->type","audit"));
-
-        return $this->responseSuccess("notifications.show",compact("data"));
+        return $this->responseSuccess("System/Pages/Actors/notification" ,
+            compact("data"));
     }
 
     public function clearNotifications(){
@@ -34,6 +34,19 @@ class NotificationsController extends Controller
             "read_at"=>Carbon::now()
         ]);
         return response()->json(["message"=>"Success Read Notification"]);
+    }
+
+    /*
+    * @descriptions : Ajax Request -> Work Update Notification To Read
+    */
+    public function removeNotification(Request $request)
+    {
+        $notify = auth()->user()->notifications()->where("id",$request->id_notify)->first();
+        if (!is_null($notify)){
+            $notify->delete();
+            return response()->json(["message"=>"Success Read Notification"]);
+        }
+        return response()->json(["error"=>"dont exists id Notification"]);
     }
 
 }

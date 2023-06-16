@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Http\Requests\BaseRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LeaveRequest extends BaseModel
+class OvertimeType extends BaseModel
 {
     use HasFactory;
 

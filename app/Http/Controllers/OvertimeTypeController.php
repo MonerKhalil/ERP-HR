@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LeaveRequestRequest;
-use App\Models\LeaveRequest;
+use App\Http\Requests\OvertimeTypeRequest;
+use App\Models\OvertimeType;
 use Illuminate\Http\Request;
 
-class LeaveRequestController extends Controller
+class OvertimeTypeController extends Controller
 {
     public function __construct()
     {
-        $this->addMiddlewarePermissionsToFunctions(app(LeaveRequest::class)->getTable());
+        $this->addMiddlewarePermissionsToFunctions(app(OvertimeType::class)->getTable());
     }
 
     /**
@@ -39,7 +39,7 @@ class LeaveRequestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LeaveRequestRequest $request)
+    public function store(OvertimeTypeRequest $request)
     {
         //
     }
@@ -47,10 +47,10 @@ class LeaveRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\LeaveRequest  $leaveRequest
+     * @param  \App\Models\OvertimeType  $overtimeType
      * @return \Illuminate\Http\Response
      */
-    public function show(LeaveRequest $leaveRequest)
+    public function show(OvertimeType $overtimeType)
     {
         //
     }
@@ -58,10 +58,10 @@ class LeaveRequestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\LeaveRequest  $leaveRequest
+     * @param  \App\Models\OvertimeType  $overtimeType
      * @return \Illuminate\Http\Response
      */
-    public function edit(LeaveRequest $leaveRequest)
+    public function edit(OvertimeType $overtimeType)
     {
         //
     }
@@ -70,10 +70,10 @@ class LeaveRequestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\LeaveRequest  $leaveRequest
+     * @param  \App\Models\OvertimeType  $overtimeType
      * @return \Illuminate\Http\Response
      */
-    public function update(LeaveRequestRequest $request, LeaveRequest $leaveRequest)
+    public function update(OvertimeTypeRequest $request, OvertimeType $overtimeType)
     {
         //
     }
@@ -81,10 +81,10 @@ class LeaveRequestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\LeaveRequest  $leaveRequest
+     * @param  \App\Models\OvertimeType  $overtimeType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LeaveRequest $leaveRequest)
+    public function destroy(OvertimeType $overtimeType)
     {
         //
     }

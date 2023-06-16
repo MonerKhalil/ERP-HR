@@ -10,14 +10,15 @@ use App\Models\Employee;
 use App\Models\Sections;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SectionsRequest;
+use App\Models\WorkSetting;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SectionsController extends Controller
 {
-    public const NameBlade = "..";
-    public const IndexRoute = "";
+    public const NameBlade = "System/Pages/Actors/Sections/viewSection";
+    public const IndexRoute = "system.sections.index";
 
     public function __construct()
     {
@@ -32,14 +33,17 @@ class SectionsController extends Controller
     public function index(Request $request)
     {
         $query = Sections::with(["address","moderator"]);
-        if (isset($request->filter)&&isset($request->filter['moderator_name'])){
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+        $countries = countries();
+        if (isset($request->filter) && isset($request->filter['moderator_name']) && 
+            !is_null($request->filter['moderator_name'])) {
             $query = $query->whereHas("moderator",function ($q)use($request){
                 $q->where("first_name","like","%".$request->filter['moderator_name']."%")
                     ->orWhere("last_name","like","%".$request->filter['moderator_name']."%");
             });
         }
         $data = MyApp::Classes()->Search->getDataFilter($query);
-        return $this->responseSuccess(self::NameBlade,compact("data"));
+        return $this->responseSuccess(self::NameBlade,compact("data" , "employees" , "countries"));
     }
 
     /**
@@ -49,8 +53,12 @@ class SectionsController extends Controller
      */
     public function create()
     {
-        $employees = Employee::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("..",compact("employees"));
+        // Change From Amir
+            $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+            $countries = countries();
+//        $employees = Employee::query()->pluck("first_name" , "last_name" ,"id")->toArray();
+        return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
+            compact("employees" , "countries"));
     }
 
     /**
@@ -68,26 +76,31 @@ class SectionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sections  $sections
+     * @param  \App\Models\Sections  $section
      * @return \Illuminate\Http\Response
      */
-    public function show(Sections $sections)
+    public function show(Sections $section)
     {
         $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
-        return $this->responseSuccess("...",compact("sections"));
+        return $this->responseSuccess("System/Pages/Actors/Sections/detailsSection" ,
+            compact("sections"));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sections  $sections
+     * @param  \App\Models\Sections  $section
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sections $sections)
+    public function edit(Sections $section)
     {
-        $employees = Employee::query()->pluck("name","id")->toArray();
+        // From Amir
+            $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+            $countries = countries();
+        //        $employees = Employee::query()->pluck("name","id")->toArray();
         $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
-        return $this->responseSuccess("...",compact("sections","employees"));
+        return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
+            compact("sections","employees" , "countries"));
     }
 
     /**
@@ -97,9 +110,9 @@ class SectionsController extends Controller
      * @param  \App\Models\Sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function update(SectionsRequest $request, Sections $sections)
+    public function update(SectionsRequest $request, Sections $section)
     {
-        $sections->update($request->validated());
+        $section->update($request->validated());
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
 
@@ -109,9 +122,9 @@ class SectionsController extends Controller
      * @param  \App\Models\Sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sections $sections)
+    public function destroy(Sections $section)
     {
-        $sections->delete();
+        $section->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
@@ -150,6 +163,12 @@ class SectionsController extends Controller
         ]);
         $query = Sections::with(["moderator","address"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        if (isset($request->filter)&&isset($request->filter['moderator_name'])&&!is_null($request->filter['moderator_name'])){
+            $query = $query->whereHas("moderator",function ($q)use($request){
+                $q->where("first_name","like","%".$request->filter['moderator_name']."%")
+                    ->orWhere("last_name","like","%".$request->filter['moderator_name']."%");
+            });
+        }
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [
             "name"

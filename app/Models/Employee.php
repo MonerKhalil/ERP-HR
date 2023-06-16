@@ -18,6 +18,8 @@ class Employee extends BaseModel
         ,"number_self","number_child","number_wives","gender"
         ,"reason_exemption","military_service","family_status","birth_date"
         ,"created_by", "updated_by", "is_active",
+        "count_administrative_leaves","count_month_services"
+        ,"work_setting_id",
     ];
 
     protected $appends = [
@@ -25,6 +27,9 @@ class Employee extends BaseModel
     ];
 
     // Add relationships between tables section
+    public function work_setting(){
+        return $this->belongsTo(WorkSetting::class,"work_setting_id","id");
+    }
 
     public function user()
     {
@@ -46,6 +51,24 @@ class Employee extends BaseModel
             ,"position_id"
             ,"id"
             ,"id");
+    }
+
+    private function tempLeaves(string $type){
+        return $this->hasMany(Leave::class,"employee_id","id")
+            ->with("leave_type")
+            ->where("status",$type)->orderBy("updated_at","desc");
+    }
+
+    public function leaves(){
+        return $this->tempLeaves("approve");
+    }
+
+    public function leaves_pending(){
+        return $this->tempLeaves("pending");
+    }
+
+    public function leaves_reject(){
+        return $this->tempLeaves("reject");
     }
 
     public function data_end_service(){
@@ -124,6 +147,7 @@ class Employee extends BaseModel
             $employee = is_null($validator->route("employee")) ? "" : $validator->route("employee")->id;
             $rule = $validator->isUpdatedRequest() ? "sometimes" : "required";
             return [
+                "work_setting_id" => ["required", Rule::exists('work_settings', 'id')],
                 "user_id" => [$rule,"numeric",Rule::exists("users","id"),
                 !$validator->isUpdatedRequest() ? Rule::unique("employees","user_id")
                     : Rule::unique("employees","user_id")->ignore($employee)],

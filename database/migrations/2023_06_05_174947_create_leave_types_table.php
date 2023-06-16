@@ -21,11 +21,17 @@ return new class extends Migration
             $table->integer("rate_effect_salary")->unsigned()->nullable();
             $table->enum("gender",["male","female","any"])->default("any");
             $table->integer("max_days_per_years")->default(0);
-            $table->integer("max_days_per_month")->default(0);
-            $table->integer("years_employee_services")->default(0);
+            $table->boolean("can_take_hours")->nullable();
+            //check years services employee -> leave type -> true
+            $table->integer("years_employee_services")->nullable();
             $table->boolean("leave_limited");
             $table->boolean("is_hourly");
             $table->integer("max_hours_per_day")->nullable();
+            //new columns ...
+            #_تحديد عدد سنين الخدمة الي لزيادة في ايام الاساسية لهاي الاجازة
+            $table->integer("number_years_services_increment_days")->nullable();
+            $table->integer("count_days_increment_days")->nullable();
+            $table->integer("count_available_in_service")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();

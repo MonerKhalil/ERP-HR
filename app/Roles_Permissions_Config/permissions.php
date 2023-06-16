@@ -16,6 +16,10 @@ $data_end_services = Permissions::getPermissions("data_end_services");
 $request_end_services = Permissions::OnlyPermissions("request_end_services",["create","all","export"]);
 $leave_types = Permissions::getPermissions("leave_types");
 $leaves = Permissions::getPermissions("leaves");
+$company_settings = Permissions::OnlyPermissions("company_settings",["all","read"]);
+$work_settings = Permissions::getPermissions("work_settings");
+$public_holidays = Permissions::getPermissions("public_holidays");
+
 $contracts = Permissions::getPermissions("contracts");
 $correspondences = Permissions::getPermissions("correspondences");
 $correspondence_source_dests = Permissions::getPermissions("correspondence_source_dests");
@@ -33,3 +37,10 @@ return array_merge($users,$roles,$employees
         #addPermissions
         #Example : "read_model"...
     ]);
+,$session_decisions,$type_decisions,$decisions,$sections,
+$conferences,$positions,$position_employees,$data_end_services,$request_end_services,
+$leave_types,$leaves,$company_settings,$work_settings,$public_holidays,
+[
+    #addPermissions
+    #Example : "read_model"...
+]);
