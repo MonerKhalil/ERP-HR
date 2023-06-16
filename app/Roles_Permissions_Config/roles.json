@@ -17,7 +17,9 @@
             "leaves": "a",
             "company_settings": "a",
             "work_settings": "a",
-            "public_holidays": "a"
+            "public_holidays": "a",
+            "overtime_types": "a",
+            "overtimes": "a"
         },
         "user" : {
             "users" : ["r"],

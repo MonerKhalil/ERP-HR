@@ -18,10 +18,6 @@ return new class extends Migration
             #Add Columns
             $table->string("name");
             $table->integer("max_rate_salary")->nullable();
-            $table->date("from_date");
-            $table->date("to_date");
-            $table->time("from_time")->nullable();
-            $table->time("to_time")->nullable();
             $table->integer("min_hours_in_days")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
