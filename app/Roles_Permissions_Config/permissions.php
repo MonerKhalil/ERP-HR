@@ -22,10 +22,18 @@ $public_holidays = Permissions::getPermissions("public_holidays");
 $overtime_types = Permissions::getPermissions("overtime_types");
 $overtimes = Permissions::getPermissions("overtimes");
 
+$contracts = Permissions::getPermissions("contracts");
+$correspondences = Permissions::getPermissions("correspondences");
+$correspondence_source_dests = Permissions::getPermissions("correspondence_source_dests");
+$languages = Permissions::getPermissions("languages");
+$language_skills = Permissions::getPermissions("language_skills");
+$membership_types= Permissions::getPermissions("membership_types");
+$memberships= Permissions::getPermissions("memberships");
 return array_merge($users,$roles,$employees
-,$session_decisions,$type_decisions,$decisions,$sections,
-$conferences,$positions,$position_employees,$data_end_services,$request_end_services,
-$leave_types,$leaves,$company_settings,$work_settings,$public_holidays,$overtime_types,$overtimes,
+    ,$session_decisions,$type_decisions,$decisions,$sections,
+    $conferences,$positions,$position_employees,$data_end_services,$request_end_services,
+    $leave_types,$leaves,$contracts,$correspondences,$correspondence_source_dests,$overtime_types,$overtimes,
+    $languages,$language_skills,$membership_types,$memberships, $company_settings,$work_settings,$public_holidays,
 [
     #addPermissions
     #Example : "read_model"...

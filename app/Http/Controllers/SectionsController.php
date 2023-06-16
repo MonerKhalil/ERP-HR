@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class SectionsController extends Controller
 {
-    public const NameBlade = "..";
+    public const NameBlade = "System/Pages/Actors/Sections/viewSection";
     public const IndexRoute = "system.sections.index";
 
     public function __construct()
@@ -33,14 +33,17 @@ class SectionsController extends Controller
     public function index(Request $request)
     {
         $query = Sections::with(["address","moderator"]);
-        if (isset($request->filter)&&isset($request->filter['moderator_name'])&&!is_null($request->filter['moderator_name'])){
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+        $countries = countries();
+        if (isset($request->filter) && isset($request->filter['moderator_name']) && 
+            !is_null($request->filter['moderator_name'])) {
             $query = $query->whereHas("moderator",function ($q)use($request){
                 $q->where("first_name","like","%".$request->filter['moderator_name']."%")
                     ->orWhere("last_name","like","%".$request->filter['moderator_name']."%");
             });
         }
         $data = MyApp::Classes()->Search->getDataFilter($query);
-        return $this->responseSuccess(self::NameBlade,compact("data"));
+        return $this->responseSuccess(self::NameBlade,compact("data" , "employees" , "countries"));
     }
 
     /**
@@ -50,8 +53,12 @@ class SectionsController extends Controller
      */
     public function create()
     {
-        $employees = Employee::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("..",compact("employees"));
+        // Change From Amir
+            $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+            $countries = countries();
+//        $employees = Employee::query()->pluck("first_name" , "last_name" ,"id")->toArray();
+        return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
+            compact("employees" , "countries"));
     }
 
     /**
@@ -74,8 +81,9 @@ class SectionsController extends Controller
      */
     public function show(Sections $section)
     {
-        $sections = Sections::with(["employees","address","moderator"])->findOrFail($section->id);
-        return $this->responseSuccess("...",compact("sections"));
+        $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
+        return $this->responseSuccess("System/Pages/Actors/Sections/detailsSection" ,
+            compact("sections"));
     }
 
     /**
@@ -86,9 +94,13 @@ class SectionsController extends Controller
      */
     public function edit(Sections $section)
     {
-        $employees = Employee::query()->pluck("name","id")->toArray();
-        $sections = Sections::with(["employees","address","moderator"])->findOrFail($section->id);
-        return $this->responseSuccess("...",compact("sections","employees"));
+        // From Amir
+            $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+            $countries = countries();
+        //        $employees = Employee::query()->pluck("name","id")->toArray();
+        $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
+        return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
+            compact("sections","employees" , "countries"));
     }
 
     /**

@@ -111,24 +111,24 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                         data-TargetName="VacationTypeLimited"
-                                                                         data-TargetValue="1">
-                                                                        <div class="Form__Group">
-                                                                            <div class="Form__Input">
-                                                                                <div class="Input__Area">
-                                                                                    <input id="VacationMonthAllow" class="Input__Field"
-                                                                                           type="text" name="max_days_per_month"
-                                                                                           min="1" max="31" required
-                                                                                           value="{{ isset($leaveType) ? $leaveType["max_days_per_month"] : "" }}"
-                                                                                           placeholder="عدد الايام المسموحة بالشهر">
-                                                                                    <label class="Input__Label" for="VacationMonthAllow">
-                                                                                        عدد الايام المسموحة بالشهر
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+{{--                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                         data-TargetName="VacationTypeLimited"--}}
+{{--                                                                         data-TargetValue="1">--}}
+{{--                                                                        <div class="Form__Group">--}}
+{{--                                                                            <div class="Form__Input">--}}
+{{--                                                                                <div class="Input__Area">--}}
+{{--                                                                                    <input id="VacationMonthAllow" class="Input__Field"--}}
+{{--                                                                                           type="text" name="max_days_per_month"--}}
+{{--                                                                                           min="1" max="31" required--}}
+{{--                                                                                           value="{{ isset($leaveType) ? $leaveType["max_days_per_month"] : "" }}"--}}
+{{--                                                                                           placeholder="عدد الايام المسموحة بالشهر">--}}
+{{--                                                                                    <label class="Input__Label" for="VacationMonthAllow">--}}
+{{--                                                                                        عدد الايام المسموحة بالشهر--}}
+{{--                                                                                    </label>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
                                                                     <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                          data-TargetName="VacationTypeLimited"
                                                                          data-TargetValue="1">
@@ -141,6 +141,25 @@
                                                                                         'Name' => "is_hourly" , "Required" => "true" ,
                                                                                         "DefaultValue" => isset($leaveType) ? $leaveType["is_hourly"] : "" ,
                                                                                          "Label" => "تطبيق الاجازات الساعية عليها" ,
+                                                                                        "Options" => [
+                                                                                            [ "Label" => "نعم" , "Value" => "1"] ,
+                                                                                            [ "Label" => "لا" , "Value" => "0"]
+                                                                                        ]
+                                                                                    ])
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                         data-TargetName="VacationIsHour"
+                                                                         data-TargetValue="0">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Select">
+                                                                                <div class="Select__Area">
+                                                                                    @include("System.Components.selector" , [
+                                                                                        'Name' => "can_take_hours" , "Required" => "true" ,
+                                                                                        "DefaultValue" => isset($leaveType) ? $leaveType["can_take_hours"] : "" ,
+                                                                                         "Label" => "هل يمكن تطبيقها كساعات غير محددة" ,
                                                                                         "Options" => [
                                                                                             [ "Label" => "نعم" , "Value" => "1"] ,
                                                                                             [ "Label" => "لا" , "Value" => "0"]
@@ -188,7 +207,7 @@
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="ExperienceYears" class="Input__Field"
-                                                                                               type="text" name="years_employee_services"
+                                                                                               type="number" name="years_employee_services"
                                                                                                min="1" required
                                                                                                value="{{ isset($leaveType) ? $leaveType["years_employee_services"] : "" }}"
                                                                                                placeholder="عدد سنوات العمل">
@@ -199,7 +218,83 @@
                                                                                     <label class="Form__Tips"
                                                                                            for="ExperienceYears">
                                                                                         <small>
-                                                                                            عدد سنوات العمل التي يحتاجها الموظف للحصول عل هذا النوع من الاجازات
+                                                                                            عدد سنوات العمل التي يحتاج الموظف تحقيقها للحصول عل هذا النوع من الاجازات
+                                                                                        </small>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="ExperienceYearsExtra" class="Input__Field"
+                                                                                               type="number" name="number_years_services_increment_days"
+                                                                                               min="1" required
+                                                                                               value="{{ isset($leaveType) ? $leaveType["number_years_services_increment_days"] : "" }}"
+                                                                                               placeholder="عدد سنوات العمل الاضافية">
+                                                                                        <label class="Input__Label" for="ExperienceYearsExtra">
+                                                                                            عدد سنوات العمل الاضافية
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <label class="Form__Tips"
+                                                                                           for="ExperienceYearsExtra">
+                                                                                        <small>
+                                                                                            عدد سنوات العمل الاضافية التي يحتاجها الموظف من اجل زيادة اجازاته في المؤسسة
+                                                                                        </small>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="MaxExperienceYearsExtra" class="Input__Field"
+                                                                                               type="number" name="count_available_in_service"
+                                                                                               value="{{ isset($leaveType) ? $leaveType["count_available_in_service"] : "" }}"
+                                                                                               placeholder="عدد مرات زيادة الاجازات" min="1" required>
+                                                                                        <label class="Input__Label" for="MaxExperienceYearsExtra">
+                                                                                            عدد مرات زيادة الاجازات
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <label class="Form__Tips"
+                                                                                           for="MaxExperienceYearsExtra">
+                                                                                        <small>
+                                                                                            الحد الاقصى لعدد المرات التي سيتم زيادة الاجازة عند زيادة سنوات العمل
+                                                                                        </small>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="VacationDaysExtra" class="Input__Field" min="1"
+                                                                                               type="number" name="count_days_increment_days"
+                                                                                               value="{{ isset($leaveType) ? $leaveType["count_days_increment_days"] : "" }}"
+                                                                                               placeholder="عدد الايام المزادة">
+                                                                                        <label class="Input__Label" for="VacationDaysExtra">
+                                                                                            عدد الايام المزادة
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <label class="Form__Tips"
+                                                                                           for="VacationDaysExtra">
+                                                                                        <small>
+                                                                                            عدد الايام التي سيتم زيادتها على الاجازات في حال تحقيق العمل الاضافي
                                                                                         </small>
                                                                                     </label>
                                                                                 </div>

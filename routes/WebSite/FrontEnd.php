@@ -118,3 +118,7 @@ Route::get('/Test-45', function () {
 Route::get('/Test-46', function () {
     return view('System/Pages/Actors/Evaluation/newTypeEvaulationDetails');
 });
+
+Route::get('/Test-47', function () {
+    return view('System/Pages/Actors/Vacations/vacationAvailableView');
+});

@@ -49,3 +49,10 @@ function Days(){
         "Saturday",
     ];
 }
+
+function GetNotificationIcon($Type) {
+    $NotificationType = new stdClass();
+    $NotificationType->Icon = "description" ;
+    $NotificationType->Color = "Send" ;
+    return $NotificationType ;
+}
