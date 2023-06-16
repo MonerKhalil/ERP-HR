@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('correspondences', function (Blueprint $table) {
+        Schema::create('section_externals', function (Blueprint $table) {
             $table->id();
             #Add Columns
-            $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();///createrr if internal
-            $table->bigInteger('number_internal')->unique();
-            $table->bigInteger('number_external')->unique();
-            $table->enum('type',['internal','external']);
-            $table->date("date");
-            $table->string('subject');
-            $table->text('summary');
-            $table->text("path_file")->nullable();
+            $table->string("name")->unique();
+            $table->string("email")->nullable();
+            $table->string("fax")->nullable();
+            $table->boolean("hand")->default(false);
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -39,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('correspondences');
+        Schema::dropIfExists('section_externals');
     }
 };

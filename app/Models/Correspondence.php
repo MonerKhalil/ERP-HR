@@ -12,8 +12,9 @@ class Correspondence extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "origin_number","number","origin_date","type","type_connection",
-        "employee_id","section_id","subject","summary",
+        "employee_id","subject","number_external","number_internal",
+        "number","origin_number","date",
+        "type","summary","path_file",
         "created_by","updated_by","is_active",
     ];
 
@@ -22,24 +23,17 @@ class Correspondence extends BaseModel
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
-
-
     }
-    public function section()
+
+    public function CorrespondenceDest()
     {
-        return $this->belongsTo(Sections::class, 'section_id', 'id');
+        return $this->hasMany(Correspondence_source_dest::class, 'correspondences_id', 'id');
     }
+
     public function employees(){
         return $this->belongsToMany(Employee::class,"correspondence_source_dests",
             "correspondences_id",
-            "employee_id",
-            "id",
-            "id");
-    }
-    public function sections(){
-        return $this->belongsToMany(Sections::class,"correspondence_source_dests",
-            "correspondences_id",
-            "section_id",
+            "current_employee_id",
             "id",
             "id");
     }
@@ -52,38 +46,25 @@ class Correspondence extends BaseModel
     public function validationRules(){
 
         return function (BaseRequest $validator) {
-
-            $ID = $validator->route('correspondences') ?? 0;
+            $ID = $validator->route('correspondences')->id ?? 0;
             return [
-                "origin_number"=>['required', 'numeric'],
-                "number"=>['required', 'numeric' ,Rule::unique('correspondences', 'number')->ignore($ID)],//
-                "origin_date"=>['required','date'],
-                "type"=>['required',Rule::in(['internal','external'])],
-                "type_connection"=>[Rule::requiredIf(function ()use($validator){
-                              return   $validator->type=="external";
-                }),Rule::in(["email","fax","hand"])],
-                "employee_id"=>[Rule::requiredIf(function ()use($validator){
-                    return   $validator->type==="internal";
-                }),Rule::exists("employees","id")],
-                "section_id"=>[Rule::requiredIf(function ()use($validator){
-                    return   $validator->type==="internal";
-                }),Rule::exists("sections","id")],
+                "number" => ['required', 'numeric' , Rule::unique('correspondences', 'number')->ignore($ID)],//
+                "type"=>['required',Rule::in(self::type())],
                 "subject"=>$validator->textRule(true),
-                "summary"=>$validator->textRule(true),
-                /////////////////
-                "source_dest_type"=>["required",Rule::in(['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing'])],
-               // "employee_id_current"=>["required",Rule::exists("employees","id")],
-                //"section_id_current"=>["required",Rule::exists("sections","id")],
-                "section_id_dest" => ["required", Rule::exists("sections", "id"),
-                    function ($attribute, $value, $fail) {
-                        $current_section_id = Employee::findOrFail(15)->section_id;
-                        if ($value == $current_section_id) {
-                            $fail('section_id_dest==current_section');
-                        }
-                    },
-                ],
-                "date" => ['required', 'date'],
+                "summary"=>["required","string"],
+                "date"=>$validator->dateRules(true),
+                "path_file" => $validator->fileRules(false),
+                "number_internal"=>["numeric",Rule::requiredIf(function ()use($validator){
+                    return $validator->input("type") == "internal";
+                })],
+                "number_external"=>["numeric",Rule::requiredIf(function ()use($validator){
+                return $validator->input("type") == "external";
+            })],
             ];
         };
+    }
+
+    public static function type(){
+        return ['internal','external'];
     }
 }

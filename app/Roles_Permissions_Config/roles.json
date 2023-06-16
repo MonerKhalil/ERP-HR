@@ -26,7 +26,8 @@
             "work_settings": "a",
             "public_holidays": "a",
             "overtime_types": "a",
-            "overtimes": "a"
+            "overtimes": "a",
+            "section_externals": "a"
         },
         "user" : {
             "users" : ["r"],

@@ -35,7 +35,7 @@ class SectionsController extends Controller
         $query = Sections::with(["address","moderator"]);
         $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
         $countries = countries();
-        if (isset($request->filter) && isset($request->filter['moderator_name']) && 
+        if (isset($request->filter) && isset($request->filter['moderator_name']) &&
             !is_null($request->filter['moderator_name'])) {
             $query = $query->whereHas("moderator",function ($q)use($request){
                 $q->where("first_name","like","%".$request->filter['moderator_name']."%")
@@ -81,7 +81,7 @@ class SectionsController extends Controller
      */
     public function show(Sections $section)
     {
-        $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
+        $sections = Sections::with(["employees","address","moderator"])->findOrFail($section->id);
         return $this->responseSuccess("System/Pages/Actors/Sections/detailsSection" ,
             compact("sections"));
     }
@@ -98,7 +98,7 @@ class SectionsController extends Controller
             $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
             $countries = countries();
         //        $employees = Employee::query()->pluck("name","id")->toArray();
-        $sections = Sections::with(["employees","address","moderator"])->findOrFail($sections->id);
+        $sections = Sections::with(["employees","address","moderator"])->findOrFail($section->id);
         return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
             compact("sections","employees" , "countries"));
     }

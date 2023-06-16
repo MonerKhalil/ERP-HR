@@ -127,6 +127,9 @@ class Employee extends BaseModel
     public function correspondence(){
         return $this->hasMany(Correspondence::class,'employee_id','id');
     }
+    public function correspondence_dest(){
+        return $this->hasMany(Correspondence_source_dest::class,'in_employee_id_dest','id');
+    }
     public function correspondence_employees(){
         return $this->belongsToMany(Correspondence::class,"correspondence_source_dests",
             "employee_id",
@@ -134,7 +137,13 @@ class Employee extends BaseModel
             "id",
             "id");
     }
-
+    public function correspondence_employees_dest(){
+        return $this->belongsToMany(Correspondence::class,"correspondence_source_dests",
+            "in_employee_id_dest",
+            "correspondences_id",
+            "id",
+            "id");
+    }
 
     /**
      * Description: To check front end validation

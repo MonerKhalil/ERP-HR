@@ -26,6 +26,7 @@ use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\ReportEmployeeController;
 use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SectionExternalController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\SessionDecisionController;
 use App\Http\Controllers\TypeDecisionController;
@@ -154,6 +155,14 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('sections', SectionsController::class);
         Route::prefix("sections")->name("sections.")
+            ->controller(SectionsController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::resource('section_externals', SectionExternalController::class);
+        Route::prefix("section_externals")->name("section_externals.")
             ->controller(SectionsController::class)->group(function (){
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");

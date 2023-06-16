@@ -12,7 +12,8 @@ class Correspondence_source_dest extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "source_dest_type","employee_id","section_id","section_id_dest","data","correspondences_id",
+        "correspondences_id","current_employee_id","out_current_section_id",
+        "in_section_id_dest", "out_section_id_dest", "source_dest_type",
         "created_by","updated_by","is_active",
     ];
 
@@ -21,10 +22,11 @@ class Correspondence_source_dest extends BaseModel
     {
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
-    public function section()
+    public function employee_dest()
     {
-        return $this->belongsTo(Sections::class, 'section_id', 'id');
+        return $this->belongsTo(Employee::class, 'in_employee_id_dest', 'id');
     }
+
     /**
      * Description: To check front end validation
      * @inheritDoc
@@ -32,14 +34,28 @@ class Correspondence_source_dest extends BaseModel
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
+            $correspondences = Correspondence::query()->find($validator->input("correspondences_id"));
             return [
-                "source_dest_type"=>["required",Rule::in(['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing'])],
-                "employee_id"=>["required",Rule::exists("employees","id")],
-                "section_id"=>["required",Rule::exists("sections","id")],
-                "section_id_dest"=>["required",Rule::exists("sections","id")],
-                "data" => ['required', 'date'],
-                "correspondences_id"=>["required",Rule::exists("correspondences","id")  ]
-                ];
+                "correspondences_id"=>["required",Rule::exists("correspondences","id")],
+                "type" => ["required", Rule::in(Correspondence::type())],
+                "source_dest_type" => ["required",Rule::in(self::source_dest_type())],
+                "is_done"=>["sometimes","boolean",],
+                "data" => ["required","array"],
+                "data.*" => ["required","array"],
+                "data.*.current_employee_id" => ["required",Rule::exists("correspondences","id")],
+                "data.*.out_current_section_id" => [Rule::requiredIf(function ()use($correspondences){
+                    return $correspondences->type == "external";
+                }),Rule::exists("section_externals","id")],
+                "data.*.in_employee_id_dest" => [Rule::requiredIf(function ()use($validator){
+                    return $validator->input("type") != "external";
+                }),Rule::exists("employees","id")],
+                "data.*.out_section_id_dest" => [Rule::requiredIf(function ()use($validator){
+                    return $validator->input("type") == "external";
+                }),Rule::exists("section_externals","id")],
+            ];
         };
+    }
+    public static function source_dest_type(){
+        return ['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing'];
     }
 }
