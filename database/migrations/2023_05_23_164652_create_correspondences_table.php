@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('origin_date');
             $table->enum('type',['internal','external']);
             $table->enum('type_connection',["email","fax","hand"])->nullable();//if internal
-            $table->enum('type_connection',["email","fax","hand"])->nullable();//if internal
+          //  $table->enum('type_connection',["email","fax","hand"])->nullable();//if internal
             $table->foreignId("employee_id")->nullable()->constrained("employees")->restrictOnDelete();///createrr if internal
             $table->foreignId("section_id")->nullable()->constrained("sections")->restrictOnDelete();// origin section if internal
             $table->string('subject');
