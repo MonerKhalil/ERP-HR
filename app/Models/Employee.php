@@ -92,7 +92,6 @@ class Employee extends BaseModel
     }
 
     public function contract(){
-
         return $this->hasMany(Contract::class,'employee_id','id')->orderBy("id","desc");
     }
     public function language_skill(){
@@ -102,6 +101,18 @@ class Employee extends BaseModel
     public function membership(){
         return $this->hasMany(Membership::class,'employee_id','id');
     }
+    public function correspondence(){
+        return $this->hasMany(Correspondence::class,'employee_id','id');
+    }
+    public function correspondence_employees(){
+        return $this->belongsToMany(Correspondence::class,"correspondence_source_dests",
+            "employee_id",
+            "correspondences_id",
+            "id",
+            "id");
+    }
+
+
     /**
      * Description: To check front end validation
      * @inheritDoc

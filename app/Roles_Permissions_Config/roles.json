@@ -14,7 +14,15 @@
             "data_end_services": "a",
             "request_end_services": "a",
             "leave_types": "a",
-            "leaves": "a"
+            "leaves": "a",
+            "contracts": "a",
+            "correspondences": "a",
+            "correspondence_source_dests": "a",
+            "languages": "a",
+            "language_skills": "a",
+            "membership_types": "a",
+            "memberships": "a"
+
         },
         "user" : {
             "users" : ["r"],

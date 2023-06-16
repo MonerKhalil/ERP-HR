@@ -45,6 +45,8 @@ Route::delete('contract/{contract}/force-delete', [ContractController::class, 'f
 Route::post('contract/export/xlsx', [ContractController::class, 'ExportXls'])->name("export.xls");
 Route::post('contract/export/pdf',[ContractController::class, 'ExportPDF'] )->name("export.pdf");
 Route::delete("contract/multi/delete", [ContractController::class, 'MultiDelete'])->name("multi.delete");
+Route::post("cors", [\App\Http\Controllers\CorrespondenceController::class, 'store']);
+Route::get("index", [\App\Http\Controllers\CorrespondenceController::class, 'index']);
 
 
 
