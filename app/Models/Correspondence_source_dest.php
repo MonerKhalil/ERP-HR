@@ -12,19 +12,36 @@ class Correspondence_source_dest extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "correspondences_id","current_employee_id","out_current_section_id",
-        "in_section_id_dest", "out_section_id_dest", "source_dest_type",
+        "correspondences_id",
+        "current_employee_id",
+        "in_employee_id_dest",
+        "out_current_section_id",
+        "out_section_id_dest",
+        "type","notice","path_file",
+         "source_dest_type",
         "created_by","updated_by","is_active",
     ];
 
     // Add relationships between tables section
-    public function employee()
+    public function employee_current()
     {
-        return $this->belongsTo(Employee::class, 'employee_id', 'id');
+        return $this->belongsTo(Employee::class, 'current_employee_id', 'id');
     }
     public function employee_dest()
     {
         return $this->belongsTo(Employee::class, 'in_employee_id_dest', 'id');
+    }
+    public function out_section_dest()
+    {
+        return $this->belongsTo(SectionExternal::class, 'out_section_id_dest', 'id');
+    }
+    public function out_section_current()
+    {
+        return $this->belongsTo(SectionExternal::class, 'out_current_section_id', 'id');
+    }
+    public function correspondence()
+    {
+        return $this->belongsTo(Correspondence::class, 'correspondences_id', 'id');
     }
 
     /**
@@ -42,7 +59,7 @@ class Correspondence_source_dest extends BaseModel
                 "is_done"=>["sometimes","boolean",],
                 "data" => ["required","array"],
                 "data.*" => ["required","array"],
-                "data.*.current_employee_id" => ["required",Rule::exists("correspondences","id")],
+                "data.*.current_employee_id" => ["required",Rule::exists("employees","id")],
                 "data.*.out_current_section_id" => [Rule::requiredIf(function ()use($correspondences){
                     return $correspondences->type == "external";
                 }),Rule::exists("section_externals","id")],
@@ -52,6 +69,8 @@ class Correspondence_source_dest extends BaseModel
                 "data.*.out_section_id_dest" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "external";
                 }),Rule::exists("section_externals","id")],
+                "notice"=>["nullable",$validator->textRule(false)],
+                "path_file" =>["nullable" ,$validator->fileRules(false)],
             ];
         };
     }
