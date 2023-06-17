@@ -1,38 +1,40 @@
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    <section class="MainContent__Section MainContent__Section--AddContractPage">
-        <div class="AddContractPage">
-            <div class="AddContractPage__Breadcrumb">
+    <section class="MainContent__Section MainContent__Section--AddCoursePage">
+        <div class="AddCoursePage">
+            <div class="AddCoursePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterEmployeeContract') ,
-                    'paths' => [['Contracts' , '#'] , ['New Contract']] ,
-                    'summery' => __('RegisterContractsPage')
+                    'mainTitle' => __('ViewEmployeeCourse') ,
+                    'paths' => [['Courses' , '#'] , ['Course']] ,
+                    'summery' => __('ViewCoursesPage')
                 ])
             </div>
         </div>
-        <div class="AddContractPagePrim__Content">
+        <div class="AddCoursePagePrim__Content">
             <div class="Row">
-                <div class="AddContractPage__Form">
+                <div class="AddCoursePage__Form">
                     <div class="Container--MainContent">
                         <div class="Row">
-                            <div class="ContractPage__Information">
+                            <div class="CoursePage__Information">
                                 <div class="Card">
                                     <div class="Card__Content">
                                         <div class="Card__Inner">
                                             <div class="Card__Header">
                                                 <div class="Card__Title">
-                                                    <h3>@lang("contractInfo")</h3>
+                                                    <h3>@lang("CourseInfo")</h3>
                                                 </div>
                                             </div>
                                             <form class="Form Form--Dark">
+                                                @csrf
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("firstName")</span>
-                                                                <span class="Data_Value">{{$contract->employee["first_name"]." ".$contract->employee["last_name"]}}</span>
+                                                                                class="Data_Label">@lang("emplpyeeName")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->employee_id}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -40,8 +42,9 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("contractType")</span>
-                                                                <span class="Data_Value">{{$contract->contract_type}}</span>
+                                                                                class="Data_Label">@lang("type")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->type}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -49,8 +52,9 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("contractNumber")</span>
-                                                                <span class="Data_Value">{{$contract->contract_number}}</span>
+                                                                                class="Data_Label">@lang("courseName")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->name}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -58,8 +62,9 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("dateOfContract")</span>
-                                                                <span class="Data_Value">{{$contract->contract_date}}</span>
+                                                                                class="Data_Label">@lang("courseStartDate")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->start_date}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -67,8 +72,9 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("dateOfExpiration")</span>
-                                                                <span class="Data_Value">{{$contract->contract_finish_date}}</span>
+                                                                                class="Data_Label">@lang("courseEndDate")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->end_date}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -76,8 +82,9 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("dateOfStart")</span>
-                                                                <span class="Data_Value">{{$contract->contract_direct_date}}</span>
+                                                                                class="Data_Label">@lang("cityName")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->address->name}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -85,8 +92,9 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("DepartmentName")</span>
-                                                                <span class="Data_Value">{{$contract->section->name}}</span>
+                                                                                class="Data_Label">@lang("heldPlace")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->address_details}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -94,8 +102,19 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("managerName")</span>
-                                                                <span class="Data_Value">Anas</span>
+                                                                                class="Data_Label">@lang("salaryImpact")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->rate_effect_salary}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="Col-4-md Col-6-sm">
+                                                        <div class="ListData__Content">
+                                                            <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("courseProvider")</span>
+                                                                <span
+                                                                    class="Data_Value">{{$conference->name_party}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,6 +128,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

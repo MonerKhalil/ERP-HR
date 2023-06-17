@@ -56,6 +56,7 @@ class ConferenceController extends Controller
      */
     public function store(ConferenceRequest $request)
     {
+//        dd($request);
         try {
             DB::beginTransaction();
             $data = Arr::except($request->validated(), ["employees"]);
@@ -73,7 +74,7 @@ class ConferenceController extends Controller
     {
         $conference = Conference::with(["employees","address"])
             ->findOrFail($conference->id);
-        return $this->responseSuccess("...",compact("conference"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewCourse",compact("conference"));
     }
 
     /**
@@ -89,7 +90,7 @@ class ConferenceController extends Controller
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
         $conference = Conference::with(["employees","address"])
             ->findOrFail($conference->id);
-        return $this->responseSuccess("",compact("employees","types","countries",'conference'));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editCourse",compact("employees","types","countries",'conference'));
     }
 
     public function update(ConferenceRequest $request, Conference $conference)

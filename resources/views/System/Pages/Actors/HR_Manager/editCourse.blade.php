@@ -25,8 +25,8 @@
                                                     <h3>@lang("CourseInfo")</h3>
                                                 </div>
                                             </div>
-                                            <form class="Form Form--Dark" action="{{route("system.conferences.store")}}"
-                                                  method="post">
+                                            <form class="Form Form--Dark" action="{{route("system.conferences.update",$conference["id"])}}"
+                                                  method="patch">
                                                 @csrf
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
@@ -37,16 +37,13 @@
                                                                         $EmployeesList = [] ;
                                                                                         foreach ($employees as $Employees) {
                                                                                             array_push($EmployeesList , [
-                                                                                                "Label" => $Employees["first_name"]." ".$Employees["last_name"]
-                                                                                                , "Value" => $Employees["id"],
-                                                                                                 "Name" => "employees[]"]);
+                                                                                                "Label" => $Employees["first_name"].$Employees["last_name"]
+                                                                                                , "Value" => $Employees["id"] ]) ;
                                                                                         }
                                                                     @endphp
-                                                                    @include("System.Components.multiSelector" , [
-                                                                                        'Name' => "_" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "الموظفين" ,
-                                                                                        "Options" => $EmployeesList ,
-                                                                                    ])
+                                                                    @include("System.Components.selector" , ['Name' => "employees[]" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" =>
+                                                                                 isset($conference)? $conference["employee_id"] : "",
+                                                                                "Options" => $EmployeesList,])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -60,10 +57,11 @@
                                                                         foreach ($types as $index=>$type) {
                                                                         array_push($courses_type , [
                                                                         "Label" => $type
-                                                                        , "Value" => $type]);
+                                                                        , "Value" => $index]);
                                                                         }
                                                                     @endphp
-                                                                    @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('type'),"DefaultValue" => "",
+                                                                    @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('type'),"DefaultValue" =>
+                                                                        isset($conference)? $conference["type"] : "",
                                                                                 "Options" => $courses_type,])
                                                                 </div>
                                                             </div>
@@ -77,7 +75,7 @@
                                                                            class="Input__Field"
                                                                            type="text"
                                                                            name="name"
-                                                                           value="{{isset($Conference) ? $Conference["name"] : ""}}"
+                                                                           value="{{isset($conference) ? $conference["name"] : ""}}"
                                                                            placeholder="@lang("courseName")">
                                                                     <label class="Input__Label"
                                                                            for="courseName">@lang("courseName")</label>
@@ -93,7 +91,7 @@
                                                                            class="Date__Field"
                                                                            type="text"
                                                                            name="start_date"
-                                                                           value="{{isset($Conference) ? $Conference["start_date"] : ""}}"
+                                                                           value="{{isset($conference) ? $conference["start_date"] : ""}}"
                                                                            placeholder="@lang("courseStartDate")">
                                                                     <label class="Date__Label"
                                                                            for="courseStartDate">@lang("courseStartDate")</label>
@@ -109,43 +107,10 @@
                                                                            class="Date__Field"
                                                                            type="text"
                                                                            name="end_date"
-                                                                           value="{{isset($Conference) ? $Conference["end_date"] : ""}}"
+                                                                           value="{{isset($conference) ? $conference["end_date"] : ""}}"
                                                                            placeholder="@lang("courseEndDate")">
                                                                     <label class="Date__Label"
                                                                            for="courseEndDate">@lang("courseEndDate")</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="State"
-                                                         data-CityURL="{{route("get.address")}}"
-                                                         class="Col-4-md Col-6-sm">
-                                                        <div class="Form__Group">
-                                                            <div class="Form__Select">
-                                                                <div class="Select__Area">
-                                                                    @php
-                                                                        $Countries = [] ;
-                                                                        foreach ($countries as $Index => $Item) {
-                                                                            array_push($Countries , [
-                                                                                "Label" => $Item
-                                                                                , "Value" => $Index ]) ;
-                                                                        }
-                                                                    @endphp
-                                                                    @include("System.Components.selector" , [
-                                                                                'Name' => "country_name" , "Required" => "true"
-                                                                                , "Label" => __('countryName') ,"DefaultValue" => ""
-                                                                                , "Options" => $Countries
-                                                                            ])
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="City" class="Col-4-md Col-6-sm">
-                                                        <div class="Form__Group">
-                                                            <div class="Form__Select">
-                                                                <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -157,8 +122,8 @@
                                                                     <input id="heldPlace"
                                                                            class="Input__Field"
                                                                            type="text"
-                                                                           name="address_details"
-                                                                           value="{{isset($Conference) ? $Conference["address_details"] : ""}}"
+                                                                           name="address_id"
+                                                                           value="{{isset($conference) ? $conference["address_details"] : ""}}"
                                                                            placeholder="@lang("heldPlace")">
                                                                     <label class="Input__Label"
                                                                            for="heldPlace">@lang("heldPlace")</label>
@@ -174,7 +139,7 @@
                                                                            class="Input__Field"
                                                                            type="number"
                                                                            name="rate_effect_salary"
-                                                                           value="{{isset($Conference) ? $Conference["rate_effect_salary"] : ""}}"
+                                                                           value="{{isset($conference) ? $conference["rate_effect_salary"] : ""}}"
                                                                            placeholder="@lang("salaryImpact")">
                                                                     <label class="Input__Label"
                                                                            for="courseSalaryImpact">@lang("salaryImpact")</label>
@@ -190,7 +155,7 @@
                                                                            class="Input__Field"
                                                                            type="text"
                                                                            name="name_party"
-                                                                           value="{{isset($Conference) ? $Conference["name_party"] : ""}}"
+                                                                           value="{{isset($conference) ? $conference["name_party"] : ""}}"
                                                                            placeholder="@lang("courseProvider")">
                                                                     <label class="Input__Label"
                                                                            for="courseProvider">@lang("courseProvider")</label>
