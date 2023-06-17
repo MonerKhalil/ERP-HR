@@ -5,6 +5,16 @@
     border-radius: 10px ;
     background-color: $BackGroundColor;
 
+    &__CenterButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        &-hidden {
+            display: none;
+        }
+    }
+
     &__InnerGroup {
         border-bottom: 1px solid $SeparateBorderColor;
 

@@ -7,7 +7,7 @@
             {{ (isset($DefaultData) && $DefaultData !== "") ? $DefaultData : "No File Choose" }}
         </label>
     </div>
-    <input type="file" name="{{ $FieldName }}"
+    <input type="file" name="{{ $FieldName }}" multiple
            accept="{{ $AcceptFiles }}"
            class="FileUpload__InputFile"
            id="{{ $FieldID }}" hidden>

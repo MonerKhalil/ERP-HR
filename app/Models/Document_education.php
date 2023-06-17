@@ -32,12 +32,12 @@ class Document_education extends BaseModel
         return function (BaseRequest $validator) {
             if ($validator->isUpdatedRequest()){
                 return [
-                    "document_education_path" => $validator->imageRule(true),
+                    "document_education_path" => $validator->fileRules(true),
                 ];
             }else{
                 return [
                     "document_education_path" =>['required','array'],
-                    "document_education_path.*" => $validator->imageRule(true),
+                    "document_education_path.*" => $validator->fileRules(true),
                 ];
             }
         };

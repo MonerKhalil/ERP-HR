@@ -13,6 +13,7 @@ use App\Models\Decision;
 use App\Models\Education_level;
 use App\Models\Employee;
 use App\Models\Sections;
+use App\Models\User;
 use App\Models\WorkSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
+
     const Folder = "employees";
     const IndexRoute = "system.employees.index";
 
@@ -75,6 +77,7 @@ class EmployeeController extends Controller
             DB::commit();
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
+            dd($exception);
             DB::rollBack();
             throw new MainException($exception->getMessage());
         }
@@ -156,10 +159,14 @@ class EmployeeController extends Controller
         $address_type = ["house", "clinic", "office"];
         $document_type = ["family_card","identification","passport"];
         $education_level = Education_level::query()->pluck("name","id")->toArray();
+        $employees = Employee::query()->pluck("user_id")->toArray();
+        $users = User::query()
+            ->whereNotIn("id",$employees)
+            ->whereNot("id",Auth()->id())->pluck("name","id")->toArray();
         $countries = countries();
         $sections = Sections::query()->pluck("name","id")->toArray();
         return compact('sections','countries','gender','military_service'
-            ,'family_status','address_type','education_level','document_type','work_settings');
+            ,'family_status','address_type','education_level','document_type','work_settings',"users");
     }
 
     public function ExportXls(BaseRequest $request)
