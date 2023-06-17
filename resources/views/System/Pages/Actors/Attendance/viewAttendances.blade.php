@@ -5,7 +5,7 @@
         <div class="ViewUsers">
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __("viewCourses") ,
+                    'mainTitle' => __("viewAttendances") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => __("titleViewUsers")
                 ])
@@ -41,7 +41,7 @@
                                                             {{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
                                                             {{--                                                                ] , [--}}
                                                             {{--                                                                    "Label" => __("normalDelete")--}}
-                                                            {{--                                                                    , "Action" => route("users.multi.delete")--}}
+                                                            {{--                                                                    , "Action" => route("system.employees.Attendance.destroy")--}}
                                                             {{--                                                                    , "Method" => "delete"--}}
                                                             {{--                                                                ] ]--}}
                                                             {{--                                                            ])--}}
@@ -79,7 +79,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if(count($data) > 0)
+                                            @if(count($Attendances) > 0)
                                                 <div class="Card__Inner p0">
                                                     <div class="Table__ContentTable">
                                                         <div class="Table__Table">
@@ -94,48 +94,46 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="Item__Col">#</div>
-                                                                <div class="Item__Col"><span>@lang("name")</span></div>
-                                                                <div class="Item__Col"><span>@lang("type")</span></div>
-                                                                <div class="Item__Col"><span>@lang("start_date")</span></div>
-                                                                <div class="Item__Col"><span>@lang("end_date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("employee id")</span></div>
+                                                                <div class="Item__Col"><span>@lang("CheckIn")</span></div>
+                                                                <div class="Item__Col"><span>@lang("CheckOut")</span></div>
+                                                                <div class="Item__Col"><span>@lang("TotalHours")</span></div>
                                                             </div>
-                                                            @foreach($data as $Course)
+                                                            @foreach($Attendances as $Attendance)
                                                                 <div class="Item DataItem">
                                                                     <div class="Item__Col Item__Col--Check">
-                                                                        <input id="ItemRow_{{$Course["id"]}}"
+                                                                        <input id="ItemRow_{{$Attendance["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="Courses[]" value="{{$Course["id"]}}" hidden>
-                                                                        <label for="ItemRow_{{$Course["id"]}}" class="CheckBoxRow">
+                                                                               name="Attendances[]" value="{{$Attendance["id"]}}" hidden>
+                                                                        <label for="ItemRow_{{$Attendance["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small
                                                                             </i>
                                                                         </label>
                                                                     </div>
-                                                                    <div class="Item__Col">{{$Course["id"]}}</div>
-                                                                    <div class="Item__Col">{{$Course["name"]}}</div>
-                                                                    <div class="Item__Col">{{$Course["type"]}}</div>
-                                                                    <div class="Item__Col">{{$Course["start_date"]}}</div>
-                                                                    <div class="Item__Col">{{$Course["end_date"]}}</div>
+                                                                    <div class="Item__Col">{{$Attendance["id"]}}</div>
+                                                                    <div class="Item__Col">{{$Attendance["employee_id"]}}</div>
+                                                                    <div class="Item__Col">{{$Attendance["checkIn"]}}</div>
+                                                                    <div class="Item__Col">{{$Attendance["checkOut"]}}</div>
+                                                                    <div class="Item__Col">{{$Attendance["TotalHours"]}}</div>
                                                                     <div class="Item__Col MoreDropdown">
                                                                         <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                           data-MenuName="RoleMore_{{$Course["id"]}}">
+                                                                           data-MenuName="RoleMore_{{$Attendance["id"]}}">
                                                                             more_horiz
                                                                         </i>
                                                                         <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                             data-MenuName="RoleMore_{{$Course["id"]}}">
+                                                                             data-MenuName="RoleMore_{{$Attendance["id"]}}">
                                                                             <ul class="Dropdown__Content">
                                                                                 <li>
-                                                                                    <a href="{{route("system.conferences.show" , $Course["id"])}}"
+                                                                                    <a href="{{route("system.employees.Attendance.show" , $Attendance["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
-                                                                            </ul>
-                                                                            <ul class="Dropdown__Content">
                                                                                 <li>
-                                                                                    <a href="{{route("system.conferences.edit" , $Course["id"])}}"
+                                                                                    <a href="{{route("system.employees.Attendance.edit" , $Attendance["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        @lang("editCourse")
+                                                                                        @lang("editAttendanceInfo")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -152,11 +150,11 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Pagination">
                                                     @include("System.Components.paginationNum" , [
-                                                        "PaginationData" => $data ,
+                                                        "PaginationData" => $Attendances ,
                                                         "PartsViewNum" => 5
                                                     ])
                                                     @include("System.Components.paginationSelect" , [
-                                                        "PaginationData" => $data
+                                                        "PaginationData" => $Attendances
                                                     ])
                                                 </div>
 
@@ -173,16 +171,15 @@
     </section>
 @endsection
 
-{{--@section("PopupPage")--}}
-{{--    @include("System.Components.searchForm" , [--}}
-{{--        'InfoForm' => ["Route" => "" , "Method" => "get"] ,--}}
-{{--        'FilterForm' => [ ['Type' => 'text' , 'Info' =>--}}
-{{--                ['Name' => "filter[name]" , 'Placeholder' => __("roleName")]] , ['Type' => 'number' , 'Info' =>--}}
-{{--                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]--}}
-{{--                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,--}}
-{{--                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"--}}
-{{--                ]--}}
-{{--            ] ]--}}
-{{--    ])--}}
-{{--    @include("System.Components.fileOptions")--}}
-{{--@endsection--}}
+@section("PopupPage")
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [ ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[id]" , 'Placeholder' => __("AttendanceNumber") ] ] , ['Type' => 'text' , 'Info' =>
+                    ['Name' => "filter[employee_id]" , 'Placeholder' => __("employeeName")]
+                ] , ['Type' => 'dateRange' , 'Info' =>
+                ['Name' => "filter[Attendance_date]" , 'Placeholder' => __("AttendanceDate") ,
+                 "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"]
+            ] ]
+    ])
+@endsection

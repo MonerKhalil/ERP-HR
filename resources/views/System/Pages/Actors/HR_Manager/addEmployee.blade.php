@@ -1,7 +1,7 @@
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    <div class="MainContent__Section MainContent__Section--AddEmployeePage">
+    <div id="AddEmployeePage"  class="MainContent__Section MainContent__Section--AddEmployeePage">
         <div class="AddEmployeePage">
             <div class="AddEmployeePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
@@ -19,25 +19,27 @@
                             <div class="EmployeePage__Information">
                                 <div class="Card Card--Taps Taps">
                                     <ul class="Taps__List">
-                                        <li class="Taps__Item Taps__Item--Icon"
+                                        <li class="Taps__Item Taps__Item--Icon NotClickable"
                                             data-content="personalInfo">
                                             <i class="material-icons">face</i>
                                             @lang('personalInfo')
                                         </li>
-                                        <li class="Taps__Item Taps__Item--Icon"
+                                        <li class="Taps__Item Taps__Item--Icon NotClickable"
                                             data-content="contactInfo">
                                             <i class="material-icons">badge</i>
                                             @lang('contactInfo')
                                         </li>
-                                        <li class="Taps__Item Taps__Item--Icon"
+                                        <li class="Taps__Item Taps__Item--Icon NotClickable"
                                             data-content="educationInfo">
                                             <i class="material-icons">work</i>
                                             @lang('educationInfo')
                                         </li>
                                     </ul>
                                     <div class="Taps__Content">
-                                        <form class="Form Form--Dark"  action="{{route("system.employees.store")}}" method="post">
+                                        <form class="Form Form--Dark"
+                                              action="{{route("system.employees.store")}}" method="post" enctype="multipart/form-data">
                                             @csrf
+
                                             <div class="Taps__Panel" data-panel="personalInfo">
                                                 <div class="Card">
                                                     <div class="Card__Content">
@@ -115,8 +117,16 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
+                                                                                            @php
+                                                                                                $Gender = [] ;
+                                                                                                foreach ($gender as $Index => $Item) {
+                                                                                                    array_push($Gender , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Item ]) ;
+                                                                                                }
+                                                                                            @endphp
                                                                                             @include("System.Components.selector" , ['Name' => "gender" , "Required" => "true" , "Label" => __('gender'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => $gender,])
+                                                                                                        "Options" => $Gender,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -153,15 +163,10 @@
                                                                             </div>
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
-                                                                                    <div class="Form__Input">
-                                                                                        <div class="Input__Area">
-                                                                                            <input id="nationality"
-                                                                                                   class="Input__Field"
-                                                                                                   type="text"
-                                                                                                   name="nationality"
-                                                                                                   placeholder="@lang("nationality")">
-                                                                                            <label class="Input__Label"
-                                                                                                   for="nationality">@lang("nationality")</label>
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @include("System.Components.selector" , ['Name' => "nationality" , "Required" => "true" , "Label" => __('nationality'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => $countries,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -179,11 +184,21 @@
                                                                         <div class="Row GapC-1-5">
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @include("System.Components.selector" , ['Name' => "user_id" , "Required" => "true" , "Label" => __('User'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => $users,])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
                                                                                             <input id="DossierNumber"
                                                                                                    class="Input__Field"
-                                                                                                   type="text"
+                                                                                                   type="number"
                                                                                                    name="number_file"
                                                                                                    placeholder="@lang("dossierNumber")">
                                                                                             <label class="Input__Label"
@@ -213,7 +228,7 @@
                                                                                         <div class="Input__Area">
                                                                                             <input id="nationalNumber"
                                                                                                    class="Input__Field"
-                                                                                                   type="text"
+                                                                                                   type="number"
                                                                                                    name="number_national"
                                                                                                    placeholder="@lang("nationalNumber")">
                                                                                             <label class="Input__Label"
@@ -226,8 +241,16 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
+                                                                                            @php
+                                                                                                $Family_status = [] ;
+                                                                                                foreach ($family_status as $Index => $Item) {
+                                                                                                    array_push($Family_status , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Item ]) ;
+                                                                                                }
+                                                                                            @endphp
                                                                                             @include("System.Components.selector" , ['Name' => "family_status" , "Required" => "true" , "Label" => __('familyStatus'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => $family_status,])
+                                                                                                        "Options" => $Family_status,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -239,7 +262,7 @@
                                                                                         <div class="Input__Area">
                                                                                             <input id="wivesNum"
                                                                                                    class="Input__Field"
-                                                                                                   type="text"
+                                                                                                   type="number"
                                                                                                    name="number_wives"
                                                                                                    placeholder="@lang("wivesNumber")">
                                                                                             <label class="Input__Label"
@@ -255,7 +278,7 @@
                                                                                         <div class="Input__Area">
                                                                                             <input id="childrenNum"
                                                                                                    class="Input__Field"
-                                                                                                   type="text"
+                                                                                                   type="number"
                                                                                                    name="number_child"
                                                                                                    placeholder="@lang("childrenNumber")">
                                                                                             <label class="Input__Label"
@@ -268,8 +291,16 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
+                                                                                            @php
+                                                                                                $Military_service = [] ;
+                                                                                                foreach ($military_service as $Index => $Item) {
+                                                                                                    array_push($Military_service , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Item ]) ;
+                                                                                                }
+                                                                                            @endphp
                                                                                             @include("System.Components.selector" , ['Name' => "military_service" , "Required" => "true" , "Label" => __('militaryService'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => $military_service,])
+                                                                                                        "Options" => $Military_service,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -326,7 +357,7 @@
                                                                                             <input id="personnelNumber"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
-                                                                                                   name="number_file"
+                                                                                                   name="number_self"
                                                                                                    placeholder="@lang("personnelNumber")">
                                                                                             <label class="Input__Label"
                                                                                                    for="personnelNumber">@lang("personnelNumber")</label>
@@ -334,7 +365,25 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @include("System.Components.selector" , ['Name' => "section_id" , "Required" => "true" , "Label" => __('Department'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => $sections,])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Form__Group">
+                                                                    <div class="Form__Button">
+                                                                        <button class="Next Button Send"
+                                                                                type="button">
+                                                                            الخطوة التالية
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -359,36 +408,57 @@
                                                                             <div id="parentForm">
                                                                                 <div class="Row GapC-1-5"
                                                                                      id="documentForm">
-                                                                                    <div class="Col-4-md Col-6-sm">
+                                                                                    <div class="Col-4-md Col-6-sm"`>
                                                                                         <div class="Form__Group">
                                                                                             <div class="Form__Select">
                                                                                                 <div
                                                                                                     class="Select__Area">
-                                                                                                    @include("System.Components.selector" , ['Name' => "document_type" , "Required" => "true" , "Label" => __('documentType'),"DefaultValue" => "",
-                                                                                                                "OptionsValues" => [("ID"), ("passport")],])
+                                                                                                    @php
+                                                                                                        $Document_type = [] ;
+                                                                                                        foreach ($document_type as $Index => $Item) {
+                                                                                                            array_push($Document_type , [
+                                                                                                                "Label" => $Item
+                                                                                                                , "Value" => $Item ]) ;
+                                                                                                        }
+                                                                                                    @endphp
+                                                                                                    @include("System.Components.selector" , ['Name' => "document_contact[0][document_type]" , "Required" => "true" , "Label" => __('documentType'),"DefaultValue" => "",
+                                                                                                                "Options" => $Document_type,])
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
-                                                                                            <div
-                                                                                                class="Form__UploadFile">
-                                                                                                <div
-                                                                                                    class="UploadFile__Area">
-                                                                                                    <input id="docId"
-                                                                                                           type="file"
-                                                                                                           class="UploadFile__Field"
-                                                                                                           name="document_path"
-                                                                                                           placeholder="@lang("chooseDocument")">
-                                                                                                    <label
-                                                                                                        class="UploadFile__Label"
-                                                                                                        for="docId">
-                                                                                                        @lang("chooseDocument")
-                                                                                                    </label>
+                                                                                            <div class="Form__UploadFile">
+                                                                                                <div class="UploadFile__Area">
+                                                                                                    @include("System.Components.fileUpload" , [
+                                                                                                        "FieldID" => "docId" ,
+                                                                                                        "FieldName" => "document_contact[0][document_path]" ,
+                                                                                                        "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
+                                                                                                        "LabelField" => __("chooseDocument"),
+                                                                                                        "AcceptFiles" => "*"
+                                                                                                    ])
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
+                                                                                        {{--                                                                                        <div class="Form__Group">--}}
+                                                                                        {{--                                                                                            <div--}}
+                                                                                        {{--                                                                                                class="Form__UploadFile">--}}
+                                                                                        {{--                                                                                                <div--}}
+                                                                                        {{--                                                                                                    class="UploadFile__Area">--}}
+                                                                                        {{--                                                                                                    <input id="docId"--}}
+                                                                                        {{--                                                                                                           type="file"--}}
+                                                                                        {{--                                                                                                           class="UploadFile__Field"--}}
+                                                                                        {{--                                                                                                           name="document_path"--}}
+                                                                                        {{--                                                                                                           placeholder="@lang("chooseDocument")">--}}
+                                                                                        {{--                                                                                                    <label--}}
+                                                                                        {{--                                                                                                        class="UploadFile__Label"--}}
+                                                                                        {{--                                                                                                        for="docId">--}}
+                                                                                        {{--                                                                                                        @lang("chooseDocument")--}}
+                                                                                        {{--                                                                                                    </label>--}}
+                                                                                        {{--                                                                                                </div>--}}
+                                                                                        {{--                                                                                            </div>--}}
+                                                                                        {{--                                                                                        </div>--}}
                                                                                     </div>
                                                                                     <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
@@ -398,7 +468,7 @@
                                                                                                     <input id="docId"
                                                                                                            class="Input__Field"
                                                                                                            type="number"
-                                                                                                           name="document_number"
+                                                                                                           name="document_contact[0][document_number]"
                                                                                                            placeholder="@lang("documentID")">
                                                                                                     <label
                                                                                                         class="Input__Label"
@@ -448,6 +518,21 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
+                                                                                            <input id="personalPhone"
+                                                                                                   class="Input__Field"
+                                                                                                   type="number"
+                                                                                                   name="private_number2"
+                                                                                                   placeholder="@lang("personalPhone2")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="EmpPersonalPhone">@lang("personalPhone2")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
                                                                                             <input id="workPhone"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
@@ -474,27 +559,40 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm">
+                                                                            <div id="State"
+                                                                                 data-CityURL="{{route("get.address")}}"
+                                                                                 class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "country_name" , "Required" => "true" , "Label" => __('countryName'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("syria"), __("jordan")],])
+                                                                                            @php
+                                                                                                $Countries = [] ;
+                                                                                                foreach ($countries as $Index => $Item) {
+                                                                                                    array_push($Countries , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Index ]) ;
+                                                                                                }
+                                                                                            @endphp
+                                                                                            @include("System.Components.selector" , [
+                                                                                                        'Name' => "country_name" , "Required" => "true"
+                                                                                                        , "Label" => __('countryName') ,"DefaultValue" => ""
+                                                                                                        , "Options" => $Countries
+                                                                                                    ])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm">
+                                                                            <div id="City" class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "cityName" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => "",
+                                                                                            @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => "",
                                                                                                         "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm">
+                                                                            <div id="Address" class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
@@ -508,8 +606,16 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "addressType" , "Required" => "true" , "Label" => __('addressType'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("Home"), __("Bureau")],])
+                                                                                            @php
+                                                                                                $Address_type = [] ;
+                                                                                                foreach ($address_type as $Index => $Item) {
+                                                                                                    array_push($Address_type , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Item ]) ;
+                                                                                                }
+                                                                                            @endphp
+                                                                                            @include("System.Components.selector" , ['Name' => "address_type" , "Required" => "true" , "Label" => __('addressType'),"DefaultValue" => "",
+                                                                                                        "Options" => $Address_type,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -532,7 +638,18 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                                                                <div class="Form__Group">
+                                                                    <div class="Form__Button">
+                                                                        <button class="Previous Button Send"
+                                                                                type="button">
+                                                                            الخطوة السابقة
+                                                                        </button>
+                                                                        <button class="Next Button Send"
+                                                                                type="button">
+                                                                            الخطوة التالية
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -544,7 +661,7 @@
                                                     <div class="Card__Content">
                                                         <div class="Card__Inner">
                                                             <div class="Card__Body">
-                                                                <form class="Form Form--Dark">
+                                                                <div class="ListData">
                                                                     <div class="ListData__Head">
                                                                         <h4 class="ListData__Title">
                                                                             @lang("educationInfo")
@@ -556,8 +673,8 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "educationDegree" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [("9"), ("12"),("college")],])
+                                                                                            @include("System.Components.selector" , ['Name' => "id_ed_lev" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => $education_level,])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -596,17 +713,30 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__UploadFile">
                                                                                         <div class="UploadFile__Area">
-                                                                                            <input type="file"
-                                                                                                   class="UploadFile__Field"
-                                                                                                   name="document_education_path"
-                                                                                                   placeholder="@lang("chooseDocument")">
-                                                                                            <label
-                                                                                                class="UploadFile__Label">
-                                                                                                @lang("chooseDocument")
-                                                                                            </label>
+                                                                                            @include("System.Components.fileUpload" , [
+                                                                                                "FieldID" => "docEducation" ,
+                                                                                                "FieldName" => "document_education_path[0]" ,
+                                                                                                "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
+                                                                                                "LabelField" => __("chooseDocument"),
+                                                                                                "AcceptFiles" => "*"
+                                                                                            ])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                                {{--                                                                                <div class="Form__Group">--}}
+                                                                                {{--                                                                                    <div class="Form__UploadFile">--}}
+                                                                                {{--                                                                                        <div class="UploadFile__Area">--}}
+                                                                                {{--                                                                                            <input type="file"--}}
+                                                                                {{--                                                                                                   class="UploadFile__Field"--}}
+                                                                                {{--                                                                                                   name="document_education_path"--}}
+                                                                                {{--                                                                                                   placeholder="@lang("chooseDocument")">--}}
+                                                                                {{--                                                                                            <label--}}
+                                                                                {{--                                                                                                class="UploadFile__Label">--}}
+                                                                                {{--                                                                                                @lang("chooseDocument")--}}
+                                                                                {{--                                                                                            </label>--}}
+                                                                                {{--                                                                                        </div>--}}
+                                                                                {{--                                                                                    </div>--}}
+                                                                                {{--                                                                                </div>--}}
                                                                             </div>
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
@@ -625,20 +755,23 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </form>
+                                                                </div>
+                                                                <div class="Form__Group">
+                                                                    <div class="Form__Button">
+                                                                        <button class="Previous Button Send"
+                                                                                type="button">
+                                                                            الخطوة السابقة
+                                                                        </button>
+                                                                        <button class="Button Send"
+                                                                                type="submit">@lang("addEmployee")</button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="Col-12-xs">
-                                                <div class="Form__Group">
-                                                    <div class="Form__Button">
-                                                        <button class="Button Send"
-                                                                type="submit">@lang("addEmployee")</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                         </form>
                                     </div>
                                 </div>

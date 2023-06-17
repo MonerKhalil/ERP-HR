@@ -110,3 +110,7 @@ Route::get('/Test-42', function () {
 Route::get('/Test-43', function () {
     return view('System/Pages/Docs/reportPrint');
 });
+
+Route::get('/Test-44', function () {
+    return view('System/Pages/Actors/Attendance/addAttendanceRecord');
+});

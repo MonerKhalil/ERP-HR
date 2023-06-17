@@ -9,12 +9,13 @@ use App\Http\Requests\EmployeeRequest;
 use App\Models\Education_level;
 use App\Models\Employee;
 use App\Models\Sections;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
     const Folder = "users";
-    const IndexRoute = "employees.index";
+    const IndexRoute = "system.employees.index";
 
     public function __construct()
     {
@@ -65,9 +66,10 @@ class EmployeeController extends Controller
                 }
             }
             DB::commit();
-            return $employee;
+//            return $employee;
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
+            dd($exception);
             DB::rollBack();
             throw new MainException($exception->getMessage());
         }
@@ -136,10 +138,14 @@ class EmployeeController extends Controller
         $address_type = ["house", "clinic", "office"];
         $document_type = ["family_card","identification","passport"];
         $education_level = Education_level::query()->pluck("name","id")->toArray();
+        $employees = Employee::query()->pluck("user_id")->toArray();
+        $users = User::query()
+            ->whereNotIn("id",$employees)
+            ->whereNot("id",Auth()->id())->pluck("name","id")->toArray();
         $countries = countries();
         $sections = Sections::query()->pluck("name","id")->toArray();
         return compact('sections','countries','gender','military_service'
-            ,'family_status','address_type','education_level','document_type');
+            ,'family_status','address_type','education_level','document_type',"users");
     }
 
     public function ExportXls()

@@ -259,6 +259,18 @@ img {
   padding-top: 0 !important;
 }
 
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.pr-0 {
+  padding-right: 0 !important;
+}
+
+.pl-0 {
+  padding-left: 0 !important;
+}
+
 @media only screen and (max-width: 74.99em) {
   .Visible-desktop {
     display: initial !important;
@@ -1195,6 +1207,15 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   width: 100%;
   border-radius: 10px;
   background-color: #1A202E;
+}
+.Card__CenterButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+.Card__CenterButton-hidden {
+  display: none;
 }
 .Card__InnerGroup {
   border-bottom: 1px solid #23364e;
