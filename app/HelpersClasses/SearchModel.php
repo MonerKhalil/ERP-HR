@@ -3,7 +3,6 @@
 namespace App\HelpersClasses;
 
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 
 class SearchModel
@@ -46,9 +45,12 @@ class SearchModel
             }
         }
 
+        $queryBuilder = $queryBuilder->orderBy("id","desc");
+
         if (!is_null($callback)){
             return $callback($queryBuilder);
         }
+
         if ($isAll){
             return $queryBuilder->get();
         }
@@ -65,8 +67,6 @@ class SearchModel
     public function dataPaginate($queryBuilder): mixed
     {
         $tempCount = $this->countItemsPaginate();
-
-        $queryBuilder = $queryBuilder->orderBy("id","desc");
 
         if ($tempCount === "all"){
             return $queryBuilder->get();

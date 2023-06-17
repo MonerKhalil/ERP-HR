@@ -10,6 +10,16 @@
     "deleted": "deleted",
     "err_image_upload": "The previous image has not been successfully uploaded, please return the previous process again",
     "err_file_upload": "The previous file has not been successfully uploaded, please return the previous process again",
+    "err_leaves_count": "It is not possible to take leave for this employee because of exceeding the permissible limit of the previous leave type.",
+    "err_leaves_gender": "This type of leave is not available for this type of gender.",
+    "err_years_employee_services": "The leave request cannot be submitted due to not having matching or greater years of service than the specified years of service for the previous leave type.",
+    "request_end_services" : "request end services",
+    "accept_request_end_services" : "success accept request end services.",
+    "cancel_request_end_services" : "reject request end services.",
+    "request_leave" : "request leave.",
+    "request_leave_msg": "A leave of type has been requested: ",
+    "accept_request_leave" : "success accept request leave.",
+    "cancel_request_leave" : "reject request leave.",
 
     "/*         Header         */": "",
 

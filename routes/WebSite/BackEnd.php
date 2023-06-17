@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DataEndServiceController;
@@ -11,17 +12,27 @@ use App\Http\Controllers\EducationDataController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageSkillController;
+use App\Http\Controllers\LeaveAdminController;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\OverTimeAdminController;
+use App\Http\Controllers\OvertimeTypeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\ReportEmployeeController;
 use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SectionExternalController;
+use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\SessionDecisionController;
 use App\Http\Controllers\TypeDecisionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkSettingController;
+use App\Models\Leave;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,8 +60,10 @@ Route::middleware(['auth'])->group(function () {
                 Route::get("show", "getNotifications")->name("notifications.show");
                 Route::delete("clear", "clearNotifications")->name("notifications.clear");
                 Route::put("edit/read", "editNotificationsToRead")->name("notifications.edit");
+                Route::delete("remove/notify", "removeNotification")->name("notify.remove");
             });
-        Route::get("audit/show", [AuditController::class, "NotificationsAuditUserShow"])->name("audit.show");
+        Route::get("audit/show", [AuditController::class, "AllNotificationsAuditUserShow"])->name("audit.show");
+        Route::get("audit/show/{audit}", [AuditController::class, "showAudit"])->name("audit.show.single");
 
         /*===========================================
         =         End Notification Routes        =
@@ -83,6 +96,26 @@ Route::middleware(['auth'])->group(function () {
    =============================================*/
 
     Route::prefix("system")->name("system.")->group(function () {
+        /*===========================================
+            =         Start Settings Routes        =
+        =============================================*/
+
+        Route::prefix("company_settings")->name("company_settings.")
+            ->controller(CompanySettingController::class)->group(function (){
+                Route::get("show","show")->name("show");
+                Route::put("edit","edit")->name("edit");
+            });
+        Route::resource("work_settings",WorkSettingController::class);
+        Route::prefix("work_settings")->name("work_settings.")
+            ->controller(WorkSettingController::class)->group(function () {
+                Route::post('export/xlsx', "ExportXls")->name("export.xls");
+                Route::post('export/pdf', "ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete", "MultiDelete")->name("multi.delete");
+            });
+        /*===========================================
+            =         End Settings Routes        =
+        =============================================*/
+
         /*===========================================
             =         Start Decisions Routes        =
         =============================================*/
@@ -120,6 +153,22 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
+        Route::resource('sections', SectionsController::class);
+        Route::prefix("sections")->name("sections.")
+            ->controller(SectionsController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::resource('section_externals', SectionExternalController::class);
+        Route::prefix("section_externals")->name("section_externals.")
+            ->controller(SectionsController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
         Route::prefix("request_end_services")->name("request_end_services.")
             ->controller(RequestEndServiceController::class)->group(function (){
                 Route::get("all","allRequest")->name("index");
@@ -140,9 +189,17 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
-        Route::resource('positions', PositionController::class);
+        Route::resource('positions', PositionController::class)->except("show");
         Route::prefix("positions")->name("positions.")
             ->controller(PositionController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
+        Route::resource('public_holidays', PublicHolidayController::class)->except("show");
+        Route::prefix("public_holidays")->name("public_holidays.")
+            ->controller(PublicHolidayController::class)->group(function (){
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
@@ -154,6 +211,21 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
+        Route::resource('overtime_types', OvertimeTypeController::class)->except([
+            "edit", "create", "show"
+        ]);
+        Route::delete("overtime_types/multi/delete",[OvertimeTypeController::class,"MultiDelete"])->name("overtime_types.multi.delete");
+
+        Route::resource('overtimes_admin', OverTimeAdminController::class)->except(["show","edit"]);
+        Route::prefix("overtimes_admin")->name("overtimes_admin.")
+            ->controller(OverTimeAdminController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+                Route::post("status/change/{overtime}/{status}")
+                    ->whereIn("status",["approve","reject"])
+                    ->name("overtime.status.change");
+            });
 
 
         /*===========================================
@@ -163,8 +235,15 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class)->except([
             "show", "edit", "update",
         ]);
+        #Report
         Route::get("employees/report",[ReportEmployeeController::class,"showCreateReport"])->name("employees.report");
-        Route::post("employees/report",[ReportEmployeeController::class,"Report"]);
+        Route::get("employees/report/final",[ReportEmployeeController::class,"Report"])->name("employees.report.final");
+        Route::post("employees/report/xlsx",[ReportEmployeeController::class,"ReportXlsx"])->name("employees.report.xlsx");
+        Route::post("employees/report/pdf",[ReportEmployeeController::class,"ReportPdf"])->name("employees.report.pdf");
+        #Print Pdf and Xlsx
+        Route::post('employees/export/xlsx',[EmployeeController::class,"ExportXls"])->name("employees.export.xls");
+        Route::post('employees/export/pdf',[EmployeeController::class,"ExportPDF"])->name("employees.export.pdf");
+        Route::delete("employees/multi/delete",[EmployeeController::class,"MultiDelete"])->name("employees.multi.delete");
         Route::get("employees/show/{employee?}", [EmployeeController::class, "show"])->name("employees.show");
         Route::get("employees/edit/{employee?}", [EmployeeController::class, "edit"])->name("employees.edit");
         Route::post("employees/update/{employee?}", [EmployeeController::class, "update"])->name("employees.update");
@@ -179,6 +258,48 @@ Route::middleware(['auth'])->group(function () {
         /*===========================================
             =         End Employees Routes        =
        =============================================*/
+
+        /*===========================================
+        =            Start Leaves Routes        =
+        =============================================*/
+
+        Route::resource('leave_types', LeaveTypeController::class);
+        Route::prefix("leave_types")->name("leave_types.")
+            ->controller(LeaveTypeController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+        Route::resource('leaves_admin', LeaveAdminController::class)->except(["show","edit"]);
+        Route::prefix("leaves_admin")->name("leaves_admin.")
+            ->controller(LeaveAdminController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+                Route::post("status/change/{leave}/{status}")
+                    ->whereIn("status",["approve","reject"])
+                    ->name("leave.status.change");
+            });
+        Route::prefix("leaves")->name("leaves.")
+            ->controller(LeaveController::class)->group(function (){
+            Route::get("all/{status?}","ShowLeaves")
+                ->whereIn("status", Leave::status())
+                ->name("all.status");
+            Route::get("show/{leave}","Show")->name("show.leave");
+            Route::get("edit/{leave}","Edit")->name("edit.leave");
+            Route::put("update/{leave}","updateRequestLeave")->name("update.leave");
+            Route::get("request/create","createRequestLeave")->name("create.request");
+            Route::post("request/store","Store")->name("store.request");
+            Route::delete("request/delete/{leave}","Destroy")->name("remove.request");
+            Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
+            Route::get("show/leaves_type","LeavesTypeShow")->name("show.leavesType");
+            Route::get("count/leaves/{leave_type}","LeavesTypeShow")->name("show.leavesType");
+        });
+
+        /*===========================================
+        =        End Leaves Routes         =
+       =============================================*/
+
 
         /*===========================================
            =        contract languageSkill membership Routes        =
@@ -240,6 +361,7 @@ Route::middleware(['auth'])->group(function () {
     /*===========================================
     =         End System Routes        =
    =============================================*/
+
 
     /*===========================================
     =         Start Ajax Routes        =

@@ -37,6 +37,30 @@
             transition: all .3s;
         }
 
+        &.NotClickable {
+            cursor: default;
+
+            &:hover {
+                color: $SecondaryColor-Project;
+            }
+        }
+
+        &.Error {
+            color : $DangerColor ;
+
+            &:hover {
+                color: $DangerColor ;
+            }
+
+            &.Active {
+                color: $DangerColor;
+
+                &::after {
+                    background-color: $DangerColor;
+                }
+            }
+        }
+
         &--Icon {
             display: flex;
             align-items: center;

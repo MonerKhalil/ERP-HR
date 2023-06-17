@@ -32,14 +32,23 @@ class DataEndServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $DataEnd = DataEndService::with(["employee","decision"])->whereNotNull("decision_id");
-        $employees = Employee::query()->select(["first_name","last_name","id"])->get();
-//        $decisions = Decision::query()->pluck("name","id")->toArray();
+        if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
+            $DataEnd = $DataEnd->whereHas("employee",function ($q) use ($request){
+                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
+                ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
+            });
+        }
+        if (isset($request->filter["number_decision"]) && !is_null($request->filter["number_decision"])){
+            $DataEnd = $DataEnd->whereHas("decision",function ($q) use ($request){
+                $q->where("number",$request->filter["number_decision"]);
+            });
+        }
         $reason = DataEndService::Reasons();
         $data = MyApp::Classes()->Search->getDataFilter($DataEnd);
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployeesEOF",compact("data",'reason','employees'));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployeesEOF",compact("data",'reason'));
     }
 
     /**
@@ -141,7 +150,7 @@ class DataEndServiceController extends Controller
     public function ExportXls(BaseRequest $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'],$data['body'],"test"),".xlsx");
+        return Excel::download(new TableCustomExport($data['head'],$data['body']),"dataEndService.xlsx");
     }
 
     public function ExportPDF(BaseRequest $request)
@@ -161,8 +170,19 @@ class DataEndServiceController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("data_end_services","id")],
         ]);
-        $query = DataEndService::query();
+        $query = DataEndService::with(["employee","decision"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
+            $query = $query->whereHas("employee",function ($q) use ($request){
+                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
+            });
+        }
+        if (isset($request->filter["number_decision"]) && !is_null($request->filter["number_decision"])){
+            $query = $query->whereHas("decision",function ($q) use ($request){
+                $q->where("number",$request->filter["number_decision"]);
+            });
+        }
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [
             [

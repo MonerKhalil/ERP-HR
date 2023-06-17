@@ -75,7 +75,7 @@
                                                 <div class="Form__Group">
                                                     <div class="Form__CheckBox">
                                                         <div class="CheckBox__Area">
-                                                            <input type="checkbox" id="RememberMe"
+                                                            <input type="checkbox" id="RememberMe" name="remember"
                                                                    class="CheckBox__Input">
                                                             <label class="CheckBox__Label" for="RememberMe">
                                                             <span class="IconChecked">

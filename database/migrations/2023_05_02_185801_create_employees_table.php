@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("work_setting_id")->constrained("work_settings")->restrictOnDelete();
             $table->foreignId("user_id")->unique()->constrained("users")->restrictOnDelete();
             $table->foreignId("section_id")->constrained("sections")->restrictOnDelete();
             $table->foreignId("nationality")->constrained("countries")->restrictOnDelete();
@@ -37,11 +38,18 @@ return new class extends Migration
             $table->integer("number_wives")->default(0);
             $table->integer("number_child")->default(0);
             $table->date("birth_date");
+            //Settings
+            $table->integer("count_administrative_leaves")->nullable();
+            $table->integer("count_month_services")->nullable();
+            //EndSettings
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->timestamps();
             $table->softDeletes();
+        });
+        Schema::table("sections",function (Blueprint $table){
+            $table->foreignId("moderator_id")->after("id")->nullable()->constrained("employees")->restrictOnDelete();
         });
     }
 

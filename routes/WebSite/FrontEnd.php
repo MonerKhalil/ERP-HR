@@ -47,10 +47,6 @@ Route::get('/Test-17', function () {
     return view('System/Pages/Actors/decisionView');
 });
 
-Route::get('/Test-20', function () {
-    return view('System/Pages/Actors/Reports/reportEmployeesForm');
-});
-
 Route::get('/Test-30', function () {
     return view('System/Pages/Actors/Vacations/newTypeForm');
 });
@@ -113,4 +109,16 @@ Route::get('/Test-43', function () {
 
 Route::get('/Test-44', function () {
     return view('System/Pages/Actors/Attendance/addAttendanceRecord');
+});
+
+Route::get('/Test-45', function () {
+    return view('System/Pages/Actors/Evaluation/newTypeEvaluationView');
+});
+
+Route::get('/Test-46', function () {
+    return view('System/Pages/Actors/Evaluation/newTypeEvaulationDetails');
+});
+
+Route::get('/Test-47', function () {
+    return view('System/Pages/Actors/Vacations/vacationAvailableView');
 });

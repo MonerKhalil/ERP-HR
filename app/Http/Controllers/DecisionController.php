@@ -195,7 +195,7 @@ class DecisionController extends Controller
     public function ExportXls(BaseRequest $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+        return Excel::download(new TableCustomExport($data['head'], $data['body']), self::Folder . ".xlsx");
     }
 
     public function ExportPDF(BaseRequest $request)
@@ -215,9 +215,16 @@ class DecisionController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("decisions","id")],
         ]);
-        $query = Decision::query();
+        $query = Decision::with(["type_decision","session_decision"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
-        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        if (isset($request->filter["start_date"]) && isset($request->filter["end_date"])){
+            $from = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date"]);
+            $to = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date"]);
+            if ( is_string($from) && is_string($to) && ($from <= $to) ){
+                $query = $query->whereBetween("date",[$from,$to]);
+            }
+        }
+        $data = MyApp::Classes()->Search->getDataFilter($query, null, true, "end_date_decision");
         $head = [
             [
                 "head" => "type_decision",

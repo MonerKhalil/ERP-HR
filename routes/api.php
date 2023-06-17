@@ -5,8 +5,11 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\MembershipController;
+use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +46,8 @@ Route::delete('contract/{contract}/force-delete', [ContractController::class, 'f
 Route::post('contract/export/xlsx', [ContractController::class, 'ExportXls'])->name("export.xls");
 Route::post('contract/export/pdf',[ContractController::class, 'ExportPDF'] )->name("export.pdf");
 Route::delete("contract/multi/delete", [ContractController::class, 'MultiDelete'])->name("multi.delete");
+Route::post("cors", [\App\Http\Controllers\CorrespondenceController::class, 'store']);
+Route::get("index", [\App\Http\Controllers\CorrespondenceController::class, 'index']);
 
 
 
@@ -62,4 +67,9 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
 /*
  *****************************test********************
  */
-Route::post("mmm",[\App\Http\Controllers\ReportEmployeeController::class,"Report"]);
+Route::post("mmm",[\App\Http\Controllers\SectionsController::class,"show"]);
+Route::get("xxx",function (){
+    $now = Carbon::create(0,0,0,17);
+    dd($now->format("Y-m-d H:i:s A"));
+//    $time = ;
+});

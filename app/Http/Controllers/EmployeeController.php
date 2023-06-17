@@ -3,18 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\MainException;
+use App\Exports\TableCustomExport;
+use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
+use App\Http\Requests\BaseRequest;
 use App\Http\Requests\DataAllEmployeeRequest;
 use App\Http\Requests\EmployeeRequest;
+use App\Models\Decision;
 use App\Models\Education_level;
 use App\Models\Employee;
 use App\Models\Sections;
 use App\Models\User;
+use App\Models\WorkSetting;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
-    const Folder = "users";
+
+    const Folder = "employees";
     const IndexRoute = "system.employees.index";
 
     public function __construct()
@@ -66,7 +75,6 @@ class EmployeeController extends Controller
                 }
             }
             DB::commit();
-//            return $employee;
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
             dd($exception);
@@ -88,10 +96,12 @@ class EmployeeController extends Controller
             "education_data" => function($q){
                 return $q->with(["document_education","education_level"])->get();
             },
+            "nationality_country","section","positions","contract","language_skill",
         ]);
         $employee = is_null($employee) ? $employeeQuery->where("user_id",auth()->id())->firstOrFail()
             : $employeeQuery->findOrFail($employee);
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployee",compact("employee"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewEmployee" ,
+            compact("employee"));
     }
 
     public function edit($employee = null)
@@ -131,7 +141,18 @@ class EmployeeController extends Controller
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
+    public function MultiDelete(Request $request)
+    {
+        $request->validate([
+            "ids" => ["array","required"],
+            "ids.*" => ["required",Rule::exists("employees","id")],
+        ]);
+        Employee::query()->whereIn("id",$request->ids)->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+    }
+
     private function shareByBlade(){
+        $work_settings = WorkSetting::query()->get();
         $gender = ["male", "female"];
         $military_service = ["exempt", "performer", "in_service"];
         $family_status = ["married", "divorced", "single"];
@@ -145,17 +166,53 @@ class EmployeeController extends Controller
         $countries = countries();
         $sections = Sections::query()->pluck("name","id")->toArray();
         return compact('sections','countries','gender','military_service'
-            ,'family_status','address_type','education_level','document_type',"users");
+            ,'family_status','address_type','education_level','document_type','work_settings',"users");
     }
 
-    public function ExportXls()
+    public function ExportXls(BaseRequest $request)
     {
-        //
+        $data = $this->MainExportData($request);
+        return Excel::download(new TableCustomExport($data['head'], $data['body']), self::Folder . ".xlsx");
     }
 
-    public function ExportPDF()
+    public function ExportPDF(BaseRequest $request)
     {
-        //
+        $data = $this->MainExportData($request);
+        return ExportPDF::downloadPDF($data['head'],$data['body']);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @author moner khalil
+     */
+    private function MainExportData(Request $request): array
+    {
+        $request->validate([
+            "ids" => ["sometimes","array"],
+            "ids.*" => ["sometimes",Rule::exists("employees","id")],
+        ]);
+        $query = Employee::with(["nationality_country","section"])->whereNot("user_id",auth()->id());
+        $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
+        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $head = [
+            [
+                "head"=> "department",
+                "relationFunc" => "section",
+                "key" => "name",
+            ],
+            "name",
+            [
+                "head"=> "nationality",
+                "relationFunc" => "nationality_country",
+                "key" => "country_name",
+            ],
+            "NP_registration","number_national","number_self","gender","current_job","military_service", "family_status","birth_date",
+        ];
+        return [
+            "head" => $head,
+            "body" => $data,
+        ];
     }
 
 }

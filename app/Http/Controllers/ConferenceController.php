@@ -135,7 +135,7 @@ class ConferenceController extends Controller
     public function ExportXls(BaseRequest $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'],$data['body'],"test"),".xlsx");
+        return Excel::download(new TableCustomExport($data['head'],$data['body']),"conference.xlsx");
     }
 
     public function ExportPDF(BaseRequest $request)
@@ -155,7 +155,7 @@ class ConferenceController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("conferences","id")],
         ]);
-        $query = Conference::query();
+        $query = Conference::with(["address"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [

@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\CompanySetting;
 use App\Models\Education_level;
+use App\Models\WorkSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CompanySettingSeeder::class);
+        $this->call(WorkSettingSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);

@@ -16,15 +16,14 @@ return new class extends Migration
         Schema::create('correspondences', function (Blueprint $table) {
             $table->id();
             #Add Columns
-            $table->integer('number')->unique();
-            $table->integer('origin_number');
-            $table->date('origin_date');
-            $table->date('date');
+            $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();///createrr if internal
+            $table->bigInteger('number_internal')->unique();
+            $table->bigInteger('number_external')->unique();
             $table->enum('type',['internal','external']);
-            $table->enum('source_dest_type',['outgoing','incoming']);
+            $table->date("date");
             $table->string('subject');
-            $table->string('summary');
-            $table->boolean('is_reply')->default(false);
+            $table->text('summary');
+            $table->text("path_file")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();

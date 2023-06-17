@@ -175,7 +175,7 @@ class SessionDecisionController extends Controller
     public function ExportXls(BaseRequest $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'],$data['body'],"test"),self::Folder.".xlsx");
+        return Excel::download(new TableCustomExport($data['head'],$data['body']),self::Folder.".xlsx");
     }
 
     public function ExportPDF(BaseRequest $request)
@@ -195,9 +195,9 @@ class SessionDecisionController extends Controller
             "ids" => ["sometimes","array"],
             "ids.*" => ["sometimes",Rule::exists("session_decisions","id")],
         ]);
-        $query = SessionDecision::query();
+        $query = SessionDecision::with(["moderator"]);
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
-        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $data = MyApp::Classes()->Search->getDataFilter($query,null,true,"date_session");
         $head = [
             [
                 "head"=> "moderator",

@@ -1,5 +1,9 @@
 @extends("System.Pages.globalPage")
 
+{{--@php--}}
+{{--    dd($dataSelected);--}}
+{{--@endphp--}}
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--ReportEmployeesView">
         <div class="ReportEmployeesView">
@@ -16,12 +20,14 @@
                         <div class="Col">
                             <div class="Card ReportEmployeesView__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="#"
+                                    <form name="PrintAllTablePDF"
+                                          action="{{ route("system.employees.report.pdf") }}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx"
+                                          action="{{ route("system.employees.report.xlsx") }}"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -29,17 +35,29 @@
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
-                                            <div class="Card__Inner">
+                                            <div class="Card__Inner py1">
                                                 <div class="Table__Head">
                                                     <div class="Justify-Content-End Card__ToolsGroup">
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
-                                                                <li><i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
-                                                                       data-popUp="SearchAbout">filter_list</i></li>
-                                                                <li><span class="SearchTools__Separate"></span></li>
-                                                                <li><a href="#">
-                                                                        <i class="material-icons IconClick">print</i>
-                                                                    </a></li>
+                                                                <li class="Table__PrintMenu">
+                                                                    <i class="material-icons IconClick PrintMenu__Button"
+                                                                       title="Print">print</i>
+                                                                    <div class="Dropdown PrintMenu__Menu">
+                                                                        <ul class="Dropdown__Content">
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
+                                                                                    @lang("printTablePDFFile")
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
+                                                                                    @lang("printTableXlsxFile")
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -47,7 +65,7 @@
                                             </div>
                                             <div class="Card__Inner p0">
                                                 <div class="Table__ContentTable">
-                                                    <table class="Left Table__Table" >
+                                                    <table class="Table__Table" >
                                                         <tr class="Item HeaderList">
                                                             <th class="Item__Col">
                                                                 #
@@ -59,86 +77,78 @@
                                                                 الجنس
                                                             </th>
                                                             <th class="Item__Col">
-                                                                تاريخ التوظيف
+                                                                رقم الاضبارة
+                                                            </th>
+                                                            <th class="Item__Col">
+                                                                الوظيفة الحالية
                                                             </th>
                                                             <th class="Item__Col">
                                                                 المزيد
                                                             </th>
                                                         </tr>
-                                                        <tbody class="GroupRows">
-                                                            <tr class="GroupRows__MainRow">
-                                                                <td class="Item__Col">
-                                                                    1
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    امير
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    ذكر
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    10-10-2010
-                                                                </td>
-                                                                <td class="Item__Col Item__Col--Details">
-                                                                    <span class="Details__Button">@lang("details")</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="GroupRows__SubRows">
-                                                                <td class="Item__Col" colspan="5">
+                                                        @foreach($finalData as $RowData)
+                                                            <tbody class="GroupRows">
+                                                                <tr class="GroupRows__MainRow">
+                                                                    <td class="Item__Col">
+                                                                        {{ $RowData["id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $RowData["first_name"]." ".$RowData["last_name"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $RowData["gender"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        1
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $RowData["current_job"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col Item__Col--Details">
+                                                                        <span class="Details__Button">@lang("details")</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="GroupRows__SubRows">
+                                                                    <td class="Item__Col" colspan="6">
                                                                     <div class="Report">
                                                                         <div class="Report__Content">
                                                                             <div class="ListData NotResponsive">
                                                                                 <div class="ListData__Content">
-                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                        <div class="Data_Col">
-                                                                                            <span class="Data_Label">
-                                                                                                الدرجة العلمية
-                                                                                            </span>
-                                                                                            <span class="Data_Value">
-                                                                                                بكلوريا
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                        <div class="Data_Col">
-                                                                                            <span class="Data_Label">
-                                                                                                نوع العقد
-                                                                                            </span>
-                                                                                            <span class="Data_Value">
-                                                                                                متدرب
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="ListData__Item ListData__Item--NoAction">
-                                                                                        <div class="Data_Col">
-                                                                                            <span class="Data_Label">
-                                                                                                الوضع العائلي
-                                                                                            </span>
-                                                                                            <span class="Data_Value">
-                                                                                                عازب
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    @foreach($dataSelected as $Index => $ReportSelected)
+                                                                                        @if($Index != "gender")
+                                                                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                                                                <div class="Data_Col">
+                                                                                                    <span class="Data_Label">
+                                                                                                        {{ $Index }}
+                                                                                                    </span>
+                                                                                                    <span class="Data_Value">
+                                                                                                        {{ $ReportSelected }}
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    @endforeach
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                            </tr>
-                                                        </tbody>
+                                                                </tr>
+                                                            </tbody>
+                                                        @endforeach
                                                     </table>
                                                 </div>
                                             </div>
                                             <div class="Card__Inner">
-                                                {{--                                                <div class="Card__Pagination">--}}
-                                                {{--                                                    @include("System.Components.paginationNum" , [--}}
-                                                {{--                                                        "PaginationData" => $users ,--}}
-                                                {{--                                                        "PartsViewNum" => 5--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                    @include("System.Components.paginationSelect" , [--}}
-                                                {{--                                                        "PaginationData" => $users--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                </div>--}}
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $finalData ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $finalData
+                                                    ])
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

@@ -12,8 +12,8 @@ use App\Http\Requests\ContractRequest;
 use App\Models\Employee;
 use App\Models\Sections;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use PHPUnit\Exception;
@@ -25,17 +25,24 @@ class ContractController extends Controller
 
     public function __construct()
     {
-        $this->addMiddlewarePermissionsToFunctions(app(Employee::class)->getTable());
+        $this->addMiddlewarePermissionsToFunctions(app(Contract::class)->getTable());
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $contracts = Contract::with('employee');
-        $contracts = MyApp::Classes()->Search->getDataFilter($contracts);
+        $q = Contract::with('employee');
+        $q = !is_null($request->employee_name) ? $q->whereHas("employee", function ($q) use ($request) {
+            $q->where("first_name", "=", $request->employee_name);
+        }) : $q;
+//
+        $contracts = MyApp::Classes()->Search->getDataFilter($q, null, null, "contract_date");
+
         return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContracts", compact("contracts"));
 
+
     }
+
 
     public function create()
     {
@@ -47,10 +54,9 @@ class ContractController extends Controller
 
         $contract_type = ["permanent", "temporary"];
         // I need to add an empty option at the first
-        $employees_names = Employee::query()->select('first_name', "id")->get();
+        $employees_names = Employee::query()->pluck('first_name', "id")->toArray();
         $sections = Sections::query()->pluck("name", "id")->toArray();
-        $data = [];
-        return compact('contract_type', 'employees_names', 'sections', 'data');
+        return compact('contract_type', 'employees_names', 'sections');
     }
 
     public function store(ContractRequest $request)
@@ -68,6 +74,11 @@ class ContractController extends Controller
 
     public function show($contract = null)
     {
+
+        //        $contractQuery=    User::join('employees', 'employees.user_id', '=', 'users.id')
+//            ->join('contracts', 'contracts.employee_id', '=', 'employees.id')
+//            ->where('users.id', 1);
+
         if (is_null($contract)) {
             $contractQuery = Contract::with([
                 "employee" => function ($q) {
@@ -111,7 +122,7 @@ class ContractController extends Controller
             $data['contract'] = $contractQuery->findOrFail($contract);
 
         }
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editContract",  compact("data"));
+        return $this->responseSuccess("", $data);
     }
 
 
@@ -178,7 +189,7 @@ class ContractController extends Controller
     public function ExportPDF(Request $request)
     {
         $data = $this->MainExportData($request);
-        return ExportPDF::downloadPDF($data['head'],$data['body']);
+        return ExportPDF::downloadPDF($data['head'], $data['body']);
     }
 
     private function MainExportData(Request $request): array
@@ -186,26 +197,26 @@ class ContractController extends Controller
         $request->validate([
             "ids" => ["required", "array"],
             "ids.*" => ["required", Rule::exists("contracts", "id")],
-          //  "contracts.*.user_id" => ["required", Rule::exists("users", "id")],
+            //  "contracts.*.user_id" => ["required", Rule::exists("users", "id")],
         ]);
 
 
-        $query = Contract::query();
-        $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
-        $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
+        $query = Contract::with(["employee","section"]);
+        $query = isset($request->ids) ? $query->whereIn("id", $request->ids) : $query;
+        $data = MyApp::Classes()->Search->getDataFilter($query, null, true);
         $head = [
             [
                 "head" => "name_section",
                 "relationFunc" => "section",
                 "key" => "name",
-            ] ,
+            ],
             [
-                "head"=> "name_employee",
+                "head" => "name_employee",
                 "relationFunc" => "employee",
                 "key" => "name",
             ],
             "contract_type", "contract_number", "contract_date", "contract_finish_date",
-            "contract_direct_date", "salary","created_at",
+            "contract_direct_date", "salary", "created_at",
         ];
         return [
             "head" => $head,
