@@ -15,7 +15,7 @@ use App\Models\User;
 use App\Services\OverTimeCheckService;
 use App\Services\YearsEmployeeService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use PHPUnit\Exception;
