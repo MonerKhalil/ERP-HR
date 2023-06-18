@@ -344,7 +344,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-38" class="NavName">
+                                    <a href="{{ route("system.overtime_types.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">عرض جميع الانواع</span>
                                     </a>

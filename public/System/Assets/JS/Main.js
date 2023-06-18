@@ -2214,10 +2214,13 @@ $(document).ready(function (){
                         url: `${FromAction}/${DataSelector.Value}?_token=${Token}`,
                         type: `${FromMethod}`,
                         success : function (ResponseData) {
+                            console.log(ResponseData);
                             for (const ResponseValue in ResponseData) {
                                 if(ResponseValue === "data") {
-                                    AddResult(DataSelector.Label , DataSelector.Value ,
-                                        ResponseData[ResponseValue]["currentLeave"]+" يوم");
+                                    let ValueRender = ResponseData[ResponseValue]["currentLeave"]+" يوم" ;
+                                    if(ResponseData[ResponseValue]["leave_limited"] === false)
+                                        ValueRender="غير محدودة" ;
+                                    AddResult(DataSelector.Label , DataSelector.Value ,ValueRender);
                                 } else {
                                     console.log(ResponseData[ResponseValue]);
                                 }
