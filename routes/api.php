@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\CorrespondenceSourceDestController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\MembershipController;
@@ -46,6 +47,8 @@ Route::delete('contract/{contract}/force-delete', [ContractController::class, 'f
 Route::post('contract/export/xlsx', [ContractController::class, 'ExportXls'])->name("export.xls");
 Route::post('contract/export/pdf',[ContractController::class, 'ExportPDF'] )->name("export.pdf");
 Route::delete("contract/multi/delete", [ContractController::class, 'MultiDelete'])->name("multi.delete");
+Route::post("cors", [\App\Http\Controllers\CorrespondenceController::class, 'store']);
+Route::get("index", [\App\Http\Controllers\CorrespondenceController::class, 'index']);
 
 
 
@@ -71,3 +74,5 @@ Route::get("xxx",function (){
     dd($now->format("Y-m-d H:i:s A"));
 //    $time = ;
 });
+
+Route::post("xxxc",[CorrespondenceSourceDestController::class,"store"]);

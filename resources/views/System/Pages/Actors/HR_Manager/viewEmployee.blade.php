@@ -313,7 +313,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("personalPhone")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->private_number1}}</span>
+                                                                                class="Data_Value">{{$employee->contact[0]->private_number1}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -323,47 +323,53 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("workPhone")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->work_number}}</span>
+                                                                                class="Data_Value">{{$employee->contact[0]->work_number}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
+{{--                                                                            @php--}}
+{{--                                                                            dd($employee);--}}
+{{--                                                                            @endphp--}}
                                                                             <span
                                                                                 class="Data_Label">@lang("email")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->email}}</span>
+                                                                                class="Data_Value">{{$employee->contact[0]->email}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="ListData__Content">
-                                                                        <div class="Data_Col">
-                                                                            <span
-                                                                                class="Data_Label">@lang("countryName")</span>
-                                                                            <span
-                                                                                class="Data_Value">{{$employee->country}}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+{{--                                                                <div class="Col-4-md Col-6-sm">--}}
+{{--                                                                    <div class="ListData__Content">--}}
+{{--                                                                        <div class="Data_Col">--}}
+{{--                                                                            <span--}}
+{{--                                                                                class="Data_Label">@lang("countryName")</span>--}}
+{{--                                                                            <span--}}
+{{--                                                                                class="Data_Value">{{$employee->contact[0]->country}}</span>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("cityName")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->cityName}}</span>
+                                                                                class="Data_Value">{{$employee->contact[0]->address->name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
+{{--                                                                            @php--}}
+{{--                                                                            dd($employee);--}}
+{{--                                                                            @endphp--}}
                                                                             <span
                                                                                 class="Data_Label">@lang("districtName")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->districtName}}</span>
+                                                                                class="Data_Value">{{$employee->contact[0]->address_details}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -373,17 +379,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("addressType")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->addressType}}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Col-4-md Col-6-sm">
-                                                                    <div class="ListData__Content">
-                                                                        <div class="Data_Col">
-                                                                            <span
-                                                                                class="Data_Label">@lang("address")</span>
-                                                                            <span
-                                                                                class="Data_Value">{{$employee->address}}</span>
+                                                                                class="Data_Value">{{$employee->contact[0]->address_type}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -411,7 +407,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("educationDegree")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->college_name}}</span>
+                                                                                class="Data_Value">{{$employee->education_data[0]->education_level->name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -422,7 +418,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("dateOfIssuance")</span>
                                                                                 <span
-                                                                                    class="Data_Value">{{$employee->grant_date}}</span>
+                                                                                    class="Data_Value">{{$employee->education_data[0]->grant_date}}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -432,7 +428,7 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("collegeName")</span>
-                                                                            <span class="Data_Value">{{$employee->grant_date}}</span>
+                                                                            <span class="Data_Value">{{$employee->education_data[0]->college_name}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -441,7 +437,7 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("salaryImpact")</span>
-                                                                            <span class="Data_Value">{{$employee->amount_impact_salary}}</span>
+                                                                            <span class="Data_Value">{{$employee->education_data[0]->amount_impact_salary}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

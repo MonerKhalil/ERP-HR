@@ -15,9 +15,19 @@
             "request_end_services": "a",
             "leave_types": "a",
             "leaves": "a",
+            "contracts": "a",
+            "correspondences": "a",
+            "correspondence_source_dests": "a",
+            "languages": "a",
+            "language_skills": "a",
+            "membership_types": "a",
+            "memberships": "a",
             "company_settings": "a",
             "work_settings": "a",
-            "public_holidays": "a"
+            "public_holidays": "a",
+            "overtime_types": "a",
+            "overtimes": "a",
+            "section_externals": "a"
         },
         "user" : {
             "users" : ["r"],

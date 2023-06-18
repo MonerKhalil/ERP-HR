@@ -20,6 +20,13 @@
     "request_leave_msg": "A leave of type has been requested: ",
     "accept_request_leave" : "success accept request leave.",
     "cancel_request_leave" : "reject request leave.",
+    "request_overtime" : "request overtime.",
+    "err_request_overtime_days" : "err_request_overtime_days",
+    "err_request_overtime_rate_salary" : "err_request_overtime_rate_salary",
+    "err_request_overtime_time" : "err_request_overtime_time",
+    "request_overtime_msg": "A overtime of type has been requested: ",
+    "accept_request_overtime" : "success accept request overtime.",
+    "cancel_request_overtime" : "reject request overtime.",
 
     "/*         Header         */": "",
 
@@ -285,5 +292,18 @@
     "EOSStartDate" : "End of service start date",
     "EOSEndDate" : "End of service end date",
     "decisionDate" : "Decision Date",
-    "saveEOS" : "Save Data"
+    "saveEOS" : "Save Data",
+
+    "contracts" : "Contracts",
+    "viewContracts" : "View Contracts",
+    "addContract" : "Add Contract",
+    "courses" : "Courses",
+    "viewCourses" : "View Courses",
+    "addCourse" : "Add Course",
+    "EmployeesEOF" : "Employee EOS",
+    "viewEOF" : "View EOS",
+    "addEOF" : "Add EOS",
+    "editContractInfo" : "Edit Contract Info",
+    "editCourse" : "Edit Course Info"
+
 }

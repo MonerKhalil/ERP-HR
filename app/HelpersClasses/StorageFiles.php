@@ -12,7 +12,7 @@ class StorageFiles
 {
     private const DISK = "public";
     public const EX_IMG = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-    public const Ex_FILE = ['pdf','xlsx','csv'];
+    public const Ex_FILE = ['pdf','xlsx','csv','docx'];
     public const FOLDER_IMAGES = "images";
     public const FOLDER_FILES = "files";
 
@@ -52,8 +52,16 @@ class StorageFiles
         if (is_null($paths)){
             return false;
         }
-        if (Storage::disk($disk)->exists($paths)) {
-            return Storage::disk(self::DISK)->delete($paths);
+        if (is_array($paths)){
+            foreach ($paths as $path){
+                if (Storage::disk($disk)->exists($path)) {
+                    return Storage::disk(self::DISK)->delete($path);
+                }
+            }
+        }else{
+            if (Storage::disk($disk)->exists($paths)) {
+                return Storage::disk(self::DISK)->delete($paths);
+            }
         }
         return false;
     }

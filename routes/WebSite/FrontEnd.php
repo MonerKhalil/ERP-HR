@@ -108,7 +108,7 @@ Route::get('/Test-43', function () {
 });
 
 Route::get('/Test-44', function () {
-    return view('System/Pages/Actors/Evaluation/newTypeEvaluationForm');
+    return view('System/Pages/Actors/Attendance/addAttendanceRecord');
 });
 
 Route::get('/Test-45', function () {

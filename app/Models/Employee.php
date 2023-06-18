@@ -71,6 +71,24 @@ class Employee extends BaseModel
         return $this->tempLeaves("reject");
     }
 
+    private function tempOvertime(string $type){
+        return $this->hasMany(Overtime::class,"employee_id","id")
+            ->with("overtime_type")
+            ->where("status",$type)->orderBy("updated_at","desc");
+    }
+
+    public function overtimes(){
+        return $this->tempOvertime("approve");
+    }
+
+    public function overtimes_pending(){
+        return $this->tempOvertime("pending");
+    }
+
+    public function overtimes_reject(){
+        return $this->tempOvertime("reject");
+    }
+
     public function data_end_service(){
         return $this->hasMany(DataEndService::class,"employee_id","id")
             ->where("is_request_end_services",false);
@@ -115,7 +133,6 @@ class Employee extends BaseModel
     }
 
     public function contract(){
-
         return $this->hasMany(Contract::class,'employee_id','id')->orderBy("id","desc");
     }
     public function language_skill(){
@@ -125,6 +142,27 @@ class Employee extends BaseModel
     public function membership(){
         return $this->hasMany(Membership::class,'employee_id','id');
     }
+    public function correspondence(){
+        return $this->hasMany(Correspondence::class,'employee_id','id');
+    }
+    public function correspondence_dest(){
+        return $this->hasMany(Correspondence_source_dest::class,'in_employee_id_dest','id');
+    }
+    public function correspondence_employees(){
+        return $this->belongsToMany(Correspondence::class,"correspondence_source_dests",
+            "employee_id",
+            "correspondences_id",
+            "id",
+            "id");
+    }
+    public function correspondence_employees_dest(){
+        return $this->belongsToMany(Correspondence::class,"correspondence_source_dests",
+            "in_employee_id_dest",
+            "correspondences_id",
+            "id",
+            "id");
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc

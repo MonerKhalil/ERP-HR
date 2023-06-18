@@ -32,7 +32,7 @@
                                                             <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("employee_id")</span>
-                                                                <span class="Data_Value">{{$dataEndService->employee_id}}</span>
+                                                                <span class="Data_Value">{{$dataEndService->employee->name}}</span>
                                                             </div>
                                                         </div>
                                                     </div>

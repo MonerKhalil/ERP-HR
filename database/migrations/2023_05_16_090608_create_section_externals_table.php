@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('overtime_types', function (Blueprint $table) {
+        Schema::create('section_externals', function (Blueprint $table) {
             $table->id();
             #Add Columns
-            $table->string("name");
-            $table->integer("max_rate_salary")->nullable();
-            $table->integer("min_hours_in_days")->nullable();
-            $table->bigInteger("salary_in_hours");
+            $table->string("name")->unique();
+            $table->string("email")->nullable();
+            $table->string("fax")->nullable();
+            $table->boolean("hand")->default(false);
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('overtime_types');
+        Schema::dropIfExists('section_externals');
     }
 };

@@ -17,6 +17,9 @@ use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\OverTimeAdminController;
+use App\Http\Controllers\OvertimeController;
+use App\Http\Controllers\OvertimeTypeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
 use App\Http\Controllers\ProfileUserController;
@@ -24,6 +27,7 @@ use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\ReportEmployeeController;
 use App\Http\Controllers\RequestEndServiceController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SectionExternalController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\SessionDecisionController;
 use App\Http\Controllers\TypeDecisionController;
@@ -158,6 +162,14 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
+        Route::resource('section_externals', SectionExternalController::class);
+        Route::prefix("section_externals")->name("section_externals.")
+            ->controller(SectionsController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+            });
+
         Route::prefix("request_end_services")->name("request_end_services.")
             ->controller(RequestEndServiceController::class)->group(function (){
                 Route::get("all","allRequest")->name("index");
@@ -200,6 +212,35 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
+        Route::resource('overtime_types', OvertimeTypeController::class)->except([
+            "edit", "create", "show"
+        ]);
+        Route::delete("overtime_types/multi/delete",[OvertimeTypeController::class,"MultiDelete"])->name("overtime_types.multi.delete");
+
+        Route::resource('overtimes_admin', OverTimeAdminController::class)->except(["show","edit"]);
+        Route::prefix("overtimes_admin")->name("overtimes_admin.")
+            ->controller(OverTimeAdminController::class)->group(function (){
+                Route::post('export/xlsx',"ExportXls")->name("export.xls");
+                Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+                Route::post("status/change/{overtime}/{status}")
+                    ->whereIn("status",["approve","reject"])
+                    ->name("overtime.status.change");
+            });
+
+        Route::prefix("overtimes")->name("overtimes.")
+            ->controller(OvertimeController::class)->group(function (){
+                Route::get("all/{status?}","ShowOvertimes")
+                    ->whereIn("status", Leave::status())
+                    ->name("all.status");
+                Route::get("show/{overtime}","Show")->name("show.overtime");
+                Route::get("edit/{overtime}","Edit")->name("edit.overtime");
+                Route::put("update/{overtime}","updateRequestOvertime")->name("update.overtime");
+                Route::get("request/create","createRequestOvertime")->name("create.request");
+                Route::post("request/store","Store")->name("store.request");
+                Route::delete("request/delete/{overtime}","Destroy")->name("remove.request");
+                Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
+            });
 
 
         /*===========================================
@@ -332,6 +373,15 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('membership/{membership}/force-delete', [MembershipController::class, 'forceDelete'])
             ->name('membership.force-delete');
     });
+
+    Route::resource('correspondences', CorrespondenceController::class);
+    Route::prefix("correspondences")->name("correspondences.")
+        ->controller(CorrespondenceController::class)->group(function (){
+            Route::post('export/xlsx',"ExportXls")->name("export.xls");
+            Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+            Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+        });
+
     /*===========================================
     =         End System Routes        =
    =============================================*/

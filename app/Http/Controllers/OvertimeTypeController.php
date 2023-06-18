@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\HelpersClasses\MyApp;
 use App\Http\Requests\OvertimeTypeRequest;
 use App\Models\OvertimeType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class OvertimeTypeController extends Controller
 {
+    public const NameBlade = "";
+    public const IndexRoute = "system.overtime_types.index";
+
     public function __construct()
     {
         $this->addMiddlewarePermissionsToFunctions(app(OvertimeType::class)->getTable());
@@ -20,7 +25,8 @@ class OvertimeTypeController extends Controller
      */
     public function index()
     {
-        //
+        $data = MyApp::Classes()->Search->getDataFilter(OvertimeType::query());
+        return $this->responseSuccess(self::NameBlade,compact("data"));
     }
 
     /**
@@ -41,7 +47,8 @@ class OvertimeTypeController extends Controller
      */
     public function store(OvertimeTypeRequest $request)
     {
-        //
+        OvertimeType::query()->create($request->validated());
+        return $this->responseSuccess(null,null,"create",self::IndexRoute);
     }
 
     /**
@@ -75,7 +82,8 @@ class OvertimeTypeController extends Controller
      */
     public function update(OvertimeTypeRequest $request, OvertimeType $overtimeType)
     {
-        //
+        $overtimeType->update($request->validated());
+        return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
 
     /**
@@ -86,21 +94,17 @@ class OvertimeTypeController extends Controller
      */
     public function destroy(OvertimeType $overtimeType)
     {
-        //
+        $overtimeType->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
     public function MultiDelete(Request $request)
     {
-        //
-    }
-
-    public function ExportXls()
-    {
-        //
-    }
-
-    public function ExportPDF()
-    {
-        //
+        $request->validate([
+            "ids" => ["array","required"],
+            "ids.*" => ["required",Rule::exists("overtime_types","id")],
+        ]);
+        OvertimeType::query()->whereIn("id",$request->ids)->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 }

@@ -16,13 +16,17 @@ return new class extends Migration
         Schema::create('correspondence_source_dests', function (Blueprint $table) {
             $table->id();
             #Add Columns
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone_number');
-            $table->string('fax_number');
-            $table->enum('type',["xx","yy"]);
-            $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
-            $table->foreignId("section_id")->constrained("sections")->restrictOnDelete();
+            $table->foreignId("correspondences_id")->constrained("correspondences")->restrictOnDelete();
+            $table->foreignId("current_employee_id")->constrained("employees")->restrictOnDelete();
+            //if external required
+            $table->foreignId("out_current_section_id")->nullable()->constrained("section_externals")->restrictOnDelete();
+            $table->foreignId("in_employee_id_dest")->nullable()->constrained("employees")->restrictOnDelete();
+            $table->foreignId("out_section_id_dest")->nullable()->constrained("section_externals")->restrictOnDelete();
+            $table->enum('source_dest_type',['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing']);
+            $table->enum('type',['internal','external']);
+            $table->text("path_file")->nullable();
+            $table->string("notice")->nullable();
+            $table->boolean("is_done")->default(false);
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
