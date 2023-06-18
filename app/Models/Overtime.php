@@ -73,14 +73,14 @@ class Overtime extends BaseModel
             return [
                 "overtime_type_id" => ["required",Rule::exists("overtime_types","id")],
                 "description" => ["nullable","string"],
-                "from_date" => $this->dateRules(true),
-                "to_date" => $this->afterDateOrNowRules(true,"from_date"),
+                "from_date" => $validator->dateRules(true),
+                "to_date" => $validator->afterDateOrNowRules(true,"from_date"),
                 "is_hourly" => ["required","boolean"],
-                "from_time" => [Rule::requiredIf(function (){
-                    return $this->input("is_hourly") == "true" || $this->input("is_hourly") == 1;
+                "from_time" => [Rule::requiredIf(function ()use($validator){
+                    return $validator->input("is_hourly") == "true" || $validator->input("is_hourly") == 1;
                 }),"date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
-                "to_time" => [Rule::requiredIf(function (){
-                    return $this->input("is_hourly") == "true" || $this->input("is_hourly") == 1;
+                "to_time" => [Rule::requiredIf(function ()use($validator){
+                    return $validator->input("is_hourly") == "true" || $validator->input("is_hourly") == 1;
                 }),"after:from_time","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"]
             ];
         };
