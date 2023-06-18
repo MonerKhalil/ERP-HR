@@ -1212,6 +1212,15 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   border-radius: 10px;
   background-color: #1A202E;
 }
+.Card__CenterButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+.Card__CenterButton-hidden {
+  display: none;
+}
 .Card__InnerGroup {
   border-bottom: 1px solid #23364e;
 }

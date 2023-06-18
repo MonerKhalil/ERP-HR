@@ -303,5 +303,17 @@
     "EOSStartDate" : "تاريخ بداية الانقطاع عن العمل",
     "EOSEndDate" : "تاريخ نهاية الانقطاع عن العمل",
     "decisionDate" : "تاريخ القرار",
-    "saveEOS" : "حفظ المعلومات"
+    "saveEOS" : "حفظ المعلومات",
+
+    "contracts" : "العقود",
+    "viewContracts" : "عرض العقود",
+    "addContract" : "إضافة عقد",
+    "courses" : "الدورات و المؤتمرات",
+    "viewCourses" : "عرض الدورات",
+    "addCourse" : "إضافة دورة",
+    "EmployeesEOF" : "معلومات نهاية الخدمة",
+    "viewEOF" : "عرض معلومات نهاية الخدمة",
+    "addEOF" : "إضافة سجل",
+    "editContractInfo" : "تعديل معلومات العقد",
+    "editCourse" : "تعديل معلومات الدورة"
 }

@@ -373,6 +373,15 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('membership/{membership}/force-delete', [MembershipController::class, 'forceDelete'])
             ->name('membership.force-delete');
     });
+
+    Route::resource('correspondences', CorrespondenceController::class);
+    Route::prefix("correspondences")->name("correspondences.")
+        ->controller(CorrespondenceController::class)->group(function (){
+            Route::post('export/xlsx',"ExportXls")->name("export.xls");
+            Route::post('export/pdf',"ExportPDF")->name("export.pdf");
+            Route::delete("multi/delete","MultiDelete")->name("multi.delete");
+        });
+
     /*===========================================
     =         End System Routes        =
    =============================================*/

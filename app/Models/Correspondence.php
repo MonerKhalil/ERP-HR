@@ -12,8 +12,7 @@ class Correspondence extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "employee_id","subject","number_external","number_internal",
-        "number","origin_number","date",
+        "employee_id","subject","number_external","number_internal", "date",
         "type","summary","path_file",
         "created_by","updated_by","is_active",
     ];
@@ -27,7 +26,8 @@ class Correspondence extends BaseModel
 
     public function CorrespondenceDest()
     {
-        return $this->hasMany(Correspondence_source_dest::class, 'correspondences_id', 'id');
+        return $this->hasMany(Correspondence_source_dest::class, 'correspondences_id', 'id')
+            ->with(["employee_current","employee_dest","out_section_dest","out_section_current"]);
     }
 
     public function employees(){
@@ -48,7 +48,6 @@ class Correspondence extends BaseModel
         return function (BaseRequest $validator) {
             $ID = $validator->route('correspondences')->id ?? 0;
             return [
-                "number" => ['required', 'numeric' , Rule::unique('correspondences', 'number')->ignore($ID)],//
                 "type"=>['required',Rule::in(self::type())],
                 "subject"=>$validator->textRule(true),
                 "summary"=>["required","string"],
@@ -56,10 +55,10 @@ class Correspondence extends BaseModel
                 "path_file" => $validator->fileRules(false),
                 "number_internal"=>["numeric",Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "internal";
-                })],
+                }),Rule::unique('correspondences', 'number_internal')->ignore($ID)],
                 "number_external"=>["numeric",Rule::requiredIf(function ()use($validator){
                 return $validator->input("type") == "external";
-            })],
+            }),Rule::unique('correspondences', 'number_external')->ignore($ID)],
             ];
         };
     }

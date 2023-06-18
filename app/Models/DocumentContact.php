@@ -21,7 +21,7 @@ class DocumentContact extends BaseModel
     public function contact(){
         return $this->belongsTo(Contact::class,"contact_id","id" );
     }
-    
+
     /**
      * Description: To check front end validation
      * @inheritDoc
@@ -33,7 +33,7 @@ class DocumentContact extends BaseModel
                 $rules = [
                     "document_type" => ["sometimes",Rule::in(["family_card","identification","passport"])],
                     "document_number" => ['sometimes','numeric','min:1'],
-                    "document_path" => $validator->imageRule(false),
+                    "document_path" => $validator->fileRules(true),
                 ];
             }else{
                 $rules = [
@@ -41,7 +41,7 @@ class DocumentContact extends BaseModel
                     "document_contact.*" => ["required","array"],
                     "document_contact.*.document_type" => ['required', Rule::in(["family_card","identification","passport"])],
                     "document_contact.*.document_number" => ['required','numeric','min:1'],
-                    "document_contact.*.document_path" => $validator->imageRule(true),
+                    "document_contact.*.document_path" => $validator->fileRules(true),
                 ];
             }
             return $rules;

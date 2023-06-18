@@ -12,7 +12,7 @@ class StorageFiles
 {
     private const DISK = "public";
     public const EX_IMG = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-    public const Ex_FILE = ['pdf','xlsx','csv'];
+    public const Ex_FILE = ['pdf','xlsx','csv','docx'];
     public const FOLDER_IMAGES = "images";
     public const FOLDER_FILES = "files";
 
