@@ -1862,29 +1862,35 @@ html[lang=en] .TextEditorContent__Content li {
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content:hover::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.2705882353);
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content .NoData--V2 .Icon i {
+  font-size: 5rem;
+}
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Content .NoData--V2 .Text {
+  font-size: 1.4rem;
+}
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification {
   padding: 1rem 1.5rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Icon {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Icon {
   width: 4rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Icon i {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Icon i {
   font-size: 2rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationTitle {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Details .NotificationTitle {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   line-height: 1.4;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationDescription {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Details .NotificationDescription {
   font-size: 1.1rem;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Details .NotificationDate {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Details .NotificationDate {
   font-size: 1rem;
   font-weight: 400;
 }
-.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item .Notification__Remove i {
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Remove i {
   font-size: 1.4rem;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Footer {
@@ -2988,12 +2994,6 @@ html[lang=ar] .Cookies.Show {
   font-size: 2rem;
   font-weight: 500;
   letter-spacing: 1px;
-}
-.NoData--V2.NoDataDropItem .Icon i {
-  font-size: 5rem;
-}
-.NoData--V2.NoDataDropItem .Text {
-  font-size: 1.4rem;
 }
 
 .Notification {

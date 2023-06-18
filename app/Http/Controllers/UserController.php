@@ -94,7 +94,8 @@ class UserController extends Controller
         $user = User::with("employee")->findOrFail($user->id);
         if ($auth->id == $user->id || $auth->can("read_users") || $auth->can("all_users")){
             $roles = Role::query()->pluck('name','id')->toArray();
-            return $this->responseSuccess("System.Pages.Actors.profile",compact('user','roles'));
+            return $this->responseSuccess("System.Pages.Actors.profile" ,
+                compact('user','roles'));
         }
         throw UnauthorizedException::forPermissions(["read_users","all_users"]);
     }

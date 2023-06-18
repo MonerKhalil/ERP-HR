@@ -250,7 +250,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
-                Route::post("status/change/{leave}/{status}")
+                Route::post("status/change/leaves/{status}","changeStatus")
                     ->whereIn("status",["approve","reject"])
                     ->name("leave.status.change");
             });
@@ -266,8 +266,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post("request/store","Store")->name("store.request");
             Route::delete("request/delete/{leave}","Destroy")->name("remove.request");
             Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
-            Route::get("show/leaves_type","LeavesTypeShow")->name("show.leavesType");
-            Route::get("count/leaves/{leave_type}","LeavesTypeShow")->name("show.leavesType");
+            Route::get("show/leaves_type/action/count","LeavesTypeShow")->name("show.leavesType");
+            Route::get("count/leaves/{leave_type}","CountLeavesByType")->name("show.count.leave.leaveType");
         });
 
         /*===========================================

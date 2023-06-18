@@ -44,8 +44,12 @@
                                                                name="image" accept="image/png, image/gif, image/jpeg, image/jpg, image/svg" hidden>
                                                         <label for="ImageChange" style="display: block">
                                                             <div class="UserImage">
-                                                                <img src="{{PathStorage($user->image) ?? @asset("System/Assets/Images/Avatar.jpg")}}"
-                                                                     alt="ImageUser">
+                                                                @if($user->image)
+                                                                        <img src=" {{ PathStorage($user->image) }}" alt="UserImage">
+                                                                    @else
+                                                                        <img src=" {{ asset("System/Assets/Images/Avatar.jpg") }}"
+                                                                             alt="UserImage">
+                                                                @endif
                                                                 <div class="UserImage__Edit">
                                                                     <i class="material-icons EditIcon">edit</i>
                                                                 </div>
@@ -55,8 +59,12 @@
                                                     </form>
                                                 @else
                                                     <div class="UserImage">
-                                                        <img src="{{$user->image ?? @asset("System/Assets/Images/Avatar.jpg")}}"
-                                                             alt="ImageUser">
+                                                        @if($user->image)
+                                                            <img src=" {{ PathStorage($user->image) }}" alt="UserImage">
+                                                        @else
+                                                            <img src=" {{ asset("System/Assets/Images/Avatar.jpg") }}"
+                                                                 alt="UserImage">
+                                                        @endif
                                                     </div>
                                                 @endif
                                                 <div class="Text">
@@ -166,8 +174,8 @@
                                                                         "Label" => __("email") , "Value" => $user->email ,
                                                                         "IsLock" => !$IsHavePermissionEditUser , "PopupName" => "UpdateUser"
                                                                     ] , [
-                                                                        "Label" => "Role" , "Value" => "Dummy" ,
-                                                                        "IsLock" => !$IsHavePermissionEditUser , "PopupName" => "UpdateUser"
+                                                                        "Label" => "Role" , "Value" => $user->roles[0]["name"] ,
+                                                                        "IsLock" => !(isset($roles) && $IsHavePermissionEditUser) , "PopupName" => "UpdateUser"
                                                                     ]
                                                                 ]
                                                             ])
@@ -184,7 +192,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        @if($IsHavePermissionReadEmployee)
+                                        @if(!is_null($user->employee) && $IsHavePermissionReadEmployee)
                                             <div class="Card Taps__Panel" data-panel="EmployeeInfo">
                                                 <div class="Card__Content">
                                                     <div class="Card__Inner">
@@ -192,37 +200,22 @@
                                                             @include("System.Components.dataList" , [
                                                             "Title" => __("basics") , "ListData" => [
                                                                 [
-                                                                    "Label" => __("fullName") , "Value" => $user->firstname + $user->lastname ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
-                                                                ] , [
-                                                                    "Label" => "Dossier Number" , "Value" => $user->employee->dossierNumber ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
+                                                                    "Label" => __("fullName") , "Value" => $user->employee["first_name"]." ".$user->employee["last_name"] ,
+                                                                    "IsLock" => true
                                                                 ] , [
                                                                     "Label" => "Gender" , "Value" => $user->employee->gender ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
-                                                                ] , [
-                                                                    "Label" => __("phone") , "Value" => "+125 254 3562" ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
+                                                                    "IsLock" => true
                                                                 ] , [
                                                                     "Label" => __("dateBirthday") , "Value" => $user->employee->birth_date ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
+                                                                    "IsLock" => true
                                                                 ]
                                                             ]
                                                         ])
                                                             @include("System.Components.dataList" , [
                                                            "Title" => __("additionalInformation") , "ListData" => [
                                                                [
-                                                                   "Label" => __("joinDate") , "Value" => $user->employee->created_by ,
-                                                                   "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
-                                                               ] , [
-                                                                   "Label" => "Family Situation" , "Value" => "Celibate" ,
-                                                                   "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
-                                                               ] , [
-                                                                   "Label" => __("country") , "Value" => $user->employee->created_by ,
-                                                                   "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
-                                                               ] , [
-                                                                   "Label" => __("nationality") , "Value" => $user->employee->nationality ,
-                                                                   "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateEmployee"
+                                                                   "Label" => __("joinDate") , "Value" => $user->employee["created_at"] ,
+                                                                   "IsLock" => true
                                                                ]
                                                            ]
                                                        ])
@@ -237,26 +230,11 @@
                                                             @include("System.Components.dataList" , [
                                                             "Title" => __("basics") , "ListData" => [
                                                                 [
-                                                                    "Label" => "Department" , "Value" => "IT" ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateWork"
+                                                                    "Label" => "Department" , "Value" => $user->employee["section_id"]  ,
+                                                                    "IsLock" => true
                                                                 ] , [
-                                                                    "Label" => "Job Position" , "Value" => "Computer Science" ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateWork"
-                                                                ] , [
-                                                                    "Label" => "Beginning Contract" , "Value" => "4/4/2023" ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateWork"
-                                                                ] , [
-                                                                    "Label" => "Contract Duration" , "Value" => "2 Year" ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateWork"
-                                                                ]
-                                                            ]
-                                                        ])
-                                                            @include("System.Components.dataList" , [
-                                                            "Title" => __("additionalInformation") , "ListData" => [
-                                                                [
-                                                                    "Label" => "Skills" , "IsDataSkills" => true ,
-                                                                    "Skills" => ["HTML" , "CSS" , "JS" , "Angular" , "Jquery"] ,
-                                                                    "IsLock" => !$IsHavePermissionEditEmployee , "PopupName" => "UpdateWork"
+                                                                    "Label" => "Job Position" , "Value" => $user->employee["job_site"] ,
+                                                                    "IsLock" => true
                                                                 ]
                                                             ]
                                                         ])
@@ -378,21 +356,28 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="Col-6-md">
-                                            <div class="Form__Group">
-                                                <div class="Form__Select">
-                                                    <div class="Select__Area">
-                                                        @include("System.Components.selector" , [
-                                                            'Name' => "Roles" , "Required" => "true" ,
-                                                            "DefaultValue" => "" , "Label" => "Roles" ,
-                                                            "Options" => [ ["Label" => "Rule_1" , "Value" => "1"]
-                                                                , ["Label" => "Rule_2" , "Value" => "2"]
-                                                             ]
-                                                        ])
+                                        @if(isset($roles))
+                                            <div class="Col-6-md">
+                                                <div class="Form__Group">
+                                                    <div class="Form__Select">
+                                                        <div class="Select__Area">
+                                                            @php
+                                                                $RolesType = [] ;
+                                                                foreach ($roles as $Index=>$RoleItem) {
+                                                                    array_push($RolesType , [ "Label" => $RoleItem
+                                                                        , "Value" => $Index ]) ;
+                                                                }
+                                                            @endphp
+                                                            @include("System.Components.selector" , [
+                                                                'Name' => "role" , "Required" => "true" ,
+                                                                "DefaultValue" => $user->roles[0]["id"] , "Label" => "Roles" ,
+                                                                "Options" => $RolesType
+                                                            ])
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                         <div class="Col">
                                             <div class="Form__Group">
                                                 <div class="Form__Button">
@@ -493,7 +478,7 @@
             </div>
         </div>
     @endif
-    @if($IsHavePermissionReadEmployee && $IsHavePermissionEditEmployee)
+    @if(!is_null($user->employee) && $IsHavePermissionReadEmployee && $IsHavePermissionEditEmployee)
         <div class="Popup Popup--Dark" data-name="UpdateEmployee">
             <div class="Popup__Content">
                 <div class="Popup__Card">

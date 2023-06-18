@@ -19,18 +19,6 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF"
-                                          action="#"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
-                                    <form name="PrintAllTableXlsx"
-                                          action="#"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
@@ -40,10 +28,8 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"
-                                                                ] , [
                                                                     "Label" => __("normalDelete")
-                                                                    , "Action" => route("users.multi.delete")
+                                                                    , "Action" => route("roles.multi.delete")
                                                                     , "Method" => "delete"
                                                                 ] ]
                                                             ])
@@ -52,29 +38,9 @@
                                                             <ul class="SearchTools">
                                                                 <li title="Filter">
                                                                     <i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
-                                                                       data-popUp="SearchAbout">filter_list
+                                                                       data-popUp="SearchAbout">
+                                                                        filter_list
                                                                     </i>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="SearchTools__Separate"></span>
-                                                                </li>
-                                                                <li class="Table__PrintMenu">
-                                                                    <i class="material-icons IconClick PrintMenu__Button"
-                                                                       title="Print">print</i>
-                                                                    <div class="Dropdown PrintMenu__Menu">
-                                                                        <ul class="Dropdown__Content">
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
-                                                                                    @lang("printTablePDFFile")
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
-                                                                                    @lang("printTableXlsxFile")
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
                                                                 </li>
                                                             </ul>
                                                         </div>

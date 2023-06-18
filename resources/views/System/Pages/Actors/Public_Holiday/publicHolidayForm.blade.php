@@ -1,5 +1,9 @@
 @extends("System.Pages.globalPage")
 
+{{--@php--}}
+{{--    dd($publicHoliday);--}}
+{{--@endphp--}}
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--PublicHolidayForm">
         <div class="PublicHolidayFormPage">
@@ -74,8 +78,7 @@
                                                                                     <input id="PublicHolidayDate_E"
                                                                                            class="DateEndFromStart Date__Field"
                                                                                            data-StartDateName="StartDatePublicHoliday"
-                                                                                           value="{{(isset($publicHoliday) && ($publicHoliday["end_date"] != null)) ?
-                                                                                                    $publicHoliday["end_date"] : ""}}"
+                                                                                           value="{{isset($publicHoliday) ? $publicHoliday["end_date"] : ""}}"
                                                                                            type="date" name="end_date" required
                                                                                            placeholder="تنتهي في تاريخ">
                                                                                     <label class="Date__Label" for="PublicHolidayDate_E">
@@ -94,7 +97,13 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Button">
                                                                     <button class="Button Send"
-                                                                            type="submit">اضافة عطلة جديد</button>
+                                                                            type="submit">
+                                                                        @if(isset($publicHoliday))
+                                                                                تعديل الاجازة
+                                                                            @else
+                                                                                اضافة عطلة جديد
+                                                                        @endif
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>

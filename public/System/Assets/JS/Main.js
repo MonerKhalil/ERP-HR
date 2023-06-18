@@ -9,12 +9,11 @@ $(document).ready(function (){
 	=           Authentication Process       =
     =============================================*/
 
-
-
     /**
      * @author Amir Alhloo
      */
 
+    const URLSystem = $(`meta[name="url"]`).prop('content') ;
     const Token = $(`meta[name="csrf-token"]`).prop('content') ;
     const RememberStorage = localStorage.getItem("Remember") ;
     $(".AuthenticationPage").ready(function (){
@@ -501,7 +500,6 @@ $(document).ready(function (){
                 },
 
                 submitHandler: function (form) {
-
                     // let IsValid = true;
                     // console.log(form);
                     // $(form).find("input , textarea").each((_, Field) => {
@@ -509,12 +507,17 @@ $(document).ready(function (){
                     //     if (!$(Field).valid())
                     //         IsValid = false;
                     // });
-
+                    const IsSubmit = $(form).hasClass("IgnoreSubmit") ;
                     if ($(form).valid()) {
-                        LoaderView();
-                        $(form).get(0).submit();
+                        if(IsSubmit)
+                            return false ;
+                        else {
+                            LoaderView();
+                            $(form).get(0).submit();
+                        }
                     }
                 }
+
             });
         }
 
@@ -1259,34 +1262,112 @@ $(document).ready(function (){
      * @author Amir Alhloo
      */
 
-    $(".Notification").ready(function() {
-        $(".Notification").each((_ , Notification) => {
-            $(Notification).find(".Notification__Remove i").click(() => {
-                LoaderView() ;
-                const NotificationID = $(Notification).attr("data-NotificationID");
-                $.ajax({
-                   url : "d" ,
-                   type : "delete" ,
-                   dataType : 'text' ,
-                }).done(() => {
-                    $(document).find(`.Notification[data-NotificationID=${NotificationID}]`)
-                        .remove();
-                    LoaderHidden() ;
-                }).fail(() => {
-                    LoaderHidden() ;
-                });
-            });
-        });
-        $(".Alert--Notification .ReadAll").click(() => {
-            LoaderView() ;
+
+    function NotificationSetting(NotificationInfo = {
+        Operation : "ReadAll" | "DeleteOne" | "ClearAll" | "AddOne" ,
+        NotificationID : Number | undefined ,
+        NotificationAdd : "" | undefined
+    }) {
+
+        const DomainSystem = `${URLSystem}/user/notifications` ;
+
+        switch (NotificationInfo.Operation) {
+            case "AddOne" :
+                AddNotification() ;
+                break;
+            case "ReadAll" :
+                ReadAllNotification() ;
+                break ;
+            case "DeleteOne" :
+                DeleteNotificationItem() ;
+                break ;
+            case "ClearAll" :
+                ClearNotification() ;
+                break ;
+        }
+
+        function AddNotification() {
+
+        }
+
+        function ReadAllNotification() {
+            LoaderView();
             $.ajax({
-                url : "d" ,
-                type : "post" ,
-                dataType : 'text' ,
+                url : `${DomainSystem}/edit/read?_token=${Token}` ,
+                type : "put"
             }).done(() => {
+                console.log("Success");
+                LoaderHidden() ;
+            }).fail(() => {
+                console.log("Failure");
+                LoaderHidden() ;
+            });
+        }
+
+        function ClearNotification() {
+
+        }
+
+        function DeleteNotificationItem() {
+            LoaderView() ;
+            const NotificationWant = NotificationInfo.NotificationID ;
+            $.ajax({
+                url : `${DomainSystem}/remove/notify?id_notify=${NotificationWant}&_token=${Token}` ,
+                type : "delete"
+            }).done(() => {
+                $(".NotificationParent").each((_ , Parent) => {
+                    $(Parent).find(`.Notification[data-NotificationID="${NotificationWant}"]`)
+                        .each((_ , Notification) => {
+                            $(Notification).remove();
+                        });
+                    CheckIfEmpty(Parent) ;
+                });
                 LoaderHidden() ;
             }).fail(() => {
                 LoaderHidden() ;
+            });
+        }
+
+        function CheckIfEmpty(NotificationParent = HTMLElement) {
+            const NotificationNumber = $(NotificationParent).find(".Notification").length ;
+            if(NotificationNumber === 0) {
+                const EmptyElement = `
+                    <li class="NoData--V2">
+                        <div class="Icon">
+                            <i class="material-icons">
+                                sentiment_dissatisfied
+                            </i>
+                        </div>
+                        <div class="Text">
+                            لا يوجد اشعارات لعرضها
+                        </div>
+                    </li> ` ;
+                $(NotificationParent).find(".NotificationParent__List").append(EmptyElement);
+            }
+        }
+
+    }
+
+
+
+    $(".NotificationParent").ready(function() {
+        $(".NotificationParent").each((_ , Parent) => {
+            $(Parent).find(".ReadAll").click(() => {
+                NotificationSetting({
+                    Operation : "ReadAll" ,
+                    NotificationID : undefined ,
+                    NotificationAdd : undefined
+                });
+            });
+            $(Parent).find(".Notification").each((_ , Notification) => {
+                const NotificationID = $(Notification).attr("data-NotificationID") ;
+                $(Notification).find(".Notification__Remove i").click(() => {
+                    NotificationSetting({
+                        Operation : "DeleteOne" ,
+                        NotificationID : NotificationID ,
+                        NotificationAdd : undefined
+                    });
+                });
             });
         });
     });
@@ -1956,162 +2037,234 @@ $(document).ready(function (){
 	=           Pages Setting       =
     =============================================*/
 
-    $("#VacationListDate").ready(function () {
+    // $("#VacationListDate").ready(function () {
+    //
+    //     $("#VacationListDate").each((_ , VacationList) => {
+    //         const ListDate = $("#VacationListDate").get(0);
+    //         const VacationTypeSelector = $("#VacationType").find(".Selector").get(0) ;
+    //         const ButtonClone = $(VacationList).find(".ButtonCloneForm").get(0) ;
+    //         const TargetElementName = $(ButtonClone).attr("data-TargetElementName") ;
+    //         const IsCleanClone = $(ButtonClone).attr("data-IsCloneClear") ?? true ;
+    //         const TargetElement = $(document).find(`.CloneItem[data-NameElement=${TargetElementName}]`).get(0);
+    //         const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
+    //         const FormTarget = $(TargetElement).closest("form").get(0) ;
+    //         const Except = $(VacationList).attr("data-ValueExcept").split(",") ;
+    //         const MainCloneClear = $(TargetElement).clone(false);
+    //         let CurrentValue = undefined ;
+    //
+    //         $(ListDate).hide() ;
+    //
+    //         $(VacationTypeSelector).find(".Selector__Option").each((_ , Option) => {
+    //             const OptionValue = $(Option).attr("data-option") ;
+    //             $(Option).click(() => {
+    //                 $(ListDate).show();
+    //                 if(CurrentValue && CurrentValue === OptionValue) {
+    //
+    //                 } else {
+    //                     DuplicateFrom({
+    //                         Operation : "RestByRemove" ,
+    //                         ParentContainer : TargetParentClone
+    //                     });
+    //                     if(IsValueContentInArray(Except , OptionValue)) {
+    //                         ExceptValueApply(TargetElement) ;
+    //                         ExceptValueApply(MainCloneClear) ;
+    //                         InitVacationListPage() ;
+    //                     } else {
+    //                         ExceptValueNotApply(TargetElement) ;
+    //                         ExceptValueNotApply(MainCloneClear) ;
+    //                         InitVacationListPage() ;
+    //                     }
+    //                     FormOperation({
+    //                         Operation : "RestFields" ,
+    //                         FormElement : FormTarget ,
+    //                         ClonePart : {
+    //                             ElementTarget : TargetElement
+    //                         }
+    //                     });
+    //                     DuplicateFrom({
+    //                         MainForm : FormTarget ,
+    //                         ButtonClone : ButtonClone ,
+    //                         TargetElement : MainCloneClear ,
+    //                         ParentContainer : TargetParentClone ,
+    //                         Operation : "ChangeTargetClone" ,
+    //                         ClearClone : true
+    //                     });
+    //                     CurrentValue = OptionValue ;
+    //                 }
+    //             });
+    //         });
+    //
+    //         InitVacationListPage() ;
+    //
+    //         function ExceptValueApply(EleTarget = HTMLElement) {
+    //             const SelectorType = $(EleTarget).find("#VacationNaturalID").get(0) ;
+    //             const StartDate = $(SelectorType).next().get(0) ;
+    //             const StartEnd = $(StartDate).next().get(0) ;
+    //             $(SelectorType).css("display" , "none") ;
+    //             $(StartDate).css("display" , "none") ;
+    //             $(StartEnd).css("display" , "none") ;
+    //             FormOperation({
+    //                 Operation : "IgnoreField" ,
+    //                 FormElement : FormTarget ,
+    //                 ClonePart : {
+    //                     ElementPart : SelectorType ,
+    //                     WithClear : false
+    //                 }
+    //             });
+    //             FormOperation({
+    //                 Operation : "IgnoreField" ,
+    //                 FormElement : FormTarget ,
+    //                 ClonePart : {
+    //                     ElementPart : StartDate ,
+    //                     WithClear : false
+    //                 }
+    //             });
+    //             FormOperation({
+    //                 Operation : "IgnoreField" ,
+    //                 FormElement : FormTarget ,
+    //                 ClonePart : {
+    //                     ElementPart : StartEnd ,
+    //                     WithClear : false
+    //                 }
+    //             });
+    //         }
+    //
+    //         function ExceptValueNotApply(EleTarget = HTMLElement) {
+    //             const SelectorType = $(EleTarget).find("#VacationNaturalID").get(0) ;
+    //             const StartDate = $(SelectorType).next().get(0) ;
+    //             const StartEnd = $(StartDate).next().get(0) ;
+    //             $(SelectorType).css("display" , "initial") ;
+    //             $(StartDate).css("display" , "none") ;
+    //             $(StartEnd).css("display" , "none") ;
+    //             FormOperation({
+    //                 Operation : "NotIgnoreField" ,
+    //                 FormElement : FormTarget ,
+    //                 ClonePart : {
+    //                     ElementPart : SelectorType ,
+    //                     WithClear : false
+    //                 }
+    //             });
+    //             FormOperation({
+    //                 Operation : "NotIgnoreField" ,
+    //                 FormElement : FormTarget ,
+    //                 ClonePart : {
+    //                     ElementPart : StartDate ,
+    //                     WithClear : false
+    //                 }
+    //             });
+    //             FormOperation({
+    //                 Operation : "NotIgnoreField" ,
+    //                 FormElement : FormTarget ,
+    //                 ClonePart : {
+    //                     ElementPart : StartEnd ,
+    //                     WithClear : false
+    //                 }
+    //             });
+    //         }
+    //
+    //         function InitVacationListPage() {
+    //             setTimeout(() => {
+    //                 let CountClone = 1 ;
+    //                 let IsMainCloneLabelView = false ;
+    //                 $(VacationList).find(".ButtonCloneForm").click(() => {
+    //                     if(!IsMainCloneLabelView) {
+    //                         $(TargetElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+    //                         IsMainCloneLabelView = true ;
+    //                     }
+    //                     const LastClone = $(TargetParentClone).find(".ListData__Group")
+    //                         .last().get(0) ;
+    //                     const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
+    //                     const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
+    //                     $(SelectorVisibility).attr("data-ElementsTargetName"
+    //                         , `${AttributeLastClone}__${CountClone}`) ;
+    //                     $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
+    //                         $(Value).attr("data-TargetName" ,
+    //                             `${$(Value).attr("data-TargetName")}__${CountClone}`);
+    //                     });
+    //                     $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
+    //                     initializeFieldsVisibility({
+    //                         Operation : "InitializeVisibilityOption" ,
+    //                         VisibilityOption : SelectorVisibility ,
+    //                         VisibilityTarget : undefined ,
+    //                     });
+    //                 });
+    //             } , 1) ;
+    //         }
+    //
+    //     });
+    //
+    // });
 
-        $("#VacationListDate").each((_ , VacationList) => {
-            const ListDate = $("#VacationListDate").get(0);
-            const VacationTypeSelector = $("#VacationType").find(".Selector").get(0) ;
-            const ButtonClone = $(VacationList).find(".ButtonCloneForm").get(0) ;
-            const TargetElementName = $(ButtonClone).attr("data-TargetElementName") ;
-            const IsCleanClone = $(ButtonClone).attr("data-IsCloneClear") ?? true ;
-            const TargetElement = $(document).find(`.CloneItem[data-NameElement=${TargetElementName}]`).get(0);
-            const TargetParentClone = $(document).find(`.ParentClone[data-NameElement=${TargetElementName}]`).get(0);
-            const FormTarget = $(TargetElement).closest("form").get(0) ;
-            const Except = $(VacationList).attr("data-ValueExcept").split(",") ;
-            const MainCloneClear = $(TargetElement).clone(false);
-            let CurrentValue = undefined ;
+    $("#VacationAvailable").ready(function () {
 
-            $(ListDate).hide() ;
-
-            $(VacationTypeSelector).find(".Selector__Option").each((_ , Option) => {
-                const OptionValue = $(Option).attr("data-option") ;
-                $(Option).click(() => {
-                    $(ListDate).show();
-                    if(CurrentValue && CurrentValue === OptionValue) {
-
-                    } else {
-                        DuplicateFrom({
-                            Operation : "RestByRemove" ,
-                            ParentContainer : TargetParentClone
-                        });
-                        if(IsValueContentInArray(Except , OptionValue)) {
-                            ExceptValueApply(TargetElement) ;
-                            ExceptValueApply(MainCloneClear) ;
-                            InitVacationListPage() ;
-                        } else {
-                            ExceptValueNotApply(TargetElement) ;
-                            ExceptValueNotApply(MainCloneClear) ;
-                            InitVacationListPage() ;
-                        }
-                        FormOperation({
-                            Operation : "RestFields" ,
-                            FormElement : FormTarget ,
-                            ClonePart : {
-                                ElementTarget : TargetElement
+        $("#VacationAvailable").each((_ , VacationElement) => {
+            const FormVacation = $(VacationElement).find("#FormVacationAvailable").get(0) ;
+            $(FormVacation).submit(function(e) {
+                const FormVacation = e.target ;
+                if($(FormVacation).valid()) {
+                    LoaderView();
+                    const FromAction = $(FormVacation).attr("action");
+                    const FromMethod = $(FormVacation).attr("method");
+                    const SelectorType = $(VacationElement).find(".Selector").get(0);
+                    const DataSelector = SelectorOperation( {
+                        Operation : "GetData"  ,
+                        Selector : SelectorType ,
+                    });
+                    $.ajax({
+                        url: `${FromAction}/${DataSelector.Value}?_token=${Token}`,
+                        type: `${FromMethod}`,
+                        success : function (ResponseData) {
+                            for (const ResponseValue in ResponseData) {
+                                if(ResponseValue === "data") {
+                                    AddResult(DataSelector.Label , DataSelector.Value ,
+                                        ResponseData[ResponseValue]["currentLeave"]+" يوم");
+                                } else {
+                                    console.log(ResponseData[ResponseValue]);
+                                }
                             }
-                        });
-                        DuplicateFrom({
-                            MainForm : FormTarget ,
-                            ButtonClone : ButtonClone ,
-                            TargetElement : MainCloneClear ,
-                            ParentContainer : TargetParentClone ,
-                            Operation : "ChangeTargetClone" ,
-                            ClearClone : true
-                        });
-                        CurrentValue = OptionValue ;
-                    }
-                });
+                        }
+                    }).done(() => {
+                        LoaderHidden() ;
+                    }).fail(() => {
+                        LoaderHidden() ;
+                    });
+                }
             });
 
-            InitVacationListPage() ;
-
-            function ExceptValueApply(EleTarget = HTMLElement) {
-                const SelectorType = $(EleTarget).find("#VacationNaturalID").get(0) ;
-                const StartDate = $(SelectorType).next().get(0) ;
-                const StartEnd = $(StartDate).next().get(0) ;
-                $(SelectorType).css("display" , "none") ;
-                $(StartDate).css("display" , "none") ;
-                $(StartEnd).css("display" , "none") ;
-                FormOperation({
-                    Operation : "IgnoreField" ,
-                    FormElement : FormTarget ,
-                    ClonePart : {
-                        ElementPart : SelectorType ,
-                        WithClear : false
-                    }
-                });
-                FormOperation({
-                    Operation : "IgnoreField" ,
-                    FormElement : FormTarget ,
-                    ClonePart : {
-                        ElementPart : StartDate ,
-                        WithClear : false
-                    }
-                });
-                FormOperation({
-                    Operation : "IgnoreField" ,
-                    FormElement : FormTarget ,
-                    ClonePart : {
-                        ElementPart : StartEnd ,
-                        WithClear : false
-                    }
-                });
-            }
-
-            function ExceptValueNotApply(EleTarget = HTMLElement) {
-                const SelectorType = $(EleTarget).find("#VacationNaturalID").get(0) ;
-                const StartDate = $(SelectorType).next().get(0) ;
-                const StartEnd = $(StartDate).next().get(0) ;
-                $(SelectorType).css("display" , "initial") ;
-                $(StartDate).css("display" , "none") ;
-                $(StartEnd).css("display" , "none") ;
-                FormOperation({
-                    Operation : "NotIgnoreField" ,
-                    FormElement : FormTarget ,
-                    ClonePart : {
-                        ElementPart : SelectorType ,
-                        WithClear : false
-                    }
-                });
-                FormOperation({
-                    Operation : "NotIgnoreField" ,
-                    FormElement : FormTarget ,
-                    ClonePart : {
-                        ElementPart : StartDate ,
-                        WithClear : false
-                    }
-                });
-                FormOperation({
-                    Operation : "NotIgnoreField" ,
-                    FormElement : FormTarget ,
-                    ClonePart : {
-                        ElementPart : StartEnd ,
-                        WithClear : false
-                    }
-                });
-            }
-
-            function InitVacationListPage() {
-                setTimeout(() => {
-                    let CountClone = 1 ;
-                    let IsMainCloneLabelView = false ;
-                    $(VacationList).find(".ButtonCloneForm").click(() => {
-                        if(!IsMainCloneLabelView) {
-                            $(TargetElement).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
-                            IsMainCloneLabelView = true ;
+            function AddResult(LabelType = String ,
+                               ValueID = String , Count = String) {
+                let IsExist = false ;
+                let Counter = 0 ;
+                $(VacationElement).find(".ResultCard #ContentResult .ListData__Item")
+                    .each((_ , ResultItem) => {
+                        Counter++ ;
+                        if($(ResultItem).attr("data-value") === ValueID) {
+                            IsExist = true ;
+                            $(ResultItem).find(".Data_Label").text(LabelType) ;
+                            $(ResultItem).find(".Data_Value").text(Count) ;
                         }
-                        const LastClone = $(TargetParentClone).find(".ListData__Group")
-                            .last().get(0) ;
-                        const SelectorVisibility = $(LastClone).find(".VisibilityOption").get(0) ;
-                        const AttributeLastClone = $(SelectorVisibility).attr("data-ElementsTargetName") ;
-                        $(SelectorVisibility).attr("data-ElementsTargetName"
-                            , `${AttributeLastClone}__${CountClone}`) ;
-                        $(LastClone).find(".VisibilityTarget").each((_ , Value) => {
-                            $(Value).attr("data-TargetName" ,
-                                `${$(Value).attr("data-TargetName")}__${CountClone}`);
-                        });
-                        $(LastClone).find(".ListData__GroupTitle .Title").text(`الاجازة رقم ${CountClone++}`) ;
-                        initializeFieldsVisibility({
-                            Operation : "InitializeVisibilityOption" ,
-                            VisibilityOption : SelectorVisibility ,
-                            VisibilityTarget : undefined ,
-                        });
-                    });
-                } , 1) ;
+                });
+                if(!IsExist) {
+                    const ElementAdded = `
+                        <div class="ListData__Item ListData__Item--NoAction"
+                            data-value="${ValueID}">
+                            <div class="Data_Col">
+                                <span class="Data_Label">
+                                    ${LabelType}
+                                </span>
+                                <span class="Data_Value">
+                                    ${Count}
+                                </span>
+                            </div>
+                        </div>` ;
+                    $(VacationElement).find(".ResultCard #ContentResult")
+                        .append(ElementAdded);
+                }
+                if(Counter === 0)
+                    $(VacationElement).find(".ResultCard").show() ;
             }
 
         });
-
     });
 
     $("#AddEmployeePage").ready(function () {
@@ -2345,6 +2498,7 @@ window.onload = function (){
 /*===========================================
 =           Functions       =
 =============================================*/
+
 function closeOutSide(ElementTarget = HTMLElement,
                       CallbackFunc = Function ,
                       ElementEvent = undefined) {
@@ -2370,7 +2524,6 @@ function IsValueContentInArray(ArrayList = Array , Value) {
             return true ;
     return false ;
 }
-
 
 /*===========================================
 =           Notes       =

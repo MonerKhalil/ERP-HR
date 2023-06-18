@@ -140,7 +140,7 @@
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "is_hourly" , "Required" => "true" ,
                                                                                         "DefaultValue" => isset($leaveType) ? $leaveType["is_hourly"] : "" ,
-                                                                                         "Label" => "تطبيق الاجازات الساعية عليها" ,
+                                                                                         "Label" => "هل الاجازة ساعية محددة" ,
                                                                                         "Options" => [
                                                                                             [ "Label" => "نعم" , "Value" => "1"] ,
                                                                                             [ "Label" => "لا" , "Value" => "0"]
@@ -159,7 +159,7 @@
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "can_take_hours" , "Required" => "true" ,
                                                                                         "DefaultValue" => isset($leaveType) ? $leaveType["can_take_hours"] : "" ,
-                                                                                         "Label" => "هل يمكن تطبيقها كساعات غير محددة" ,
+                                                                                         "Label" => "هل الاجازة ساعية مفتوحة" ,
                                                                                         "Options" => [
                                                                                             [ "Label" => "نعم" , "Value" => "1"] ,
                                                                                             [ "Label" => "لا" , "Value" => "0"]
@@ -208,7 +208,7 @@
                                                                                     <div class="Input__Area">
                                                                                         <input id="ExperienceYears" class="Input__Field"
                                                                                                type="number" name="years_employee_services"
-                                                                                               min="1" required
+                                                                                               min="0" required
                                                                                                value="{{ isset($leaveType) ? $leaveType["years_employee_services"] : "" }}"
                                                                                                placeholder="عدد سنوات العمل">
                                                                                         <label class="Input__Label" for="ExperienceYears">
