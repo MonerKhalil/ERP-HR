@@ -5,6 +5,7 @@ use App\Http\Controllers\AuditController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CorrespondenceController;
 use App\Http\Controllers\DataEndServiceController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DecisionController;
