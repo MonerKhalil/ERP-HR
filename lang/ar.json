@@ -26,7 +26,15 @@
     "request_leave" : "طلب اجازة .",
     "request_leave_msg" : "تم طلب اجازة من النوع : ",
     "accept_request_leave" : "تمت الموافقة على طلب الاجازة بنجاح .",
-    "cancel_request_leave" : "تمت رفض طلب الاجازة .",
+    "cancel_request_leave" : "تم رفض طلب الاجازة .",
+    "request_overtime" : "طلب عمل اضافي .",
+    "err_request_overtime_days" : "تم رفض طلب العمل الاضافي بسبب وجود ايام ضمن التاريخين المحددين هي ايام دوام .",
+    "err_request_overtime_rate_salary" : "تم رفض طلب العمل الاضافي بسبب تجاوز النسبة المحددة من الراتب الاصلي المحدد من هذا النوع .",
+    "err_request_overtime_time" : "تم رفض طلب العمل الاضافي لان عدد الساعات اقل من عدد الساعات المسموح بها في اليوم الواحد من هذا النوع من الطلب .",
+    "request_overtime_msg" : "تم طلب عمل اضافي من النوع : ",
+    "cancel_request_overtime" : "تم رفض طلب العمل الاضافي .",
+    "accept_request_overtime" : "تمت الموافقة على طلب العمل الاضافي بنجاح .",
+
 
     "/*         Header         */": "",
 

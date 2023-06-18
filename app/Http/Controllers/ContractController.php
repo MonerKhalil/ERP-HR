@@ -12,6 +12,8 @@ use App\Http\Requests\ContractRequest;
 use App\Models\Employee;
 use App\Models\Sections;
 use App\Models\User;
+use App\Services\OverTimeCheckService;
+use App\Services\YearsEmployeeService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
@@ -59,11 +61,12 @@ class ContractController extends Controller
         return compact('contract_type', 'employees_names', 'sections');
     }
 
-    public function store(ContractRequest $request)
+    public function store(ContractRequest $request,YearsEmployeeService $yearsEmployeeService)
     {
         try {
             DB::beginTransaction();
             Contract::create($request->validated());
+            $yearsEmployeeService->updateServicesYearsEmployee($request->employee_id);
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
         } catch (Exception $exception) {
@@ -126,14 +129,19 @@ class ContractController extends Controller
     }
 
 
-    public function update(ContractRequest $request, $contract)
+    public function update(ContractRequest $request, $contract,YearsEmployeeService $yearsEmployeeService)
     {
-        $employeeQuery = Contract::query();
-        $employee_id = is_null($contract) ? Employee::where("user_id", Auth()->id())->pluck("id") : null;
-        $employee = is_null($contract) ? $employeeQuery->where("employee_id", $employee_id)->firstOrFail()
-            : $employeeQuery->findOrFail($contract);
-        $employee->update($request->validated());
-        return $this->responseSuccess(null, null, "update", self::IndexRoute);
+        $contract = Contract::query()->findOrFail($contract);
+        try {
+            DB::beginTransaction();
+            $contract->update($request->validated());
+            $yearsEmployeeService->updateServicesYearsEmployee();
+            DB::commit();
+            return $this->responseSuccess(null, null, "update", self::IndexRoute);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            throw new MainException($exception->getMessage());
+        }
     }
 
     public function destroy($id)

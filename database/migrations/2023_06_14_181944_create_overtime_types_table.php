@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("name");
             $table->integer("max_rate_salary")->nullable();
             $table->integer("min_hours_in_days")->nullable();
+            $table->bigInteger("salary_in_hours");
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();

@@ -29,6 +29,40 @@ class Overtime extends BaseModel
         return $this->belongsTo(Employee::class,"employee_id","id");
     }
 
+    public function canDelete(){
+        $user = auth()->user();
+        if ($user->can("all_overtimes") || $user->can("delete_overtimes")){
+            return true;
+        }
+        if (($user->employee->id == $this->employee_id) && $this->status == "pending"){
+            return true;
+        }
+        return false;
+    }
+
+    public function canEdit(){
+        $user = auth()->user();
+        if ($user->can("all_overtimes") || $user->can("update_overtimes")){
+            return true;
+        }
+        if (($user->employee->id == $this->employee_id) && $this->status == "pending"){
+            return true;
+        }
+        return false;
+    }
+
+    public function canShow(){
+        $user = auth()->user();
+        if ($user->can("all_overtimes") || $user->can("read_overtimes")){
+            return true;
+        }
+        if ($user->employee->id == $this->employee_id){
+            return true;
+        }
+        return false;
+    }
+
+
     /**
      * Description: To check front end validation
      * @inheritDoc
@@ -41,6 +75,13 @@ class Overtime extends BaseModel
                 "description" => ["nullable","string"],
                 "from_date" => $this->dateRules(true),
                 "to_date" => $this->afterDateOrNowRules(true,"from_date"),
+                "is_hourly" => ["required","boolean"],
+                "from_time" => [Rule::requiredIf(function (){
+                    return $this->input("is_hourly") == "true" || $this->input("is_hourly") == 1;
+                }),"date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
+                "to_time" => [Rule::requiredIf(function (){
+                    return $this->input("is_hourly") == "true" || $this->input("is_hourly") == 1;
+                }),"after:from_time","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"]
             ];
         };
     }

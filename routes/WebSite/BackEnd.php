@@ -18,6 +18,7 @@ use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OverTimeAdminController;
+use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\OvertimeTypeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
@@ -225,6 +226,20 @@ Route::middleware(['auth'])->group(function () {
                 Route::post("status/change/{overtime}/{status}")
                     ->whereIn("status",["approve","reject"])
                     ->name("overtime.status.change");
+            });
+
+        Route::prefix("overtimes")->name("overtimes.")
+            ->controller(OvertimeController::class)->group(function (){
+                Route::get("all/{status?}","ShowOvertimes")
+                    ->whereIn("status", Leave::status())
+                    ->name("all.status");
+                Route::get("show/{overtime}","Show")->name("show.overtime");
+                Route::get("edit/{overtime}","Edit")->name("edit.overtime");
+                Route::put("update/{overtime}","updateRequestOvertime")->name("update.overtime");
+                Route::get("request/create","createRequestOvertime")->name("create.request");
+                Route::post("request/store","Store")->name("store.request");
+                Route::delete("request/delete/{overtime}","Destroy")->name("remove.request");
+                Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
             });
 
 
