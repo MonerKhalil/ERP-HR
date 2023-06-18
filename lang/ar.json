@@ -34,6 +34,7 @@
     "request_overtime_msg" : "تم طلب عمل اضافي من النوع : ",
     "cancel_request_overtime" : "تم رفض طلب العمل الاضافي .",
     "accept_request_overtime" : "تمت الموافقة على طلب العمل الاضافي بنجاح .",
+    "err_delete_exist_type_in_requests" : "تعذز حذف النوع السابق بسبب وجود طلبات مرتبطة بهذا النوع السابق يرجى حذقها اولا .",
 
 
     "/*         Header         */": "",

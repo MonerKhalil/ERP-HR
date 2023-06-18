@@ -18,6 +18,9 @@ class OvertimeType extends BaseModel
     ];
 
     // Add relationships between tables section
+    public function overtimes(){
+        return $this->hasMany(Overtime::class,"overtime_type_id","id");
+    }
 
     /**
      * Description: To check front end validation

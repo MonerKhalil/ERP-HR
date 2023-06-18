@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
@@ -10,6 +11,7 @@ use App\Http\Requests\LeaveTypeRequest;
 use App\Models\Leave;
 use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -147,6 +149,9 @@ class LeaveTypeController extends Controller
      */
     public function destroy(LeaveType $leaveType)
     {
+        if (!is_null($leaveType->leaves()->first())){
+            throw new MainException(__("err_delete_exist_type_in_requests"));
+        }
         $leaveType->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -157,8 +162,21 @@ class LeaveTypeController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("leave_types","id")],
         ]);
-        LeaveType::query()->whereIn("id",$request->ids)->delete();
-        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        try {
+            DB::beginTransaction();
+            foreach ($request->ids as $id){
+                $leaveType = LeaveType::query()->find($id);
+                if (!is_null($leaveType->leaves()->first())){
+                    throw new MainException(__("err_delete_exist_type_in_requests"));
+                }
+                $leaveType->delete();
+            }
+            DB::commit();
+            return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            throw new MainException($exception->getMessage());
+        }
     }
 
     public function ExportXls(BaseRequest $request)

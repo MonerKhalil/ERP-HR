@@ -27,6 +27,7 @@
     "request_overtime_msg": "A overtime of type has been requested: ",
     "accept_request_overtime" : "success accept request overtime.",
     "cancel_request_overtime" : "reject request overtime.",
+    "err_delete_exist_type_in_requests" : "err_delete_exist_type_in_requests.",
 
     "/*         Header         */": "",
 
