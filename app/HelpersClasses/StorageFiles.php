@@ -52,8 +52,16 @@ class StorageFiles
         if (is_null($paths)){
             return false;
         }
-        if (Storage::disk($disk)->exists($paths)) {
-            return Storage::disk(self::DISK)->delete($paths);
+        if (is_array($paths)){
+            foreach ($paths as $path){
+                if (Storage::disk($disk)->exists($path)) {
+                    return Storage::disk(self::DISK)->delete($path);
+                }
+            }
+        }else{
+            if (Storage::disk($disk)->exists($paths)) {
+                return Storage::disk(self::DISK)->delete($paths);
+            }
         }
         return false;
     }

@@ -13,7 +13,7 @@ class OvertimeType extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "name","max_rate_salary","min_hours_in_days",
+        "name","max_rate_salary","min_hours_in_days","salary_in_hours",
         "created_by","updated_by","is_active",
     ];
 
@@ -35,6 +35,7 @@ class OvertimeType extends BaseModel
                 ],
                 "max_rate_salary" => ["nullable","numeric","min:1","max:100"],
                 "min_hours_in_days" => ["nullable","numeric","min:1","max:24"],
+                "salary_in_hours" => ["required","numeric","min:1"],
             ];
         };
     }
