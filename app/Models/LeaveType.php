@@ -52,7 +52,7 @@ class LeaveType extends BaseModel
                 }),"numeric","min:1","max:100"],
                 "gender" => ["required",Rule::in(self::gender())],
                 "is_hourly" => [Rule::requiredIf(function () use($validator){
-                    return $validator->input("type_effect_salary") != "unpaid";
+                    return ($validator->input("leave_limited") == "true" || $validator->input("leave_limited") == 1);
                 }),"boolean"],
                 "max_hours_per_day" => [Rule::requiredIf(function ()use($validator){
                     return ($validator->input("is_hourly") == "true" || $validator->input("is_hourly") == 1)
