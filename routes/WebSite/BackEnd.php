@@ -330,9 +330,9 @@ Route::middleware(['auth'])->group(function () {
             ]);
         });
 
-        Route::get("contract/show/{contract?}", [ContractController::class, "show"])->name("employees.contract.show");
-        Route::get("contract/edit/{contract?}", [ContractController::class, "edit"])->name("employees.contract.edit");
-        Route::post("contract/update/{contract?}", [ContractController::class, "update"])->name("employees.contract.update");
+        Route::get("contract/show/{contract}", [ContractController::class, "show"])->name("employees.contract.show");
+        Route::get("contract/edit/{contract}", [ContractController::class, "edit"])->name("employees.contract.edit");
+        Route::post("contract/update/{contract}", [ContractController::class, "update"])->name("employees.contract.update");
         Route::delete("contract/multi/delete", [ContractController::class,"MultiContractsDelete"])->name("employees.contract.multi.delete");
         Route::post('export/xlsx',[ContractController::class,"ExportXls"])->name("employees.contract.export.xls");
         Route::post('export/pdf',[ContractController::class,"ExportPDF"])->name("employees.contract.export.pdf");
