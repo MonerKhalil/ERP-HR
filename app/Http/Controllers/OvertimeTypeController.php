@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\OvertimeTypeRequest;
 use App\Models\OvertimeType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class OvertimeTypeController extends Controller
@@ -36,7 +38,7 @@ class OvertimeTypeController extends Controller
      */
     public function create()
     {
-        //
+        return $this->responseSuccess("...");
     }
 
     /**
@@ -59,7 +61,7 @@ class OvertimeTypeController extends Controller
      */
     public function show(OvertimeType $overtimeType)
     {
-        //
+        return $this->responseSuccess("..",compact("overtimeType"));
     }
 
     /**
@@ -70,7 +72,7 @@ class OvertimeTypeController extends Controller
      */
     public function edit(OvertimeType $overtimeType)
     {
-        //
+        return $this->responseSuccess("..",compact("overtimeType"));
     }
 
     /**
@@ -94,6 +96,9 @@ class OvertimeTypeController extends Controller
      */
     public function destroy(OvertimeType $overtimeType)
     {
+        if (!is_null($overtimeType->overtimes()->first())){
+            throw new MainException(__("err_delete_exist_type_in_requests"));
+        }
         $overtimeType->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -104,7 +109,20 @@ class OvertimeTypeController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("overtime_types","id")],
         ]);
-        OvertimeType::query()->whereIn("id",$request->ids)->delete();
-        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        try {
+            DB::beginTransaction();
+            foreach ($request->ids as $id){
+                $overtimeType = OvertimeType::query()->find($id);
+                if (!is_null($overtimeType->overtimes()->first())){
+                    throw new \Exception(__("err_delete_exist_type_in_requests"));
+                }
+                $overtimeType->delete();
+            }
+            DB::commit();
+            return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            throw new MainException($exception->getMessage());
+        }
     }
 }

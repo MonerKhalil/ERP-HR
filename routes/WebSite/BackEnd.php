@@ -213,9 +213,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
-        Route::resource('overtime_types', OvertimeTypeController::class)->except([
-            "edit", "create", "show"
-        ]);
+        Route::resource('overtime_types', OvertimeTypeController::class);
         Route::delete("overtime_types/multi/delete",[OvertimeTypeController::class,"MultiDelete"])->name("overtime_types.multi.delete");
 
         Route::resource('overtimes_admin', OverTimeAdminController::class)->except(["show","edit"]);

@@ -32,6 +32,10 @@ class LeaveType extends BaseModel
             ,"id");
     }
 
+    public function leaves(){
+        return $this->hasMany(Leave::class,"leave_type_id","id");
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc
