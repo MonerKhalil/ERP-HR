@@ -64,9 +64,7 @@ class LeaveController extends Controller
     }
 
     public function createRequestLeave(){
-        // From Amir
-        $leave_types = MyApp::Classes()->Search->getDataFilter(LeaveType::query());
-//        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
+        $leave_types = LeaveType::query()->get();
         return $this->responseSuccess("System/Pages/Actors/Vacations/vacationRequest" ,
             compact("leave_types"));
     }
@@ -107,7 +105,6 @@ class LeaveController extends Controller
             throw new \Exception($checkCanLeave);
         }catch (\Exception $exception){
             DB::rollBack();
-//            dd($exception->getMessage());
             throw new MainException($exception->getMessage());
         }
     }
@@ -134,10 +131,7 @@ class LeaveController extends Controller
             throw new AuthorizationException(__("err_permission"));
         }
         $leave = Leave::with(["leave_type","employee"])->find($leave->id);
-
-        // From Amir
-        $leave_types = MyApp::Classes()->Search->getDataFilter(LeaveType::query());
-//        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
+        $leave_types = LeaveType::query()->get();
 
         return $this->responseSuccess("System/Pages/Actors/Vacations/vacationRequest" ,
             compact("leave","leave_types"));
@@ -181,7 +175,6 @@ class LeaveController extends Controller
             throw new \Exception($checkCanLeave);
         }catch (\Exception $exception){
             DB::rollBack();
-            dd($exception);
             throw new MainException($exception->getMessage());
         }
     }

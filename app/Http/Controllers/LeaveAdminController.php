@@ -114,8 +114,7 @@ class LeaveAdminController extends Controller
      */
     public function create()
     {
-        $leave_types = MyApp::Classes()->Search->getDataFilter(LeaveType::query());
-//        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
+        $leave_types = LeaveType::query()->get();
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
         return $this->responseSuccess("System/Pages/Actors/Vacations/insertVacation" ,
             compact("employees","leave_types"));
@@ -150,7 +149,6 @@ class LeaveAdminController extends Controller
             ]);
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }
-        throw dd($checkCanLeave);
         throw new MainException($checkCanLeave);
     }
 
