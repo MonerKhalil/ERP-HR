@@ -22,6 +22,7 @@
 }
 
 .NoData--V2 {
+
     text-align: center;
     margin: 4rem 0;
 
@@ -37,21 +38,6 @@
         font-size: 2rem;
         font-weight: 500;
         letter-spacing: 1px;
-    }
-
-    &.NoDataDropItem {
-
-        .Icon {
-
-            i {
-                font-size: 5rem;
-            }
-        }
-
-        .Text {
-            font-size: 1.4rem;
-        }
-
     }
 
 }

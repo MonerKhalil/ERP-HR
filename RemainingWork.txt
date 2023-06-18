@@ -15,5 +15,5 @@ ViewRole : {
     نسبة التقيم بالنسبة للتقرير لسا ما نعملت
     مراجعة الكود الهاص بالـ Readonly + كود الـ Visibility
     تزبيط الـ default تبع الـ Visibility الخاص بالـ multi selector
-    تزبيط تابع بالـ Back مشان ناخد نوع الـ Notification يلي بدنا يا
+    تزبيط شغلة البلد بالـ Section
 }

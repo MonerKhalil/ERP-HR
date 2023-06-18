@@ -104,13 +104,13 @@ class LeaveTypeController extends Controller
         }else{
             $effect_salary = $request->rate_effect_salary;
         }
-        if ($request->is_hourly != "true" || $request->is_hourly != 1){
+        if ($request->is_hourly != "true" && $request->is_hourly != 1){
             $max_hours_per_day = 0;
         }
         else{
             $max_hours_per_day = is_null($request->max_hours_per_day) ? $leaveType->max_hours_per_day : $request->max_hours_per_day;
         }
-        if ($request->leave_limited != "true" || $request->is_hourly != 1){
+        if ($request->leave_limited != "true" && $request->leave_limited != 1){
             $max_hours_per_day = 0;
             $max_days_per_years = 0;
         }else{
@@ -133,6 +133,8 @@ class LeaveTypeController extends Controller
             "years_employee_services" => $request->years_employee_services,
             "number_years_services_increment_days" => $request->number_years_services_increment_days,
             "count_days_increment_days" => $count_days_increment_days,
+            "count_available_in_service" => $request->count_available_in_service,
+            "can_take_hours" => $request->can_take_hours,
         ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }

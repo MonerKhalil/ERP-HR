@@ -21,15 +21,37 @@ class LeavesProcessService
      */
     public function checkAllProcess($request , Employee $employee,
                     LeaveType $leaveType,$ignoreLeaveEditId = null):string|FinalDataStore{
-        if ($leaveType->is_hourly){
-            $Final = $this->checkCanTakeLeaveAndIsHours($request,$employee,$leaveType,$ignoreLeaveEditId);
-        }else{
-            $Final = $this->checkCanTakeLeave($request,$employee,$leaveType,$ignoreLeaveEditId);
-        }
         if (!$this->checkGender($employee,$leaveType)){
             return __("err_leaves_gender");
         }
+        if ($leaveType->leave_limited){
+            if ($leaveType->is_hourly){
+                $Final = $this->checkCanTakeLeaveAndIsHours($request,$employee,$leaveType,$ignoreLeaveEditId);
+            }else{
+                $Final = $this->checkCanTakeLeave($request,$employee,$leaveType,$ignoreLeaveEditId);
+            }
+        }
+        else{
+            $Final = $this->CheckCanIsNotLimited($request,$employee,$leaveType,$ignoreLeaveEditId);
+        }
         return $Final;
+    }
+
+    private function CheckCanIsNotLimited($request , Employee $employee, LeaveType $leaveType,$ignoreLeaveEditId = null){
+        $from = Carbon::parse($request->from_date)->format("Y-m-d");
+        $to = Carbon::parse($request->to_date)->format("Y-m-d");
+        $count_days = $this->ignorePublicHolidayAndDaysOffEmployee($from,$to,$employee->work_setting->days_leaves_in_weeks);
+        $m_from =
+        $leavesCaninService = $leaveType->count_available_in_service;
+        if (!is_null($leavesCaninService)){
+            $count_use_leaveType = $employee->leaves()->where("leave_type_id",$leaveType->id)
+                ->whereYear("created_at","=",date('Y'))
+                ->whereNot("id",$ignoreLeaveEditId)->count();
+            if ($leavesCaninService <= $count_use_leaveType){
+                return __("err_leaves_count");
+            }
+        }
+        return new FinalDataStore($request->from_date,$request->to_date,$count_days);
     }
 
     private function checkCanTakeLeave($request , Employee $employee, LeaveType $leaveType,$ignoreLeaveEditId = null){

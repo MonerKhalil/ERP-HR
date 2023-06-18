@@ -51,8 +51,13 @@ function Days(){
 }
 
 function GetNotificationIcon($Type) {
-    $NotificationType = new stdClass();
-    $NotificationType->Icon = "description" ;
-    $NotificationType->Color = "Send" ;
+    $NotificationType = new class{} ;
+    if($Type == "طلب اجازة .") {
+        $NotificationType->Icon = "emoji_food_beverage" ;
+        $NotificationType->Color = "Receive" ;
+    } else {
+        $NotificationType->Icon = "" ;
+        $NotificationType->Color = "Send" ;
+    }
     return $NotificationType ;
 }
