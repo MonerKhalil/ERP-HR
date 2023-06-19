@@ -115,7 +115,7 @@
                                                                         </label>
                                                                     </td>
                                                                     <th class="Item__Col">{{ $RequestItem["id"] }}</th>
-                                                                    <td class="Item__Col">{{ $RequestItem->leave_type["name"] }}</td>
+                                                                    <td class="Item__Col">{{ $RequestItem->leave_type["name"] ?? "(محذوف)" }}</td>
                                                                     <td class="Item__Col">{{ $RequestItem["from_date"] }}</td>
                                                                     <td class="Item__Col">{{ $RequestItem["count_days"] }}</td>
                                                                     <td class="Item__Col">{{ $RequestItem["from_time"] ?? "_" }}</td>

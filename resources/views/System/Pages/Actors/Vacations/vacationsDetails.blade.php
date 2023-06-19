@@ -55,7 +55,7 @@
                                                         نوع الاجازة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $leave->leave_type["name"] }}
+                                                        {{ $leave->leave_type["name"] ?? "(محذوف)" }}
                                                     </span>
                                                 </div>
                                             </div>

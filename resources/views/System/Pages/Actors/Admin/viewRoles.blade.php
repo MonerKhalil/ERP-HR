@@ -71,7 +71,7 @@
                                                                     <div class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_{{$Role["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="roles[]" value="{{$Role["id"]}}" hidden>
+                                                                               name="ids[]" value="{{$Role["id"]}}" hidden>
                                                                         <label for="ItemRow_{{$Role["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small

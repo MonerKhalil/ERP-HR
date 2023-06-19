@@ -336,7 +336,7 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-37" class="NavName">
+                                    <a href="{{ route("system.overtime_types.create") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">اضافة نوع جديد</span>
                                     </a>
@@ -344,7 +344,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-38" class="NavName">
+                                    <a href="{{ route("system.overtime_types.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">عرض جميع الانواع</span>
                                     </a>
@@ -352,7 +352,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-39" class="NavName">
+                                    <a href="{{ route("system.overtimes.create.request") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">اضافة طلب</span>
                                     </a>
@@ -360,7 +360,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-40" class="NavName">
+                                    <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">عرض الطلبات</span>
                                     </a>

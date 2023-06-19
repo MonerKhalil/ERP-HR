@@ -74,7 +74,7 @@
     "/*         Login Page         */": "",
 
     "welcomeSystem" : "مرحبا في نظام ERP Epic" ,
-    "titleSystem" : "هبد للصبح",
+    "titleSystem" : "اي شيء",
     "signin" : "تسجيل الدخول" ,
     "forgetPassword" : "هل نسيت كلمة المرور ؟" ,
     "rememberMe" : "تذكرني" ,
@@ -83,7 +83,7 @@
     "/*         Add User Page         */": "",
 
     "addUser" : "اضافة مستخدم" ,
-    "titleAddUserPage" : "هبد للصبح",
+    "titleAddUserPage" : "اي شيء",
 
     "/*         Form         */": "",
 
@@ -105,7 +105,7 @@
     "/*         Profile Page         */": "" ,
 
     "profile" : "الملف الشخصي",
-    "titleProfilePage" : "هبد للمسا",
+    "titleProfilePage" : "اي شي",
     "personalInformation" : "المعلومات الشخصية",
     "basics" : "المعلومات الاساسية",
     "fullName" : "الاسم الكامل",
@@ -123,7 +123,7 @@
     "/*         View Users Page         */": "" ,
 
     "viewUsers" : "عرض المستخدمين" ,
-    "titleViewUsers" : "هبد للصبح",
+    "titleViewUsers" : "اي شيء",
     "user" : "مستخدم" ,
     "id" : "الرقم المميز" ,
     "createDate" : "تاريخ الانشاء",
@@ -143,7 +143,7 @@
     "/*         Print Page         */": "",
 
     "printInformation" : "معلومات الطباعة",
-    "titlePrintInformation" : "شوية هبد",
+    "titlePrintInformation" : "اي شي",
     "company" : "الشركة",
     "address" : "العنوان",
     "tel" : "الهاتف",
@@ -157,7 +157,7 @@
 
     "404Message" : "نحن نأسف جدا للإزعاج. يبدو أنك تحاول الوصول إلى صفحة محذوفة أو لم تكن موجودة من قبل.",
     "comingSoon" : "قريبا" ,
-    "comingSoonMessage" : "هبباب" ,
+    "comingSoonMessage" : "اي شي" ,
     "backToHome" : "العودة للصفحة الرئيسية",
 
     "/*         Audit Page         */": "",
