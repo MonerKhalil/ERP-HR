@@ -20,7 +20,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class OverTimeAdminController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Overtime/requestOvertimeView";
     public const IndexRoute = "system.overtimes_admin.index";
 
     public function __construct()

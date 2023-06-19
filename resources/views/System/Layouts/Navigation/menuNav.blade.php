@@ -360,7 +360,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-40" class="NavName">
+                                    <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">عرض الطلبات</span>
                                     </a>
