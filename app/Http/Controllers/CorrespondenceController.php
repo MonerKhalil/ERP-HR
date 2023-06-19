@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\MainException;
+use App\Exports\TableCustomExport;
+use App\HelpersClasses\ExportPDF;
+use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
+use App\Models\Contract;
 use App\Models\Correspondence;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CorrespondenceRequest;
-use App\Models\Correspondence_source_dest;
-use App\Models\Employee;
 use App\Models\SectionExternal;
 use App\Models\Sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CorrespondenceController extends Controller
 {
@@ -31,8 +34,22 @@ class CorrespondenceController extends Controller
      */
     public function index(Request $request)
     {
-      $data = Correspondence::with(["employees"])->get();
-        return  Response()->json([$q]);
+       $q= Correspondence::query();
+       $q->whereHas("employee",function ($emp)use($request){
+           $emp->whereHas("section",function ($q)use($request){
+               if (auth()->user()->can("all_correspondences")){
+                    if (isset($request->filter["section_id"]) && !is_null($request->filter["section_id"])){
+                        $q->where("id",$request->filter["section_id"]);
+                    }
+               }else{
+                   $q->where("id",auth()->user()->employee->section_id);
+               }
+           });
+       });
+
+        $correspondence = MyApp::Classes()->Search->getDataFilter($q, null, null, null);
+
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContracts", compact("correspondence"));
     }
 
     /**
@@ -47,10 +64,19 @@ class CorrespondenceController extends Controller
 
     private function shareByBlade(){
        $type=['internal','external'];
-       // $type_connection=["email","fax","hand"];
-        $sections = Sections::query()->pluck("name", "id")->toArray();
-        $sections_external = SectionExternal::query()->pluck("name", "id")->toArray();
-        return compact('type',  'sections','sections_external');
+        $number_internal=Correspondence::query()->latest('number_internal')->pluck("number_internal")->first();
+        if(is_null($number_internal)){
+            $number_internal=1;
+        }else{
+            $number_internal++;
+        }
+       $number_external=Correspondence::query()->latest('number_external')->pluck("number_external");
+        if(is_null($number_external)){
+            $number_external=1;
+        }else{
+            $number_external++;
+        }
+        return compact('type','number_internal',"number_external"  );
       }
     /**
      * Store a newly created resource in storage.
@@ -62,15 +88,15 @@ class CorrespondenceController extends Controller
     {
         try {
             DB::beginTransaction();
+
             $data = Arr::except($request->validated());
             if($request->hasFile("path_file")){
                 $path = MyApp::Classes()->storageFiles
                     ->Upload($request['path_file'],"correspondence/document_Correspondence");
                 $data['path_file']=$path;
             }
-            $data["origin_number"]=343242;
-            $correspondence=Correspondence::query()->create($data);
-
+            $data["employee_id"]=Auth()->id();
+            Correspondence::query()->create($data);
             DB::commit();
            return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
@@ -87,7 +113,9 @@ class CorrespondenceController extends Controller
      */
     public function show(Correspondence $correspondence)
     {
-        //
+        $correspondence = Correspondence::with(["CorrespondenceDest"])
+            ->findOrFail($correspondence->id);
+        return $this->responseSuccess("...",compact("correspondence"));
     }
 
     /**
@@ -98,19 +126,36 @@ class CorrespondenceController extends Controller
      */
     public function edit(Correspondence $correspondence)
     {
-        //
+        $type=['internal','external'];
+        $number_internal=Correspondence::query()->latest('number_internal')->pluck("number_internal")->first();
+        $number_external=Correspondence::query()->latest('number_external')->pluck("number_external")->first();
+        $correspondence = Correspondence::with(["CorrespondenceDest"])
+            ->findOrFail($correspondence->id);
+        return $this->responseSuccess("",compact("correspondence",'number_internal',"number_external","type"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Correspondence  $correspondence
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(CorrespondenceRequest $request, Correspondence $correspondence)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $data = $request->validated();
+            if (isset($data['path_file'])){
+                $document_path = MyApp::Classes()->storageFiles->Upload($data['path_file']);
+                if (is_bool($document_path)){
+                    MessagesFlash::Errors(__("err_image_upload"));
+                    return redirect()->back();
+                }
+                $data['path_file'] = $document_path;
+                MyApp::Classes()->storageFiles->deleteFile($correspondence->path_file);
+            }
+            $correspondence->update($data);
+            DB::commit();
+            return $this->responseSuccess(null,null,"update",self::IndexRoute);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            throw new MainException($exception->getMessage());
+        }
     }
 
     /**
@@ -121,21 +166,71 @@ class CorrespondenceController extends Controller
      */
     public function destroy(Correspondence $correspondence)
     {
-        //
+        $correspondence->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
     public function MultiDelete(Request $request)
     {
-        //
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("contracts", "id")],
+        ]);
+        try {
+            DB::beginTransaction();
+            Correspondence::query()->whereIn("id", $request->ids)->delete();
+            DB::commit();
+            $this->responseSuccess(null, null, "delete", self::IndexRoute);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new MainException($e->getMessage());
+        }
     }
 
-    public function ExportXls()
+    public function ExportXls(Request $request)
     {
-        //
+        $data = $this->MainExportData($request);
+        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+    }
+    public function ExportPDF(Request $request)
+    {
+        $data = $this->MainExportData($request);
+        return ExportPDF::downloadPDF($data['head'], $data['body']);
     }
 
-    public function ExportPDF()
+    private function MainExportData(Request $request): array
     {
-        //
+        $request->validate([
+            "ids" => ["required", "array"],
+            "ids.*" => ["required", Rule::exists("correspondences", "id")],
+            //  "contracts.*.user_id" => ["required", Rule::exists("users", "id")],
+        ]);
+
+
+
+        $query = Correspondence::with(["CorrespondenceDest","employee"]);
+        $query = isset($request->ids) ? $query->whereIn("id", $request->ids) : $query;
+        $data = MyApp::Classes()->Search->getDataFilter($query, null, true);
+        $head = [
+            [
+                "head" => "CorrespondenceDest_sours",
+                "relationFunc" => "CorrespondenceDest",
+                "key" => "name",
+            ],
+            [
+                "head" => "name_employee",
+                "relationFunc" => "employee",
+                "key" => "name",
+            ],
+            "contract_type", "contract_number", "contract_date", "contract_finish_date",
+            "contract_direct_date", "salary", "created_at",
+        ];
+        return [
+            "head" => $head,
+            "body" => $data,
+        ];
     }
+
+
+
 }

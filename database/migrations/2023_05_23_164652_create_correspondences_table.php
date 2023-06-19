@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             #Add Columns
             $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();///createrr if internal
-            $table->bigInteger('number_internal')->unique();
-            $table->bigInteger('number_external')->unique();
+            $table->bigInteger('number_internal')->nullable()->unique();
+            $table->bigInteger('number_external')->nullable()->unique();
             $table->enum('type',['internal','external']);
             $table->date("date");
             $table->string('subject');

@@ -138,7 +138,9 @@ class ContractController extends Controller
 
     public function destroy($id)
     {
-        Contract::destroy($id);
+
+        Contract::query()->findOrFail($id)->delete();
+
         return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
 

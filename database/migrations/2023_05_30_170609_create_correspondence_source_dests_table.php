@@ -24,6 +24,8 @@ return new class extends Migration
             $table->foreignId("out_section_id_dest")->nullable()->constrained("section_externals")->restrictOnDelete();
             $table->enum('source_dest_type',['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing']);
             $table->enum('type',['internal','external']);
+            $table->text("path_file")->nullable();
+            $table->string("notice")->nullable();
             $table->boolean("is_done")->default(false);
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();

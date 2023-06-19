@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\CorrespondenceSourceDestController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\MembershipController;
@@ -73,3 +74,5 @@ Route::get("xxx",function (){
     dd($now->format("Y-m-d H:i:s A"));
 //    $time = ;
 });
+
+Route::post("xxxc",[CorrespondenceSourceDestController::class,"store"]);
