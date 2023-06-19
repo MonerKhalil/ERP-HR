@@ -58,6 +58,15 @@
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
+                                                                                class="Data_Label">@lang("baseSalary")</span>
+                                                                <span class="Data_Value">{{$contract->salary}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="Col-4-md Col-6-sm">
+                                                        <div class="ListData__Content">
+                                                            <div class="Data_Col">
+                                                                            <span
                                                                                 class="Data_Label">@lang("dateOfContract")</span>
                                                                 <span class="Data_Value">{{$contract->contract_date}}</span>
                                                             </div>

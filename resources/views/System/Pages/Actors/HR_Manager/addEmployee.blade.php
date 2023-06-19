@@ -209,6 +209,24 @@
                                                                             </div>
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @php
+                                                                                                $Work_settings = [] ;
+                                                                                                foreach ($work_settings as $Index => $Item) {
+                                                                                                    array_push($Work_settings , [
+                                                                                                        "Label" => $Item['name']
+                                                                                                        , "Value" => $Item['id'] ]) ;
+                                                                                                }
+                                                                                            @endphp
+                                                                                            @include("System.Components.selector" , ['Name' => "work_setting_id" , "Required" => "true" , "Label" => __('workSettings'),"DefaultValue" => "",
+                                                                                                        "Options" => $Work_settings,])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
                                                                                             <input id="registerNumber"

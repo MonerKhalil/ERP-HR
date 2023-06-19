@@ -38,10 +38,10 @@
                                                                 <div class="Select__Area">
                                                                     @php
                                                                         $EmployeesList = [] ;
-                                                                        foreach ($employees_names as $Employee) {
+                                                                        foreach ($employees_names as $id=>$name) {
                                                                             array_push($EmployeesList , [
-                                                                                "Label" => $Employee["first_name"]
-                                                                                , "Value" => $Employee["id"] ]) ;
+                                                                                "Label" => $name
+                                                                                , "Value" => $id ]) ;
                                                                         }
                                                                     @endphp
                                                                     @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" => "",

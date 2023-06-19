@@ -2,94 +2,168 @@
 
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--ViewUsers">
-        <div class="ViewCorrespondences">
-            <div class="ViewCorrespondences__Breadcrumb">
+        <div class="ViewUsers">
+            <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "View Correspondences" ,
+                    'mainTitle' => __("viewcorrespondences") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+                    'summery' => __("titleViewUsers")
                 ])
             </div>
-            <div class="ViewCorrespondences__Content">
+            <div class="ViewUsers__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
-                            <div class="Card ViewCorrespondences__TableCorrespondences">
+                            <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                    <div class="Card__InnerGroup">
-                                        <div class="Card__Inner">
-                                            <div class="Table__Head">
-                                                <div class="Card__ToolsGroup">
-                                                    <div class="Card__Tools Table__BulkTools">
-                                                        <div class="BulkTools">
-                                                            <div class="Form Form--Dark">
-                                                                <div class="Form__Group">
-                                                                    <div class="Form__Select">
-                                                                        <div class="Select__Area">
-                                                                            <div class="Selector Selected Size-2"
-                                                                                 data-name="BulkAction" data-required="false">
-                                                                                <div class="Selector__Main">
-                                                                                    <div class="Selector__WordChoose">Bulk Action</div>
-                                                                                    <i class="material-icons Selector__Arrow">
-                                                                                        keyboard_arrow_down
-                                                                                    </i>
-                                                                                </div>
-                                                                                <ul class="Selector__Options">
-                                                                                    <li class="Selector__Option">Delete</li>
-                                                                                    <li class="Selector__Option">Print</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="Form__Group">
-                                                                    <div class="Form__Button">
-                                                                        <button class="Button Send Size-2"
-                                                                                type="submit">Apply</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                    <form name="PrintAllTablePDF" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
+                                    <form name="PrintAllTableXlsx" action="#"
+                                          class="FilterForm"
+                                          method="post">
+                                        @csrf
+                                    </form>
+                                    <form action="#" method="post">
+                                        @csrf
+                                        <div class="Card__InnerGroup">
+                                            <div class="Card__Inner py1">
+                                                <div class="Table__Head">
+                                                    <div class="Card__ToolsGroup">
+                                                        <div class="Card__Tools Table__BulkTools">
+                                                            {{--                                                            @include("System.Components.bulkAction" , [--}}
+                                                            {{--                                                                "Options" => [ [--}}
+                                                            {{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
+                                                            {{--                                                                ] , [--}}
+                                                            {{--                                                                    "Label" => __("normalDelete")--}}
+                                                            {{--                                                                    , "Action" => route("system.employees.correspondence.destroy")--}}
+                                                            {{--                                                                    , "Method" => "delete"--}}
+                                                            {{--                                                                ] ]--}}
+                                                            {{--                                                            ])--}}
                                                         </div>
-                                                    </div>
-                                                    <div class="Card__Tools Card__SearchTools">
-                                                        <ul class="SearchTools">
-                                                            <li><i class="OpenPopup material-icons IconClick"
-                                                                   data-popUp="SearchAbout">search</i></li>
-                                                            <li><span class="SearchTools__Separate"></span></li>
-                                                            <li><i class="material-icons IconClick">print</i></li>
-                                                        </ul>
+                                                        <div class="Card__Tools Card__SearchTools">
+                                                            <ul class="SearchTools">
+                                                                <li title="Filter">
+                                                                    <i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
+                                                                       data-popUp="SearchAbout">filter_list
+                                                                    </i>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="SearchTools__Separate"></span>
+                                                                </li>
+                                                                {{--                                                                <li class="Table__PrintMenu">--}}
+                                                                {{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
+                                                                {{--                                                                       title="Print">print</i>--}}
+                                                                {{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
+                                                                {{--                                                                        <ul class="Dropdown__Content">--}}
+                                                                {{--                                                                            <li class="Dropdown__Item">--}}
+                                                                {{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
+                                                                {{--                                                                                    @lang("printTablePDFFile")--}}
+                                                                {{--                                                                                </a>--}}
+                                                                {{--                                                                            </li>--}}
+                                                                {{--                                                                            <li class="Dropdown__Item">--}}
+                                                                {{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
+                                                                {{--                                                                                    @lang("printTableXlsxFile")--}}
+                                                                {{--                                                                                </a>--}}
+                                                                {{--                                                                            </li>--}}
+                                                                {{--                                                                        </ul>--}}
+                                                                {{--                                                                    </div>--}}
+                                                                {{--                                                                </li>--}}
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="Card__Inner p0">
-                                            <div class="Table__ContentList">
-                                                <form class="Table__List" action="" method="post">
-                                                    <div class="Item HeaderList">
-                                                        <div class="Item__Col Item__Col--Check">
-                                                            <input id="ItemRow_Main" class="CheckBoxItem" type="checkbox" hidden>
-                                                            <label for="ItemRow_Main" class="CheckBoxRow">
-                                                                <i class="material-icons ">
-                                                                    check_small
-                                                                </i>
-                                                            </label>
+{{--                                            @php--}}
+{{--                                            dd($correspondences);--}}
+{{--                                            @endphp--}}
+                                            @if(count($correspondences) > 0)
+                                                <div class="Card__Inner p0">
+                                                    <div class="Table__ContentTable">
+                                                        <div class="Table__Table">
+                                                            <div class="Item HeaderList">
+                                                                <div class="Item__Col Item__Col--Check">
+                                                                    <input id="ItemRow_Main" class="CheckBoxItem"
+                                                                           type="checkbox" hidden>
+                                                                    <label for="ItemRow_Main" class="CheckBoxRow">
+                                                                        <i class="material-icons ">
+                                                                            check_small
+                                                                        </i>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="Item__Col">#</div>
+                                                                <div class="Item__Col"><span>@lang("Type")</span></div>
+                                                                <div class="Item__Col"><span>@lang("Number")</span></div>
+                                                                <div class="Item__Col"><span>@lang("Number")</span></div>
+                                                                <div class="Item__Col"><span>@lang("Date")</span></div>
+                                                            </div>
+                                                            @foreach($correspondences as $correspondence)
+                                                                <div class="Item DataItem">
+                                                                    <div class="Item__Col Item__Col--Check">
+                                                                        <input id="ItemRow_{{$correspondence["id"]}}"
+                                                                               class="CheckBoxItem" type="checkbox"
+                                                                               name="correspondences[]" value="{{$correspondence["id"]}}" hidden>
+                                                                        <label for="ItemRow_{{$correspondence["id"]}}" class="CheckBoxRow">
+                                                                            <i class="material-icons ">
+                                                                                check_small
+                                                                            </i>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="Item__Col">{{$correspondence["id"]}}</div>
+                                                                    <div class="Item__Col">{{$correspondence["type"]}}</div>
+                                                                    <div class="Item__Col">{{$correspondence["number_external"]}}</div>
+                                                                    <div class="Item__Col">{{$correspondence["number_internal"]}}</div>
+                                                                    <div class="Item__Col">{{$correspondence["date"]}}</div>
+                                                                    <div class="Item__Col MoreDropdown">
+                                                                        <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                           data-MenuName="RoleMore_{{$correspondence["id"]}}">
+                                                                            more_horiz
+                                                                        </i>
+                                                                        <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                             data-MenuName="RoleMore_{{$correspondence["id"]}}">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{route("correspondences.show" , $correspondence["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("viewDetails")
+                                                                                    </a>
+                                                                                </li>
+{{--                                                                                <li>--}}
+{{--                                                                                    <a href="{{route("correspondence.edit" , $correspondence["id"])}}"--}}
+{{--                                                                                       class="Dropdown__Item">--}}
+{{--                                                                                        @lang("editcorrespondenceInfo")--}}
+{{--                                                                                    </a>--}}
+{{--                                                                                </li>--}}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
                                                         </div>
-                                                        <div class="Item__Col"><span>Name</span></div>
-                                                        <div class="Item__Col">Date</div>
-                                                        <div class="Item__Col"><span>Type</span></div>
-                                                        <div class="Item__Col"><span>Source</span></div>
-                                                        <div class="Item__Col"><span>Destination</span></div>
                                                     </div>
-                                                </form>
+                                                </div>
+                                            @else
+                                                @include("System.Components.noData")
+                                            @endif
+                                            <div class="Card__Inner">
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $correspondences ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $correspondences
+                                                    ])
+                                                </div>
+
                                             </div>
                                         </div>
-                                        <div class="Card__Inner">
-                                            <div class="Table__Pagination">
-                                                @include("System.Components.paginationNum")
-                                                @include("System.Components.paginationSelect")
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -99,3 +173,16 @@
         </div>
     </section>
 @endsection
+
+{{--@section("PopupPage")--}}
+{{--    @include("System.Components.searchForm" , [--}}
+{{--        'InfoForm' => ["Route" => "" , "Method" => "get"] ,--}}
+{{--        'FilterForm' => [ ['Type' => 'number' , 'Info' =>--}}
+{{--                ['Name' => "filter[id]" , 'Placeholder' => __("correspondenceNumber") ] ] , ['Type' => 'text' , 'Info' =>--}}
+{{--                    ['Name' => "filter[employee_id]" , 'Placeholder' => __("employeeName")]--}}
+{{--                ] , ['Type' => 'dateRange' , 'Info' =>--}}
+{{--                ['Name' => "filter[correspondence_date]" , 'Placeholder' => __("correspondenceDate") ,--}}
+{{--                 "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"]--}}
+{{--            ] ]--}}
+{{--    ])--}}
+{{--@endsection--}}

@@ -297,6 +297,8 @@
     "viewEOF" : "View EOS",
     "addEOF" : "Add EOS",
     "editContractInfo" : "Edit Contract Info",
-    "editCourse" : "Edit Course Info"
+    "editCourse" : "Edit Course Info",
+    "baseSalary" : "Base Salary",
+    "managerName" : "Direct Manager"
 
 }
