@@ -26,7 +26,16 @@
     "request_leave" : "طلب اجازة .",
     "request_leave_msg" : "تم طلب اجازة من النوع : ",
     "accept_request_leave" : "تمت الموافقة على طلب الاجازة بنجاح .",
-    "cancel_request_leave" : "تمت رفض طلب الاجازة .",
+    "cancel_request_leave" : "تم رفض طلب الاجازة .",
+    "request_overtime" : "طلب عمل اضافي .",
+    "err_request_overtime_days" : "تم رفض طلب العمل الاضافي بسبب وجود ايام ضمن التاريخين المحددين هي ايام دوام .",
+    "err_request_overtime_rate_salary" : "تم رفض طلب العمل الاضافي بسبب تجاوز النسبة المحددة من الراتب الاصلي المحدد من هذا النوع .",
+    "err_request_overtime_time" : "تم رفض طلب العمل الاضافي لان عدد الساعات اقل من عدد الساعات المسموح بها في اليوم الواحد من هذا النوع من الطلب .",
+    "request_overtime_msg" : "تم طلب عمل اضافي من النوع : ",
+    "cancel_request_overtime" : "تم رفض طلب العمل الاضافي .",
+    "accept_request_overtime" : "تمت الموافقة على طلب العمل الاضافي بنجاح .",
+    "err_delete_exist_type_in_requests" : "تعذز حذف النوع السابق بسبب وجود طلبات مرتبطة بهذا النوع السابق يرجى حذقها اولا .",
+
 
     "/*         Header         */": "",
 
@@ -65,7 +74,7 @@
     "/*         Login Page         */": "",
 
     "welcomeSystem" : "مرحبا في نظام ERP Epic" ,
-    "titleSystem" : "هبد للصبح",
+    "titleSystem" : "اي شيء",
     "signin" : "تسجيل الدخول" ,
     "forgetPassword" : "هل نسيت كلمة المرور ؟" ,
     "rememberMe" : "تذكرني" ,
@@ -74,7 +83,7 @@
     "/*         Add User Page         */": "",
 
     "addUser" : "اضافة مستخدم" ,
-    "titleAddUserPage" : "هبد للصبح",
+    "titleAddUserPage" : "اي شيء",
 
     "/*         Form         */": "",
 
@@ -96,7 +105,7 @@
     "/*         Profile Page         */": "" ,
 
     "profile" : "الملف الشخصي",
-    "titleProfilePage" : "هبد للمسا",
+    "titleProfilePage" : "اي شي",
     "personalInformation" : "المعلومات الشخصية",
     "basics" : "المعلومات الاساسية",
     "fullName" : "الاسم الكامل",
@@ -114,7 +123,7 @@
     "/*         View Users Page         */": "" ,
 
     "viewUsers" : "عرض المستخدمين" ,
-    "titleViewUsers" : "هبد للصبح",
+    "titleViewUsers" : "اي شيء",
     "user" : "مستخدم" ,
     "id" : "الرقم المميز" ,
     "createDate" : "تاريخ الانشاء",
@@ -134,7 +143,7 @@
     "/*         Print Page         */": "",
 
     "printInformation" : "معلومات الطباعة",
-    "titlePrintInformation" : "شوية هبد",
+    "titlePrintInformation" : "اي شي",
     "company" : "الشركة",
     "address" : "العنوان",
     "tel" : "الهاتف",
@@ -148,7 +157,7 @@
 
     "404Message" : "نحن نأسف جدا للإزعاج. يبدو أنك تحاول الوصول إلى صفحة محذوفة أو لم تكن موجودة من قبل.",
     "comingSoon" : "قريبا" ,
-    "comingSoonMessage" : "هبباب" ,
+    "comingSoonMessage" : "اي شي" ,
     "backToHome" : "العودة للصفحة الرئيسية",
 
     "/*         Audit Page         */": "",

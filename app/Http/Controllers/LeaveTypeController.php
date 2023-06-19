@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
@@ -10,6 +11,7 @@ use App\Http\Requests\LeaveTypeRequest;
 use App\Models\Leave;
 use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -104,13 +106,13 @@ class LeaveTypeController extends Controller
         }else{
             $effect_salary = $request->rate_effect_salary;
         }
-        if ($request->is_hourly != "true" || $request->is_hourly != 1){
+        if ($request->is_hourly != "true" && $request->is_hourly != 1){
             $max_hours_per_day = 0;
         }
         else{
             $max_hours_per_day = is_null($request->max_hours_per_day) ? $leaveType->max_hours_per_day : $request->max_hours_per_day;
         }
-        if ($request->leave_limited != "true" || $request->is_hourly != 1){
+        if ($request->leave_limited != "true" && $request->leave_limited != 1){
             $max_hours_per_day = 0;
             $max_days_per_years = 0;
         }else{
@@ -133,6 +135,8 @@ class LeaveTypeController extends Controller
             "years_employee_services" => $request->years_employee_services,
             "number_years_services_increment_days" => $request->number_years_services_increment_days,
             "count_days_increment_days" => $count_days_increment_days,
+            "count_available_in_service" => $request->count_available_in_service,
+            "can_take_hours" => $request->can_take_hours,
         ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
@@ -145,6 +149,9 @@ class LeaveTypeController extends Controller
      */
     public function destroy(LeaveType $leaveType)
     {
+        if (!is_null($leaveType->leaves()->first())){
+            throw new MainException(__("err_delete_exist_type_in_requests"));
+        }
         $leaveType->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -155,8 +162,21 @@ class LeaveTypeController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("leave_types","id")],
         ]);
-        LeaveType::query()->whereIn("id",$request->ids)->delete();
-        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        try {
+            DB::beginTransaction();
+            foreach ($request->ids as $id){
+                $leaveType = LeaveType::query()->find($id);
+                if (!is_null($leaveType->leaves()->first())){
+                    throw new MainException(__("err_delete_exist_type_in_requests"));
+                }
+                $leaveType->delete();
+            }
+            DB::commit();
+            return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+        }catch (\Exception $exception){
+            DB::rollBack();
+            throw new MainException($exception->getMessage());
+        }
     }
 
     public function ExportXls(BaseRequest $request)

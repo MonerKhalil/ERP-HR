@@ -21,7 +21,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class LeaveAdminController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Vacations/allVacationsView";
     public const IndexRoute = "system.leaves_admin.index";
 
     public function __construct()
@@ -68,10 +68,11 @@ class LeaveAdminController extends Controller
      */
     public function index(Request $request)
     {
-        $status = Leave::status();
-        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
+        $statusLeaves = Leave::status();
+        $leavesType = LeaveType::query()->pluck("name","id")->toArray();
         $data = MyApp::Classes()->Search->dataPaginate($this->MainQuery($request));
-        return $this->responseSuccess(self::NameBlade,compact("data","status","leave_types"));
+        return $this->responseSuccess(self::NameBlade ,
+            compact("data","statusLeaves","leavesType"));
     }
 
     /**
@@ -80,23 +81,29 @@ class LeaveAdminController extends Controller
      * @param $status
      * @author moner khalil
      */
-    public function changeStatus(Request $request, Leave $leave, $status){
+
+    public function changeStatus(Request $request, $status){
         $request->validate([
+            "ids" => ["required","array"],
+            "ids.*" => ["required",Rule::exists("leaves","id")],
             "reject_details" => ["nullable","string"],
         ]);
-        $leave->update([
-            "status" => $status,
-            "reject_details" => $request->reject_details,
-            "date_update_status" => now(),
-        ]);
-        $message = $status == "approve" ? __("accept_request_leave") : __("cancel_request_leave");
-        $user = User::query()->find($leave->employee->user_id);
-        $user->notify(new MainNotification([
-            "from" => auth()->user()->name,
-            "body" => $message,
-            "date" => now(),
-            "route_name" => route("system.leaves.show.leave",$leave->id),
-        ],__("request_leave")));
+        foreach($request->ids as $leave) {
+            $leave = Leave::query()->find($leave);
+            $leave->update([
+                "status" => $status,
+                "reject_details" => $request->reject_details,
+                "date_update_status" => now(),
+            ]);
+            $message = $status == "approve" ? __("accept_request_leave") : __("cancel_request_leave");
+            $user = User::query()->find($leave->employee->user_id);
+            $user->notify(new MainNotification([
+                "from" => auth()->user()->name,
+                "body" => $message,
+                "date" => now(),
+                "route_name" => route("system.leaves.show.leave",$leave->id),
+            ],__("request_leave")));
+        }
         return $this->responseSuccess(null,null,"default",self::IndexRoute);
     }
 
@@ -107,9 +114,10 @@ class LeaveAdminController extends Controller
      */
     public function create()
     {
-        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
+        $leave_types = LeaveType::query()->get();
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
-        return $this->responseSuccess("...",compact("employees","leave_types"));
+        return $this->responseSuccess("System/Pages/Actors/Vacations/insertVacation" ,
+            compact("employees","leave_types"));
     }
 
 

@@ -249,15 +249,31 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-34" class="NavName">
+                                    <a href="{{ route("system.leaves.all.status" , "pending") }}" class="NavName">
                                         <!-- User -->
-                                        <span class="Label">اجازاتي</span>
+                                        <span class="Label">اجازاتي المعلقة</span>
                                     </a>
                                 </div>
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-47" class="NavName">
+                                    <a href="{{ route("system.leaves.all.status" , "approve") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">اجازاتي المقبولة</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves.all.status" , "reject") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">اجازاتي المرفوضة</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves.show.leavesType") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">عرض اجازاتي المتاحة</span>
                                     </a>
@@ -265,7 +281,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-36" class="NavName">
+                                    <a href="{{ route("system.leaves_admin.index") }}" class="NavName">
                                         <!-- Admin -->
                                         <span class="Label">عرض طلبات الاجازة</span>
                                     </a>
@@ -274,7 +290,15 @@
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
                                     <!-- User -->
-                                    <a href="/Test-32" class="NavName">
+                                    <a href="{{ route("system.leaves_admin.create") }}" class="NavName">
+                                        <span class="Label">ادراج اجازة ادارية</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="{{ route("system.leaves.create.request") }}" class="NavName">
                                         <span class="Label">طلب اجازة</span>
                                     </a>
                                 </div>
@@ -312,7 +336,7 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-37" class="NavName">
+                                    <a href="{{ route("system.overtime_types.create") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">اضافة نوع جديد</span>
                                     </a>
@@ -320,7 +344,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-38" class="NavName">
+                                    <a href="{{ route("system.overtime_types.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">عرض جميع الانواع</span>
                                     </a>
@@ -328,7 +352,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-39" class="NavName">
+                                    <a href="{{ route("system.overtimes.create.request") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">اضافة طلب</span>
                                     </a>
@@ -336,7 +360,7 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-40" class="NavName">
+                                    <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">عرض الطلبات</span>
                                     </a>
@@ -410,7 +434,7 @@
                         <div class="Title">
                             <div class="NavName">
                                 <i class="material-icons Icon">
-                                    meeting_room
+                                    weekend
                                 </i>
                                 <span class="Label">العطل الرسمية</span>
                             </div>

@@ -17,7 +17,7 @@ use Illuminate\Validation\Rule;
 
 class LeaveController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Vacations/myVacationsView";
     public const IndexRoute = "system.leaves.all.status";
 
     /**
@@ -39,11 +39,13 @@ class LeaveController extends Controller
             "reject" => $user->leaves_reject(),
             "pending" => $user->leaves_pending(),
         };
-        if (!is_null($request->filter["start_date_filter"]) && !is_null($request->filter["end_date_filter"]) ){
+        if (isset($request->filter["start_date_filter"]) && !is_null($request->filter["start_date_filter"])
+            &&isset($request->filter["end_date_filter"]) &&
+            !is_null($request->filter["end_date_filter"]) ){
             $fromDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date_filter"]);
             $toDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date_filter"]);
-            if ( is_string($fromDate) && is_string($toDate) && ($fromDate <= $toDate) ){
-                $query = $query->where(function ($query) use ($fromDate,$toDate){
+            if ( is_string($fromDate) && is_string($toDate) && ($fromDate <= $toDate) ) {
+                $query = $query->where(function ($query) use ($fromDate,$toDate) {
                     $query->whereBetween('from_date', [$fromDate, $toDate])
                         ->orWhereBetween('to_date', [$fromDate, $toDate])
                         ->orWhere(function ($query) use ($fromDate, $toDate) {
@@ -56,14 +58,15 @@ class LeaveController extends Controller
         if (isset($request->filter["leave_type"]) && !is_null($request->filter["leave_type"])){
             $query = $query->where("leave_type_id",$request->filter["leave_type"]);
         }
-
         $data = MyApp::Classes()->Search->dataPaginate($query);
-        return $this->responseSuccess(self::NameBlade,compact("data","leavesType","statusLeaves"));
+        return $this->responseSuccess(self::NameBlade ,
+            compact("data","leavesType","statusLeaves" , "status"));
     }
 
     public function createRequestLeave(){
-        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("leave_types"));
+        $leave_types = LeaveType::query()->get();
+        return $this->responseSuccess("System/Pages/Actors/Vacations/vacationRequest" ,
+            compact("leave_types"));
     }
 
     /**
@@ -95,7 +98,7 @@ class LeaveController extends Controller
                     "minutes" => $checkCanLeave->MinutesInDays,
                     "description" => $request->description,
                 ]);
-                $notificationRequestLeave->sendNotify($employee,route("system.leaves.show.leave",$leave->id));
+                $notificationRequestLeave->sendNotify($employee,$leave_type,route("system.leaves.show.leave",$leave->id));
                 DB::commit();
                 return $this->responseSuccess(null,null,"create",self::IndexRoute);
             }
@@ -111,7 +114,8 @@ class LeaveController extends Controller
             throw new AuthorizationException(__("err_permission"));
         }
         $leave = Leave::with(["leave_type","employee"])->findOrFail($leave->id);
-        return $this->responseSuccess("...",compact("leave"));
+        return $this->responseSuccess("System/Pages/Actors/Vacations/vacationsDetails" ,
+            compact("leave"));
     }
 
     /**
@@ -120,14 +124,17 @@ class LeaveController extends Controller
      * @throws AuthorizationException
      * @author moner khalil
      */
+
     public function Edit(Leave $leave)
     {
-        if (!$leave->canEdit()){
+        if (!$leave->canEdit()) {
             throw new AuthorizationException(__("err_permission"));
         }
         $leave = Leave::with(["leave_type","employee"])->find($leave->id);
-        $leave_types = LeaveType::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("leave","leave_types"));
+        $leave_types = LeaveType::query()->get();
+
+        return $this->responseSuccess("System/Pages/Actors/Vacations/vacationRequest" ,
+            compact("leave","leave_types"));
     }
 
     /**
@@ -161,7 +168,7 @@ class LeaveController extends Controller
                     "description" => $request->description,
                     "status" => "pending",
                 ]);
-                $notificationRequestLeave->sendNotify($employee,route("system.leaves.show.leave",$leave->id));
+                $notificationRequestLeave->sendNotify($employee,$leave_type , route("system.leaves.show.leave",$leave->id));
                 DB::commit();
                 return $this->responseSuccess(null,null,"update",self::IndexRoute);
             }
@@ -197,13 +204,13 @@ class LeaveController extends Controller
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
-    public function LeavesTypeShow(){
+    public function LeavesTypeShow() {
         $employee = auth()->user()->employee;
         $leaves_type = LeaveType::query()->get()->filter(function ($item)use($employee){
-            if (!$item->leave_limited){
+            if (!$item->leave_limited) {
                 return true;
             }
-            if ($item->gender != "any"){
+            if ($item->gender != "any") {
                 return $item->gender == $employee->gender;
             }
             $services = floor($employee->count_month_services/12);
@@ -212,7 +219,8 @@ class LeaveController extends Controller
             }
             return false;
         });
-        return $this->responseSuccess("...",compact("leaves_type"));
+        return $this->responseSuccess("System/Pages/Actors/Vacations/vacationAvailableView" ,
+            compact("leaves_type"));
     }
 
     /**
@@ -222,6 +230,7 @@ class LeaveController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws MainException
      */
+
     public function CountLeavesByType($leave_type){
         try {
             $leave_type = LeaveType::query()->findOrFail($leave_type);

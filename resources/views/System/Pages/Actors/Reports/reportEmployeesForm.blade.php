@@ -814,7 +814,7 @@
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
                                                                                 <input id="FromSalary" class="Input__Field"
-                                                                                       type="number" name="form_salary"
+                                                                                       type="number" name="from_salary"
                                                                                        placeholder="من الراتب">
                                                                                 <label class="Input__Label" for="FromSalary">
                                                                                     من الراتب

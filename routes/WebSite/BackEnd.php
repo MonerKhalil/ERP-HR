@@ -20,6 +20,7 @@ use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OverTimeAdminController;
+use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\OvertimeTypeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
@@ -213,9 +214,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
-        Route::resource('overtime_types', OvertimeTypeController::class)->except([
-            "edit", "create", "show"
-        ]);
+        Route::resource('overtime_types', OvertimeTypeController::class);
         Route::delete("overtime_types/multi/delete",[OvertimeTypeController::class,"MultiDelete"])->name("overtime_types.multi.delete");
 
         Route::resource('overtimes_admin', OverTimeAdminController::class)->except(["show","edit"]);
@@ -227,6 +226,20 @@ Route::middleware(['auth'])->group(function () {
                 Route::post("status/change/{overtime}/{status}")
                     ->whereIn("status",["approve","reject"])
                     ->name("overtime.status.change");
+            });
+
+        Route::prefix("overtimes")->name("overtimes.")
+            ->controller(OvertimeController::class)->group(function (){
+                Route::get("all/{status?}","ShowOvertimes")
+                    ->whereIn("status", Leave::status())
+                    ->name("all.status");
+                Route::get("show/{overtime}","Show")->name("show.overtime");
+                Route::get("edit/{overtime}","Edit")->name("edit.overtime");
+                Route::put("update/{overtime}","updateRequestOvertime")->name("update.overtime");
+                Route::get("request/create","createRequestOvertime")->name("create.request");
+                Route::post("request/store","Store")->name("store.request");
+                Route::delete("request/delete/{overtime}","Destroy")->name("remove.request");
+                Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
             });
 
 
@@ -278,7 +291,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
-                Route::post("status/change/{leave}/{status}")
+                Route::post("status/change/leaves/{status}","changeStatus")
                     ->whereIn("status",["approve","reject"])
                     ->name("leave.status.change");
             });
@@ -294,8 +307,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post("request/store","Store")->name("store.request");
             Route::delete("request/delete/{leave}","Destroy")->name("remove.request");
             Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
-            Route::get("show/leaves_type","LeavesTypeShow")->name("show.leavesType");
-            Route::get("count/leaves/{leave_type}","LeavesTypeShow")->name("show.leavesType");
+            Route::get("show/leaves_type/action/count","LeavesTypeShow")->name("show.leavesType");
+            Route::get("count/leaves/{leave_type}","CountLeavesByType")->name("show.count.leave.leaveType");
         });
 
         /*===========================================
@@ -318,9 +331,9 @@ Route::middleware(['auth'])->group(function () {
             ]);
         });
 
-        Route::get("contract/show/{contract?}", [ContractController::class, "show"])->name("employees.contract.show");
-        Route::get("contract/edit/{contract?}", [ContractController::class, "edit"])->name("employees.contract.edit");
-        Route::post("contract/update/{contract?}", [ContractController::class, "update"])->name("employees.contract.update");
+        Route::get("contract/show/{contract}", [ContractController::class, "show"])->name("employees.contract.show");
+        Route::get("contract/edit/{contract}", [ContractController::class, "edit"])->name("employees.contract.edit");
+        Route::post("contract/update/{contract}", [ContractController::class, "update"])->name("employees.contract.update");
         Route::delete("contract/multi/delete", [ContractController::class,"MultiContractsDelete"])->name("employees.contract.multi.delete");
         Route::post('export/xlsx',[ContractController::class,"ExportXls"])->name("employees.contract.export.xls");
         Route::post('export/pdf',[ContractController::class,"ExportPDF"])->name("employees.contract.export.pdf");

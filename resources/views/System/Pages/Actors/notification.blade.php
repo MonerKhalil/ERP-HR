@@ -17,7 +17,7 @@
                             <div class="Col">
                                 <div class="Card Overflow-Hidden">
                                     <div class="Card__Content">
-                                        <div class="Card__InnerGroup">
+                                        <div class="Card__InnerGroup NotificationParent">
                                             <div class="Card__Inner">
                                                 <div class="NotificationPage__Buttons">
                                                     <form action="{{route("notifications.clear")}}"
@@ -29,18 +29,13 @@
                                                             مسح الكل
                                                         </button>
                                                     </form>
-                                                    <form action="{{route("notifications.edit")}}"
-                                                          method="post">
-                                                        @csrf
-                                                        @method("put")
-                                                        <button class="Button Button--Primary">
-                                                            قراءة الكل
-                                                        </button>
-                                                    </form>
+                                                    <button class="ReadAll Button Button--Primary">
+                                                        قراءة الكل
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="Card__Inner p0">
-                                                <ul class="NotificationPage__NotificationList">
+                                                <ul class="NotificationParent__List NotificationPage__NotificationList">
                                                     @if(count($data) > 0)
                                                         @foreach($data as $NotificationItem)
                                                             <li class="NotificationPage__Notification Notification"
@@ -48,30 +43,30 @@
                                                                 <div class="Card__Inner">
                                                                     <div class="Notification__Content">
                                                                         @php
-                                                                            $NotificationObject = GetNotificationIcon($NotificationItem["type"]) ;
+                                                                            $NotificationObject = GetNotificationIcon($NotificationItem["data"]["type"]) ;
                                                                         @endphp
-                                                                        <a href="{{ $NotificationItem["route_name"] }}"
+                                                                        <a href="{{ $NotificationItem["data"]["data"]["route_name"] }}"
                                                                            class="Notification__Icon Notification__Icon--{{ $NotificationObject->Color }}">
                                                                             <i class="material-icons">
                                                                                 {{ $NotificationObject->Icon }}
                                                                             </i>
                                                                         </a>
-                                                                        <a href="{{ $NotificationItem["route_name"] }}"
+                                                                        <a href="{{ $NotificationItem["data"]["data"]["route_name"] }}"
                                                                            class="Notification__Details">
                                                                             <p class="NotificationTitle">
                                                                                 من
                                                                                 <span class="UserFrom">
                                                                                 <strong>
-                                                                                    {{ $NotificationItem["from"] }}
+                                                                                    {{ $NotificationItem["data"]["data"]["from"] }}
                                                                                 </strong>
                                                                             </span> ,
-                                                                                {{ $NotificationItem["type"] }} .
+                                                                                {{ $NotificationItem["data"]["type"] }} .
                                                                             </p>
                                                                             <p class="NotificationDescription">
-                                                                                {{ $NotificationItem["body"] }} .
+                                                                                @lang($NotificationItem["data"]["data"]["body"]) .
                                                                             </p>
                                                                             <p class="NotificationDate">
-                                                                                {{ $NotificationItem["date"] }}
+                                                                                {{ \Carbon\Carbon::parse($NotificationItem["data"]["data"]["date"])->format("Y-m-d H:m") }}
                                                                             </p>
                                                                         </a>
                                                                         <div class="Notification__Remove">

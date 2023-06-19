@@ -25,7 +25,7 @@ return new class extends Migration
             //check years services employee -> leave type -> true
             $table->integer("years_employee_services")->nullable();
             $table->boolean("leave_limited");
-            $table->boolean("is_hourly");
+            $table->boolean("is_hourly")->default(false);
             $table->integer("max_hours_per_day")->nullable();
             //new columns ...
             #_تحديد عدد سنين الخدمة الي لزيادة في ايام الاساسية لهاي الاجازة

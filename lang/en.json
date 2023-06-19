@@ -20,6 +20,14 @@
     "request_leave_msg": "A leave of type has been requested: ",
     "accept_request_leave" : "success accept request leave.",
     "cancel_request_leave" : "reject request leave.",
+    "request_overtime" : "request overtime.",
+    "err_request_overtime_days" : "err_request_overtime_days",
+    "err_request_overtime_rate_salary" : "err_request_overtime_rate_salary",
+    "err_request_overtime_time" : "err_request_overtime_time",
+    "request_overtime_msg": "A overtime of type has been requested: ",
+    "accept_request_overtime" : "success accept request overtime.",
+    "cancel_request_overtime" : "reject request overtime.",
+    "err_delete_exist_type_in_requests" : "err_delete_exist_type_in_requests.",
 
     "/*         Header         */": "",
 

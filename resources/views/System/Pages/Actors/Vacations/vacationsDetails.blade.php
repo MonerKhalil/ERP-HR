@@ -1,5 +1,11 @@
 @extends("System.Pages.globalPage")
 
+@php
+    $MyAccount = auth()->user() ;
+    $IsHavePermissionEditUser = ($MyAccount->can("update_leaves") || $MyAccount->can("all_leaves")) ;
+@endphp
+
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--VacationsDetailsPage">
         <div class="VacationsDetailsPage">
@@ -19,7 +25,7 @@
                                     <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                @lang("basics")
+                                                معلومات الاجازة
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
@@ -29,7 +35,7 @@
                                                         رقم الطلب
                                                     </span>
                                                     <span class="Data_Value">
-                                                        32
+                                                        {{ $leave["id"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -39,7 +45,7 @@
                                                         مقدم الطلب
                                                     </span>
                                                     <span class="Data_Value">
-                                                        امير الحلو
+                                                        {{ $leave->employee["first_name"]." ".$leave->employee["last_name"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -49,7 +55,7 @@
                                                         نوع الاجازة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        سفر
+                                                        {{ $leave->leave_type["name"] ?? "(محذوف)" }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -59,151 +65,119 @@
                                                         حالة الطلب
                                                     </span>
                                                     <span class="Data_Value">
-                                                        معلق
+                                                        {{ $leave["status"] }}
                                                     </span>
                                                 </div>
                                             </div>
+                                            @if($leave["status"] == "reject" && $leave["reject_details"])
+                                                <div class="ListData__Item ListData__Item--NoAction">
+                                                    <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        سبب رفض الطلب
+                                                    </span>
+                                                        <span class="Data_Value">
+                                                        {{ $leave["reject_details"] }}
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                            @endif
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
                                                         تاريخ تقديم الطلب
                                                     </span>
                                                     <span class="Data_Value">
-                                                        10-10-2025
+                                                        {{ $leave["created_at"] }}
                                                     </span>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="ListData NotResponsive">
-                                        <div class="ListData__Head">
-                                            <h4 class="ListData__Title">
-                                                ساعات وايام الاجازة
-                                            </h4>
-                                        </div>
-                                        <div class="ListData__Content">
-                                            <div class="ListData__Group">
-                                                <div class="ListData__GroupTitle">
-                                                    <span class="Title">الاجازة الاولى</span>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ الاجازة
+                                                        تاريخ الرد على الطلب
                                                     </span>
                                                     <span class="Data_Value">
-                                                        10-5-2022
+                                                        {{ $leave["date_update_status"] ?? "_" }}
                                                     </span>
-                                                    </div>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        طبيعة الاجازة
-                                                    </span>
-                                                    <span class="Data_Value">
-                                                        اجازة جزئية
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                        <span class="Data_Label">
-                                                            مدة الاجازة
-                                                        </span>
-                                                        <span class="Data_Value">
-                                                            @if(app()->getLocale() === "en")
-                                                                10:45 AM &rarr; 12:00 PM
-                                                            @else
-                                                                10:45 صباحا
-                                                                &larr;
-                                                                12:00 مساءا
-                                                            @endif
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                        <span class="Data_Label">
-                                                            سبب الاجازة
-                                                        </span>
-                                                        <span class="Data_Value">
-                                                            افلة
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="ListData__Group">
-                                                <div class="ListData__GroupTitle">
-                                                    <span class="Title">الاجازة الثانية</span>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        تاريخ الاجازة
-                                                    </span>
-                                                        <span class="Data_Value">
-                                                        10-5-2022
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        طبيعة الاجازة
-                                                    </span>
-                                                        <span class="Data_Value">
-                                                        اجازة جزئية
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                        <span class="Data_Label">
-                                                            مدة الاجازة
-                                                        </span>
-                                                        <span class="Data_Value">
-                                                            @if(app()->getLocale() === "en")
-                                                                10:45 AM &rarr; 12:00 PM
-                                                            @else
-                                                                10:45 صباحا
-                                                                &larr;
-                                                                12:00 مساءا
-                                                            @endif
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                        <span class="Data_Label">
-                                                            سبب الاجازة
-                                                        </span>
-                                                        <span class="Data_Value">
-                                                            افلة
-                                                        </span>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- For Admin -->
-                                    <div class="ListData">
-                                        <div class="ListData__Head">
-                                            <h4 class="ListData__Title">
-                                                العمليات على الاجازة
-                                            </h4>
-                                        </div>
-                                        <div class="ListData__Content">
-                                            <div class="Card__Inner px0">
-                                                <a href="#" class="Button Button--Primary">
-                                                    قبول اجازة
-                                                </a>
-                                                <a href="#" class="Button Button--Danger">
-                                                    رفض اجازة
-                                                </a>
+                                    @if($IsHavePermissionEditUser && $leave["status"] == "pending")
+                                        <!-- For Admin -->
+                                        <div class="ListData">
+                                            <div class="ListData__Head">
+                                                <h4 class="ListData__Title">
+                                                    العمليات على الاجازة
+                                                </h4>
+                                            </div>
+                                            <div class="ListData__Content">
+                                                <div class="Card__Inner px0">
+                                                    <form class="Form Form--Dark"
+                                                              action="{{ route("system.leaves_admin.leave.status.change" , "approve") }}"
+                                                          method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="ids[0]" value="{{ $leave["id"] }}">
+                                                        <button class="Button Button--Primary" type="submit">
+                                                            قبول اجازة
+                                                        </button>
+                                                        <button class="OpenPopup Button Button--Danger"
+                                                                type="button"
+                                                                data-popUp="RejectReason">
+                                                            رفض اجازة
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="Popup Popup--Dark"
+                                                 data-name="RejectReason">
+                                                <div class="Popup__Content">
+                                                    <div class="Popup__Card">
+                                                        <i class="material-icons Popup__Close">close</i>
+                                                        <div class="Popup__CardContent">
+                                                            <div class="Popup__InnerGroup">
+                                                                <form class="Form Form--Dark"
+                                                                      action="{{ route("system.leaves_admin.leave.status.change" , "reject") }}"
+                                                                      method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ids[0]" value="{{ $leave["id"] }}">
+                                                                    <div class="Popup__Body">
+                                                                        <div class="Popup__Inner">
+                                                                            <h3 class="Popup__Title">
+                                                                                <span class="Title">تأكيد الرفض</span>
+                                                                            </h3>
+                                                                            <div class="Popup__Body">
+                                                                                <div class="Row GapC-1-5">
+                                                                                    <div class="Col-12">
+                                                                                        <div class="Form__Group">
+                                                                                            <div class="Form__Textarea">
+                                                                                                <div class="Textarea__Area">
+                                                                                                        <textarea id="ReasonReject" class="Textarea__Field"
+                                                                                                                  name="reject_details" placeholder="سبب الرفض"
+                                                                                                                  rows="3"></textarea>
+                                                                                                    <label class="Textarea__Label"
+                                                                                                           for="ReasonReject">سبب الرفض</label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="Popup__Inner">
+                                                                            <button class="Button Button--Danger" type="submit">
+                                                                                تأكيد الرفض
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
