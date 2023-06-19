@@ -18,10 +18,10 @@ class CorrespondenceSourceDestController extends Controller
 {
     const Folder = "users";
     const IndexRoute = "system. Correspondence.index";
-//    public function __construct()
-//    {
-//        $this->addMiddlewarePermissionsToFunctions(app(Correspondence_source_dest::class)->getTable());
-//    }
+    public function __construct()
+    {
+        $this->addMiddlewarePermissionsToFunctions(app(Correspondence_source_dest::class)->getTable());
+    }
 
     /**
      * Display a listing of the resource.
@@ -43,7 +43,7 @@ class CorrespondenceSourceDestController extends Controller
         $type=Correspondence::type();//internal,external
         $source_dest_type=Correspondence_source_dest::source_dest_type();//type
         $out_section=SectionExternal::query()->pluck("name","id")->toArray();//if external
-        $employee_dest=Employee::query()->whereNot("user_id",Auth::id())->pluck("name","id")->toArray();//if internal
+        $employee_dest=Employee::query()->whereNot("user_id",Auth::id())->select(["id" , "first_name", "last_name"])->get();//if internal
         return $this->responseSuccess(".....", compact("employee_dest",
             "source_dest_type","out_section","type"));
     }

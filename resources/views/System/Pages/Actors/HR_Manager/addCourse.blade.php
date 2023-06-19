@@ -47,6 +47,7 @@
                                                                                         "NameIDs"=>'amir',
                                                                                         "DefaultValue" => "" , "Label" => "الموظفين" ,
                                                                                         "Options" => $EmployeesList ,
+                                                                                        "NameIDs" => "name"
                                                                                     ])
                                                                 </div>
                                                             </div>

@@ -461,6 +461,35 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    groups_2
+                                </i>
+                                <span class="Label">@lang("correspondences")</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("correspondences.index")}}" class="NavName">
+                                        <span class="Label">عرض المراسلات</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("correspondences.create")}}" class="NavName">
+                                        <span class="Label">إضافة مراسلة</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
                             <a href="{{route("system.employees.report")}}" class="NavName">

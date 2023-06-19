@@ -36,6 +36,7 @@ class DataAllEmployeeRequest extends BaseRequest
 
     public function employeeData(){
         return [
+                "work_setting_id" => $this->work_setting_id,
                 "user_id" => $this->user_id,
                 "section_id" => $this->section_id,
                 "nationality" => $this->nationality,
