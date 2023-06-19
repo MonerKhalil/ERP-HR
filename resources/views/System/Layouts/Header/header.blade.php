@@ -31,8 +31,11 @@
                                         </span>
                                     </div>
                                     <ul class="NotificationParent__List Dropdown__Content">
-                                        @if(count(auth()->user()->notifications) > 0)
-                                            @foreach(auth()->user()->notifications as $NotificationItem)
+                                        @php
+                                        $notifications = auth()->user()->notifications()->whereNot("data->type","audit")->latest()->get();
+                                        @endphp
+                                        @if(count($notifications) > 0)
+                                            @foreach($notifications as $NotificationItem)
                                                 <li class="Dropdown__Item Notification"
                                                     data-NotificationID="{{ $NotificationItem["id"] }}">
                                                     <div class="Notification__Content">

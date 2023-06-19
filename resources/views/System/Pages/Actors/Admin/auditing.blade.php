@@ -1,5 +1,6 @@
 @extends("System.Pages.globalPage")
 
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--ViewUsers">
         <div class="ViewUsers">
@@ -47,7 +48,7 @@
                                             </div>
                                             <div class="Card__Inner p0">
                                                 <div class="Table__ContentTable">
-                                                    <table class="Left Table__Table" >
+                                                    <table class="Center Table__Table" >
                                                         <tr class="Item HeaderList">
                                                             <th class="Item__Col">@lang("event")</th>
                                                             <th class="Item__Col">@lang("tableEdit")</th>
@@ -58,7 +59,7 @@
                                                         </tr>
                                                         @foreach($data as $AuditingData)
                                                             @php
-                                                                $RealData = $AuditingData["data"]["data"] ;
+                                                                $RealData = $AuditingData["data"]["data"];
                                                             @endphp
                                                             <tbody class="GroupRows">
                                                                 <tr class="GroupRows__MainRow">
@@ -76,25 +77,28 @@
                                                                         <div class="Table__ContentTable">
                                                                             <table class="Left Table__Table">
                                                                                 <tr class="Item HeaderList">
-                                                                                    <th class="Item__Col">@lang("typeValue")</th>
-                                                                                    <th class="Item__Col">@lang("id")</th>
-                                                                                    <th class="Item__Col">@lang("name")</th>
-                                                                                    <th class="Item__Col">@lang("email")</th>
+                                                                                    @if(count($RealData["new_values"]) > 0)
+                                                                                        @foreach($RealData["new_values"] as $Key=>$Value)
+                                                                                            <th class="Item__Col">{{ $Key }}</th>
+                                                                                        @endforeach
+                                                                                    @elseif(count($RealData["old_values"]) > 0)
+                                                                                        @foreach($RealData["old_values"] as $Key=>$Value)
+                                                                                            <th class="Item__Col">{{ $Key }}</th>
+                                                                                        @endforeach
+                                                                                    @endif
                                                                                 </tr>
                                                                                 @if(count($RealData["new_values"]) > 0)
                                                                                     <tr class="ReplaceNewBackGround Item DataItem">
-                                                                                        <td class="Item__Col">@lang("newValue")</td>
-                                                                                        <td class="Item__Col">#{{$RealData["new_values"]["id"]}}</td>
-                                                                                        <td class="Item__Col">{{$RealData["new_values"]["name"]}}</td>
-                                                                                        <td class="Item__Col">{{$RealData["new_values"]["email"]}}</td>
+                                                                                        @foreach($RealData["new_values"] as $Key=>$Value)
+                                                                                            <td class="Item__Col">{{ $Value }}</td>
+                                                                                        @endforeach
                                                                                     </tr>
                                                                                 @endif
                                                                                 @if(count($RealData["old_values"]) > 0)
                                                                                     <tr class="ReplaceOldBackGround Item DataItem">
-                                                                                        <td class="Item__Col">@lang("oldValue")</td>
-                                                                                        <td class="Item__Col">#{{$RealData["old_values"]["id"]}}</td>
-                                                                                        <td class="Item__Col">{{$RealData["old_values"]["name"]}}</td>
-                                                                                        <td class="Item__Col">{{$RealData["old_values"]["email"]}}</td>
+                                                                                        @foreach($RealData["old_values"] as $Key=>$Value)
+                                                                                            <td class="Item__Col">{{ $Value }}</td>
+                                                                                        @endforeach
                                                                                     </tr>
                                                                                 @endif
                                                                             </table>
