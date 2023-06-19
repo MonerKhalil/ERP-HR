@@ -49,7 +49,7 @@ class Correspondence extends BaseModel
             $ID = $validator->route('correspondences')->id ?? 0;
             return [
                 "type"=>['required',Rule::in(self::type())],
-                "subject"=>$validator->textRule(true),
+                "subject"=>["required","string"],
                 "summary"=>["required","string"],
                 "date"=>$validator->dateRules(true),
                 "path_file" => $validator->fileRules(false),

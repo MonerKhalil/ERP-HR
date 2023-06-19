@@ -104,7 +104,7 @@ class EmployeeController extends Controller
             compact("employee"));
     }
 
-    public function edit($employee = null)
+    public function edit(Employee $employee = null)
     {
         $employeeQuery = Employee::with([
             "contact" => function($q){
@@ -117,10 +117,10 @@ class EmployeeController extends Controller
         $data = $this->shareByBlade();
         $data['employee'] = is_null($employee) ? $employeeQuery->where("user_id",auth()->id())->firstOrFail()
             : $employeeQuery->findOrFail($employee->id);
-        return $this->responseSuccess("",$data);
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editEmployee",$data);
     }
 
-    public function update(EmployeeRequest $request, $employee = null)
+    public function update(EmployeeRequest $request, Employee $employee = null)
     {
         $employeeQuery = Employee::query();
         $employee = is_null($employee) ? $employeeQuery->where("user_id",auth()->id())->firstOrFail()

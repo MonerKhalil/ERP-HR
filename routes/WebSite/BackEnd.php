@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CorrespondenceController;
+use App\Http\Controllers\CorrespondenceSourceDestController;
 use App\Http\Controllers\DataEndServiceController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DecisionController;
@@ -380,6 +381,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('export/pdf',"ExportPDF")->name("export.pdf");
             Route::delete("multi/delete","MultiDelete")->name("multi.delete");
         });
+    Route::resource('correspondences_dest', CorrespondenceSourceDestController::class);
+
 
     /*===========================================
     =         End System Routes        =

@@ -81,4 +81,3 @@ class Contract extends BaseModel
         };
     }
 }
-

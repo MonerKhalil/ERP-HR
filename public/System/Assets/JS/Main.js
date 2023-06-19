@@ -1890,6 +1890,24 @@ $(document).ready(function (){
         });
     });
 
+    /**
+     * @author Anas Bakkar
+     */
+
+    $("#checkInButton").click(function () {
+        const checkInButton = $("#checkInButton");
+        const checkOutButton = $("#checkOutButton");
+        checkInButton.hide()
+        checkInButton.parent().removeClass("Card__CenterButton")
+        let now = new Date();
+        let currentTime = now.toLocaleTimeString();
+        console.log(checkInButton)
+        checkOutButton.parent().removeClass("Card__CenterButton-hidden")
+        checkOutButton.parent().addClass("Card__CenterButton")
+        checkOutButton.show()
+        console.log(checkOutButton)
+    });
+
     /*===========================================
 	=           Duplicate Form       =
     =============================================*/
