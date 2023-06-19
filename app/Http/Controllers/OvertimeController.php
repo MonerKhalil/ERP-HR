@@ -16,7 +16,7 @@ use Illuminate\Validation\Rule;
 
 class OvertimeController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Overtime/myRequestOvertime";
     public const IndexRoute = "system.overtimes.all.status";
 
     public function ShowOvertimes(Request $request, string $status = "pending"){
@@ -55,7 +55,8 @@ class OvertimeController extends Controller
 
     public function createRequestOvertime(){
         $overtimesType = OvertimeType::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("overtimesType"));
+        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeForm" ,
+            compact("overtimesType"));
     }
 
     public function Store(OvertimeRequest $request,OverTimeCheckService $checkService,SendNotificationRequestOverTime $notificationRequestOverTime)
@@ -87,7 +88,8 @@ class OvertimeController extends Controller
             throw new AuthorizationException(__("err_permission"));
         }
         $overtime = Overtime::with(["overtime_type","employee"])->findOrFail($overtime->id);
-        return $this->responseSuccess("...",compact("overtime"));
+        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeDetails" ,
+            compact("overtime"));
     }
 
     public function Edit(Overtime $overtime){
@@ -96,7 +98,8 @@ class OvertimeController extends Controller
         }
         $overtime = Overtime::with(["overtime_type","employee"])->findOrFail($overtime->id);
         $overtimeType = OvertimeType::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("...",compact("overtime","overtimeType"));
+        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeForm" ,
+            compact("overtime","overtimeType"));
     }
 
     public function updateRequestOvertime(OvertimeRequest $request,Overtime $overtime,OverTimeCheckService $checkService,SendNotificationRequestOverTime $notificationRequestOverTime){

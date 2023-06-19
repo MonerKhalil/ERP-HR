@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
 
 class OvertimeTypeController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Overtime/newTypeView";
     public const IndexRoute = "system.overtime_types.index";
 
     public function __construct()
@@ -38,7 +38,7 @@ class OvertimeTypeController extends Controller
      */
     public function create()
     {
-        return $this->responseSuccess("...");
+        return $this->responseSuccess("System/Pages/Actors/Overtime/newTypeAdd");
     }
 
     /**
@@ -61,7 +61,8 @@ class OvertimeTypeController extends Controller
      */
     public function show(OvertimeType $overtimeType)
     {
-        return $this->responseSuccess("..",compact("overtimeType"));
+        return $this->responseSuccess("System/Pages/Actors/Overtime/newTypeDetails" ,
+            compact("overtimeType"));
     }
 
     /**
@@ -72,7 +73,8 @@ class OvertimeTypeController extends Controller
      */
     public function edit(OvertimeType $overtimeType)
     {
-        return $this->responseSuccess("..",compact("overtimeType"));
+        return $this->responseSuccess("System/Pages/Actors/Overtime/newTypeAdd" ,
+            compact("overtimeType"));
     }
 
     /**

@@ -16,18 +16,6 @@
                         <div class="Col">
                             <div class="Card NewTypeViewPage__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF"
-                                          action="{{route("system.decisions.export.pdf")}}"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
-                                    <form name="PrintAllTableXlsx"
-                                          action="{{route("system.decisions.export.xls")}}"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
@@ -50,36 +38,15 @@
                                                                        data-popUp="SearchAbout">filter_list
                                                                     </i>
                                                                 </li>
-                                                                <li>
-                                                                    <span class="SearchTools__Separate"></span>
-                                                                </li>
-                                                                <li class="Table__PrintMenu">
-                                                                    <i class="material-icons IconClick PrintMenu__Button"
-                                                                       title="Print">print</i>
-                                                                    <div class="Dropdown PrintMenu__Menu">
-                                                                        <ul class="Dropdown__Content">
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
-                                                                                    @lang("printTablePDFFile")
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
-                                                                                    @lang("printTableXlsxFile")
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if($data)
+                                            @if(count($data) > 0)
                                                 <div class="Card__Inner p0">
                                                     <div class="Table__ContentTable">
-                                                        <table class="Left Table__Table" >
+                                                        <table class="Center Table__Table" >
                                                             <tr class="Item HeaderList">
                                                                 <th class="Item__Col Item__Col--Check">
                                                                     <input id="ItemRow_Main" class="CheckBoxItem"
@@ -92,7 +59,7 @@
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
                                                                 <th class="Item__Col">اسم النوع</th>
-                                                                <th class="Item__Col">نسبة سقف الراتب</th>
+                                                                <th class="Item__Col">نسبة سقف الراتب المزاد</th>
                                                                 <th class="Item__Col">الحد الادنى لساعات قبول الاضافي</th>
                                                                 <th class="Item__Col">مقدار الاجر على الساعة</th>
                                                                 <th class="Item__Col">المزيد</th>
@@ -134,13 +101,13 @@
                                                                              data-MenuName="TypeOvertime_{{ $TypeItem["id"] }}">
                                                                             <ul class="Dropdown__Content">
                                                                                 <li>
-                                                                                    <a href="#"
+                                                                                    <a href="{{ route("system.overtime_types.show" , $TypeItem["id"]) }}"
                                                                                        class="Dropdown__Item">
                                                                                         عرض التفاصيل
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="#"
+                                                                                    <a href="{{ route("system.overtime_types.edit" , $TypeItem["id"]) }}"
                                                                                        class="Dropdown__Item">
                                                                                         تعديل النوع
                                                                                     </a>
@@ -194,4 +161,5 @@
                 ['Name' => "filter[salary_in_hours]" , 'Placeholder' => 'مقدار الاجر على الساعة'] ] ,
         ]
     ])
+
 @endsection
