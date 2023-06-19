@@ -15,7 +15,7 @@ use App\Models\User;
 use App\Services\OverTimeCheckService;
 use App\Services\YearsEmployeeService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use PHPUnit\Exception;
@@ -30,21 +30,21 @@ class ContractController extends Controller
         $this->addMiddlewarePermissionsToFunctions(app(Contract::class)->getTable());
     }
 
-
     public function index(Request $request)
     {
         $q = Contract::with('employee');
-        $q = !is_null($request->employee_name) ? $q->whereHas("employee", function ($q) use ($request) {
-            $q->where("first_name", "=", $request->employee_name);
-        }) : $q;
-//
+
+        if (isset($request->filter["employee_name"]) && !is_null($request->filter["employee_name"])){
+            $q = $q->whereHas("employee",function ($query)use($request){
+                $query->where("first_name","LIKE","%".$request->filter["employee_name"]."%")
+                    ->orWhere("last_name","LIKE","%".$request->filter["employee_name"]."%");
+            });
+        }
+
         $contracts = MyApp::Classes()->Search->getDataFilter($q, null, null, "contract_date");
 
         return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContracts", compact("contracts"));
-
-
     }
-
 
     public function create()
     {
@@ -53,7 +53,6 @@ class ContractController extends Controller
 
     private function shareByBlade()
     {
-
         $contract_type = ["permanent", "temporary"];
         // I need to add an empty option at the first
         $employees_names = Employee::query()->pluck('first_name', "id")->toArray();
@@ -75,56 +74,17 @@ class ContractController extends Controller
         }
     }
 
-    public function show($contract = null)
+    public function show($contract)
     {
-
-        //        $contractQuery=    User::join('employees', 'employees.user_id', '=', 'users.id')
-//            ->join('contracts', 'contracts.employee_id', '=', 'employees.id')
-//            ->where('users.id', 1);
-
-        if (is_null($contract)) {
-            $contractQuery = Contract::with([
-                "employee" => function ($q) {
-                    return $q->with(["user"])
-                        ->where('employees.user_id', Auth()->id())
-                        ->get();
-                },
-            ]);
-            $employee_id = Employee::where("user_id", Auth()->id())->pluck("id");
-            $contract = $contractQuery->where("employee_id", $employee_id)->get();
-        } else {
-            $contractQuery = Contract::with([
-                "employee" => function ($q) {
-                    return $q->with(["user"])->get();
-                },
-            ]);
-            $contract = $contractQuery->findOrFail($contract);
-        }
+        $contract = Contract::with(["employee","section"])->findOrFail($contract);
         return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewContract", compact("contract"));
     }
 
-    public function edit($contract = null)
+    public function edit($contract)
     {
         $data = $this->shareByBlade();
-        if (is_null($contract)) {
-            $contractQuery = Contract::with([
-                "employee" => function ($q) {
-                    return $q->with(["user"])
-                        ->where('employees.user_id', Auth()->id())
-                        ->get();
-                },
-            ]);
-            $employee_id = Employee::where("user_id", Auth()->id())->pluck("id");
-            $data['contract'] = $contractQuery->where("employee_id", $employee_id)->get();
-        } else {
-            $contractQuery = Contract::with([
-                "employee" => function ($q) {
-                    return $q->with(["user"])->get();
-                },
-            ]);
-            $data['contract'] = $contractQuery->findOrFail($contract);
-
-        }
+        $contract = Contract::with(["employee","section"])->findOrFail($contract);
+        $data["contract"] = $contract;
         return $this->responseSuccess("", $data);
     }
 
@@ -146,7 +106,6 @@ class ContractController extends Controller
 
     public function destroy($id)
     {
-
         Contract::query()->findOrFail($id)->delete();
 
         return $this->responseSuccess(null, null, "delete", self::IndexRoute);
@@ -207,9 +166,7 @@ class ContractController extends Controller
         $request->validate([
             "ids" => ["required", "array"],
             "ids.*" => ["required", Rule::exists("contracts", "id")],
-            //  "contracts.*.user_id" => ["required", Rule::exists("users", "id")],
         ]);
-
 
         $query = Contract::with(["employee","section"]);
         $query = isset($request->ids) ? $query->whereIn("id", $request->ids) : $query;

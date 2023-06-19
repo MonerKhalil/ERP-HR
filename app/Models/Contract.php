@@ -68,17 +68,15 @@ class Contract extends BaseModel
         return function (BaseRequest $validator) {
             $contactID = $validator->route('contract') ?? 0;
             return [
-                "contract_type" => ['required'],
                 "employee_id" => ['required', Rule::exists('employees', 'id')],
-
+                "section_id" => ['required', Rule::exists('sections', 'id')],
+                "contract_type" => ['required',Rule::in(["permanent", "temporary"])],
                 "contract_date" =>$validator->dateRules(true),
                 "contract_direct_date" => $validator->afterDateOrNowRules(true,"contract_date"),
                 "contract_finish_date" => $validator->afterDateOrNowRules(true,"contract_finish_date"),
-
-                "section_id" => ['required', Rule::exists('sections', 'id')],
                 "contract_number" => ['required', 'min:0',
                     'max:1000000', Rule::unique('contracts', 'contract_number')->ignore($contactID)],
-                "salary" => ['required', 'numeric']
+                "salary" => ['required', 'numeric',"min:1"],
             ];
         };
     }
