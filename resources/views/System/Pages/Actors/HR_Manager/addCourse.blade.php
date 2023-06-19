@@ -46,6 +46,7 @@
                                                                                         'Name' => "_" , "Required" => "true" ,
                                                                                         "DefaultValue" => "" , "Label" => "الموظفين" ,
                                                                                         "Options" => $EmployeesList ,
+                                                                                        "NameIDs" => "name"
                                                                                     ])
                                                                 </div>
                                                             </div>

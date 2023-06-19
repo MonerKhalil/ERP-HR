@@ -59,7 +59,7 @@
                                                                         foreach ($contract_type as $index=>$type) {
                                                                             array_push($CotnractTypes , [
                                                                                 "Label" => $type
-                                                                                , "Value" => $index]);
+                                                                                , "Value" => $type]);
                                                                         }
                                                                     @endphp
                                                                     @include("System.Components.selector" , ['Name' => "contract_type" , "Required" => "true" , "Label" => __('contractType'),"DefaultValue" => "",
