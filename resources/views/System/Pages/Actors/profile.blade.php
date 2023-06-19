@@ -139,7 +139,7 @@
                                             User
                                         </li>
                                         @endif
-                                        @if($IsHavePermissionReadEmployee)
+                                        @if($user->employee->exists && $IsHavePermissionReadEmployee)
                                             <li class="Taps__Item Taps__Item--Icon"
                                                     data-content="EmployeeInfo">
                                                     <i class="material-icons">badge</i>
@@ -174,7 +174,7 @@
                                                                         "Label" => __("email") , "Value" => $user->email ,
                                                                         "IsLock" => !$IsHavePermissionEditUser , "PopupName" => "UpdateUser"
                                                                     ] , [
-                                                                        "Label" => "Role" , "Value" => $user->roles[0]["name"] ,
+                                                                        "Label" => "Role" , "Value" => $user->roles[0]["name"] ?? "" ,
                                                                         "IsLock" => !(isset($roles) && $IsHavePermissionEditUser) , "PopupName" => "UpdateUser"
                                                                     ]
                                                                 ]
@@ -192,7 +192,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        @if(!is_null($user->employee) && $IsHavePermissionReadEmployee)
+                                        @if($user->employee->exists && $IsHavePermissionReadEmployee)
                                             <div class="Card Taps__Panel" data-panel="EmployeeInfo">
                                                 <div class="Card__Content">
                                                     <div class="Card__Inner">
@@ -370,7 +370,7 @@
                                                             @endphp
                                                             @include("System.Components.selector" , [
                                                                 'Name' => "role" , "Required" => "true" ,
-                                                                "DefaultValue" => $user->roles[0]["id"] , "Label" => "Roles" ,
+                                                                "DefaultValue" => $user->roles[0]["id"] ?? "" , "Label" => "Roles" ,
                                                                 "Options" => $RolesType
                                                             ])
                                                         </div>
@@ -478,7 +478,7 @@
             </div>
         </div>
     @endif
-    @if(!is_null($user->employee) && $IsHavePermissionReadEmployee && $IsHavePermissionEditEmployee)
+    @if($user->employee->exists && $IsHavePermissionReadEmployee && $IsHavePermissionEditEmployee)
         <div class="Popup Popup--Dark" data-name="UpdateEmployee">
             <div class="Popup__Content">
                 <div class="Popup__Card">
