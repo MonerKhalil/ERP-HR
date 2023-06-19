@@ -318,5 +318,9 @@
     "editContractInfo" : "تعديل معلومات العقد",
     "editCourse" : "تعديل معلومات الدورة",
     "baseSalary" : "الراتب المقطوع",
-    "managerName" : "المدير المباشر"
+    "managerName" : "المدير المباشر",
+    "workSettings" : "الوردية",
+    "User" : "المستخدم",
+    "Department" : "القسم",
+    "correspondences" : "المراسلات"
 }

@@ -37,13 +37,17 @@
                                                                         $EmployeesList = [] ;
                                                                                         foreach ($employees as $Employees) {
                                                                                             array_push($EmployeesList , [
-                                                                                                "Label" => $Employees["first_name"].$Employees["last_name"]
-                                                                                                , "Value" => $Employees["id"] ]) ;
+                                                                                                "Label" => $Employees["first_name"]." ".$Employees["last_name"]
+                                                                                                , "Value" => $Employees["id"],
+                                                                                                 "Name" => "employees[]"]);
                                                                                         }
                                                                     @endphp
-                                                                    @include("System.Components.selector" , ['Name' => "employees[]" , "Required" => "true" , "Label" => __('employeeName'),"DefaultValue" =>
-                                                                                 isset($conference)? $conference["employee_id"] : "",
-                                                                                "Options" => $EmployeesList,])
+                                                                    @include("System.Components.multiSelector" , [
+                                                                                        'Name' => "_" , "Required" => "true" ,
+                                                                                        "DefaultValue" => "" , "Label" => "الموظفين" ,
+                                                                                        "Options" => $EmployeesList ,
+                                                                                        "NameIDs" => "name"
+                                                                                    ])
                                                                 </div>
                                                             </div>
                                                         </div>
