@@ -453,7 +453,7 @@ $(document).ready(function (){
             $(FormInfo.FormElement).validate().destroy();
             $.validator.addMethod("RegexPassword"
                 , function (Value) {
-                    return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value);
+                    return /^([a-zA-Z0-9@*#$!%^&]{8,15})$/.test(Value);
                 },
                 LanguagePage === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
                     : "The password must contain from 8 to 15 characters");
