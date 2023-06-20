@@ -360,9 +360,41 @@
                             </li>
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
+                                    <a href="{{ route("system.overtimes_admin.create") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">ادراج عمل اضافي اداري</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
                                     <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
                                         <!-- User -->
-                                        <span class="Label">عرض الطلبات</span>
+                                        <span class="Label">عرض كافة الطلبات</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes.all.status" , "pending") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">عرض طلباتي المعلقة</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes.all.status" , "approve") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">عرض طلباتي المقبولة</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes.all.status" , "reject") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">عرض طلباتي المرفوضة</span>
                                     </a>
                                 </div>
                             </li>

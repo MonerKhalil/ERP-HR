@@ -5,7 +5,7 @@
         <div class="RequestOvertimeForm">
             <div class="RequestOvertimeForm__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => isset($overtime) ? "تعديل طلب العمل الاضافي" : "تسجيل طلب عمل اضافي" ,
+                    'mainTitle' => isset($overtime) ? "تعديل طلب العمل الاضافي" : ((isset($employees)) ? "ادراج عمل اضافي اداري" : "تسجيل طلب عمل اضافي" ) ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -38,6 +38,28 @@
                                                             </div>
                                                             <div class="ListData__Content">
                                                                 <div class="Row GapC-1-5">
+                                                                    @if(isset($employees))
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group">
+                                                                                <div class="Form__Select">
+                                                                                    <div class="Select__Area">
+                                                                                        @php
+                                                                                            $Employees = [] ;
+                                                                                            foreach ($employees as $Employee) {
+                                                                                                array_push($Employees , [ "Label" => $Employee["first_name"]." ".$Employee["last_name"]
+                                                                                                    , "Value" => $Employee["id"] ]) ;
+                                                                                            }
+                                                                                        @endphp
+                                                                                        @include("System.Components.selector" , [
+                                                                                            'Name' => "employee_id" , "Required" => "true" ,
+                                                                                            "DefaultValue" => "" , "Label" => "اسم الموظف" ,
+                                                                                            "Options" => $Employees
+                                                                                        ])
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endif
                                                                     <div class="Col-4-md Col-6-sm">
                                                                         <div class="Form__Group">
                                                                             <div class="Form__Select">

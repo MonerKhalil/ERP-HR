@@ -1,5 +1,10 @@
 @extends("System.Pages.globalPage")
 
+@php
+    $MyAccount = auth()->user() ;
+    $IsHavePermissionEditUser = ($MyAccount->can("update_overtimes") || $MyAccount->can("all_overtimes")) ;
+@endphp
+
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--SessionDetailsPage">
         <div class="SessionDetailsPage">
@@ -29,7 +34,7 @@
                                                         اسم الموظف الطالب
                                                     </span>
                                                     <span class="Data_Value">
-                                                        امير
+                                                        {{ $overtime->employee["first_name"]." ".$overtime->employee["last_name"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -39,7 +44,7 @@
                                                         نوع العمل الاضافي
                                                     </span>
                                                     <span class="Data_Value">
-                                                        اعياد
+                                                        {{ $overtime->overtime_type["name"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -49,7 +54,7 @@
                                                         تبدأ من تاريخ
                                                     </span>
                                                     <span class="Data_Value">
-                                                        10-5-2022
+                                                        {{ $overtime["from_date"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -59,56 +64,17 @@
                                                         تنتهي عند تاريخ
                                                     </span>
                                                     <span class="Data_Value">
-                                                        13-5-2022
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ListData NotResponsive">
-                                        <div class="ListData__Head">
-                                            <h4 class="ListData__Title">
-                                                اوقات العمل الاضافي
-                                            </h4>
-                                        </div>
-                                        <div class="ListData__Content">
-                                            <div class="ListData__Item ListData__Item--NoAction">
-                                                <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                         نوع مدة العمل الاضافي
-                                                    </span>
-                                                    <span class="Data_Value">
-                                                        يوم كامل
+                                                        {{ $overtime["to_date"] }}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        يبدأ العمل الاضافي
+                                                        حالة الطلب
                                                     </span>
                                                     <span class="Data_Value">
-                                                        في اي وقت
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="ListData__Item ListData__Item--NoAction">
-                                                <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        المدة الكاملة للعمل الاضافي
-                                                    </span>
-                                                    <span class="Data_Value">
-                                                        10-5-2022
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="ListData__Item ListData__Item--NoAction">
-                                                <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        الساعات التي سيتم من بعدها احتساب العمل الاضافي
-                                                    </span>
-                                                    <span class="Data_Value">
-                                                        3
+                                                        {{ $overtime["status"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -127,17 +93,17 @@
                                                         قيمة الزيادة بالساعة الواحدة
                                                     </span>
                                                     <span class="Data_Value">
-                                                        45
+                                                        {{ $overtime->overtime_type["salary_in_hours"] }}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        قيمة الضريبة للساعة الواحدة
+                                                        الحد الادنى لساعات قبول الاضافي
                                                     </span>
                                                     <span class="Data_Value">
-                                                        45
+                                                        {{ $overtime->overtime_type["min_hours_in_days"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -151,14 +117,28 @@
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
-                                                <a  href="#"
-                                                    class="Button Button--Primary">
-                                                    قبول الطلب
-                                                </a>
-                                                <a  href="#"
+                                                <a  href="{{ route("system.overtimes.edit.overtime" , $overtime["id"]) }}"
                                                     class="Button Button--Primary">
                                                     تعديل الطلب
                                                 </a>
+                                                @if($IsHavePermissionEditUser && $overtime["status"] == "pending")
+                                                    <form class="Form"
+                                                          action="{{ route("system.overtimes_admin.overtime.status.change" , [ "overtime"=> $overtime["id"] , "status"=> "approve"]) }}"
+                                                          style="display: inline-block" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="Button Button--Primary">
+                                                            قبول الطلب
+                                                        </button>
+                                                    </form>
+                                                    <form class="Form"
+                                                          action="{{ route("system.overtimes_admin.overtime.status.change" , [ "overtime"=> $overtime["id"] , "status"=> "reject"]) }}"
+                                                          style="display: inline-block" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="Button Button--Danger">
+                                                            رفض الطلب
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

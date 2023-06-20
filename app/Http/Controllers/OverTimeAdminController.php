@@ -67,7 +67,8 @@ class OverTimeAdminController extends Controller
         $status = Leave::status();
         $overtimes = OvertimeType::query()->pluck("name","id")->toArray();
         $data = MyApp::Classes()->Search->dataPaginate($this->MainQuery($request));
-        return $this->responseSuccess(self::NameBlade,compact("data","status","overtimes"));
+        return $this->responseSuccess(self::NameBlade ,
+            compact("data","status","overtimes"));
     }
 
     /**
@@ -111,9 +112,10 @@ class OverTimeAdminController extends Controller
      */
     public function create()
     {
-        $overtime_types = OvertimeType::query()->pluck("name","id")->toArray();
+        $overtimesType = OvertimeType::query()->pluck("name","id")->toArray();
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
-        return $this->responseSuccess("...",compact("employees","overtime_types"));
+        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeForm" ,
+            compact("employees","overtimesType"));
     }
 
     public function store(OverTimeAdminRequest $request,OverTimeCheckService $checkService){
