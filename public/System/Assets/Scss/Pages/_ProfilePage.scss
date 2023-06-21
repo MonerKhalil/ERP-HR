@@ -62,14 +62,6 @@
                 }
             }
 
-            &__Title {
-                color : $WhiteColor ;
-            }
-
-            &__Text {
-                color : $TextColor ;
-            }
-
             &__LastChange {
                 font-size: 1.2rem;
             }
@@ -197,4 +189,56 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .ProfilePage {
+
+        .ProfilePage {
+
+            &__PasswordChange ,
+            &__DeleteAccount {
+
+                .PasswordChange ,
+                .DeleteAccount {
+
+                    &__Title {
+                        color : #444 ;
+                    }
+
+                    &__Text {
+                        color : #444 ;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .ProfilePage {
+
+        &__PasswordChange ,
+        &__DeleteAccount {
+
+            .PasswordChange ,
+            .DeleteAccount {
+
+                &__Title {
+                    color : $WhiteColor ;
+                }
+
+                &__Text {
+                    color : $TextColor ;
+                }
+            }
+        }
+
+    }
+
 }

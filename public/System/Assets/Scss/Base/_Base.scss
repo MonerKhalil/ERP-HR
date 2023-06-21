@@ -13,7 +13,14 @@ html {
 
 body {
     box-sizing: border-box ;
-    background-color: $BodyColor;
+
+    &.Light {
+        background-color: $BodyColor-Light;
+    }
+
+    &.Dark {
+        background-color: $BodyColor;
+    }
 }
 
 ul {

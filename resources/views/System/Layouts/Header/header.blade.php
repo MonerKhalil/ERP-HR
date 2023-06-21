@@ -19,6 +19,9 @@
                 <div class="HeaderPage__AccountAlerts">
                     <div class="AccountAlerts">
                         <ul class="Alerts">
+                            <li class="Alert Alert--themeMode">
+                                <i class="material-icons IconClick">dark_mode</i>
+                            </li>
                             <li class="Alert Alert--Notification">
                                 <i class="material-icons IconClick">
                                     notifications

@@ -53,14 +53,8 @@
     font-size: 2rem;
     border-radius: 50%;
     padding: 0.6rem;
-    color : $WhiteColor ;
     cursor: pointer;
     transition: all .3s;
-
-    &:hover ,
-    &.Active {
-        background-color: rgba($BlackColor , .35);
-    }
 }
 
 .UserImage {
@@ -230,5 +224,31 @@
 
     .Right {
         text-align: left ;
+    }
+}
+
+@include Themes(Light) {
+
+    .IconClick {
+        color : $DarkGrayColor ;
+
+        &:hover ,
+        &.Active {
+            background-color: rgba($BlackColor , .35);
+        }
+
+    }
+}
+
+@include Themes(Dark) {
+
+    .IconClick {
+        color : $WhiteColor ;
+
+        &:hover ,
+        &.Active {
+            background-color: rgba($BlackColor , .35);
+        }
+
     }
 }

@@ -49,11 +49,6 @@
                 .Dropdown__Item {
                     padding: 1rem 1.5rem ;
                     white-space: nowrap;
-
-                    &:hover {
-                        background-color: lighten($BackGroundColor_Extra-4 , 10%);
-                        color : $WhiteColor ;
-                    }
                 }
 
                 &.Show {
@@ -273,4 +268,57 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .Table {
+
+        &__PrintMenu {
+
+            .PrintMenu {
+
+                &__Menu {
+
+                    .Dropdown__Item {
+                        background-color: #e4e4e4;
+                        color : $BlackColor ;
+
+                        &:hover {
+                            background-color: #bfc5c9;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .Table {
+
+        &__PrintMenu {
+
+            .PrintMenu {
+
+                &__Menu {
+
+                    .Dropdown__Item {
+
+                        &:hover {
+                            background-color: lighten($BackGroundColor_Extra-4 , 10%);
+                            color : $WhiteColor ;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
 }

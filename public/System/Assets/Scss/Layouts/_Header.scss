@@ -197,6 +197,7 @@
                                     font-size: 1.2rem;
                                     cursor: pointer;
                                     transition: color .3s;
+                                    color : $TextColor;
 
                                     &:hover {
                                         color : $TertiaryColor-Project ;
@@ -231,6 +232,10 @@
                                 &.Notification {
                                     padding: 1rem 1.5rem;
 
+                                    &:hover {
+                                        background-color: lighten($BackGroundColor , 3%);
+                                    }
+
                                     .Notification {
 
                                         &__Icon {
@@ -248,10 +253,12 @@
                                                 font-weight: 500;
                                                 margin-bottom: 0.5rem;
                                                 line-height: 1.4;
+                                                color : $WhiteColor_Extra-2;
                                             }
 
                                             .NotificationDescription {
                                                 font-size: 1.1rem ;
+                                                color : #b2b2b2 ;
                                             }
 
                                             .NotificationDate {
@@ -261,6 +268,7 @@
                                         }
 
                                         &__Remove {
+                                            color : #b2b2b2 ;
 
                                             i {
                                                 font-size: 1.4rem;
@@ -415,4 +423,39 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .HeaderPage {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
+
+}
+
+@include Themes(Dark) {
+
+    .HeaderPage {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
 }

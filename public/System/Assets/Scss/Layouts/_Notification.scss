@@ -50,7 +50,6 @@
             font-size: 1.6rem;
             font-weight: 600;
             line-height: 1.4;
-            color : $WhiteColor_Extra-2 ;
         }
 
         .NotificationDescription {
@@ -61,7 +60,6 @@
         .NotificationDate {
             font-size: 1.2rem;
             font-weight: 400;
-            color : $GrayColor ;
         }
     }
 
@@ -72,16 +70,71 @@
             font-size: 2rem;
             transition: color .3s;
         }
+    }
+
+}
+
+@include Themes(Light) {
+
+    .Notification {
+
+        &__Details {
+
+            .NotificationTitle {
+                color : #444 ;
+            }
+
+            .NotificationDate {
+                color : $GrayColor ;
+            }
+        }
+
+        &__Remove {
+
+            &:hover {
+
+                i {
+                    color : $TertiaryColor-Project
+                }
+            }
+        }
 
         &:hover {
+            background-color: darken($WhiteColor , 3%);
+        }
 
-            i {
-                color : $TertiaryColor-Project
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .Notification {
+
+        &__Details {
+
+            .NotificationTitle {
+                color : $WhiteColor_Extra-2 ;
             }
+
+            .NotificationDate {
+                color : $GrayColor ;
+            }
+        }
+
+        &__Remove {
+
+            &:hover {
+
+                i {
+                    color : $TertiaryColor-Project
+                }
+            }
+        }
+
+        &:hover {
+            background-color: lighten($BackGroundColor , 3%);
         }
     }
 
-    &:hover {
-        background-color: lighten($BackGroundColor , 3%);
-    }
 }
