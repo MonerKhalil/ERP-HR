@@ -337,3 +337,38 @@
         }
     }
 }
+
+@include Themes(Light) {
+
+    .NavigationsMenu {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
+
+}
+
+@include Themes(Dark) {
+
+    .NavigationsMenu {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
+}

@@ -7,13 +7,8 @@
     height: 100vh;
     z-index: $VeryTopLayer;
 
-    &--Page {
-        background-color: $BackGroundColor;
-    }
-
     &--Upload {
         display: none;
-        background-color: $BackGroundColor_Extra-2;
     }
 
     &__SvgCircle {
@@ -21,6 +16,38 @@
         display: inline-block;
         width: 10rem;
         height: 10rem;
+    }
+
+}
+
+@include Themes(Light) {
+
+    .Loader {
+
+        &--Page {
+            background-color: #757575;
+        }
+
+        &--Upload {
+            background-color: rgb(0,0,0,.76);
+        }
+
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .Loader {
+
+        &--Page {
+            background-color: $BackGroundColor;
+        }
+
+        &--Upload {
+            background-color: $BackGroundColor_Extra-2;
+        }
+
     }
 
 }

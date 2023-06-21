@@ -23,7 +23,6 @@
     &__WordChoose {
         display: none;
         font-size: 1.5rem;
-        color : $TextColor ;
     }
 
     &__Options {
@@ -156,4 +155,48 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .MultiSelector {
+
+        &__WordChoose {
+            color : #0e0e0e ;
+        }
+
+        &.Selected {
+
+            .MultiSelector {
+
+                &__WordLabel {
+                    background : linear-gradient(to bottom, #fff 44%, #F5F5F5 50%) ;
+                }
+            }
+        }
+
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .MultiSelector {
+
+        &__WordChoose {
+            color : $TextColor ;
+        }
+
+        &.Selected {
+
+            .MultiSelector {
+
+                &__WordLabel {
+                    background : $BackGroundColor ;
+                }
+            }
+        }
+
+    }
+
 }

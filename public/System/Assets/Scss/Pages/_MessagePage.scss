@@ -15,9 +15,7 @@
     &__Title {
         text-align: center;
         letter-spacing: 3px;
-        text-shadow: 2px 2px rgba($BlackColor , 0.35);
         margin-bottom: 2rem ;
-        color : $SecondaryColor-Project ;
 
         h2 {
             font-size: 3rem ;
@@ -47,6 +45,30 @@
                 max-height: 36rem;
                 height: 100% ;
             }
+        }
+    }
+
+}
+
+@include Themes(Light) {
+
+    .MessagePage {
+
+        &__Title {
+            text-shadow: 2px 2px rgba($BlackColor , 0.35);
+            color : $PrimaryColor-Project ;
+        }
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .MessagePage {
+
+        &__Title {
+            text-shadow: 2px 2px rgba($BlackColor , 0.35);
+            color : $SecondaryColor-Project ;
         }
     }
 

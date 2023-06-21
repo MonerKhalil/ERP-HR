@@ -3,7 +3,6 @@
     position: relative;
 
     &__Head {
-        background-color: #212a3f;
         padding: .5rem 1rem;
         border-radius: $BorderRadiusValue;
     }
@@ -11,7 +10,6 @@
     &__Title {
         text-transform: uppercase;
         font-weight: 800;
-        color: $TextColor;
     }
 
     &__Group {
@@ -24,7 +22,6 @@
         .Title {
             font-size: 1.8rem;
             font-weight: 600;
-            color: #e9e9e9;
         }
     }
 
@@ -64,22 +61,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color : $GrayColor;
         }
 
         &--Action {
             cursor: pointer;
-        }
-
-        &:hover {
-
-            .Data_Col {
-                color: $WhiteColor;
-            }
-        }
-
-        &:not(:last-child) {
-            border-bottom: 1px solid $SeparateBorderColor;
         }
     }
 
@@ -131,4 +116,86 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .ListData {
+
+        &__Head {
+            background-color: #ebeef2;
+        }
+
+        &__Title {
+            color: #8094ae;
+        }
+
+        &__GroupTitle {
+
+            .Title {
+                color: #801717;
+            }
+        }
+
+        &__Item {
+
+            &--Action ,
+            &--NoAction {
+                color : $DarkGrayColor;
+            }
+
+            &:hover {
+
+                .Data_Col {
+                    color: $BlackColor;
+                }
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $SeparateBorderColor;
+            }
+        }
+    }
+}
+
+@include Themes(Dark) {
+
+    .ListData {
+
+        &__Head {
+            background-color: #212a3f;
+        }
+
+        &__Title {
+            color: $TextColor;
+        }
+
+        &__GroupTitle {
+
+            .Title {
+                color: #e9e9e9;
+            }
+        }
+
+        &__Item {
+
+            &--Action ,
+            &--NoAction {
+                color : $GrayColor;
+            }
+
+            &:hover {
+
+                .Data_Col {
+                    color: $WhiteColor;
+                }
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $SeparateBorderColor;
+            }
+        }
+
+    }
+
 }
