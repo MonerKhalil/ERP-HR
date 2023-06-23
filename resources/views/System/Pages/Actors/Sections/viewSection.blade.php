@@ -5,9 +5,9 @@
         <div class="ViewSectionPage">
             <div class="ViewSectionPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض كافة الاقسام" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewAllSection") ,
+                    'paths' => [[__("home") , '#'] , [__("viewAllSection")]] ,
+                    'summery' => __("titleViewAllSection")
                 ])
             </div>
             <div class="ViewSectionPage__Content">
@@ -37,7 +37,7 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => "حذف الاقسام" ,
+                                                                    "Label" => __("removeSection") ,
                                                                      "Action" => route("system.sections.multi.delete") ,
                                                                      "Method" => "delete"
                                                                 ] ]
@@ -91,11 +91,11 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">اسم القسم</th>
-                                                                <th class="Item__Col">مدير القسم</th>
-                                                                <th class="Item__Col">مكان القسم</th>
-                                                                <th class="Item__Col">تاريخ انشاء القسم</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("sectionName")</th>
+                                                                <th class="Item__Col">@lang("managerSection")</th>
+                                                                <th class="Item__Col">@lang("locationSection")</th>
+                                                                <th class="Item__Col">@lang("createSectionDate")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $Index=>$Section)
                                                                 <tr class="Item DataItem">
@@ -128,13 +128,13 @@
                                                                                 <li>
                                                                                     <a href="{{route("system.sections.show" , $Section["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <a href="{{route("system.sections.edit" , $Section["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        تعديل معلومات القسم
+                                                                                        @lang("editTheSectionInfo")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -194,14 +194,14 @@
        'FilterForm' => [
 
            ['Type' => 'text' , 'Info' =>
-               ['Name' => "filter[name]" , 'Placeholder' => 'اسم القسم'] ] ,
+               ['Name' => "filter[name]" , 'Placeholder' => __("sectionName")] ] ,
 
            ['Type' => 'select' , 'Info' =>
-               ['Name' => "filter[moderator_id]" , 'Placeholder' => 'مدير القسم' ,
+               ['Name' => "filter[moderator_id]" , 'Placeholder' => __("managerSection") ,
                "Options" => $Employees] ] ,
 
            ['Type' => 'select' , 'Info' =>
-               ['Name' => "filter[address_id]" , 'Placeholder' => 'مكان القسم' ,
+               ['Name' => "filter[address_id]" , 'Placeholder' => __("locationSection") ,
                "Options" => $Countries] ] ,
 
        ]

@@ -118,16 +118,6 @@
     overflow: hidden;
 }
 
-.ReplaceOldBackGround {
-    background-color: #542426 ;
-    color : $WhiteColor ;
-}
-
-.ReplaceNewBackGround {
-    background-color: #1C4428;
-    color : $WhiteColor ;
-}
-
 .Visible-phonePortrait ,
 .Visible-phoneLandscape ,
 .Visible-tablet ,
@@ -238,6 +228,16 @@
         }
 
     }
+
+    .ReplaceNewBackGround {
+        background-color: #36794b;
+        color : $WhiteColor ;
+    }
+
+    .ReplaceOldBackGround {
+        background-color: #86191e ;
+        color : $WhiteColor ;
+    }
 }
 
 @include Themes(Dark) {
@@ -250,5 +250,15 @@
             background-color: rgba($BlackColor , .35);
         }
 
+    }
+
+    .ReplaceNewBackGround {
+        background-color: #1C4428;
+        color : $WhiteColor ;
+    }
+
+    .ReplaceOldBackGround {
+        background-color: #542426 ;
+        color : $WhiteColor ;
     }
 }

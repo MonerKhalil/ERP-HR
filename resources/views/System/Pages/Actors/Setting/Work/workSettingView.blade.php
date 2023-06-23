@@ -5,9 +5,9 @@
         <div class="SettingWorkViewPage">
             <div class="SettingWorkViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض انواع الدوام" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewAllWorkSetting") ,
+                    'paths' => [[__("home") , '#'] , [__("viewAllWorkSetting")]] ,
+                    'summery' => __("titleViewAllWorkSetting")
                 ])
             </div>
             <div class="SettingWorkViewPage__Content">
@@ -91,12 +91,12 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">اسم النوع</th>
-                                                                <th class="Item__Col">ايام الدوام</th>
-                                                                <th class="Item__Col">ساعات العمل</th>
-                                                                <th class="Item__Col">يبدأ الدوام من الساعة</th>
-                                                                <th class="Item__Col">ينتهي الدوام عند الساعة</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("nameType")</th>
+                                                                <th class="Item__Col">@lang("workSettingDays")</th>
+                                                                <th class="Item__Col">@lang("hoursWorkSetting")</th>
+                                                                <th class="Item__Col">@lang("workSettingStartDate")</th>
+                                                                <th class="Item__Col">@lang("workSettingEndDate")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $DataItem)
                                                                 <tr class="Item DataItem">
@@ -127,13 +127,13 @@
                                                                                 <li>
                                                                                     <a href="{{route("system.work_settings.show" , $DataItem["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <a href="{{route("system.work_settings.edit" , $DataItem["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        تعديل نوع
+                                                                                        @lang("editType")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -176,17 +176,17 @@
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [
             ['Type' => 'text' , 'Info' =>
-                ['Name' => "filter[name]" , 'Placeholder' => 'اسم النوع'] ] ,
+                ['Name' => "filter[name]" , 'Placeholder' => __("nameType")] ] ,
             ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[count_days_work_in_weeks]" , 'Placeholder' => 'ايام الدوام'] ] ,
+                ['Name' => "filter[count_days_work_in_weeks]" , 'Placeholder' => __("workSettingDays")] ] ,
             ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[count_hours_work_in_days]" , 'Placeholder' => 'ساعات العمل'] ] ,
+                ['Name' => "filter[count_hours_work_in_days]" , 'Placeholder' => __("hoursWorkSetting")] ] ,
             ['Type' => 'NormalTime' , 'Info' =>
-                ['Name' => "filter[work_hours_from]" , 'Placeholder' => 'يبدأ الدوام من الساعة'] ] ,
+                ['Name' => "filter[work_hours_from]" , 'Placeholder' => __("workSettingStartDate")] ] ,
             ['Type' => 'NormalTime' , 'Info' =>
-                ['Name' => "filter[work_hours_to]" , 'Placeholder' => 'ينتهي الدوام عند الساعة'] ] ,
+                ['Name' => "filter[work_hours_to]" , 'Placeholder' => __("workSettingEndDate")] ] ,
             ['Type' => 'NormalTime' , 'Info' =>
-                ['Name' => "filter[work_hours_to]" , 'Placeholder' => 'ينتهي الدوام عند الساعة'] ] ,
+                ['Name' => "filter[work_hours_to]" , 'Placeholder' => __("workSettingEndDate")] ] ,
         ]
     ])
 

@@ -5,9 +5,9 @@
         <div class="RequestOvertimeForm">
             <div class="RequestOvertimeForm__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => isset($overtime) ? "تعديل طلب العمل الاضافي" : ((isset($employees)) ? "ادراج عمل اضافي اداري" : "تسجيل طلب عمل اضافي" ) ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => isset($overtime) ? __("editOvertimeRequest") : ((isset($employees)) ? __("insertAdministrativeOvertime") : __("addOvertimeRequest") ) ,
+                    'paths' => [[__("home") , '#'] , ['Page']] ,
+                    'summery' => __("titleAddOvertimeRequest")
                 ])
             </div>
             <div class="RequestOvertimeForm__Content">
@@ -52,7 +52,7 @@
                                                                                         @endphp
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "employee_id" , "Required" => "true" ,
-                                                                                            "DefaultValue" => "" , "Label" => "اسم الموظف" ,
+                                                                                            "DefaultValue" => "" , "Label" => __("employeeName") ,
                                                                                             "Options" => $Employees
                                                                                         ])
                                                                                     </div>
@@ -74,7 +74,7 @@
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "overtime_type_id" , "Required" => "true" ,
                                                                                         "DefaultValue" => isset($overtime) ? $overtime["overtime_type_id"] : "" ,
-                                                                                        "Label" => "نوع العمل الاضافي" ,
+                                                                                        "Label" => __("overtimeType") ,
                                                                                         "Options" => $TypesOvertime
                                                                                     ])
                                                                                 </div>
@@ -89,9 +89,9 @@
                                                                                            TargetDateStartName="StartDateRequest"
                                                                                            type="date" name="from_date"
                                                                                            value="{{ isset($overtime) ? $overtime["from_date"] : "" }}"
-                                                                                           placeholder="تبدأ من تاريخ" required>
+                                                                                           placeholder="@lang("startDateFrom")" required>
                                                                                     <label class="Date__Label" for="FromStartDate">
-                                                                                        تبدأ من تاريخ
+                                                                                        @lang("startDateFrom")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -106,9 +106,9 @@
                                                                                            data-StartDateName="StartDateRequest"
                                                                                            value="{{ isset($overtime) ? $overtime["to_date"] : "" }}"
                                                                                            type="date" name="to_date"
-                                                                                           placeholder="تنتهي عند تاريخ">
+                                                                                           placeholder="@lang("endDateFrom")">
                                                                                     <label class="Date__Label" for="ToEndDate">
-                                                                                        تنتهي عند تاريخ
+                                                                                        @lang("endDateFrom")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -123,10 +123,10 @@
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "is_hourly" , "Required" => "true" ,
                                                                                         "DefaultValue" => isset($overtime) ? ($overtime["is_hourly"] ? "1" : "0") : "" ,
-                                                                                        "Label" => "تحديد ساعات للعمل الاضافي" ,
+                                                                                        "Label" => __("determineHourOvertime") ,
                                                                                         "Options" => [
-                                                                                            [ "Label" => "تعم" , "Value" => "1"] ,
-                                                                                            [ "Label" => "لا" , "Value" => "0"]
+                                                                                            [ "Label" => __("yes") , "Value" => "1"] ,
+                                                                                            [ "Label" => __("no") , "Value" => "0"]
                                                                                         ]
                                                                                     ])
                                                                                 </div>
@@ -142,12 +142,12 @@
                                                                                     <input id="OvertimeStartTime"
                                                                                            class="TimeNoDate Date__Field"
                                                                                            type="time" name="from_time"
-                                                                                           placeholder="تبدأ من الساعة"
+                                                                                           placeholder="@lang("vocationTimeStart")"
                                                                                            value="{{ isset($overtime) ? $overtime["from_time"] : "" }}"
                                                                                            required>
                                                                                     <label class="Date__Label"
                                                                                            for="OvertimeStartTime">
-                                                                                        تبدأ من الساعة
+                                                                                        @lang("vocationTimeStart")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -162,12 +162,12 @@
                                                                                     <input id="OvertimeEndTime"
                                                                                            class="TimeNoDate Date__Field"
                                                                                            type="time" name="to_time"
-                                                                                           placeholder="تنتهي عند الساعة"
+                                                                                           placeholder="@lang("vocationTimeEnd")"
                                                                                            value="{{ isset($overtime) ? $overtime["to_time"] : "" }}"
                                                                                            required>
                                                                                     <label class="Date__Label"
                                                                                            for="OvertimeEndTime">
-                                                                                        تنتهي عند الساعة
+                                                                                        @lang("vocationTimeEnd")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -179,10 +179,10 @@
                                                                                 <div class="Textarea__Area">
                                                                                         <textarea id="ReasonOverTime" class="Textarea__Field"
                                                                                                   name="description" rows="3"
-                                                                                                  placeholder="سبب الاجازة">{{ isset($overtime) ? ($overtime["description"] ?? "") : "" }}</textarea>
+                                                                                                  placeholder="@lang("reasonOvertime")">{{ isset($overtime) ? ($overtime["description"] ?? "") : "" }}</textarea>
                                                                                     <label class="Textarea__Label"
                                                                                            for="ReasonOverTime">
-                                                                                        سبب العمل الاضافي
+                                                                                        @lang("reasonOvertime")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -197,9 +197,9 @@
                                                                     <div class="Form__Button">
                                                                         <button class="Button Send" type="submit">
                                                                             @if(isset($overtime))
-                                                                                تعديل هذا النوع
+                                                                                @lang("editType")
                                                                             @else
-                                                                                اضافة نوع جديد
+                                                                                @lang("addNewType")
                                                                             @endif
                                                                         </button>
                                                                     </div>

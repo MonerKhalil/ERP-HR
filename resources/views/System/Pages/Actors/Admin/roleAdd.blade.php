@@ -26,8 +26,8 @@
             <div class="AddUserPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("roleSetting") ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Click Or Pull Permissions To New Roles"
+                    'paths' => [[__("home") , '#'] , [__("roleSetting")]] ,
+                    'summery' => __("titleRoleAdd")
                 ])
                 <div class="RollSettingPage__Content">
                     <div class="Container--MainContent">

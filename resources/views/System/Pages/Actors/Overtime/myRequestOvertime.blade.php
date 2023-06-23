@@ -5,9 +5,9 @@
         <div class="NewTypeViewPage">
             <div class="NewTypeViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' =>  "عرض طلباتي الـ ".$status ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' =>  __("viewMyOvertimeRequest").__($status) ,
+                    'paths' => [[__("home") , '#'] , [__("viewMyOvertimeRequest")]] ,
+                    'summery' => __("titleViewMyOvertimeRequest")
                 ])
             </div>
             <div class="NewTypeViewPage__Content">
@@ -70,14 +70,14 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">نوع العمل الاضافي</th>
-                                                                <th class="Item__Col">تبدأ من تاريخ</th>
-                                                                <th class="Item__Col">تنتهي عند تاريخ</th>
-                                                                <th class="Item__Col">هل هي ساعية</th>
-                                                                <th class="Item__Col">تبدأ من الساعة</th>
-                                                                <th class="Item__Col">تنتهي عند الساعة</th>
-                                                                <th class="Item__Col">الحالة</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("overtimeType")</th>
+                                                                <th class="Item__Col">@lang("startDateFrom")</th>
+                                                                <th class="Item__Col">@lang("endDateFrom")</th>
+                                                                <th class="Item__Col">@lang("isItHour")</th>
+                                                                <th class="Item__Col">@lang("vocationTimeStart")</th>
+                                                                <th class="Item__Col">@lang("vocationTimeEnd")</th>
+                                                                <th class="Item__Col">@lang("stateRequest")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $Index=>$RequestOvertime)
                                                                 <tr class="Item DataItem">
@@ -118,7 +118,7 @@
                                                                         {{ $RequestOvertime["to_time"] ?? "_" }}
                                                                     </td>
                                                                     <td class="Item__Col">
-                                                                        {{ $RequestOvertime["status"] }}
+                                                                        @lang($RequestOvertime["status"])
                                                                     </td>
                                                                     <td class="Item__Col MoreDropdown">
                                                                         <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
@@ -131,14 +131,14 @@
                                                                                 <li>
                                                                                     <a href="{{ route("system.overtimes.show.overtime" , $RequestOvertime["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                                 @if($RequestOvertime["status"] == "pending")
                                                                                     <li>
                                                                                         <a href="{{ route("system.overtimes.edit.overtime" , $RequestOvertime["id"]) }}"
                                                                                            class="Dropdown__Item">
-                                                                                            تعديل الطلب
+                                                                                            @lang("editRequest")
                                                                                         </a>
                                                                                     </li>
                                                                                 @endif
@@ -191,14 +191,14 @@
         $FilterItems = [] ;
 
         array_push($FilterItems , ['Type' => 'select' , 'Info' =>
-           ['Name' => "filter[overtime_type]" , 'Placeholder' => 'نوع العمل الاضافي' ,
+           ['Name' => "filter[overtime_type]" , 'Placeholder' => __("overtimeType") ,
            "Options" => $OvertimeTypes] ]) ;
 
         array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-           ['Name' => "filter[start_date_filter]" , 'Placeholder' => 'تبدأ من تاريخ'] ]);
+           ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("startDateFrom")] ]);
 
         array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-           ['Name' => "filter[end_date_filter]" , 'Placeholder' => 'تنتهي في تاريخ'] ]);
+           ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("endDateFrom")] ]);
 
     @endphp
 

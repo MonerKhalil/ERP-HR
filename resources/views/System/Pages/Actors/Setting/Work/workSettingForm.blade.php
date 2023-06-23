@@ -5,9 +5,9 @@
         <div class="SettingWorkFormPage">
             <div class="SettingWorkFormPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => isset($workSetting) ? "تعديل الدوام" : "اضافة دوام جديد" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => isset($workSetting) ? __("editWorkSetting") : __("addWorkSetting") ,
+                    'paths' => [[__("home") , '#'] , ['Page']] ,
+                    'summery' => __("titleAddWorkSetting")
                 ])
             </div>
             <div class="SettingWorkFormPage__Content">
@@ -35,7 +35,7 @@
                                                             <div class="ListData__Content">
                                                                 <div class="ListData__Head">
                                                                     <h4 class="ListData__Title">
-                                                                        معلومات النوع
+                                                                        @lang("basicWorkSettingInfo")
                                                                     </h4>
                                                                 </div>
                                                                 <div class="ListData__CustomItem">
@@ -49,9 +49,9 @@
                                                                                                @if(isset($workSetting))
                                                                                                     value="{{ $workSetting["name"] }}"
                                                                                                @endif
-                                                                                               placeholder="اسم النوع الجديد" required>
+                                                                                               placeholder="@lang("workSettingName")" required>
                                                                                         <label class="Input__Label" for="WorkSettingName">
-                                                                                            اسم النوع الجديد
+                                                                                            @lang("workSettingName")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -64,14 +64,14 @@
                                                                                         <input id="StartWorkFrom"
                                                                                                class="TimeNoDate Date__Field"
                                                                                                type="time" name="work_hours_from"
-                                                                                               placeholder="يبدأ الدوام من الساعة"
+                                                                                               placeholder="@lang("workSettingStartDate)"
                                                                                                @if(isset($workSetting))
-                                                                                                    value="{{ $workSetting["work_hours_from"] }}"
+                                                                                                    value="{{ $workSetting["work_hours_from"] ?? "" }}"
                                                                                                @endif
                                                                                                required>
                                                                                         <label class="Date__Label"
                                                                                                for="StartWorkFrom">
-                                                                                            يبدأ الدوام من الساعة
+                                                                                            @lang("workSettingStartDate")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -85,13 +85,13 @@
                                                                                                class="TimeNoDate Date__Field"
                                                                                                type="time" name="work_hours_to"
                                                                                                @if(isset($workSetting))
-                                                                                                    value="{{ $workSetting["work_hours_to"] }}"
+                                                                                                    value="{{ $workSetting["work_hours_to"] ?? "" }}"
                                                                                                @endif
-                                                                                               placeholder="ينتهي الدوام عند الساعة"
+                                                                                               placeholder="@lang("workSettingEndDate")"
                                                                                                required>
                                                                                         <label class="Date__Label"
                                                                                                for="EndWorkIn">
-                                                                                            ينتهي الدوام عند الساعة
+                                                                                            @lang("workSettingEndDate")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -127,7 +127,7 @@
                                                                                         @include("System.Components.multiSelector" , [
                                                                                             'Name' => "_" , "NameIDs" => "DaysID" ,
                                                                                             "Required" => "true" ,
-                                                                                            "Label" => "ايام العطل المرادة" ,
+                                                                                            "Label" => __("holidaysDayWant") ,
                                                                                             "Options" => $Days
                                                                                         ])
                                                                                     </div>
@@ -140,10 +140,11 @@
                                                                                     <div class="Textarea__Area">
                                                                                         <textarea id="Description" name="description"
                                                                                                   class="Textarea__Field"
-                                                                                                  placeholder="الوصف" rows="3">@if(isset($workSetting)){{ $workSetting["description"] ?? "" }}@endif</textarea>
+                                                                                                  placeholder="@lang("workSettingDescription")"
+                                                                                                  rows="3">@if(isset($workSetting)){{ $workSetting["description"] ?? "" }}@endif</textarea>
                                                                                         <label class="Textarea__Label"
                                                                                                for="Description">
-                                                                                            الوصف
+                                                                                            @lang("workSettingDescription")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -158,7 +159,9 @@
                                                                 <div class="Form__Group">
                                                                     <div class="Form__Button">
                                                                         <button class="Button Send"
-                                                                                type="submit">ضبط نوع الدوام</button>
+                                                                                type="submit">
+                                                                            @lang("AdjustWorkSettingType")
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>

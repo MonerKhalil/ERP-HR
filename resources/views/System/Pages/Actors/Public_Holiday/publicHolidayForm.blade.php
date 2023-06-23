@@ -1,17 +1,13 @@
 @extends("System.Pages.globalPage")
 
-{{--@php--}}
-{{--    dd($publicHoliday);--}}
-{{--@endphp--}}
-
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--PublicHolidayForm">
         <div class="PublicHolidayFormPage">
             <div class="PublicHolidayFormPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => isset($publicHoliday) ? "تعديل العطلة الرسمية" : "اضافة عطلة رسمية جديدة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => isset($publicHoliday) ? __("editPublicHoliday") : __("addNewPublicHoliday") ,
+                    'paths' => [[__("home") , '#'] , ['Page']] ,
+                    'summery' => __("titleAddNewPublicHoliday")
                 ])
             </div>
             <div class="PublicHolidayFormPage__Content">
@@ -34,7 +30,7 @@
                                                     <div class="ListData" >
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                معلومات العطلة الاساسية
+                                                                @lang("basicPublicHoliday")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -47,9 +43,9 @@
                                                                                     <input id="PublicHolidayName" class="Input__Field"
                                                                                            type="text" name="name"
                                                                                            value="{{ isset($publicHoliday) ? $publicHoliday["name"] : "" }}"
-                                                                                           placeholder="اسم العطلة الرسمية" required>
+                                                                                           placeholder="@lang("publicHolidayName")" required>
                                                                                     <label class="Input__Label" for="PublicHolidayName">
-                                                                                        اسم العطلة الرسمية
+                                                                                        @lang("publicHolidayName")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -63,9 +59,9 @@
                                                                                            TargetDateStartName="StartDatePublicHoliday"
                                                                                            value="{{isset($publicHoliday) ? $publicHoliday["start_date"] : ""}}"
                                                                                            type="date" name="start_date"
-                                                                                           placeholder="تبدأ من تاريخ" required>
+                                                                                           placeholder="@lang("startDateFrom")" required>
                                                                                     <label class="Date__Label" for="PublicHolidayDate_S">
-                                                                                        تبدأ من تاريخ
+                                                                                        @lang("startDateFrom")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -80,9 +76,9 @@
                                                                                            data-StartDateName="StartDatePublicHoliday"
                                                                                            value="{{isset($publicHoliday) ? $publicHoliday["end_date"] : ""}}"
                                                                                            type="date" name="end_date" required
-                                                                                           placeholder="تنتهي في تاريخ">
+                                                                                           placeholder="@lang("endDateFrom")">
                                                                                     <label class="Date__Label" for="PublicHolidayDate_E">
-                                                                                        تنتهي في تاريخ
+                                                                                        @lang("endDateFrom")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -99,9 +95,9 @@
                                                                     <button class="Button Send"
                                                                             type="submit">
                                                                         @if(isset($publicHoliday))
-                                                                                تعديل الاجازة
+                                                                                @lang("editPublicHolidayInfo")
                                                                             @else
-                                                                                اضافة عطلة جديد
+                                                                                @lang("addNewHoliday")
                                                                         @endif
                                                                     </button>
                                                                 </div>

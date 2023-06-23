@@ -48,9 +48,9 @@
         <div class="VacationRequestPage">
             <div class="VacationRequestPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => (isset($leave)) ? "تعديل اجازة" : "طلب اجازة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => (isset($leave)) ? __("editVocation") : __("requestVocation") ,
+                    'paths' => [[__("home") , '#'] , ['Page']] ,
+                    'summery' => __("titleVocationRequest")
                 ])
             </div>
             <div class="VacationRequestPage__Content">
@@ -91,7 +91,7 @@
                                                                                 @include("System.Components.selector" , [
                                                                                     'Name' => "leave_type_id" , "Required" => "true" ,
                                                                                     "DefaultValue" => isset($leave) ? $leave["leave_type_id"] : "" ,
-                                                                                    "Label" => "نوع الاجازة المرادة" ,
+                                                                                    "Label" => __("vocationTypeWant") ,
                                                                                     "Options" => $TypeVacations
                                                                                 ])
                                                                             </div>
@@ -107,7 +107,7 @@
                                                          data-TargetValue="{{join("," , $ListIDVacations)}}">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                ايام واوقات الاجازة المرادة
+                                                                @lang("vocationTimeAndDate")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -121,10 +121,10 @@
                                                                                        TargetDateStartName="StartDateVacation"
                                                                                        type="date" name="from_date"
                                                                                        value="{{ isset($leave) ? $leave["from_date"] : "" }}"
-                                                                                       placeholder="تاريخ بداية الاجازة"
+                                                                                       placeholder="@lang("vocationStartDate")"
                                                                                        required>
                                                                                 <label class="Date__Label" for="VacationFromDate">
-                                                                                    تاريخ بداية الاجازة
+                                                                                    @lang("vocationStartDate")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -142,7 +142,7 @@
                                                                                        placeholder="تاريخ نهاية الاجازة"
                                                                                        required>
                                                                                 <label class="Date__Label" for="VacationToDate">
-                                                                                    تاريخ نهاية الاجازة
+                                                                                    @lang("vocationEndDate")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -172,10 +172,10 @@
                                                                                 @include("System.Components.selector" , [
                                                                                     'Name' => "VacationNatural" , "Required" => "true" ,
                                                                                     "DefaultValue" => ($IsChecked) ? $ValueSelected : "" ,
-                                                                                    "Label" => "طبيعة الاجازة" ,
+                                                                                    "Label" => __("vocationType") ,
                                                                                     "Options" => [
-                                                                                        ["Label" => "كاملة" , "Value" => "0"] ,
-                                                                                        ["Label" => "جزئية" , "Value" => "1"]
+                                                                                        ["Label" => __("completed") , "Value" => "0"] ,
+                                                                                        ["Label" => __("part") , "Value" => "1"]
                                                                                     ]
                                                                                 ])
                                                                             </div>
@@ -191,14 +191,14 @@
                                                                                 <input id="VacationStartTime"
                                                                                        class="TimeNoDate Date__Field"
                                                                                        type="time" name="can_from_hour"
-                                                                                       placeholder="تبدأ من الساعة"
+                                                                                       placeholder="@lang("vocationTimeStart")"
                                                                                        @if(isset($leave) && $IsOpen && isset($leave["from_time"]))
                                                                                             value="{{ $leave["from_time"] }}"
                                                                                        @endif
                                                                                        required>
                                                                                 <label class="Date__Label"
                                                                                        for="VacationStartTime">
-                                                                                    تبدأ من الساعة
+                                                                                    @lang("vocationTimeStart")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -213,14 +213,14 @@
                                                                                 <input id="VacationEndTime"
                                                                                        class="TimeNoDate Date__Field"
                                                                                        type="time" name="can_to_hour"
-                                                                                       placeholder="تنتهي عند الساعة"
+                                                                                       placeholder="@lang("vocationTimeEnd")"
                                                                                        @if(isset($leave) && $IsOpen && isset($leave["to_time"]))
                                                                                             value="{{ $leave["to_time"] }}"
                                                                                        @endif
                                                                                        required>
                                                                                 <label class="Date__Label"
                                                                                        for="VacationEndTime">
-                                                                                    تنتهي عند الساعة
+                                                                                    @lang("vocationTimeEnd")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -239,11 +239,11 @@
                                                                                        @if(isset($leave) && $IsHour && isset($leave["from_time"]))
                                                                                             value="{{ $leave["from_time"] }}"
                                                                                        @endif
-                                                                                       placeholder="تبدأ من الساعة"
+                                                                                       placeholder="@lang("vocationTimeStart")"
                                                                                        required>
                                                                                 <label class="Date__Label"
                                                                                        for="VacationStartTime">
-                                                                                    تبدأ من الساعة
+                                                                                    @lang("vocationTimeStart")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -258,14 +258,14 @@
                                                                                 <input id="VacationEndTime"
                                                                                        class="TimeNoDate Date__Field"
                                                                                        type="time" name="to_hour"
-                                                                                       placeholder="تنتهي عند الساعة"
+                                                                                       placeholder="@lang("vocationTimeEnd")"
                                                                                        @if(isset($leave) && $IsHour && isset($leave["to_time"]))
                                                                                             value="{{ $leave["to_time"] }}"
                                                                                        @endif
                                                                                        required>
                                                                                 <label class="Date__Label"
                                                                                        for="VacationEndTime">
-                                                                                    تنتهي عند الساعة
+                                                                                    @lang("vocationTimeEnd")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -279,9 +279,9 @@
                                                                                 <input id="ReasonVacation" class="Input__Field"
                                                                                        type="text" name="description"
                                                                                        value="{{ isset($leave) ? ($leave["description"] ?? "") : "" }}"
-                                                                                       placeholder="سبب الاجازة">
+                                                                                       placeholder="@lang("vocationReason")">
                                                                                 <label class="Input__Label" for="ReasonVacation">
-                                                                                    سبب الاجازة
+                                                                                    @lang("vocationReason")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -296,9 +296,9 @@
                                                                 <div class="Form__Button">
                                                                     <button class="Button Send" type="submit">
                                                                         @if(isset($leave))
-                                                                            تعديل اجازة
+                                                                            @lang("editVocation")
                                                                         @else
-                                                                            طلب اجازة
+                                                                            @lang("requestVocation")
                                                                         @endif
                                                                     </button>
                                                                 </div>
