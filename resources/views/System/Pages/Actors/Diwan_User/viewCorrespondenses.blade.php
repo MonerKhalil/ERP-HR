@@ -133,12 +133,12 @@
                                                                                         @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
-{{--                                                                                <li>--}}
-{{--                                                                                    <a href="{{route("correspondence.edit" , $correspondence["id"])}}"--}}
-{{--                                                                                       class="Dropdown__Item">--}}
-{{--                                                                                        @lang("editcorrespondenceInfo")--}}
-{{--                                                                                    </a>--}}
-{{--                                                                                </li>--}}
+                                                                                <li>
+                                                                                    <a href="{{route("correspondences.edit" , $correspondence["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("editcorrespondenceInfo")
+                                                                                    </a>
+                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>

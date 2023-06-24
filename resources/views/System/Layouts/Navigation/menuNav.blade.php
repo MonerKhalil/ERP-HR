@@ -488,6 +488,13 @@
                                     </a>
                                 </div>
                             </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{route("correspondences_dest.create")}}" class="NavName">
+                                        <span class="Label">إضافة وجهة</span>
+                                    </a>
+                                </div>
+                            </li>
                         </ul>
                     </li>
                     <li class="NavigationsGroup__NavItem">

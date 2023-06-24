@@ -184,16 +184,16 @@
     </section>
 @endsection
 
-{{--@section("PopupPage")--}}
-{{--    @include("System.Components.searchForm" , [--}}
-{{--        'InfoForm' => ["Route" => "" , "Method" => "get"] ,--}}
-{{--        'FilterForm' => [ ['Type' => 'text' , 'Info' =>--}}
-{{--                ['Name' => "filter[name]" , 'Placeholder' => __("roleName")]] , ['Type' => 'number' , 'Info' =>--}}
-{{--                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]--}}
-{{--                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,--}}
-{{--                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"--}}
-{{--                ]--}}
-{{--            ] ]--}}
-{{--    ])--}}
-{{--    @include("System.Components.fileOptions")--}}
-{{--@endsection--}}
+@section("PopupPage")
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [ ['Type' => 'text' , 'Info' =>
+                ['Name' => "filter[first_name]" , 'Placeholder' => __("اسم الموظف")]] , ['Type' => 'number' , 'Info' =>
+                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]
+                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
+                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
+                ]
+            ] ]
+    ])
+    @include("System.Components.fileOptions")
+@endsection

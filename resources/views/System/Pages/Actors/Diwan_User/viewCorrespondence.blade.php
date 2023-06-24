@@ -100,16 +100,8 @@
                                                                 <div class="Col">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Textarea">
-                                                                            <div class="Textarea__Area">
-                                                                                <div class="trumbowyg-dark">
-                                                                            <textarea id="CorrespondenceSubjectEditor"
-                                                                                      class="TextEditor Textarea__Field"
-                                                                                      placeholder="Your text as placeholder"
-                                                                                      name="subject"
-                                                                                      value = $correspondence-> subject
-                                                                                      required></textarea>
-                                                                                </div>
-                                                                            </div>
+                                                                            <span
+                                                                                class="Data_Value">{{$correspondence->subject}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
