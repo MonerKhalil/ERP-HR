@@ -238,140 +238,6 @@
                         <div class="Title">
                             <div class="NavName">
                                 <i class="material-icons Icon">
-                                    emoji_food_beverage
-                                </i>
-                                <span class="Label">الاجازات</span>
-                            </div>
-                            <span class="material-icons ArrowRight">
-                                play_arrow
-                            </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves.all.status" , "pending") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">اجازاتي المعلقة</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves.all.status" , "approve") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">اجازاتي المقبولة</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves.all.status" , "reject") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">اجازاتي المرفوضة</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves.show.leavesType") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">عرض اجازاتي المتاحة</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves_admin.index") }}" class="NavName">
-                                        <!-- Admin -->
-                                        <span class="Label">عرض طلبات الاجازة</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <!-- User -->
-                                    <a href="{{ route("system.leaves_admin.create") }}" class="NavName">
-                                        <span class="Label">ادراج اجازة ادارية</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <!-- User -->
-                                    <a href="{{ route("system.leaves.create.request") }}" class="NavName">
-                                        <span class="Label">طلب اجازة</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <!-- Admin -->
-                                    <a href="{{ route("system.leave_types.index") }}" class="NavName">
-                                        <span class="Label">انواع الاجازات</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <!-- User -->
-                                    <a href="{{ route("system.leave_types.create") }}" class="NavName">
-                                        <span class="Label">اضافة نوع جديد</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    more_time
-                                </i>
-                                <span class="Label">العمل الاضافي</span>
-                            </div>
-                            <span class="material-icons ArrowRight">
-                                play_arrow
-                            </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtime_types.create") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">اضافة نوع جديد</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtime_types.index") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">عرض جميع الانواع</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtimes.create.request") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">اضافة طلب</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">عرض الطلبات</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
                                     edit_note
                                 </i>
                                 <span class="Label">التقييمات</span>
@@ -405,7 +271,7 @@
                                 <i class="material-icons Icon">
                                     meeting_room
                                 </i>
-                                <span class="Label">الاقسام</span>
+                                <span class="Label">@lang("departments")</span>
                             </div>
                             <span class="material-icons ArrowRight">
                                 play_arrow
@@ -417,13 +283,13 @@
                                     <a href="{{ route("system.sections.create") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            اضافة قسم جديد
+                                            @lang("addNewSection")
                                         </span>
                                     </a>
                                     <a href="{{ route("system.sections.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            عرض جميع الاقسام
+                                            @lang("viewAllDepartments")
                                         </span>
                                     </a>
                                 </div>
@@ -436,7 +302,7 @@
                                 <i class="material-icons Icon">
                                     weekend
                                 </i>
-                                <span class="Label">العطل الرسمية</span>
+                                <span class="Label">@lang("publicHoliday")</span>
                             </div>
                             <span class="material-icons ArrowRight">
                                 play_arrow
@@ -448,13 +314,13 @@
                                     <a href="{{ route("system.public_holidays.create") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            اضافة عطلة جديدة
+                                            @lang("addNewHoliday")
                                         </span>
                                     </a>
                                     <a href="{{ route("system.public_holidays.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            عرض كل العطل
+                                            @lang("viewAllHoliday")
                                         </span>
                                     </a>
                                 </div>
@@ -497,6 +363,295 @@
                             </li>
                         </ul>
                     </li>
+                </ul>
+                <ul class="NavigationsMenu__NavigationsGroup">
+                    <li class="NavigationsGroup__Title">
+                        <span class="Title">@lang("vocations")</span>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    emoji_food_beverage
+                                </i>
+                                <span class="Label">
+                                    @lang("operation")
+                                </span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves_admin.index") }}" class="NavName">
+                                        <!-- Admin -->
+                                        <span class="Label">
+                                            @lang("viewVocationsRequest")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="{{ route("system.leaves_admin.create") }}" class="NavName">
+                                        <span class="Label">
+                                            @lang("insertAdministrativeVacation")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="{{ route("system.leaves.create.request") }}" class="NavName">
+                                        <span class="Label">
+                                            @lang("requestVocation")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    emoji_food_beverage
+                                </i>
+                                <span class="Label">
+                                    @lang("aboutVocation")
+                                </span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves.all.status" , "pending") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("vocationsPending")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves.all.status" , "approve") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("vocationsAccept")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves.all.status" , "reject") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("vocationsReject")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves.show.leavesType") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">@lang("viewVacationAvailable")</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    emoji_food_beverage
+                                </i>
+                                <span class="Label">
+                                    @lang("vocationsType")
+                                </span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- Admin -->
+                                    <a href="{{ route("system.leave_types.index") }}" class="NavName">
+                                        <span class="Label">
+                                            @lang("viewVocationsType")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <!-- User -->
+                                    <a href="{{ route("system.leave_types.create") }}" class="NavName">
+                                        <span class="Label">
+                                            @lang("addNewType")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="NavigationsMenu__NavigationsGroup">
+                    <li class="NavigationsGroup__Title">
+                        <span class="Title">
+                            @lang("overtime")
+                        </span>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    more_time
+                                </i>
+                                <span class="Label">
+                                    @lang("operation")
+                                </span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes.create.request") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("addRequest")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
+                                        <!-- Admin -->
+                                        <span class="Label">
+                                            @lang("viewAllRequest")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes_admin.create") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("insertAdministrativeOvertime")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    more_time
+                                </i>
+                                <span class="Label">
+                                    @lang("viewOvertimeType")
+                                </span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtime_types.create") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("addNewType")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtime_types.index") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("viewAllTypes")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    more_time
+                                </i>
+                                <span class="Label">
+                                    @lang("aboutMyOvertime")
+                                </span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes.all.status" , "pending") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("viewMyRequestPending")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes.all.status" , "approve") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("viewMyRequestAccept")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.overtimes.all.status" , "reject") }}" class="NavName">
+                                        <!-- User -->
+                                        <span class="Label">
+                                            @lang("viewMyRequestReject")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="NavigationsMenu__NavigationsGroup">
+                    <li class="NavigationsGroup__Title">
+                        <span class="Title">
+                            @lang("report")
+                        </span>
+                    </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
                             <a href="{{route("system.employees.report")}}" class="NavName">
@@ -504,7 +659,7 @@
                                     description
                                 </i>
                                 <span class="Label">
-                                    التقارير
+                                    @lang("employeesReport")
                                 </span>
                             </a>
                         </div>
@@ -512,7 +667,9 @@
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
-                        <span class="Title">الاعدادات</span>
+                        <span class="Title">
+                            @lang("setting")
+                        </span>
                     </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
@@ -521,7 +678,7 @@
                                     widgets
                                 </i>
                                 <span class="Label">
-                                    اعدادات الشركة
+                                    @lang("companySetting")
                                 </span>
                             </a>
                         </div>
@@ -532,7 +689,9 @@
                                 <i class="material-icons Icon">
                                     room_preferences
                                 </i>
-                                <span class="Label">اعدادات الدوام</span>
+                                <span class="Label">
+                                    @lang("workSetting")
+                                </span>
                             </div>
                             <span class="material-icons ArrowRight">
                                 play_arrow
@@ -545,14 +704,14 @@
                                        class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            اضافة نوع دوام جديد
+                                            @lang("addNewWorkSetting")
                                         </span>
                                     </a>
                                     <a href="{{ route("system.work_settings.index") }}"
                                        class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            عرض انواع الدوام
+                                            @lang("viewAllWorkSetting")
                                         </span>
                                     </a>
                                 </div>

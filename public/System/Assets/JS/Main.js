@@ -68,6 +68,51 @@ $(document).ready(function (){
     });
 
     /*===========================================
+	=           Theme Page       =
+    =============================================*/
+    const ThemeMode = Header.find(".Alerts .Alert--themeMode i").get(0);
+
+    const ThemeSaved = GetCookiesValues({
+        CookiesKey : "ThemePage"
+    });
+
+    if(ThemeSaved === "Dark") {
+        SetTheme("Dark");
+    } else if(ThemeSaved === "Light") {
+        SetTheme("Light");
+    }
+
+    $(ThemeMode).click(() => {
+        const BodyElement = $("body").get(0);
+        if($(BodyElement).hasClass("Light")) {
+            SetTheme("Dark");
+        } else {
+            SetTheme("Light");
+        }
+    })
+
+    function SetTheme(ThemeOption = String) {
+        const BodyElement = $("body").get(0);
+        if(ThemeOption === "Light") {
+            $(BodyElement).removeClass("Dark");
+            $(BodyElement).addClass("Light");
+            $(ThemeMode).text("dark_mode");
+            SetCookiesValues({
+                CookiesKey : "ThemePage" ,
+                CookiesValue : "Light"
+            });
+        } else if(ThemeOption === "Dark") {
+            $(BodyElement).removeClass("Light");
+            $(BodyElement).addClass("Dark");
+            $(ThemeMode).text("light_mode");
+            SetCookiesValues({
+                CookiesKey : "ThemePage" ,
+                CookiesValue : "Dark"
+            });
+        }
+    }
+
+    /*===========================================
 	=           Navigations Menu       =
     =============================================*/
 
@@ -453,7 +498,7 @@ $(document).ready(function (){
             $(FormInfo.FormElement).validate().destroy();
             $.validator.addMethod("RegexPassword"
                 , function (Value) {
-                    return /^([a-zA-Z0-9@*#]{8,15})$/.test(Value);
+                    return /^([a-zA-Z0-9@*#$!%^&]{8,15})$/.test(Value);
                 },
                 LanguagePage === "ar" ? "يجب ان تكون كلمة السر تحتوي من 8 الى 15 رمز"
                     : "The password must contain from 8 to 15 characters");
@@ -2501,19 +2546,30 @@ $(document).ready(function (){
 
     });
 
-});
-
-window.onload = function (){
-
     /*===========================================
-	=           Loader Page       =
+    =           Loader Page       =
     =============================================*/
     $(".Loader--Page").ready(function () {
-        $(this).find(".Loader--Page").remove();
+        setTimeout(() => {
+            $(this).find(".Loader--Page").remove();
+        } , 500)
     });
 
     GetFullParams() ;
-}
+
+});
+
+// window.onload = function (){
+//
+//     /*===========================================
+// 	=           Loader Page       =
+//     =============================================*/
+//     $(".Loader--Page").ready(function () {
+//         $(this).find(".Loader--Page").remove();
+//     });
+//
+//     GetFullParams() ;
+// }
 
 
 /*===========================================
@@ -2544,6 +2600,23 @@ function IsValueContentInArray(ArrayList = Array , Value) {
         if(ArrayList[i] === Value)
             return true ;
     return false ;
+}
+
+function GetCookiesValues(CookiesInfo = {
+    CookiesKey : String
+}) {
+    const ValueResult = localStorage.getItem(CookiesInfo.CookiesKey);
+    if(ValueResult)
+        return ValueResult ;
+    return undefined ;
+}
+
+function SetCookiesValues(CookiesInfo = {
+    CookiesKey : String ,
+    CookiesValue : String
+}) {
+    localStorage.setItem(CookiesInfo.CookiesKey
+        , CookiesInfo.CookiesValue);
 }
 
 /*===========================================

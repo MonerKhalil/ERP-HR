@@ -6,8 +6,8 @@
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewRoles") ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'paths' => [[__("home") , '#'] , [__("viewRoles")]] ,
+                    'summery' => __("titleViewRoles")
                 ])
             </div>
             <div class="ViewUsers__Content">

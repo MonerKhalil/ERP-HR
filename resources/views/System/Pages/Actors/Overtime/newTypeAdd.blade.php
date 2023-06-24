@@ -5,9 +5,9 @@
         <div class="NewTypeOvertimeForm">
             <div class="NewTypeOvertimeForm__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => isset($overtimeType) ? "تعديل نوع الوقت الاضافي" : "تسجيل نوع عمل اضافي جديد" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => isset($overtimeType) ? __("editOvertimeTypePage") : __("addNewOvertimeType") ,
+                    'paths' => [[__("home") , '#'] , ['Page']] ,
+                    'summery' => __("titleAddNewOvertimeType")
                 ])
             </div>
             <div class="NewTypeOvertimeForm__Content">
@@ -29,7 +29,7 @@
                                                     <div class="ListData" >
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                معلومات العمل الاضافي الاساسية
+                                                                @lang("basicOvertimeInfo")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -42,9 +42,9 @@
                                                                                     <input id="OverTimeName" class="Input__Field"
                                                                                            type="text" name="name"
                                                                                            value="{{ isset($overtimeType) ? $overtimeType["name"] : "" }}"
-                                                                                           placeholder="اسم النوع">
+                                                                                           placeholder="@lang("nameType")">
                                                                                     <label class="Input__Label" for="OverTimeName">
-                                                                                        اسم النوع
+                                                                                        @lang("nameType")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -59,10 +59,10 @@
                                                                                            type="number" name="max_rate_salary"
                                                                                            value="{{ isset($overtimeType) ? $overtimeType["max_rate_salary"] : "" }}"
                                                                                            min="1" max="100"
-                                                                                           placeholder="نسبة سقف الراتب المزاد">
+                                                                                           placeholder="@lang("rateMaxSalaryExtra")">
                                                                                     <label class="Input__Label"
                                                                                            for="OverTimeMaxSalary">
-                                                                                        نسبة سقف الراتب المزاد
+                                                                                        @lang("rateMaxSalaryExtra")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -77,10 +77,10 @@
                                                                                            type="number" name="min_hours_in_days"
                                                                                            value="{{ isset($overtimeType) ? $overtimeType["min_hours_in_days"] : "" }}"
                                                                                            min="1" max="24"
-                                                                                           placeholder="الحد الادنى لساعات قبول الاضافي">
+                                                                                           placeholder="@lang("minimumHourForAcceptOvertime")">
                                                                                     <label class="Input__Label"
                                                                                            for="OverTimeMinHour">
-                                                                                        الحد الادنى لساعات قبول الاضافي
+                                                                                        @lang("minimumHourForAcceptOvertime")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -94,10 +94,10 @@
                                                                                            class="Input__Field" min="1"
                                                                                            type="number" name="salary_in_hours"
                                                                                            value="{{ isset($overtimeType) ? $overtimeType["salary_in_hours"] : "" }}"
-                                                                                           placeholder="اجار الساعة الواحدة">
+                                                                                           placeholder="@lang("amountSalaryInHour")">
                                                                                     <label class="Input__Label"
                                                                                            for="OverTimeHourSalary">
-                                                                                        اجار الساعة الواحدة
+                                                                                        @lang("amountSalaryInHour")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -114,9 +114,9 @@
                                                                     <button class="Button Send"
                                                                             type="submit">
                                                                         @if(isset($overtimeType))
-                                                                            تعديل النوع
+                                                                            @lang("editType")
                                                                         @else
-                                                                            اضافة نوع جديد
+                                                                            @lang("addNewType")
                                                                         @endif
                                                                     </button>
                                                                 </div>

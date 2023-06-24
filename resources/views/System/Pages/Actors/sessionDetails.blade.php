@@ -5,9 +5,9 @@
         <div class="SessionDetailsPage">
             <div class="SessionDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل الجلسة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("sessionDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("sessionDetails")]] ,
+                    'summery' => __("titleSessionDetails")
                 ])
             </div>
             <div class="SessionDetailsPage__Content">
@@ -26,7 +26,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم الجلسة
+                                                        @lang("sessionName")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$sessionDecision["name"]}}
@@ -36,7 +36,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ الجلسة
+                                                        @lang("sessionDate")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$sessionDecision["date_session"]}}
@@ -46,7 +46,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الهدف من الجلسة
+                                                        @lang("sessionDirection")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$sessionDecision["description"]}}
@@ -56,7 +56,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        رئيس الجلسة
+                                                        @lang("sessionModerator")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$sessionDecision->moderator["first_name"].$sessionDecision->
@@ -67,7 +67,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اعضاء الجلسة
+                                                        @lang("sessionMember")
                                                     </span>
                                                     <span class="Data_Value">
                                                         @foreach($sessionDecision->members as $Members)
@@ -79,7 +79,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ الاضافة على النظام
+                                                        @lang("createSessionDate")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$sessionDecision["created_at"]}}
@@ -89,7 +89,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ لتعديل على النظام
+                                                        @lang("updateSessionDate")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$sessionDecision["updated_at"]}}
@@ -101,18 +101,18 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على الجلسة
+                                                @lang("operationsOnSession")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
                                                 <a  href="{{route("system.decisions.session_decisions.show" , $sessionDecision["id"])}}"
                                                     class="Button Button--Primary">
-                                                    عرض القرارات
+                                                    @lang("viewDecision")
                                                 </a>
                                                 <a  href="{{route("system.session_decisions.edit" , $sessionDecision["id"])}}"
                                                     class="Button Button--Primary">
-                                                    تعديل الجلسة
+                                                    @lang("editSessionInfo")
                                                 </a>
                                             </div>
                                         </div>

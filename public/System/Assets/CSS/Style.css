@@ -55,6 +55,12 @@ html {
 
 body {
   box-sizing: border-box;
+  transition: background-color 0.3s;
+}
+body.Light {
+  background-color: #ECF0F4;
+}
+body.Dark {
   background-color: #242C3F;
 }
 
@@ -156,12 +162,8 @@ img {
   font-size: 2rem;
   border-radius: 50%;
   padding: 0.6rem;
-  color: #fff;
   cursor: pointer;
   transition: all 0.3s;
-}
-.IconClick:hover, .IconClick.Active {
-  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .UserImage {
@@ -217,16 +219,6 @@ img {
 
 .Overflow-Hidden {
   overflow: hidden;
-}
-
-.ReplaceOldBackGround {
-  background-color: #542426;
-  color: #fff;
-}
-
-.ReplaceNewBackGround {
-  background-color: #1C4428;
-  color: #fff;
 }
 
 .Visible-phonePortrait,
@@ -318,6 +310,36 @@ html[lang=ar] .Right {
   text-align: left;
 }
 
+body.Light .IconClick {
+  color: #52595f;
+}
+body.Light .IconClick:hover, body.Light .IconClick.Active {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+body.Light .ReplaceNewBackGround {
+  background-color: #36794b;
+  color: #fff;
+}
+body.Light .ReplaceOldBackGround {
+  background-color: #86191e;
+  color: #fff;
+}
+
+body.Dark .IconClick {
+  color: #fff;
+}
+body.Dark .IconClick:hover, body.Dark .IconClick.Active {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+body.Dark .ReplaceNewBackGround {
+  background-color: #1C4428;
+  color: #fff;
+}
+body.Dark .ReplaceOldBackGround {
+  background-color: #542426;
+  color: #fff;
+}
+
 @media only screen and (max-width: 74.99em) {
   html {
     font-size: 62.5%;
@@ -351,10 +373,15 @@ html[lang=ar] .Right {
 
 body {
   font-family: Roboto, sans-serif;
-  color: #b2b2b2;
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.5;
+}
+body.Light {
+  color: #000;
+}
+body.Dark {
+  color: #b2b2b2;
 }
 
 a {
@@ -436,7 +463,6 @@ p {
 .Form__FieldReadOnly .Textarea__Area,
 .Form__FieldReadOnly .FieldReadOnly__Area {
   position: relative;
-  border: 1px solid #96A2B4;
   border-radius: 5px;
 }
 .Form__Input .Date__Area.Error,
@@ -657,7 +683,6 @@ p {
   border: none;
   padding: 1.05rem 2rem;
   border-radius: 4px;
-  color: #96A2B4;
   visibility: hidden;
   opacity: 0;
   word-break: break-all;
@@ -693,18 +718,6 @@ p {
   list-style: initial;
   color: #f93542;
 }
-.Form__Button .Send {
-  background-color: #3F51B5;
-  color: #fff;
-}
-.Form__Button .Cancel {
-  background-color: #f93542;
-  color: #fff;
-}
-.Form__Button .Clear {
-  background-color: #10C093;
-  color: #fff;
-}
 .Form__FieldReadOnly .FieldReadOnly__Label {
   top: 0;
   left: 1.5rem;
@@ -726,130 +739,8 @@ p {
   cursor: pointer;
   transition: color 0.3s;
 }
-.Form__FieldReadOnly .FieldReadOnly__Close:hover {
-  color: #10C093;
-}
 .Form__Tips {
-  color: #86c1e7;
   font-weight: 300;
-}
-.Form--Dark .Form__Input .Input__Field,
-.Form--Dark .Form__Input .Date__Field,
-.Form--Dark .Form__Input .Search__Field,
-.Form--Dark .Form__Input .UploadFile__Field,
-.Form--Dark .Form__Input .FieldReadOnly__Field,
-.Form--Dark .Form__Input .Textarea__Field, .Form--Dark .Form__Date .Input__Field,
-.Form--Dark .Form__Date .Date__Field,
-.Form--Dark .Form__Date .Search__Field,
-.Form--Dark .Form__Date .UploadFile__Field,
-.Form--Dark .Form__Date .FieldReadOnly__Field,
-.Form--Dark .Form__Date .Textarea__Field, .Form--Dark .Form__Search .Input__Field,
-.Form--Dark .Form__Search .Date__Field,
-.Form--Dark .Form__Search .Search__Field,
-.Form--Dark .Form__Search .UploadFile__Field,
-.Form--Dark .Form__Search .FieldReadOnly__Field,
-.Form--Dark .Form__Search .Textarea__Field, .Form--Dark .Form__UploadFile .Input__Field,
-.Form--Dark .Form__UploadFile .Date__Field,
-.Form--Dark .Form__UploadFile .Search__Field,
-.Form--Dark .Form__UploadFile .UploadFile__Field,
-.Form--Dark .Form__UploadFile .FieldReadOnly__Field,
-.Form--Dark .Form__UploadFile .Textarea__Field, .Form--Dark .Form__FieldReadOnly .Input__Field,
-.Form--Dark .Form__FieldReadOnly .Date__Field,
-.Form--Dark .Form__FieldReadOnly .Search__Field,
-.Form--Dark .Form__FieldReadOnly .UploadFile__Field,
-.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Field,
-.Form--Dark .Form__FieldReadOnly .Textarea__Field, .Form--Dark .Form__Textarea .Input__Field,
-.Form--Dark .Form__Textarea .Date__Field,
-.Form--Dark .Form__Textarea .Search__Field,
-.Form--Dark .Form__Textarea .UploadFile__Field,
-.Form--Dark .Form__Textarea .FieldReadOnly__Field,
-.Form--Dark .Form__Textarea .Textarea__Field {
-  color: #96A2B4;
-  background-color: transparent;
-}
-.Form--Dark .Form__Input .Input__Field::placeholder,
-.Form--Dark .Form__Input .Date__Field::placeholder,
-.Form--Dark .Form__Input .Search__Field::placeholder,
-.Form--Dark .Form__Input .UploadFile__Field::placeholder,
-.Form--Dark .Form__Input .FieldReadOnly__Field::placeholder,
-.Form--Dark .Form__Input .Textarea__Field::placeholder, .Form--Dark .Form__Date .Input__Field::placeholder,
-.Form--Dark .Form__Date .Date__Field::placeholder,
-.Form--Dark .Form__Date .Search__Field::placeholder,
-.Form--Dark .Form__Date .UploadFile__Field::placeholder,
-.Form--Dark .Form__Date .FieldReadOnly__Field::placeholder,
-.Form--Dark .Form__Date .Textarea__Field::placeholder, .Form--Dark .Form__Search .Input__Field::placeholder,
-.Form--Dark .Form__Search .Date__Field::placeholder,
-.Form--Dark .Form__Search .Search__Field::placeholder,
-.Form--Dark .Form__Search .UploadFile__Field::placeholder,
-.Form--Dark .Form__Search .FieldReadOnly__Field::placeholder,
-.Form--Dark .Form__Search .Textarea__Field::placeholder, .Form--Dark .Form__UploadFile .Input__Field::placeholder,
-.Form--Dark .Form__UploadFile .Date__Field::placeholder,
-.Form--Dark .Form__UploadFile .Search__Field::placeholder,
-.Form--Dark .Form__UploadFile .UploadFile__Field::placeholder,
-.Form--Dark .Form__UploadFile .FieldReadOnly__Field::placeholder,
-.Form--Dark .Form__UploadFile .Textarea__Field::placeholder, .Form--Dark .Form__FieldReadOnly .Input__Field::placeholder,
-.Form--Dark .Form__FieldReadOnly .Date__Field::placeholder,
-.Form--Dark .Form__FieldReadOnly .Search__Field::placeholder,
-.Form--Dark .Form__FieldReadOnly .UploadFile__Field::placeholder,
-.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Field::placeholder,
-.Form--Dark .Form__FieldReadOnly .Textarea__Field::placeholder, .Form--Dark .Form__Textarea .Input__Field::placeholder,
-.Form--Dark .Form__Textarea .Date__Field::placeholder,
-.Form--Dark .Form__Textarea .Search__Field::placeholder,
-.Form--Dark .Form__Textarea .UploadFile__Field::placeholder,
-.Form--Dark .Form__Textarea .FieldReadOnly__Field::placeholder,
-.Form--Dark .Form__Textarea .Textarea__Field::placeholder {
-  color: transparent;
-}
-.Form--Dark .Form__Input .Input__Field:focus ~ .Input__Label, .Form--Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
-  background-color: #1B202D;
-}
-.Form--Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
-  background-color: #1B202D;
-}
-.Form--Dark .Form__Textarea .Textarea__Field:focus ~ .Textarea__Label, .Form--Dark .Form__Textarea .Textarea__Field:not(:placeholder-shown) ~ .Textarea__Label {
-  background-color: #1B202D;
-}
-.Form--Dark .Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked {
-  background-color: #3F51B5;
-  border-color: #3F51B5;
-}
-.Form--Dark .Form__CheckBox .CheckBox__Label .IconChecked {
-  color: #fff;
-}
-.Form--Dark .Form__Select .Selector__WordLabel,
-.Form--Dark .Form__Select .MultiSelector__WordLabel {
-  background-color: #1A202E;
-}
-.Form--Dark .Form__Select .Selector__Options,
-.Form--Dark .Form__Select .MultiSelector__Options {
-  background-color: #1A202E;
-  border: 1px solid #96A2B4;
-}
-.Form--Dark .Form__Select .Selector__Option:hover,
-.Form--Dark .Form__Select .MultiSelector__Option:hover {
-  background-color: #3F51B5;
-  color: #fff;
-}
-.Form--Dark .Form__Search .Search__Field::placeholder {
-  color: inherit;
-}
-.Form--Dark .Form__Link .Link__Anchor {
-  color: #96A2B4;
-}
-.Form--Dark .Form__Link .Link__Anchor:hover {
-  color: #10C093;
-}
-.Form--Dark .Form__UploadFile .FileUpload__Label {
-  background-color: #1B202D;
-}
-.Form--Dark .Form__UploadFile .FileUpload__FileName {
-  color: #96A2B4;
-}
-.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Label {
-  background-color: #1B202D;
-}
-.Form--Dark .Form__FieldReadOnly .FieldReadOnly__Value {
-  color: #96A2B4;
 }
 
 html[lang=ar] .Form__Input .Input__Label,
@@ -913,6 +804,491 @@ html[lang=ar] .Form__FieldReadOnly .FieldReadOnly__Close {
   left: 1rem;
 }
 
+body.Light .Form__Input .Date__Area,
+body.Light .Form__Input .Input__Area,
+body.Light .Form__Input .Search__Area,
+body.Light .Form__Input .UploadFile__Area,
+body.Light .Form__Input .Textarea__Area,
+body.Light .Form__Input .FieldReadOnly__Area, body.Light .Form__Date .Date__Area,
+body.Light .Form__Date .Input__Area,
+body.Light .Form__Date .Search__Area,
+body.Light .Form__Date .UploadFile__Area,
+body.Light .Form__Date .Textarea__Area,
+body.Light .Form__Date .FieldReadOnly__Area, body.Light .Form__Search .Date__Area,
+body.Light .Form__Search .Input__Area,
+body.Light .Form__Search .Search__Area,
+body.Light .Form__Search .UploadFile__Area,
+body.Light .Form__Search .Textarea__Area,
+body.Light .Form__Search .FieldReadOnly__Area, body.Light .Form__UploadFile .Date__Area,
+body.Light .Form__UploadFile .Input__Area,
+body.Light .Form__UploadFile .Search__Area,
+body.Light .Form__UploadFile .UploadFile__Area,
+body.Light .Form__UploadFile .Textarea__Area,
+body.Light .Form__UploadFile .FieldReadOnly__Area, body.Light .Form__Textarea .Date__Area,
+body.Light .Form__Textarea .Input__Area,
+body.Light .Form__Textarea .Search__Area,
+body.Light .Form__Textarea .UploadFile__Area,
+body.Light .Form__Textarea .Textarea__Area,
+body.Light .Form__Textarea .FieldReadOnly__Area, body.Light .Form__FieldReadOnly .Date__Area,
+body.Light .Form__FieldReadOnly .Input__Area,
+body.Light .Form__FieldReadOnly .Search__Area,
+body.Light .Form__FieldReadOnly .UploadFile__Area,
+body.Light .Form__FieldReadOnly .Textarea__Area,
+body.Light .Form__FieldReadOnly .FieldReadOnly__Area {
+  border: 1px solid #96A2B4;
+  border-radius: 5px;
+}
+body.Light .Form__Input .Date__Area.Error,
+body.Light .Form__Input .Input__Area.Error,
+body.Light .Form__Input .Search__Area.Error,
+body.Light .Form__Input .UploadFile__Area.Error,
+body.Light .Form__Input .Textarea__Area.Error,
+body.Light .Form__Input .FieldReadOnly__Area.Error, body.Light .Form__Date .Date__Area.Error,
+body.Light .Form__Date .Input__Area.Error,
+body.Light .Form__Date .Search__Area.Error,
+body.Light .Form__Date .UploadFile__Area.Error,
+body.Light .Form__Date .Textarea__Area.Error,
+body.Light .Form__Date .FieldReadOnly__Area.Error, body.Light .Form__Search .Date__Area.Error,
+body.Light .Form__Search .Input__Area.Error,
+body.Light .Form__Search .Search__Area.Error,
+body.Light .Form__Search .UploadFile__Area.Error,
+body.Light .Form__Search .Textarea__Area.Error,
+body.Light .Form__Search .FieldReadOnly__Area.Error, body.Light .Form__UploadFile .Date__Area.Error,
+body.Light .Form__UploadFile .Input__Area.Error,
+body.Light .Form__UploadFile .Search__Area.Error,
+body.Light .Form__UploadFile .UploadFile__Area.Error,
+body.Light .Form__UploadFile .Textarea__Area.Error,
+body.Light .Form__UploadFile .FieldReadOnly__Area.Error, body.Light .Form__Textarea .Date__Area.Error,
+body.Light .Form__Textarea .Input__Area.Error,
+body.Light .Form__Textarea .Search__Area.Error,
+body.Light .Form__Textarea .UploadFile__Area.Error,
+body.Light .Form__Textarea .Textarea__Area.Error,
+body.Light .Form__Textarea .FieldReadOnly__Area.Error, body.Light .Form__FieldReadOnly .Date__Area.Error,
+body.Light .Form__FieldReadOnly .Input__Area.Error,
+body.Light .Form__FieldReadOnly .Search__Area.Error,
+body.Light .Form__FieldReadOnly .UploadFile__Area.Error,
+body.Light .Form__FieldReadOnly .Textarea__Area.Error,
+body.Light .Form__FieldReadOnly .FieldReadOnly__Area.Error {
+  border-color: #f93542;
+}
+body.Light .Form__Input .Date__Area.Error .Input__Label,
+body.Light .Form__Input .Input__Area.Error .Input__Label,
+body.Light .Form__Input .Search__Area.Error .Input__Label,
+body.Light .Form__Input .UploadFile__Area.Error .Input__Label,
+body.Light .Form__Input .Textarea__Area.Error .Input__Label,
+body.Light .Form__Input .FieldReadOnly__Area.Error .Input__Label, body.Light .Form__Date .Date__Area.Error .Input__Label,
+body.Light .Form__Date .Input__Area.Error .Input__Label,
+body.Light .Form__Date .Search__Area.Error .Input__Label,
+body.Light .Form__Date .UploadFile__Area.Error .Input__Label,
+body.Light .Form__Date .Textarea__Area.Error .Input__Label,
+body.Light .Form__Date .FieldReadOnly__Area.Error .Input__Label, body.Light .Form__Search .Date__Area.Error .Input__Label,
+body.Light .Form__Search .Input__Area.Error .Input__Label,
+body.Light .Form__Search .Search__Area.Error .Input__Label,
+body.Light .Form__Search .UploadFile__Area.Error .Input__Label,
+body.Light .Form__Search .Textarea__Area.Error .Input__Label,
+body.Light .Form__Search .FieldReadOnly__Area.Error .Input__Label, body.Light .Form__UploadFile .Date__Area.Error .Input__Label,
+body.Light .Form__UploadFile .Input__Area.Error .Input__Label,
+body.Light .Form__UploadFile .Search__Area.Error .Input__Label,
+body.Light .Form__UploadFile .UploadFile__Area.Error .Input__Label,
+body.Light .Form__UploadFile .Textarea__Area.Error .Input__Label,
+body.Light .Form__UploadFile .FieldReadOnly__Area.Error .Input__Label, body.Light .Form__Textarea .Date__Area.Error .Input__Label,
+body.Light .Form__Textarea .Input__Area.Error .Input__Label,
+body.Light .Form__Textarea .Search__Area.Error .Input__Label,
+body.Light .Form__Textarea .UploadFile__Area.Error .Input__Label,
+body.Light .Form__Textarea .Textarea__Area.Error .Input__Label,
+body.Light .Form__Textarea .FieldReadOnly__Area.Error .Input__Label, body.Light .Form__FieldReadOnly .Date__Area.Error .Input__Label,
+body.Light .Form__FieldReadOnly .Input__Area.Error .Input__Label,
+body.Light .Form__FieldReadOnly .Search__Area.Error .Input__Label,
+body.Light .Form__FieldReadOnly .UploadFile__Area.Error .Input__Label,
+body.Light .Form__FieldReadOnly .Textarea__Area.Error .Input__Label,
+body.Light .Form__FieldReadOnly .FieldReadOnly__Area.Error .Input__Label {
+  color: #f93542;
+}
+body.Light .Form__Input .Date__Field,
+body.Light .Form__Input .Input__Field,
+body.Light .Form__Input .Search__Field,
+body.Light .Form__Input .UploadFile__Field,
+body.Light .Form__Input .Textarea__Field,
+body.Light .Form__Input .FieldReadOnly__Field, body.Light .Form__Date .Date__Field,
+body.Light .Form__Date .Input__Field,
+body.Light .Form__Date .Search__Field,
+body.Light .Form__Date .UploadFile__Field,
+body.Light .Form__Date .Textarea__Field,
+body.Light .Form__Date .FieldReadOnly__Field, body.Light .Form__Search .Date__Field,
+body.Light .Form__Search .Input__Field,
+body.Light .Form__Search .Search__Field,
+body.Light .Form__Search .UploadFile__Field,
+body.Light .Form__Search .Textarea__Field,
+body.Light .Form__Search .FieldReadOnly__Field, body.Light .Form__UploadFile .Date__Field,
+body.Light .Form__UploadFile .Input__Field,
+body.Light .Form__UploadFile .Search__Field,
+body.Light .Form__UploadFile .UploadFile__Field,
+body.Light .Form__UploadFile .Textarea__Field,
+body.Light .Form__UploadFile .FieldReadOnly__Field, body.Light .Form__Textarea .Date__Field,
+body.Light .Form__Textarea .Input__Field,
+body.Light .Form__Textarea .Search__Field,
+body.Light .Form__Textarea .UploadFile__Field,
+body.Light .Form__Textarea .Textarea__Field,
+body.Light .Form__Textarea .FieldReadOnly__Field, body.Light .Form__FieldReadOnly .Date__Field,
+body.Light .Form__FieldReadOnly .Input__Field,
+body.Light .Form__FieldReadOnly .Search__Field,
+body.Light .Form__FieldReadOnly .UploadFile__Field,
+body.Light .Form__FieldReadOnly .Textarea__Field,
+body.Light .Form__FieldReadOnly .FieldReadOnly__Field {
+  color: #0e0e0e;
+  background-color: #F5F5F5;
+}
+body.Light .Form__Input .Date__Field::placeholder,
+body.Light .Form__Input .Input__Field::placeholder,
+body.Light .Form__Input .Search__Field::placeholder,
+body.Light .Form__Input .UploadFile__Field::placeholder,
+body.Light .Form__Input .Textarea__Field::placeholder,
+body.Light .Form__Input .FieldReadOnly__Field::placeholder, body.Light .Form__Date .Date__Field::placeholder,
+body.Light .Form__Date .Input__Field::placeholder,
+body.Light .Form__Date .Search__Field::placeholder,
+body.Light .Form__Date .UploadFile__Field::placeholder,
+body.Light .Form__Date .Textarea__Field::placeholder,
+body.Light .Form__Date .FieldReadOnly__Field::placeholder, body.Light .Form__Search .Date__Field::placeholder,
+body.Light .Form__Search .Input__Field::placeholder,
+body.Light .Form__Search .Search__Field::placeholder,
+body.Light .Form__Search .UploadFile__Field::placeholder,
+body.Light .Form__Search .Textarea__Field::placeholder,
+body.Light .Form__Search .FieldReadOnly__Field::placeholder, body.Light .Form__UploadFile .Date__Field::placeholder,
+body.Light .Form__UploadFile .Input__Field::placeholder,
+body.Light .Form__UploadFile .Search__Field::placeholder,
+body.Light .Form__UploadFile .UploadFile__Field::placeholder,
+body.Light .Form__UploadFile .Textarea__Field::placeholder,
+body.Light .Form__UploadFile .FieldReadOnly__Field::placeholder, body.Light .Form__Textarea .Date__Field::placeholder,
+body.Light .Form__Textarea .Input__Field::placeholder,
+body.Light .Form__Textarea .Search__Field::placeholder,
+body.Light .Form__Textarea .UploadFile__Field::placeholder,
+body.Light .Form__Textarea .Textarea__Field::placeholder,
+body.Light .Form__Textarea .FieldReadOnly__Field::placeholder, body.Light .Form__FieldReadOnly .Date__Field::placeholder,
+body.Light .Form__FieldReadOnly .Input__Field::placeholder,
+body.Light .Form__FieldReadOnly .Search__Field::placeholder,
+body.Light .Form__FieldReadOnly .UploadFile__Field::placeholder,
+body.Light .Form__FieldReadOnly .Textarea__Field::placeholder,
+body.Light .Form__FieldReadOnly .FieldReadOnly__Field::placeholder {
+  color: transparent;
+}
+body.Light .Form__Input .Input__Field:-internal-autofill-selected {
+  background-color: transparent !important;
+}
+body.Light .Form__Input .Input__Field:focus ~ .Input__Label, body.Light .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
+  background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%);
+}
+body.Light .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+  background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%);
+}
+body.Light .Form__Textarea .Textarea__Field:focus ~ .Textarea__Label, body.Light .Form__Textarea .Textarea__Field:not(:placeholder-shown) ~ .Textarea__Label {
+  background-color: #1B202D;
+}
+body.Light .Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked {
+  background-color: #3F51B5;
+  border-color: #3F51B5;
+}
+body.Light .Form__CheckBox .CheckBox__Label .IconChecked {
+  color: #fff;
+}
+body.Light .Form__Select .Selector__Main,
+body.Light .Form__Select .MultiSelector__Main {
+  background-color: #F5F5F5;
+}
+body.Light .Form__Select .Selector__WordLabel,
+body.Light .Form__Select .MultiSelector__WordLabel {
+  background-color: #F5F5F5;
+}
+body.Light .Form__Select .Selector__Options,
+body.Light .Form__Select .MultiSelector__Options {
+  background-color: #F5F5F5;
+  border: 1px solid #96A2B4;
+}
+body.Light .Form__Select .Selector__Option:hover,
+body.Light .Form__Select .MultiSelector__Option:hover {
+  background-color: #3F51B5;
+  color: #fff;
+}
+body.Light .Form__Search .Search__Field::placeholder {
+  color: inherit;
+}
+body.Light .Form__Link .Link__Anchor {
+  color: #96A2B4;
+}
+body.Light .Form__Link .Link__Anchor:hover {
+  color: #10C093;
+}
+body.Light .Form__UploadFile .FileUpload__Label {
+  background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%);
+}
+body.Light .Form__UploadFile .FileUpload__FileName {
+  background-color: #F5F5F5;
+  color: #0e0e0e;
+}
+body.Light .Form__Button .Send {
+  background-color: #3F51B5;
+  color: #fff;
+}
+body.Light .Form__Button .Cancel {
+  background-color: #f93542;
+  color: #fff;
+}
+body.Light .Form__Button .Clear {
+  background-color: #10C093;
+  color: #fff;
+}
+body.Light .Form__FieldReadOnly .FieldReadOnly__Close:hover {
+  color: #10C093;
+}
+body.Light .Form__FieldReadOnly .FieldReadOnly__Label {
+  background-color: #1B202D;
+}
+body.Light .Form__FieldReadOnly .FieldReadOnly__Value {
+  color: #96A2B4;
+}
+body.Light .Form__Tips {
+  color: #86c1e7;
+}
+
+body.Dark .Form__Input .Date__Area,
+body.Dark .Form__Input .Input__Area,
+body.Dark .Form__Input .Search__Area,
+body.Dark .Form__Input .UploadFile__Area,
+body.Dark .Form__Input .Textarea__Area,
+body.Dark .Form__Input .FieldReadOnly__Area, body.Dark .Form__Date .Date__Area,
+body.Dark .Form__Date .Input__Area,
+body.Dark .Form__Date .Search__Area,
+body.Dark .Form__Date .UploadFile__Area,
+body.Dark .Form__Date .Textarea__Area,
+body.Dark .Form__Date .FieldReadOnly__Area, body.Dark .Form__Search .Date__Area,
+body.Dark .Form__Search .Input__Area,
+body.Dark .Form__Search .Search__Area,
+body.Dark .Form__Search .UploadFile__Area,
+body.Dark .Form__Search .Textarea__Area,
+body.Dark .Form__Search .FieldReadOnly__Area, body.Dark .Form__UploadFile .Date__Area,
+body.Dark .Form__UploadFile .Input__Area,
+body.Dark .Form__UploadFile .Search__Area,
+body.Dark .Form__UploadFile .UploadFile__Area,
+body.Dark .Form__UploadFile .Textarea__Area,
+body.Dark .Form__UploadFile .FieldReadOnly__Area, body.Dark .Form__Textarea .Date__Area,
+body.Dark .Form__Textarea .Input__Area,
+body.Dark .Form__Textarea .Search__Area,
+body.Dark .Form__Textarea .UploadFile__Area,
+body.Dark .Form__Textarea .Textarea__Area,
+body.Dark .Form__Textarea .FieldReadOnly__Area, body.Dark .Form__FieldReadOnly .Date__Area,
+body.Dark .Form__FieldReadOnly .Input__Area,
+body.Dark .Form__FieldReadOnly .Search__Area,
+body.Dark .Form__FieldReadOnly .UploadFile__Area,
+body.Dark .Form__FieldReadOnly .Textarea__Area,
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Area {
+  border: 1px solid #96A2B4;
+  border-radius: 5px;
+}
+body.Dark .Form__Input .Date__Area.Error,
+body.Dark .Form__Input .Input__Area.Error,
+body.Dark .Form__Input .Search__Area.Error,
+body.Dark .Form__Input .UploadFile__Area.Error,
+body.Dark .Form__Input .Textarea__Area.Error,
+body.Dark .Form__Input .FieldReadOnly__Area.Error, body.Dark .Form__Date .Date__Area.Error,
+body.Dark .Form__Date .Input__Area.Error,
+body.Dark .Form__Date .Search__Area.Error,
+body.Dark .Form__Date .UploadFile__Area.Error,
+body.Dark .Form__Date .Textarea__Area.Error,
+body.Dark .Form__Date .FieldReadOnly__Area.Error, body.Dark .Form__Search .Date__Area.Error,
+body.Dark .Form__Search .Input__Area.Error,
+body.Dark .Form__Search .Search__Area.Error,
+body.Dark .Form__Search .UploadFile__Area.Error,
+body.Dark .Form__Search .Textarea__Area.Error,
+body.Dark .Form__Search .FieldReadOnly__Area.Error, body.Dark .Form__UploadFile .Date__Area.Error,
+body.Dark .Form__UploadFile .Input__Area.Error,
+body.Dark .Form__UploadFile .Search__Area.Error,
+body.Dark .Form__UploadFile .UploadFile__Area.Error,
+body.Dark .Form__UploadFile .Textarea__Area.Error,
+body.Dark .Form__UploadFile .FieldReadOnly__Area.Error, body.Dark .Form__Textarea .Date__Area.Error,
+body.Dark .Form__Textarea .Input__Area.Error,
+body.Dark .Form__Textarea .Search__Area.Error,
+body.Dark .Form__Textarea .UploadFile__Area.Error,
+body.Dark .Form__Textarea .Textarea__Area.Error,
+body.Dark .Form__Textarea .FieldReadOnly__Area.Error, body.Dark .Form__FieldReadOnly .Date__Area.Error,
+body.Dark .Form__FieldReadOnly .Input__Area.Error,
+body.Dark .Form__FieldReadOnly .Search__Area.Error,
+body.Dark .Form__FieldReadOnly .UploadFile__Area.Error,
+body.Dark .Form__FieldReadOnly .Textarea__Area.Error,
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Area.Error {
+  border-color: #f93542;
+}
+body.Dark .Form__Input .Date__Area.Error .Input__Label,
+body.Dark .Form__Input .Input__Area.Error .Input__Label,
+body.Dark .Form__Input .Search__Area.Error .Input__Label,
+body.Dark .Form__Input .UploadFile__Area.Error .Input__Label,
+body.Dark .Form__Input .Textarea__Area.Error .Input__Label,
+body.Dark .Form__Input .FieldReadOnly__Area.Error .Input__Label, body.Dark .Form__Date .Date__Area.Error .Input__Label,
+body.Dark .Form__Date .Input__Area.Error .Input__Label,
+body.Dark .Form__Date .Search__Area.Error .Input__Label,
+body.Dark .Form__Date .UploadFile__Area.Error .Input__Label,
+body.Dark .Form__Date .Textarea__Area.Error .Input__Label,
+body.Dark .Form__Date .FieldReadOnly__Area.Error .Input__Label, body.Dark .Form__Search .Date__Area.Error .Input__Label,
+body.Dark .Form__Search .Input__Area.Error .Input__Label,
+body.Dark .Form__Search .Search__Area.Error .Input__Label,
+body.Dark .Form__Search .UploadFile__Area.Error .Input__Label,
+body.Dark .Form__Search .Textarea__Area.Error .Input__Label,
+body.Dark .Form__Search .FieldReadOnly__Area.Error .Input__Label, body.Dark .Form__UploadFile .Date__Area.Error .Input__Label,
+body.Dark .Form__UploadFile .Input__Area.Error .Input__Label,
+body.Dark .Form__UploadFile .Search__Area.Error .Input__Label,
+body.Dark .Form__UploadFile .UploadFile__Area.Error .Input__Label,
+body.Dark .Form__UploadFile .Textarea__Area.Error .Input__Label,
+body.Dark .Form__UploadFile .FieldReadOnly__Area.Error .Input__Label, body.Dark .Form__Textarea .Date__Area.Error .Input__Label,
+body.Dark .Form__Textarea .Input__Area.Error .Input__Label,
+body.Dark .Form__Textarea .Search__Area.Error .Input__Label,
+body.Dark .Form__Textarea .UploadFile__Area.Error .Input__Label,
+body.Dark .Form__Textarea .Textarea__Area.Error .Input__Label,
+body.Dark .Form__Textarea .FieldReadOnly__Area.Error .Input__Label, body.Dark .Form__FieldReadOnly .Date__Area.Error .Input__Label,
+body.Dark .Form__FieldReadOnly .Input__Area.Error .Input__Label,
+body.Dark .Form__FieldReadOnly .Search__Area.Error .Input__Label,
+body.Dark .Form__FieldReadOnly .UploadFile__Area.Error .Input__Label,
+body.Dark .Form__FieldReadOnly .Textarea__Area.Error .Input__Label,
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Area.Error .Input__Label {
+  color: #f93542;
+}
+body.Dark .Form__Input .Date__Field,
+body.Dark .Form__Input .Input__Field,
+body.Dark .Form__Input .Search__Field,
+body.Dark .Form__Input .UploadFile__Field,
+body.Dark .Form__Input .Textarea__Field,
+body.Dark .Form__Input .FieldReadOnly__Field, body.Dark .Form__Date .Date__Field,
+body.Dark .Form__Date .Input__Field,
+body.Dark .Form__Date .Search__Field,
+body.Dark .Form__Date .UploadFile__Field,
+body.Dark .Form__Date .Textarea__Field,
+body.Dark .Form__Date .FieldReadOnly__Field, body.Dark .Form__Search .Date__Field,
+body.Dark .Form__Search .Input__Field,
+body.Dark .Form__Search .Search__Field,
+body.Dark .Form__Search .UploadFile__Field,
+body.Dark .Form__Search .Textarea__Field,
+body.Dark .Form__Search .FieldReadOnly__Field, body.Dark .Form__UploadFile .Date__Field,
+body.Dark .Form__UploadFile .Input__Field,
+body.Dark .Form__UploadFile .Search__Field,
+body.Dark .Form__UploadFile .UploadFile__Field,
+body.Dark .Form__UploadFile .Textarea__Field,
+body.Dark .Form__UploadFile .FieldReadOnly__Field, body.Dark .Form__Textarea .Date__Field,
+body.Dark .Form__Textarea .Input__Field,
+body.Dark .Form__Textarea .Search__Field,
+body.Dark .Form__Textarea .UploadFile__Field,
+body.Dark .Form__Textarea .Textarea__Field,
+body.Dark .Form__Textarea .FieldReadOnly__Field, body.Dark .Form__FieldReadOnly .Date__Field,
+body.Dark .Form__FieldReadOnly .Input__Field,
+body.Dark .Form__FieldReadOnly .Search__Field,
+body.Dark .Form__FieldReadOnly .UploadFile__Field,
+body.Dark .Form__FieldReadOnly .Textarea__Field,
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Field {
+  color: #96A2B4;
+  background-color: transparent;
+}
+body.Dark .Form__Input .Date__Field::placeholder,
+body.Dark .Form__Input .Input__Field::placeholder,
+body.Dark .Form__Input .Search__Field::placeholder,
+body.Dark .Form__Input .UploadFile__Field::placeholder,
+body.Dark .Form__Input .Textarea__Field::placeholder,
+body.Dark .Form__Input .FieldReadOnly__Field::placeholder, body.Dark .Form__Date .Date__Field::placeholder,
+body.Dark .Form__Date .Input__Field::placeholder,
+body.Dark .Form__Date .Search__Field::placeholder,
+body.Dark .Form__Date .UploadFile__Field::placeholder,
+body.Dark .Form__Date .Textarea__Field::placeholder,
+body.Dark .Form__Date .FieldReadOnly__Field::placeholder, body.Dark .Form__Search .Date__Field::placeholder,
+body.Dark .Form__Search .Input__Field::placeholder,
+body.Dark .Form__Search .Search__Field::placeholder,
+body.Dark .Form__Search .UploadFile__Field::placeholder,
+body.Dark .Form__Search .Textarea__Field::placeholder,
+body.Dark .Form__Search .FieldReadOnly__Field::placeholder, body.Dark .Form__UploadFile .Date__Field::placeholder,
+body.Dark .Form__UploadFile .Input__Field::placeholder,
+body.Dark .Form__UploadFile .Search__Field::placeholder,
+body.Dark .Form__UploadFile .UploadFile__Field::placeholder,
+body.Dark .Form__UploadFile .Textarea__Field::placeholder,
+body.Dark .Form__UploadFile .FieldReadOnly__Field::placeholder, body.Dark .Form__Textarea .Date__Field::placeholder,
+body.Dark .Form__Textarea .Input__Field::placeholder,
+body.Dark .Form__Textarea .Search__Field::placeholder,
+body.Dark .Form__Textarea .UploadFile__Field::placeholder,
+body.Dark .Form__Textarea .Textarea__Field::placeholder,
+body.Dark .Form__Textarea .FieldReadOnly__Field::placeholder, body.Dark .Form__FieldReadOnly .Date__Field::placeholder,
+body.Dark .Form__FieldReadOnly .Input__Field::placeholder,
+body.Dark .Form__FieldReadOnly .Search__Field::placeholder,
+body.Dark .Form__FieldReadOnly .UploadFile__Field::placeholder,
+body.Dark .Form__FieldReadOnly .Textarea__Field::placeholder,
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Field::placeholder {
+  color: transparent;
+}
+body.Dark .Form__Input .Input__Field:-internal-autofill-selected {
+  background-color: transparent !important;
+}
+body.Dark .Form__Input .Input__Field:focus ~ .Input__Label, body.Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
+  background-color: #1B202D;
+}
+body.Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+  background-color: #1B202D;
+}
+body.Dark .Form__Textarea .Textarea__Field:focus ~ .Textarea__Label, body.Dark .Form__Textarea .Textarea__Field:not(:placeholder-shown) ~ .Textarea__Label {
+  background-color: #1B202D;
+}
+body.Dark .Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked {
+  background-color: #3F51B5;
+  border-color: #3F51B5;
+}
+body.Dark .Form__CheckBox .CheckBox__Label .IconChecked {
+  color: #fff;
+}
+body.Dark .Form__Select .Selector__WordLabel,
+body.Dark .Form__Select .MultiSelector__WordLabel {
+  background-color: #1A202E;
+}
+body.Dark .Form__Select .Selector__Options,
+body.Dark .Form__Select .MultiSelector__Options {
+  background-color: #1A202E;
+  border: 1px solid #96A2B4;
+}
+body.Dark .Form__Select .Selector__Option:hover,
+body.Dark .Form__Select .MultiSelector__Option:hover {
+  background-color: #3F51B5;
+  color: #fff;
+}
+body.Dark .Form__Search .Search__Field::placeholder {
+  color: inherit;
+}
+body.Dark .Form__Link .Link__Anchor {
+  color: #96A2B4;
+}
+body.Dark .Form__Link .Link__Anchor:hover {
+  color: #10C093;
+}
+body.Dark .Form__UploadFile .FileUpload__Label {
+  background-color: #1B202D;
+}
+body.Dark .Form__UploadFile .FileUpload__FileName {
+  color: #96A2B4;
+}
+body.Dark .Form__Button .Send {
+  background-color: #3F51B5;
+  color: #fff;
+}
+body.Dark .Form__Button .Cancel {
+  background-color: #f93542;
+  color: #fff;
+}
+body.Dark .Form__Button .Clear {
+  background-color: #10C093;
+  color: #fff;
+}
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Close:hover {
+  color: #10C093;
+}
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Label {
+  background-color: #1B202D;
+}
+body.Dark .Form__FieldReadOnly .FieldReadOnly__Value {
+  color: #96A2B4;
+}
+body.Dark .Form__Tips {
+  color: #86c1e7;
+}
+
 .Button, .Button:link, .Button:visited {
   position: relative;
   display: inline-block;
@@ -967,7 +1343,7 @@ html[lang=ar] .Form__FieldReadOnly .FieldReadOnly__Close {
 .Selector__WordChoose {
   display: none;
   font-size: 1.5rem;
-  color: #96A2B4;
+  color: #0e0e0e;
 }
 .Selector__Options {
   position: absolute;
@@ -1064,6 +1440,20 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
   right: 0.5rem;
 }
 
+body.Light .Selector.Selected .Selector__WordChoose {
+  color: #0e0e0e;
+}
+body.Light .Selector.Selected .Selector__WordLabel {
+  background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%);
+}
+
+body.Dark .Selector.Selected .Selector__WordChoose {
+  color: #96A2B4;
+}
+body.Dark .Selector.Selected .Selector__WordLabel {
+  background: #1A202E;
+}
+
 .MultiSelector {
   position: relative;
   width: 100%;
@@ -1086,7 +1476,6 @@ html[lang=ar] .Selector.Size-2 .Selector__WordLabel {
 .MultiSelector__WordChoose {
   display: none;
   font-size: 1.5rem;
-  color: #96A2B4;
 }
 .MultiSelector__Options {
   position: absolute;
@@ -1186,6 +1575,20 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   right: 1.5rem;
 }
 
+body.Light .MultiSelector__WordChoose {
+  color: #0e0e0e;
+}
+body.Light .MultiSelector.Selected .MultiSelector__WordLabel {
+  background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%);
+}
+
+body.Dark .MultiSelector__WordChoose {
+  color: #96A2B4;
+}
+body.Dark .MultiSelector.Selected .MultiSelector__WordLabel {
+  background: #1A202E;
+}
+
 .SocialMedia {
   position: relative;
   display: flex;
@@ -1210,7 +1613,6 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   position: relative;
   width: 100%;
   border-radius: 10px;
-  background-color: #1A202E;
 }
 .Card__CenterButton {
   display: flex;
@@ -1220,12 +1622,6 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 }
 .Card__CenterButton-hidden {
   display: none;
-}
-.Card__InnerGroup {
-  border-bottom: 1px solid #23364e;
-}
-.Card__InnerGroup .Card__Inner:not(:last-child) {
-  border-bottom: 1px solid #23364e;
 }
 .Card__Inner {
   padding: 2.4rem;
@@ -1271,7 +1667,6 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 }
 .Card__SearchTools .SearchTools__Separate {
   margin: 0 1rem;
-  border-right: 1px solid #96A2B4;
 }
 .Card__SearchTools .SearchTools__FilterIcon.Note, .Card__SearchTools .SearchTools__SearchIcon.Note {
   position: relative;
@@ -1281,7 +1676,6 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   position: absolute;
   width: 4px;
   height: 4px;
-  background-color: #10C093;
   border-radius: 50%;
 }
 .Card__Pagination {
@@ -1294,19 +1688,12 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 }
 .Card__Title {
   text-transform: capitalize;
-  color: #fff;
 }
 .Card:not(:last-child) {
   margin-bottom: 1rem;
 }
 .Card--Taps .Taps__List {
   padding: 0 1.6rem;
-}
-.Card--Border {
-  border: 1px solid #23364e;
-}
-.Card--Dark {
-  background-color: #1A202E;
 }
 @media only screen and (max-width: 35.99em) {
   .Card__Pagination {
@@ -1317,6 +1704,57 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   }
 }
 
+body.Light .Card {
+  background-color: #fff;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.25);
+}
+body.Light .Card .Card {
+  box-shadow: none;
+}
+body.Light .Card__InnerGroup .Card__Inner:not(:last-child) {
+  border-bottom: 1px solid #dededf;
+}
+body.Light .Card__SearchTools__Separate {
+  border-right: 1px solid #96A2B4;
+}
+body.Light .Card__SearchTools .material-icons {
+  color: #444;
+}
+body.Light .Card__SearchTools .material-icons:hover {
+  background-color: #e1e1e1;
+}
+body.Light .Card__FilterIcon.Note::after, body.Light .Card__SearchIcon.Note::after {
+  background-color: #10C093;
+}
+body.Light .Card__Title {
+  color: #000;
+}
+body.Light .Card--Border {
+  border: 1px solid #23364e;
+}
+
+body.Dark .Card {
+  background-color: #1A202E;
+}
+body.Dark .Card__InnerGroup {
+  border-bottom: 1px solid #23364e;
+}
+body.Dark .Card__InnerGroup .Card__Inner:not(:last-child) {
+  border-bottom: 1px solid #23364e;
+}
+body.Dark .Card__SearchTools__Separate {
+  border-right: 1px solid #96A2B4;
+}
+body.Dark .Card__FilterIcon.Note::after, body.Dark .Card__SearchIcon.Note::after {
+  background-color: #10C093;
+}
+body.Dark .Card__Title {
+  color: #fff;
+}
+body.Dark .Card--Border {
+  border: 1px solid #23364e;
+}
+
 .Loader {
   position: fixed;
   top: 0;
@@ -1325,12 +1763,8 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   height: 100vh;
   z-index: 5;
 }
-.Loader--Page {
-  background-color: #1A202E;
-}
 .Loader--Upload {
   display: none;
-  background-color: rgba(26, 32, 46, 0.6);
 }
 .Loader__SvgCircle {
   position: absolute;
@@ -1340,6 +1774,20 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   display: inline-block;
   width: 10rem;
   height: 10rem;
+}
+
+body.Light .Loader--Page {
+  background-color: #757575;
+}
+body.Light .Loader--Upload {
+  background-color: rgba(0, 0, 0, 0.76);
+}
+
+body.Dark .Loader--Page {
+  background-color: #1A202E;
+}
+body.Dark .Loader--Upload {
+  background-color: rgba(26, 32, 46, 0.6);
 }
 
 .Popup {
@@ -1359,7 +1807,6 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
 }
 .Popup__Title .Title {
   position: relative;
-  background-color: #1B2633;
   padding: 0 2rem;
 }
 .Popup__Title::before {
@@ -1427,26 +1874,44 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   visibility: visible;
   opacity: 1;
 }
-.Popup--Dark {
+
+body.Light .Popup {
   background-color: rgba(26, 32, 46, 0.6);
 }
-.Popup--Dark .Popup__Card {
+body.Light .Popup__Title .Title {
+  background-color: #fff;
+}
+body.Light .Popup__Card {
+  background-color: #fff;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
+}
+body.Light .Popup__Close:hover {
+  background-color: #252f69;
+}
+
+body.Dark .Popup {
+  background-color: rgba(26, 32, 46, 0.6);
+}
+body.Dark .Popup__Title .Title {
+  background-color: #1B2633;
+}
+body.Dark .Popup__Card {
   background-color: #1B2633;
   box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.35);
 }
-.Popup--Dark .Popup__Card .Form--Dark .Form__Input .Input__Field:focus ~ .Input__Label, .Popup--Dark .Popup__Card .Form--Dark .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
+body.Dark .Popup__Card .Form__Input .Input__Field:focus ~ .Input__Label, body.Dark .Popup__Card .Form__Input .Input__Field:not(:placeholder-shown) ~ .Input__Label {
   background-color: #1B2633;
 }
-.Popup--Dark .Popup__Card .Form--Dark .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
+body.Dark .Popup__Card .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   background-color: #1B2633;
 }
-.Popup--Dark .Popup__Card .Form--Dark .Form__Select .Selector__WordLabel {
+body.Dark .Popup__Card .Form__Select .Selector__WordLabel {
   background-color: #1B2633;
 }
-.Popup--Dark .Popup__Card .Form--Dark .Form__Select .Selector__Options {
+body.Dark .Popup__Card .Form__Select .Selector__Options {
   background-color: #1B2633;
 }
-.Popup--Dark .Popup__Close:hover {
+body.Dark .Popup__Close:hover {
   background-color: #252f69;
 }
 
@@ -1473,7 +1938,7 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   }
 }
 
-.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked, .MultiSelector__CheckBox {
+.CheckBoxNormal, body.Dark .Table__Table .Item__Col--Check .CheckBoxRow, body.Light .Table__Table .Item__Col--Check .CheckBoxRow, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked, .MultiSelector__CheckBox {
   position: relative;
   display: inline-block;
   width: 2.5rem;
@@ -1483,7 +1948,7 @@ html[lang=ar] .MultiSelector.Selected .MultiSelector__WordLabel {
   cursor: pointer;
   transition: all 0.3s;
 }
-.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons, .MultiSelector__CheckBox > .material-icons {
+.CheckBoxNormal > .material-icons, body.Dark .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, body.Light .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons, .MultiSelector__CheckBox > .material-icons {
   position: absolute;
   display: none;
   width: 100%;
@@ -1668,17 +2133,32 @@ html[lang=en] .TextEditorContent__Content li {
   display: block;
   min-width: 15rem;
   padding: 1rem 1.5rem;
-  color: #fff;
   cursor: pointer;
   transition: all 0.3s;
-}
-.Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item:hover {
-  background-color: #171a21;
 }
 .Popper--MoreMenuTable.MenuTarget.Dropdown.Show {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+
+body.Light .Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item {
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: #e4e4e4;
+}
+body.Light .Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item:hover {
+  background-color: #bfc5c9;
+}
+
+body.Dark .Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item {
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+body.Dark .Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item:hover {
+  background-color: #171a21;
 }
 
 .ItemCount {
@@ -1849,6 +2329,7 @@ html[lang=en] .TextEditorContent__Content li {
   font-size: 1.2rem;
   cursor: pointer;
   transition: color 0.3s;
+  color: #96A2B4;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Header .ReadAll:hover {
   color: #10C093;
@@ -1880,6 +2361,9 @@ html[lang=en] .TextEditorContent__Content li {
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification {
   padding: 1rem 1.5rem;
 }
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification:hover {
+  background-color: #202738;
+}
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Icon {
   width: 4rem;
 }
@@ -1891,13 +2375,18 @@ html[lang=en] .TextEditorContent__Content li {
   font-weight: 500;
   margin-bottom: 0.5rem;
   line-height: 1.4;
+  color: #dadada;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Details .NotificationDescription {
   font-size: 1.1rem;
+  color: #b2b2b2;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Details .NotificationDate {
   font-size: 1rem;
   font-weight: 400;
+}
+.HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Remove {
+  color: #b2b2b2;
 }
 .HeaderPage__AccountAlerts .AccountAlerts .Alerts > .Alert--Notification .Dropdown__Item.Notification .Notification__Remove i {
   font-size: 1.4rem;
@@ -1975,6 +2464,20 @@ html[lang=ar] .HeaderPage__AccountAlerts .AccountAlerts .Alerts .Dropdown {
   html[lang=ar] .HeaderPage:not(.HeaderPage--Print) .HeaderPage__MenusOpening .MenusOpening .Logo {
     display: none;
   }
+}
+
+body.Light .HeaderPage .IconClick {
+  color: #fff;
+}
+body.Light .HeaderPage .IconClick:hover, body.Light .HeaderPage .IconClick.Active {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+body.Dark .HeaderPage .IconClick {
+  color: #fff;
+}
+body.Dark .HeaderPage .IconClick:hover, body.Dark .HeaderPage .IconClick.Active {
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .NavigationsMenu {
@@ -2210,6 +2713,20 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   }
 }
 
+body.Light .NavigationsMenu .IconClick {
+  color: #fff;
+}
+body.Light .NavigationsMenu .IconClick:hover, body.Light .NavigationsMenu .IconClick.Active {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+body.Dark .NavigationsMenu .IconClick {
+  color: #fff;
+}
+body.Dark .NavigationsMenu .IconClick:hover, body.Dark .NavigationsMenu .IconClick.Active {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
 .Breadcrumb {
   position: relative;
   width: 100%;
@@ -2221,7 +2738,6 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   margin-bottom: 1rem;
 }
 .Breadcrumb__Title {
-  color: #b6c6e3;
   text-transform: capitalize;
 }
 .Breadcrumb__Path {
@@ -2229,14 +2745,9 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   flex-direction: row;
   gap: 1rem;
   font-size: 1.4rem;
-  color: #96A2B4;
-}
-.Breadcrumb__Path a {
-  color: #96A2B4;
 }
 .Breadcrumb__Summery .Summery {
   font-size: 1.4rem;
-  color: #96A2B4;
 }
 @media only screen and (max-width: 35.99em) {
   .Breadcrumb__Header {
@@ -2246,18 +2757,42 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   }
 }
 
+body.Light .Breadcrumb__Title {
+  color: #444;
+}
+body.Light .Breadcrumb__Path {
+  color: #2c323f;
+}
+body.Light .Breadcrumb__Path a {
+  color: #2c323f;
+}
+body.Light .Breadcrumb__Summery .Summery {
+  color: #2c323f;
+}
+
+body.Dark .Breadcrumb__Title {
+  color: #b6c6e3;
+}
+body.Dark .Breadcrumb__Path {
+  color: #96A2B4;
+}
+body.Dark .Breadcrumb__Path a {
+  color: #96A2B4;
+}
+body.Dark .Breadcrumb__Summery .Summery {
+  color: #96A2B4;
+}
+
 .ListData {
   position: relative;
 }
 .ListData__Head {
-  background-color: #212a3f;
   padding: 0.5rem 1rem;
   border-radius: 5px;
 }
 .ListData__Title {
   text-transform: uppercase;
   font-weight: 800;
-  color: #96A2B4;
 }
 .ListData__GroupTitle {
   padding: 2.5rem 1rem 0.5rem 1rem;
@@ -2265,7 +2800,6 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 .ListData__GroupTitle .Title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #e9e9e9;
 }
 .ListData__Item .Data_Col {
   flex-grow: 1;
@@ -2292,16 +2826,9 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #6c7a87;
 }
 .ListData__Item--Action {
   cursor: pointer;
-}
-.ListData__Item:hover .Data_Col {
-  color: #fff;
-}
-.ListData__Item:not(:last-child) {
-  border-bottom: 1px solid #23364e;
 }
 .ListData__CustomItem {
   padding: 2.5rem 1rem;
@@ -2323,6 +2850,44 @@ html[lang=ar] .NavigationsMenu__NavigationsGroup .NavigationsGroup__GroupItem > 
 
 html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   text-align: right;
+}
+
+body.Light .ListData__Head {
+  background-color: #ebeef2;
+}
+body.Light .ListData__Title {
+  color: #8094ae;
+}
+body.Light .ListData__GroupTitle .Title {
+  color: #801717;
+}
+body.Light .ListData__Item--Action, body.Light .ListData__Item--NoAction {
+  color: #52595f;
+}
+body.Light .ListData__Item:hover .Data_Col {
+  color: #000;
+}
+body.Light .ListData__Item:not(:last-child) {
+  border-bottom: 1px solid #23364e;
+}
+
+body.Dark .ListData__Head {
+  background-color: #212a3f;
+}
+body.Dark .ListData__Title {
+  color: #96A2B4;
+}
+body.Dark .ListData__GroupTitle .Title {
+  color: #e9e9e9;
+}
+body.Dark .ListData__Item--Action, body.Dark .ListData__Item--NoAction {
+  color: #6c7a87;
+}
+body.Dark .ListData__Item:hover .Data_Col {
+  color: #fff;
+}
+body.Dark .ListData__Item:not(:last-child) {
+  border-bottom: 1px solid #23364e;
 }
 
 .Row {
@@ -2698,18 +3263,13 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: 2.5rem;
-  border-bottom: 1px solid #23364e;
 }
 .Taps__Item {
   position: relative;
   padding: 1.5rem;
-  color: #b6c6e3;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
-}
-.Taps__Item:hover {
-  color: #fff;
 }
 .Taps__Item::after {
   content: "";
@@ -2726,37 +3286,78 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 .Taps__Item.NotClickable {
   cursor: default;
 }
-.Taps__Item.NotClickable:hover {
-  color: #b6c6e3;
-}
-.Taps__Item.Error {
-  color: #f93542;
-}
-.Taps__Item.Error:hover {
-  color: #f93542;
-}
-.Taps__Item.Error.Active {
-  color: #f93542;
-}
-.Taps__Item.Error.Active::after {
-  background-color: #f93542;
-}
 .Taps__Item--Icon {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-.Taps__Item.Active {
-  color: #10C093;
-}
-.Taps__Item.Active::after {
-  background-color: #10C093;
 }
 .Taps__Panel {
   display: none;
 }
 .Taps__Panel.Active {
   display: block;
+}
+
+body.Light .Taps__List {
+  border-bottom: 1px solid #23364e;
+}
+body.Light .Taps__Item {
+  color: #6c7a87;
+}
+body.Light .Taps__Item:not(.Active):hover {
+  color: #000;
+}
+body.Light .Taps__Item.NotClickable:not(.Active):hover {
+  color: #6c7a87;
+}
+body.Light .Taps__Item.Error {
+  color: #f93542;
+}
+body.Light .Taps__Item.Error:hover {
+  color: #f93542;
+}
+body.Light .Taps__Item.Error.Active {
+  color: #f93542;
+}
+body.Light .Taps__Item.Error.Active::after {
+  background-color: #f93542;
+}
+body.Light .Taps__Item.Active {
+  color: #10C093;
+}
+body.Light .Taps__Item.Active::after {
+  background-color: #10C093;
+}
+
+body.Dark .Taps__List {
+  border-bottom: 1px solid #23364e;
+}
+body.Dark .Taps__Item {
+  color: #b6c6e3;
+}
+body.Dark .Taps__Item:hover {
+  color: #fff;
+}
+body.Dark .Taps__Item.NotClickable:hover {
+  color: #b6c6e3;
+}
+body.Dark .Taps__Item.Error {
+  color: #f93542;
+}
+body.Dark .Taps__Item.Error:hover {
+  color: #f93542;
+}
+body.Dark .Taps__Item.Error.Active {
+  color: #f93542;
+}
+body.Dark .Taps__Item.Error.Active::after {
+  background-color: #f93542;
+}
+body.Dark .Taps__Item.Active {
+  color: #10C093;
+}
+body.Dark .Taps__Item.Active::after {
+  background-color: #10C093;
 }
 
 .Table {
@@ -2796,10 +3397,6 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   padding: 1rem 1.5rem;
   white-space: nowrap;
 }
-.Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
-  background-color: #2d3f54;
-  color: #fff;
-}
 .Table__PrintMenu .PrintMenu__Menu.Show {
   visibility: visible;
   opacity: 1;
@@ -2821,13 +3418,8 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 .Table__Table .GroupRows {
   display: table-row-group;
 }
-.Table__Table .GroupRows__MainRow.Show {
-  background-color: #3F51B5;
-  color: #fff;
-}
 .Table__Table .GroupRows__SubRows {
   display: none;
-  background-color: #151735;
 }
 .Table__Table .Item {
   display: table-row;
@@ -2837,10 +3429,6 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   display: table-cell;
   vertical-align: middle;
   padding: 0.8rem;
-  border-bottom: 1px solid #23364e;
-}
-.Table__Table .Item__Col.Link a:hover {
-  color: #10C093;
 }
 .Table__Table .Item__Col.fitContent {
   width: 1%;
@@ -2849,12 +3437,8 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
   line-height: 1;
   text-align: start;
 }
-.Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
-  background-color: #10C093;
-}
 .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
   display: inline-block;
-  color: #fff;
 }
 .Table__Table .Item__Col--Check .CheckBoxRow {
   width: 1.5rem;
@@ -2874,20 +3458,10 @@ html[lang=ar] .ListData__Item .Data_Col .Data_Value {
 .Table__Table .Item__Col--Tools .Tools .IconClick {
   position: relative;
   font-size: 1.6rem;
-  color: #96A2B4;
-}
-.Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
-  color: #10C093;
-}
-.Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
-  color: #f93542;
 }
 .Table__Table .Item__Col--Details .Details__Button {
   cursor: pointer;
   transition: all 0.3s;
-}
-.Table__Table .Item__Col--Details .Details__Button:hover {
-  color: #10C093;
 }
 .Table__Table .Item:hover .Item__Col--Tools .Tools {
   visibility: visible;
@@ -2910,6 +3484,98 @@ html[lang=ar] .Table__Table .Item__Col:first-child {
 }
 html[lang=ar] .Table__Table .Item__Col:last-child {
   padding-left: 2.4rem;
+}
+
+body.Light .Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
+  background-color: #2d3f54;
+  color: #fff;
+}
+body.Light .Table__Table .GroupRows__MainRow.Show {
+  background-color: #7a7a7a;
+  color: #fff;
+}
+body.Light .Table__Table .GroupRows__SubRows {
+  background-color: #ccc;
+}
+body.Light .Table__Table .Item__Col {
+  border-bottom: 1px solid #23364e;
+}
+body.Light .Table__Table .Item__Col.Link a:hover {
+  color: #10C093;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
+  background-color: #10C093;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxRow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons {
+  font-size: 1.4rem;
+  left: 0;
+  top: 0;
+}
+body.Light .Table__Table .Item__Col--Tools .Tools .IconClick {
+  color: #96A2B4;
+}
+body.Light .Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
+  color: #10C093;
+}
+body.Light .Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
+  color: #f93542;
+}
+body.Light .Table__Table .Item__Col--Details .Details__Button:hover {
+  color: #10C093;
+}
+
+body.Dark .Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
+  background-color: #2d3f54;
+  color: #fff;
+}
+body.Dark .Table__Table .GroupRows__MainRow.Show {
+  background-color: #3F51B5;
+  color: #fff;
+}
+body.Dark .Table__Table .GroupRows__SubRows {
+  background-color: #151735;
+}
+body.Dark .Table__Table .Item__Col {
+  border-bottom: 1px solid #23364e;
+}
+body.Dark .Table__Table .Item__Col.Link a:hover {
+  color: #10C093;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
+  background-color: #10C093;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxRow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons {
+  font-size: 1.4rem;
+  left: 0;
+  top: 0;
+}
+body.Dark .Table__Table .Item__Col--Tools .Tools .IconClick {
+  color: #96A2B4;
+}
+body.Dark .Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
+  color: #10C093;
+}
+body.Dark .Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
+  color: #f93542;
+}
+body.Dark .Table__Table .Item__Col--Details .Details__Button:hover {
+  color: #10C093;
 }
 
 .Cookies {
@@ -3041,7 +3707,6 @@ html[lang=ar] .Cookies.Show {
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 1.4;
-  color: #dadada;
 }
 .Notification__Details .NotificationDescription {
   font-size: 1.3rem;
@@ -3050,7 +3715,6 @@ html[lang=ar] .Cookies.Show {
 .Notification__Details .NotificationDate {
   font-size: 1.2rem;
   font-weight: 400;
-  color: #6c7a87;
 }
 .Notification__Remove {
   cursor: pointer;
@@ -3059,10 +3723,30 @@ html[lang=ar] .Cookies.Show {
   font-size: 2rem;
   transition: color 0.3s;
 }
-.Notification__Remove:hover i {
+
+body.Light .Notification__Details .NotificationTitle {
+  color: #444;
+}
+body.Light .Notification__Details .NotificationDate {
+  color: #6c7a87;
+}
+body.Light .Notification__Remove:hover i {
   color: #10C093;
 }
-.Notification:hover {
+body.Light .Notification:hover {
+  background-color: #f7f7f7;
+}
+
+body.Dark .Notification__Details .NotificationTitle {
+  color: #dadada;
+}
+body.Dark .Notification__Details .NotificationDate {
+  color: #6c7a87;
+}
+body.Dark .Notification__Remove:hover i {
+  color: #10C093;
+}
+body.Dark .Notification:hover {
   background-color: #202738;
 }
 
@@ -3151,7 +3835,7 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
   width: 50%;
 }
 .AuthenticationPage__ImagePage > img {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 .AuthenticationPage__LoginForm {
@@ -3160,15 +3844,15 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
   align-items: center;
   width: 50%;
   padding: 0 2rem;
-  background-color: #1B202D;
 }
 .AuthenticationPage__LoginForm .Content {
   max-width: 100%;
-  width: 40rem;
+  width: 50rem;
+  padding: 4rem;
   margin: auto 0;
+  border-radius: 5px;
 }
 .AuthenticationPage__Title {
-  color: #96A2B4;
   text-transform: capitalize;
 }
 .AuthenticationPage__Text {
@@ -3207,6 +3891,18 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
     border-radius: 5px;
     padding: 6rem 3rem 3rem;
   }
+}
+
+body.Light .AuthenticationPage__LoginForm .Content {
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(92, 91, 91, 0.368627451);
+}
+
+body.Dark .AuthenticationPage__LoginForm {
+  background-color: #1B202D;
+}
+body.Dark .AuthenticationPage__Title {
+  color: #96A2B4;
 }
 
 .MainContent {
@@ -3288,16 +3984,6 @@ html[lang=ar] .FooterPage--Print.OpenMenu {
 .ProfilePage__DeleteAccount .DeleteAccount__Label > * {
   margin-bottom: 0.5rem;
 }
-.ProfilePage__PasswordChange .PasswordChange__Title,
-.ProfilePage__PasswordChange .DeleteAccount__Title, .ProfilePage__DeleteAccount .PasswordChange__Title,
-.ProfilePage__DeleteAccount .DeleteAccount__Title {
-  color: #fff;
-}
-.ProfilePage__PasswordChange .PasswordChange__Text,
-.ProfilePage__PasswordChange .DeleteAccount__Text, .ProfilePage__DeleteAccount .PasswordChange__Text,
-.ProfilePage__DeleteAccount .DeleteAccount__Text {
-  color: #96A2B4;
-}
 .ProfilePage__PasswordChange .PasswordChange__LastChange,
 .ProfilePage__PasswordChange .DeleteAccount__LastChange, .ProfilePage__DeleteAccount .PasswordChange__LastChange,
 .ProfilePage__DeleteAccount .DeleteAccount__LastChange {
@@ -3371,6 +4057,28 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   right: 0;
 }
 
+body.Light .ProfilePage .ProfilePage__PasswordChange .PasswordChange__Title,
+body.Light .ProfilePage .ProfilePage__PasswordChange .DeleteAccount__Title, body.Light .ProfilePage .ProfilePage__DeleteAccount .PasswordChange__Title,
+body.Light .ProfilePage .ProfilePage__DeleteAccount .DeleteAccount__Title {
+  color: #444;
+}
+body.Light .ProfilePage .ProfilePage__PasswordChange .PasswordChange__Text,
+body.Light .ProfilePage .ProfilePage__PasswordChange .DeleteAccount__Text, body.Light .ProfilePage .ProfilePage__DeleteAccount .PasswordChange__Text,
+body.Light .ProfilePage .ProfilePage__DeleteAccount .DeleteAccount__Text {
+  color: #444;
+}
+
+body.Dark .ProfilePage__PasswordChange .PasswordChange__Title,
+body.Dark .ProfilePage__PasswordChange .DeleteAccount__Title, body.Dark .ProfilePage__DeleteAccount .PasswordChange__Title,
+body.Dark .ProfilePage__DeleteAccount .DeleteAccount__Title {
+  color: #fff;
+}
+body.Dark .ProfilePage__PasswordChange .PasswordChange__Text,
+body.Dark .ProfilePage__PasswordChange .DeleteAccount__Text, body.Dark .ProfilePage__DeleteAccount .PasswordChange__Text,
+body.Dark .ProfilePage__DeleteAccount .DeleteAccount__Text {
+  color: #96A2B4;
+}
+
 .MessagePage {
   position: relative;
 }
@@ -3385,9 +4093,7 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 .MessagePage__Title {
   text-align: center;
   letter-spacing: 3px;
-  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
   margin-bottom: 2rem;
-  color: #b6c6e3;
 }
 .MessagePage__Title h2 {
   font-size: 3rem;
@@ -3402,6 +4108,16 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
 .MessagePage--ComingSoon .MessagePage__Image {
   max-height: 36rem;
   height: 100%;
+}
+
+body.Light .MessagePage__Title {
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+  color: #3F51B5;
+}
+
+body.Dark .MessagePage__Title {
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.35);
+  color: #b6c6e3;
 }
 
 .PrintPage__CompanyInfo {
@@ -3475,6 +4191,13 @@ html[lang=ar] .ProfilePage--My .ProfilePage__Image .UserImage .LockOpenIcon {
   height: 2px;
   border-radius: 5px;
   background-color: #000;
+}
+
+body.Light .NotificationPage__NotificationList .Notification:not(:last-child)::after {
+  background-color: #dededf;
+}
+
+body.Dark .NotificationPage__NotificationList .Notification:not(:last-child)::after {
   background-color: #35393f;
 }
 

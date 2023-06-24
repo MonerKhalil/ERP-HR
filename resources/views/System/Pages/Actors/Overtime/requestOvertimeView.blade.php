@@ -5,9 +5,9 @@
         <div class="NewTypeViewPage">
             <div class="NewTypeViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض طلبات العمل الاضافي" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewOvertimeRequest") ,
+                    'paths' => [[__("home") , '#'] , [__("viewOvertimeRequest")]] ,
+                    'summery' => __("titleViewOvertimeRequest")
                 ])
             </div>
             <div class="NewTypeViewPage__Content">
@@ -37,11 +37,11 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                        "Label" => "فبول الطلبات" ,
+                                                                        "Label" => __("acceptVocation") ,
                                                                         "Action" => "#" ,
                                                                         "Method" => "post"
                                                                     ] , [
-                                                                        "Label" => "رفض الطلبات" ,
+                                                                        "Label" => __("rejectVocation") ,
                                                                         "Action" => "#" ,
                                                                         "Method" => "post"
                                                                     ] , [
@@ -99,15 +99,15 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">الموظف الطالب</th>
-                                                                <th class="Item__Col">نوع العمل الاضافي</th>
-                                                                <th class="Item__Col">تبدأ من تاريخ</th>
-                                                                <th class="Item__Col">تنتهي عند تاريخ</th>
-                                                                <th class="Item__Col">هل هي ساعية</th>
-                                                                <th class="Item__Col">تبدأ من الساعة</th>
-                                                                <th class="Item__Col">تنتهي عند الساعة</th>
-                                                                <th class="Item__Col">الحالة</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("employeeWantVocation")</th>
+                                                                <th class="Item__Col">@lang("overtimeType")</th>
+                                                                <th class="Item__Col">@lang("startDateFrom")</th>
+                                                                <th class="Item__Col">@lang("endDateFrom")</th>
+                                                                <th class="Item__Col">@lang("isItHour")</th>
+                                                                <th class="Item__Col">@lang("vocationTimeStart")</th>
+                                                                <th class="Item__Col">@lang("vocationTimeEnd")</th>
+                                                                <th class="Item__Col">@lang("stateRequest")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $Index=>$RequestOvertime)
                                                                 <tr class="Item DataItem">
@@ -139,9 +139,9 @@
                                                                     </td>
                                                                     <td class="Item__Col">
                                                                         @if($RequestOvertime["is_hourly"])
-                                                                            نعم
+                                                                            @lang("yes")
                                                                         @else
-                                                                            لا
+                                                                            @lang("no")
                                                                         @endif
                                                                     </td>
                                                                     <td class="Item__Col">
@@ -151,7 +151,7 @@
                                                                         {{ $RequestOvertime["to_time"] ?? "_" }}
                                                                     </td>
                                                                     <td class="Item__Col">
-                                                                        {{ $RequestOvertime["status"] }}
+                                                                        @lang($RequestOvertime["status"])
                                                                     </td>
                                                                     <td class="Item__Col MoreDropdown">
                                                                         <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
@@ -164,14 +164,14 @@
                                                                                 <li>
                                                                                     <a href="{{ route("system.overtimes.show.overtime" , $RequestOvertime["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                                 @if($RequestOvertime["status"] == "pending")
                                                                                     <li>
                                                                                         <a href="{{ route("system.overtimes.edit.overtime" , $RequestOvertime["id"]) }}"
                                                                                            class="Dropdown__Item">
-                                                                                            تعديل الطلب
+                                                                                            @lang("editRequest")
                                                                                         </a>
                                                                                     </li>
                                                                                 @endif
@@ -232,21 +232,21 @@
         $FilterItems = [] ;
 
         array_push($FilterItems , ['Type' => 'text' , 'Info' =>
-               ['Name' => "filter[name_employee]" , 'Placeholder' => 'اسم الموظف'] ]) ;
+               ['Name' => "filter[name_employee]" , 'Placeholder' => __("employeeName")] ]) ;
 
         array_push($FilterItems , ['Type' => 'select' , 'Info' =>
-           ['Name' => "filter[overtime_type]" , 'Placeholder' => 'نوع العمل الاضافي' ,
+           ['Name' => "filter[overtime_type]" , 'Placeholder' => __("overtimeType") ,
            "Options" => $OvertimeTypes] ]) ;
 
         array_push($FilterItems , ['Type' => 'select' , 'Info' =>
-               ['Name' => "filter[status]" , 'Placeholder' => 'حالة الطلب' ,
+               ['Name' => "filter[status]" , 'Placeholder' => __("stateRequest") ,
                "Options" => $Status] ]);
 
         array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-           ['Name' => "filter[start_date_filter]" , 'Placeholder' => 'تبدأ من تاريخ'] ]);
+           ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("startDateFrom")] ]);
 
         array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-           ['Name' => "filter[end_date_filter]" , 'Placeholder' => 'تنتهي في تاريخ'] ]);
+           ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("endDateFrom")] ]);
 
     @endphp
 

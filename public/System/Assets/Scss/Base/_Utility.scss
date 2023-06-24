@@ -53,14 +53,8 @@
     font-size: 2rem;
     border-radius: 50%;
     padding: 0.6rem;
-    color : $WhiteColor ;
     cursor: pointer;
     transition: all .3s;
-
-    &:hover ,
-    &.Active {
-        background-color: rgba($BlackColor , .35);
-    }
 }
 
 .UserImage {
@@ -122,16 +116,6 @@
 
 .Overflow-Hidden {
     overflow: hidden;
-}
-
-.ReplaceOldBackGround {
-    background-color: #542426 ;
-    color : $WhiteColor ;
-}
-
-.ReplaceNewBackGround {
-    background-color: #1C4428;
-    color : $WhiteColor ;
 }
 
 .Visible-phonePortrait ,
@@ -230,5 +214,51 @@
 
     .Right {
         text-align: left ;
+    }
+}
+
+@include Themes(Light) {
+
+    .IconClick {
+        color : $DarkGrayColor ;
+
+        &:hover ,
+        &.Active {
+            background-color: rgba($BlackColor , .35);
+        }
+
+    }
+
+    .ReplaceNewBackGround {
+        background-color: #36794b;
+        color : $WhiteColor ;
+    }
+
+    .ReplaceOldBackGround {
+        background-color: #86191e ;
+        color : $WhiteColor ;
+    }
+}
+
+@include Themes(Dark) {
+
+    .IconClick {
+        color : $WhiteColor ;
+
+        &:hover ,
+        &.Active {
+            background-color: rgba($BlackColor , .35);
+        }
+
+    }
+
+    .ReplaceNewBackGround {
+        background-color: #1C4428;
+        color : $WhiteColor ;
+    }
+
+    .ReplaceOldBackGround {
+        background-color: #542426 ;
+        color : $WhiteColor ;
     }
 }

@@ -5,9 +5,9 @@
         <div class="NewTypeViewPage">
             <div class="NewTypeViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض انواع العمل الاضافي" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewAllOvertimeType") ,
+                    'paths' => [[__("home") , '#'] , [__("viewAllOvertimeType")]] ,
+                    'summery' => __("titleViewAllOvertimeType")
                 ])
             </div>
             <div class="NewTypeViewPage__Content">
@@ -58,11 +58,11 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">اسم النوع</th>
-                                                                <th class="Item__Col">نسبة سقف الراتب المزاد</th>
-                                                                <th class="Item__Col">الحد الادنى لساعات قبول الاضافي</th>
-                                                                <th class="Item__Col">مقدار الاجر على الساعة</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("nameType")</th>
+                                                                <th class="Item__Col">@lang("rateMaxSalaryExtra")</th>
+                                                                <th class="Item__Col">@lang("minimumHourForAcceptOvertime")</th>
+                                                                <th class="Item__Col">@lang("amountSalaryInHour")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $TypeItem)
                                                                 <tr class="Item DataItem">
@@ -103,13 +103,13 @@
                                                                                 <li>
                                                                                     <a href="{{ route("system.overtime_types.show" , $TypeItem["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <a href="{{ route("system.overtime_types.edit" , $TypeItem["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        تعديل النوع
+                                                                                        @lang("editType")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -152,13 +152,13 @@
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [
             ['Type' => 'text' , 'Info' =>
-                ['Name' => "filter[name]" , 'Placeholder' => 'اسم النوع'] ] ,
+                ['Name' => "filter[name]" , 'Placeholder' => __("nameType")] ] ,
             ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[max_rate_salary]" , 'Placeholder' => 'نسبة سقف الراتب'] ] ,
+                ['Name' => "filter[max_rate_salary]" , 'Placeholder' => __("rateMaxSalaryExtra")] ] ,
             ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[min_hours_in_days]" , 'Placeholder' => 'الحد الادنى لساعات قبول الاضافي'] ] ,
+                ['Name' => "filter[min_hours_in_days]" , 'Placeholder' => __("minimumHourForAcceptOvertime")] ] ,
             ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[salary_in_hours]" , 'Placeholder' => 'مقدار الاجر على الساعة'] ] ,
+                ['Name' => "filter[salary_in_hours]" , 'Placeholder' => __("amountSalaryInHour")] ] ,
         ]
     ])
 

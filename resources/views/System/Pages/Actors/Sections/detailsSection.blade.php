@@ -5,9 +5,9 @@
         <div class="DetailsSectionPage">
             <div class="DetailsSectionPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل القسم" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewSectionDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("viewSectionDetails")]] ,
+                    'summery' => __("titleViewSectionDetails")
                 ])
             </div>
             <div class="DetailsSectionPage__Content">
@@ -19,14 +19,14 @@
                                     <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                معلومات القسم
+                                                @lang("basicSectionInfo")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم القسم
+                                                        @lang("sectionName")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $sections["name"] }}
@@ -36,7 +36,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        مدير القسم
+                                                        @lang("sectionName")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $sections->moderator["first_name"]." ".$sections->moderator["last_name"] }}
@@ -46,7 +46,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        مكان القسم
+                                                        @lang("locationSection")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $sections->address["name"] }}
@@ -56,7 +56,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الوصف
+                                                        @lang("descriptionSection")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $sections["details"] ?? "_" }}
@@ -66,7 +66,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ انشاء القسم
+                                                        @lang("createSectionDate")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $sections["created_at"] }}
@@ -78,14 +78,14 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على القسم
+                                                @lang("operationSection")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
                                                 <a  href="{{route("system.sections.edit" , $sections["id"])}}"
                                                     class="Button Button--Primary">
-                                                    تعديل القسم
+                                                    @lang("editSection")
                                                 </a>
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
@@ -93,7 +93,7 @@
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="Button Button--Danger">
-                                                        حذف القسم
+                                                        @lang("removeOneSection")
                                                     </button>
                                                 </form>
                                             </div>

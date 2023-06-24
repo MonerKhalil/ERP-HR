@@ -15,9 +15,40 @@
 
             &:not(:last-child)::after {
                 @include UnderLine() ;
-                background-color: $SeparateBorderColor_Extra-3;
+            }
+        }
+    }
+}
+
+@include Themes(Light) {
+
+    .NotificationPage {
+
+        &__NotificationList {
+
+            .Notification {
+
+                &:not(:last-child)::after {
+                    background-color: #dededf;
+                }
             }
         }
     }
 
+}
+
+@include Themes(Dark) {
+
+    .NotificationPage {
+
+        &__NotificationList {
+
+            .Notification {
+
+                &:not(:last-child)::after {
+                    background-color: $SeparateBorderColor_Extra-3;
+                }
+            }
+        }
+    }
 }

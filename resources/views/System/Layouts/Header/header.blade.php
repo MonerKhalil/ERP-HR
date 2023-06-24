@@ -19,6 +19,9 @@
                 <div class="HeaderPage__AccountAlerts">
                     <div class="AccountAlerts">
                         <ul class="Alerts">
+                            <li class="Alert Alert--themeMode">
+                                <i class="material-icons IconClick">dark_mode</i>
+                            </li>
                             <li class="Alert Alert--Notification">
                                 <i class="material-icons IconClick">
                                     notifications
@@ -31,8 +34,11 @@
                                         </span>
                                     </div>
                                     <ul class="NotificationParent__List Dropdown__Content">
-                                        @if(count(auth()->user()->notifications) > 0)
-                                            @foreach(auth()->user()->notifications as $NotificationItem)
+                                        @php
+                                        $notifications = auth()->user()->notifications()->whereNot("data->type","audit")->latest()->get();
+                                        @endphp
+                                        @if(count($notifications) > 0)
+                                            @foreach($notifications as $NotificationItem)
                                                 <li class="Dropdown__Item Notification"
                                                     data-NotificationID="{{ $NotificationItem["id"] }}">
                                                     <div class="Notification__Content">
