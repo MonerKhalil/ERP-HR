@@ -5,9 +5,9 @@
         <div class="ViewVacationsPage">
             <div class="ViewVacationsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض كل الاجازات" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewAllVocation") ,
+                    'paths' => [[__("home") , '#'] , [__("viewAllVocation")]] ,
+                    'summery' => __("titleViewAllVocation")
                 ])
             </div>
             <div class="ViewVacationsPage__Content">
@@ -37,15 +37,15 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                     "Options" => [ [
-                                                                        "Label" => "فبول الطلبات" ,
+                                                                        "Label" => __("acceptVocation") ,
                                                                         "Action" => route("system.leaves_admin.leave.status.change" , "approve") ,
                                                                         "Method" => "post"
                                                                     ] , [
-                                                                        "Label" => "رفض الطلبات" ,
+                                                                        "Label" => __("rejectVocation") ,
                                                                         "Action" => route("system.leaves_admin.leave.status.change" , "reject") ,
                                                                         "Method" => "post"
                                                                     ] , [
-                                                                        "Label" => "حذف الاجازات" ,
+                                                                        "Label" => __("removeAllVocations") ,
                                                                         "Action" => route("system.leaves_admin.multi.delete") ,
                                                                         "Method" => "delete"
                                                                     ] ]
@@ -99,15 +99,15 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">اسم الموظف</th>
-                                                                <th class="Item__Col">نوع الاجازة</th>
-                                                                <th class="Item__Col">من تاريخ</th>
-                                                                <th class="Item__Col">عدد ايام الاجازة</th>
-                                                                <th class="Item__Col">من الساعة</th>
-                                                                <th class="Item__Col">الى الساعة</th>
-                                                                <th class="Item__Col">حالة الطلب</th>
-                                                                <th class="Item__Col">تاريخ الرد</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("employeeName")</th>
+                                                                <th class="Item__Col">@lang("vocationTypeWant")</th>
+                                                                <th class="Item__Col">@lang("fromDate")</th>
+                                                                <th class="Item__Col">@lang("vocationDaysNumber")</th>
+                                                                <th class="Item__Col">@lang("fromTime")</th>
+                                                                <th class="Item__Col">@lang("toTime")</th>
+                                                                <th class="Item__Col">@lang("stateRequest")</th>
+                                                                <th class="Item__Col">@lang("dateResponse")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $RequestItem)
                                                                 <tr class="Item DataItem">
@@ -145,14 +145,14 @@
                                                                                     <li>
                                                                                         <a href="{{ route("system.leaves.edit.leave" , $RequestItem["id"]) }}"
                                                                                            class="Dropdown__Item">
-                                                                                            تعديل طلب الاجازة
+                                                                                            @lang("editVacationRequest")
                                                                                         </a>
                                                                                     </li>
                                                                                 @endif
                                                                                 <li>
                                                                                     <a href="{{ route("system.leaves.show.leave" , $RequestItem["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -211,21 +211,21 @@
         $FilterItems = [] ;
 
         array_push($FilterItems , ['Type' => 'text' , 'Info' =>
-               ['Name' => "filter[name_employee]" , 'Placeholder' => 'اسم الموظف'] ]) ;
+               ['Name' => "filter[name_employee]" , 'Placeholder' => __("employeeName")] ]) ;
 
         array_push($FilterItems , ['Type' => 'select' , 'Info' =>
-           ['Name' => "filter[leave_type]" , 'Placeholder' => 'نوع الاجازة' ,
+           ['Name' => "filter[leave_type]" , 'Placeholder' => __("vocationTypeWant") ,
            "Options" => $LeaveTypes] ]) ;
 
         array_push($FilterItems , ['Type' => 'select' , 'Info' =>
-               ['Name' => "filter[status]" , 'Placeholder' => 'حالة الطلب' ,
+               ['Name' => "filter[status]" , 'Placeholder' => __("stateRequest") ,
                "Options" => $Status] ]);
 
         array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-           ['Name' => "filter[start_date_filter]" , 'Placeholder' => 'تبدأ من تاريخ'] ]);
+           ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("vocationStartDate")] ]);
 
         array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-           ['Name' => "filter[end_date_filter]" , 'Placeholder' => 'تنتهي في تاريخ'] ]);
+           ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("vocationEndDate")] ]);
 
     @endphp
 

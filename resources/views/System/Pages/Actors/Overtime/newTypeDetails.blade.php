@@ -5,9 +5,9 @@
         <div class="OverTimeDetailsPage">
             <div class="OverTimeDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل العمل الاضافي" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewOvertimeDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("viewOvertimeDetails")]] ,
+                    'summery' => __("titleViewOvertimeDetails")
                 ])
             </div>
             <div class="OverTimeDetailsPage__Content">
@@ -26,7 +26,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم النوع
+                                                        @lang("nameType")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtimeType["name"] }}
@@ -36,7 +36,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        نسبة سقف الراتب المزاد
+                                                        @lang("rateMaxSalaryExtra")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtimeType["max_rate_salary"] }}
@@ -46,7 +46,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الحد الادنى لساعات قبول الاضافي
+                                                        @lang("minimumHourForAcceptOvertime")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtimeType["min_hours_in_days"] }}
@@ -56,7 +56,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اجار الساعة الواحدة
+                                                        @lang("amountSalaryInHour")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtimeType["salary_in_hours"] }}
@@ -68,14 +68,14 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على نوع العمل الاضافي
+                                                @lang("operationOnOvertime")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
                                                 <a href="{{ route("system.overtime_types.edit" , $overtimeType["id"]) }}"
                                                    class="Button Button--Primary">
-                                                    تعديل النوع
+                                                    @lang("editType")
                                                 </a>
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
@@ -83,7 +83,7 @@
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="Button Button--Danger">
-                                                        حذف النوع
+                                                        @lang("removeType")
                                                     </button>
                                                 </form>
                                             </div>

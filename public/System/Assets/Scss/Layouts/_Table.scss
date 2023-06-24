@@ -78,22 +78,9 @@
         .GroupRows {
             display : table-row-group;
 
-            &__MainRow {
-
-                &.Show {
-                    background-color: $PrimaryColor-Project;
-                    color : $WhiteColor ;
-                }
-            }
-
             &__SubRows {
                 display: none;
-                background-color: #151735;
             }
-        }
-
-        .HeaderList {
-
         }
 
         .Item {
@@ -104,24 +91,9 @@
                 display: table-cell;
                 vertical-align: middle;
                 padding: .8rem ;
-                border-bottom: 1px solid $SeparateBorderColor;
-
-                &.Link {
-
-                    a {
-
-                        &:hover {
-                            color : $TertiaryColor-Project ;
-                        }
-                    }
-                }
 
                 &.fitContent {
                     width: 1%;
-                }
-
-                &.MoreDropdown {
-
                 }
 
                 &--Check {
@@ -130,11 +102,8 @@
 
                     .CheckBoxItem:checked + .CheckBoxRow {
 
-                        background-color: $TertiaryColor-Project;
-
                         > .material-icons {
                             display: inline-block;
-                            color : $WhiteColor;
                         }
                     }
 
@@ -162,16 +131,6 @@
                         .IconClick {
                             position: relative;
                             font-size: 1.6rem;
-                            color: $TextColor;
-
-                            &.View:hover {
-                                color : $TertiaryColor-Project ;
-                            }
-
-                            &.Remove:hover {
-                                color : $DangerColor ;
-                            }
-
                         }
                     }
                 }
@@ -183,10 +142,6 @@
                         &__Button {
                             cursor: pointer;
                             transition: all .3s;
-
-                            &:hover {
-                                color : $TertiaryColor-Project ;
-                            }
                         }
                     }
                 }
@@ -281,15 +236,107 @@
                 &__Menu {
 
                     .Dropdown__Item {
-                        background-color: #e4e4e4;
-                        color : $BlackColor ;
 
                         &:hover {
-                            background-color: #bfc5c9;
+                            background-color: lighten($BackGroundColor_Extra-4 , 10%);
+                            color : $WhiteColor ;
                         }
                     }
 
                 }
+            }
+        }
+
+        &__Table {
+
+            .GroupRows {
+
+                &__MainRow {
+
+                    &.Show {
+                        background-color: #7a7a7a;
+                        color : $WhiteColor ;
+                    }
+                }
+
+                &__SubRows {
+                    background-color: #ccc;
+                }
+            }
+
+            .Item {
+
+                &__Col {
+                    border-bottom: 1px solid $SeparateBorderColor;
+
+                    &.Link {
+
+                        a {
+
+                            &:hover {
+                                color : $TertiaryColor-Project ;
+                            }
+                        }
+                    }
+
+                    &--Check {
+
+                        .CheckBoxItem:checked + .CheckBoxRow {
+
+                            background-color: $TertiaryColor-Project;
+
+                            > .material-icons {
+                                display: inline-block;
+                                color : $WhiteColor;
+                            }
+                        }
+
+                        .CheckBoxRow {
+                            @extend .CheckBoxNormal ;
+                            width: 1.5rem;
+                            height: 1.5rem;
+
+                            > .material-icons {
+                                font-size: 1.4rem;
+                                left: 0;
+                                top: 0;
+                            }
+                        }
+                    }
+
+                    &--Tools {
+
+                        .Tools {
+
+                            .IconClick {
+                                color: $TextColor;
+
+                                &.View:hover {
+                                    color : $TertiaryColor-Project ;
+                                }
+
+                                &.Remove:hover {
+                                    color : $DangerColor ;
+                                }
+
+                            }
+                        }
+                    }
+
+                    &--Details {
+
+                        .Details {
+
+                            &__Button {
+
+                                &:hover {
+                                    color : $TertiaryColor-Project ;
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
 
@@ -316,6 +363,99 @@
                     }
 
                 }
+            }
+        }
+
+        &__Table {
+
+            .GroupRows {
+
+                &__MainRow {
+
+                    &.Show {
+                        background-color: $PrimaryColor-Project;
+                        color : $WhiteColor ;
+                    }
+                }
+
+                &__SubRows {
+                    background-color: #151735;
+                }
+            }
+
+            .Item {
+
+                &__Col {
+                    border-bottom: 1px solid $SeparateBorderColor;
+
+                    &.Link {
+
+                        a {
+
+                            &:hover {
+                                color : $TertiaryColor-Project ;
+                            }
+                        }
+                    }
+
+                    &--Check {
+
+                        .CheckBoxItem:checked + .CheckBoxRow {
+
+                            background-color: $TertiaryColor-Project;
+
+                            > .material-icons {
+                                display: inline-block;
+                                color : $WhiteColor;
+                            }
+                        }
+
+                        .CheckBoxRow {
+                            @extend .CheckBoxNormal ;
+                            width: 1.5rem;
+                            height: 1.5rem;
+
+                            > .material-icons {
+                                font-size: 1.4rem;
+                                left: 0;
+                                top: 0;
+                            }
+                        }
+                    }
+
+                    &--Tools {
+
+                        .Tools {
+
+                            .IconClick {
+                                color: $TextColor;
+
+                                &.View:hover {
+                                    color : $TertiaryColor-Project ;
+                                }
+
+                                &.Remove:hover {
+                                    color : $DangerColor ;
+                                }
+
+                            }
+                        }
+                    }
+
+                    &--Details {
+
+                        .Details {
+
+                            &__Button {
+
+                                &:hover {
+                                    color : $TertiaryColor-Project ;
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
 

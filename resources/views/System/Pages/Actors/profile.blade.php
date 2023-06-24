@@ -19,7 +19,7 @@
             <div class="ProfilePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __('profile') ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
+                    'paths' => [[__("home") , '#'] , [__('profile')]] ,
                     'summery' => __('titleProfilePage')
                 ])
             </div>
@@ -136,26 +136,26 @@
                                             <li class="Taps__Item Taps__Item--Icon"
                                             data-content="UserInfo">
                                             <i class="material-icons">face</i>
-                                            User
+                                            @lang("userInfo")
                                         </li>
                                         @endif
                                         @if($user->employee->exists && $IsHavePermissionReadEmployee)
                                             <li class="Taps__Item Taps__Item--Icon"
                                                     data-content="EmployeeInfo">
                                                     <i class="material-icons">badge</i>
-                                                    Employee
+                                                    @lang("employeeInfo")
                                                 </li>
                                             <li class="Taps__Item Taps__Item--Icon"
                                                     data-content="WorkInfo">
                                                     <i class="material-icons">work</i>
-                                                    Work
+                                                    @lang("workInfo")
                                                 </li>
                                         @endif
                                         @if($IsHavePermissionEditUser || $IsHavePermissionDelete)
                                             <li class="Taps__Item Taps__Item--Icon"
                                                     data-content="SecurityInfo">
                                                     <i class="material-icons">security</i>
-                                                    Security
+                                                    @lang("secureInfo")
                                                 </li>
                                         @endif
                                     </ul>
@@ -168,13 +168,13 @@
                                                             @include("System.Components.dataList" , [
                                                                 "Title" => __("basics") , "ListData" => [
                                                                     [
-                                                                        "Label" => "User Name" , "Value" => $user->name ,
+                                                                        "Label" => __("userName") , "Value" => $user->name ,
                                                                         "IsLock" => !$IsHavePermissionEditUser , "PopupName" => "UpdateUser"
                                                                     ] , [
                                                                         "Label" => __("email") , "Value" => $user->email ,
                                                                         "IsLock" => !$IsHavePermissionEditUser , "PopupName" => "UpdateUser"
                                                                     ] , [
-                                                                        "Label" => "Role" , "Value" => $user->roles[0]["name"] ?? "" ,
+                                                                        "Label" => __("role") , "Value" => $user->roles[0]["name"] ?? "" ,
                                                                         "IsLock" => !(isset($roles) && $IsHavePermissionEditUser) , "PopupName" => "UpdateUser"
                                                                     ]
                                                                 ]
@@ -203,7 +203,7 @@
                                                                     "Label" => __("fullName") , "Value" => $user->employee["first_name"]." ".$user->employee["last_name"] ,
                                                                     "IsLock" => true
                                                                 ] , [
-                                                                    "Label" => "Gender" , "Value" => $user->employee->gender ,
+                                                                    "Label" => __("gender") , "Value" => $user->employee->gender ,
                                                                     "IsLock" => true
                                                                 ] , [
                                                                     "Label" => __("dateBirthday") , "Value" => $user->employee->birth_date ,
@@ -230,10 +230,10 @@
                                                             @include("System.Components.dataList" , [
                                                             "Title" => __("basics") , "ListData" => [
                                                                 [
-                                                                    "Label" => "Department" , "Value" => $user->employee["section_id"]  ,
+                                                                    "Label" => __("Department") , "Value" => $user->employee["section_id"]  ,
                                                                     "IsLock" => true
                                                                 ] , [
-                                                                    "Label" => "Job Position" , "Value" => $user->employee["job_site"] ,
+                                                                    "Label" => __("jobPosition") , "Value" => $user->employee["job_site"] ,
                                                                     "IsLock" => true
                                                                 ]
                                                             ]
@@ -256,20 +256,20 @@
                                                                             <div class="PasswordChange">
                                                                                 <div class="PasswordChange__Label">
                                                                                     <h4 class="PasswordChange__Title">
-                                                                                        Change Password
+                                                                                        @lang("changePassword")
                                                                                     </h4>
                                                                                     <p class="PasswordChange__Text">
-                                                                                        Set a unique password to protect your account.
+                                                                                        @lang("determinePassword")
                                                                                     </p>
                                                                                     <em class="PasswordChange__LastChange">
-                                                                                        Last changed:
+                                                                                        @lang("lastChange")
                                                                                         <span class="Date">Oct 2, 2019</span>
                                                                                     </em>
                                                                                 </div>
                                                                                 <div class="PasswordChange__Button">
                                                                                     <button class="OpenPopup Button Button--Primary"
                                                                                             data-popUp="UpdatePassword">
-                                                                                        Change Password
+                                                                                        @lang("changePassword")
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -280,16 +280,16 @@
                                                                             <div class="DeleteAccount">
                                                                                 <div class="DeleteAccount__Label">
                                                                                     <h4 class="DeleteAccount__Title">
-                                                                                        Delete Account
+                                                                                        @lang("deleteAccount")
                                                                                     </h4>
                                                                                     <p class="DeleteAccount__Text">
-                                                                                        If you want delete account please click delete button .
+                                                                                        @lang("SureDeleteAccount")
                                                                                     </p>
                                                                                 </div>
                                                                                 <div class="DeleteAccount__Button">
                                                                                     <button class="OpenPopup Button Button--Danger"
                                                                                             data-popUp="DeleteAccount">
-                                                                                        Delete
+                                                                                        @lang("delete")
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -337,8 +337,10 @@
                                                         <input id="UserName" class="Input__Field"
                                                                type="text" name="name"
                                                                value="{{$user->name}}"
-                                                               placeholder="User Name" required>
-                                                        <label class="Input__Label" for="UserName">User Name</label>
+                                                               placeholder="@lang("userName")" required>
+                                                        <label class="Input__Label" for="UserName">
+                                                            @lang("userName")
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -370,7 +372,8 @@
                                                             @endphp
                                                             @include("System.Components.selector" , [
                                                                 'Name' => "role" , "Required" => "true" ,
-                                                                "DefaultValue" => $user->roles[0]["id"] ?? "" , "Label" => "Roles" ,
+                                                                "DefaultValue" => $user->roles[0]["id"] ?? "" ,
+                                                                "Label" => __("roles") ,
                                                                 "Options" => $RolesType
                                                             ])
                                                         </div>
@@ -401,7 +404,7 @@
                     <div class="Popup__CardContent">
                         <div class="Popup__Inner">
                             <h3 class="Popup__Title">
-                                <span class="Title">@lang("updateProfile")</span>
+                                <span class="Title">@lang("changePassword")</span>
                             </h3>
                             <div class="Popup__Body">
                                 <form class="Form Form--Dark"
@@ -715,7 +718,7 @@
                     <div class="Popup__CardContent">
                         <div class="Popup__Inner">
                             <h3 class="Popup__Title">
-                                <span class="Title">@lang("updateProfile")</span>
+                                <span class="Title">@lang("deleteAccount")</span>
                             </h3>
                             <div class="Popup__Body">
                                 <form class="Form Form--Dark"
@@ -725,16 +728,13 @@
                                     @csrf
                                     <div class="Row">
                                         <div class="Col">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aspernatur
-                                                commodi consectetur deleniti ipsum labore magni odit quaerat quam
-                                                repudiandae. Accusantium animi dolore id in nihil porro quae repellat
-                                                vel!</p>
+                                            <p class="Center">@lang("SureDeleteAccountMessage")</p>
                                         </div>
                                         <div class="Col">
                                             <div class="Form__Group">
                                                 <div class="Form__Button Center">
                                                     <button class="Button Cancel"
-                                                            type="submit">حذف الحساب</button>
+                                                            type="submit">@lang("deleteAccount")</button>
                                                 </div>
                                             </div>
                                         </div>
