@@ -12,6 +12,7 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DecisionController;
 use App\Http\Controllers\EducationDataController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeEvaluationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\LeaveAdminController;
@@ -223,7 +224,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
-                Route::post("status/change/{overtime}/{status}")
+                Route::post("status/change/{overtime}/{status}","changeStatus")
                     ->whereIn("status",["approve","reject"])
                     ->name("overtime.status.change");
             });
@@ -313,6 +314,28 @@ Route::middleware(['auth'])->group(function () {
 
         /*===========================================
         =        End Leaves Routes         =
+       =============================================*/
+
+        /*===========================================
+        =        Start Evaluation Employee Routes         =
+       =============================================*/
+
+        Route::prefix("evaluation/employee")->name("evaluation.employee")->controller(EmployeeEvaluationController::class)
+        ->group(function (){
+            Route::get("show/all","index")->name("index");
+            Route::get("show/{evaluation}","showEvaluation")->name("show.evaluation");
+            Route::get("create","create")->name("create");
+            Route::post("store","store")->name("store");
+            Route::get("show/add/employee/{evaluation}","showEvaluationAdd")->name("show.add.evaluation");
+            Route::post("store/employee/{evaluation}","storeEvaluationAdd")->name("store.evaluation");
+            Route::get("show/add/decision/{evaluation}","addDecisionEvaluationShowPage")->name("show.add.decision.evaluation");
+            Route::post("store/decision","storeDecisionEvaluation")->name("store.decision.evaluation");
+            Route::delete("destroy/{evaluation}","destroyEvaluation")->name("destroy.evaluation");
+            Route::delete("multi/destroy/evaluation","multiDestroyEvaluation")->name("multi.destroy.evaluation");
+        });
+
+        /*===========================================
+        =        End Evaluation Employee Routes         =
        =============================================*/
 
 

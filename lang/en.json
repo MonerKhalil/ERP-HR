@@ -28,6 +28,8 @@
     "accept_request_overtime" : "success accept request overtime.",
     "cancel_request_overtime" : "reject request overtime.",
     "err_delete_exist_type_in_requests" : "err_delete_exist_type_in_requests.",
+    "evaluation_employee" : "evaluation employee request .",
+    "msg_evaluation_employee" : "msg_evaluation_employee .",
 
     "/*         Header         */": "",
 

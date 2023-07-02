@@ -56,7 +56,6 @@ class ConferenceController extends Controller
      */
     public function store(ConferenceRequest $request)
     {
-//        dd($request);
         try {
             DB::beginTransaction();
             $data = Arr::except($request->validated(), ["employees"]);

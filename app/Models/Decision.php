@@ -65,7 +65,7 @@ class Decision extends BaseModel
                 "image" => $validator->imageRule(false),
             ];
             if ($validator->isUpdatedRequest()){
-                $rules['number'] =  [$rule,Rule::unique("decisions","number")->ignore($validator->route('decision')->id)];
+                $rules['number'] =  [$rule,Rule::unique("decisions","number")->ignore($validator->route('decision')->id??"")];
             }
             return $rules;
         };
