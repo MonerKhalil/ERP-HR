@@ -9,6 +9,7 @@ use App\Http\Controllers\MembershipController;
 use App\Models\LeaveType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
@@ -70,9 +71,12 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
  */
 Route::post("mmm",[\App\Http\Controllers\SectionsController::class,"show"]);
 Route::get("xxx",function (){
-    $now = Carbon::create(0,0,0,17);
-    dd($now->format("Y-m-d H:i:s A"));
-//    $time = ;
+    $data = DB::table('INFORMATION_SCHEMA.COLUMNS')
+        ->select('DATA_TYPE')
+        ->where('TABLE_NAME', 'company_settings')
+        ->where('COLUMN_NAME', 'created_at')
+        ->first()->DATA_TYPE;
+    dd($data);
 });
 
 Route::post("xxxc",[CorrespondenceSourceDestController::class,"store"]);

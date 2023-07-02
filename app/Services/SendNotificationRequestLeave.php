@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\LeaveType;
 use App\Models\User;
 use App\Notifications\MainNotification;
+use Illuminate\Support\Facades\Notification;
 
 class SendNotificationRequestLeave
 {
@@ -22,10 +23,9 @@ class SendNotificationRequestLeave
     }
 
     private function sendToUsersAdminLeaves($data,$moderator_id){
-        $users = User::query()->get();
-        foreach ($users as $user) {
-            if ($user->can("all_leaves") || $user->id == $moderator_id)
-                $user->notify(new MainNotification($data,__("request_leave")));
-        }
+        $users = User::query()->whereHas("roles.permissions",function ($query){
+            $query->where('name', "all_leaves");
+        })->orWhere("id",$moderator_id)->get();
+        Notification::send($users,new MainNotification($data,__("request_leave")));
     }
 }

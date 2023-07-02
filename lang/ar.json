@@ -35,6 +35,8 @@
     "cancel_request_overtime" : "تم رفض طلب العمل الاضافي .",
     "accept_request_overtime" : "تمت الموافقة على طلب العمل الاضافي بنجاح .",
     "err_delete_exist_type_in_requests" : "تعذز حذف النوع السابق بسبب وجود طلبات مرتبطة بهذا النوع السابق يرجى حذقها اولا .",
+    "evaluation_employee" : "طلب تقييم موظف .",
+    "msg_evaluation_employee" : "تم توجيه طلب تقييم موظف لك يرجى تعبئته .",
 
 
     "/*         Header         */": "",
