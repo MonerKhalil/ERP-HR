@@ -2546,19 +2546,30 @@ $(document).ready(function (){
 
     });
 
-});
-
-window.onload = function (){
-
     /*===========================================
-	=           Loader Page       =
+    =           Loader Page       =
     =============================================*/
     $(".Loader--Page").ready(function () {
-        $(this).find(".Loader--Page").remove();
+        setTimeout(() => {
+            $(this).find(".Loader--Page").remove();
+        } , 500)
     });
 
     GetFullParams() ;
-}
+
+});
+
+// window.onload = function (){
+//
+//     /*===========================================
+// 	=           Loader Page       =
+//     =============================================*/
+//     $(".Loader--Page").ready(function () {
+//         $(this).find(".Loader--Page").remove();
+//     });
+//
+//     GetFullParams() ;
+// }
 
 
 /*===========================================

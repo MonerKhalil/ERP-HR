@@ -1,17 +1,13 @@
 @extends("System.Pages.globalPage")
 
-{{--@php--}}
-{{--    dd($leaveType);--}}
-{{--@endphp--}}
-
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--DecisionDetailsPage">
         <div class="DecisionDetailsPage">
             <div class="DecisionDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل نوع الاجازة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("vocationTypeDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("vocationTypeDetails")]] ,
+                    'summery' => __("titleVocationTypeDetails")
                 ])
             </div>
             <div class="DecisionDetailsPage__Content">
@@ -30,7 +26,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم النوع
+                                                        @lang("nameType")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $leaveType["name"] }}
@@ -40,7 +36,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        نوع الاجازة
+                                                        @lang("vocationType")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["type_effect_salary"]}}
@@ -50,13 +46,13 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        ايام الاجازات
+                                                        @lang("vocationDays")
                                                     </span>
                                                     <span class="Data_Value">
                                                         @if($leaveType["leave_limited"])
-                                                            محدود
+                                                            @lang("vocationClose")
                                                         @else
-                                                            مفتوح
+                                                            @lang("vocationOpen")
                                                         @endif
                                                     </span>
                                                 </div>
@@ -64,7 +60,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        عدد ايام الاجازة في السنة
+                                                        @lang("vocationDaysInYear")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["max_days_per_years"] ?? "_"}}
@@ -84,13 +80,13 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        هل الاجازات الساعية مطبقة
+                                                        @lang("isVocationHourly")
                                                     </span>
                                                     <span class="Data_Value">
                                                         @if($leaveType["is_hourly"])
-                                                            مطبق
+                                                            @lang("applied")
                                                         @else
-                                                            غير مطبق
+                                                            @lang("notApplied")
                                                         @endif
                                                     </span>
                                                 </div>
@@ -99,13 +95,13 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        هل يمكن تطبيقها كساعات غير محددة
+                                                        @lang("isCanAppliedAsHoursNotDetermine")
                                                     </span>
                                                     <span class="Data_Value">
                                                         @if($leaveType["can_take_hours"])
-                                                            نعم
+                                                            @lang("yes")
                                                         @else
-                                                            لا
+                                                            @lang("no")
                                                         @endif
                                                     </span>
                                                 </div>
@@ -114,7 +110,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        عدد الساعات المسموحة في اليوم
+                                                        @lang("vocationHourlyDetermineCanTaken")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["max_hours_per_day"] ?? "_"}}
@@ -127,13 +123,13 @@
                                     <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                 معلومات خاصة بالموظف التي تحق له الاجازة
+                                                 @lang("infoAboutEmployeeWhoHasVocation")
                                             </h4>
                                         </div>
                                         <div class="ListData__Item ListData__Item--NoAction">
                                             <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الجنس
+                                                        @lang("gender")
                                                     </span>
                                                 <span class="Data_Value">
                                                         {{$leaveType["gender"]}}
@@ -144,7 +140,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        عدد سنوات العمل
+                                                        @lang("yearEmployeeWork")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["years_employee_services"] ?? "_"}}
@@ -154,7 +150,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        عدد سنوات العمل الاضافية
+                                                        @lang("yearEmployeeWorkExtra")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["number_years_services_increment_days"] ?? "_"}}
@@ -164,7 +160,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        عدد مرات زيادة الاجازات
+                                                        @lang("vocationTernPlus")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["count_available_in_service"] ?? "_"}}
@@ -174,7 +170,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        عدد الايام المزادة
+                                                        @lang("vocationDaysAdded")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["count_days_increment_days"] ?? "_"}}
@@ -184,7 +180,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        نسبة الخصم من الراتب لليوم الواحد
+                                                        @lang("reteDiscountForOneDay")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$leaveType["rate_effect_salary"] ?? "_"}}
@@ -196,14 +192,14 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على نوع الاجازة
+                                                @lang("operationOnVocationType")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
                                                 <a href="{{ route("system.leave_types.edit" , $leaveType["id"]) }}"
                                                    class="Button Button--Primary">
-                                                    تعديل نوع الاجازة
+                                                    @lang("editVocationType")
                                                 </a>
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
@@ -211,7 +207,7 @@
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="Button Button--Danger">
-                                                        حذف النوع
+                                                        @lang("removeType")
                                                     </button>
                                                 </form>
                                             </div>
@@ -225,9 +221,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section("extraScripts")
-    {{-- JS VenoBox --}}
-    <script src="{{asset("System/Assets/Lib/venobox/dist/venobox.min.js")}}"></script>
 @endsection

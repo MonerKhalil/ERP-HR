@@ -5,9 +5,9 @@
         <div class="NotificationPage">
             <div class="NotificationPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "الاشعارات" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("notification") ,
+                    'paths' => [[__("home") , '#'] , [__("notification")]] ,
+                    'summery' => __("titleNotificationPage")
                 ])
             </div>
             <div class="NotificationPage__Content">
@@ -26,11 +26,11 @@
                                                         @method("delete")
                                                         <button type="submit"
                                                                 class="Button Button--Primary">
-                                                            مسح الكل
+                                                            @lang("clean")
                                                         </button>
                                                     </form>
                                                     <button class="ReadAll Button Button--Primary">
-                                                        قراءة الكل
+                                                        @lang("readAll")
                                                     </button>
                                                 </div>
                                             </div>
@@ -54,7 +54,7 @@
                                                                         <a href="{{ $NotificationItem["data"]["data"]["route_name"] }}"
                                                                            class="Notification__Details">
                                                                             <p class="NotificationTitle">
-                                                                                من
+                                                                                @lang("ofPage")
                                                                                 <span class="UserFrom">
                                                                                 <strong>
                                                                                     {{ $NotificationItem["data"]["data"]["from"] }}
@@ -84,7 +84,7 @@
                                                                 </i>
                                                             </div>
                                                             <div class="Text">
-                                                                لا يوجد اشعارات لعرضها
+                                                                @lang("noNotification")
                                                             </div>
                                                         </li>
                                                     @endif

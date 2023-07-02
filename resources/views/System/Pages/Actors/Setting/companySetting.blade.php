@@ -5,9 +5,9 @@
         <div class="SettingCompanyPage">
             <div class="SettingCompanyPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "اعدادات الشركة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("companySetting") ,
+                    'paths' => [[__("home") , '#'] , [__("companySetting")]] ,
+                    'summery' => __("titleCompanySetting")
                 ])
             </div>
             <div class="SettingCompanyPage__Content">
@@ -45,9 +45,9 @@
                                                                                         <input id="CompanyName" class="Input__Field"
                                                                                                type="text" name="name"
                                                                                                value="{{ $setting["name"] }}"
-                                                                                               placeholder="اسم الشركة" required>
+                                                                                               placeholder="@lang("companyName")" required>
                                                                                         <label class="Input__Label" for="CompanyName">
-                                                                                            اسم الشركة
+                                                                                            @lang("companyName")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -60,9 +60,9 @@
                                                                                         <input id="CreateCompany" class="Date__Field"
                                                                                                name="created_at_company" required
                                                                                                value="{{ $setting["created_at_company"] }}"
-                                                                                               type="text" placeholder="تاريخ تأسيس الشركة" >
+                                                                                               type="text" placeholder="@lang("createCompanyDate")" >
                                                                                         <label class="Date__Label" for="CreateCompany">
-                                                                                            تاريخ تأسيس الشركة
+                                                                                            @lang("createCompanyDate")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -77,7 +77,7 @@
                                                                 <div class="Form__Group">
                                                                     <div class="Form__Button">
                                                                         <button class="Button Send"
-                                                                                type="submit">تغيير اعدادات الشركة</button>
+                                                                                type="submit">@lang("changeCompanySetting")</button>
                                                                     </div>
                                                                 </div>
                                                             </div>

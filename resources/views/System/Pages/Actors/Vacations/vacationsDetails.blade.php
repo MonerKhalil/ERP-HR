@@ -11,9 +11,9 @@
         <div class="VacationsDetailsPage">
             <div class="VacationsDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل الاجازة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("vocationDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("vocationDetails")]] ,
+                    'summery' => __("titleVocationDetails")
                 ])
             </div>
             <div class="VacationsDetailsPage__Content">

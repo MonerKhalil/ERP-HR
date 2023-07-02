@@ -55,6 +55,7 @@ html {
 
 body {
   box-sizing: border-box;
+  transition: background-color 0.3s;
 }
 body.Light {
   background-color: #ECF0F4;
@@ -220,16 +221,6 @@ img {
   overflow: hidden;
 }
 
-.ReplaceOldBackGround {
-  background-color: #542426;
-  color: #fff;
-}
-
-.ReplaceNewBackGround {
-  background-color: #1C4428;
-  color: #fff;
-}
-
 .Visible-phonePortrait,
 .Visible-phoneLandscape,
 .Visible-tablet,
@@ -325,12 +316,28 @@ body.Light .IconClick {
 body.Light .IconClick:hover, body.Light .IconClick.Active {
   background-color: rgba(0, 0, 0, 0.35);
 }
+body.Light .ReplaceNewBackGround {
+  background-color: #36794b;
+  color: #fff;
+}
+body.Light .ReplaceOldBackGround {
+  background-color: #86191e;
+  color: #fff;
+}
 
 body.Dark .IconClick {
   color: #fff;
 }
 body.Dark .IconClick:hover, body.Dark .IconClick.Active {
   background-color: rgba(0, 0, 0, 0.35);
+}
+body.Dark .ReplaceNewBackGround {
+  background-color: #1C4428;
+  color: #fff;
+}
+body.Dark .ReplaceOldBackGround {
+  background-color: #542426;
+  color: #fff;
 }
 
 @media only screen and (max-width: 74.99em) {
@@ -1931,7 +1938,7 @@ body.Dark .Popup__Close:hover {
   }
 }
 
-.CheckBoxNormal, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked, .MultiSelector__CheckBox {
+.CheckBoxNormal, body.Dark .Table__Table .Item__Col--Check .CheckBoxRow, body.Light .Table__Table .Item__Col--Check .CheckBoxRow, .Table__Table .Item__Col--Check .CheckBoxRow, .Form__CheckBox .CheckBox__Label .IconChecked, .MultiSelector__CheckBox {
   position: relative;
   display: inline-block;
   width: 2.5rem;
@@ -1941,7 +1948,7 @@ body.Dark .Popup__Close:hover {
   cursor: pointer;
   transition: all 0.3s;
 }
-.CheckBoxNormal > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons, .MultiSelector__CheckBox > .material-icons {
+.CheckBoxNormal > .material-icons, body.Dark .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, body.Light .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons, .Form__CheckBox .CheckBox__Label .IconChecked > .material-icons, .MultiSelector__CheckBox > .material-icons {
   position: absolute;
   display: none;
   width: 100%;
@@ -3411,13 +3418,8 @@ body.Dark .Taps__Item.Active::after {
 .Table__Table .GroupRows {
   display: table-row-group;
 }
-.Table__Table .GroupRows__MainRow.Show {
-  background-color: #3F51B5;
-  color: #fff;
-}
 .Table__Table .GroupRows__SubRows {
   display: none;
-  background-color: #151735;
 }
 .Table__Table .Item {
   display: table-row;
@@ -3427,10 +3429,6 @@ body.Dark .Taps__Item.Active::after {
   display: table-cell;
   vertical-align: middle;
   padding: 0.8rem;
-  border-bottom: 1px solid #23364e;
-}
-.Table__Table .Item__Col.Link a:hover {
-  color: #10C093;
 }
 .Table__Table .Item__Col.fitContent {
   width: 1%;
@@ -3439,12 +3437,8 @@ body.Dark .Taps__Item.Active::after {
   line-height: 1;
   text-align: start;
 }
-.Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
-  background-color: #10C093;
-}
 .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
   display: inline-block;
-  color: #fff;
 }
 .Table__Table .Item__Col--Check .CheckBoxRow {
   width: 1.5rem;
@@ -3464,20 +3458,10 @@ body.Dark .Taps__Item.Active::after {
 .Table__Table .Item__Col--Tools .Tools .IconClick {
   position: relative;
   font-size: 1.6rem;
-  color: #96A2B4;
-}
-.Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
-  color: #10C093;
-}
-.Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
-  color: #f93542;
 }
 .Table__Table .Item__Col--Details .Details__Button {
   cursor: pointer;
   transition: all 0.3s;
-}
-.Table__Table .Item__Col--Details .Details__Button:hover {
-  color: #10C093;
 }
 .Table__Table .Item:hover .Item__Col--Tools .Tools {
   visibility: visible;
@@ -3502,17 +3486,96 @@ html[lang=ar] .Table__Table .Item__Col:last-child {
   padding-left: 2.4rem;
 }
 
-body.Light .Table__PrintMenu .PrintMenu__Menu .Dropdown__Item {
-  background-color: #e4e4e4;
-  color: #000;
-}
 body.Light .Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
-  background-color: #bfc5c9;
+  background-color: #2d3f54;
+  color: #fff;
+}
+body.Light .Table__Table .GroupRows__MainRow.Show {
+  background-color: #7a7a7a;
+  color: #fff;
+}
+body.Light .Table__Table .GroupRows__SubRows {
+  background-color: #ccc;
+}
+body.Light .Table__Table .Item__Col {
+  border-bottom: 1px solid #23364e;
+}
+body.Light .Table__Table .Item__Col.Link a:hover {
+  color: #10C093;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
+  background-color: #10C093;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxRow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+body.Light .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons {
+  font-size: 1.4rem;
+  left: 0;
+  top: 0;
+}
+body.Light .Table__Table .Item__Col--Tools .Tools .IconClick {
+  color: #96A2B4;
+}
+body.Light .Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
+  color: #10C093;
+}
+body.Light .Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
+  color: #f93542;
+}
+body.Light .Table__Table .Item__Col--Details .Details__Button:hover {
+  color: #10C093;
 }
 
 body.Dark .Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
   background-color: #2d3f54;
   color: #fff;
+}
+body.Dark .Table__Table .GroupRows__MainRow.Show {
+  background-color: #3F51B5;
+  color: #fff;
+}
+body.Dark .Table__Table .GroupRows__SubRows {
+  background-color: #151735;
+}
+body.Dark .Table__Table .Item__Col {
+  border-bottom: 1px solid #23364e;
+}
+body.Dark .Table__Table .Item__Col.Link a:hover {
+  color: #10C093;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow {
+  background-color: #10C093;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxItem:checked + .CheckBoxRow > .material-icons {
+  display: inline-block;
+  color: #fff;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxRow {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+body.Dark .Table__Table .Item__Col--Check .CheckBoxRow > .material-icons {
+  font-size: 1.4rem;
+  left: 0;
+  top: 0;
+}
+body.Dark .Table__Table .Item__Col--Tools .Tools .IconClick {
+  color: #96A2B4;
+}
+body.Dark .Table__Table .Item__Col--Tools .Tools .IconClick.View:hover {
+  color: #10C093;
+}
+body.Dark .Table__Table .Item__Col--Tools .Tools .IconClick.Remove:hover {
+  color: #f93542;
+}
+body.Dark .Table__Table .Item__Col--Details .Details__Button:hover {
+  color: #10C093;
 }
 
 .Cookies {

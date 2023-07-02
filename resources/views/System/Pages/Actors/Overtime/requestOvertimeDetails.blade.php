@@ -10,9 +10,9 @@
         <div class="SessionDetailsPage">
             <div class="SessionDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل طلب وقت اضافي" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewOvertimeRequestDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("viewOvertimeRequestDetails")]] ,
+                    'summery' => __("titleViewOvertimeRequestDetails")
                 ])
             </div>
             <div class="SessionDetailsPage__Content">
@@ -31,7 +31,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم الموظف الطالب
+                                                        @lang("employeeNameWant")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtime->employee["first_name"]." ".$overtime->employee["last_name"] }}
@@ -41,7 +41,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        نوع العمل الاضافي
+                                                        @lang("overtimeType")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtime->overtime_type["name"] }}
@@ -51,7 +51,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تبدأ من تاريخ
+                                                        @lang("startDateFrom")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtime["from_date"] }}
@@ -61,7 +61,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تنتهي عند تاريخ
+                                                        @lang("endDateFrom")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtime["to_date"] }}
@@ -71,7 +71,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        حالة الطلب
+                                                        @lang("stateRequest")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtime["status"] }}
@@ -83,14 +83,14 @@
                                     <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                اجر العمل الاضافي
+                                                @lang("overtimeSalary")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        قيمة الزيادة بالساعة الواحدة
+                                                        @lang("amountSalaryOvertimeExtra")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtime->overtime_type["salary_in_hours"] }}
@@ -100,7 +100,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الحد الادنى لساعات قبول الاضافي
+                                                        @lang("minimumHourForAcceptOvertime")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $overtime->overtime_type["min_hours_in_days"] }}
@@ -112,14 +112,14 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على الطلب
+                                                @lang("operationOnRequest")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
                                                 <a  href="{{ route("system.overtimes.edit.overtime" , $overtime["id"]) }}"
                                                     class="Button Button--Primary">
-                                                    تعديل الطلب
+                                                    @lang("editRequest")
                                                 </a>
                                                 @if($IsHavePermissionEditUser && $overtime["status"] == "pending")
                                                     <form class="Form"
@@ -127,7 +127,7 @@
                                                           style="display: inline-block" method="post">
                                                         @csrf
                                                         <button type="submit" class="Button Button--Primary">
-                                                            قبول الطلب
+                                                            @lang("acceptTheRequest")
                                                         </button>
                                                     </form>
                                                     <form class="Form"
@@ -135,7 +135,7 @@
                                                           style="display: inline-block" method="post">
                                                         @csrf
                                                         <button type="submit" class="Button Button--Danger">
-                                                            رفض الطلب
+                                                            @lang("rejectTheRequest")
                                                         </button>
                                                     </form>
                                                 @endif

@@ -5,9 +5,9 @@
         <div class="VacationRequestPage" id="VacationAvailable">
             <div class="VacationRequestPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض اجازاتي المتاحة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewVacationAvailable") ,
+                    'paths' => [[__("home") , '#'] , [__("viewVacationAvailable")]] ,
+                    'summery' => __("titleViewVacationAvailable")
                 ])
             </div>
             <div class="VacationRequestPage__Content">
@@ -27,7 +27,7 @@
                                                     <div class="ListData">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                نوع الاجازة المطلوبة
+                                                                @lang("vocationTypeWant")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -47,7 +47,7 @@
 
                                                                                 @include("System.Components.selector" , [
                                                                                     'Name' => "leave_type_id" , "Required" => "true" ,
-                                                                                    "DefaultValue" => "", "Label" => "نوع الاجازة المرادة" ,
+                                                                                    "DefaultValue" => "", "Label" => __("vocationTypeWant") ,
                                                                                     "Options" => $TypeVacations
                                                                                 ])
                                                                             </div>
@@ -62,7 +62,7 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Button">
                                                                     <button class="Button Send" type="submit">
-                                                                        عرض معلومات الاجازة
+                                                                        @lang("viewVocationInfo")
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -80,7 +80,7 @@
                                                 <div class="ListData NotResponsive">
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
-                                                            نتائج
+                                                            @lang("result")
                                                         </h4>
                                                     </div>
                                                     <div class="ListData__Content" id="ContentResult">
