@@ -16,12 +16,14 @@ trait TResponse
      * @param string|null $msgProcess
      * @param string|null $RouteName
      * @param bool $isBack
+     * @param array|null $parametersRouteName
      * @return Response|RedirectResponse|null
      * @author moner khalil
      */
     public function responseSuccess(
         string $ViewName = null, mixed $Data = null,
-        string $msgProcess = null, string $RouteName = null, bool $isBack = false
+        string $msgProcess = null, string $RouteName = null, bool $isBack = false,
+        array $parametersRouteName = []
     ): Response|RedirectResponse|null
     {
         if (!is_null($msgProcess)){
@@ -34,7 +36,7 @@ trait TResponse
             return redirect()->back();
         }
         if (!is_null($RouteName)){
-            return redirect()->route($RouteName);
+            return redirect()->route($RouteName,$parametersRouteName);
         }
         return null;
     }

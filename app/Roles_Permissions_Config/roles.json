@@ -27,7 +27,8 @@
             "public_holidays": "a",
             "overtime_types": "a",
             "overtimes": "a",
-            "section_externals": "a"
+            "section_externals": "a",
+            "employee_evaluations": "a"
         },
         "user" : {
             "users" : ["r"],
@@ -40,7 +41,6 @@
         "c" : "create",
         "u" : "update",
         "d" : "delete",
-        "e" : "export",
-        "au": "audit"
+        "e" : "export"
     }
 }
