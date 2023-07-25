@@ -12,6 +12,9 @@
             </div>
             <div class="SettingWorkViewPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card SettingWorkViewPage__TableUsers">

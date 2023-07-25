@@ -41,7 +41,8 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row GapC-1-5">
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("name") }}">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="WorkSettingName" class="Input__Field"
@@ -58,7 +59,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("work_hours_from") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="StartWorkFrom"
@@ -78,7 +80,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("work_hours_to") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="EndWorkIn"
@@ -98,7 +101,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("days") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -135,7 +139,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-12">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("description") }}">
                                                                                 <div class="Form__Textarea">
                                                                                     <div class="Textarea__Area">
                                                                                         <textarea id="Description" name="description"
