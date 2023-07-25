@@ -37,6 +37,9 @@
                 <div class="Row">
                     <div class="VacationRequestPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -79,7 +82,12 @@
                                                                         </div>
                                                                     </div>
                                                                     <div id="VacationType" class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        @php
+                                                                            $ErrorView = Errors("from_date") ?? Errors("to_date") ?? Errors("can_from_hour")
+                                                                            ?? Errors("can_to_hour") ?? Errors("from_hour") ?? Errors("to_hour") ?? Errors("description") ;
+                                                                        @endphp
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ $ErrorView }}">
                                                                             <div class="VisibilityOption Form__Select"
                                                                                  data-ElementsTargetName="TypeVacation">
                                                                                 <div class="Select__Area">

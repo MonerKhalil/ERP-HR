@@ -14,6 +14,9 @@
                 <div class="Row">
                     <div class="AddUserPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -30,7 +33,8 @@
                                                         <div class="ListData__Content">
                                                             <div class="Row GapC-1-5">
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("name") }}">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
                                                                                 <input id="name" class="Input__Field" type="text"
@@ -38,17 +42,11 @@
                                                                                 <label class="Input__Label" for="name">@lang("userName")</label>
                                                                             </div>
                                                                         </div>
-                                                                        @if(!is_null(Errors("name")))
-                                                                            <div class="Form__Error">
-                                                                                <div class="Error__Area">
-                                                                                    <small>{{Errors("name")}}</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("email") }}">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
                                                                                 <input id="email" class="Input__Field"
@@ -56,17 +54,11 @@
                                                                                 <label class="Input__Label" for="email">@lang("email")</label>
                                                                             </div>
                                                                         </div>
-                                                                        @if(!is_null(Errors("email")))
-                                                                            <div class="Form__Error">
-                                                                                <div class="Error__Area">
-                                                                                    <small>{{Errors("email")}}</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("password") }}">
                                                                         <div class="Form__Input Form__Input--Password">
                                                                             <div class="Input__Area">
                                                                                 <input id="Password" class="Input__Field"
@@ -75,17 +67,11 @@
                                                                                 <i class="material-icons Input__Icon">visibility</i>
                                                                             </div>
                                                                         </div>
-                                                                        @if(!is_null(Errors("password")))
-                                                                            <div class="Form__Error">
-                                                                                <div class="Error__Area">
-                                                                                    <small>{{Errors("password")}}</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("re_password") }}">
                                                                         <div class="Form__Input Form__Input--Password">
                                                                             <div class="Input__Area">
                                                                                 <input id="Re_password" class="Input__Field"
@@ -93,18 +79,12 @@
                                                                                 <label class="Input__Label" for="Re_password">@lang("rePassword")</label>
                                                                                 <i class="material-icons Input__Icon">visibility</i>
                                                                             </div>
-                                                                            @if(!is_null(Errors("re_password")))
-                                                                                <div class="Form__Error">
-                                                                                    <div class="Error__Area">
-                                                                                        <small>{{Errors("re_password")}}</small>
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("role") }}">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
                                                                                 @include("System.Components.selector" , [
@@ -114,13 +94,6 @@
                                                                                 ])
                                                                             </div>
                                                                         </div>
-                                                                        @if(!is_null(Errors("role")))
-                                                                            <div class="Form__Error">
-                                                                                <div class="Error__Area">
-                                                                                    <small>{{Errors("role")}}</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-12-xs">

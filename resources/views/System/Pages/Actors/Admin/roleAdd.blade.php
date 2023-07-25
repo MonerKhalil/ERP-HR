@@ -31,6 +31,9 @@
                 ])
                 <div class="RollSettingPage__Content">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row GapC-2">
                             <div class="Col-6-md">
                                 <div class="Card">
@@ -94,7 +97,8 @@
                                                 @endif
                                                 <div class="Row">
                                                     <div class="Col">
-                                                        <div class="Form__Group">
+                                                        <div class="Form__Group"
+                                                             data-ErrorBackend="{{ Errors("name") }}">
                                                             <div class="Form__Input">
                                                                 <div class="Input__Area">
                                                                     <input id="RoleName" class="Input__Field" type="text"

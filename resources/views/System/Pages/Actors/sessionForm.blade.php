@@ -23,6 +23,9 @@
                 <div class="Row">
                     <div class="AddUserPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Card">
                                 <div class="Card__Content">
                                     <div class="Card__Inner">
@@ -46,7 +49,8 @@
                                                     <div class="ListData__Content">
                                                         <div class="Row GapC-1-5">
                                                             <div class="Col-4-md Col-6-sm">
-                                                                <div class="Form__Group">
+                                                                <div class="Form__Group"
+                                                                     data-ErrorBackend="{{ Errors("name") }}">
                                                                     <div class="Form__Input">
                                                                         <div class="Input__Area">
                                                                             <input id="SessionName" class="Input__Field"
@@ -61,7 +65,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="Col-4-md Col-6-sm">
-                                                                <div class="Form__Group">
+                                                                <div class="Form__Group"
+                                                                     data-ErrorBackend="{{ Errors("date_session") }}">
                                                                     <div class="Form__Date">
                                                                         <div class="Date__Area">
                                                                             <input id="SessionDate" class="Date__Field MinimumNow"
@@ -76,7 +81,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="Col">
-                                                                <div class="Form__Group">
+                                                                <div class="Form__Group"
+                                                                     data-ErrorBackend="{{ Errors("description") }}">
                                                                     <div class="Form__Textarea">
                                                                         <div class="Textarea__Area">
                                                                                 <textarea id="SessionDirection"
@@ -105,7 +111,8 @@
                                                     <div class="ListData__Content">
                                                         <div class="Row GapC-1-5">
                                                             <div class="Col-4-md Col-6-sm">
-                                                                <div class="Form__Group">
+                                                                <div class="Form__Group"
+                                                                     data-ErrorBackend="{{ Errors("moderator_id") }}">
                                                                     <div class="Form__Select">
                                                                         <div class="Select__Area">
                                                                             @include("System.Components.selector" , [

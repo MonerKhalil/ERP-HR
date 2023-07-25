@@ -467,6 +467,17 @@ $(document).ready(function (){
             }
             $(FormInfo.FormElement).find("input , textarea").each((_ , Field) => {
                 $(Field).attr("data-FieldID" , 1) ;
+                const GroupField = $(Field).closest(".Form__Group").get(0) ;
+                const ErrorBackend = $(GroupField).attr("data-ErrorBackend") ;
+                if(ErrorBackend) {
+                    const ErrorContainer = `<div class="Form__Error">
+                            <div class="Error__Area">
+                                <small>${ErrorBackend}</small>
+                            </div>
+                        </div>`;
+                    $(GroupField).append(ErrorContainer);
+                }
+                $(GroupField).removeAttr("data-ErrorBackend") ;
             });
             $(FormInfo.FormElement).find("input:not(.Date__Field) , textarea").each((_ , Field) => {
                 $(Field).on("blur" , function () {
@@ -517,8 +528,12 @@ $(document).ready(function (){
                     }
                 },
 
-                success: function (ErrorLabel, FieldElement) {
-                    const Group = $(FieldElement).closest(".Form__Group").get(0);
+                unhighlight: function (element) {
+                    /*
+                        this fun as success but it has called for valid process if field is valid
+                        even if required of not .
+                     */
+                    const Group = $(element).closest(".Form__Group").get(0);
                     const ErrorElement = $(Group).find(".Form__Error");
                     if (ErrorElement.length > 0)
                         ErrorElement.remove();
@@ -1307,7 +1322,6 @@ $(document).ready(function (){
      * @author Amir Alhloo
      */
 
-
     function NotificationSetting(NotificationInfo = {
         Operation : "ReadAll" | "DeleteOne" | "ClearAll" | "AddOne" ,
         NotificationID : Number | undefined ,
@@ -1392,8 +1406,6 @@ $(document).ready(function (){
         }
 
     }
-
-
 
     $(".NotificationParent").ready(function() {
         $(".NotificationParent").each((_ , Parent) => {

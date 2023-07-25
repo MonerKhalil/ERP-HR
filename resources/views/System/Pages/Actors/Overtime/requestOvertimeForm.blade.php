@@ -40,7 +40,8 @@
                                                                 <div class="Row GapC-1-5">
                                                                     @if(isset($employees))
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -61,7 +62,8 @@
                                                                         </div>
                                                                     @endif
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @php
@@ -82,7 +84,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                             <div class="Form__Date">
                                                                                 <div class="Date__Area">
                                                                                     <input id="FromStartDate" class="DateMinToday Date__Field"
@@ -98,7 +101,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                             <div class="Form__Date">
                                                                                 <div class="Date__Area">
                                                                                     <input id="ToEndDate"
@@ -117,7 +121,8 @@
                                                                     <div class="VisibilityOption Col-4-md Col-6-sm"
                                                                          data-VisibilityDefault="{{ isset($overtime) ? ($overtime["is_hourly"] ? "1" : "0") : "" }}"
                                                                          data-ElementsTargetName="HourlyFields">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") ?? Errors("salary_in_hours") ?? Errors("salary_in_hours") }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.selector" , [
@@ -174,7 +179,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-12">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                             <div class="Form__Textarea">
                                                                                 <div class="Textarea__Area">
                                                                                         <textarea id="ReasonOverTime" class="Textarea__Field"
@@ -193,7 +199,8 @@
                                                         </div>
                                                         <div class="Row">
                                                             <div class="Col">
-                                                                <div class="Form__Group">
+                                                                <div class="Form__Group"
+                                                                     data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                     <div class="Form__Button">
                                                                         <button class="Button Send" type="submit">
                                                                             @if(isset($overtime))

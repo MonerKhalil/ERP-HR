@@ -15,6 +15,9 @@
                 <div class="Row">
                     <div class="ReportEmployeeFormPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -36,7 +39,18 @@
                                                                     {{-- Main --}}
                                                                     <div class="VisibilityOption Col-12"
                                                                          data-ElementsTargetName="CreateReportBy">
-                                                                        <div class="Form__Group">
+                                                                        @php
+                                                                            $ErrorView = Errors("from_contract_direct_date") ?? Errors("to_contract_direct_date") ??
+                                                                            Errors("from_birth_date") ?? Errors("to_birth_date") ?? Errors("from_end_break_date") ??
+                                                                            Errors("to_end_break_date") ?? Errors("from_decision_date") ?? Errors("to_decision_date") ??
+                                                                            Errors("from_conference_date") ?? Errors("to_conference_date") ?? Errors("gender") ??
+                                                                            Errors("family_status") ?? Errors("education_level_id") ?? Errors("position_id") ??
+                                                                            Errors("contract_type") ?? Errors("section_id") ?? Errors("membership_type_id") ??
+                                                                            Errors("type_decision_id") ?? Errors("current_job") ?? Errors("from_salary") ?? Errors("to_salary") ??
+                                                                            Errors("salary");
+                                                                        @endphp
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ $ErrorView }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.multiSelector" , [
