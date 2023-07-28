@@ -181,8 +181,10 @@ class ReportEmployeeController extends Controller
     }
 
     private function queryContract($request){
-        $from_date = MyApp::Classes()->stringProcess->DateFormat($request->from_contract_direct_date);
-        $to_date = MyApp::Classes()->stringProcess->DateFormat($request->to_contract_direct_date);
+        $from_date = $request->from_contract_direct_date ?? "";
+        $to_date = $request->to_contract_direct_date ?? "";
+        $from_date = MyApp::Classes()->stringProcess->DateFormat($from_date);
+        $to_date = MyApp::Classes()->stringProcess->DateFormat($to_date);
         if ( (!is_null($request->contract_type))
             ||
             (!is_null($request->from_salary) && !is_null($request->to_salary))
@@ -216,8 +218,10 @@ class ReportEmployeeController extends Controller
     }
 
     private function queryDecision($request){
-        $from_date = MyApp::Classes()->stringProcess->DateFormat($request->from_decision_date);
-        $to_date = MyApp::Classes()->stringProcess->DateFormat($request->to_decision_date);
+        $from_date = $request->from_decision_date ?? "";
+        $to_date = $request->to_decision_date ?? "";
+        $from_date = MyApp::Classes()->stringProcess->DateFormat($from_date);
+        $to_date = MyApp::Classes()->stringProcess->DateFormat($to_date);
         if (!is_null($request->type_decision_id)
             &&
             (is_string($from_date) && is_string($to_date) && ($from_date <= $to_date))

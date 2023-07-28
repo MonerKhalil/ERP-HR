@@ -5,13 +5,16 @@
         <div class="ViewDecision">
             <div class="ViewDecision__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض القرارات" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewDecision") ,
+                    'paths' => [[__("home") , '#'] , [__("viewDecision")]] ,
+                    'summery' => __("titleViewDecision")
                 ])
             </div>
             <div class="ViewDecision__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card ViewDecision__TableUsers">
@@ -37,11 +40,11 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => "طباعة كـ pdf" ,
+                                                                    "Label" => __("printRowsAsPDF") ,
                                                                      "Action" => route("system.decisions.export.pdf") ,
                                                                      "Method" => "post"
                                                                 ] , [
-                                                                    "Label" => "طباعة كـ xlsx" ,
+                                                                    "Label" => __("printRowsAsExcel") ,
                                                                      "Action" => route("system.decisions.export.xls") ,
                                                                      "Method" => "post"
                                                                 ] , [
@@ -87,7 +90,7 @@
                                             @if(count($data) > 0)
                                                 <div class="Card__Inner p0">
                                                     <div class="Table__ContentTable">
-                                                        <table class="Left Table__Table" >
+                                                        <table class="Center Table__Table">
                                                             <tr class="Item HeaderList">
                                                                 <th class="Item__Col Item__Col--Check">
                                                                     <input id="ItemRow_Main" class="CheckBoxItem"
@@ -99,11 +102,11 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">نوع القرار</th>
-                                                                <th class="Item__Col">رقم القرار</th>
-                                                                <th class="Item__Col">تاريخ القرار</th>
-                                                                <th class="Item__Col">تاريخ انتهاء القرار</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("decisionType")</th>
+                                                                <th class="Item__Col">@lang("decisionNumber")</th>
+                                                                <th class="Item__Col">@lang("dateDecision")</th>
+                                                                <th class="Item__Col">@lang("dateDecisionEnd")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $DecisionData)
                                                                 <tr class="Item DataItem">
@@ -133,19 +136,19 @@
                                                                                 <li>
                                                                                     <a href="{{route("system.decisions.show" , $DecisionData["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <a href="{{route("system.decisions.print.pdf" , $DecisionData["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        طباعة القرار
+                                                                                        @lang("decisionPrint")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <a href="{{route("system.decisions.edit" , $DecisionData["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        تعديل قرار
+                                                                                        @lang("decisionEdit")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -194,16 +197,16 @@
     @include("System.Components.searchForm" , [
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[id]" , 'Placeholder' => 'Decision ID'] ] ,
+                ['Name' => "filter[id]" , 'Placeholder' => __("decisionID")] ] ,
                 ['Type' => 'select' , 'Info' =>
-                    ['Name' => "filter[type_decision_id]" , 'Placeholder' => 'Decision Type' ,
+                    ['Name' => "filter[type_decision_id]" , 'Placeholder' => __("decisionType") ,
                     "Options" => $DecisionTypes] ] , ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[number]" , 'Placeholder' => 'Decision Number'] ] ,
+                ['Name' => "filter[number]" , 'Placeholder' => __("decisionNumber")] ] ,
                 ['Type' => 'dateRange' , 'Info' =>
-                    ['Name' => "date" , 'Placeholder' => 'Decision Date'
+                    ['Name' => "date" , 'Placeholder' => __("dateDecision")
                     , "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"] ] ,
                  ['Type' => 'dateRange' , 'Info' =>
-                    ['Name' => "end_date_decision" , 'Placeholder' => 'Decision End Date'
+                    ['Name' => "end_date_decision" , 'Placeholder' => __("dateDecisionEnd")
                     , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ]
             ]
     ])

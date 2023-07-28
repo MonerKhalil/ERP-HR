@@ -71,6 +71,24 @@ class Employee extends BaseModel
         return $this->tempLeaves("reject");
     }
 
+    private function tempOvertime(string $type){
+        return $this->hasMany(Overtime::class,"employee_id","id")
+            ->with("overtime_type")
+            ->where("status",$type)->orderBy("updated_at","desc");
+    }
+
+    public function overtimes(){
+        return $this->tempOvertime("approve");
+    }
+
+    public function overtimes_pending(){
+        return $this->tempOvertime("pending");
+    }
+
+    public function overtimes_reject(){
+        return $this->tempOvertime("reject");
+    }
+
     public function data_end_service(){
         return $this->hasMany(DataEndService::class,"employee_id","id")
             ->where("is_request_end_services",false);

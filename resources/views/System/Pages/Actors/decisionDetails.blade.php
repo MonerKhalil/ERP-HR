@@ -6,13 +6,16 @@
         <div class="DecisionDetailsPage">
             <div class="DecisionDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل القرار" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("decisionDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("decisionDetails")]] ,
+                    'summery' => __("titleDecisionDetails")
                 ])
             </div>
             <div class="DecisionDetailsPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card">
@@ -27,7 +30,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        نوع القرار
+                                                        @lang("decisionType")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$decision->type_decision["name"]}}
@@ -37,7 +40,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        رقم القرار
+                                                        @lang("decisionNumber")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$decision["number"]}}
@@ -47,7 +50,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ القرار
+                                                        @lang("dateDecision")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$decision["date"]}}
@@ -58,7 +61,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        نوع التأثير على الراتب
+                                                        @lang("salaryEffectType")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{$decision["effect_salary"]}}
@@ -69,7 +72,7 @@
                                                     <div class="ListData__Item ListData__Item--NoAction">
                                                         <div class="Data_Col">
                                                             <span class="Data_Label">
-                                                                قيمة الاضافة على الراتب
+                                                                @lang("amountSalaryExtra")
                                                             </span>
                                                             <span class="Data_Value">
                                                                 {{$decision["value"]}}
@@ -79,7 +82,7 @@
                                                     <div class="ListData__Item ListData__Item--NoAction">
                                                         <div class="Data_Col">
                                                             <span class="Data_Label">
-                                                                قيمة الاضافة على الحوافز
+                                                                @lang("amountIncentivesExtra")
                                                             </span>
                                                             <span class="Data_Value">
                                                                 {{$decision["rate"]}}
@@ -90,7 +93,7 @@
                                                     <div class="ListData__Item ListData__Item--NoAction">
                                                         <div class="Data_Col">
                                                             <span class="Data_Label">
-                                                                قيمة الحسم من الراتب
+                                                                @lang("amountDiscountSalary")
                                                             </span>
                                                             <span class="Data_Value">
                                                                 {{$decision["value"]}}
@@ -100,7 +103,7 @@
                                                     <div class="ListData__Item ListData__Item--NoAction">
                                                         <div class="Data_Col">
                                                             <span class="Data_Label">
-                                                                نسبة الحسم من الحوافز
+                                                                @lang("discountRateIncentives")
                                                             </span>
                                                             <span class="Data_Value">
                                                                 {{$decision["rate"]}}
@@ -112,32 +115,32 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        صورة عن القرار
+                                                        @lang("decisionPhoto")
                                                     </span>
                                                     <a href="{{PathStorage($decision["image"])}}"
                                                        class="venobox Data_Value">
-                                                        اضغط لعرض الصورة
+                                                        @lang("clickForViewImage")
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
-                                                            <span class="Data_Label">
-                                                                تاريخ الانشاء على النظام
-                                                            </span>
+                                                    <span class="Data_Label">
+                                                        @lang("createOnSystem")
+                                                    </span>
                                                     <span class="Data_Value">
-                                                                {{$decision["created_at"]}}
-                                                            </span>
+                                                        {{$decision["created_at"]}}
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
-                                                            <span class="Data_Label">
-                                                                تاريخ التعديل على النظام
-                                                            </span>
+                                                    <span class="Data_Label">
+                                                        @lang("updateOnSystem")
+                                                    </span>
                                                     <span class="Data_Value">
-                                                                {{$decision["updated_at"]}}
-                                                            </span>
+                                                        {{$decision["updated_at"]}}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,18 +166,18 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على القرار
+                                                @lang("operationDecision")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
                                                 <a href="{{route("system.decisions.print.pdf" , $decision["id"])}}"
                                                    class="Button Button--Primary">
-                                                    طباعة القرار
+                                                    @lang("decisionPrint")
                                                 </a>
                                                 <a href="{{route("system.decisions.edit" , $decision["id"])}}"
                                                    class="Button Button--Primary">
-                                                    تعديل قرار
+                                                    @lang("decisionEdit")
                                                 </a>
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
@@ -182,7 +185,7 @@
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="Button Button--Danger">
-                                                        حذف قرار
+                                                        @lang("removeDecision")
                                                     </button>
                                                 </form>
                                             </div>

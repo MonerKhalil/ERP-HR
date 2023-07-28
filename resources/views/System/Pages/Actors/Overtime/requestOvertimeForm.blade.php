@@ -5,9 +5,9 @@
         <div class="RequestOvertimeForm">
             <div class="RequestOvertimeForm__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تسجيل طلب عمل اضافي" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => isset($overtime) ? __("editOvertimeRequest") : ((isset($employees)) ? __("insertAdministrativeOvertime") : __("addOvertimeRequest") ) ,
+                    'paths' => [[__("home") , '#'] , ['Page']] ,
+                    'summery' => __("titleAddOvertimeRequest")
                 ])
             </div>
             <div class="RequestOvertimeForm__Content">
@@ -24,8 +24,12 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Body">
                                                     <form class="Form Form--Dark"
-                                                          action="#" method="post">
+                                                          action="{{ isset($overtime) ? route("system.overtimes.update.overtime" , $overtime["id"]) : route("system.overtimes.store.request") }}"
+                                                          method="post">
                                                         @csrf
+                                                        @if(isset($overtime))
+                                                            @method("put")
+                                                        @endif
                                                         <div class="ListData">
                                                             <div class="ListData__Head">
                                                                 <h4 class="ListData__Title">
@@ -33,192 +37,159 @@
                                                                 </h4>
                                                             </div>
                                                             <div class="ListData__Content">
-                                                                <div class="ListData__CustomItem">
-                                                                    <div class="Row GapC-1-5">
+                                                                <div class="Row GapC-1-5">
+                                                                    @if(isset($employees))
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
+                                                                                        @php
+                                                                                            $Employees = [] ;
+                                                                                            foreach ($employees as $Employee) {
+                                                                                                array_push($Employees , [ "Label" => $Employee["first_name"]." ".$Employee["last_name"]
+                                                                                                    , "Value" => $Employee["id"] ]) ;
+                                                                                            }
+                                                                                        @endphp
                                                                                         @include("System.Components.selector" , [
-                                                                                            'Name' => "#" , "Required" => "true" ,
-                                                                                            "DefaultValue" => ""
-                                                                                             , "Label" => "الموظف الطالب للعمل الاضافي" ,
-                                                                                            "Options" => [
-                                                                                                [ "Label" => "امير" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "منير" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "انس" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "حمزة" , "Value" => "0" ]
-                                                                                            ]
+                                                                                            'Name' => "employee_id" , "Required" => "true" ,
+                                                                                            "DefaultValue" => "" , "Label" => __("employeeName") ,
+                                                                                            "Options" => $Employees
                                                                                         ])
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Select">
-                                                                                    <div class="Select__Area">
-                                                                                        @include("System.Components.selector" , [
-                                                                                            'Name' => "#" , "Required" => "true" ,
-                                                                                            "DefaultValue" => ""
-                                                                                             , "Label" => "نوع العمل الاضافي" ,
-                                                                                            "Options" => [
-                                                                                                [ "Label" => "اعياد" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "ايام الدوام" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "ايام العطل" , "Value" => "0" ]
-                                                                                            ]
-                                                                                        ])
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Date">
-                                                                                    <div class="Date__Area">
-                                                                                        <input id="FromStartDate" class="DateMinToday Date__Field"
-                                                                                               TargetDateStartName="StartDateRequest"
-                                                                                               type="date" name="date"
-                                                                                               placeholder="تبدأ من تاريخ" required>
-                                                                                        <label class="Date__Label" for="FromStartDate">
-                                                                                            تبدأ من تاريخ
-                                                                                        </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Date">
-                                                                                    <div class="Date__Area">
-                                                                                        <input id="ToEndDate"
-                                                                                               class="DateEndFromStart Date__Field"
-                                                                                               data-StartDateName="StartDateRequest"
-                                                                                               type="date" name="End"
-                                                                                               placeholder="تنتهي عند تاريخ">
-                                                                                        <label class="Date__Label" for="ToEndDate">
-                                                                                            تنتهي عند تاريخ
-                                                                                        </label>
-                                                                                    </div>
+                                                                    @endif
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
+                                                                            <div class="Form__Select">
+                                                                                <div class="Select__Area">
+                                                                                    @php
+                                                                                        $TypesOvertime = [] ;
+                                                                                        foreach ($overtimesType as $Index=>$OvertimeItem) {
+                                                                                            array_push($TypesOvertime , [ "Label" => $OvertimeItem
+                                                                                                , "Value" => $Index ]) ;
+                                                                                        }
+                                                                                    @endphp
+                                                                                    @include("System.Components.selector" , [
+                                                                                        'Name' => "overtime_type_id" , "Required" => "true" ,
+                                                                                        "DefaultValue" => isset($overtime) ? $overtime["overtime_type_id"] : "" ,
+                                                                                        "Label" => __("overtimeType") ,
+                                                                                        "Options" => $TypesOvertime
+                                                                                    ])
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ListData">
-                                                            <div class="ListData__Head">
-                                                                <h4 class="ListData__Title">
-                                                                    اوقات العمل الاضافي
-                                                                </h4>
-                                                            </div>
-                                                            <div class="ListData__Content">
-                                                                <div class="ListData__CustomItem">
-                                                                    <div class="Row GapC-1-5">
-                                                                        <div class="VisibilityOption Col-4-md Col-6-sm"
-                                                                             data-ElementsTargetName="DurationOvertime">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Select">
-                                                                                    <div class="Select__Area">
-                                                                                        @include("System.Components.selector" , [
-                                                                                            'Name' => "#" , "Required" => "true" ,
-                                                                                            "DefaultValue" => ""
-                                                                                             , "Label" => "نوع مدة العمل الاضافي" ,
-                                                                                            "Options" => [
-                                                                                                [ "Label" => "يوم كامل" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "ساعات محددة" , "Value" => "1" ] ,
-                                                                                            ]
-                                                                                        ])
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Select">
-                                                                                    <div class="Select__Area">
-                                                                                        @include("System.Components.selector" , [
-                                                                                            'Name' => "#" , "Required" => "true" ,
-                                                                                            "DefaultValue" => ""
-                                                                                             , "Label" => "يبدأ العمل الاضافي" ,
-                                                                                            "Options" => [
-                                                                                                [ "Label" => "قبل الدوام" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "بعد الدوام" , "Value" => "0" ] ,
-                                                                                                [ "Label" => "في اي وقت" , "Value" => "0" ]
-                                                                                            ]
-                                                                                        ])
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                             data-TargetName="DurationOvertime"
-                                                                             data-TargetValue="1">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Input">
-                                                                                    <div class="Input__Area">
-                                                                                        <input id="DurationOvertime" class="Input__Field" type="number"
-                                                                                               min="1" max="24" name="number"
-                                                                                               placeholder="المدة الكاملة للعمل الاضافي" required>
-                                                                                        <label class="Input__Label" for="DurationOvertime">
-                                                                                            المدة الكاملة للعمل الاضافي
-                                                                                        </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="Col-8-md Col-12-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Input">
-                                                                                    <div class="Input__Area">
-                                                                                        <input id="HourToAccept" class="Input__Field" type="number"
-                                                                                               name="number" placeholder="@lang("decisionNumber")" required>
-                                                                                        <label class="Input__Label" for="HourToAccept">
-                                                                                            الساعات التي سيتم من بعدها احتساب العمل الاضافي
-                                                                                        </label>
-                                                                                    </div>
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
+                                                                            <div class="Form__Date">
+                                                                                <div class="Date__Area">
+                                                                                    <input id="FromStartDate" class="DateMinToday Date__Field"
+                                                                                           TargetDateStartName="StartDateRequest"
+                                                                                           type="date" name="from_date"
+                                                                                           value="{{ isset($overtime) ? $overtime["from_date"] : "" }}"
+                                                                                           placeholder="@lang("startDateFrom")" required>
+                                                                                    <label class="Date__Label" for="FromStartDate">
+                                                                                        @lang("startDateFrom")
+                                                                                    </label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ListData">
-                                                            <div class="ListData__Head">
-                                                                <h4 class="ListData__Title">
-                                                                    اجر العمل الاضافي
-                                                                </h4>
-                                                            </div>
-                                                            <div class="ListData__Content">
-                                                                <div class="ListData__CustomItem">
-                                                                    <div class="Row GapC-1-5">
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Input">
-                                                                                    <div class="Input__Area">
-                                                                                        <input id="SalaryOvertime" class="Input__Field" type="number"
-                                                                                               name="number" placeholder="قيمة الزيادة بالساعة الواحدة"
-                                                                                               required>
-                                                                                        <label class="Input__Label" for="SalaryOvertime">
-                                                                                            قيمة الزيادة بالساعة الواحدة
-                                                                                        </label>
-                                                                                    </div>
+                                                                    <div class="Col-4-md Col-6-sm">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
+                                                                            <div class="Form__Date">
+                                                                                <div class="Date__Area">
+                                                                                    <input id="ToEndDate"
+                                                                                           class="DateEndFromStart Date__Field"
+                                                                                           data-StartDateName="StartDateRequest"
+                                                                                           value="{{ isset($overtime) ? $overtime["to_date"] : "" }}"
+                                                                                           type="date" name="to_date"
+                                                                                           placeholder="@lang("endDateFrom")">
+                                                                                    <label class="Date__Label" for="ToEndDate">
+                                                                                        @lang("endDateFrom")
+                                                                                    </label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__Input">
-                                                                                    <div class="Input__Area">
-                                                                                        <input id="TaxOnSalaryOvertime" class="Input__Field" type="number"
-                                                                                               name="number" placeholder="قيمة الضريبة للساعة الواحدة"
-                                                                                               required>
-                                                                                        <label class="Input__Label" for="TaxOnSalaryOvertime">
-                                                                                            قيمة الضريبة للساعة الواحدة
-                                                                                        </label>
-                                                                                    </div>
+                                                                    </div>
+                                                                    <div class="VisibilityOption Col-4-md Col-6-sm"
+                                                                         data-VisibilityDefault="{{ isset($overtime) ? ($overtime["is_hourly"] ? "1" : "0") : "" }}"
+                                                                         data-ElementsTargetName="HourlyFields">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") ?? Errors("salary_in_hours") ?? Errors("salary_in_hours") }}">
+                                                                            <div class="Form__Select">
+                                                                                <div class="Select__Area">
+                                                                                    @include("System.Components.selector" , [
+                                                                                        'Name' => "is_hourly" , "Required" => "true" ,
+                                                                                        "DefaultValue" => isset($overtime) ? ($overtime["is_hourly"] ? "1" : "0") : "" ,
+                                                                                        "Label" => __("determineHourOvertime") ,
+                                                                                        "Options" => [
+                                                                                            [ "Label" => __("yes") , "Value" => "1"] ,
+                                                                                            [ "Label" => __("no") , "Value" => "0"]
+                                                                                        ]
+                                                                                    ])
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                         data-TargetName="HourlyFields"
+                                                                         data-TargetValue="1">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Date">
+                                                                                <div class="Date__Area">
+                                                                                    <input id="OvertimeStartTime"
+                                                                                           class="TimeNoDate Date__Field"
+                                                                                           type="time" name="from_time"
+                                                                                           placeholder="@lang("vocationTimeStart")"
+                                                                                           value="{{ isset($overtime) ? $overtime["from_time"] : "" }}"
+                                                                                           required>
+                                                                                    <label class="Date__Label"
+                                                                                           for="OvertimeStartTime">
+                                                                                        @lang("vocationTimeStart")
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                         data-TargetName="HourlyFields"
+                                                                         data-TargetValue="1">
+                                                                        <div class="Form__Group">
+                                                                            <div class="Form__Date">
+                                                                                <div class="Date__Area">
+                                                                                    <input id="OvertimeEndTime"
+                                                                                           class="TimeNoDate Date__Field"
+                                                                                           type="time" name="to_time"
+                                                                                           placeholder="@lang("vocationTimeEnd")"
+                                                                                           value="{{ isset($overtime) ? $overtime["to_time"] : "" }}"
+                                                                                           required>
+                                                                                    <label class="Date__Label"
+                                                                                           for="OvertimeEndTime">
+                                                                                        @lang("vocationTimeEnd")
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="Col-12">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
+                                                                            <div class="Form__Textarea">
+                                                                                <div class="Textarea__Area">
+                                                                                        <textarea id="ReasonOverTime" class="Textarea__Field"
+                                                                                                  name="description" rows="3"
+                                                                                                  placeholder="@lang("reasonOvertime")">{{ isset($overtime) ? ($overtime["description"] ?? "") : "" }}</textarea>
+                                                                                    <label class="Textarea__Label"
+                                                                                           for="ReasonOverTime">
+                                                                                        @lang("reasonOvertime")
+                                                                                    </label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -228,10 +199,16 @@
                                                         </div>
                                                         <div class="Row">
                                                             <div class="Col">
-                                                                <div class="Form__Group">
+                                                                <div class="Form__Group"
+                                                                     data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                     <div class="Form__Button">
-                                                                        <button class="Button Send"
-                                                                                type="submit">@lang("addUser")</button>
+                                                                        <button class="Button Send" type="submit">
+                                                                            @if(isset($overtime))
+                                                                                @lang("editType")
+                                                                            @else
+                                                                                @lang("addNewType")
+                                                                            @endif
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>

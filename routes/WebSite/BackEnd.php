@@ -6,11 +6,13 @@ use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CorrespondenceController;
+use App\Http\Controllers\CorrespondenceSourceDestController;
 use App\Http\Controllers\DataEndServiceController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DecisionController;
 use App\Http\Controllers\EducationDataController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeEvaluationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\LeaveAdminController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OverTimeAdminController;
+use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\OvertimeTypeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
@@ -212,9 +215,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
             });
 
-        Route::resource('overtime_types', OvertimeTypeController::class)->except([
-            "edit", "create", "show"
-        ]);
+        Route::resource('overtime_types', OvertimeTypeController::class);
         Route::delete("overtime_types/multi/delete",[OvertimeTypeController::class,"MultiDelete"])->name("overtime_types.multi.delete");
 
         Route::resource('overtimes_admin', OverTimeAdminController::class)->except(["show","edit"]);
@@ -223,9 +224,23 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
-                Route::post("status/change/{overtime}/{status}")
+                Route::post("status/change/{overtime}/{status}","changeStatus")
                     ->whereIn("status",["approve","reject"])
                     ->name("overtime.status.change");
+            });
+
+        Route::prefix("overtimes")->name("overtimes.")
+            ->controller(OvertimeController::class)->group(function (){
+                Route::get("all/{status?}","ShowOvertimes")
+                    ->whereIn("status", Leave::status())
+                    ->name("all.status");
+                Route::get("show/{overtime}","Show")->name("show.overtime");
+                Route::get("edit/{overtime}","Edit")->name("edit.overtime");
+                Route::put("update/{overtime}","updateRequestOvertime")->name("update.overtime");
+                Route::get("request/create","createRequestOvertime")->name("create.request");
+                Route::post("request/store","Store")->name("store.request");
+                Route::delete("request/delete/{overtime}","Destroy")->name("remove.request");
+                Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
             });
 
 
@@ -277,7 +292,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('export/xlsx',"ExportXls")->name("export.xls");
                 Route::post('export/pdf',"ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete","MultiDelete")->name("multi.delete");
-                Route::post("status/change/{leave}/{status}")
+                Route::post("status/change/leaves/{status}","changeStatus")
                     ->whereIn("status",["approve","reject"])
                     ->name("leave.status.change");
             });
@@ -293,12 +308,34 @@ Route::middleware(['auth'])->group(function () {
             Route::post("request/store","Store")->name("store.request");
             Route::delete("request/delete/{leave}","Destroy")->name("remove.request");
             Route::delete("request/delete/multi","MultiDestroy")->name("remove.multi.request");
-            Route::get("show/leaves_type","LeavesTypeShow")->name("show.leavesType");
-            Route::get("count/leaves/{leave_type}","LeavesTypeShow")->name("show.leavesType");
+            Route::get("show/leaves_type/action/count","LeavesTypeShow")->name("show.leavesType");
+            Route::get("count/leaves/{leave_type}","CountLeavesByType")->name("show.count.leave.leaveType");
         });
 
         /*===========================================
         =        End Leaves Routes         =
+       =============================================*/
+
+        /*===========================================
+        =        Start Evaluation Employee Routes         =
+       =============================================*/
+
+        Route::prefix("evaluation/employee")->name("evaluation.employee")->controller(EmployeeEvaluationController::class)
+        ->group(function (){
+            Route::get("show/all","index")->name("index");
+            Route::get("show/{evaluation}","showEvaluation")->name("show.evaluation");
+            Route::get("create","create")->name("create");
+            Route::post("store","store")->name("store");
+            Route::get("show/add/employee/{evaluation}","showEvaluationAdd")->name("show.add.evaluation");
+            Route::post("store/employee/{evaluation}","storeEvaluationAdd")->name("store.evaluation");
+            Route::get("show/add/decision/{evaluation}","addDecisionEvaluationShowPage")->name("show.add.decision.evaluation");
+            Route::post("store/decision","storeDecisionEvaluation")->name("store.decision.evaluation");
+            Route::delete("destroy/{evaluation}","destroyEvaluation")->name("destroy.evaluation");
+            Route::delete("multi/destroy/evaluation","multiDestroyEvaluation")->name("multi.destroy.evaluation");
+        });
+
+        /*===========================================
+        =        End Evaluation Employee Routes         =
        =============================================*/
 
 
@@ -317,9 +354,9 @@ Route::middleware(['auth'])->group(function () {
             ]);
         });
 
-        Route::get("contract/show/{contract?}", [ContractController::class, "show"])->name("employees.contract.show");
-        Route::get("contract/edit/{contract?}", [ContractController::class, "edit"])->name("employees.contract.edit");
-        Route::post("contract/update/{contract?}", [ContractController::class, "update"])->name("employees.contract.update");
+        Route::get("contract/show/{contract}", [ContractController::class, "show"])->name("employees.contract.show");
+        Route::get("contract/edit/{contract}", [ContractController::class, "edit"])->name("employees.contract.edit");
+        Route::post("contract/update/{contract}", [ContractController::class, "update"])->name("employees.contract.update");
         Route::delete("contract/multi/delete", [ContractController::class,"MultiContractsDelete"])->name("employees.contract.multi.delete");
         Route::post('export/xlsx',[ContractController::class,"ExportXls"])->name("employees.contract.export.xls");
         Route::post('export/pdf',[ContractController::class,"ExportPDF"])->name("employees.contract.export.pdf");
@@ -367,7 +404,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('export/pdf',"ExportPDF")->name("export.pdf");
             Route::delete("multi/delete","MultiDelete")->name("multi.delete");
         });
-    Route::resource('correspondencesDest', \App\Http\Controllers\CorrespondenceSourceDestController::class);//just create and store
+    Route::resource('correspondences_dest', CorrespondenceSourceDestController::class);
+
 
     /*===========================================
     =         End System Routes        =

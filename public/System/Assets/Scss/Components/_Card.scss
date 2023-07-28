@@ -3,7 +3,6 @@
     position: relative;
     width: 100% ;
     border-radius: 10px ;
-    background-color: $BackGroundColor;
 
     &__CenterButton {
         display: flex;
@@ -12,14 +11,6 @@
         height: 50vh;
         &-hidden {
             display: none;
-        }
-    }
-
-    &__InnerGroup {
-        border-bottom: 1px solid $SeparateBorderColor;
-
-        .Card__Inner:not(:last-child) {
-            border-bottom: 1px solid $SeparateBorderColor;
         }
     }
 
@@ -87,7 +78,6 @@
 
             &__Separate {
                 margin : 0 1rem;
-                border-right: 1px solid $SeparateBorderColor_Extra-1 ;
             }
 
             &__FilterIcon.Note ,
@@ -99,7 +89,6 @@
                     position: absolute;
                     width: 4px;
                     height: 4px;
-                    background-color: $TertiaryColor-Project;
                     border-radius: 50%;
                 }
             }
@@ -123,7 +112,6 @@
 
         &__Title {
             text-transform: capitalize;
-            color : $WhiteColor ;
         }
 
         &__Summery {
@@ -146,15 +134,6 @@
         }
     }
 
-    &--Border {
-        border: 1px solid $SeparateBorderColor;
-    }
-
-    // Theme
-    &--Dark {
-        background-color: $BackGroundColor;
-    }
-
 
     @include ScreenResponsive(Phone_Portrait) {
 
@@ -166,4 +145,103 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .Card {
+        background-color: $WhiteColor;
+        box-shadow: 0 0 $LightShadow;
+
+        .Card {
+            box-shadow : none ;
+        }
+
+        &__InnerGroup {
+            //border-bottom: 1px solid $SeparateBorderColor;
+
+            .Card__Inner:not(:last-child) {
+                border-bottom: 1px solid #dededf;
+            }
+        }
+
+        &__SearchTools {
+
+            &__Separate {
+                border-right: 1px solid $SeparateBorderColor_Extra-1 ;
+            }
+
+            .material-icons {
+                color : #444 ;
+
+                &:hover {
+                    background-color : #e1e1e1 ;
+                }
+            }
+        }
+
+        &__FilterIcon.Note ,
+        &__SearchIcon.Note {
+
+            &::after {
+                background-color: $TertiaryColor-Project;
+            }
+        }
+
+        & {
+
+            &__Title {
+                color : $BlackColor ;
+            }
+
+        }
+
+        &--Border {
+            border: 1px solid $SeparateBorderColor;
+        }
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .Card {
+        background-color: $BackGroundColor;
+
+        &__InnerGroup {
+            border-bottom: 1px solid $SeparateBorderColor;
+
+            .Card__Inner:not(:last-child) {
+                border-bottom: 1px solid $SeparateBorderColor;
+            }
+        }
+
+        &__SearchTools {
+
+            &__Separate {
+                border-right: 1px solid $SeparateBorderColor_Extra-1 ;
+            }
+        }
+
+        &__FilterIcon.Note ,
+        &__SearchIcon.Note {
+
+            &::after {
+                background-color: $TertiaryColor-Project;
+            }
+        }
+
+        & {
+
+            &__Title {
+                color : $WhiteColor ;
+            }
+
+        }
+
+        &--Border {
+            border: 1px solid $SeparateBorderColor;
+        }
+    }
+
 }

@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class Permissions
 {
+    public static function getUsersForPermission(string $namePermission){
+        return User::query()->whereHas("roles.permissions",function ($query) use ($namePermission){
+            $query->where('name', $namePermission);
+        })->get();
+    }
+
     private static function Process_Permissions(): array
     {
         return array_values(self::getFileRolesPermissions()['process']);

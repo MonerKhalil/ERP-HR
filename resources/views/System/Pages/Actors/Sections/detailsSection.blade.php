@@ -5,13 +5,16 @@
         <div class="DetailsSectionPage">
             <div class="DetailsSectionPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تفاصيل القسم" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewSectionDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("viewSectionDetails")]] ,
+                    'summery' => __("titleViewSectionDetails")
                 ])
             </div>
             <div class="DetailsSectionPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card">
@@ -19,14 +22,14 @@
                                     <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                معلومات القسم
+                                                @lang("basicSectionInfo")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم القسم
+                                                        @lang("sectionName")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $sections["name"] }}
@@ -36,30 +39,40 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        مدير القسم
+                                                        @lang("sectionName")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $Section->moderator["first_name"].$Section->moderator["last_name"] }}
+                                                        {{ $sections->moderator["first_name"]." ".$sections->moderator["last_name"] }}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        مكان القسم
+                                                        @lang("locationSection")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $Section->address["name"] }}
+                                                        {{ $sections->address["name"] }}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ انشاء القسم
+                                                        @lang("descriptionSection")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $Section["created_at"] }}
+                                                        {{ $sections["details"] ?? "_" }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        @lang("createSectionDate")
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{ $sections["created_at"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -68,22 +81,22 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على القسم
+                                                @lang("operationSection")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
-                                                <a  href="{{route("system.sections.edit" , $Section["id"])}}"
+                                                <a  href="{{route("system.sections.edit" , $sections["id"])}}"
                                                     class="Button Button--Primary">
-                                                    تعديل القسم
+                                                    @lang("editSection")
                                                 </a>
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
-                                                      action="{{route("system.sections.destroy" , $Section["id"])}}">
+                                                      action="{{route("system.sections.destroy" , $sections["id"])}}">
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="Button Button--Danger">
-                                                        حذف القسم
+                                                        @lang("removeOneSection")
                                                     </button>
                                                 </form>
                                             </div>

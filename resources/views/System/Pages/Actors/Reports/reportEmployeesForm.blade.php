@@ -1,26 +1,23 @@
 @extends("System.Pages.globalPage")
 
-{{--@php--}}
-{{--    dd($membership_type);--}}
-{{--@endphp--}}
-
 @section("ContentPage")
-
-
 
     <section class="MainContent__Section MainContent__Section--ReportEmployeeFormPage">
         <div class="ReportEmployeeFormPage">
             <div class="ReportEmployeeFormPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تقارير الموظفين" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("employeesReport") ,
+                    'paths' => [[__("home") , '#'] , [__("employeesReport")]] ,
+                    'summery' => __("titleEmployeesReport")
                 ])
             </div>
             <div class="ReportEmployeeFormPage__Content">
                 <div class="Row">
                     <div class="ReportEmployeeFormPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -42,40 +39,51 @@
                                                                     {{-- Main --}}
                                                                     <div class="VisibilityOption Col-12"
                                                                          data-ElementsTargetName="CreateReportBy">
-                                                                        <div class="Form__Group">
+                                                                        @php
+                                                                            $ErrorView = Errors("from_contract_direct_date") ?? Errors("to_contract_direct_date") ??
+                                                                            Errors("from_birth_date") ?? Errors("to_birth_date") ?? Errors("from_end_break_date") ??
+                                                                            Errors("to_end_break_date") ?? Errors("from_decision_date") ?? Errors("to_decision_date") ??
+                                                                            Errors("from_conference_date") ?? Errors("to_conference_date") ?? Errors("gender") ??
+                                                                            Errors("family_status") ?? Errors("education_level_id") ?? Errors("position_id") ??
+                                                                            Errors("contract_type") ?? Errors("section_id") ?? Errors("membership_type_id") ??
+                                                                            Errors("type_decision_id") ?? Errors("current_job") ?? Errors("from_salary") ?? Errors("to_salary") ??
+                                                                            Errors("salary");
+                                                                        @endphp
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ $ErrorView }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" ,
-                                                                                        "NameIDs" => "ReportBY" , "DefaultValue" => "" , "Label" => "تقرير حسب" ,
+                                                                                        "NameIDs" => "ReportBY" , "DefaultValue" => "" , "Label" => __("reportBy") ,
                                                                                         "Options" => [
-                                                                                                       ["Label" => "تاريخ المباشرة" , "Value" => "Decision" , "Name" => "1"] ,
+                                                                                                       ["Label" => __("dateOfStart") , "Value" => "Decision" , "Name" => "1"] ,
                                                                                                        /* ["Label" => "مكان العمل" , "Value" => "Decision" , "Name" => "2"] ,*/
-                                                                                                       ["Label" => "تاريخ الميلاد" , "Value" => "Decision" , "Name" => "3"] ,
-                                                                                                       ["Label" => "الجنس" , "Value" => "Decision" , "Name" => "4"] ,
-                                                                                                       ["Label" => "الوضع العائلي" , "Value" => "Decision" , "Name" => "5"] ,
+                                                                                                       ["Label" => __("dateBirthday") , "Value" => "Decision" , "Name" => "3"] ,
+                                                                                                       ["Label" => __("gender") , "Value" => "Decision" , "Name" => "4"] ,
+                                                                                                       ["Label" => __("familyStatus") , "Value" => "Decision" , "Name" => "5"] ,
                                                                                                        /*["Label" => "المهنة" , "Value" => "Decision" , "Name" => "6"] ,*/
-                                                                                                       ["Label" => "تاريخ انتهاء الخدمة" , "Value" => "Decision" , "Name" => "7"] ,
-                                                                                                       ["Label" => "نوع العقد" , "Value" => "Decision" , "Name" => "8"] ,
+                                                                                                       ["Label" => __("finishEndServicesDate") , "Value" => "Decision" , "Name" => "7"] ,
+                                                                                                       ["Label" => __("contractType") , "Value" => "Decision" , "Name" => "8"] ,
                                                                                                        /*["Label" => "الحاصلين على التأمين" , "Value" => "Decision" , "Name" => "9"] ,*/
-                                                                                                       ["Label" => "الدرجة العلمية" , "Value" => "Decision" , "Name" => "10"] ,
-                                                                                                       ["Label" => "المهارات اللغوية" , "Value" => "Decision" , "Name" => "11"] ,
-                                                                                                       ["Label" => "العضويات" , "Value" => "Decision" , "Name" => "12"] ,
+                                                                                                       ["Label" => __("degree") , "Value" => "Decision" , "Name" => "10"] ,
+                                                                                                       ["Label" => __("languageSkills") , "Value" => "Decision" , "Name" => "11"] ,
+                                                                                                       ["Label" => __("memberships") , "Value" => "Decision" , "Name" => "12"] ,
                                                                                                        /*["Label" => "تاريخ العمل لاول مرة" , "Value" => "Decision" , "Name" => "13"] ,*/
-                                                                                                       ["Label" => "المنصب الوظيفي" , "Value" => "Decision" , "Name" => "14"] ,
+                                                                                                       ["Label" => __("jobPosition") , "Value" => "Decision" , "Name" => "14"] ,
                                                                                                        /*["Label" => "تاريخ المكافئات" , "Value" => "Decision" , "Name" => "15"] ,*/
                                                                                                        /*["Label" => "تاريخ العقوبات" , "Value" => "Decision" , "Name" => "16"] ,*/
-                                                                                                       ["Label" => "تاريخ المرتمرات والدورات" , "Value" => "Decision" , "Name" => "17"] ,
+                                                                                                       ["Label" => __("dateConferences") , "Value" => "Decision" , "Name" => "17"] ,
                                                                                                        /*["Label" => "التقييم" , "Value" => "Decision" , "Name" => "18"] ,*/
                                                                                                        /*["Label" => "العمل الاضافي" , "Value" => "Decision" , "Name" => "19"] ,*/
-                                                                                                       ["Label" => "مجال الرواتب" , "Value" => "Decision" , "Name" => "20"] ,
-                                                                                                       ["Label" => "حد راتب" , "Value" => "Decision" , "Name" => "21"] ,
+                                                                                                       ["Label" => __("salaryRange") , "Value" => "Decision" , "Name" => "20"] ,
+                                                                                                       ["Label" => __("salaryLimit") , "Value" => "Decision" , "Name" => "21"] ,
                                                                                                        /*["Label" => "الفئة الوظيفية" , "Value" => "Decision" , "Name" => "22"] ,*/
                                                                                                        /*["Label" => "الدرجة العملية" , "Value" => "Decision" , "Name" => "23"] ,*/
-                                                                                                       ["Label" => "القسم التابع له" , "Value" => "Decision" , "Name" => "24"] ,
-                                                                                                       ["Label" => "نوع القرار المطبق بحق موظف" , "Value" => "Decision" , "Name" => "25"] ,
-                                                                                                       ["Label" => "تاريخ القرارات المطبقة على الموظف" , "Value" => "Decision" , "Name" => "26"] ,
-                                                                                                       ["Label" => "الوظيفة الحالية" , "Value" => "Decision" , "Name" => "27"]
+                                                                                                       ["Label" => __("departmentDepend") , "Value" => "Decision" , "Name" => "24"] ,
+                                                                                                       ["Label" => __("decisionTypeApplyOnEmployee") , "Value" => "Decision" , "Name" => "25"] ,
+                                                                                                       ["Label" => __("decisionTypeDateApplyOnEmployee") , "Value" => "Decision" , "Name" => "26"] ,
+                                                                                                       ["Label" => __("currentJob") , "Value" => "Decision" , "Name" => "27"]
                                                                                         ]
                                                                                     ])
                                                                                 </div>
@@ -92,7 +100,7 @@
                                                          data-TargetCheckboxName="1">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب تاريخ المباشرة
+                                                                @lang("reportByDirectDate")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -105,10 +113,12 @@
                                                                                        name="from_contract_direct_date"
                                                                                        class="Date__Field"
                                                                                        TargetDateStartName="StartDateDirectWorkDate"
-                                                                                       type="text" placeholder="يبدأ من تاريخ"
+                                                                                       type="text" placeholder="@lang("startsFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="DirectWorkDateFrom">يبدأ من تاريخ</label>
+                                                                                       for="DirectWorkDateFrom">
+                                                                                    @lang("startsFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -121,10 +131,12 @@
                                                                                        name="to_contract_direct_date"
                                                                                        class="DateEndFromStart Date__Field"
                                                                                        data-StartDateName="StartDateDirectWorkDate"
-                                                                                       type="text" placeholder="ينتهي عند تاريخ"
+                                                                                       type="text" placeholder="@lang("endFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="DirectWorkDateTo">ينتهي عند تاريخ</label>
+                                                                                       for="DirectWorkDateTo">
+                                                                                    @lang("endFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -137,7 +149,7 @@
                                                          data-TargetCheckboxName="3">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب تاريخ الميلاد
+                                                                @lang("reportByBirthdayDate")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -150,10 +162,12 @@
                                                                                        class="Date__Field"
                                                                                        TargetDateStartName="StartDateBirthdayDate"
                                                                                        name="from_birth_date"
-                                                                                       type="text" placeholder="يبدأ من تاريخ"
+                                                                                       type="text" placeholder="@lang("startsFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="BirthdayDateFrom">يبدأ من تاريخ</label>
+                                                                                       for="BirthdayDateFrom">
+                                                                                    @lang("startsFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -166,10 +180,12 @@
                                                                                        name="to_birth_date"
                                                                                        class="DateEndFromStart Date__Field"
                                                                                        data-StartDateName="StartDateBirthdayDate"
-                                                                                       type="text" placeholder="ينتهي عند تاريخ"
+                                                                                       type="text" placeholder="@lang("endFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="BirthdayDateTo">ينتهي عند تاريخ</label>
+                                                                                       for="BirthdayDateTo">
+                                                                                    @lang("endFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -182,7 +198,7 @@
                                                          data-TargetCheckboxName="7">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب تاريخ انتهاء الخدمة
+                                                                @lang("reportByExpiryDate")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -195,10 +211,12 @@
                                                                                        name="from_end_break_date"
                                                                                        class="Date__Field"
                                                                                        TargetDateStartName="StartDateServiceEndDate"
-                                                                                       type="text" placeholder="يبدأ من تاريخ"
+                                                                                       type="text" placeholder="@lang("startsFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="ServiceEndDateFrom">يبدأ من تاريخ</label>
+                                                                                       for="ServiceEndDateFrom">
+                                                                                    @lang("startsFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -211,10 +229,12 @@
                                                                                        name="to_end_break_date"
                                                                                        class="DateEndFromStart Date__Field"
                                                                                        data-StartDateName="StartDateServiceEndDate"
-                                                                                       type="text" placeholder="ينتهي عند تاريخ"
+                                                                                       type="text" placeholder="@lang("endFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="ServiceEndDateTo">ينتهي عند تاريخ</label>
+                                                                                       for="ServiceEndDateTo">
+                                                                                    @lang("endFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -227,7 +247,7 @@
                                                          data-TargetCheckboxName="26">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب تاريخ التقارير
+                                                                @lang("reportByReportingDate")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -240,10 +260,12 @@
                                                                                        name="from_decision_date"
                                                                                        class="Date__Field"
                                                                                        TargetDateStartName="StartDateDecisionDate"
-                                                                                       type="text" placeholder="يبدأ من تاريخ"
+                                                                                       type="text" placeholder="@lang("startsFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="DecisionDateFrom">يبدأ من تاريخ</label>
+                                                                                       for="DecisionDateFrom">
+                                                                                    @lang("startsFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -256,10 +278,12 @@
                                                                                        name="to_decision_date"
                                                                                        class="DateEndFromStart Date__Field"
                                                                                        data-StartDateName="StartDateDecisionDate"
-                                                                                       type="text" placeholder="ينتهي عند تاريخ"
+                                                                                       type="text" placeholder="@lang("endFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="DecisionDateTo">ينتهي عند تاريخ</label>
+                                                                                       for="DecisionDateTo">
+                                                                                    @lang("endFromDate")
+                                                                                </label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -284,10 +308,10 @@
 {{--                                                                                <input id="WorkDateForFirstTimeFrom"--}}
 {{--                                                                                       class="Date__Field"--}}
 {{--                                                                                       TargetDateStartName="WorkDateForFirstTime"--}}
-{{--                                                                                       type="text" placeholder="يبدأ من تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("startsFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="WorkDateForFirstTimeFrom">يبدأ من تاريخ</label>--}}
+{{--                                                                                       for="WorkDateForFirstTimeFrom">@lang("startsFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -299,10 +323,10 @@
 {{--                                                                                <input id="WorkDateForFirstTimeTo"--}}
 {{--                                                                                       class="DateEndFromStart Date__Field"--}}
 {{--                                                                                       data-StartDateName="WorkDateForFirstTime"--}}
-{{--                                                                                       type="text" placeholder="ينتهي عند تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("endFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="WorkDateForFirstTimeTo">ينتهي عند تاريخ</label>--}}
+{{--                                                                                       for="WorkDateForFirstTimeTo">@lang("endFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -327,10 +351,10 @@
 {{--                                                                                <input id="BonusDateFrom"--}}
 {{--                                                                                       class="Date__Field"--}}
 {{--                                                                                       TargetDateStartName="BonusDate"--}}
-{{--                                                                                       type="text" placeholder="يبدأ من تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("startsFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="BonusDateFrom">يبدأ من تاريخ</label>--}}
+{{--                                                                                       for="BonusDateFrom">@lang("startsFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -342,10 +366,10 @@
 {{--                                                                                <input id="BonusDateTo"--}}
 {{--                                                                                       class="DateEndFromStart Date__Field"--}}
 {{--                                                                                       data-StartDateName="BonusDate"--}}
-{{--                                                                                       type="text" placeholder="ينتهي عند تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("endFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="BonusDateTo">ينتهي عند تاريخ</label>--}}
+{{--                                                                                       for="BonusDateTo">@lang("endFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -370,10 +394,10 @@
 {{--                                                                                <input id="PunishmentDateFrom"--}}
 {{--                                                                                       class="Date__Field"--}}
 {{--                                                                                       TargetDateStartName="PunishmentDate"--}}
-{{--                                                                                       type="text" placeholder="يبدأ من تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("startsFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="PunishmentDateFrom">يبدأ من تاريخ</label>--}}
+{{--                                                                                       for="PunishmentDateFrom">@lang("startsFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -385,11 +409,11 @@
 {{--                                                                                <input id="PunishmentDateTo"--}}
 {{--                                                                                       class="DateEndFromStart Date__Field"--}}
 {{--                                                                                       data-StartDateName="PunishmentDate"--}}
-{{--                                                                                       type="text" placeholder="ينتهي عند تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("endFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
 {{--                                                                                       for="PunishmentDateTo">--}}
-{{--                                                                                    ينتهي عند تاريخ</label>--}}
+{{--                                                                                    @lang("endFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -402,7 +426,7 @@
                                                          data-TargetCheckboxName="17">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب تاريخ الدورات والمؤتمرات
+                                                                @lang("reportByDateConferences")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -415,10 +439,10 @@
                                                                                        class="Date__Field"
                                                                                        name="from_conference_date"
                                                                                        TargetDateStartName="CoursesDate"
-                                                                                       type="text" placeholder="يبدأ من تاريخ"
+                                                                                       type="text" placeholder="@lang("startsFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
-                                                                                       for="CoursesDateFrom">يبدأ من تاريخ</label>
+                                                                                       for="CoursesDateFrom">@lang("startsFromDate")</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -431,11 +455,11 @@
                                                                                        class="DateEndFromStart Date__Field"
                                                                                        data-StartDateName="CoursesDate"
                                                                                        name="to_conference_date"
-                                                                                       type="text" placeholder="ينتهي عند تاريخ"
+                                                                                       type="text" placeholder="@lang("endFromDate")"
                                                                                        required>
                                                                                 <label class="Date__Label"
                                                                                        for="CoursesDateTo">
-                                                                                    ينتهي عند تاريخ</label>
+                                                                                    @lang("endFromDate")</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -460,10 +484,10 @@
 {{--                                                                                <input id="evaluationDateFrom"--}}
 {{--                                                                                       class="Date__Field"--}}
 {{--                                                                                       TargetDateStartName="evaluationDate"--}}
-{{--                                                                                       type="text" placeholder="يبدأ من تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("startsFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="evaluationDateFrom">يبدأ من تاريخ</label>--}}
+{{--                                                                                       for="evaluationDateFrom">@lang("startsFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -475,11 +499,11 @@
 {{--                                                                                <input id="evaluationDateTo"--}}
 {{--                                                                                       class="DateEndFromStart Date__Field"--}}
 {{--                                                                                       data-StartDateName="evaluationDate"--}}
-{{--                                                                                       type="text" placeholder="ينتهي عند تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("endFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
 {{--                                                                                       for="evaluationDateTo">--}}
-{{--                                                                                    ينتهي عند تاريخ</label>--}}
+{{--                                                                                    @lang("endFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -504,10 +528,10 @@
 {{--                                                                                <input id="OvertimeDateFrom"--}}
 {{--                                                                                       class="Date__Field"--}}
 {{--                                                                                       TargetDateStartName="OvertimeDate"--}}
-{{--                                                                                       type="text" placeholder="يبدأ من تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("startsFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="OvertimeDateFrom">يبدأ من تاريخ</label>--}}
+{{--                                                                                       for="OvertimeDateFrom">@lang("startsFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -519,11 +543,11 @@
 {{--                                                                                <input id="OvertimeDateTo"--}}
 {{--                                                                                       class="DateEndFromStart Date__Field"--}}
 {{--                                                                                       data-StartDateName="OvertimeDate"--}}
-{{--                                                                                       type="text" placeholder="ينتهي عند تاريخ"--}}
+{{--                                                                                       type="text" placeholder="@lang("endFromDate")"--}}
 {{--                                                                                       required>--}}
 {{--                                                                                <label class="Date__Label"--}}
 {{--                                                                                       for="OvertimeDateTo">--}}
-{{--                                                                                    ينتهي عند تاريخ</label>--}}
+{{--                                                                                    @lang("endFromDate")</label>--}}
 {{--                                                                            </div>--}}
 {{--                                                                        </div>--}}
 {{--                                                                    </div>--}}
@@ -537,7 +561,7 @@
                                                          data-TargetCheckboxName="4,5,10,14">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب معلومات الموظف
+                                                                @lang("reportByEmployeeInformation")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -557,7 +581,7 @@
                                                                                 @endphp
                                                                                 @include("System.Components.selector" , [
                                                                                         'Name' => "gender" , "DefaultValue" => "" ,
-                                                                                        "Label" => "الجنس" , "Required" => "true",
+                                                                                        "Label" => __("gender") , "Required" => "true",
                                                                                         "Options" => $GenderTypes
                                                                                     ])
                                                                             </div>
@@ -581,7 +605,7 @@
                                                                                 @include("System.Components.multiSelector" , [
                                                                                     'Name' => "_" , "Required" => "true" ,
                                                                                     "NameIDs" => "FamilyStatusID" ,
-                                                                                    "DefaultValue" => "" , "Label" => "الوضع العائلي" ,
+                                                                                    "DefaultValue" => "" , "Label" => __("familyStatus") ,
                                                                                     "Options" => $FamilyStatus
                                                                                 ])
                                                                             </div>
@@ -620,7 +644,7 @@
 
                                                                                 @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" , "NameIDs" => "EducationID" ,
-                                                                                        "DefaultValue" => "" , "Label" => "الدرجة العلمية" ,
+                                                                                        "DefaultValue" => "" , "Label" => __("degree") ,
                                                                                         "Options" => $EducationLevel
                                                                                     ])
                                                                             </div>
@@ -644,7 +668,7 @@
                                                                                 @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" , "Required" => "true" ,
                                                                                         "NameIDs" => "PositionID" , "DefaultValue" => "" ,
-                                                                                        "Label" => "المنصب الوظيفي" ,
+                                                                                        "Label" => __("jobPosition") ,
                                                                                         "Options" => $Positions
                                                                                     ])
                                                                             </div>
@@ -660,7 +684,7 @@
                                                          data-TargetCheckboxName="8,12,18,22,24,25,27">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب معلومات عمل الموظف
+                                                                @lang("reportByEmployeeInformationWork")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -681,7 +705,7 @@
 
                                                                                 @include("System.Components.selector" , [
                                                                                         'Name' => "contract_type" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "نوع العقد" ,
+                                                                                        "DefaultValue" => "" , "Label" => __("contractType") ,
                                                                                         "Options" => $ContractType
                                                                                     ])
                                                                             </div>
@@ -722,7 +746,7 @@
                                                                                 @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" , "Required" => "true" ,
                                                                                         "NameIDs" => "SessionID" , "DefaultValue" => "" ,
-                                                                                        "Label" => "القسم التابع له" ,
+                                                                                        "Label" => __("departmentDepend") ,
                                                                                         "Options" => $Departments
                                                                                     ])
                                                                             </div>
@@ -746,7 +770,7 @@
                                                                                 @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" , "Required" => "true" ,
                                                                                         "NameIDs" => "MemberShipID" , "DefaultValue" => "" ,
-                                                                                        "Label" => "العضويات" ,
+                                                                                        "Label" => __("memberships") ,
                                                                                         "Options" => $MemberShip
                                                                                     ])
                                                                             </div>
@@ -770,7 +794,7 @@
                                                                                 @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" , "Required" => "true" ,
                                                                                         "NameIDs" => "DecisionID" , "DefaultValue" => "" ,
-                                                                                        "Label" => "نوع القرارات" ,
+                                                                                        "Label" => __("typeOfDecisions") ,
                                                                                         "Options" => $TypeDecision
                                                                                     ])
                                                                             </div>
@@ -785,9 +809,9 @@
                                                                             <div class="Input__Area">
                                                                                 <input id="CurrentJobID" class="Input__Field"
                                                                                        type="text" name="current_job"
-                                                                                       placeholder="العمل الحالي">
+                                                                                       placeholder="@lang("currentJob")">
                                                                                 <label class="Input__Label" for="CurrentJobID">
-                                                                                    العمل الحالي
+                                                                                    @lang("currentJob")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -802,7 +826,7 @@
                                                          data-TargetCheckboxName="20,21">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب معلومات راتب الموظف
+                                                                @lang("reportByEmployeeSalaryInformation")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -814,10 +838,10 @@
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
                                                                                 <input id="FromSalary" class="Input__Field"
-                                                                                       type="number" name="form_salary"
-                                                                                       placeholder="من الراتب">
+                                                                                       type="number" name="from_salary"
+                                                                                       placeholder="@lang("fromSalary")">
                                                                                 <label class="Input__Label" for="FromSalary">
-                                                                                    من الراتب
+                                                                                    @lang("fromSalary")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -833,7 +857,7 @@
                                                                                        type="number" name="to_salary"
                                                                                        placeholder="الى الراتب">
                                                                                 <label class="Input__Label" for="ToSalary">
-                                                                                    الى الراتب
+                                                                                    @lang("toSalary")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -849,7 +873,7 @@
                                                                                        type="number" name="salary"
                                                                                        placeholder="سقف الراتب">
                                                                                 <label class="Input__Label" for="TopSalary">
-                                                                                    سقف الراتب
+                                                                                    @lang("maximumSalary")
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -864,7 +888,7 @@
                                                          id="ReportLanguage">
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                تقرير حسب معلومات اللغة
+                                                                @lang("reportByLanguageInformation")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
@@ -885,7 +909,7 @@
                                                                                         @endphp
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "_" , "Required" => "true" ,
-                                                                                            "DefaultValue" => "" , "Label" => "اللغة المحددة" ,
+                                                                                            "DefaultValue" => "" , "Label" => __("selectedLanguage") ,
                                                                                             "Options" => $LangList
                                                                                         ])
                                                                                     </div>
@@ -907,7 +931,7 @@
                                                                                     <div class="Select__Area">
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "_" , "Required" => "true" ,
-                                                                                            "DefaultValue" => "" , "Label" => "مهارة الكتابة" ,
+                                                                                            "DefaultValue" => "" , "Label" => __("writingSkill") ,
                                                                                             "Options" => $LangList
                                                                                         ])
                                                                                     </div>
@@ -920,7 +944,7 @@
                                                                                     <div class="Select__Area">
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "_" , "Required" => "true" ,
-                                                                                            "DefaultValue" => "" , "Label" => "مهارة القراءة" ,
+                                                                                            "DefaultValue" => "" , "Label" => __("readingSkill") ,
                                                                                             "Options" => $LangList
                                                                                         ])
                                                                                     </div>
@@ -949,7 +973,9 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Button">
                                                                     <button class="Button Send"
-                                                                            type="submit">عرض النتائج</button>
+                                                                            type="submit">
+                                                                        @lang("viewResult")
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>

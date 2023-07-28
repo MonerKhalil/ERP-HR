@@ -5,13 +5,16 @@
         <div class="SettingWorkDetailsPage">
             <div class="SettingWorkDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض تفاصيل نوع الاجازة" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewWorkSettingDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("viewWorkSettingDetails")]] ,
+                    'summery' => __("titleViewWorkSettingDetails")
                 ])
             </div>
             <div class="SettingWorkDetailsPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card">
@@ -26,7 +29,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم النوع
+                                                        @lang("nameType")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$workSetting["name"]}}
@@ -36,7 +39,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        ايام الدوام
+                                                        @lang("workSettingDays")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$workSetting["count_days_work_in_weeks"]}}
@@ -46,7 +49,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        ساعات العمل
+                                                        @lang("hoursWorkSetting")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$workSetting["count_hours_work_in_days"]}}
@@ -56,7 +59,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        ايام العطل
+                                                        @lang("holidayWorkSetting")
                                                     </span>
                                                     <span class="Data_Value">
                                                         @php
@@ -69,7 +72,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        يبدأ الدوام من الساعة
+                                                        @lang("workSettingStartDate")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$workSetting["work_hours_from"]}}
@@ -79,7 +82,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        ينتهي الدوام عند الساعة
+                                                        @lang("workSettingEndDate")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$workSetting["work_hours_to"]}}
@@ -89,7 +92,7 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الوصف
+                                                        @lang("workSettingDescription")
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{ $workSetting["description"] ?? "_" }}
@@ -101,14 +104,14 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على هذا النوع
+                                                @lang("operationWorkSetting")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
                                                 <a href="{{route("system.work_settings.edit" , $workSetting["id"])}}"
                                                    class="Button Button--Primary">
-                                                    تعديل النوع
+                                                    @lang("editType")
                                                 </a>
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
@@ -116,7 +119,7 @@
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="Button Button--Danger">
-                                                        حذف النوع
+                                                        @lang("removeType")
                                                     </button>
                                                 </form>
                                             </div>
@@ -130,9 +133,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section("extraScripts")
-    {{-- JS VenoBox --}}
-    <script src="{{asset("System/Assets/Lib/venobox/dist/venobox.min.js")}}"></script>
 @endsection

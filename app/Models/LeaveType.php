@@ -32,6 +32,10 @@ class LeaveType extends BaseModel
             ,"id");
     }
 
+    public function leaves(){
+        return $this->hasMany(Leave::class,"leave_type_id","id");
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc
@@ -51,7 +55,9 @@ class LeaveType extends BaseModel
                     return $validator->input("type_effect_salary")=="effect_salary";
                 }),"numeric","min:1","max:100"],
                 "gender" => ["required",Rule::in(self::gender())],
-                "is_hourly" => ["required","boolean"],
+                "is_hourly" => [Rule::requiredIf(function () use($validator){
+                    return ($validator->input("leave_limited") == "true" || $validator->input("leave_limited") == 1);
+                }),"boolean"],
                 "max_hours_per_day" => [Rule::requiredIf(function ()use($validator){
                     return ($validator->input("is_hourly") == "true" || $validator->input("is_hourly") == 1)
                         &&

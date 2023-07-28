@@ -5,15 +5,18 @@
         <div class="NewSectionFormPage">
             <div class="NewSectionFormPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => isset($sections) ? "تعديل معلومات قسم" : "تسجيل قسم جديد" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => isset($sections) ? __("editSectionInfo") : __("registerSectionInfo") ,
+                    'paths' => [[__("home") , '#'] , ['Page']] ,
+                    'summery' => __("titleRegisterSectionInfo")
                 ])
             </div>
             <div class="NewSectionFormPage__Content">
                 <div class="Row">
                     <div class="NewSectionFormPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -30,29 +33,31 @@
                                                     <div class="ListData" >
                                                         <div class="ListData__Head">
                                                             <h4 class="ListData__Title">
-                                                                معلومات القسم الاساسية
+                                                                @lang("basicSectionInfo")
                                                             </h4>
                                                         </div>
                                                         <div class="ListData__Content">
                                                             <div class="ListData__CustomItem">
                                                                 <div class="Row GapC-1-5">
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("name") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="SectionName" class="Input__Field"
                                                                                            type="text" name="name"
                                                                                            value="{{ isset($sections) ? $sections["name"] : "" }}"
-                                                                                           placeholder="اسم القسم" required>
+                                                                                           placeholder="@lang("sectionName")" required>
                                                                                     <label class="Input__Label" for="SectionName">
-                                                                                        اسم القسم
+                                                                                        @lang("sectionName")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("moderator_id") }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @php
@@ -65,7 +70,7 @@
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "moderator_id" , "Required" => "true" ,
                                                                                         "DefaultValue" => isset($sections) ? $sections["moderator_id"] : ""
-                                                                                         , "Label" => "مدير هذا القسم" ,
+                                                                                         , "Label" => __("managerSection") ,
                                                                                         "Options" => $Employees
                                                                                     ])
                                                                                 </div>
@@ -73,7 +78,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("address_id") }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @php
@@ -86,7 +92,7 @@
                                                                                     @include("System.Components.selector" , [
                                                                                         'Name' => "address_id" , "Required" => "true" ,
                                                                                         "DefaultValue" => isset($sections) ? $sections["address_id"] : ""
-                                                                                         , "Label" => "مكان هذا القسم" ,
+                                                                                         , "Label" => __("locationSection") ,
                                                                                         "Options" => $Countries
                                                                                     ])
                                                                                 </div>
@@ -94,15 +100,16 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-12">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("details") }}">
                                                                             <div class="Form__Textarea">
                                                                                 <div class="Textarea__Area">
                                                                                     <textarea id="SectionDetails" class="Textarea__Field"
-                                                                                        name="details" placeholder="وصف عن هذا القسم"
+                                                                                        name="details" placeholder="@lang("descriptionSection")"
                                                                                         rows="3"
                                                                                     >{{ isset($sections) ? $sections["details"] : "" }}</textarea>
                                                                                     <label class="Textarea__Label" for="SectionDetails">
-                                                                                        وصف عن هذا القسم
+                                                                                        @lang("descriptionSection")
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -117,7 +124,9 @@
                                                             <div class="Form__Group">
                                                                 <div class="Form__Button">
                                                                     <button class="Button Send"
-                                                                            type="submit">اضافة قسم جديد</button>
+                                                                            type="submit">
+                                                                        @lang("addNewSection")
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>

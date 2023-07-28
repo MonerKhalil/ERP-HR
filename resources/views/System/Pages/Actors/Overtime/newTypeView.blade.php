@@ -5,29 +5,20 @@
         <div class="NewTypeViewPage">
             <div class="NewTypeViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض انواع العمل الاضافي" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewAllOvertimeType") ,
+                    'paths' => [[__("home") , '#'] , [__("viewAllOvertimeType")]] ,
+                    'summery' => __("titleViewAllOvertimeType")
                 ])
             </div>
             <div class="NewTypeViewPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card NewTypeViewPage__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF"
-                                          action="{{route("system.decisions.export.pdf")}}"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
-                                    <form name="PrintAllTableXlsx"
-                                          action="{{route("system.decisions.export.xls")}}"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
@@ -37,16 +28,8 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => "طباعة كـ pdf" ,
-                                                                     "Action" => route("system.decisions.export.pdf") ,
-                                                                     "Method" => "post"
-                                                                ] , [
-                                                                    "Label" => "طباعة كـ xlsx" ,
-                                                                     "Action" => route("system.decisions.export.xls") ,
-                                                                     "Method" => "post"
-                                                                ] , [
                                                                     "Label" => __("normalDelete")
-                                                                    , "Action" => route("system.decisions.multi.delete")
+                                                                    , "Action" => route("system.overtime_types.multi.delete")
                                                                     , "Method" => "delete"
                                                                 ] ]
                                                             ])
@@ -58,197 +41,101 @@
                                                                        data-popUp="SearchAbout">filter_list
                                                                     </i>
                                                                 </li>
-                                                                <li>
-                                                                    <span class="SearchTools__Separate"></span>
-                                                                </li>
-                                                                <li class="Table__PrintMenu">
-                                                                    <i class="material-icons IconClick PrintMenu__Button"
-                                                                       title="Print">print</i>
-                                                                    <div class="Dropdown PrintMenu__Menu">
-                                                                        <ul class="Dropdown__Content">
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
-                                                                                    @lang("printTablePDFFile")
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
-                                                                                    @lang("printTableXlsxFile")
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="Card__Inner p0">
-                                                <div class="Table__ContentTable">
-                                                    <table class="Left Table__Table" >
-                                                        <tr class="Item HeaderList">
-                                                            <th class="Item__Col Item__Col--Check">
-                                                                <input id="ItemRow_Main" class="CheckBoxItem"
-                                                                       type="checkbox" hidden>
-                                                                <label for="ItemRow_Main" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </th>
-                                                            <th class="Item__Col">#</th>
-                                                            <th class="Item__Col">اسم النوع</th>
-                                                            <th class="Item__Col">طبيعة النوع</th>
-                                                            <th class="Item__Col">من تاريخ</th>
-                                                            <th class="Item__Col">حتى تاريخ</th>
-                                                            <th class="Item__Col">المزيد</th>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="1"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="1" hidden>
-                                                                <label for="1" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                1
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                عطلة الاعياد
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                مؤقت
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                10-5-2021
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                13-5-2021
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="TypeOvertime_1">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="TypeOvertime_1">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="2"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="1" hidden>
-                                                                <label for="2" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                2
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                عطلة الاعياد
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                مؤقت
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                10-5-2021
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                13-5-2021
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="TypeOvertime_2">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="TypeOvertime_2">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="3"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="3" hidden>
-                                                                <label for="3" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                3
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                عطلة الاعياد
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                مؤقت
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                10-5-2021
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                13-5-2021
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="TypeOvertime_3">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="TypeOvertime_3">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            @if(count($data) > 0)
+                                                <div class="Card__Inner p0">
+                                                    <div class="Table__ContentTable">
+                                                        <table class="Center Table__Table" >
+                                                            <tr class="Item HeaderList">
+                                                                <th class="Item__Col Item__Col--Check">
+                                                                    <input id="ItemRow_Main" class="CheckBoxItem"
+                                                                           type="checkbox" hidden>
+                                                                    <label for="ItemRow_Main" class="CheckBoxRow">
+                                                                        <i class="material-icons ">
+                                                                            check_small
+                                                                        </i>
+                                                                    </label>
+                                                                </th>
+                                                                <th class="Item__Col">#</th>
+                                                                <th class="Item__Col">@lang("nameType")</th>
+                                                                <th class="Item__Col">@lang("rateMaxSalaryExtra")</th>
+                                                                <th class="Item__Col">@lang("minimumHourForAcceptOvertime")</th>
+                                                                <th class="Item__Col">@lang("amountSalaryInHour")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
+                                                            </tr>
+                                                            @foreach($data as $TypeItem)
+                                                                <tr class="Item DataItem">
+                                                                    <td class="Item__Col Item__Col--Check">
+                                                                        <input id="OvertimeType_{{ $TypeItem["id"] }}"
+                                                                               class="CheckBoxItem" type="checkbox"
+                                                                               name="ids[]" value="{{ $TypeItem["id"] }}" hidden>
+                                                                        <label for="OvertimeType_{{ $TypeItem["id"] }}"
+                                                                               class="CheckBoxRow">
+                                                                            <i class="material-icons ">
+                                                                                check_small
+                                                                            </i>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $TypeItem["id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $TypeItem["name"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $TypeItem["max_rate_salary"] }} %
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $TypeItem["min_hours_in_days"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $TypeItem["salary_in_hours"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col MoreDropdown">
+                                                                        <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                           data-MenuName="TypeOvertime_{{ $TypeItem["id"] }}">
+                                                                            more_horiz
+                                                                        </i>
+                                                                        <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                             data-MenuName="TypeOvertime_{{ $TypeItem["id"] }}">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{ route("system.overtime_types.show" , $TypeItem["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("viewDetails")
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{ route("system.overtime_types.edit" , $TypeItem["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("editType")
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                @include("System.Components.noData")
+                                            @endif
                                             <div class="Card__Inner">
-{{--                                                <div class="Card__Pagination">--}}
-{{--                                                    @include("System.Components.paginationNum" , [--}}
-{{--                                                        "PaginationData" => $data ,--}}
-{{--                                                        "PartsViewNum" => 5--}}
-{{--                                                    ])--}}
-{{--                                                    @include("System.Components.paginationSelect" , [--}}
-{{--                                                        "PaginationData" => $data--}}
-{{--                                                    ])--}}
-{{--                                                </div>--}}
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $data ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $data
+                                                    ])
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -260,4 +147,22 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("PopupPage")
+
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [
+            ['Type' => 'text' , 'Info' =>
+                ['Name' => "filter[name]" , 'Placeholder' => __("nameType")] ] ,
+            ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[max_rate_salary]" , 'Placeholder' => __("rateMaxSalaryExtra")] ] ,
+            ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[min_hours_in_days]" , 'Placeholder' => __("minimumHourForAcceptOvertime")] ] ,
+            ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[salary_in_hours]" , 'Placeholder' => __("amountSalaryInHour")] ] ,
+        ]
+    ])
+
 @endsection

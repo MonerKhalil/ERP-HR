@@ -1,21 +1,20 @@
 @extends("System.Pages.globalPage")
 
-{{--@php--}}
-{{--    dd($data[0]);--}}
-{{--@endphp--}}
-
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--ViewTypeVacationsPage">
         <div class="ViewTypeVacationsPage">
             <div class="ViewTypeVacationsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض كل انواع الاجازات" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("vocationTypeView") ,
+                    'paths' => [[__("home") , '#'] , [__("vocationTypeView")]] ,
+                    'summery' => __("titleVocationTypeView")
                 ])
             </div>
             <div class="ViewTypeVacationsPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card ViewTypeVacationsPage__TableUsers">
@@ -41,7 +40,7 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => "حذف الانواع" ,
+                                                                    "Label" => __("removeAllTypes") ,
                                                                      "Action" => route("system.leave_types.multi.delete") ,
                                                                      "Method" => "delete"
                                                                 ] ]
@@ -95,15 +94,15 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">اسم الاجازة</th>
-                                                                <th class="Item__Col">نوع الاجازة</th>
-                                                                <th class="Item__Col">تشمل الاجازة</th>
-                                                                <th class="Item__Col">سنوات العمل الواجب تحقيقها</th>
-                                                                <th class="Item__Col">ايام الاجازة</th>
-                                                                <th class="Item__Col">عدد ايام الاجازة في السنة</th>
-                                                                <th class="Item__Col">عدد سنوات العمل</th>
-                                                                <th class="Item__Col">عدد سنوات العمل الاضافية</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("vocationName")</th>
+                                                                <th class="Item__Col">@lang("vocationType")</th>
+                                                                <th class="Item__Col">@lang("vocationInclude")</th>
+                                                                <th class="Item__Col">@lang("yearWorkShouldDoneForVocation")</th>
+                                                                <th class="Item__Col">@lang("vocationDays")</th>
+                                                                <th class="Item__Col">@lang("vocationDaysInYear")</th>
+                                                                <th class="Item__Col">@lang("yearEmployeeWork")</th>
+                                                                <th class="Item__Col">@lang("yearEmployeeWorkExtra")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $Index => $VacationTypeData)
                                                                 <tr class="Item DataItem">
@@ -169,13 +168,13 @@
                                                                                 <li>
                                                                                     <a href="{{ route("system.leave_types.show" , $VacationTypeData["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض التفاصيل
+                                                                                        @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <a href="{{ route("system.leave_types.edit" , $VacationTypeData["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        تعديل النوع
+                                                                                        @lang("editType")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -235,49 +234,50 @@
 
                     ['Type' => 'number' , 'Info' =>
                         ['Name' => "filter[id]" ,
-                        'Placeholder' => 'رقم النوع'] ] ,
+                        'Placeholder' => __("numberType")] ] ,
 
 
                     ['Type' => 'text' , 'Info' =>
                         ['Name' => "filter[name]" ,
-                        'Placeholder' => 'اسم النوع'] ] ,
+                        'Placeholder' => __("nameType")] ] ,
 
 
                     ['Type' => 'select' , 'Info' =>
                         ['Name' => "filter[leave_limited]" ,
-                        'Placeholder' => 'نوع الاجازة' ,
+                        'Placeholder' => __("vocationName") ,
                         "Options" => $TypeEffectSalary
                     ] ] ,
 
                     ['Type' => 'select' , 'Info' =>
-                        ['Name' => "filter[leave_limited]" , 'Placeholder' => 'تشمل الاجازة' ,
+                        ['Name' => "filter[leave_limited]"
+                        , 'Placeholder' => __("vocationInclude") ,
                         "Options" => $GenderTypes
                     ] ] ,
 
 
                     ['Type' => 'select' , 'Info' =>
-                        ['Name' => "filter[leave_limited]" , 'Placeholder' => 'ايام الاجازة' ,
+                        ['Name' => "filter[leave_limited]" , 'Placeholder' => __("vocationDays") ,
                         "Options" => [
-                           [ "Label" => "محدودة" , "Value" => "1" ] ,
-                           [ "Label" => "مفتوحة" , "Value" => "0" ] ,
+                           [ "Label" => __("vocationClose") , "Value" => "1" ] ,
+                           [ "Label" => __("vocationOpen") , "Value" => "0" ] ,
                         ]
                     ] ] ,
 
                     ['Type' => 'number' , 'Info' =>
                         ['Name' => "filter[years_employee_services]" ,
-                        'Placeholder' => 'سنوات العمل الواجب تحقيقها'] ] ,
+                        'Placeholder' => __("yearWorkShouldDoneForVocation")] ] ,
 
                     ['Type' => 'number' , 'Info' =>
                         ['Name' => "filter[max_days_per_years]" ,
-                        'Placeholder' => 'عدد ايام الاجازة في السنة'] ] ,
+                        'Placeholder' => __("vocationDaysInYear")] ] ,
 
                     ['Type' => 'number' , 'Info' =>
                         ['Name' => "filter[years_employee_services]" ,
-                        'Placeholder' => 'عدد سنوات العمل'] ] ,
+                        'Placeholder' => __("yearEmployeeWork")] ] ,
 
                     ['Type' => 'number' , 'Info' =>
                         ['Name' => "filter[number_years_services_increment_days]" ,
-                        'Placeholder' => 'عدد سنوات العمل الاضافية'] ] ,
+                        'Placeholder' => __("yearEmployeeWorkExtra") ] ] ,
                 ]
         ])
 

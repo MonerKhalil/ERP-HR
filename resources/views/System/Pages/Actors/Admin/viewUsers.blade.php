@@ -6,7 +6,7 @@
             <div class="ViewUsers__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewUsers") ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
+                    'paths' => [[__("home") , '#'] , [__("viewUsers")]] ,
                     'summery' => __("titleViewUsers")
                 ])
             </div>
@@ -33,17 +33,17 @@
                                 <form action="#" method="post">
                                     @csrf
                                     <div class="Card__InnerGroup">
-                                        <div class="Card__Inner p1">
+                                        <div class="Card__Inner py1">
                                             <div class="Table__Head">
                                                 <div class="Card__ToolsGroup">
                                                     <div class="Card__Tools Table__BulkTools">
                                                         @include("System.Components.bulkAction" , [
                                                             "Options" => [ [
-                                                                "Label" => "طباعة pdf"
+                                                                "Label" => __("printRowsAsPDF")
                                                                 , "Action" => route("users.pdf")
                                                                 , "Method" => "post"
                                                             ] , [
-                                                                "Label" => "طباعة xlsx"
+                                                                "Label" => __("printRowsAsExcel")
                                                                 , "Action" => route("users.xls")
                                                                 , "Method" => "post"
                                                             ] , [

@@ -17,8 +17,8 @@
             <div class="AddUserPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("decisionForm") ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'paths' => [[__("home") , '#'] , [__("decisionForm")]] ,
+                    'summery' => __("titleDecisionForm")
                 ])
             </div>
             <div class="AddUserPage__Content">
@@ -52,7 +52,8 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row GapC-1-5">
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("type_decision_id") }}">
                                                                                 <div class="VisibilityOption Form__Select"
                                                                                      data-ElementsTargetName="DecisionFieldTarget">
                                                                                     <div class="Select__Area">
@@ -74,7 +75,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("number") }}">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="DecisionNumber" class="Input__Field" type="number"
@@ -86,7 +88,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("date") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="DateDecision" class="DateMinToday Date__Field"
@@ -100,7 +103,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("end_date_decision") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="DateDecisionEnd"
@@ -118,7 +122,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("image") }}">
                                                                                 <div class="Form__UploadFile">
                                                                                     <div class="UploadFile__Area">
 {{--                                                                                        <input type="file"--}}
@@ -132,7 +137,7 @@
                                                                                             "FieldID" => "DecisionImage" ,
                                                                                             "FieldName" => "image" ,
                                                                                             "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
-                                                                                            "LabelField" => "صورة عن القرار" ,
+                                                                                            "LabelField" => __("decisionPhoto") ,
                                                                                             "AcceptFiles" => "image/png, image/gif, image/jpeg, image/jpg, image/svg"
                                                                                         ])
                                                                                     </div>
@@ -144,7 +149,8 @@
                                                                                 data-VisibilityDefault="{{$decision["effect_salary"]}}"
                                                                              @endif
                                                                              data-ElementsTargetName="BonesPunishmentFields">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("effect_salary") ?? Errors("value") ?? Errors("rate") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -157,7 +163,7 @@
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "effect_salary" , "Required" => "true" ,
                                                                                             "DefaultValue" => (isset($decision) ? $decision["effect_salary"] : "")
-                                                                                            , "Label" => "نوع التأثير على الراتب" ,
+                                                                                            , "Label" => __("salaryEffectType") ,
                                                                                             "Options" => $EffectDecisionTypes
                                                                                         ])
                                                                                     </div>
@@ -173,8 +179,11 @@
                                                                                         <input id="DiscountAmountSalary" class="Input__Field" type="number"
                                                                                                value="{{$DecrementValue ?? ""}}"
                                                                                                name="value"
-                                                                                               placeholder="قيمة الحسم من الراتب" required>
-                                                                                        <label class="Input__Label" for="DiscountAmountSalary">قيمة الحسم من الراتب</label>
+                                                                                               placeholder="{{ __("amountDiscountSalary") }}" required>
+                                                                                        <label class="Input__Label"
+                                                                                               for="DiscountAmountSalary">
+                                                                                            @lang("amountDiscountSalary")
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -182,13 +191,17 @@
                                                                         <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                              data-TargetName="BonesPunishmentFields"
                                                                              data-TargetValue="increment">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("value") }}">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="IncreasesAmountSalary" class="Input__Field" type="number"
                                                                                                value="{{ $IncrementValue ?? "" }}"
-                                                                                               name="value" placeholder="قيمة الاضافة على الراتب" required>
-                                                                                        <label class="Input__Label" for="IncreasesAmountSalary">قيمة الاضافة على الراتب</label>
+                                                                                               name="value" placeholder="{{ __("amountSalaryExtra") }}" required>
+                                                                                        <label class="Input__Label"
+                                                                                               for="IncreasesAmountSalary">
+                                                                                            {{ __("amountSalaryExtra") }}
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -201,8 +214,10 @@
                                                                                     <div class="Input__Area">
                                                                                         <input id="DiscountAmountFinancial" class="Input__Field" type="number"
                                                                                                value="{{ $DecrementRate ?? "" }}"
-                                                                                               name="rate" placeholder="نسبة الحسم من الحوافز" required>
-                                                                                        <label class="Input__Label" for="DiscountAmountFinancial">نسبة الحسم من الحوافز</label>
+                                                                                               name="rate" placeholder="{{ __("discountRateIncentives") }}" required>
+                                                                                        <label class="Input__Label" for="DiscountAmountFinancial">
+                                                                                            @lang("discountRateIncentives")
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -215,8 +230,10 @@
                                                                                     <div class="Input__Area">
                                                                                         <input id="IncreasesAmountFinancial" class="Input__Field" type="number"
                                                                                                value="{{ $IncrementRate ?? "" }}"
-                                                                                               name="rate" placeholder="نسبة الاضافة على الحوافز" required>
-                                                                                        <label class="Input__Label" for="IncreasesAmountFinancial">نسبة الاضافة على الحوافز</label>
+                                                                                               name="rate" placeholder="{{ __("amountIncentivesExtra") }}" required>
+                                                                                        <label class="Input__Label" for="IncreasesAmountFinancial">
+                                                                                            @lang("amountIncentivesExtra")
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -230,7 +247,7 @@
                                                              data-TargetValue="decrement,increment">
                                                             <div class="ListData__Head">
                                                                 <h4 class="ListData__Title">
-                                                                    الموظفين المتأثرين بالقرار
+                                                                    @lang("employeeEffectSalary")
                                                                 </h4>
                                                             </div>
                                                             <div class="ListData__Content">
@@ -239,7 +256,7 @@
                                                                         <div class="Selector2Readonly Col-4-md Col-6-sm"
                                                                              data-ClassContainer="Col-4-md Col-6-sm"
                                                                              data-ReadonlyNames="employees[]"
-                                                                             data-TitleField="الموظف"
+                                                                             data-TitleField="@lang("employee")"
                                                                              @if(isset($decision))
                                                                              <?php
                                                                              $EmployeesIDs = null ;
@@ -266,7 +283,7 @@
                                                                                         @endphp
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "Member" , "Required" => "true" ,
-                                                                                            "DefaultValue" => "" , "Label" => "حدد الاعضاء" ,
+                                                                                            "DefaultValue" => "" , "Label" => __("determineMembers") ,
                                                                                             "Options" => $EmployeesList
                                                                                         ])
                                                                                     </div>
@@ -289,13 +306,14 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row">
                                                                         <div class="Col">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("content") }}">
                                                                                 <div class="Form__TextEditor">
                                                                                     <div class="TextEditor__Area">
                                                                                         <div class="trumbowyg-dark">
                                                                                         <textarea id="DecisionEditor"
                                                                                                   class="TextEditor TextEditor__Field"
-                                                                                                  placeholder="Your text as placeholder"
+                                                                                                  placeholder="@lang("decisionContent")"
                                                                                                   name="content" required>
                                                                                             @if(isset($decision))
                                                                                                 {{$decision["content"]}}
@@ -315,7 +333,9 @@
                                                                 <div class="Form__Group">
                                                                     <div class="Form__Button">
                                                                         <button class="Button Send"
-                                                                                type="submit">@lang("addUser")</button>
+                                                                                type="submit">
+                                                                            @lang("addDecision")
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>

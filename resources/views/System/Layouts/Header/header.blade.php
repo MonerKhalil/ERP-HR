@@ -19,58 +19,64 @@
                 <div class="HeaderPage__AccountAlerts">
                     <div class="AccountAlerts">
                         <ul class="Alerts">
+                            <li class="Alert Alert--themeMode">
+                                <i class="material-icons IconClick">dark_mode</i>
+                            </li>
                             <li class="Alert Alert--Notification">
                                 <i class="material-icons IconClick">
                                     notifications
                                 </i>
-                                <div class="Dropdown">
+                                <div class="Dropdown NotificationParent">
                                     <div class="Dropdown__Header">
                                         <h3 class="Title">@lang("notification")</h3>
-                                        <span class="ReadAll">@lang("markRead")</span>
+                                        <span class="ReadAll">
+                                            @lang("markRead")
+                                        </span>
                                     </div>
-                                    <ul class="Dropdown__Content">
-                                        @if(count(auth()->user()->notifications) > 0)
-                                            @foreach(auth()->user()->notifications as $NotificationItem)
-                                                <li class="Dropdown__Item">
-                                                    <div class="Notification"
-                                                         data-NotificationID="{{ $NotificationItem["id"] }}">
-                                                        <div class="Notification__Content">
-                                                            @php
-                                                                $NotificationObject = GetNotificationIcon($NotificationItem["type"]) ;
-                                                            @endphp
-                                                            <a href="{{ $NotificationItem["route_name"] }}"
-                                                               class="Notification__Icon Notification__Icon--{{ $NotificationObject->Color }}">
-                                                                <i class="material-icons">
-                                                                    {{ $NotificationObject->Icon }}
-                                                                </i>
-                                                            </a>
-                                                            <a href="{{ $NotificationItem["route_name"] }}"
-                                                               class="Notification__Details">
-                                                                <p class="NotificationTitle">
-                                                                    من
-                                                                    <span class="UserFrom">
+                                    <ul class="NotificationParent__List Dropdown__Content">
+                                        @php
+                                        $notifications = auth()->user()->notifications()->whereNot("data->type","audit")->latest()->get();
+                                        @endphp
+                                        @if(count($notifications) > 0)
+                                            @foreach($notifications as $NotificationItem)
+                                                <li class="Dropdown__Item Notification"
+                                                    data-NotificationID="{{ $NotificationItem["id"] }}">
+                                                    <div class="Notification__Content">
+                                                        @php
+                                                            $NotificationObject = GetNotificationIcon($NotificationItem["data"]["type"]) ;
+                                                        @endphp
+                                                        <a href="{{ $NotificationItem["data"]["data"]["route_name"] }}"
+                                                           class="Notification__Icon Notification__Icon--{{ $NotificationObject->Color }}">
+                                                            <i class="material-icons">
+                                                                {{ $NotificationObject->Icon }}
+                                                            </i>
+                                                        </a>
+                                                        <a href="{{ $NotificationItem["data"]["data"]["route_name"] }}"
+                                                           class="Notification__Details">
+                                                            <p class="NotificationTitle">
+                                                                من
+                                                                <span class="UserFrom">
                                                                         <strong>
-                                                                            {{ $NotificationItem["from"] }}
+                                                                            {{ $NotificationItem["data"]["data"]["from"] }}
                                                                         </strong>
                                                                     </span> ,
-                                                                    {{ $NotificationItem["type"] }} .
-                                                                </p>
-                                                                <p class="NotificationDescription">
-                                                                    {{ $NotificationItem["body"] }} .
-                                                                </p>
-                                                                <p class="NotificationDate">
-                                                                    {{ $NotificationItem["date"] }}
-                                                                </p>
-                                                            </a>
-                                                            <div class="Notification__Remove">
-                                                                <i class="material-icons">close</i>
-                                                            </div>
+                                                                {{ $NotificationItem["data"]["type"] }} .
+                                                            </p>
+                                                            <p class="NotificationDescription">
+                                                                @lang($NotificationItem["data"]["data"]["body"]) .
+                                                            </p>
+                                                            <p class="NotificationDate">
+                                                                {{ \Carbon\Carbon::parse($NotificationItem["data"]["data"]["date"])->format("Y-m-d H:m") }}
+                                                            </p>
+                                                        </a>
+                                                        <div class="Notification__Remove">
+                                                            <i class="material-icons">close</i>
                                                         </div>
                                                     </div>
                                                 </li>
                                             @endforeach
                                         @else
-                                            <li class="NoData--V2 NoDataDropItem">
+                                            <li class="NoData--V2">
                                                 <div class="Icon">
                                                     <i class="material-icons">
                                                         sentiment_dissatisfied
@@ -128,9 +134,9 @@
                         </ul>
                         <div class="UserImage">
                             @if(auth()->user()->image)
-                                <img src="{{PathStorage(auth()->user()->image)}}" alt="#">
+                                <img src="{{PathStorage(auth()->user()->image)}}" alt="UserImage">
                             @else
-                                <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="#">
+                                <img src="{{asset("System/Assets/Images/Avatar.jpg")}}" alt="UserImage">
                             @endif
                             <div class="Dropdown">
                                 <div class="Dropdown__Header">

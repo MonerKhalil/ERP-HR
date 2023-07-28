@@ -1,21 +1,20 @@
 @extends("System.Pages.globalPage")
 
-{{--@php--}}
-{{--    dd($dataSelected);--}}
-{{--@endphp--}}
-
 @section("ContentPage")
     <section class="MainContent__Section MainContent__Section--ReportEmployeesView">
         <div class="ReportEmployeesView">
             <div class="ReportEmployeesView__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "تقرير عن الموظفين" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("reportAboutEmployee") ,
+                    'paths' => [[__("home") , '#'] , [__("reportAboutEmployee")]] ,
+                    'summery' => __("titleReportAboutEmployee")
                 ])
             </div>
             <div class="ReportEmployeesView__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card ReportEmployeesView__TableUsers">
@@ -71,19 +70,19 @@
                                                                 #
                                                             </th>
                                                             <th class="Item__Col">
-                                                                اسم الموظف
+                                                                @lang("employeeName")
                                                             </th>
                                                             <th class="Item__Col">
-                                                                الجنس
+                                                                @lang("gender")
                                                             </th>
                                                             <th class="Item__Col">
-                                                                رقم الاضبارة
+                                                                @lang("fileNumber")
                                                             </th>
                                                             <th class="Item__Col">
-                                                                الوظيفة الحالية
+                                                                @lang("currentJob")
                                                             </th>
                                                             <th class="Item__Col">
-                                                                المزيد
+                                                                @lang("more")
                                                             </th>
                                                         </tr>
                                                         @foreach($finalData as $RowData)

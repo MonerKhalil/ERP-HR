@@ -44,8 +44,10 @@
                                                                     @endphp
                                                                     @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" , "Required" => "true" ,
+                                                                                        "NameIDs"=>'amir',
                                                                                         "DefaultValue" => "" , "Label" => "الموظفين" ,
                                                                                         "Options" => $EmployeesList ,
+                                                                                        "NameIDs" => "name"
                                                                                     ])
                                                                 </div>
                                                             </div>

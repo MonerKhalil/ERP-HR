@@ -197,6 +197,7 @@
                                     font-size: 1.2rem;
                                     cursor: pointer;
                                     transition: color .3s;
+                                    color : $TextColor;
 
                                     &:hover {
                                         color : $TertiaryColor-Project ;
@@ -209,44 +210,69 @@
                                 overflow-y: auto;
 
                                 @include ScrollBar();
+
+                                    .NoData--V2 {
+
+                                    .Icon {
+
+                                        i {
+                                            font-size: 5rem;
+                                        }
+                                    }
+
+                                    .Text {
+                                        font-size: 1.4rem;
+                                    }
+                                }
+
                             }
 
                             &__Item {
 
-                                .Notification {
+                                &.Notification {
                                     padding: 1rem 1.5rem;
 
-                                    &__Icon {
-                                        width: 4rem;
-
-                                        i {
-                                            font-size: 2rem;
-                                        }
+                                    &:hover {
+                                        background-color: lighten($BackGroundColor , 3%);
                                     }
 
-                                    &__Details {
+                                    .Notification {
 
-                                        .NotificationTitle {
-                                            font-size: 1.2rem;
-                                            font-weight: 500;
-                                            margin-bottom: 0.5rem;
-                                            line-height: 1.4;
+                                        &__Icon {
+                                            width: 4rem;
+
+                                            i {
+                                                font-size: 2rem;
+                                            }
                                         }
 
-                                        .NotificationDescription {
-                                            font-size: 1.1rem ;
+                                        &__Details {
+
+                                            .NotificationTitle {
+                                                font-size: 1.2rem;
+                                                font-weight: 500;
+                                                margin-bottom: 0.5rem;
+                                                line-height: 1.4;
+                                                color : $WhiteColor_Extra-2;
+                                            }
+
+                                            .NotificationDescription {
+                                                font-size: 1.1rem ;
+                                                color : #b2b2b2 ;
+                                            }
+
+                                            .NotificationDate {
+                                                font-size: 1rem;
+                                                font-weight: 400;
+                                            }
                                         }
 
-                                        .NotificationDate {
-                                            font-size: 1rem;
-                                            font-weight: 400;
-                                        }
-                                    }
+                                        &__Remove {
+                                            color : #b2b2b2 ;
 
-                                    &__Remove {
-
-                                        i {
-                                            font-size: 1.4rem;
+                                            i {
+                                                font-size: 1.4rem;
+                                            }
                                         }
                                     }
                                 }
@@ -397,4 +423,39 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .HeaderPage {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
+
+}
+
+@include Themes(Dark) {
+
+    .HeaderPage {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
 }

@@ -6,12 +6,15 @@
             <div class="ViewSessionPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewSession") ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'paths' => [[__("home") , '#'] , [__("viewSession")]] ,
+                    'summery' => __("titleSessionView")
                 ])
             </div>
             <div class="ViewSessionPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card ViewSessionPage__TableUsers">
@@ -37,11 +40,11 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => "طباعة pdf" ,
+                                                                    "Label" => __("printRowsAsPDF") ,
                                                                     "Action" => route("system.session_decisions.export.pdf") ,
                                                                     "Method" => "post"
                                                                 ] , [
-                                                                    "Label" => "طباعة xlsx" ,
+                                                                    "Label" => __("printRowsAsExcel") ,
                                                                     "Action" => route("system.session_decisions.export.xls") ,
                                                                     "Method" => "post"
                                                                 ] , [
@@ -87,7 +90,7 @@
                                             @if(count($data) > 0)
                                                 <div class="Card__Inner p0">
                                                     <div class="Table__ContentTable">
-                                                        <table class="Left Table__Table" >
+                                                        <table class="Center Table__Table" >
                                                             <tr class="Item HeaderList">
                                                                 <th class="Item__Col Item__Col--Check">
                                                                     <input id="ItemRow_Main" class="CheckBoxItem"

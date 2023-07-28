@@ -39,7 +39,7 @@ class PublicHolidayController extends Controller
             }
         }
         if (isset($request->filter["name"]) && !is_null($request->filter["name"])){
-            $query = $query->where("name","LIKE","%".$request->filter["name"],"%");
+            $query = $query->where("name","LIKE","%".$request->filter["name"]."%");
         }
         return $query;
     }

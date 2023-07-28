@@ -5,13 +5,16 @@
         <div class="ViewPublicHolidayPage">
             <div class="ViewPublicHolidayPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض كافة العطل الرسمية" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("viewAllPublicHoliday") ,
+                    'paths' => [[__("home") , '#'] , [__("viewAllPublicHoliday")]] ,
+                    'summery' => __("titleViewAllPublicHoliday")
                 ])
             </div>
             <div class="ViewPublicHolidayPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card ViewPublicHolidayPage__TableUsers">
@@ -37,7 +40,7 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => "حذف العطل" ,
+                                                                    "Label" => __("removePublicHoliday") ,
                                                                      "Action" => route("system.public_holidays.multi.delete") ,
                                                                      "Method" => "delete"
                                                                 ] ]
@@ -91,10 +94,10 @@
                                                                     </label>
                                                                 </th>
                                                                 <th class="Item__Col">#</th>
-                                                                <th class="Item__Col">اسم العطلة</th>
-                                                                <th class="Item__Col">تاريخ بداية العطلة</th>
-                                                                <th class="Item__Col">تاريخ نهاية العطلة</th>
-                                                                <th class="Item__Col">المزيد</th>
+                                                                <th class="Item__Col">@lang("publicHolidayName")</th>
+                                                                <th class="Item__Col">@lang("publicHolidayStartDate")</th>
+                                                                <th class="Item__Col">@lang("publicHolidayEndDate")</th>
+                                                                <th class="Item__Col">@lang("more")</th>
                                                             </tr>
                                                             @foreach($data as $Index=>$HolidayItem)
                                                                 <tr class="Item DataItem">
@@ -124,7 +127,7 @@
                                                                                 <li>
                                                                                     <a href="{{route("system.public_holidays.edit" , $HolidayItem["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        تعديل معلومات العطلة
+                                                                                        @lang("editPublicHolidayInfo")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
@@ -168,14 +171,14 @@
        'FilterForm' => [
 
            ['Type' => 'text' , 'Info' =>
-               ['Name' => "filter[name]" , 'Placeholder' => 'اسم العطلة'] ] ,
+               ['Name' => "filter[name]" , 'Placeholder' => __("publicHolidayName")] ] ,
 
-           ['Type' => 'dateRange' , 'Info' => ['Placeholder' => "مجال تاريح البداية" ,
+           ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("publicHolidayStartDate") ,
                  'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
                 ]
            ] ,
 
-           ['Type' => 'dateRange' , 'Info' => ['Placeholder' => "مجال تاريح النهاية" ,
+           ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("publicHolidayEndDate") ,
                  'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
                 ]
            ] ,
