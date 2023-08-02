@@ -80,7 +80,7 @@
                                                                            type="text"
                                                                            name="name"
                                                                            value="{{isset($Conference) ? $Conference["name"] : ""}}"
-                                                                           placeholder="@lang("courseName")">
+                                                                           placeholder="@lang("courseName")" required>
                                                                     <label class="Input__Label"
                                                                            for="courseName">@lang("courseName")</label>
                                                                 </div>
@@ -96,7 +96,7 @@
                                                                            type="text"
                                                                            name="start_date"
                                                                            value="{{isset($Conference) ? $Conference["start_date"] : ""}}"
-                                                                           placeholder="@lang("courseStartDate")">
+                                                                           placeholder="@lang("courseStartDate")" required>
                                                                     <label class="Date__Label"
                                                                            for="courseStartDate">@lang("courseStartDate")</label>
                                                                 </div>
@@ -112,7 +112,7 @@
                                                                            type="text"
                                                                            name="end_date"
                                                                            value="{{isset($Conference) ? $Conference["end_date"] : ""}}"
-                                                                           placeholder="@lang("courseEndDate")">
+                                                                           placeholder="@lang("courseEndDate")" required>
                                                                     <label class="Date__Label"
                                                                            for="courseEndDate">@lang("courseEndDate")</label>
                                                                 </div>
@@ -161,7 +161,7 @@
                                                                            type="text"
                                                                            name="address_details"
                                                                            value="{{isset($Conference) ? $Conference["address_details"] : ""}}"
-                                                                           placeholder="@lang("heldPlace")">
+                                                                           placeholder="@lang("heldPlace")" required>
                                                                     <label class="Input__Label"
                                                                            for="heldPlace">@lang("heldPlace")</label>
                                                                 </div>
@@ -177,7 +177,7 @@
                                                                            type="number"
                                                                            name="rate_effect_salary"
                                                                            value="{{isset($Conference) ? $Conference["rate_effect_salary"] : ""}}"
-                                                                           placeholder="@lang("salaryImpact")">
+                                                                           placeholder="@lang("salaryImpact")" required>
                                                                     <label class="Input__Label"
                                                                            for="courseSalaryImpact">@lang("salaryImpact")</label>
                                                                 </div>
@@ -193,7 +193,7 @@
                                                                            type="text"
                                                                            name="name_party"
                                                                            value="{{isset($Conference) ? $Conference["name_party"] : ""}}"
-                                                                           placeholder="@lang("courseProvider")">
+                                                                           placeholder="@lang("courseProvider")" required>
                                                                     <label class="Input__Label"
                                                                            for="courseProvider">@lang("courseProvider")</label>
                                                                 </div>

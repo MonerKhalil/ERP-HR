@@ -139,6 +139,12 @@
                                                                                         @lang("editcorrespondenceInfo")
                                                                                     </a>
                                                                                 </li>
+                                                                                <li>
+                                                                                    <a href="{{route("correspondences_dest.create")}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("addTransaction")
+                                                                                    </a>
+                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
