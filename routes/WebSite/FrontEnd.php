@@ -122,3 +122,15 @@ Route::get('/Test-46', function () {
 Route::get('/Test-47', function () {
     return view('System/Pages/Actors/Vacations/vacationAvailableView');
 });
+
+Route::get('/Test-50', function () {
+    return view('System/Pages/Actors/Evaluation/newTypeEvaluationForm');
+});
+
+Route::get('/Test-51', function () {
+    return view('System/Pages/Actors/Evaluation/viewDecisionsEmployee');
+});
+
+Route::get('/Test-52', function () {
+    return view('System/Pages/Actors/Evaluation/viewEvaluationEmployee');
+});

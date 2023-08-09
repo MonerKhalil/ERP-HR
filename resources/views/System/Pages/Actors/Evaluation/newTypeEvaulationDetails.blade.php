@@ -26,20 +26,88 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        اسم النوع
+                                                        الموظف المراد تقيمه
                                                     </span>
                                                     <span class="Data_Value">
-                                                        السلوك
+                                                        {{ $evaluation->employee["first_name"].$evaluation->employee["last_name"] }}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        علامة التقييم من
+                                                        الاشخاص الذين سيقومون بعملية التقييم
                                                     </span>
                                                     <span class="Data_Value">
-                                                        10
+                                                        @php
+                                                            $EmployeesList = "" ;
+                                                            foreach ($evaluation->enter_evaluation_employee as $Employee) {
+                                                                if($EmployeesList !== "")
+                                                                    $EmployeesList = $EmployeesList." , " ;
+                                                                $EmployeesList = $EmployeesList.$Employee->employee["first_name"]
+                                                                    .$Employee->employee["last_name"] ;
+                                                            }
+                                                        @endphp
+                                                        {{ $EmployeesList }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        تاريخ التقييم
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{ $evaluation["evaluation_date"] }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        تاريخ التقييم التالي
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{ $evaluation["next_evaluation_date"] }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        تاريخ انشاء هذا النوع
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{ $evaluation["created_at"] }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        تاريخ تحديث هذا النوع
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{ $evaluation["updated_at"] }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ListData NotResponsive">
+                                        <div class="ListData__Head">
+                                            <h4 class="ListData__Title">
+                                                الوصف الخاص بهذا التقييم
+                                            </h4>
+                                        </div>
+                                        <div class="ListData__Content">
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        الوصف
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{ $evaluation["description"] }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -53,10 +121,15 @@
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
-                                                <a  href="#"
-                                                    class="Button Button--Primary">
-                                                    تعديل النوع
-                                                </a>
+                                                <form class="Form"
+                                                      style="display: inline-block" method="post"
+                                                      action="{{ route("system.evaluation.employeedestroy.evaluation" , $evaluation["id"]) }}">
+                                                    @csrf
+                                                    @method("delete")
+                                                    <button type="submit" class="Button Button--Danger">
+                                                        حذف المعلومات
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
