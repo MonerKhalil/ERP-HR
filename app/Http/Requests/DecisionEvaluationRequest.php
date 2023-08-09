@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Decision;
 use Illuminate\Validation\Rule;
 
 class DecisionEvaluationRequest extends BaseRequest
@@ -23,7 +24,7 @@ class DecisionEvaluationRequest extends BaseRequest
             "file" => $this->fileRules(false),
             //Decision
             "number" => ["required", "integer",Rule::unique("decisions","number")],
-            "effect_salary" => ["required", Rule::in(self::effectSalary())],
+            "effect_salary" => ["required", Rule::in(Decision::effectSalary())],
             "date" => $this->dateRules(true),
             "content" => ["nullable","string"],
             "end_date_decision" => $this->afterDateOrNowRules(false,'date'),

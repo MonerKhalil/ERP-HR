@@ -30,13 +30,14 @@ $languages = Permissions::getPermissions("languages");
 $language_skills = Permissions::getPermissions("language_skills");
 $membership_types= Permissions::getPermissions("membership_types");
 $memberships= Permissions::getPermissions("memberships");
+$attendances= Permissions::getPermissions("attendances");
 
 return array_merge($users,$roles,$employees
 ,$session_decisions,$type_decisions,$decisions,$sections,
 $conferences,$positions,$position_employees,$data_end_services,$request_end_services,
 $leave_types,$leaves,$contracts,$correspondences,$correspondence_source_dests,$overtime_types,$overtimes,
 $languages,$language_skills,$membership_types,$memberships, $company_settings,$work_settings,$public_holidays,
-$section_externals,$employee_evaluations,
+$section_externals,$employee_evaluations,$attendances,
 [
     #addPermissions
     #Example : "read_model"...

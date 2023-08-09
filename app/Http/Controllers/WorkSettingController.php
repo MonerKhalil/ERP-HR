@@ -73,6 +73,9 @@ class WorkSettingController extends Controller
             "work_hours_from" => $h_from,
             "work_hours_to" => $h_to,
             "description" => $request->description,
+            "late_enter_allowance_per_minute" => $request->late_enter_allowance_per_minute,
+            "early_out_allowance_per_minute" => $request->early_out_allowance_per_minute,
+            "min_overtime_hours" => $request->min_overtime_hours,
         ]);
         return $this->responseSuccess(null,null,"create",self::IndexRoute);
     }
@@ -128,6 +131,9 @@ class WorkSettingController extends Controller
             "days_leaves_in_weeks" => $daysLeaves,
             "work_hours_from" => $h_from,
             "work_hours_to" => $h_to,
+            "late_enter_allowance_per_minute" => $request->late_enter_allowance_per_minute,
+            "early_out_allowance_per_minute" => $request->early_out_allowance_per_minute,
+            "min_overtime_hours" => $request->min_overtime_hours,
             "description" => is_null($request->description) ? $workSetting->description : $request->description,
         ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
@@ -184,7 +190,8 @@ class WorkSettingController extends Controller
         $head = [
             "name","count_days_work_in_weeks","count_hours_work_in_days",
             "days_leaves_in_weeks",
-            "work_hours_from","work_hours_to","description",
+            "work_hours_from","work_hours_to","description","min_overtime_hours",
+            "late_enter_allowance_per_minute","early_out_allowance_per_minute"
         ];
         return [
             "head" => $head,

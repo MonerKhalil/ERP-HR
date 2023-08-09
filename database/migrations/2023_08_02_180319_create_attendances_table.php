@@ -13,21 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employee_evaluations', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            #Add Columns
             $table->foreignId("employee_id")->constrained("employees")->restrictOnDelete();
-            $table->date("evaluation_date");
-            $table->date("next_evaluation_date");
-            $table->string("description")->nullable();
+            $table->time("check_in")->nullable();
+            $table->time("check_out")->nullable();
+            $table->integer("hours_work")->nullable();
+            $table->integer("hours_work_per_minute")->nullable();
+            $table->integer("late_entry_per_minute")->default(0);
+            $table->integer("early_exit_per_minute")->default(0);
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->timestamps();
             $table->softDeletes();
-        });
-        Schema::table('decisions',function (Blueprint $table){
-            $table->foreignId("evaluation_id")->nullable()->constrained("employee_evaluations")->restrictOnDelete();
         });
     }
 
@@ -38,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_evaluations');
+        Schema::dropIfExists('attendances');
     }
 };

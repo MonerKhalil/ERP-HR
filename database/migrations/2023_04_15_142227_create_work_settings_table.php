@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string("days_leaves_in_weeks");
             $table->time("work_hours_from");
             $table->time("work_hours_to");
+            $table->integer("late_enter_allowance_per_minute");
+            $table->integer("early_out_allowance_per_minute");
+            $table->integer("min_overtime_hours");
             $table->text("description")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
