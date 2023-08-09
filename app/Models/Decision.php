@@ -11,6 +11,7 @@ class Decision extends BaseModel
     use HasFactory;
 
     protected $fillable = [
+        "evaluation_id",
         "type_decision_id","session_decision_id","number","date","content",
         "effect_salary","end_date_decision","value","image","rate",
         "created_by","updated_by","is_active",
@@ -24,6 +25,10 @@ class Decision extends BaseModel
 
     public function session_decision(){
         return $this->belongsTo(SessionDecision::class,"session_decision_id","id");
+    }
+
+    public function evaluation(){
+        return $this->belongsTo(EmployeeEvaluation::class,"evaluation_id","id");
     }
 
     public function employees(){

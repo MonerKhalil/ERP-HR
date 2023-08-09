@@ -28,7 +28,8 @@
             "overtime_types": "a",
             "overtimes": "a",
             "section_externals": "a",
-            "employee_evaluations": "a"
+            "employee_evaluations": "a",
+            "attendances" : "a"
         },
         "user" : {
             "users" : ["r"],

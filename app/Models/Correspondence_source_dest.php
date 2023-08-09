@@ -16,7 +16,7 @@ class Correspondence_source_dest extends BaseModel
         "current_employee_id",
         "in_employee_id_dest",
         "out_current_section_id",
-        "out_section_id_dest",
+        "out_section_id_dest","is_done",
         "type","notice","path_file",
          "source_dest_type",
         "created_by","updated_by","is_active",

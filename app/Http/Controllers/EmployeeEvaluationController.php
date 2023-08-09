@@ -100,8 +100,14 @@ class EmployeeEvaluationController extends Controller
         }
     }
 
+    /**
+     * @param $evaluation
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @throws AuthorizationException
+     * @author moner khalil
+     */
     public function showEvaluation($evaluation){
-        $evaluation = EmployeeEvaluation::with(["employee","enter_evaluation_employee"])->findOrFail($evaluation);
+        $evaluation = EmployeeEvaluation::with(["employee","enter_evaluation_employee","decisions"])->findOrFail($evaluation);
         if (!$evaluation->canShow()){
             throw new AuthorizationException(__("err_permission"));
         }
@@ -116,11 +122,66 @@ class EmployeeEvaluationController extends Controller
      * @throws AuthorizationException
      * @author moner khalil
      */
+    public function showEvaluationDetails(Request $request, $evaluation){
+        $evaluation = EmployeeEvaluation::with(["employee"])->findOrFail($evaluation);
+        if (!$evaluation->canShow()){
+            throw new AuthorizationException(__("err_permission"));
+        }
+        //OrderBy
+        $typeOrder = $request->typeOrder;
+        $typeOrder = $request->typeOrder == "asc" || $request->typeOrder=="desc" ? $typeOrder : "asc";
+        $orderCol = in_array($request->order,$this->typeEvaluation()) ? $request->order : null;
+        $employees = EvaluationMember::with("employee")->whereIn("evaluation_id",$evaluation->id);
+        if (!is_null($orderCol)){
+            $employees->orderBy($orderCol,$typeOrder);
+        }
+        //Search
+        if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
+            $employees = $employees->whereHas("employee",function ($q) use ($request){
+                $q->where("first_name","Like","%".$request->filter["name_employee"]."%")
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
+            });
+        }
+        $employees = MyApp::Classes()->Search->dataPaginate($employees);
+        return $this->responseSuccess("",compact("evaluation","employees"));
+    }
+
+    /**
+     * @param Request $request
+     * @param $evaluation
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @throws AuthorizationException
+     * @author moner khalil
+     */
+    public function showEvaluationDecisions(Request $request, $evaluation){
+        $evaluation = EmployeeEvaluation::with(["employee"])->findOrFail($evaluation);
+        if (!$evaluation->canShow()){
+            throw new AuthorizationException(__("err_permission"));
+        }
+        $q = Decision::query();
+        if (isset($request->filter["start_date"]) && isset($request->filter["end_date"])){
+            $from = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date"]);
+            $to = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date"]);
+            if ( is_string($from) && is_string($to) && ($from <= $to) ){
+                $q = $q->whereBetween("date",[$from,$to]);
+            }
+        }
+        $decisions = MyApp::Classes()->Search->getDataFilter($q, null, null, "end_date_decision");
+        return $this->responseSuccess("",compact("evaluation","decisions"));
+    }
+
+    /**
+     * @param $evaluation
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @throws AuthorizationException
+     * @author moner khalil
+     */
     public function showEvaluationAdd($evaluation){
         $evaluation = EmployeeEvaluation::with("employee")->findOrFail($evaluation);
         if (!$evaluation->canEvaluation(auth()->user()->employee->id??"")){
             throw new AuthorizationException(__("err_permission"));
         }
+      
         $typeEvaluation = [
             "performance","professionalism","readiness_for_development"
             ,"collaboration","commitment_and_responsibility"
@@ -130,6 +191,13 @@ class EmployeeEvaluationController extends Controller
             compact("evaluation","typeEvaluation"));
     }
 
+    /**
+     * @param EvaluationMemberRequest $evaluationMemberRequest
+     * @param $evaluation
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @throws AuthorizationException
+     * @author moner khalil
+     */
     public function storeEvaluationAdd(EvaluationMemberRequest $evaluationMemberRequest , $evaluation){
         $evaluation = EmployeeEvaluation::query()->findOrFail($evaluation);
         $employee = $evaluationMemberRequest->employee_id ?? auth()->user()->employee->id;
@@ -142,6 +210,11 @@ class EmployeeEvaluationController extends Controller
         return $this->responseSuccess(null,null,"update",null,true);
     }
 
+    /**
+     * @param $evaluation
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @author moner khalil
+     */
     public function addDecisionEvaluationShowPage($evaluation){
         //send moderator SessionDecision...
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
@@ -151,6 +224,12 @@ class EmployeeEvaluationController extends Controller
             ,compact("evaluation","employees","type_effects"));
     }
 
+    /**
+     * @param DecisionEvaluationRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
+     * @throws MainException
+     * @author moner khalil
+     */
     public function storeDecisionEvaluation(DecisionEvaluationRequest $request){
         try {
             DB::beginTransaction();
@@ -162,7 +241,8 @@ class EmployeeEvaluationController extends Controller
                 $typeDecision = TypeDecision::query()->firstOrCreate(["name"=>"evaluation"],["name"=>"evaluation"]);
                 //SessionDecision
                 $session = $this->addSession($data,$evaluationEmployees);
-                $this->addDecision($data,$typeDecision->id,$evaluation->employee_id,$session->id);
+                //Decision
+                $this->addDecision($data,$typeDecision->id,$evaluation->employee_id,$evaluation->id,$session->id);
                 DB::commit();
                 return $this->responseSuccess(null,null,"create",self::IndexRouteDecision);
             }else{
@@ -212,10 +292,11 @@ class EmployeeEvaluationController extends Controller
      * @param $data
      * @param $typeDecision_id
      * @param $employee_id
+     * @param $evaluation_id
      * @param $session_id
      * @throws MainException
      */
-    private function addDecision($data, $typeDecision_id, $employee_id, $session_id){
+    private function addDecision($data, $typeDecision_id, $employee_id,$evaluation_id, $session_id){
         if (isset($data['image_decision'])) {
             $image = MyApp::Classes()->storageFiles->Upload($data['image_decision']);
             if (is_bool($image)) {
@@ -224,6 +305,7 @@ class EmployeeEvaluationController extends Controller
             $data['image_decision'] = $image;
         }
         $decision = Decision::query()->create([
+            "evaluation_id" => $evaluation_id,
             "type_decision_id" => $typeDecision_id,
             "session_decision_id" => $session_id,
             "number" => $data["number"],
@@ -254,5 +336,12 @@ class EmployeeEvaluationController extends Controller
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
+    private function typeEvaluation(){
+        return [
+            "performance","professionalism","readiness_for_development"
+            ,"collaboration","commitment_and_responsibility"
+            ,"innovation_and_creativity","technical_skills",
+        ];
+    }
 
 }
