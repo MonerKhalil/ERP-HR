@@ -81,7 +81,12 @@
                                                         <div class="ListData__Content">
                                                             <div class="Row GapC-1-5">
                                                                 <div id="VacationType" class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    @php
+                                                                        $ErrorView = Errors("from_date") ?? Errors("to_date") ?? Errors("can_from_hour")
+                                                                        ?? Errors("can_to_hour") ?? Errors("from_hour") ?? Errors("to_hour") ?? Errors("description") ;
+                                                                    @endphp
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ $ErrorView }}">
                                                                         <div class="VisibilityOption Form__Select"
                                                                              @if(isset($leave))
                                                                                 data-VisibilityDefault="{{ $leave["leave_type_id"] }}"
@@ -113,7 +118,7 @@
                                                         <div class="ListData__Content">
                                                             <div class="Row GapC-1-5">
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group" >
                                                                         <div class="Form__Date">
                                                                             <div class="Date__Area">
                                                                                 <input id="VacationFromDate"
@@ -153,7 +158,7 @@
                                                                      id="VacationNaturalID"
                                                                      data-TargetName="TypeVacation"
                                                                      data-TargetValue="{{join("," , $ListIDVacationsOpening)}}">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group" >
                                                                         @php
                                                                             $IsChecked = false ;
                                                                             $ValueSelected = -1 ;

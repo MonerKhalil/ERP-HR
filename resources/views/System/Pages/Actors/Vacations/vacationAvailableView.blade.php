@@ -14,6 +14,9 @@
                 <div class="Row">
                     <div class="VacationRequestPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Col-12 Card">
                                     <div class="Card__Content">

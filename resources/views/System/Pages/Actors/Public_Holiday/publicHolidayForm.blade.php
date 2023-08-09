@@ -14,6 +14,9 @@
                 <div class="Row">
                     <div class="PublicHolidayFormPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -37,7 +40,8 @@
                                                             <div class="ListData__CustomItem">
                                                                 <div class="Row GapC-1-5">
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("name") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="PublicHolidayName" class="Input__Field"
@@ -52,7 +56,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("start_date") }}">
                                                                             <div class="Form__Date">
                                                                                 <div class="Date__Area">
                                                                                     <input id="PublicHolidayDate_S" class="DateMinToday Date__Field"
@@ -68,7 +73,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("end_date") }}">
                                                                             <div class="Form__Date">
                                                                                 <div class="Date__Area">
                                                                                     <input id="PublicHolidayDate_E"

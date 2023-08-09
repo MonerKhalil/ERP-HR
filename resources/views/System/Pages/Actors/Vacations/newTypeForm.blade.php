@@ -40,7 +40,8 @@
                                                         <div class="ListData__CustomItem">
                                                                 <div class="Row GapC-1-5">
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("name") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="VacationName" class="Input__Field"
@@ -55,7 +56,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("type_effect_salary") }}">
                                                                             <div class="VisibilityOption Form__Select"
                                                                                  data-VisibilityDefault="{{ isset($leaveType) ? $leaveType["type_effect_salary"] : "" }}"
                                                                                  data-ElementsTargetName="VacationTypeFields">
@@ -78,7 +80,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("leave_limited") }}">
                                                                             <div class="VisibilityOption Form__Select"
                                                                                  data-VisibilityDefault="{{ isset($leaveType) ? $leaveType["leave_limited"] : "" }}"
                                                                                  data-ElementsTargetName="VacationTypeLimited">
@@ -99,7 +102,8 @@
                                                                     <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                          data-TargetName="VacationTypeLimited"
                                                                          data-TargetValue="1">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("max_days_per_years") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="VacationDurationYear" class="Input__Field"
@@ -135,7 +139,8 @@
                                                                     <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                          data-TargetName="VacationTypeLimited"
                                                                          data-TargetValue="1">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("is_hourly") }}">
                                                                             <div class="VisibilityOption Form__Select"
                                                                                  data-VisibilityDefault="{{ isset($leaveType) ? $leaveType["is_hourly"] : "" }}"
                                                                                  data-ElementsTargetName="VacationIsHour">
@@ -156,7 +161,8 @@
                                                                     <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                          data-TargetName="VacationIsHour"
                                                                          data-TargetValue="0">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("can_take_hours") }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @include("System.Components.selector" , [
@@ -175,7 +181,8 @@
                                                                     <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                          data-TargetName="VacationIsHour"
                                                                          data-TargetValue="1">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("max_hours_per_day") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="VacationDurationHour" class="Input__Field"
@@ -204,7 +211,8 @@
                                                         <div class="ListData__CustomItem">
                                                             <div class="Row GapC-1-5">
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("years_employee_services") }}">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
                                                                                 <div class="Form__Input">
@@ -230,7 +238,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("number_years_services_increment_days") }}">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
                                                                                 <div class="Form__Input">
@@ -256,7 +265,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("count_available_in_service") }}">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
                                                                                 <div class="Form__Input">
@@ -281,7 +291,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("count_days_increment_days") }}">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
                                                                                 <div class="Form__Input">
@@ -306,7 +317,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="Col-4-md Col-6-sm">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("gender") }}">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
                                                                                 @php
@@ -329,7 +341,8 @@
                                                                 <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                      data-TargetName="VacationTypeFields"
                                                                      data-TargetValue="effect_salary">
-                                                                    <div class="Form__Group">
+                                                                    <div class="Form__Group"
+                                                                         data-ErrorBackend="{{ Errors("rate_effect_salary") }}">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
                                                                                 <input id="SalaryDiscount" class="Input__Field"

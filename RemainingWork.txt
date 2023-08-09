@@ -16,4 +16,5 @@ ViewRole : {
     مراجعة الكود الهاص بالـ Readonly + كود الـ Visibility
     تزبيط الـ default تبع الـ Visibility الخاص بالـ multi selector
     تزبيط شغلة البلد بالـ Section
+    تزبيط الـ Errors بل اللغة تبع التقارير
 }

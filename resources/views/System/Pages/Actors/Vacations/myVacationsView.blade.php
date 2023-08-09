@@ -13,6 +13,9 @@
             </div>
             <div class="ViewVacationsPage__Content">
                 <div class="Container--MainContent">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="Col">
                             <div class="Card ViewVacationsPage__TableUsers">
