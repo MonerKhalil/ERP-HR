@@ -16,6 +16,7 @@ class WorkSetting extends BaseModel
         "name","count_days_work_in_weeks","count_hours_work_in_days",
         "days_leaves_in_weeks",
         "work_hours_from","work_hours_to","description",
+        "late_enter_allowance_per_minute","early_out_allowance_per_minute","min_overtime_hours",
         "created_by","updated_by","is_active",
     ];
 
@@ -41,6 +42,9 @@ class WorkSetting extends BaseModel
                 "work_hours_from" => ["required","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
                 "work_hours_to" => ["required","after:work_hours_from","date_format:g:i:s,g:i,g:i:s A,g:i A,H:i:s,H:i,H:i:s A,H:i A"],
                 "description" => ["nullable","string"],
+                "min_overtime_hours" => ["required","numeric","max:23"],
+                "late_enter_allowance_per_minute" => ["required","numeric",],
+                "early_out_allowance_per_minute" => ["required","numeric",],
             ];
         };
     }

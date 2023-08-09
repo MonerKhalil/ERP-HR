@@ -10,6 +10,7 @@
     "deleted": "deleted",
     "err_image_upload": "The previous image has not been successfully uploaded, please return the previous process again",
     "err_file_upload": "The previous file has not been successfully uploaded, please return the previous process again",
+    "err_user_not_employee" : "sorry the account user is not employee",
     "err_leaves_count": "It is not possible to take leave for this employee because of exceeding the permissible limit of the previous leave type.",
     "err_leaves_gender": "This type of leave is not available for this type of gender.",
     "err_years_employee_services": "The leave request cannot be submitted due to not having matching or greater years of service than the specified years of service for the previous leave type.",

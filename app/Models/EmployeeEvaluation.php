@@ -25,6 +25,12 @@ class EmployeeEvaluation extends BaseModel
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
+    public function decisions()
+    {
+        return $this->hasMany(Decision::class,"evaluation_id","id")
+            ->with("session_decision");
+    }
+
     public function enter_evaluation_employee()
     {
         return $this->hasMany(EvaluationMember::class,"evaluation_id","id")

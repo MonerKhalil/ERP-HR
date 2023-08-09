@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\ConferenceController;
@@ -320,22 +321,46 @@ Route::middleware(['auth'])->group(function () {
         =        Start Evaluation Employee Routes         =
        =============================================*/
 
-        Route::prefix("evaluation/employee")->name("evaluation.employee")->controller(EmployeeEvaluationController::class)
-            ->group(function () {
-                Route::get("show/all", "index")->name("index");
-                Route::get("show/{evaluation}", "showEvaluation")->name("show.evaluation");
-                Route::get("create", "create")->name("create");
-                Route::post("store", "store")->name("store");
-                Route::get("show/add/employee/{evaluation}", "showEvaluationAdd")->name("show.add.evaluation");
-                Route::post("store/employee/{evaluation}", "storeEvaluationAdd")->name("store.evaluation");
-                Route::get("show/add/decision/{evaluation}", "addDecisionEvaluationShowPage")->name("show.add.decision.evaluation");
-                Route::post("store/decision", "storeDecisionEvaluation")->name("store.decision.evaluation");
-                Route::delete("destroy/{evaluation}", "destroyEvaluation")->name("destroy.evaluation");
-                Route::delete("multi/destroy/evaluation", "multiDestroyEvaluation")->name("multi.destroy.evaluation");
-            });
+        Route::prefix("evaluation/employee")->name("evaluation.employee.")->controller(EmployeeEvaluationController::class)
+        ->group(function (){
+            Route::get("show/all","index")->name("index");
+            Route::get("show/{evaluation}","showEvaluation")->name("show.evaluation");
+            Route::get("show/{evaluation}/details","showEvaluationDetails")->name("show.evaluation.details");
+            Route::get("show/{evaluation}/decisions","showEvaluationDecisions")->name("show.evaluation.decisions");
+            Route::get("create","create")->name("create");
+            Route::post("store","store")->name("store");
+            Route::get("show/add/employee/{evaluation}","showEvaluationAdd")->name("show.add.evaluation");
+            Route::post("store/employee/{evaluation}","storeEvaluationAdd")->name("store.evaluation");
+            Route::get("show/add/decision/{evaluation}","addDecisionEvaluationShowPage")->name("show.add.decision.evaluation");
+            Route::post("store/decision","storeDecisionEvaluation")->name("store.decision.evaluation");
+            Route::delete("destroy/{evaluation}","destroy")->name("destroy.evaluation");
+            Route::delete("multi/destroy/evaluation","MultiDelete")->name("multi.destroy.evaluation");
+        });
 
         /*===========================================
         =        End Evaluation Employee Routes         =
+       =============================================*/
+
+
+        /*===========================================
+        =        Start Attendance Employee Routes         =
+       =============================================*/
+
+        Route::prefix("attendances")->name("attendances.")
+            ->controller(AttendanceController::class)->group(function (){
+                Route::get("create","showPageAttendance")->name("create");
+                Route::get("store/{type}","store")->name("store.type")
+                    ->whereIn("type",["check_in","check_out"]);
+                Route::get("all/employees","index")->name("index");
+                Route::get("all/employee","employeeAttendances")->name("employee");
+                Route::post('export/xlsx', "ExportXls")->name("export.xls");
+                Route::post('export/pdf', "ExportPDF")->name("export.pdf");
+                Route::delete("multi/delete", "MultiDelete")->name("multi.delete");
+                Route::delete("delete/{attendance}", "destroy")->name("delete");
+            });
+
+        /*===========================================
+        =        End Attendance Employee Routes         =
        =============================================*/
 
 
