@@ -21,7 +21,7 @@ use Illuminate\Validation\Rule;
 
 class EmployeeEvaluationController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Evaluation/newTypeEvaluationView";
     public const IndexRoute = "system.evaluation.employee.index";
     public const IndexRouteDecision = "system.decisions.index";
 
@@ -51,12 +51,19 @@ class EmployeeEvaluationController extends Controller
 
     public function index(Request $request){
         $data = MyApp::Classes()->Search->getDataFilter($this->MainQuery($request),null,null,"evaluation_date");
-        return $this->responseSuccess(self::NameBlade,compact("data"));
+        $typeEvaluation = [
+            "performance","professionalism","readiness_for_development"
+            ,"collaboration","commitment_and_responsibility"
+            ,"innovation_and_creativity","technical_skills",
+        ];
+        return $this->responseSuccess(self::NameBlade ,
+            compact("data" , "typeEvaluation"));
     }
 
-    public function create(){
+    public function create() {
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
-        return $this->responseSuccess("",compact("employees"));
+        return $this->responseSuccess("System/Pages/Actors/Evaluation/newTypeEvaluationForm"
+            ,compact("employees"));
     }
 
     /**
@@ -104,7 +111,8 @@ class EmployeeEvaluationController extends Controller
         if (!$evaluation->canShow()){
             throw new AuthorizationException(__("err_permission"));
         }
-        return $this->responseSuccess("",compact("evaluation"));
+        return $this->responseSuccess("System/Pages/Actors/Evaluation/newTypeEvaulationDetails" ,
+            compact("evaluation"));
     }
 
     /**
@@ -173,8 +181,14 @@ class EmployeeEvaluationController extends Controller
         if (!$evaluation->canEvaluation(auth()->user()->employee->id??"")){
             throw new AuthorizationException(__("err_permission"));
         }
-        $typeEvaluation = $this->typeEvaluation();
-        return $this->responseSuccess("",compact("evaluation","typeEvaluation"));
+      
+        $typeEvaluation = [
+            "performance","professionalism","readiness_for_development"
+            ,"collaboration","commitment_and_responsibility"
+            ,"innovation_and_creativity","technical_skills",
+        ];
+        return $this->responseSuccess("System/Pages/Actors/Evaluation/addEvaluationEmployee",
+            compact("evaluation","typeEvaluation"));
     }
 
     /**
@@ -204,8 +218,10 @@ class EmployeeEvaluationController extends Controller
     public function addDecisionEvaluationShowPage($evaluation){
         //send moderator SessionDecision...
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
+        $type_effects = Decision::effectSalary();
         $evaluation = EmployeeEvaluation::query()->findOrFail($evaluation);
-        return $this->responseSuccess("",compact("evaluation","employees"));
+        return $this->responseSuccess("System/Pages/Actors/Evaluation/addDecisionEmployee"
+            ,compact("evaluation","employees","type_effects"));
     }
 
     /**
