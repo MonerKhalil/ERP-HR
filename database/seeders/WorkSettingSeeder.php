@@ -23,6 +23,9 @@ class WorkSettingSeeder extends Seeder
             "days_leaves_in_weeks" => 2,
             "work_hours_from" => Carbon::create(0,0,0,9)->format("G:i:s"),
             "work_hours_to" => Carbon::create(0,0,0,17)->format("G:i:s"),
+            "min_overtime_hours" => 1,
+            "late_enter_allowance_per_minute" => 2 ,
+            "early_out_allowance_per_minute" => 2 ,
         ]);
     }
 }

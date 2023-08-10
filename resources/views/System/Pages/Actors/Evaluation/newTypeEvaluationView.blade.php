@@ -1,7 +1,6 @@
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-
     <section class="MainContent__Section MainContent__Section--NewTypeViewPage">
         <div class="NewTypeViewPage">
             <div class="NewTypeViewPage__Breadcrumb">
@@ -47,7 +46,7 @@
                                                                      "Method" => "post"
                                                                 ] , [
                                                                     "Label" => __("normalDelete")
-                                                                    , "Action" => route("system.evaluation.employeemulti.destroy.evaluation")
+                                                                    , "Action" => route("system.evaluation.employee.multi.destroy.evaluation")
                                                                     , "Method" => "delete"
                                                                 ] ]
                                                             ])
@@ -85,119 +84,133 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="Card__Inner p0">
-                                                <div class="Table__ContentTable">
-                                                    <table class="Table__Table" >
-                                                        <tr class="Item HeaderList">
-                                                            <th class="Item__Col Item__Col--Check">
-                                                                <input id="ItemRow_Main" class="CheckBoxItem"
-                                                                       type="checkbox" hidden>
-                                                                <label for="ItemRow_Main" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </th>
-                                                            <th class="Item__Col">#</th>
-                                                            <th class="Item__Col">
-                                                                اسم الموظف
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                تاريخ التقييم
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                تاريخ التقييم التالي
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                تاريخ انشاء التقييم
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                المزيد
-                                                            </th>
-                                                        </tr>
-                                                        @foreach($data as $Index => $EvaluationType)
-                                                            <tr class="Item DataItem">
-                                                                <td class="Item__Col Item__Col--Check">
-                                                                    <input id="EvaluationID_{{ $EvaluationType["id"] }}"
-                                                                           class="CheckBoxItem" type="checkbox"
-                                                                           name="ids[]" value="{{ $EvaluationType["id"] }}" hidden>
-                                                                    <label for="EvaluationID_{{ $EvaluationType["id"] }}" class="CheckBoxRow">
+                                            @if(count($data) > 0)
+                                                <div class="Card__Inner p0">
+                                                    <div class="Table__ContentTable">
+                                                        <table class="Table__Table" >
+                                                            <tr class="Item HeaderList">
+                                                                <th class="Item__Col Item__Col--Check">
+                                                                    <input id="ItemRow_Main" class="CheckBoxItem"
+                                                                           type="checkbox" hidden>
+                                                                    <label for="ItemRow_Main" class="CheckBoxRow">
                                                                         <i class="material-icons ">
                                                                             check_small
                                                                         </i>
                                                                     </label>
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    {{ $EvaluationType["id"] }}
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    {{ $EvaluationType["employee_id"] }}
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    {{ $EvaluationType["evaluation_date"] }}
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    {{ $EvaluationType["next_evaluation_date"] }}
-                                                                </td>
-                                                                <td class="Item__Col">
-                                                                    {{ $EvaluationType["created_at"] }}
-                                                                </td>
-                                                                <td class="Item__Col MoreDropdown">
-                                                                    <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                       data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
-                                                                        more_horiz
-                                                                    </i>
-                                                                    <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                         data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
-                                                                        <ul class="Dropdown__Content">
-                                                                            <li>
-                                                                                <a href="{{ route("system.evaluation.employeeshow.evaluation" , $EvaluationType["id"]) }}"
-                                                                                   class="Dropdown__Item">
-                                                                                    عرض التفاصيل
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="{{ route("system.evaluation.employeeshow.add.decision.evaluation" , $EvaluationType["id"]) }}"
-                                                                                   class="Dropdown__Item">
-                                                                                    اضافة قرار لهذا الموظف
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="{{ route("system.evaluation.employeeshow.add.evaluation" , $EvaluationType["id"]) }}"
-                                                                                   class="Dropdown__Item">
-                                                                                    اضافة تقييم لهذا الموظف
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="/Test-52"
-                                                                                   class="Dropdown__Item">
-                                                                                    عرض تقييمات هذا الموظف
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="/Test-51"
-                                                                                   class="Dropdown__Item">
-                                                                                    عرض قرارات هذا الموظف
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </td>
+                                                                </th>
+                                                                <th class="Item__Col">#</th>
+                                                                <th class="Item__Col">
+                                                                    اسم الموظف
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ اخر تقييم
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ التقييم التالي
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ انشاء التقييم
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    المزيد
+                                                                </th>
                                                             </tr>
-                                                        @endforeach
-                                                    </table>
+                                                            @foreach($data as $Index => $EvaluationType)
+                                                                <tr class="Item DataItem">
+                                                                    <td class="Item__Col Item__Col--Check">
+                                                                        <input id="EvaluationID_{{ $EvaluationType["id"] }}"
+                                                                               class="CheckBoxItem" type="checkbox"
+                                                                               name="ids[]" value="{{ $EvaluationType["id"] }}" hidden>
+                                                                        <label for="EvaluationID_{{ $EvaluationType["id"] }}" class="CheckBoxRow">
+                                                                            <i class="material-icons ">
+                                                                                check_small
+                                                                            </i>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["employee_id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["evaluation_date"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["next_evaluation_date"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["created_at"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col MoreDropdown">
+                                                                        <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                           data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
+                                                                            more_horiz
+                                                                        </i>
+                                                                        <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                             data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.evaluation.details" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض التفاصيل
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.add.decision.evaluation" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        اضافة قرار لهذا الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                                @php
+                                                                                    $IsCanEvaluation = false ;
+                                                                                    foreach ($EvaluationType->enter_evaluation_employee as $EmployeeInfo)
+                                                                                        if($EmployeeInfo->employee["user_id"] === Auth()->user()["id"]) {
+                                                                                            $IsCanEvaluation = true ;
+                                                                                            break ;
+                                                                                        }
+                                                                                @endphp
+                                                                                @if($IsCanEvaluation)
+                                                                                    <li>
+                                                                                        <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $EvaluationType["id"]) }}"
+                                                                                           class="Dropdown__Item">
+                                                                                            اضافة تقييم لهذا الموظف
+                                                                                        </a>
+                                                                                    </li>
+                                                                                @endif
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.evaluation" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض تقييمات هذا الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.evaluation.decisions" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض قرارات هذا الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                @include("System.Components.noData")
+                                            @endif
                                             <div class="Card__Inner">
-                                                {{--                                                <div class="Card__Pagination">--}}
-                                                {{--                                                    @include("System.Components.paginationNum" , [--}}
-                                                {{--                                                        "PaginationData" => $data ,--}}
-                                                {{--                                                        "PartsViewNum" => 5--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                    @include("System.Components.paginationSelect" , [--}}
-                                                {{--                                                        "PaginationData" => $data--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                </div>--}}
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $data ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $data
+                                                    ])
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -213,57 +226,17 @@
 
 @section("PopupPage")
 
-{{--    @include("System.Components.searchForm" , [--}}
-{{--        'InfoForm' => ["Route" => "" , "Method" => "get"] ,--}}
-{{--        'FilterForm' => [ ['Type' => 'number' , 'Info' =>--}}
-{{--                ['Name' => "filter[id]" , 'Placeholder' => __("decisionID")] ] ,--}}
-{{--                ['Type' => 'select' , 'Info' =>--}}
-{{--                    ['Name' => "filter[type_decision_id]" , 'Placeholder' => __("decisionType") ,--}}
-{{--                    "Options" => $DecisionTypes] ] , ['Type' => 'number' , 'Info' =>--}}
-{{--                ['Name' => "filter[number]" , 'Placeholder' => __("decisionNumber")] ] ,--}}
-{{--                ['Type' => 'dateRange' , 'Info' =>--}}
-{{--                    ['Name' => "date" , 'Placeholder' => __("dateDecision")--}}
-{{--                    , "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"] ] ,--}}
-{{--                 ['Type' => 'dateRange' , 'Info' =>--}}
-{{--                    ['Name' => "end_date_decision" , 'Placeholder' => __("dateDecisionEnd")--}}
-{{--                    , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ]--}}
-{{--            ]--}}
-{{--    ])--}}
-
-{{--    @foreach($data as $Index => $EvaluationType)--}}
-{{--        <div class="Popup Popup--Dark" data-name="SearchAbout_{{ $Index }}">--}}
-{{--            <div class="Popup__Content">--}}
-{{--                <div class="Popup__Card">--}}
-{{--                    <i class="material-icons Popup__Close">close</i>--}}
-{{--                    <div class="Popup__CardContent">--}}
-{{--                        <div class="Popup__InnerGroup">--}}
-{{--                            <div class="ListData NotResponsive">--}}
-{{--                                <div class="ListData__Head">--}}
-{{--                                    <h4 class="ListData__Title">--}}
-{{--                                        معلومات التقييم--}}
-{{--                                    </h4>--}}
-{{--                                </div>--}}
-{{--                                <div class="ListData__Content">--}}
-{{--                                    @foreach($typeEvaluation as $Type)--}}
-{{--                                        <div class="ListData__Item ListData__Item--NoAction">--}}
-{{--                                            <div class="Data_Col">--}}
-{{--                                                <span class="Data_Label">--}}
-{{--                                                    @lang($Type)--}}
-{{--                                                </span>--}}
-{{--                                                <span class="Data_Value">--}}
-{{--                                                    {{ $data->enter_evaluation_employee }}--}}
-{{--                                                </span>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    @endforeach--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    @endforeach--}}
-
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [ ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[id]" , 'Placeholder' => "رقم التقييم"] ] ,
+                ['Type' => 'text' , 'Info' =>
+                ['Name' => "filter[employee_name]" , 'Placeholder' => "اسم الموظف"] ] ,
+                ['Type' => 'dateSingle' , 'Info' =>
+                    ['Name' => "filter[evaluation_date]" , 'Placeholder' => "تاريخ اخر تقييم"] ] ,
+                ['Type' => 'dateSingle' , 'Info' =>
+                   ['Name' => "filter[next_evaluation_date]" , 'Placeholder' => "تاريخ التقييم التالي" ] ]
+        ]
+    ])
 
 @endsection

@@ -24,7 +24,7 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Body">
                                                     <form class="Form Form--Dark"
-                                                          action="{{ route("system.evaluation.employeestore") }}"
+                                                          action="{{ route("system.evaluation.employee.store") }}"
                                                           method="post">
                                                         @csrf
                                                         <div class="ListData">
@@ -37,7 +37,8 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row GapC-1-5">
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("evaluation_employees[]") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -60,7 +61,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("employee_id") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -82,7 +84,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("evaluation_date") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="StartEvaluationDate"
@@ -100,7 +103,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("next_evaluation_date") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="NextEvaluationDate"
@@ -118,7 +122,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-12">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("description") }}">
                                                                                 <div class="Form__Textarea">
                                                                                     <div class="Textarea__Area">
                                                                                         <textarea id="NotesForEvaluation" class="Textarea__Field" name="description" rows="3" placeholder="ملاحظات حول هذا التقييم"></textarea>
