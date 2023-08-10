@@ -123,7 +123,7 @@
                                             <div class="Card__Inner px0">
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
-                                                      action="{{ route("system.evaluation.employeedestroy.evaluation" , $evaluation["id"]) }}">
+                                                      action="{{ route("system.evaluation.employee.destroy.evaluation" , $evaluation["id"]) }}">
                                                     @csrf
                                                     @method("delete")
                                                     <button type="submit" class="Button Button--Danger">

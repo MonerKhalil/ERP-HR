@@ -44,11 +44,11 @@
                                                                      "Method" => "post"
                                                                 ] , [
                                                                     "Label" => "طباعة كـ xlsx" ,
-                                                                     "Action" => "#" ,
+                                                                     "Action" => "#",
                                                                      "Method" => "post"
                                                                 ] , [
                                                                     "Label" => __("normalDelete")
-                                                                    , "Action" => "#"
+                                                                    , "Action" => route("system.session_decisions.multi.delete")
                                                                     , "Method" => "delete"
                                                                 ] ]
                                                             ])
@@ -86,205 +86,112 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="Card__Inner p0">
-                                                <div class="Table__ContentTable">
-                                                    <table class="Table__Table" >
-                                                        <tr class="Item HeaderList">
-                                                            <th class="Item__Col Item__Col--Check">
-                                                                <input id="ItemRow_Main" class="CheckBoxItem"
-                                                                       type="checkbox" hidden>
-                                                                <label for="ItemRow_Main" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </th>
-                                                            <th class="Item__Col">#</th>
-                                                            <th class="Item__Col">
-                                                                اسم الجلسة
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                تاريخ الجلسة
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                رقم القرار
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                تاريخ القرار
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                تاريخ انتهاء القرار
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                نوع التأثير على الراتب
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                المزيد
-                                                            </th>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="EvaluationID_1"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="1" hidden>
-                                                                <label for="EvaluationID_1" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                1
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                هيك شي
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                8888
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                نوع التأثير على الراتب
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="MoreEvaluationOption_1">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="MoreEvaluationOption_1">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="EvaluationID_2"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="2" hidden>
-                                                                <label for="EvaluationID_2" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                2
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                هيك شي
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                8888
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                نوع التأثير على الراتب
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="MoreEvaluationOption_2">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="MoreEvaluationOption_2">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="EvaluationID_3"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="3" hidden>
-                                                                <label for="EvaluationID_3" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                3
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                هيك شي
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                8888
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                88/88/88
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                نوع التأثير على الراتب
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="MoreEvaluationOption_3">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="MoreEvaluationOption_3">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="#"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            @if(count($decisions) > 0)
+                                                <div class="Card__Inner p0">
+                                                    <div class="Table__ContentTable">
+                                                        <table class="Table__Table" >
+                                                            <tr class="Item HeaderList">
+                                                                <th class="Item__Col Item__Col--Check">
+                                                                    <input id="ItemRow_Main" class="CheckBoxItem"
+                                                                           type="checkbox" hidden>
+                                                                    <label for="ItemRow_Main" class="CheckBoxRow">
+                                                                        <i class="material-icons ">
+                                                                            check_small
+                                                                        </i>
+                                                                    </label>
+                                                                </th>
+                                                                <th class="Item__Col">#</th>
+                                                                <th class="Item__Col">
+                                                                    رقم القرار
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ القرار
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ انتهاء القرار
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    نوع التأثير على الراتب
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    قيمة التأثير
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    نسبة التأثير
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    المزيد
+                                                                </th>
+                                                            </tr>
+                                                            @foreach($decisions as $DecisionItem)
+                                                                <tr class="Item DataItem">
+                                                                    <td class="Item__Col Item__Col--Check">
+                                                                        <input id="EvaluationID_{{ $DecisionItem["id"] }}"
+                                                                               class="CheckBoxItem" type="checkbox"
+                                                                               name="ids[]" value="{{ $DecisionItem["id"] }}" hidden>
+                                                                        <label for="EvaluationID_{{ $DecisionItem["id"] }}"
+                                                                               class="CheckBoxRow">
+                                                                            <i class="material-icons ">
+                                                                                check_small
+                                                                            </i>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $DecisionItem["id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $DecisionItem["number"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $DecisionItem["date"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $DecisionItem["end_date_decision"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $DecisionItem["effect_salary"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $DecisionItem["value"] ?? "-" }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $DecisionItem["rate"] ?? "-" }}
+                                                                    </td>
+                                                                    <td class="Item__Col MoreDropdown">
+                                                                        <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                           data-MenuName="MoreEvaluationOption_{{ $DecisionItem["id"] }}">
+                                                                            more_horiz
+                                                                        </i>
+                                                                        <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                             data-MenuName="MoreEvaluationOption_{{ $DecisionItem["id"] }}">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{ route("system.decisions.show" , $DecisionItem["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض التفاصيل
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                @include("System.Components.noData")
+                                            @endif
                                             <div class="Card__Inner">
-                                                {{--                                                <div class="Card__Pagination">--}}
-                                                {{--                                                    @include("System.Components.paginationNum" , [--}}
-                                                {{--                                                        "PaginationData" => $data ,--}}
-                                                {{--                                                        "PartsViewNum" => 5--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                    @include("System.Components.paginationSelect" , [--}}
-                                                {{--                                                        "PaginationData" => $data--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                </div>--}}
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $decisions ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $decisions
+                                                    ])
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -301,26 +208,31 @@
 
 @section("PopupPage")
 
-{{--    @php--}}
-{{--        $DecisionTypes = [] ;--}}
-{{--        foreach ($type_decisions as $Index=>$Decisions) {--}}
-{{--            array_push($DecisionTypes , [ "Label" => $Decisions , "Value" => $Index ]) ;--}}
-{{--        }--}}
-{{--    @endphp--}}
+    @php
+        $TypeEffect = [] ;
+        foreach ($type_effects as $EffectItem) {
+            array_push($TypeEffect , [ "Label" => $EffectItem , "Value" => $EffectItem ]) ;
+        }
+    @endphp
 
     @include("System.Components.searchForm" , [
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
-        'FilterForm' => [
-                ['Type' => 'text' , 'Info' =>
-                ['Name' => "filter[sessionName]" , 'Placeholder' => "اسم الجلسة"] ] ,
-                ['Type' => 'dateSingle' , 'Info' =>
-                    ['Name' => "session_date" , 'Placeholder' => "تاريخ الجلسة"] ] ,
+        'FilterForm' => [ ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[id]" , 'Placeholder' => __("decisionID")] ] ,
                 ['Type' => 'number' , 'Info' =>
                 ['Name' => "filter[number]" , 'Placeholder' => __("decisionNumber")] ] ,
-                ['Type' => 'dateSingle' , 'Info' =>
-                    ['Name' => "date" , 'Placeholder' => __("dateDecision")] ] ,
-                 ['Type' => 'dateSingle' , 'Info' =>
-                    ['Name' => "end_date_decision" , 'Placeholder' => __("dateDecisionEnd")] ]
+                ['Type' => 'dateRange' , 'Info' =>
+                    ['Name' => "date" , 'Placeholder' => __("dateDecision")
+                    , "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"] ] ,
+                ['Type' => 'dateRange' , 'Info' =>
+                   ['Name' => "end_date_decision" , 'Placeholder' => __("dateDecisionEnd")
+                   , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ] ,
+                ['Type' => 'select' , 'Info' =>
+                ['Name' => "filter[effect_salary]" , 'Placeholder' => "نوع التأثير على الراتب" , "Options" => $TypeEffect] ] ,
+                ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[value]" , 'Placeholder' => "قيمة التأثير"] ] ,
+                ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[rate]" , 'Placeholder' => "نسبة التأثير"] ] ,
             ]
     ])
 @endsection

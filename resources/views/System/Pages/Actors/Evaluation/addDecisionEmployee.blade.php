@@ -24,7 +24,8 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Body">
                                                     <form class="Form Form--Dark"
-                                                          action="{{ route("system.evaluation.employeestore.decision.evaluation") }}"
+                                                          action="{{ route("system.evaluation.employee.store.decision.evaluation") }}"
+                                                          enctype="multipart/form-data"
                                                           method="post">
                                                         @csrf
                                                         <input type="hidden" value="{{ $evaluation["id"] }}" name="evaluation_id">
@@ -38,7 +39,8 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row GapC-1-5">
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("name") }}">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="SessionName" class="Input__Field"
@@ -53,7 +55,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                data-ErrorBackend="{{ Errors("moderator_id") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -74,7 +77,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                data-ErrorBackend="{{ Errors("date_session") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="DateSession"
@@ -91,7 +95,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-12">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                data-ErrorBackend="{{ Errors("description") }}">
                                                                                 <div class="Form__Textarea">
                                                                                     <div class="Textarea__Area">
                                                                                         <textarea id="SessionDescription" class="Textarea__Field" name="description"
@@ -115,7 +120,8 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row GapC-1-5">
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                data-ErrorBackend="{{ Errors("number") }}">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="DecisionNumber" class="Input__Field"
@@ -131,7 +137,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                data-ErrorBackend="{{ Errors("date") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="DateDecision"
@@ -149,7 +156,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                data-ErrorBackend="{{ Errors("end_date_decision") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="EndDateDecision"
@@ -166,7 +174,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                data-ErrorBackend="{{ Errors("image_decision") }}">
                                                                                 <div class="Form__UploadFile">
                                                                                     <div class="UploadFile__Area">
                                                                                         @include("System.Components.fileUpload" , [
@@ -180,25 +189,10 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
-                                                                                <div class="Form__UploadFile">
-                                                                                    <div class="UploadFile__Area">
-                                                                                        @include("System.Components.fileUpload" , [
-                                                                                            "FieldID" => "FileSession" ,
-                                                                                            "FieldName" => "file" ,
-                                                                                            "DefaultData" => ""  ,
-                                                                                            "LabelField" => "ملف القرار" ,
-                                                                                            "AcceptFiles" => "file/pdf"
-                                                                                        ])
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
                                                                         <div class="VisibilityOption Col-4-md Col-6-sm"
                                                                              data-ElementsTargetName="BonesPunishmentFields">
                                                                             <div class="Form__Group"
-                                                                                 data-ErrorBackend="{{ Errors("effect_salary") ?? Errors("value") ?? Errors("rate") }}">
+                                                                                 data-ErrorBackend="{{ Errors("effect_salary") ?? Errors("value") ?? Errors("rate") ?? "" }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -238,8 +232,7 @@
                                                                         <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                              data-TargetName="BonesPunishmentFields"
                                                                              data-TargetValue="increment">
-                                                                            <div class="Form__Group"
-                                                                                 data-ErrorBackend="{{ Errors("value") }}">
+                                                                            <div class="Form__Group">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="IncreasesAmountSalary" class="Input__Field" type="number"

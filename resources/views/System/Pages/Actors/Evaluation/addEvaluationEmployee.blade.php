@@ -24,7 +24,7 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Body">
                                                     <form class="Form Form--Dark"
-                                                          action="{{ route("system.evaluation.employeestore.evaluation" , $evaluation["id"]) }}"
+                                                          action="{{ route("system.evaluation.employee.store.evaluation" , $evaluation["id"]) }}"
                                                           method="post">
                                                         @csrf
                                                         <input type="hidden" value="{{ $evaluation["id"] }}" name="evaluation_id">
@@ -39,7 +39,8 @@
                                                                     <div class="Row GapC-1-5">
                                                                         @foreach($typeEvaluation as $typeEvaluationItem)
                                                                             <div class="Col-4-md Col-6-sm">
-                                                                                <div class="Form__Group">
+                                                                                <div class="Form__Group"
+                                                                                     data-ErrorBackend="{{ Errors($typeEvaluationItem) }}">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
                                                                                             <input id="{{ $typeEvaluationItem }}" class="Input__Field"

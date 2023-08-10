@@ -249,13 +249,13 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="{{ route("system.evaluation.employeecreate") }}" class="NavName">
+                                    <a href="{{ route("system.evaluation.employee.create") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
                                             اضافة موظف جديد للتقييم
                                         </span>
                                     </a>
-                                    <a href="{{ route("system.evaluation.employeeindex") }}" class="NavName">
+                                    <a href="{{ route("system.evaluation.employee.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
                                             عرض جميع الموظفين المضافين
