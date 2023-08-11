@@ -27,7 +27,7 @@ class Correspondence extends BaseModel
     public function CorrespondenceDest()
     {
         return $this->hasMany(Correspondence_source_dest::class, 'correspondences_id', 'id')
-            ->with(["employee_current","employee_dest","out_section_dest","out_section_current"]);
+            ->with(["employee_current","external_party","internal_department"]);
     }
 
     public function employees(){

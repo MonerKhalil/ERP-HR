@@ -136,11 +136,11 @@
                                                                                 <li>
                                                                                     <a href="{{route("correspondences.edit" , $correspondence["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        @lang("editcorrespondenceInfo")
+                                                                                        @lang("editCorrespondenceInfo")
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="{{route("correspondences_dest.create")}}"
+                                                                                    <a href="{{route("transaction.correspondences_dest.add", $correspondence["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         @lang("addTransaction")
                                                                                     </a>

@@ -632,5 +632,18 @@
     "/*         Notification         */": "",
     "titleNotificationPage" : "سيتم عرض جميع الاشعارات التي قد تم ارسالها اليك",
     "readAll" : "قراءة الكل",
-    "noNotification" : "لا يوجد اشعارات لعرضها"
+    "noNotification" : "لا يوجد اشعارات لعرضها",
+    "type" : "النوع",
+    "numberInternal" : "رقم المراسلة",
+    "number_external" : "رقم المراسلة",
+    "path_file" : "المرفقات",
+    "CorrespondenceSubject" : "موضوع المراسلة",
+    "MainInformation" : "المعلومات الرئيسية",
+    "summary" : "ملخص المراسلة",
+    "editCorrespondenceInfo" : "تعديل معلومات المراسلة",
+    "addTransaction" : "إضافة مناقلة جديدة",
+    "transactionType" : "نوع الوجهة | المصدر",
+    "externalParties" : "الجهة الخارجية",
+    "Department" : "القسم",
+    "addTransaction" : "إضافة حركة"
 }
