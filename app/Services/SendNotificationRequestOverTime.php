@@ -12,7 +12,7 @@ class SendNotificationRequestOverTime
 {
     public function sendNotify(Employee $employee,OvertimeType $overtimeType ,$route){
         $moderator_id = $employee->section->moderator_id;
-        $message = __("request_overtime_msg") . $overtimeType->name;
+        $message = "request_overtime_msg" . "@@@@" . $overtimeType->name;
         $data = [
             "from" => $employee->name,
             "body" => $message,
@@ -26,6 +26,6 @@ class SendNotificationRequestOverTime
         $users = User::query()->whereHas("roles.permissions",function ($query){
             $query->where('name', "all_overtimes");
         })->orWhere("id",$moderator_id)->get();
-        Notification::send($users,new MainNotification($data,__("request_overtime")));
+        Notification::send($users,new MainNotification($data,"request_overtime"));
     }
 }

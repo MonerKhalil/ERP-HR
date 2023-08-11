@@ -95,14 +95,14 @@ class LeaveAdminController extends Controller
                 "reject_details" => $request->reject_details,
                 "date_update_status" => now(),
             ]);
-            $message = $status == "approve" ? __("accept_request_leave") : __("cancel_request_leave");
+            $message = $status == "approve" ? "accept_request_leave" : "cancel_request_leave";
             $user = User::query()->find($leave->employee->user_id);
             $user->notify(new MainNotification([
                 "from" => auth()->user()->name,
                 "body" => $message,
                 "date" => now(),
                 "route_name" => route("system.leaves.show.leave",$leave->id),
-            ],__("request_leave")));
+            ],"request_leave"));
         }
         return $this->responseSuccess(null,null,"default",self::IndexRoute);
     }
