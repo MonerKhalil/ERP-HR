@@ -14,9 +14,9 @@ class Correspondence_source_dest extends BaseModel
         #Add Attributes
         "correspondences_id",
         "current_employee_id",
-        "in_employee_id_dest",
-        "out_current_section_id",
-        "out_section_id_dest","is_done",
+        "external_party_id",
+        "internal_department_id",
+        "is_done",
         "type","notice","path_file",
          "source_dest_type",
         //////legal section
@@ -30,17 +30,14 @@ class Correspondence_source_dest extends BaseModel
     {
         return $this->belongsTo(Employee::class, 'current_employee_id', 'id');
     }
-    public function employee_dest()
+
+    public function external_party()
     {
-        return $this->belongsTo(Employee::class, 'in_employee_id_dest', 'id');
+        return $this->belongsTo(SectionExternal::class, 'external_party_id', 'id');
     }
-    public function out_section_dest()
+    public function internal_department()
     {
-        return $this->belongsTo(SectionExternal::class, 'out_section_id_dest', 'id');
-    }
-    public function out_section_current()
-    {
-        return $this->belongsTo(SectionExternal::class, 'out_current_section_id', 'id');
+        return $this->belongsTo(Sections::class, 'internal_department_id', 'id');
     }
     public function correspondence()
     {
@@ -63,15 +60,14 @@ class Correspondence_source_dest extends BaseModel
                 "data" => ["required","array"],
                 "data.*" => ["required","array"],
                 "data.*.current_employee_id" => ["required",Rule::exists("employees","id")],
-                "data.*.out_current_section_id" => [Rule::requiredIf(function ()use($correspondences){
-                    return $correspondences->type == "external";
+
+                "data.*.external_party_id" => [Rule::requiredIf(function ()use($validator){
+                    return $validator->input("type") == "external";///check
+                }),Rule::exists("sections","id")],
+                "data.*.internal_department_id" => [Rule::requiredIf(function ()use($validator){
+                    return $validator->input("type") == "internal";
                 }),Rule::exists("section_externals","id")],
-                "data.*.in_employee_id_dest" => [Rule::requiredIf(function ()use($validator){
-                    return $validator->input("type") != "external";
-                }),Rule::exists("employees","id")],
-                "data.*.out_section_id_dest" => [Rule::requiredIf(function ()use($validator){
-                    return $validator->input("type") == "external";
-                }),Rule::exists("section_externals","id")],
+
                 "notice"=>["nullable",$validator->textRule(false)],
                 "path_file" =>["nullable" ,$validator->fileRules(false)],
                 //////legal section
