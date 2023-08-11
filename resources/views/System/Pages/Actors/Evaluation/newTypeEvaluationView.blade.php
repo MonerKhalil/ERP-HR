@@ -5,7 +5,7 @@
         <div class="NewTypeViewPage">
             <div class="NewTypeViewPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض انواع التقييم" ,
+                    'mainTitle' => "عرض جميع التقييمات" ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
                     'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
@@ -46,7 +46,7 @@
                                                                      "Method" => "post"
                                                                 ] , [
                                                                     "Label" => __("normalDelete")
-                                                                    , "Action" => "#"
+                                                                    , "Action" => route("system.evaluation.employee.multi.destroy.evaluation")
                                                                     , "Method" => "delete"
                                                                 ] ]
                                                             ])
@@ -84,157 +84,133 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="Card__Inner p0">
-                                                <div class="Table__ContentTable">
-                                                    <table class="Table__Table" >
-                                                        <tr class="Item HeaderList">
-                                                            <th class="Item__Col Item__Col--Check">
-                                                                <input id="ItemRow_Main" class="CheckBoxItem"
-                                                                       type="checkbox" hidden>
-                                                                <label for="ItemRow_Main" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </th>
-                                                            <th class="Item__Col">#</th>
-                                                            <th class="Item__Col">
-                                                                النوع
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                علامة التقييم من
-                                                            </th>
-                                                            <th class="Item__Col">
-                                                                المزيد
-                                                            </th>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="1"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="1" hidden>
-                                                                <label for="1" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                1
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                السلوك
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                5
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="TypeOvertime_1">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="TypeOvertime_1">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="/Test-46"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="2"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="2" hidden>
-                                                                <label for="2" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                2
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                اداء العمل
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                10
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="TypeOvertime_2">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="TypeOvertime_2">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="/Test-46"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Item DataItem">
-                                                            <td class="Item__Col Item__Col--Check">
-                                                                <input id="3"
-                                                                       class="CheckBoxItem" type="checkbox"
-                                                                       name="ids[]" value="3" hidden>
-                                                                <label for="3" class="CheckBoxRow">
-                                                                    <i class="material-icons ">
-                                                                        check_small
-                                                                    </i>
-                                                                </label>
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                3
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                روح الفريق
-                                                            </td>
-                                                            <td class="Item__Col">
-                                                                5
-                                                            </td>
-                                                            <td class="Item__Col MoreDropdown">
-                                                                <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                   data-MenuName="TypeOvertime_3">
-                                                                    more_horiz
-                                                                </i>
-                                                                <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                     data-MenuName="TypeOvertime_3">
-                                                                    <ul class="Dropdown__Content">
-                                                                        <li>
-                                                                            <a href="/Test-46"
-                                                                               class="Dropdown__Item">
-                                                                                عرض التفاصيل
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                            @if(count($data) > 0)
+                                                <div class="Card__Inner p0">
+                                                    <div class="Table__ContentTable">
+                                                        <table class="Table__Table" >
+                                                            <tr class="Item HeaderList">
+                                                                <th class="Item__Col Item__Col--Check">
+                                                                    <input id="ItemRow_Main" class="CheckBoxItem"
+                                                                           type="checkbox" hidden>
+                                                                    <label for="ItemRow_Main" class="CheckBoxRow">
+                                                                        <i class="material-icons ">
+                                                                            check_small
+                                                                        </i>
+                                                                    </label>
+                                                                </th>
+                                                                <th class="Item__Col">#</th>
+                                                                <th class="Item__Col">
+                                                                    اسم الموظف
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ اخر تقييم
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ التقييم التالي
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    تاريخ انشاء التقييم
+                                                                </th>
+                                                                <th class="Item__Col">
+                                                                    المزيد
+                                                                </th>
+                                                            </tr>
+                                                            @foreach($data as $Index => $EvaluationType)
+                                                                <tr class="Item DataItem">
+                                                                    <td class="Item__Col Item__Col--Check">
+                                                                        <input id="EvaluationID_{{ $EvaluationType["id"] }}"
+                                                                               class="CheckBoxItem" type="checkbox"
+                                                                               name="ids[]" value="{{ $EvaluationType["id"] }}" hidden>
+                                                                        <label for="EvaluationID_{{ $EvaluationType["id"] }}" class="CheckBoxRow">
+                                                                            <i class="material-icons ">
+                                                                                check_small
+                                                                            </i>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["employee_id"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["evaluation_date"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["next_evaluation_date"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col">
+                                                                        {{ $EvaluationType["created_at"] }}
+                                                                    </td>
+                                                                    <td class="Item__Col MoreDropdown">
+                                                                        <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
+                                                                           data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
+                                                                            more_horiz
+                                                                        </i>
+                                                                        <div class="Popper--MoreMenuTable MenuTarget Dropdown"
+                                                                             data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.evaluation.details" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض التفاصيل
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.add.decision.evaluation" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        اضافة قرار لهذا الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                                @php
+                                                                                    $IsCanEvaluation = false ;
+                                                                                    foreach ($EvaluationType->enter_evaluation_employee as $EmployeeInfo)
+                                                                                        if($EmployeeInfo->employee["user_id"] === Auth()->user()["id"]) {
+                                                                                            $IsCanEvaluation = true ;
+                                                                                            break ;
+                                                                                        }
+                                                                                @endphp
+                                                                                @if($IsCanEvaluation)
+                                                                                    <li>
+                                                                                        <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $EvaluationType["id"]) }}"
+                                                                                           class="Dropdown__Item">
+                                                                                            اضافة تقييم لهذا الموظف
+                                                                                        </a>
+                                                                                    </li>
+                                                                                @endif
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.evaluation" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض تقييمات هذا الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{ route("system.evaluation.employee.show.evaluation.decisions" , $EvaluationType["id"]) }}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض قرارات هذا الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                @include("System.Components.noData")
+                                            @endif
                                             <div class="Card__Inner">
-                                                {{--                                                <div class="Card__Pagination">--}}
-                                                {{--                                                    @include("System.Components.paginationNum" , [--}}
-                                                {{--                                                        "PaginationData" => $data ,--}}
-                                                {{--                                                        "PartsViewNum" => 5--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                    @include("System.Components.paginationSelect" , [--}}
-                                                {{--                                                        "PaginationData" => $data--}}
-                                                {{--                                                    ])--}}
-                                                {{--                                                </div>--}}
+                                                <div class="Card__Pagination">
+                                                    @include("System.Components.paginationNum" , [
+                                                        "PaginationData" => $data ,
+                                                        "PartsViewNum" => 5
+                                                    ])
+                                                    @include("System.Components.paginationSelect" , [
+                                                        "PaginationData" => $data
+                                                    ])
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -246,4 +222,21 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("PopupPage")
+
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [ ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[id]" , 'Placeholder' => "رقم التقييم"] ] ,
+                ['Type' => 'text' , 'Info' =>
+                ['Name' => "filter[employee_name]" , 'Placeholder' => "اسم الموظف"] ] ,
+                ['Type' => 'dateSingle' , 'Info' =>
+                    ['Name' => "filter[evaluation_date]" , 'Placeholder' => "تاريخ اخر تقييم"] ] ,
+                ['Type' => 'dateSingle' , 'Info' =>
+                   ['Name' => "filter[next_evaluation_date]" , 'Placeholder' => "تاريخ التقييم التالي" ] ]
+        ]
+    ])
+
 @endsection

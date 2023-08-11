@@ -133,12 +133,18 @@
                                                                                         @lang("viewDetails")
                                                                                     </a>
                                                                                 </li>
-{{--                                                                                <li>--}}
-{{--                                                                                    <a href="{{route("correspondence.edit" , $correspondence["id"])}}"--}}
-{{--                                                                                       class="Dropdown__Item">--}}
-{{--                                                                                        @lang("editcorrespondenceInfo")--}}
-{{--                                                                                    </a>--}}
-{{--                                                                                </li>--}}
+                                                                                <li>
+                                                                                    <a href="{{route("correspondences.edit" , $correspondence["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("editcorrespondenceInfo")
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{route("correspondences_dest.create")}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("addTransaction")
+                                                                                    </a>
+                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>

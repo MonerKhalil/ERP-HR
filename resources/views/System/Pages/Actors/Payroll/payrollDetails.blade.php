@@ -5,9 +5,9 @@
         <div class="SessionDetailsPage">
             <div class="SessionDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض تفاصيل النوع" ,
-                    'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'mainTitle' => __("sessionDetails") ,
+                    'paths' => [[__("home") , '#'] , [__("sessionDetails")]] ,
+                    'summery' => __("titleSessionDetails")
                 ])
             </div>
             <div class="SessionDetailsPage__Content">
@@ -26,88 +26,73 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الموظف المراد تقيمه
+                                                        @lang("sessionName")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $evaluation->employee["first_name"].$evaluation->employee["last_name"] }}
+                                                        {{$sessionDecision["name"]}}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الاشخاص الذين سيقومون بعملية التقييم
+                                                        @lang("sessionDate")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        @php
-                                                            $EmployeesList = "" ;
-                                                            foreach ($evaluation->enter_evaluation_employee as $Employee) {
-                                                                if($EmployeesList !== "")
-                                                                    $EmployeesList = $EmployeesList." , " ;
-                                                                $EmployeesList = $EmployeesList.$Employee->employee["first_name"]
-                                                                    .$Employee->employee["last_name"] ;
-                                                            }
-                                                        @endphp
-                                                        {{ $EmployeesList }}
+                                                        {{$sessionDecision["date_session"]}}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ التقييم
+                                                        @lang("sessionDirection")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $evaluation["evaluation_date"] }}
+                                                        {{$sessionDecision["description"]}}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ التقييم التالي
+                                                        @lang("sessionModerator")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $evaluation["next_evaluation_date"] }}
+                                                        {{$sessionDecision->moderator["first_name"].$sessionDecision->
+                                                            moderator["last_name"] }}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ انشاء هذا النوع
+                                                        @lang("sessionMember")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $evaluation["created_at"] }}
+                                                        @foreach($sessionDecision->members as $Members)
+                                                            {{$Members["first_name"].$Members["last_name"]}} ,
+                                                        @endforeach
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ تحديث هذا النوع
+                                                        @lang("createSessionDate")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $evaluation["updated_at"] }}
+                                                        {{$sessionDecision["created_at"]}}
                                                     </span>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="ListData NotResponsive">
-                                        <div class="ListData__Head">
-                                            <h4 class="ListData__Title">
-                                                الوصف الخاص بهذا التقييم
-                                            </h4>
-                                        </div>
-                                        <div class="ListData__Content">
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الوصف
+                                                        @lang("updateSessionDate")
                                                     </span>
                                                     <span class="Data_Value">
-                                                        {{ $evaluation["description"] }}
+                                                        {{$sessionDecision["updated_at"]}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -116,20 +101,19 @@
                                     <div class="ListData">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                العمليات على النوع
+                                                @lang("operationsOnSession")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
-                                                <form class="Form"
-                                                      style="display: inline-block" method="post"
-                                                      action="{{ route("system.evaluation.employee.destroy.evaluation" , $evaluation["id"]) }}">
-                                                    @csrf
-                                                    @method("delete")
-                                                    <button type="submit" class="Button Button--Danger">
-                                                        حذف المعلومات
-                                                    </button>
-                                                </form>
+                                                <a  href="{{route("system.decisions.session_decisions.show" , $sessionDecision["id"])}}"
+                                                    class="Button Button--Primary">
+                                                    @lang("viewDecision")
+                                                </a>
+                                                <a  href="{{route("system.session_decisions.edit" , $sessionDecision["id"])}}"
+                                                    class="Button Button--Primary">
+                                                    @lang("editSessionInfo")
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

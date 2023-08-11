@@ -249,16 +249,16 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-44" class="NavName">
+                                    <a href="{{ route("system.evaluation.employee.create") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            اضافة نوع تقييم جديد
+                                            اضافة موظف جديد للتقييم
                                         </span>
                                     </a>
-                                    <a href="/Test-45" class="NavName">
+                                    <a href="{{ route("system.evaluation.employee.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            عرض انواع التقييم
+                                            عرض جميع الموظفين المضافين
                                         </span>
                                     </a>
                                 </div>
@@ -354,9 +354,48 @@
                                     </a>
                                 </div>
                             </li>
+                            {{--                            <li class="NavigationsGroup__NavItem">--}}
+                            {{--                                <div class="Title">--}}
+                            {{--                                    <a href="{{route("correspondences_dest.create")}}" class="NavName">--}}
+                            {{--                                        <span class="Label">إضافة وجهة</span>--}}
+                            {{--                                    </a>--}}
+                            {{--                                </div>--}}
+                            {{--                            </li>--}}
                         </ul>
                     </li>
                 </ul>
+                <ul class="NavigationsMenu__NavigationsGroup">
+                    <li class="NavigationsGroup__Title">
+                        <span class="Title">@lang("Payroll")</span>
+                    </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    payments
+                                </i>
+                                <span class="Label">
+                                    @lang("payroll")
+                                </span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.leaves_admin.index") }}" class="NavName">
+                                        <span class="Label">
+                                            @lang("viewVocationsRequest")
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("vocations")</span>

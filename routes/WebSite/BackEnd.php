@@ -19,6 +19,7 @@ use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\LeaveAdminController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OverTimeAdminController;
@@ -431,6 +432,7 @@ Route::middleware(['auth'])->group(function () {
         });
     Route::resource('correspondences_dest', CorrespondenceSourceDestController::class)->except("edit", "update",);
     Route::get("transaction/create/correspondences_dest/{correspondences_id}", [CorrespondenceSourceDestController::class, "addDecisions"])->name("transaction.correspondences_dest.add");
+    Route::get("transaction/create/legalopinion/{correspondences_id}", [LegalController::class, "addLegalOpinion"])->name("transaction.legalopinion.add");
 
 
     /*===========================================

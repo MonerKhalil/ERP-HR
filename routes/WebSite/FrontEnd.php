@@ -14,25 +14,9 @@ Route::get('/Test-10', function () {
     return view('System/Pages/Docs/tablePrint');
 });
 
-Route::get('/Test-5', function () {
-    return view('System.Pages.Actors.HR_Manager.addEmployee');
-});
-
-Route::get('/Test-6', function () {
-    return view('System.Pages.Actors.HR_Manager.viewEmployees');
-});
-
-Route::get('/Test-7', function () {
-    return view('System.Pages.Actors.HR_Manager.addContract');
-});
-
-Route::get('/Test-8', function () {
-    return view('System.Pages.Actors.HR_Manager.addCourse');
-});
-
 
 Route::get('/Test-9', function () {
-    return view('System.Pages.Actors.HR_Manager.employeeEndOfServiceForm');
+    return view('System.Pages.Actors.Diwan_User.addSourceDest');
 });
 
 Route::get('/Test-14', function () {
@@ -121,4 +105,16 @@ Route::get('/Test-46', function () {
 
 Route::get('/Test-47', function () {
     return view('System/Pages/Actors/Vacations/vacationAvailableView');
+});
+
+Route::get('/Test-50', function () {
+    return view('System/Pages/Actors/Evaluation/newTypeEvaluationForm');
+});
+
+Route::get('/Test-51', function () {
+    return view('System/Pages/Actors/Evaluation/viewDecisionsEmployee');
+});
+
+Route::get('/Test-52', function () {
+    return view('System/Pages/Actors/Evaluation/viewEvaluationEmployee');
 });
