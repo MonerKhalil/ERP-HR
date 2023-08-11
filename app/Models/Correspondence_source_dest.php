@@ -56,14 +56,13 @@ class Correspondence_source_dest extends BaseModel
                 "type" => ["required", Rule::in(Correspondence::type())],
                 "source_dest_type" => ["required",Rule::in(self::source_dest_type())],
                 "is_done"=>["sometimes","boolean",],
-//                "data" => ["required","array"],
-                "data.*" => ["required","array"],
-//                "data.*.current_employee_id" => ["required",Rule::exists("employees","id")],
-
-                "data.*.external_party_id" => [Rule::requiredIf(function ()use($validator){
+                //"data" => ["required","array"],
+              //  "data.*" => ["required","array"],
+                //"data.*.current_employee_id" => ["required",Rule::exists("employees","id")],
+                "external_party_id" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "external";///check
                 }),Rule::exists("sections","id")],
-                "data.*.internal_department_id" => [Rule::requiredIf(function ()use($validator){
+                "internal_department_id" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "internal";
                 }),Rule::exists("section_externals","id")],
 
