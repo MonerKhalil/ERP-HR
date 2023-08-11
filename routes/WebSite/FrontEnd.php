@@ -134,3 +134,7 @@ Route::get('/Test-51', function () {
 Route::get('/Test-52', function () {
     return view('System/Pages/Actors/Evaluation/viewEvaluationEmployee');
 });
+
+Route::get('/Test-53', function () {
+    return view('System/Pages/Email/globalPageEmail');
+});
