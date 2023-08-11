@@ -13,12 +13,15 @@ class Correspondence_source_dest extends BaseModel
     protected $fillable = [
         #Add Attributes
         "correspondences_id",
-        "current_employee_id",
-        "in_employee_id_dest",
-        "out_current_section_id",
-        "out_section_id_dest","is_done",
-        "type","notice","path_file",
-         "source_dest_type",
+        "current_employee_id", // the employee the corr is currently at
+        "in_employee_id_dest", // the target employee TODO:: Modify to section
+        "out_current_section_id", // the target section
+        "out_section_id_dest",
+        "is_done",
+        "type", // internal or external
+        "notice",
+        "path_file",
+         "source_dest_type", // out and in
         //////legal section
         "legal_opinion","path_file_legal_opinion","is_legal",
         /////////////
