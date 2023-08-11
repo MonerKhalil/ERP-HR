@@ -17,23 +17,66 @@
                     <div class="Container--MainContent">
                         <div class="Row">
                             <div class="AttendancePage__Information">
-                                <div class="Card">
-                                    <div class="Card__Content">
-                                        <div class="Card__Inner">
-                                            <div class="Card__Header">
-                                                <div class="Card__Title">
-                                                    <h3>@lang("AttendanceInfo")</h3>
-                                                </div>
+                                <div class="AttendanceClock Taps">
+                                    <div class="AttendanceClock__TypeTime">
+                                        <div class="TypeTime">
+                                            <div class="Taps__Item TimeIn Active"
+                                                 data-content="TimeIn">
+                                                Time In
                                             </div>
-                                            <div class="Card__CenterButton">
-                                                <button class="Button" id="checkInButton"
-                                                >@lang("checkIn")</button>
-                                            </div>
-                                            <div class="Card__CenterButton-hidden">
-                                                <button class="Button" id="checkOutButton"
-                                                >@lang("checkOut")</button>
+                                            <div class="Taps__Item TimeOut"
+                                                 data-content="TimeOut">
+                                                Time Out
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="Taps__Panel" data-panel="TimeIn">
+                                        <form action="#" method="post">
+                                            <div class="AttendanceClock__DateTime">
+                                                <div class="CircleTime ClockTime">
+                                                    <div class="Day">Monday</div>
+                                                    <div class="Time">10:20:39 PM</div>
+                                                    <div class="Date">December 20,2018</div>
+                                                </div>
+                                            </div>
+                                            <div class="AttendanceClock__Register">
+                                                @if(true)
+                                                    <button class="Button Size-2 Button--Primary">
+                                                        Attendance Record
+                                                    </button>
+                                                @endif
+                                                @if(false)
+                                                    <div class="BoxRegister">
+                                                        Welcome! MR.Amir Alhloo . <br>
+                                                        Time In at 10:20:34 PM Success!
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="Taps__Panel" data-panel="TimeOut">
+                                        <form action="#" method="post">
+                                            <div class="AttendanceClock__DateTime">
+                                                <div class="CircleTime ClockTime">
+                                                    <div class="Day">sunday</div>
+                                                    <div class="Time">10:20:39 PM</div>
+                                                    <div class="Date">December 19,2018</div>
+                                                </div>
+                                            </div>
+                                            <div class="AttendanceClock__Register">
+                                                @if(true)
+                                                    <button class="Button Size-2 Button--Primary">
+                                                        Attendance Record
+                                                    </button>
+                                                @endif
+                                                @if(false)
+                                                    <div class="BoxRegister">
+                                                        Welcome! MR.Amir Alhloo . <br>
+                                                        Time In at 10:20:34 PM Success!
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

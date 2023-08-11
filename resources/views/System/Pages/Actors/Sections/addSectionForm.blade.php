@@ -14,6 +14,9 @@
                 <div class="Row">
                     <div class="NewSectionFormPage__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -37,7 +40,8 @@
                                                             <div class="ListData__CustomItem">
                                                                 <div class="Row GapC-1-5">
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("name") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="SectionName" class="Input__Field"
@@ -52,7 +56,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("moderator_id") }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @php
@@ -73,7 +78,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("address_id") }}">
                                                                             <div class="Form__Select">
                                                                                 <div class="Select__Area">
                                                                                     @php
@@ -94,7 +100,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-12">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("details") }}">
                                                                             <div class="Form__Textarea">
                                                                                 <div class="Textarea__Area">
                                                                                     <textarea id="SectionDetails" class="Textarea__Field"

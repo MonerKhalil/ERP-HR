@@ -53,10 +53,8 @@ class SectionsController extends Controller
      */
     public function create()
     {
-        // Change From Amir
-            $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
-            $countries = countries();
-//        $employees = Employee::query()->pluck("first_name" , "last_name" ,"id")->toArray();
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+        $countries = countries();
         return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
             compact("employees" , "countries"));
     }
@@ -94,10 +92,8 @@ class SectionsController extends Controller
      */
     public function edit(Sections $section)
     {
-        // From Amir
-            $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
-            $countries = countries();
-        //        $employees = Employee::query()->pluck("name","id")->toArray();
+        $employees = Employee::query()->select(["id" , "first_name", "last_name"])->get();
+        $countries = countries();
         $sections = Sections::with(["employees","address","moderator"])->findOrFail($section->id);
         return $this->responseSuccess("System/Pages/Actors/Sections/addSectionForm" ,
             compact("sections","employees" , "countries"));

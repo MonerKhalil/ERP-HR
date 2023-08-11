@@ -14,6 +14,9 @@
                 <div class="Row">
                     <div class="NewTypeOvertimeForm__Form">
                         <div class="Container--MainContent">
+                            <div class="MessageProcessContainer">
+                                @include("System.Components.messageProcess")
+                            </div>
                             <div class="Row">
                                 <div class="Card">
                                     <div class="Card__Content">
@@ -36,7 +39,8 @@
                                                             <div class="ListData__CustomItem">
                                                                 <div class="Row GapC-1-5">
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("name") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="OverTimeName" class="Input__Field"
@@ -51,7 +55,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("max_rate_salary") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="OverTimeMaxSalary"
@@ -69,7 +74,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("min_hours_in_days") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="OverTimeMinHour"
@@ -87,7 +93,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="Col-4-md Col-6-sm">
-                                                                        <div class="Form__Group">
+                                                                        <div class="Form__Group"
+                                                                             data-ErrorBackend="{{ Errors("salary_in_hours") }}">
                                                                             <div class="Form__Input">
                                                                                 <div class="Input__Area">
                                                                                     <input id="OverTimeHourSalary"

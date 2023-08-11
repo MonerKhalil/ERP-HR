@@ -24,6 +24,11 @@ return new class extends Migration
             $table->foreignId("out_section_id_dest")->nullable()->constrained("section_externals")->restrictOnDelete();
             $table->enum('source_dest_type',['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing']);
             $table->enum('type',['internal','external']);
+            /////////////////////////////////////legal section
+            $table->text("legal_opinion")->nullable();
+            $table->string("path_file_legal_opinion")->nullable();
+            $table->enum("is_legal",["legal","illegal"]);
+            ////////////////////////////////////
             $table->text("path_file")->nullable();
             $table->string("notice")->nullable();
             $table->boolean("is_done")->default(false);

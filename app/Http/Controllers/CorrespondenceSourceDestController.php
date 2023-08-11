@@ -46,6 +46,15 @@ class CorrespondenceSourceDestController extends Controller
         $employee_dest=Employee::query()->whereNot("user_id",Auth::id())->select(["id" , "first_name", "last_name"])->get();//if internal
         return $this->responseSuccess('System.Pages.Actors.Diwan_User.addSourceDest', compact("employee_dest",
             "source_dest_type","out_section","type"));
+    }    public function addTransaction($Correspondence_id)
+    {
+        $correspondence = Correspondence::query()->where("id", $Correspondence_id)->firstOrFail();
+        $type=Correspondence::type();//internal,external
+        $source_dest_type=Correspondence_source_dest::source_dest_type();//type
+        $out_section=SectionExternal::query()->pluck("name","id")->toArray();//if external
+        $employee_dest=Employee::query()->whereNot("user_id",Auth::id())->select(["id" , "first_name", "last_name"])->get();//if internal
+        return $this->responseSuccess(".....", compact("employee_dest","correspondence",
+            "source_dest_type","out_section","type"));
     }
 
     /**
@@ -84,16 +93,14 @@ class CorrespondenceSourceDestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Correspondence_source_dest  $correspondence_source_dest
+     * @param  \App\Models\Correspondence  $Correspondence
      * @return \Illuminate\Http\Response
      */
-    public function show(Correspondence_source_dest $correspondence_source_dest)
+    public function show(Correspondence $Correspondence)
     {
-
-      $correspondence_transaction=  Correspondence::with(["correspondence"])->find($correspondence_source_dest->correspondences_id);
+      $correspondence_transaction=  Correspondence_source_dest::with(["employee_current","employee_dest","out_section_dest","out_section_current"])
+          ->find($Correspondence->id);
         return $this->responseSuccess(".....", compact("correspondence_transaction"));
-
-
     }
 
     /**

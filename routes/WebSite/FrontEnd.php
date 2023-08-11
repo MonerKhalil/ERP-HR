@@ -108,5 +108,13 @@ Route::get('/Test-47', function () {
 });
 
 Route::get('/Test-50', function () {
-    return view('System/Pages/Actors/Payroll/queryPayroll');
+    return view('System/Pages/Actors/Evaluation/newTypeEvaluationForm');
+});
+
+Route::get('/Test-51', function () {
+    return view('System/Pages/Actors/Evaluation/viewDecisionsEmployee');
+});
+
+Route::get('/Test-52', function () {
+    return view('System/Pages/Actors/Evaluation/viewEvaluationEmployee');
 });

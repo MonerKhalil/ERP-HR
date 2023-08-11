@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\MainException;
 use App\HelpersClasses\MyApp;
+use App\HelpersClasses\Permissions;
 use App\Http\Requests\BaseRequest;
 use App\Models\DataEndService;
 use App\Models\Decision;
@@ -14,6 +15,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 
 class RequestEndServiceController extends Controller
@@ -99,15 +101,12 @@ class RequestEndServiceController extends Controller
             "is_request_end_services" => true,
             "is_active" => false,
         ]);
-        $users = User::query()->get();
-        foreach ($users as $user) {
-            if ($user->can("all_request_end_services"))
-                $user->notify(new MainNotification([
-                    "from" => $user->employee->name,
-                    "date" => now(),
-                    "route_name" => route("system.request_end_services.show.request",$requestEnd->id),
-                ],__("request_end_services")));
-        }
+        $users = Permissions::getUsersForPermission("all_request_end_services");
+        Notification::send($users,new MainNotification([
+            "from" => $user->employee->name,
+            "date" => now(),
+            "route_name" => route("system.request_end_services.show.request",$requestEnd->id),
+        ],__("request_end_services")));
         return $this->responseSuccess(null,null,"create","show.my.request");
     }
 

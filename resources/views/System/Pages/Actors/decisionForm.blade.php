@@ -52,7 +52,8 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row GapC-1-5">
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("type_decision_id") }}">
                                                                                 <div class="VisibilityOption Form__Select"
                                                                                      data-ElementsTargetName="DecisionFieldTarget">
                                                                                     <div class="Select__Area">
@@ -74,7 +75,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("number") }}">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="DecisionNumber" class="Input__Field" type="number"
@@ -86,7 +88,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("date") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="DateDecision" class="DateMinToday Date__Field"
@@ -100,7 +103,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("end_date_decision") }}">
                                                                                 <div class="Form__Date">
                                                                                     <div class="Date__Area">
                                                                                         <input id="DateDecisionEnd"
@@ -118,7 +122,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("image") }}">
                                                                                 <div class="Form__UploadFile">
                                                                                     <div class="UploadFile__Area">
 {{--                                                                                        <input type="file"--}}
@@ -144,7 +149,8 @@
                                                                                 data-VisibilityDefault="{{$decision["effect_salary"]}}"
                                                                              @endif
                                                                              data-ElementsTargetName="BonesPunishmentFields">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("effect_salary") ?? Errors("value") ?? Errors("rate") }}">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
@@ -185,7 +191,8 @@
                                                                         <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                              data-TargetName="BonesPunishmentFields"
                                                                              data-TargetValue="increment">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("value") }}">
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="IncreasesAmountSalary" class="Input__Field" type="number"
@@ -299,7 +306,8 @@
                                                                 <div class="ListData__CustomItem">
                                                                     <div class="Row">
                                                                         <div class="Col">
-                                                                            <div class="Form__Group">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("content") }}">
                                                                                 <div class="Form__TextEditor">
                                                                                     <div class="TextEditor__Area">
                                                                                         <div class="trumbowyg-dark">

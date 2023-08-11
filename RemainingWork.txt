@@ -1,6 +1,5 @@
 ViewUser : {
     View Users Need Bulk For Print Just Checked
-    Error Back When Delete Row By Bulk Action
 }
 
 ViewRole : {
@@ -16,4 +15,7 @@ ViewRole : {
     مراجعة الكود الهاص بالـ Readonly + كود الـ Visibility
     تزبيط الـ default تبع الـ Visibility الخاص بالـ multi selector
     تزبيط شغلة البلد بالـ Section
+    تزبيط الـ Errors بل اللغة تبع التقارير
+    تشييكة عل الـ bulk action مشان مثلا ازا قلبنا من delete ل post مثلا تكون الامور تمام وتحذف الـ delete وازا حطينا delete بترجع
+    لا يوجد تفاصيل لعرض تقاييم الموظف
 }

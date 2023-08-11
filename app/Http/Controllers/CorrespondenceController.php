@@ -7,11 +7,8 @@ use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
-use App\Models\Contract;
 use App\Models\Correspondence;
 use App\Http\Requests\CorrespondenceRequest;
-use App\Models\SectionExternal;
-use App\Models\Sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -115,7 +112,6 @@ class CorrespondenceController extends Controller
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
         } catch (\Exception $exception) {
-            dd($exception);
             DB::rollBack();
             throw new MainException($exception->getMessage());
         }

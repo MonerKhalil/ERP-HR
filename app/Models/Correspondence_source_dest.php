@@ -16,9 +16,12 @@ class Correspondence_source_dest extends BaseModel
         "current_employee_id",
         "in_employee_id_dest",
         "out_current_section_id",
-        "out_section_id_dest",
+        "out_section_id_dest","is_done",
         "type","notice","path_file",
          "source_dest_type",
+        //////legal section
+        "legal_opinion","path_file_legal_opinion","is_legal",
+        /////////////
         "created_by","updated_by","is_active",
     ];
 
@@ -71,6 +74,10 @@ class Correspondence_source_dest extends BaseModel
                 }),Rule::exists("section_externals","id")],
                 "notice"=>["nullable",$validator->textRule(false)],
                 "path_file" =>["nullable" ,$validator->fileRules(false)],
+                //////legal section
+                "legal_opinion"=>["nullable",$validator->textRule(false)]
+                ,"path_file_legal_opinion" =>["nullable" ,$validator->fileRules(false)],
+                "is_legal"=>["nullable",Rule::in(["legal","illegal"]) ],
             ];
         };
     }

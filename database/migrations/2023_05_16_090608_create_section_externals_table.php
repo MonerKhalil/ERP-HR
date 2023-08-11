@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             #Add Columns
             $table->string("name")->unique();
+            $table->foreignId("address_id")->constrained("addresses")->restrictOnDelete();
+            $table->string("address_details");
             $table->string("email")->nullable();
             $table->string("fax")->nullable();
-            $table->boolean("hand")->default(false);
+            $table->string("phone")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();
             $table->foreignId("updated_by")->nullable()->constrained("users")->restrictOnDelete();

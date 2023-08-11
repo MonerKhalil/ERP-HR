@@ -31,7 +31,7 @@ class SectionExternalController extends Controller
     public function index()
     {
         $data = MyApp::Classes()->Search->getDataFilter(SectionExternal::query());
-        return $this->responseSuccess(self::NameBlade,compact("data" ));
+        return $this->responseSuccess(self::NameBlade,compact("data"));
     }
 
     /**
@@ -41,7 +41,9 @@ class SectionExternalController extends Controller
      */
     public function create()
     {
-        //
+        $countries = countries();
+        return $this->responseSuccess("..." ,
+            compact("countries"));
     }
 
     /**
@@ -64,7 +66,8 @@ class SectionExternalController extends Controller
      */
     public function show(SectionExternal $sectionExternal)
     {
-        //
+        return $this->responseSuccess("...",
+            compact("sectionExternal"));
     }
 
     /**
@@ -75,7 +78,9 @@ class SectionExternalController extends Controller
      */
     public function edit(SectionExternal $sectionExternal)
     {
-        //
+        $countries = countries();
+        return $this->responseSuccess("..." ,
+            compact("countries","sectionExternal"));
     }
 
     /**
@@ -140,7 +145,12 @@ class SectionExternalController extends Controller
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
         $head = [
-            "name","email","fax","hand",
+            "name",[
+                "head"=> "address",
+                "relationFunc" => "address",
+                "key" => "name",
+            ],"address_details",
+            "email","fax","phone",
         ];
         return [
             "head" => $head,

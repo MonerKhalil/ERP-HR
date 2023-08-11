@@ -2,9 +2,10 @@
 
 namespace App\Observers;
 
-use App\Models\User;
+use App\HelpersClasses\Permissions;
 use App\Notifications\MainNotification;
 use OwenIt\Auditing\Models\Audit;
+use Illuminate\Support\Facades\Notification;
 
 class AuditObserver
 {
@@ -33,11 +34,8 @@ class AuditObserver
                 "date" => now(),
                 "route_name" => route("audit.show.single",$auditData['id']),
             ];
-            $users = User::query()->get();
-            foreach ($users as $user) {
-                if ($user->can("audit_".$tableName)||$user->can("all_".$tableName))
-                    $user->notify(new MainNotification($Data,"audit"));
-            }
+            $users = Permissions::getUsersForPermission("all_".$tableName);
+            Notification::send($users,new MainNotification($Data,"audit"));
         }
     }
 
