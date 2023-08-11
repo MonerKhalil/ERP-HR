@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
@@ -109,6 +110,12 @@ class PublicHolidayController extends Controller
      */
     public function update(PublicHolidayRequest $request, PublicHoliday $publicHoliday)
     {
+        if ($publicHoliday->start_date >= now() && $publicHoliday->end_date <= now()){
+            throw new MainException(__("err_public_holiday"));
+        }
+        if ($publicHoliday->end_date > now()){
+            throw new MainException(__("err_public_holiday"));
+        }
         $publicHoliday->update($request->validated());
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }

@@ -24,12 +24,15 @@
     "request_end_services" : "طلب نهاية خدمة.",
     "accept_request_end_services" : "تمت الموافقة على طلب نهاية الخدمة بنجاح .",
     "cancel_request_end_services" : "تمت رفض طلب نهاية الخدمة .",
+    "decision" : "صدور قرار .",
+    "decision_employee_message" : "تم اصدار قرار بحقك يرجى الاطلاع على التفاصيل .",
     "request_leave" : "طلب اجازة .",
     "request_leave_msg" : "تم طلب اجازة من النوع : ",
     "accept_request_leave" : "تمت الموافقة على طلب الاجازة بنجاح .",
     "cancel_request_leave" : "تم رفض طلب الاجازة .",
     "request_overtime" : "طلب عمل اضافي .",
     "err_request_overtime_days" : "تم رفض طلب العمل الاضافي بسبب وجود ايام ضمن التاريخين المحددين هي ايام دوام .",
+    "err_overtime_datetime_valid" : "تم رفض طلب العمل الاضافي بسبب عدم تناسبه مع وقت العمل .",
     "err_request_overtime_rate_salary" : "تم رفض طلب العمل الاضافي بسبب تجاوز النسبة المحددة من الراتب الاصلي المحدد من هذا النوع .",
     "err_request_overtime_time" : "تم رفض طلب العمل الاضافي لان عدد الساعات اقل من عدد الساعات المسموح بها في اليوم الواحد من هذا النوع من الطلب .",
     "request_overtime_msg" : "تم طلب عمل اضافي من النوع : ",
@@ -39,6 +42,7 @@
     "evaluation_employee" : "طلب تقييم موظف .",
     "msg_evaluation_employee" : "تم توجيه طلب تقييم موظف لك يرجى تعبئته .",
     "err_check_in_attendance" : "يجب عمل تسجيل حضور قبل القيام بعملية تسجيل خروج .",
+    "err_public_holiday" : "لايمكن تعديل تاريخ العطلة لانه تم تجاوز المدة الحالية لها .",
 
     "/*         Header         */": "",
 
