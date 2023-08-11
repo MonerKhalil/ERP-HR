@@ -348,9 +348,9 @@ Route::middleware(['auth'])->group(function () {
        =============================================*/
 
         Route::prefix("attendances")->name("attendances.")
-            ->controller(AttendanceController::class)->group(function (){
-                Route::get("create","showPageAttendance")->name("create");
-                Route::get("store/{type}","store")->name("store.type")
+            ->controller(AttendanceController::class)->group(function () {
+                Route::get("create","create")->name("create");
+                Route::post("store/{type}","store")->name("store.type")
                     ->whereIn("type",["check_in","check_out"]);
                 Route::get("all/employees","index")->name("index");
                 Route::get("all/employee","employeeAttendances")->name("employee");

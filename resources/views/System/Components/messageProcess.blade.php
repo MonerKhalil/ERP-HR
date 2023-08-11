@@ -2,12 +2,17 @@
 <?php
 
     $TypeMessage = null ;
+    $IsArray = null ;
+
+//    dd(Error());
     if(!is_null(Error())) {
         $TypeMessage = "Error" ;
         $Message = Error() ;
+        $IsArray = is_array(Error()) ;
     } else if(!is_null(Success())) {
         $TypeMessage = "Success" ;
         $Message = Success() ;
+        $IsArray = is_array(Success()) ;
     }
 
 ?>
@@ -36,14 +41,21 @@
                 </div>
             </div>
             <hr class="MessageProcess__Separate">
+
             <div class="MessageProcess__Body">
-                <p class="MessageProcess__Message">{{$Message}}</p>
+                @if($IsArray)
+                    @foreach($Message as $m)
+                        <p class="MessageProcess__Message">{{$m[0]}}.</p>
+                    @endforeach
+                @else
+                    <p class="MessageProcess__Message">{{$Message}}</p>
+                @endif
             </div>
         </div>
     </div>
 @endif
 
-{{--
-    Type : Success || Error || Warning || Info
-    Message : String
---}}
+
+{{--    Type : Success || Error || Warning || Info--}}
+{{--    Message : String--}}
+

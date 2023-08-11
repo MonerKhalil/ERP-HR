@@ -40,7 +40,7 @@ class MessagesFlash
      */
     public static function Errors(mixed $errors){
         if (is_array($errors)){
-            Session::flash(self::$Errors,$errors);
+            Session::flash(self::$err,$errors);
         }else{
             Session::flash(self::$err,__($errors));
         }

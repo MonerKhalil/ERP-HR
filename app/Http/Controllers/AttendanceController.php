@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class AttendanceController extends Controller
 {
 
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Attendance/viewAttendancesAdmin";
     public const IndexRoute = "system.attendances.index";
 
 
@@ -35,7 +35,10 @@ class AttendanceController extends Controller
             (isset($request->filter["section"]) && !is_null($request->filter["section"]))){
             $data = $data->whereHas("employee",function ($q) use ($request){
                 if ((isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"]))){
-                    $q = $q->where("first_name","Like","%".$request->filter["name_employee"]."%");
+                    $q = $q->where(function($query) use ($request){
+                            return $query->where("first_name","Like","%".$request->filter["name_employee"]."%")
+                                ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
+                        });
                 }
                 if ((isset($request->filter["section"]) && !is_null($request->filter["section"]))){
                     $q = $q->where("section_id",$request->filter["section"]);
@@ -43,8 +46,7 @@ class AttendanceController extends Controller
                 return $q;
             });
         }
-        $num = $request->filter["number"];
-        $num = isset($num) && is_numeric($num) ? $num : "0";
+        $num = isset($request->filter["number"]) && is_numeric($request->filter["number"]) ? $request->filter["number"] : "0";
         if (isset($request->filter["typeAttendance"]) && $request->filter["typeAttendance"] == "early_exit"){
             $data = $data->where("early_exit_per_minute",">=",$num);
         }
@@ -64,7 +66,8 @@ class AttendanceController extends Controller
         $typeAttendance = ["early_exit","late_entry"];
         $sections = Sections::query()->pluck("name","id")->toArray();
         $data = MyApp::Classes()->Search->getDataFilter($this->mainQuery($request));
-        return $this->responseSuccess(self::NameBlade,compact("data","sections","typeAttendance"));
+        return $this->responseSuccess(self::NameBlade ,
+            compact("data","sections","typeAttendance"));
     }
 
     /**
@@ -72,8 +75,9 @@ class AttendanceController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
      */
     public function employeeAttendances(Request $request){
+        $employee_id = auth()->user()->employee->id;
         $typeAttendance = ["early_exit","late_entry"];
-        $employee = Employee::with("section")->findOrFail($request->employee_id);
+        $employee = Employee::with("section")->findOrFail($employee_id);
         $attendances = Attendance::query()->where("employee_id",$employee->id);
         if (isset($request->filter["typeAttendance"]) && $request->filter["typeAttendance"] == "early_exit"){
             $attendances = $attendances->where("early_exit_per_minute",">","0");
@@ -82,7 +86,8 @@ class AttendanceController extends Controller
             $attendances = $attendances->where("late_entry_per_minute",">","0");
         }
         $data = MyApp::Classes()->Search->getDataFilter($attendances);
-        return $this->responseSuccess("",compact("data","employee","typeAttendance"));
+        return $this->responseSuccess("System/Pages/Actors/Attendance/viewAttendancesEmployee" ,
+            compact("data","employee","typeAttendance"));
     }
 
     /**
@@ -92,7 +97,12 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        return $this->responseSuccess("");
+        $employee = auth()->user()->employee;
+        $attendance = Attendance::query()->whereDate("created_at",now())
+            ->where("employee_id",$employee->id)->firstOrCreate([]
+                , ["employee_id" => $employee->id,"created_at" => now()]);
+        return $this->responseSuccess("System/Pages/Actors/Attendance/addAttendanceRecord"
+            ,compact("employee","attendance"));
     }
 
     /**
@@ -108,7 +118,7 @@ class AttendanceController extends Controller
         }else{
             $data = $attendanceService->checkOut();
         }
-        return $this->responseSuccess("",$data);
+        return $this->responseSuccess(null,null,"","system.attendances.employee");
     }
 
 
@@ -140,8 +150,7 @@ class AttendanceController extends Controller
         return Excel::download(new TableCustomExport($data['head'],$data['body']),"attendances.xlsx");
     }
 
-    public function ExportPDF(BaseRequest $request)
-    {
+    public function ExportPDF(BaseRequest $request) {
         $data = $this->MainExportData($request);
         return ExportPDF::downloadPDF($data['head'],$data['body']);
     }
