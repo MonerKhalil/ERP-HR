@@ -72,7 +72,7 @@
                                                                            class="Date__Field"
                                                                            type="text"
                                                                            name="start_break_date"
-                                                                           placeholder="@lang("EOSStartDate")">
+                                                                           placeholder="@lang("EOSStartDate")" required>
                                                                     <label class="Date__Label"
                                                                            for="EOSStartDate">@lang("EOSStartDate")</label>
                                                                 </div>
@@ -87,7 +87,7 @@
                                                                            class="Date__Field"
                                                                            type="text"
                                                                            name="end_break_date"
-                                                                           placeholder="@lang("EOSEndDate")">
+                                                                           placeholder="@lang("EOSEndDate")" required>
                                                                     <label class="Date__Label"
                                                                            for="EOSEndDate">@lang("EOSEndDate")</label>
                                                                 </div>
@@ -102,7 +102,7 @@
                                                                            class="Input__Field"
                                                                            type="number"
                                                                            name="decision_id"
-                                                                           placeholder="@lang("decisionNumber")">
+                                                                           placeholder="@lang("decisionNumber")" required>
                                                                     <label class="Input__Label"
                                                                            for="decisionNumber">@lang("decisionNumber")</label>
                                                                 </div>

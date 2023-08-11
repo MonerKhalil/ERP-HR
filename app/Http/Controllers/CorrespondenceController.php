@@ -143,7 +143,7 @@ class CorrespondenceController extends Controller
         $number_external = Correspondence::query()->latest('number_external')->pluck("number_external")->first();
         $correspondence = Correspondence::with(["CorrespondenceDest"])
             ->findOrFail($correspondence->id);
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewCorrespondenses", compact("correspondence", 'number_internal', "number_external", "type"));
+        return $this->responseSuccess("System.Pages.Actors.Diwan_User.editCorrespondence", compact("correspondence", 'number_internal', "number_external", "type"));
     }
 
 

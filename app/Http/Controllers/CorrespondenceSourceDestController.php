@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 class CorrespondenceSourceDestController extends Controller
 {
     const Folder = "users";
-    const IndexRoute = "system. Correspondence.index";
+    const IndexRoute = "system.Correspondence.index";
     public function __construct()
     {
         $this->addMiddlewarePermissionsToFunctions(app(Correspondence_source_dest::class)->getTable());
@@ -44,7 +44,7 @@ class CorrespondenceSourceDestController extends Controller
         $source_dest_type=Correspondence_source_dest::source_dest_type();//type
         $out_section=SectionExternal::query()->pluck("name","id")->toArray();//if external
         $employee_dest=Employee::query()->whereNot("user_id",Auth::id())->select(["id" , "first_name", "last_name"])->get();//if internal
-        return $this->responseSuccess(".....", compact("employee_dest",
+        return $this->responseSuccess('System.Pages.Actors.Diwan_User.addSourceDest', compact("employee_dest",
             "source_dest_type","out_section","type"));
     }    public function addTransaction($Correspondence_id)
     {
