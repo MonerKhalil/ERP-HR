@@ -43,7 +43,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (Throwable $e) {
-            dd($e);
+//            dd($e);
             $url = Route::current();
             $url = ( ($url != null) && ($url->getPrefix() == 'api') );
             if ($url){

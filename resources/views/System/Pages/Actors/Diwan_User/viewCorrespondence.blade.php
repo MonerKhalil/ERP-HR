@@ -26,7 +26,7 @@
                                                 <div class="ListData">
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
-                                                            Main Information
+                                                            @lang("MainInformation")
                                                         </h4>
                                                     </div>
                                                     <div class="ListData__Content">
@@ -36,7 +36,7 @@
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("numberInternal")</span>
+                                                                                class="Data_Label">@lang("type")</span>
                                                                             <span
                                                                                 class="Data_Value">{{$correspondence->type}}</span>
                                                                         </div>
@@ -46,12 +46,13 @@
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
                                                                             <span
-                                                                                class="Data_Label">@lang("date")</span>
+                                                                                class="Data_Label">@lang("createDate")</span>
                                                                             <span
                                                                                 class="Data_Value">{{$correspondence->date}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @if($correspondence->number_internal != '')
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
@@ -62,6 +63,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @endif
+                                                                @if($correspondence->number_external != '')
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
@@ -72,14 +75,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                                                                @endif
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("path_file")</span>
                                                                             <a href="{{PathStorage($correspondence->path_file)}}" target="_blank">
-                                                                                FIle</a>
+                                                                                عرض الملف</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -91,7 +94,7 @@
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
                                                             <label for="CorrespondenceSubjectEditor">
-                                                                Correspondence Subject
+                                                                @lang("CorrespondenceSubject")
                                                             </label>
                                                         </h4>
                                                     </div>
@@ -110,6 +113,62 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="ListData">
+                                                    <div class="ListData__Head">
+                                                        <h4 class="ListData__Title">
+                                                            <label for="CorrespondenceSubjectEditor">
+                                                                @lang("summary")
+                                                            </label>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="ListData__Content">
+                                                        <div class="ListData__CustomItem">
+                                                            <div class="Row">
+                                                                <div class="Col">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Textarea">
+                                                                            <span
+                                                                                class="Data_Value">{{$correspondence->summary}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+{{--                                                <div class="Col-12">--}}
+{{--                                                    <div class="ListData__Content">--}}
+{{--                                                        <div class="Data_Col">--}}
+{{--                                                                            <span--}}
+{{--                                                                                class="Data_Label">@lang("summary")</span>--}}
+{{--                                                            <span--}}
+{{--                                                                class="Data_Value">{{$correspondence->summary}}</span>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+
+{{--                                                <div class="ListData">--}}
+{{--                                                    <div class="ListData__Head">--}}
+{{--                                                        <h4 class="ListData__Title">--}}
+{{--                                                            <label for="CorrespondenceSubjectEditor">--}}
+{{--                                                                @lang("CorrespondenceSubject")--}}
+{{--                                                            </label>--}}
+{{--                                                        </h4>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="ListData__Content">--}}
+{{--                                                        <div class="ListData__CustomItem">--}}
+{{--                                                            <div class="Row">--}}
+{{--                                                                <div class="Data_Col">--}}
+{{--                                                                            <span--}}
+{{--                                                                                class="Data_Label">@lang("path_file")</span>--}}
+{{--                                                                    <a href="{{PathStorage($correspondence->path_file)}}" target="_blank">--}}
+{{--                                                                        عرض الملف</a>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
                                             </form>
                                         </div>
                                     </div>

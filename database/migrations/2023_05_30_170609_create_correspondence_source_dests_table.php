@@ -18,10 +18,8 @@ return new class extends Migration
             #Add Columns
             $table->foreignId("correspondences_id")->constrained("correspondences")->restrictOnDelete();
             $table->foreignId("current_employee_id")->constrained("employees")->restrictOnDelete();
-            //if external required
-            $table->foreignId("out_current_section_id")->nullable()->constrained("section_externals")->restrictOnDelete();
-            $table->foreignId("in_employee_id_dest")->nullable()->constrained("employees")->restrictOnDelete();
-            $table->foreignId("out_section_id_dest")->nullable()->constrained("section_externals")->restrictOnDelete();
+            $table->foreignId("external_party_id")->nullable()->constrained("section_externals")->restrictOnDelete();
+            $table->foreignId("internal_department_id")->nullable()->constrained("sections")->restrictOnDelete();
             $table->enum('source_dest_type',['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing']);
             $table->enum('type',['internal','external']);
             /////////////////////////////////////legal section

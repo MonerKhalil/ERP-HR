@@ -50,6 +50,25 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
+                                                        المطبق عليهم القرار
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        @php
+                                                            $EmployeesList = "" ;
+                                                            foreach ($decision->employees as $Employee) {
+                                                                if($EmployeesList !== "")
+                                                                    $EmployeesList = $EmployeesList." , " ;
+                                                                $EmployeesList = $Employee["first_name"]
+                                                                ." ".$Employee["last_name"] ;
+                                                            }
+                                                        @endphp
+                                                        {{ ($EmployeesList != "") ? $EmployeesList : "-" }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
                                                         @lang("dateDecision")
                                                     </span>
                                                     <span class="Data_Value">
