@@ -7,11 +7,8 @@ use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
-use App\Models\Contract;
 use App\Models\Correspondence;
 use App\Http\Requests\CorrespondenceRequest;
-use App\Models\SectionExternal;
-use App\Models\Sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -115,7 +112,6 @@ class CorrespondenceController extends Controller
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
         } catch (\Exception $exception) {
-            dd($exception);
             DB::rollBack();
             throw new MainException($exception->getMessage());
         }
@@ -147,7 +143,7 @@ class CorrespondenceController extends Controller
         $number_external = Correspondence::query()->latest('number_external')->pluck("number_external")->first();
         $correspondence = Correspondence::with(["CorrespondenceDest"])
             ->findOrFail($correspondence->id);
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.viewCorrespondenses", compact("correspondence", 'number_internal', "number_external", "type"));
+        return $this->responseSuccess("System.Pages.Actors.Diwan_User.editCorrespondence", compact("correspondence", 'number_internal', "number_external", "type"));
     }
 
 

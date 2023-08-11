@@ -72,13 +72,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="ListData__Content">
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("path_file")</span>
-                                                                            <span
-                                                                                class="Data_Value">{{$correspondence->path_file}}</span>
+                                                                            <a href="{{PathStorage($correspondence->path_file)}}" target="_blank">
+                                                                                FIle</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -100,16 +101,8 @@
                                                                 <div class="Col">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Textarea">
-                                                                            <div class="Textarea__Area">
-                                                                                <div class="trumbowyg-dark">
-                                                                            <textarea id="CorrespondenceSubjectEditor"
-                                                                                      class="TextEditor Textarea__Field"
-                                                                                      placeholder="Your text as placeholder"
-                                                                                      name="subject"
-                                                                                      value = $correspondence-> subject
-                                                                                      required></textarea>
-                                                                                </div>
-                                                                            </div>
+                                                                            <span
+                                                                                class="Data_Value">{!! $correspondence->subject !!}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -36,16 +36,22 @@
                                         </li>
                                     </ul>
                                     <div class="Taps__Content">
+
                                         <div class="Taps__Panel" data-panel="personalInfo">
-                                            <div class="Card">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Header">
-                                                            <div class="Card__Title">
-                                                                <h3>@lang("personalInfo")</h3>
+                                            <form class="Form Form--Dark"
+                                                  action="{{route("system.employees.update",$employee)}}" method="post">
+                                                @csrf
+                                                <div class="Card">
+                                                    <div class="Card__Content">
+                                                        <div class="Card__Inner">
+                                                            <div class="Card__Header">
+                                                                <div class="Card__Title">
+                                                                    <h3>@lang("personalInfo")</h3>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <form class="Form Form--Dark" action="{{route("system.employees.update")}}" method="post">
+                                                            @php
+                                                                @endphp
+
                                                             <div class="Row GapC-1-5">
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="Form__Group">
@@ -174,24 +180,23 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="Card">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Header">
-                                                            <div class="Card__Title">
-                                                                <h3>@lang("additionalInfo")</h3>
+                                                <div class="Card">
+                                                    <div class="Card__Content">
+                                                        <div class="Card__Inner">
+                                                            <div class="Card__Header">
+                                                                <div class="Card__Title">
+                                                                    <h3>@lang("additionalInfo")</h3>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <form class="Form Form--Dark">
                                                             <div class="Row GapC-1-5">
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
+
                                                                                 @include("System.Components.selector" , ['Name' => "user_id" , "Required" => "true" ,
                                                                                             "Label" => __('User'),"DefaultValue" => isset($employee) ? $employee["user_id"] : "",
                                                                                             "OptionsValues" => $users,])
@@ -211,6 +216,24 @@
                                                                                        placeholder="@lang("dossierNumber")">
                                                                                 <label class="Input__Label"
                                                                                        for="DossierNumber">@lang("dossierNumber")</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                @php
+                                                                                    $Work_settings = [] ;
+                                                                                    foreach ($work_settings as $Index => $Item) {
+                                                                                        array_push($Work_settings , [
+                                                                                            "Label" => $Item['name']
+                                                                                            , "Value" => $Item['id'] ]) ;
+                                                                                    }
+                                                                                @endphp
+                                                                                @include("System.Components.selector" , ['Name' => "work_setting_id" , "Required" => "true" , "Label" => __('workSettings'),"DefaultValue" => isset($employee) ? $employee["work_setting_id"] : "",
+                                                                                            "Options" => $Work_settings,])
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -398,280 +421,395 @@
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Button">
                                                                             <button class="Button Send"
-                                                                                    type="submit">@lang("addEmployee")</button>
+                                                                                    type="submit">@lang("editEmployee")</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="Taps__Panel" data-panel="contactInfo">--}}
-{{--                                            <div class="Card">--}}
-
-{{--                                                <div class="Card__Content">--}}
-{{--                                                    <div class="Card__Inner">--}}
-{{--                                                        <div class="Card__Header">--}}
-{{--                                                            <div class="Card__Title">--}}
-{{--                                                                <h3>@lang("contactInfo")</h3>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                        <form class="Form Form--Dark">--}}
-{{--                                                            <div class="Row GapC-1-5">--}}
-{{--                                                                <div id="parentForm">--}}
-{{--                                                                    <div class="Row GapC-1-5" id="documentForm">--}}
-{{--                                                                        <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                            <div class="Form__Group">--}}
-{{--                                                                                <div class="Form__Select">--}}
-{{--                                                                                    <div class="Select__Area">--}}
-{{--                                                                                        @include("System.Components.selector" , ['Name' => "documentType" , "Required" => "true" , "Label" => __('documentType'),"DefaultValue" => "",--}}
-{{--                                                                                                    "OptionsValues" => [("ID"), ("passport")],])--}}
-{{--                                                                                    </div>--}}
-{{--                                                                                </div>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                        <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                            <div class="Form__Group">--}}
-{{--                                                                                <div class="Form__Button">--}}
-{{--                                                                                    <input class="Button Send"--}}
-{{--                                                                                           type="file">@lang("chooseDocument")--}}
-{{--                                                                                    >--}}
-{{--                                                                                </div>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                        <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                            <div class="Form__Group">--}}
-{{--                                                                                <div class="Form__Input">--}}
-{{--                                                                                    <div class="Input__Area">--}}
-{{--                                                                                        <input id="docId"--}}
-{{--                                                                                               class="Input__Field"--}}
-{{--                                                                                               type="number"--}}
-{{--                                                                                               name="EmpDocId"--}}
-{{--                                                                                               placeholder="@lang("documentID")">--}}
-{{--                                                                                        <label class="Input__Label"--}}
-{{--                                                                                               for="EmpDocId">@lang("documentID")</label>--}}
-{{--                                                                                    </div>--}}
-{{--                                                                                </div>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-12-xs">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Button">--}}
-{{--                                                                            <button class="Button Send"--}}
-{{--                                                                                    id="duplicateDoc">@lang("addAnotherDocument")</button>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Input">--}}
-{{--                                                                            <div class="Input__Area">--}}
-{{--                                                                                <input id="personalPhone"--}}
-{{--                                                                                       class="Input__Field"--}}
-{{--                                                                                       type="number"--}}
-{{--                                                                                       name="EmpPersonalPhone"--}}
-{{--                                                                                       placeholder="@lang("personalPhone")">--}}
-{{--                                                                                <label class="Input__Label"--}}
-{{--                                                                                       for="EmpPersonalPhone">@lang("personalPhone")</label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Input">--}}
-{{--                                                                            <div class="Input__Area">--}}
-{{--                                                                                <input id="workPhone"--}}
-{{--                                                                                       class="Input__Field"--}}
-{{--                                                                                       type="number"--}}
-{{--                                                                                       name="EmpWorkPhone"--}}
-{{--                                                                                       placeholder="@lang("workPhone")">--}}
-{{--                                                                                <label class="Input__Label"--}}
-{{--                                                                                       for="EmpWorkPhone">@lang("workPhone")</label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Input">--}}
-{{--                                                                            <div class="Input__Area">--}}
-{{--                                                                                <input id="email"--}}
-{{--                                                                                       class="Input__Field"--}}
-{{--                                                                                       type="email"--}}
-{{--                                                                                       name="EmpEmail"--}}
-{{--                                                                                       placeholder="@lang("email")">--}}
-{{--                                                                                <label class="Input__Label"--}}
-{{--                                                                                       for="EmpEmail">@lang("email")</label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Select">--}}
-{{--                                                                            <div class="Select__Area">--}}
-{{--                                                                                @include("System.Components.selector" , ['Name' => "countryName" , "Required" => "true" , "Label" => __('countryName'),"DefaultValue" => "",--}}
-{{--                                                                                            "OptionsValues" => [__("syria"), __("jordan")],])--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Select">--}}
-{{--                                                                            <div class="Select__Area">--}}
-{{--                                                                                @include("System.Components.selector" , ['Name' => "cityName" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => "",--}}
-{{--                                                                                            "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Select">--}}
-{{--                                                                            <div class="Select__Area">--}}
-{{--                                                                                @include("System.Components.selector" , ['Name' => "districtName" , "Required" => "true" , "Label" => __('district'),"DefaultValue" => "",--}}
-{{--                                                                                            "OptionsValues" => [__("Mazzah"), __("Barzeh"), __('Duma')],])--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Select">--}}
-{{--                                                                            <div class="Select__Area">--}}
-{{--                                                                                @include("System.Components.selector" , ['Name' => "addressType" , "Required" => "true" , "Label" => __('addressType'),"DefaultValue" => "",--}}
-{{--                                                                                            "OptionsValues" => [__("Home"), __("Bureau")],])--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Input">--}}
-{{--                                                                            <div class="Input__Area">--}}
-{{--                                                                                <input id="address"--}}
-{{--                                                                                       class="Input__Field"--}}
-{{--                                                                                       type="text"--}}
-{{--                                                                                       name="EmpAddress"--}}
-{{--                                                                                       placeholder="@lang("address")">--}}
-{{--                                                                                <label class="Input__Label"--}}
-{{--                                                                                       for="address">@lang("address")</label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-12-xs">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Button">--}}
-{{--                                                                            <button class="Button Send"--}}
-{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </form>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="Taps__Panel" data-panel="educationInfo">--}}
-{{--                                            <div class="Card">--}}
-{{--                                                <div class="Card__Content">--}}
-{{--                                                    <div class="Card__Inner">--}}
-{{--                                                        <div class="Card__Header">--}}
-{{--                                                            <div class="Card__Title">--}}
-{{--                                                                <h3>@lang("educationInfo")</h3>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                        <form class="Form Form--Dark">--}}
-{{--                                                            <div class="Row GapC-1-5">--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Select">--}}
-{{--                                                                            <div class="Select__Area">--}}
-{{--                                                                                @include("System.Components.selector" , ['Name' => "educationDegree" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => "",--}}
-{{--                                                                                            "OptionsValues" => [("9"), ("12"),("college")],])--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Date">--}}
-{{--                                                                            <div class="Date__Area">--}}
-{{--                                                                                <input id="dateOfIssuance"--}}
-{{--                                                                                       class="Date__Field"--}}
-{{--                                                                                       type="text"--}}
-{{--                                                                                       name="dateOfIssuance"--}}
-{{--                                                                                       placeholder="@lang("dateOfIssuance")">--}}
-{{--                                                                                <label class="Date__Label"--}}
-{{--                                                                                       for="dateOfIssuance">@lang("dateOfIssuance")</label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Input">--}}
-{{--                                                                            <div class="Input__Area">--}}
-{{--                                                                                <input id="collegeName"--}}
-{{--                                                                                       class="Input__Field"--}}
-{{--                                                                                       type="text"--}}
-{{--                                                                                       name="EmpCollegeName"--}}
-{{--                                                                                       placeholder="@lang("collegeName")">--}}
-{{--                                                                                <label class="Input__Label"--}}
-{{--                                                                                       for="collegeName">@lang("collegeName")</label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Button">--}}
-{{--                                                                            <input class="Button Send"--}}
-{{--                                                                                   type="file">@lang("chooseDocument")--}}
-{{--                                                                            >--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-4-md Col-6-sm">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Input">--}}
-{{--                                                                            <div class="Input__Area">--}}
-{{--                                                                                <input id="salaryImpact"--}}
-{{--                                                                                       class="Input__Field"--}}
-{{--                                                                                       type="number"--}}
-{{--                                                                                       name="salaryImpact"--}}
-{{--                                                                                       placeholder="@lang("salaryImpact")">--}}
-{{--                                                                                <label class="Input__Label"--}}
-{{--                                                                                       for="salaryImpact">@lang("salaryImpact")</label>--}}
-{{--                                                                            </div>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="Col-12-xs">--}}
-{{--                                                                    <div class="Form__Group">--}}
-{{--                                                                        <div class="Form__Button">--}}
-{{--                                                                            <button class="Button Send"--}}
-{{--                                                                                    type="submit">@lang("addEmployee")</button>--}}
-{{--                                                                        </div>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </form>--}}
-{{--                                                    </div>--}}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
+
+                                        <div class="Taps__Panel" data-panel="contactInfo">
+                                            <form class="Form Form--Dark"
+                                                  action="{{route("system.employees.contact.update",$employee->contact[0])}}"
+                                                  method="post">
+                                                @csrf
+                                                <div class="Card">
+                                                    <div class="Card__Content">
+                                                        <div class="Card__Inner">
+                                                            <div class="Card__Body">
+                                                                <div class="ListData">
+                                                                    <div class="ListData__Head">
+                                                                        <h4 class="ListData__Title">
+                                                                            الوئايق (اختيارية)
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Row GapC-1-5">
+                                                                            <div id="parentForm">
+                                                                                <div class="Row GapC-1-5"
+                                                                                     id="documentForm">
+                                                                                    <div class="Col-4-md Col-6-sm">
+                                                                                        <div class="Form__Group">
+                                                                                            <div class="Form__Select">
+                                                                                                <div
+                                                                                                    class="Select__Area">
+                                                                                                    @php
+                                                                                                        $Document_type = [] ;
+                                                                                                        foreach ($document_type as $Index => $Item) {
+                                                                                                            array_push($Document_type , [
+                                                                                                                "Label" => $Item
+                                                                                                                , "Value" => $Item ]) ;
+                                                                                                        }
+                                                                                                    @endphp
+                                                                                                    @include("System.Components.selector" , ['Name' => "document_contact[0][document_type]" , "Required" => "true" ,
+                                                                                                             "Label" => __('documentType'),"DefaultValue" => isset($employee->contact[0]->document_contact)? $employee->contact[0]->document_contact[0]["document_type"]: "",
+                                                                                                                "Options" => $Document_type,])
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="Col-4-md Col-6-sm">
+                                                                                        <div class="Form__Group">
+                                                                                            <div
+                                                                                                class="Form__UploadFile">
+                                                                                                <div
+                                                                                                    class="UploadFile__Area">
+                                                                                                    @include("System.Components.fileUpload" , [
+                                                                                                        "FieldID" => "docId" ,
+                                                                                                        "FieldName" => "document_contact[0][document_path]" ,
+                                                                                                        "DefaultData" => (isset($employee->contact[0]->document_contact)) ? PathStorage($employee->contact[0]->document_contact[0]["document_path"]) : ""  ,
+                                                                                                        "LabelField" => __("chooseDocument"),
+                                                                                                        "AcceptFiles" => "*"
+                                                                                                    ])
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="Col-4-md Col-6-sm">
+                                                                                        <div class="Form__Group">
+                                                                                            <div class="Form__Input">
+                                                                                                <div
+                                                                                                    class="Input__Area">
+                                                                                                    <input id="docId"
+                                                                                                           class="Input__Field"
+                                                                                                           type="number"
+                                                                                                           name="document_contact[0][document_number]"
+                                                                                                           value="{{isset($employee->contact[0]->document_contact) ? $employee->contact[0]->document_contact[0]["document_number"] : ""}}"
+                                                                                                           placeholder="@lang("documentID")">
+                                                                                                    <label
+                                                                                                        class="Input__Label"
+                                                                                                        for="EmpDocId">@lang("documentID")</label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-12-xs">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Button">
+                                                                                        <button class="Button Send"
+                                                                                                type="button"
+                                                                                                id="duplicateDoc">@lang("addAnotherDocument")</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="ListData">
+                                                                    <div class="ListData__Head">
+                                                                        <h4 class="ListData__Title">
+                                                                            @lang("contactInfo")
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Row GapC-1-5">
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="personalPhone"
+                                                                                                   class="Input__Field"
+                                                                                                   type="number"
+                                                                                                   name="private_number1"
+                                                                                                   value="{{isset($employee->contact[0]['private_number1']) ? $employee->contact[0]['private_number1'] : ""}}"
+                                                                                                   placeholder="@lang("personalPhone")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="EmpPersonalPhone">@lang("personalPhone")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="personalPhone"
+                                                                                                   class="Input__Field"
+                                                                                                   type="number"
+                                                                                                   name="private_number2"
+                                                                                                   value="{{isset($employee->contact[0]['private_number2']) ? $employee->contact[0]['private_number2'] : ""}}"
+                                                                                                   placeholder="@lang("personalPhone2")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="EmpPersonalPhone">@lang("personalPhone2")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="workPhone"
+                                                                                                   class="Input__Field"
+                                                                                                   type="number"
+                                                                                                   name="work_number"
+                                                                                                   value="{{isset($employee->contact[0]['work_number']) ? $employee->contact[0]['work_number'] : ""}}"
+                                                                                                   placeholder="@lang("workPhone")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="EmpWorkPhone">@lang("workPhone")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="email"
+                                                                                                   class="Input__Field"
+                                                                                                   type="email"
+                                                                                                   name="email"
+                                                                                                   value="{{isset($employee->contact[0]['email']) ? $employee->contact[0]['email'] : ""}}"
+                                                                                                   placeholder="@lang("email")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="EmpEmail">@lang("email")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="State"
+                                                                                 data-CityURL="{{route("get.address")}}"
+                                                                                 class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @php
+                                                                                                $Countries = [] ;
+                                                                                                foreach ($countries as $Index => $Item) {
+                                                                                                    array_push($Countries , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Index ]) ;
+                                                                                                }
+                                                                                            @endphp
+                                                                                            @include("System.Components.selector" , [
+                                                                                                        'Name' => "country_name" , "Required" => "true"
+                                                                                                        , "Label" => __('countryName') ,"DefaultValue" => isset($employee->contact[0]->address->country['country_name']) ? $employee->contact[0]->address->country['country_name'] : ""
+                                                                                                        , "Options" => $Countries
+                                                                                                    ])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="City" class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => isset($employee->contact[0]->address->name) ? $employee->contact[0]->address->name : "",
+                                                                                                        "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div id="Address" class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @include("System.Components.selector" , ['Name' => "districtName" , "Required" => "true" , "Label" => __('district'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => [__("Mazzah"), __("Barzeh"), __('Duma')],])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @php
+                                                                                                $Address_type = [] ;
+                                                                                                foreach ($address_type as $Index => $Item) {
+                                                                                                    array_push($Address_type , [
+                                                                                                        "Label" => $Item
+                                                                                                        , "Value" => $Item ]) ;
+                                                                                                }
+                                                                                            @endphp
+                                                                                            @include("System.Components.selector" , ['Name' => "address_type" , "Required" => "true" , "Label" => __('addressType'),"DefaultValue" => isset($employee->contact[0]->address_type)? $employee->contact[0]->address_type : "",
+                                                                                                        "Options" => $Address_type,])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="address"
+                                                                                                   class="Input__Field"
+                                                                                                   type="text"
+                                                                                                   name="EmpAddress"
+                                                                                                   placeholder="@lang("address")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="address">@lang("address")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-12-xs">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Button">
+                                                                                        <button class="Button Send"
+                                                                                                type="submit">@lang("editEmployee")</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="Taps__Panel" data-panel="educationInfo">
+                                            <form class="Form Form--Dark"
+                                                  action="{{route("system.employees.education_data.update", $employee->education_data[0])}}"
+                                                  method="post">
+                                                @csrf
+                                                <div class="Card">
+                                                    <div class="Card__Content">
+                                                        <div class="Card__Inner">
+                                                            <div class="Card__Body">
+                                                                <div class="ListData">
+                                                                    <div class="ListData__Head">
+                                                                        <h4 class="ListData__Title">
+                                                                            @lang("educationInfo")
+                                                                        </h4>
+                                                                    </div>
+
+                                                                    <div class="ListData__Content">
+                                                                        <div class="Row GapC-1-5">
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @include("System.Components.selector" , ['Name' => "id_ed_lev" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => $employee->education_data[0]->education_level['name'],
+                                                                                                        "OptionsValues" => $education_level,])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Date">
+                                                                                        <div class="Date__Area">
+                                                                                            <input id="dateOfIssuance"
+                                                                                                   class="Date__Field"
+                                                                                                   type="text"
+                                                                                                   name="grant_date"
+                                                                                                   value="{{isset($employee->education_data[0]['grant_date']) ? $employee->education_data[0]['grant_date'] : ""}}"
+                                                                                                   placeholder="@lang("dateOfIssuance")">
+                                                                                            <label class="Date__Label"
+                                                                                                   for="dateOfIssuance">@lang("dateOfIssuance")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="collegeName"
+                                                                                                   class="Input__Field"
+                                                                                                   type="text"
+                                                                                                   name="college_name"
+                                                                                                   value="{{isset($employee->education_data[0]['college_name']) ? $employee->education_data[0]['college_name'] : ""}}"
+                                                                                                   placeholder="@lang("collegeName")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="collegeName">@lang("collegeName")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__UploadFile">
+                                                                                        <div class="UploadFile__Area">
+                                                                                            @include("System.Components.fileUpload" , [
+                                                                                                "FieldID" => "docEducation" ,
+                                                                                                "FieldName" => "document_education_path[0]" ,
+                                                                                                "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
+                                                                                                "LabelField" => __("chooseDocument"),
+                                                                                                "AcceptFiles" => "*"
+                                                                                            ])
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {{--                                                                                <div class="Form__Group">--}}
+                                                                                {{--                                                                                    <div class="Form__UploadFile">--}}
+                                                                                {{--                                                                                        <div class="UploadFile__Area">--}}
+                                                                                {{--                                                                                            <input type="file"--}}
+                                                                                {{--                                                                                                   class="UploadFile__Field"--}}
+                                                                                {{--                                                                                                   name="document_education_path"--}}
+                                                                                {{--                                                                                                   placeholder="@lang("chooseDocument")">--}}
+                                                                                {{--                                                                                            <label--}}
+                                                                                {{--                                                                                                class="UploadFile__Label">--}}
+                                                                                {{--                                                                                                @lang("chooseDocument")--}}
+                                                                                {{--                                                                                            </label>--}}
+                                                                                {{--                                                                                        </div>--}}
+                                                                                {{--                                                                                    </div>--}}
+                                                                                {{--                                                                                </div>--}}
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="salaryImpact"
+                                                                                                   class="Input__Field"
+                                                                                                   type="number"
+                                                                                                   name="amount_impact_salary"
+                                                                                                   value="{{isset($employee->education_data[0]['amount_impact_salary']) ? $employee->education_data[0]['amount_impact_salary'] : ""}}"
+                                                                                                   placeholder="@lang("salaryImpact")">
+                                                                                            <label class="Input__Label"
+                                                                                                   for="salaryImpact">@lang("salaryImpact")</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-12-xs">
+                                                                                <div class="Form__Group">
+                                                                                    <div class="Form__Button">
+                                                                                        <button class="Button Send"
+                                                                                                type="submit">@lang("editEmployee")</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

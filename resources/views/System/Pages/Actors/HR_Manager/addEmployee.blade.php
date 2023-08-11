@@ -61,7 +61,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="first_name"
-                                                                                                   placeholder="@lang("firstName")">
+                                                                                                   placeholder="@lang("firstName")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="FirstName">@lang("firstName")</label>
                                                                                         </div>
@@ -76,7 +76,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="last_name"
-                                                                                                   placeholder="@lang("lastName")">
+                                                                                                   placeholder="@lang("lastName")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="LastName">@lang("lastName")</label>
                                                                                         </div>
@@ -91,7 +91,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="father_name"
-                                                                                                   placeholder="@lang("fatherName")">
+                                                                                                   placeholder="@lang("fatherName")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="FatherName">@lang("fatherName")</label>
                                                                                         </div>
@@ -106,7 +106,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="mother_name"
-                                                                                                   placeholder="@lang("motherName")">
+                                                                                                   placeholder="@lang("motherName")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="MotherName">@lang("motherName")</label>
                                                                                         </div>
@@ -139,7 +139,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="birth_place"
-                                                                                                   placeholder="@lang("placeOfBirth")">
+                                                                                                   placeholder="@lang("placeOfBirth")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="placeOfBirth">@lang("placeOfBirth")</label>
                                                                                         </div>
@@ -154,7 +154,7 @@
                                                                                                    class="Date__Field"
                                                                                                    type="text"
                                                                                                    name="birth_date"
-                                                                                                   placeholder="@lang("dateOfBirth")">
+                                                                                                   placeholder="@lang("dateOfBirth")" required>
                                                                                             <label class="Date__Label"
                                                                                                    for="dateOfBirth">@lang("dateOfBirth")</label>
                                                                                         </div>
@@ -200,7 +200,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="number_file"
-                                                                                                   placeholder="@lang("dossierNumber")">
+                                                                                                   placeholder="@lang("dossierNumber")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="DossierNumber">@lang("dossierNumber")</label>
                                                                                         </div>
@@ -233,7 +233,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="NP_registration"
-                                                                                                   placeholder="@lang("registerNumber")">
+                                                                                                   placeholder="@lang("registerNumber")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="registerNumber">@lang("registerNumber")</label>
                                                                                         </div>
@@ -248,7 +248,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="number_national"
-                                                                                                   placeholder="@lang("nationalNumber")">
+                                                                                                   placeholder="@lang("nationalNumber")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="nationalNumber">@lang("nationalNumber")</label>
                                                                                         </div>
@@ -282,7 +282,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="number_wives"
-                                                                                                   placeholder="@lang("wivesNumber")">
+                                                                                                   placeholder="@lang("wivesNumber")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="wivesNum">@lang("wivesNumber")</label>
                                                                                         </div>
@@ -298,7 +298,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="number_child"
-                                                                                                   placeholder="@lang("childrenNumber")">
+                                                                                                   placeholder="@lang("childrenNumber")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="childrenNum">@lang("childrenNumber")</label>
                                                                                         </div>
@@ -331,7 +331,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="current_job"
-                                                                                                   placeholder="@lang("profession")">
+                                                                                                   placeholder="@lang("profession")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="profession">@lang("profession")</label>
                                                                                         </div>
@@ -346,7 +346,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="job_site"
-                                                                                                   placeholder="@lang("jobPosition")">
+                                                                                                   placeholder="@lang("jobPosition")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="jobPosition">@lang("jobPosition")</label>
                                                                                         </div>
@@ -361,7 +361,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="number_insurance"
-                                                                                                   placeholder="@lang("insuranceNumber")">
+                                                                                                   placeholder="@lang("insuranceNumber")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="insuranceNumber">@lang("insuranceNumber")</label>
                                                                                         </div>
@@ -376,7 +376,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="number_self"
-                                                                                                   placeholder="@lang("personnelNumber")">
+                                                                                                   placeholder="@lang("personnelNumber")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="personnelNumber">@lang("personnelNumber")</label>
                                                                                         </div>
@@ -426,7 +426,7 @@
                                                                             <div id="parentForm">
                                                                                 <div class="Row GapC-1-5"
                                                                                      id="documentForm">
-                                                                                    <div class="Col-4-md Col-6-sm"`>
+                                                                                    <div class="Col-4-md Col-6-sm">
                                                                                         <div class="Form__Group">
                                                                                             <div class="Form__Select">
                                                                                                 <div
@@ -487,7 +487,7 @@
                                                                                                            class="Input__Field"
                                                                                                            type="number"
                                                                                                            name="document_contact[0][document_number]"
-                                                                                                           placeholder="@lang("documentID")">
+                                                                                                           placeholder="@lang("documentID")" required>
                                                                                                     <label
                                                                                                         class="Input__Label"
                                                                                                         for="EmpDocId">@lang("documentID")</label>
@@ -525,7 +525,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="private_number1"
-                                                                                                   placeholder="@lang("personalPhone")">
+                                                                                                   placeholder="@lang("personalPhone")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="EmpPersonalPhone">@lang("personalPhone")</label>
                                                                                         </div>
@@ -540,7 +540,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="private_number2"
-                                                                                                   placeholder="@lang("personalPhone2")">
+                                                                                                   placeholder="@lang("personalPhone2")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="EmpPersonalPhone">@lang("personalPhone2")</label>
                                                                                         </div>
@@ -555,7 +555,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="work_number"
-                                                                                                   placeholder="@lang("workPhone")">
+                                                                                                   placeholder="@lang("workPhone")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="EmpWorkPhone">@lang("workPhone")</label>
                                                                                         </div>
@@ -570,7 +570,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="email"
                                                                                                    name="email"
-                                                                                                   placeholder="@lang("email")">
+                                                                                                   placeholder="@lang("email")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="EmpEmail">@lang("email")</label>
                                                                                         </div>
@@ -645,8 +645,8 @@
                                                                                             <input id="address"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpAddress"
-                                                                                                   placeholder="@lang("address")">
+                                                                                                   name="address_details"
+                                                                                                   placeholder="@lang("address")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="address">@lang("address")</label>
                                                                                         </div>
@@ -705,7 +705,7 @@
                                                                                                    class="Date__Field"
                                                                                                    type="text"
                                                                                                    name="grant_date"
-                                                                                                   placeholder="@lang("dateOfIssuance")">
+                                                                                                   placeholder="@lang("dateOfIssuance")" required>
                                                                                             <label class="Date__Label"
                                                                                                    for="dateOfIssuance">@lang("dateOfIssuance")</label>
                                                                                         </div>
@@ -720,7 +720,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="college_name"
-                                                                                                   placeholder="@lang("collegeName")">
+                                                                                                   placeholder="@lang("collegeName")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="collegeName">@lang("collegeName")</label>
                                                                                         </div>
@@ -764,7 +764,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="amount_impact_salary"
-                                                                                                   placeholder="@lang("salaryImpact")">
+                                                                                                   placeholder="@lang("salaryImpact")" required>
                                                                                             <label class="Input__Label"
                                                                                                    for="salaryImpact">@lang("salaryImpact")</label>
                                                                                         </div>

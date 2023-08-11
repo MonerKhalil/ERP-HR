@@ -76,7 +76,7 @@
                                                                            class="Input__Field"
                                                                            type="number"
                                                                            name="contract_number"
-                                                                           placeholder="@lang("contractNumber")">
+                                                                           placeholder="@lang("contractNumber")" required>
                                                                     <label class="Input__Label"
                                                                            for="contract_number">@lang("contractNumber")</label>
                                                                 </div>
@@ -91,7 +91,7 @@
                                                                            class="Input__Field"
                                                                            type="number"
                                                                            name="salary"
-                                                                           placeholder="@lang("baseSalary")">
+                                                                           placeholder="@lang("baseSalary")" required>
                                                                     <label class="Input__Label"
                                                                            for="salary">@lang("baseSalary")</label>
                                                                 </div>
@@ -107,7 +107,7 @@
                                                                            TargetDateStartName="ContractDate"
                                                                            type="text"
                                                                            name="contract_date"
-                                                                           placeholder="@lang("dateOfContract")">
+                                                                           placeholder="@lang("dateOfContract")" required>
                                                                     <label class="Date__Label"
                                                                            for="contract_date">@lang("dateOfContract")</label>
                                                                 </div>
@@ -123,7 +123,7 @@
                                                                            type="text"
                                                                            data-StartDateName="ContractDate"
                                                                            name="contract_finish_date"
-                                                                           placeholder="@lang("dateOfExpiration")">
+                                                                           placeholder="@lang("dateOfExpiration")" required>
                                                                     <label class="Date__Label"
                                                                            for="contract_finish_date">@lang("dateOfExpiration")</label>
                                                                 </div>
@@ -139,7 +139,7 @@
                                                                            data-StartDateName="ContractDate"
                                                                            type="text"
                                                                            name="contract_direct_date"
-                                                                           placeholder="@lang("dateOfStart")">
+                                                                           placeholder="@lang("dateOfStart")" required>
                                                                     <label class="Date__Label"
                                                                            for="contract_direct_date">@lang("dateOfStart")</label>
                                                                 </div>
