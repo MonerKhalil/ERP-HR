@@ -249,16 +249,16 @@
                         <ul class="NavigationsGroup__SubItems">
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="/Test-44" class="NavName">
+                                    <a href="{{ route("system.evaluation.employee.create") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            اضافة نوع تقييم جديد
+                                            اضافة موظف جديد للتقييم
                                         </span>
                                     </a>
-                                    <a href="/Test-45" class="NavName">
+                                    <a href="{{ route("system.evaluation.employee.index") }}" class="NavName">
                                         <!-- User -->
                                         <span class="Label">
-                                            عرض انواع التقييم
+                                            عرض جميع الموظفين المضافين
                                         </span>
                                     </a>
                                 </div>

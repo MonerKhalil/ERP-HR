@@ -105,7 +105,7 @@ class DecisionController extends Controller
 
     public function show(Decision $decision)
     {
-        $decision = Decision::with(["type_decision", "session_decision", "employees"])
+        $decision = Decision::with(["type_decision", "session_decision", "employees","evaluation"])
             ->where("id", $decision->id)->firstOrFail();
         return $this->responseSuccess("System.Pages.Actors.decisionDetails",
             compact("decision"));

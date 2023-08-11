@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class StorageFiles
 {
     private const DISK = "public";
-    public const EX_IMG = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-    public const Ex_FILE = ['pdf','xlsx','csv','docx'];
+    public const EX_IMG = ['jpg' , "JPG" , 'jpeg' , "JPEG" , 'png' ,'PNG' , 'gif' , 'GIF' , 'svg' , 'SVG'];
+    public const Ex_FILE = ['pdf','xlsx','csv','docx','PDF','XLSX','CSV','DOCX'];
     public const FOLDER_IMAGES = "images";
     public const FOLDER_FILES = "files";
 

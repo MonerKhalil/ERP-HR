@@ -2559,6 +2559,35 @@ $(document).ready(function (){
     });
 
     /*===========================================
+	=           TimerClock       =
+    =============================================*/
+    $(".ClockTime").each((_ , Clock) => {
+        const ClockDay = $(Clock).find(".Day").get(0) ;
+        const ClockTime = $(Clock).find(".Time").get(0) ;
+        const ClockDate = $(Clock).find(".Date").get(0) ;
+
+        UpdateClock() ;
+
+        setInterval(() => {
+            UpdateClock() ;
+        } , 1000) ;
+
+        function UpdateClock() {
+            const NameDays = ["Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] ;
+            const NameMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            const CurrentDate = GetCurrentDate() ;
+            const Time = ((CurrentDate.Hour % 12) ? CurrentDate.Hour : 12) + ':' +
+                (CurrentDate.Minute < 10 ? '0'+CurrentDate.Minute : CurrentDate.Minute) + ':' +
+                CurrentDate.Second + " " +
+                (CurrentDate.Hour >= 12 ? 'PM' : 'AM') ;
+            $(ClockDay).text(NameDays[CurrentDate.Day_Week]) ;
+            $(ClockTime).text(Time) ;
+            $(ClockDate).text(NameMonths[CurrentDate.Month] + " " + CurrentDate.Day_Month + "," + CurrentDate.Year) ;
+        }
+
+    });
+
+    /*===========================================
     =           Loader Page       =
     =============================================*/
     $(".Loader--Page").ready(function () {
@@ -2629,6 +2658,26 @@ function SetCookiesValues(CookiesInfo = {
 }) {
     localStorage.setItem(CookiesInfo.CookiesKey
         , CookiesInfo.CookiesValue);
+}
+
+function GetCurrentDate() {
+    const CurrentDate = new Date();
+    const Month = CurrentDate.getMonth() ;
+    const Day_Month = CurrentDate.getDate();
+    const Day_Week = CurrentDate.getDay() + 1;
+    const Year = CurrentDate.getFullYear();
+    const Hour = CurrentDate.getHours().toString();
+    const Minute = CurrentDate.getMinutes().toString();
+    const Second = CurrentDate.getSeconds().toString();
+    return {
+        Month : Month ,
+        Day_Month : Day_Month ,
+        Day_Week : Day_Week ,
+        Year : Year,
+        Hour : Hour ,
+        Minute : Minute ,
+        Second : Second
+    } ;
 }
 
 /*===========================================
