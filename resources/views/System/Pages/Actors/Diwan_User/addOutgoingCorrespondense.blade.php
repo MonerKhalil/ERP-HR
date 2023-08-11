@@ -26,7 +26,7 @@
                                                 <div class="ListData">
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
-                                                            Main Information
+                                                            @lang("MainInformation")
                                                         </h4>
                                                     </div>
                                                     <div class="ListData__Content">
@@ -44,7 +44,7 @@
                                                                                              "Value" => $Item] ) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('correspondenceType'),"DefaultValue" => "",
+                                                                                @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('type'),"DefaultValue" => "",
                                                                                             "Options" => $types,])
                                                                             </div>
                                                                         </div>
@@ -93,7 +93,7 @@
                                                                                        value={{isset($number_external) ? $number_external : ""}}
                                                                                            name="number_external">
                                                                                 <label class="Input__Label"
-                                                                                       for="number_internal">@lang("numberExternal")</label>
+                                                                                       for="number_internal">@lang("number_external")</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -120,120 +120,11 @@
                                                                                        name="date"
                                                                                        placeholder="correspondence Date">
                                                                                 <label class="Date__Label"
-                                                                                       for="correspondenceDate">correspondence
-                                                                                    Date</label>
+                                                                                       for="correspondenceDate">@lang("createDate")</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                {{--                                                                <div class="Col-4-md Col-6-sm">--}}
-                                                                {{--                                                                    <div class="Form__Group">--}}
-                                                                {{--                                                                        <div class="Form__Input">--}}
-                                                                {{--                                                                            <div class="Input__Area">--}}
-                                                                {{--                                                                                <input id="source"--}}
-                                                                {{--                                                                                       class="Input__Field"--}}
-                                                                {{--                                                                                       type="text"--}}
-                                                                {{--                                                                                       name="source"--}}
-                                                                {{--                                                                                       placeholder="@lang("source")">--}}
-                                                                {{--                                                                                <label class="Input__Label"--}}
-                                                                {{--                                                                                       for="source">@lang("source")</label>--}}
-                                                                {{--                                                                            </div>--}}
-                                                                {{--                                                                        </div>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </div>--}}
-                                                                {{--                                                                <div class="Col-4-md Col-6-sm">--}}
-                                                                {{--                                                                    <div class="Form__Group">--}}
-                                                                {{--                                                                        <div class="Form__Input">--}}
-                                                                {{--                                                                            <div class="Input__Area">--}}
-                                                                {{--                                                                                <input id="destination"--}}
-                                                                {{--                                                                                       class="Input__Field"--}}
-                                                                {{--                                                                                       type="text"--}}
-                                                                {{--                                                                                       name="destination"--}}
-                                                                {{--                                                                                       placeholder="@lang("destination")">--}}
-                                                                {{--                                                                                <label class="Input__Label"--}}
-                                                                {{--                                                                                       for="destination">@lang("destination")</label>--}}
-                                                                {{--                                                                            </div>--}}
-                                                                {{--                                                                        </div>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </div>--}}
-
-                                                                {{--                                                                <div class="Col-4-md Col-6-sm">--}}
-                                                                {{--                                                                    <div class="Form__Group">--}}
-                                                                {{--                                                                        <div class="Form__CheckBox">--}}
-                                                                {{--                                                                            <div class="CheckBox__Area">--}}
-                                                                {{--                                                                                <input type="checkbox" id="needTracking"--}}
-                                                                {{--                                                                                       class="CheckBox__Input">--}}
-                                                                {{--                                                                                <label class="CheckBox__Label"--}}
-                                                                {{--                                                                                       for="needTracking">--}}
-                                                                {{--                                                                                    <span class="IconChecked">--}}
-                                                                {{--                                                                                        <i class="material-icons ">--}}
-                                                                {{--                                                                                            check_small--}}
-                                                                {{--                                                                                        </i>--}}
-                                                                {{--                                                                                    </span>--}}
-                                                                {{--                                                                                    <span--}}
-                                                                {{--                                                                                        class="TextCheckBox">@lang("needTracking")</span>--}}
-                                                                {{--                                                                                </label>--}}
-                                                                {{--                                                                            </div>--}}
-                                                                {{--                                                                        </div>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </div>--}}
-                                                                {{--                                                                <div class="VisibilityOption Col-4-md Col-6-sm"--}}
-                                                                {{--                                                                     data-ElementsTargetName="ReplyToOutgoing"--}}
-                                                                {{--                                                                     >--}}
-                                                                {{--                                                                    <div class="Form__Group">--}}
-                                                                {{--                                                                        <div class="Form__CheckBox">--}}
-                                                                {{--                                                                            <div class="CheckBox__Area">--}}
-                                                                {{--                                                                                <input type="checkbox"--}}
-                                                                {{--                                                                                       id="replyToOutgoing"--}}
-                                                                {{--                                                                                       class="CheckBox__Input">--}}
-                                                                {{--                                                                                <label class="CheckBox__Label"--}}
-                                                                {{--                                                                                       for="replyToOutgoing">--}}
-                                                                {{--                                                                                    <span class="IconChecked">--}}
-                                                                {{--                                                                                        <i class="material-icons ">--}}
-                                                                {{--                                                                                            check_small--}}
-                                                                {{--                                                                                        </i>--}}
-                                                                {{--                                                                                    </span>--}}
-                                                                {{--                                                                                    <span--}}
-                                                                {{--                                                                                        class="TextCheckBox">@lang("replyToOutgoing")</span>--}}
-                                                                {{--                                                                                </label>--}}
-                                                                {{--                                                                            </div>--}}
-                                                                {{--                                                                        </div>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </div>--}}
-                                                                {{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
-                                                                {{--                                                                     data-TargetName="ReplyToOutgoing"--}}
-                                                                {{--                                                                     data-TargetValue="true">--}}
-                                                                {{--                                                                    <div class="Form__Group">--}}
-                                                                {{--                                                                        <div class="Form__Input">--}}
-                                                                {{--                                                                            <div class="Input__Area">--}}
-                                                                {{--                                                                                <input id="outgoingNumber"--}}
-                                                                {{--                                                                                       class="Input__Field"--}}
-                                                                {{--                                                                                       type="number"--}}
-                                                                {{--                                                                                       name="outgoingNumber"--}}
-                                                                {{--                                                                                       placeholder="@lang("outgoingNumber")">--}}
-                                                                {{--                                                                                <label class="Input__Label"--}}
-                                                                {{--                                                                                       for="outgoingNumber">@lang("outgoingNumber")</label>--}}
-                                                                {{--                                                                            </div>--}}
-                                                                {{--                                                                        </div>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </div>--}}
-                                                                {{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
-                                                                {{--                                                                     data-TargetName="ReplyToOutgoing"--}}
-                                                                {{--                                                                     data-TargetValue="false">--}}
-                                                                {{--                                                                    <div class="Form__Group">--}}
-                                                                {{--                                                                        <div class="Form__Date">--}}
-                                                                {{--                                                                            <div class="Date__Area">--}}
-                                                                {{--                                                                                <input id="outgoingDate"--}}
-                                                                {{--                                                                                       class="Date__Field"--}}
-                                                                {{--                                                                                       type="date" name="outgoingDate"--}}
-                                                                {{--                                                                                       placeholder="Date Decision">--}}
-                                                                {{--                                                                                <label class="Date__Label"--}}
-                                                                {{--                                                                                       for="outgoingDate">Outgoing--}}
-                                                                {{--                                                                                    Date</label>--}}
-                                                                {{--                                                                            </div>--}}
-                                                                {{--                                                                        </div>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </div>--}}
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__UploadFile">
@@ -278,24 +169,39 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+{{--                                                                <div class="Col-12">--}}
+{{--                                                                    <div class="Form__Group">--}}
+{{--                                                                        <div class="Form__Input">--}}
+{{--                                                                            <div class="Input__Area">--}}
+{{--                                                                                <textarea id="summary"--}}
+{{--                                                                                       class="Input__Field"--}}
+{{--                                                                                       type="text"--}}
+{{--                                                                                       name="summary"--}}
+{{--                                                                                          rows="3"--}}
+{{--                                                                                          placeholder="@lang("Summary")"></textarea>--}}
+{{--                                                                                <label class="Input__Label"--}}
+{{--                                                                                       for="FirstName">@lang("Summary")</label>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
+
+                                                                <div class="Col-12">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Textarea">
+                                                                            <div class="Textarea__Area">
+                                                                                        <textarea id="summary" class="Textarea__Field" name="summary"
+                                                                                                  rows="3" placeholder=""></textarea>
+                                                                                <label class="Textarea__Label" for="summary">ملخص الجلسة</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="Col-4-md Col-6-sm">
-                                                    <div class="Form__Group">
-                                                        <div class="Form__Input">
-                                                            <div class="Input__Area">
-                                                                <input id="summary"
-                                                                       class="Input__Field"
-                                                                       type="text"
-                                                                       name="summary"
-                                                                       placeholder="@lang("Summary")">
-                                                                <label class="Input__Label"
-                                                                       for="FirstName">@lang("Summary")</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                                 <div class="Row">
                                                     <div class="Col">

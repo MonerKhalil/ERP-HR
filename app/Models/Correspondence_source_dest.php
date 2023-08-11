@@ -12,10 +12,10 @@ class Correspondence_source_dest extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "correspondences_id",
-        "current_employee_id",
-        "external_party_id",
-        "internal_department_id",
+        "correspondences_id", //
+        "current_employee_id", //
+        "external_party_id", //
+        "internal_department_id", //
         "is_done",
         "type","notice","path_file",
          "source_dest_type",
@@ -51,15 +51,14 @@ class Correspondence_source_dest extends BaseModel
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
-            $correspondences = Correspondence::query()->find($validator->input("correspondences_id"));
             return [
-                "correspondences_id"=>["required",Rule::exists("correspondences","id")],
+//                "correspondences_id"=>["required",Rule::exists("correspondences","id")],
                 "type" => ["required", Rule::in(Correspondence::type())],
                 "source_dest_type" => ["required",Rule::in(self::source_dest_type())],
                 "is_done"=>["sometimes","boolean",],
-                "data" => ["required","array"],
+//                "data" => ["required","array"],
                 "data.*" => ["required","array"],
-                "data.*.current_employee_id" => ["required",Rule::exists("employees","id")],
+//                "data.*.current_employee_id" => ["required",Rule::exists("employees","id")],
 
                 "data.*.external_party_id" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "external";///check
@@ -68,12 +67,12 @@ class Correspondence_source_dest extends BaseModel
                     return $validator->input("type") == "internal";
                 }),Rule::exists("section_externals","id")],
 
-                "notice"=>["nullable",$validator->textRule(false)],
-                "path_file" =>["nullable" ,$validator->fileRules(false)],
+                "notice"=>$validator->textRule(false),
+                "path_file" =>$validator->fileRules(false),
                 //////legal section
-                "legal_opinion"=>["nullable",$validator->textRule(false)]
-                ,"path_file_legal_opinion" =>["nullable" ,$validator->fileRules(false)],
-                "is_legal"=>["nullable",Rule::in(["legal","illegal"]) ],
+                "legal_opinion" => $validator->textRule(false),
+                "path_file_legal_opinion" => $validator->fileRules(false),
+                "is_legal" => ["nullable",Rule::in(["legal","illegal"]) ],
             ];
         };
     }
