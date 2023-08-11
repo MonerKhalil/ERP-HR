@@ -136,7 +136,7 @@ class EmployeeEvaluationController extends Controller
         $typeOrder = $request->typeOrder;
         $typeOrder = $request->typeOrder == "asc" || $request->typeOrder=="desc" ? $typeOrder : "asc";
         $orderCol = in_array($request->order,$this->typeEvaluation()) ? $request->order : null;
-        $employees = EvaluationMember::with("employee")->whereIn("evaluation_id",$evaluation->id);
+        $employees = EvaluationMember::with("employee")->where("evaluation_id",$evaluation->id);
         if (!is_null($orderCol)){
             $employees->orderBy($orderCol,$typeOrder);
         }
@@ -323,7 +323,7 @@ class EmployeeEvaluationController extends Controller
             "end_date_decision" => $data["end_date_decision"]??null,
             "value" => $data["value"]??null,
             "rate" => $data["rate"]??null,
-            "image_decision" => $data["image_decision"]??null,
+            "image" => $data["image_decision"]??null,
         ]);
         $decision->employees()->attach([$employee_id]);
     }

@@ -52,8 +52,7 @@ class AttendanceService
             }
             if (is_null($attendance->check_out)){
                 $checkOut = now();
-
-                $cIn = Carbon::createFromFormat('Y-m-d H:s:i', $attendance->check_in);
+                $cIn = Carbon::createFromFormat('H:s:i', $attendance->check_in);
                 $cOut = Carbon::createFromFormat('Y-m-d H:s:i', $checkOut);
                 $workHours = $cOut->diffInHours($cIn);
                 $workMinute = $workHours * 60;
@@ -61,11 +60,11 @@ class AttendanceService
                 $workSettingEmployee = $this->user->work_setting;
 
                 $work_hours_from = $workSettingEmployee->work_hours_from;
-                $work_hours_from = Carbon::createFromFormat('Y-m-d H:s:i', $work_hours_from);
+                $work_hours_from = Carbon::createFromFormat('H:s:i', $work_hours_from);
                 $late_entry_per_minute = $cIn->greaterThan($work_hours_from) ? $cIn->diffInMinutes($work_hours_from) : 0 ;
 
                 $work_hours_to = $workSettingEmployee->work_hours_to;
-                $work_hours_to = Carbon::createFromFormat('Y-m-d H:s:i', $work_hours_to);
+                $work_hours_to = Carbon::createFromFormat('H:s:i', $work_hours_to);
                 $early_exit_per_minute = $cOut->lessThan($work_hours_to) ? $cOut->diffInMinutes($work_hours_to) : 0 ;
 
                 $attendance->update([

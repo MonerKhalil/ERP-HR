@@ -121,6 +121,26 @@
                                         </div>
                                         <div class="ListData__Content">
                                             <div class="Card__Inner px0">
+                                                <a href="{{ route("system.evaluation.employee.show.add.decision.evaluation" , $evaluation["id"]) }}"
+                                                   class="Button Button--Primary my-1">
+                                                    اضافة قرار للموظف
+                                                </a>
+                                                <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $evaluation["id"]) }}"
+                                                   class="Button Button--Primary my-1">
+                                                    اضافة تقييم للموظف
+                                                </a>
+                                                <a href="{{ route("system.evaluation.employee.show.evaluation" , $evaluation["id"]) }}"
+                                                   class="Button Button--Primary my-1">
+                                                    عرض تقييمات الموظف
+                                                </a>
+                                                <a href="{{ route("system.evaluation.employee.show.evaluation.decisions" , $evaluation["id"]) }}"
+                                                   class="Button Button--Primary my-1">
+                                                    عرض قرارات الموظف
+                                                </a>
+                                                <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $evaluation["id"]) }}"
+                                                   class="Button Button--Primary my-1">
+                                                    اضافة تقييم للموظف
+                                                </a>
                                                 <form class="Form"
                                                       style="display: inline-block" method="post"
                                                       action="{{ route("system.evaluation.employee.destroy.evaluation" , $evaluation["id"]) }}">
