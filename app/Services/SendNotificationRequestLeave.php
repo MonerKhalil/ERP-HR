@@ -12,7 +12,7 @@ class SendNotificationRequestLeave
 {
     public function sendNotify(Employee $employee,LeaveType $leaveType ,$route){
         $moderator_id = $employee->section->moderator_id;
-        $message = __("request_leave_msg") . $leaveType->name;
+        $message = "request_leave_msg" . "@@@@" . $leaveType->name;
         $data = [
             "from" => $employee->name,
             "body" => $message,
@@ -26,6 +26,6 @@ class SendNotificationRequestLeave
         $users = User::query()->whereHas("roles.permissions",function ($query){
             $query->where('name', "all_leaves");
         })->orWhere("id",$moderator_id)->get();
-        Notification::send($users,new MainNotification($data,__("request_leave")));
+        Notification::send($users,new MainNotification($data,"request_leave"));
     }
 }

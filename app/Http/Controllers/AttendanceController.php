@@ -108,7 +108,7 @@ class AttendanceController extends Controller
         }else{
             $data = $attendanceService->checkOut();
         }
-        return $this->responseSuccess("",compact("data"));
+        return $this->responseSuccess("",$data);
     }
 
 

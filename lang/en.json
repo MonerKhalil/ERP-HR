@@ -31,6 +31,7 @@
     "err_delete_exist_type_in_requests" : "err_delete_exist_type_in_requests.",
     "evaluation_employee" : "evaluation employee request .",
     "msg_evaluation_employee" : "msg_evaluation_employee .",
+    "err_check_in_attendance" : "err_check_in_attendance .",
 
     "/*         Header         */": "",
 
