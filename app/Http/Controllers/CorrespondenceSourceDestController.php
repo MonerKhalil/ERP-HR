@@ -77,15 +77,19 @@ class CorrespondenceSourceDestController extends Controller
                     ->Upload($request['path_file'], "correspondence/document_Correspondence");
                 $data['path_file'] = $path;
             }
-            if (!is_null($request->date)) {
-                foreach ($request->data as $soursDest) {
-                    $temp = $soursDest;
-                    $data['current_employee_id'] = $temp->current_employee_id;
-                    $data['external_party_id'] = $temp->external_party_id;
-                    $data['internal_department_id'] = $temp->internal_department_id;
-                    Correspondence_source_dest::query()->create($data);
-                }
-            }
+            $data['current_employee_id'] =  auth()->user()->employee->id;
+            $data['external_party_id'] = $request->external_party_id;
+            $data['internal_department_id'] = $request->internal_department_id;
+            Correspondence_source_dest::query()->create($data);
+//            if (!is_null($request->date)) {
+//                foreach ($request->data as $soursDest) {
+//                    $temp = $soursDest;
+//                    $data['current_employee_id'] =  auth()->user()->employee->id;
+//                    $data['external_party_id'] = $temp->external_party_id;
+//                    $data['internal_department_id'] = $temp->internal_department_id;
+//                    Correspondence_source_dest::query()->create($data);
+//                }
+//            }
 
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
