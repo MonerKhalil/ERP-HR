@@ -92,14 +92,14 @@ class OverTimeAdminController extends Controller
                     "reject_details" => $request->reject_details,
                     "date_update_status" => now(),
                 ]);
-                $message = $status == "approve" ? __("accept_request_overtime") : __("cancel_request_overtime");
+                $message = $status == "approve" ? "accept_request_overtime" : "cancel_request_overtime";
                 $user = User::query()->find($overtime->employee->user_id);
                 $user->notify(new MainNotification([
                     "from" => auth()->user()->name,
                     "body" => $message,
                     "date" => now(),
-                    "route_name" => route("system.overtimes.show.leave",$overtime->id),
-                ],__("request_overtime")));
+                    "route_name" => route("system.overtimes.show.overtime",$overtime->id),
+                ],"request_overtime"));
             }
         }
         return $this->responseSuccess(null,null,"default",self::IndexRoute);

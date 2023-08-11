@@ -41,7 +41,6 @@ class LeavesProcessService
         $from = Carbon::parse($request->from_date)->format("Y-m-d");
         $to = Carbon::parse($request->to_date)->format("Y-m-d");
         $count_days = $this->ignorePublicHolidayAndDaysOffEmployee($from,$to,$employee->work_setting->days_leaves_in_weeks);
-        $m_from =
         $leavesCaninService = $leaveType->count_available_in_service;
         if (!is_null($leavesCaninService)){
             $count_use_leaveType = $employee->leaves()->where("leave_type_id",$leaveType->id)

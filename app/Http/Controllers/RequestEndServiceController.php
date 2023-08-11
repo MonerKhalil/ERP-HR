@@ -106,7 +106,7 @@ class RequestEndServiceController extends Controller
             "from" => $user->employee->name,
             "date" => now(),
             "route_name" => route("system.request_end_services.show.request",$requestEnd->id),
-        ],__("request_end_services")));
+        ],"request_end_services"));
         return $this->responseSuccess(null,null,"create","show.my.request");
     }
 
@@ -129,10 +129,10 @@ class RequestEndServiceController extends Controller
         $user = User::query()->find($id_request->employee->user_id);
         $user->notify(new MainNotification([
             "from" => auth()->user()->name??"-",
-            "body" => __("accept_request_end_services"),
+            "body" => "accept_request_end_services",
             "date" => now(),
             "route_name" => route("system.request_end_services.show.request",$id_request->id),
-        ],__("request_end_services")));
+        ],"request_end_services"));
         $id_request->update([
                 "decision_id" => $request->decision_id,
                 "start_break_date" => $request->start_break_date,
@@ -155,10 +155,10 @@ class RequestEndServiceController extends Controller
                 $user = User::find($req->employee->user_id);
                 $user->notify(new MainNotification([
                     "from" => auth()->user()->name ?? "-",
-                    "body" => __("cancel_request_end_services"),
+                    "body" => "cancel_request_end_services",
                     "date" => now(),
                     "route_name" => route("system.request_end_services.show.my.request"),
-                ],__("request_end_services")));
+                ],"request_end_services"));
             }
             DataEndService::query()->whereIn("id",$requests->ids)
                 ->where("is_request_end_services",true)->delete();
