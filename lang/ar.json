@@ -638,5 +638,12 @@
     "number_external" : "رقم المراسلة",
     "path_file" : "المرفقات",
     "CorrespondenceSubject" : "موضوع المراسلة",
-    "MainInformation" : "المعلومات الرئيسية"
+    "MainInformation" : "المعلومات الرئيسية",
+    "summary" : "ملخص المراسلة",
+    "editCorrespondenceInfo" : "تعديل معلومات المراسلة",
+    "addTransaction" : "إضافة مناقلة جديدة",
+    "transactionType" : "نوع الوجهة | المصدر",
+    "externalParties" : "الجهة الخارجية",
+    "Department" : "القسم",
+    "addTransaction" : "إضافة حركة"
 }
