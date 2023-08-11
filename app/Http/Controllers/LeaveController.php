@@ -81,7 +81,7 @@ class LeaveController extends Controller
         try {
             $employee = auth()->user()->employee;
             if (is_null($employee)){
-                throw new \Exception("the user is not Employee...");
+                throw new MainException("the user is not Employee...");
             }
             $leave_type = LeaveType::find($request->leave_type_id);
             $checkCanLeave = $service->checkAllProcess($request,$employee,$leave_type);
@@ -102,7 +102,7 @@ class LeaveController extends Controller
                 DB::commit();
                 return $this->responseSuccess(null,null,"create",self::IndexRoute);
             }
-            throw new \Exception($checkCanLeave);
+            throw new MainException($checkCanLeave);
         }catch (\Exception $exception){
             DB::rollBack();
             throw new MainException($exception->getMessage());
@@ -172,7 +172,7 @@ class LeaveController extends Controller
                 DB::commit();
                 return $this->responseSuccess(null,null,"update",self::IndexRoute);
             }
-            throw new \Exception($checkCanLeave);
+            throw new MainException($checkCanLeave);
         }catch (\Exception $exception){
             DB::rollBack();
             throw new MainException($exception->getMessage());

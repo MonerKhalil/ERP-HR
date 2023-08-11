@@ -90,19 +90,21 @@ class LeaveAdminController extends Controller
         ]);
         foreach($request->ids as $leave) {
             $leave = Leave::query()->find($leave);
-            $leave->update([
-                "status" => $status,
-                "reject_details" => $request->reject_details,
-                "date_update_status" => now(),
-            ]);
-            $message = $status == "approve" ? "accept_request_leave" : "cancel_request_leave";
-            $user = User::query()->find($leave->employee->user_id);
-            $user->notify(new MainNotification([
-                "from" => auth()->user()->name,
-                "body" => $message,
-                "date" => now(),
-                "route_name" => route("system.leaves.show.leave",$leave->id),
-            ],"request_leave"));
+            if (is_null($leave->date_update_status)){
+                $leave->update([
+                    "status" => $status,
+                    "reject_details" => $request->reject_details,
+                    "date_update_status" => now(),
+                ]);
+                $message = $status == "approve" ? "accept_request_leave" : "cancel_request_leave";
+                $user = User::query()->find($leave->employee->user_id);
+                $user->notify(new MainNotification([
+                    "from" => auth()->user()->name,
+                    "body" => $message,
+                    "date" => now(),
+                    "route_name" => route("system.leaves.show.leave",$leave->id),
+                ],"request_leave"));
+            }
         }
         return $this->responseSuccess(null,null,"default",self::IndexRoute);
     }
@@ -146,6 +148,7 @@ class LeaveAdminController extends Controller
                 "minutes" => $checkCanLeave->MinutesInDays,
                 "description" => $request->description,
                 "status" => "approve",
+                "date_update_status" => now(),
             ]);
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }
@@ -178,6 +181,7 @@ class LeaveAdminController extends Controller
                 "minutes" => $checkCanLeave->MinutesInDays,
                 "description" => $request->description,
                 "status" => "approve",
+                "date_update_status" => now(),
             ]);
             return $this->responseSuccess(null,null,"update",self::IndexRoute);
         }

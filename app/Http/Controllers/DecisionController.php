@@ -13,6 +13,7 @@ use App\Http\Requests\DecisionRequest;
 use App\Models\Employee;
 use App\Models\SessionDecision;
 use App\Models\TypeDecision;
+use App\Services\SendNotifyDecisionEmpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +79,7 @@ class DecisionController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
      * @throws MainException
      */
-    public function store(DecisionRequest $request)
+    public function store(DecisionRequest $request,SendNotifyDecisionEmpService $service)
     {
         try {
             DB::beginTransaction();
@@ -94,9 +95,12 @@ class DecisionController extends Controller
             $decision = Decision::create($data);
             if (isset($request->employees)){
                 $decision->employees()->attach($request->employees);
+                $service->SendNotify($request->employees,$decision);
             }
             DB::commit();
-            return $this->responseSuccess(null, null, "create", self::IndexRoute);
+            return $this->responseSuccess(null, null, "create", "system.decisions.session_decisions.show",false,[
+                "session_decisions" => $data['session_decision_id'],
+            ]);
         } catch (\Exception $exception) {
             DB::rollBack();
             throw new MainException($exception->getMessage());
@@ -143,7 +147,7 @@ class DecisionController extends Controller
             compact("decision", "employees", "session_decisions", "type_decisions", "type_effects"));
     }
 
-    public function update(DecisionRequest $request, Decision $decision)
+    public function update(DecisionRequest $request, Decision $decision,SendNotifyDecisionEmpService $service)
     {
         try {
             DB::beginTransaction();
@@ -160,6 +164,7 @@ class DecisionController extends Controller
 
             if (isset($request->employees)) {
                 $decision->employees()->sync($request->employees);
+                $service->SendNotify($request->employees,$decision);
             }
             DB::commit();
             return $this->responseSuccess(null, null, "update", self::IndexRoute);

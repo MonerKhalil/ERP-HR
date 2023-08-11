@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\MainException;
 use App\Models\Employee;
 use App\Models\OvertimeType;
 use App\Models\PublicHoliday;
@@ -32,18 +33,37 @@ class OverTimeCheckService
         $from = Carbon::parse($request->from_date)->format("Y-m-d");
         $to = Carbon::parse($request->to_date)->format("Y-m-d");
         //Code Days ......
-        $h_from = Carbon::parse($request->from_hour)->format("H:i:s");
-        $h_to = Carbon::parse($request->to_hour)->format("H:i:s");
+        $h_from = Carbon::parse($request->from_time)->format("H:i:s");
+        $h_to = Carbon::parse($request->to_time)->format("H:i:s");
         $countDays = Carbon::createFromFormat("Y-m-d",$to)->diffInDays($from);
-        $countHoursInDays = Carbon::createFromFormat("H:i:s",$h_to)->diffInDays($h_from);
+        $countHoursInDays = Carbon::createFromFormat("H:i:s",$h_from)->diffInHours($h_to);
         if ($overtimeType->min_hours_in_days > $countHoursInDays){
-            throw new \Exception(__("err_request_overtime_time"));
+            throw new MainException(__("err_request_overtime_time"));
         }
         $Check = $this->CheckIsHourlyOvertimeSalary($overtimeType,$employee,$countHoursInDays,$countDays);
         if (is_string($Check)){
-            throw new \Exception($Check);
+            throw new MainException($Check);
         }
+        $this->CheckIsOverTimeHourInWorkHours($employee,$h_from,$h_to);
         return new StoreData($from,$to,$countDays,$h_from,$h_to,$countHoursInDays);
+    }
+
+    private function CheckIsOverTimeHourInWorkHours($employee,$h_from,$h_to){
+        $work_hours_from = Carbon::createFromFormat("H:i:s",$employee->work_setting->work_hours_from);
+        $work_hours_to = Carbon::createFromFormat("H:i:s",$employee->work_setting->work_hours_to);
+        $h_from = Carbon::createFromFormat("H:i:s",$h_from);
+        $h_to = Carbon::createFromFormat("H:i:s",$h_to);
+        if (!(
+            $work_hours_from->greaterThan($h_from) && $work_hours_from->greaterThan($h_to)
+            && $work_hours_to->greaterThan($h_from) && $work_hours_to->greaterThan($h_to)
+            )
+            &&
+            !(
+            $work_hours_from->lessThan($h_from) && $work_hours_from->lessThan($h_to)
+            && $work_hours_to->lessThan($h_from) && $work_hours_from->lessThan($h_to)
+            )){
+            throw new MainException(__("err_overtime_datetime_valid"));
+        }
     }
 
     private function CheckIsHourlyOvertimeSalary($overtime_type,$employee,$countHours,$countDaysOverTime){
@@ -77,11 +97,11 @@ class OverTimeCheckService
         $to = Carbon::parse($request->to_date)->format("Y-m-d");
         $CountDaysOverTime = $this->CheckDaysOvertimeInHolidays($from,$to,$employee->work_setting->days_leaves_in_weeks);
         if (is_string($CountDaysOverTime)){
-            throw new \Exception($CountDaysOverTime);
+            throw new MainException($CountDaysOverTime);
         }
         $CheckSalary = $this->CheckDaysOvertimeSalary($overtimeType,$employee,$CountDaysOverTime);
         if (is_string($CheckSalary)){
-            throw new \Exception($CheckSalary);
+            throw new MainException($CheckSalary);
         }
         return new StoreData($from,$to,$CountDaysOverTime);
     }
