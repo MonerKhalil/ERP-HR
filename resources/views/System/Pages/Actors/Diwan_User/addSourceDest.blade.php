@@ -68,6 +68,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <input type="text"
+                                                                       name="correspondences_id" value="{{$Correspondence_id}}" hidden>
 {{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
 {{--                                                                     data-TargetName="typeTemp"--}}
 {{--                                                                     data-TargetValue="internal">--}}
@@ -120,7 +122,7 @@
                                                                                     }
                                                                                 @endphp
                                                                                 @include("System.Components.selector" , ['Name' => "data[][external_party_id]" , "Required" => "true" , "Label" => __('externalParties'),"DefaultValue" => "",
-                                                                                            "Options" => $out_section_array,])
+                                                                                            "OptionsValues" => $out_section_array,])
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -132,16 +134,16 @@
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
-                                                                                <input type="checkbox" name="data[][internal_department_id]" value="0">
+{{--                                                                                <input type="checkbox" name="data[][internal_department_id]" value="0">--}}
                                                                                 @php
                                                                                     $in_section_array = [] ;
                                                                                     foreach ($internal_department as $Index => $Item) {
                                                                                         array_push($in_section_array , [ "Label" => $Item ,
-                                                                                             "Value" => $Item] ) ;
+                                                                                             "Value" => $Index] ) ;
                                                                                     }
                                                                                 @endphp
-{{--                                                                                @include("System.Components.selector" , ['Name' => "data[][internal_department_id]" , "Required" => "true" , "Label" => __('Department'),"DefaultValue" => "",--}}
-{{--                                                                                            "Options" => $in_section_array,])--}}
+                                                                                @include("System.Components.selector" , ['Name' => "internal_department_id" , "Required" => "true" , "Label" => __('Department'),"DefaultValue" => "",
+                                                                                            "Options" => $in_section_array,])
                                                                             </div>
                                                                         </div>
                                                                     </div>
