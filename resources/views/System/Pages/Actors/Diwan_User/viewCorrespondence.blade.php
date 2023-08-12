@@ -137,6 +137,55 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="ListData">
+                                                    <div class="ListData__Head">
+                                                        <h4 class="ListData__Title">
+                                                            معلومات الموقعين
+                                                        </h4>
+                                                    </div>
+                                                    <div class="ListData__Content">
+                                                        <div class="ListData__CustomItem">
+                                                            <div class="SignatureStructure">
+                                                                <div class="SignatureStructure__List">
+                                                                    <div class="SignatureStructure__Item">
+                                                                        <div class="OpenPopup SignatureBox SignatureBox--Pending"
+                                                                             data-popup="Signature_1">
+                                                                            <div class="SignatureName">Amir</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="SignatureStructure__Item">
+                                                                        <i class="material-icons ArrowRight">chevron_right</i>
+                                                                        <div class="OpenPopup SignatureBox SignatureBox--Pending"
+                                                                             data-popup="Signature_2">
+                                                                            <div class="SignatureName">Amir</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="SignatureStructure__Item">
+                                                                        <i class="material-icons ArrowRight">chevron_right</i>
+                                                                        <div class="OpenPopup SignatureBox SignatureBox--Pending"
+                                                                             data-popup="Signature_3">
+                                                                            <div class="SignatureName">Amir</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="SignatureStructure__Item">
+                                                                        <i class="material-icons ArrowRight">chevron_right</i>
+                                                                        <div class="OpenPopup SignatureBox SignatureBox--Pending"
+                                                                             data-popup="Signature_4">
+                                                                            <div class="SignatureName">Amir</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+
 {{--                                                <div class="Col-12">--}}
 {{--                                                    <div class="ListData__Content">--}}
 {{--                                                        <div class="Data_Col">--}}
@@ -180,6 +229,249 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section("PopupPage")
+    <div class="Popup Popup--Dark" data-name="Signature_1">
+        <div class="Popup__Content">
+            <div class="Popup__Card">
+                <i class="material-icons Popup__Close">close</i>
+                <div class="Popup__CardContent">
+                    <div class="Popup__InnerGroup">
+                        <div class="ListData NotResponsive">
+                            <div class="ListData__Head">
+                                <h4 class="ListData__Title">
+                                    معلومات الموقعين
+                                </h4>
+                            </div>
+                            <div class="ListData__Content">
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الاولى
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثانية
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثالثة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الرابعة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Popup Popup--Dark" data-name="Signature_2">
+        <div class="Popup__Content">
+            <div class="Popup__Card">
+                <i class="material-icons Popup__Close">close</i>
+                <div class="Popup__CardContent">
+                    <div class="Popup__InnerGroup">
+                        <div class="ListData NotResponsive">
+                            <div class="ListData__Head">
+                                <h4 class="ListData__Title">
+                                    معلومات الموقعين
+                                </h4>
+                            </div>
+                            <div class="ListData__Content">
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الاولى
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثانية
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثالثة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الرابعة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Popup Popup--Dark" data-name="Signature_3">
+        <div class="Popup__Content">
+            <div class="Popup__Card">
+                <i class="material-icons Popup__Close">close</i>
+                <div class="Popup__CardContent">
+                    <div class="Popup__InnerGroup">
+                        <div class="ListData NotResponsive">
+                            <div class="ListData__Head">
+                                <h4 class="ListData__Title">
+                                    معلومات الموقعين
+                                </h4>
+                            </div>
+                            <div class="ListData__Content">
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الاولى
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثانية
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثالثة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الرابعة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Popup Popup--Dark" data-name="Signature_4">
+        <div class="Popup__Content">
+            <div class="Popup__Card">
+                <i class="material-icons Popup__Close">close</i>
+                <div class="Popup__CardContent">
+                    <div class="Popup__InnerGroup">
+                        <div class="ListData NotResponsive">
+                            <div class="ListData__Head">
+                                <h4 class="ListData__Title">
+                                    معلومات الموقعين
+                                </h4>
+                            </div>
+                            <div class="ListData__Content">
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الاولى
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثانية
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الثالثة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ListData__Item ListData__Item--NoAction">
+                                    <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            المعلومة الرابعة
+                                        </span>
+                                        <span class="Data_Value">
+                                            -
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section("extraScripts")
