@@ -432,7 +432,8 @@ Route::middleware(['auth'])->group(function () {
         });
     Route::resource('correspondences_dest', CorrespondenceSourceDestController::class)->except("edit", "update",);
     Route::get("transaction/create/correspondences_dest/{correspondences_id}", [CorrespondenceSourceDestController::class, "addDecisions"])->name("transaction.correspondences_dest.add");
-    Route::post("transaction/create/legalopinion/{correspondences_id}", [LegalController::class, "addLegalOpinion"])->name("transaction.legalopinion.add");
+    Route::post("transaction/send/legalopinion/{correspondences_id}", [LegalController::class, "sendLegalOpinion"])->name("transaction.legalopinion.send");//the bottom send correspndence to legal section
+    Route::put("transaction/add/legalopinion", [LegalController::class, "addLegalOpinion"])->name("transaction.legalopinion.add");
 
 
     /*===========================================
