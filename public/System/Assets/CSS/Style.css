@@ -2288,6 +2288,38 @@ body.Dark .Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item:hover {
   font-size: 1.8rem;
 }
 
+.SignatureStructure__List {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 2rem;
+}
+.SignatureStructure__Item {
+  display: flex;
+  align-items: center;
+}
+.SignatureStructure__Item .SignatureBox {
+  font-size: 1.6rem;
+  padding: 1rem 2.5rem;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+.SignatureStructure__Item .SignatureBox--Pending {
+  background: #d9a242;
+}
+.SignatureStructure__Item .SignatureBox--Success {
+  background: #51cb53;
+}
+.SignatureStructure__Item .SignatureBox--Reject {
+  background: #f93542;
+}
+.SignatureStructure__Item .material-icons {
+  margin: 0 1rem;
+}
+.SignatureStructure__Item:first-child .material-icons {
+  display: none;
+}
+
 .HeaderPage {
   position: sticky;
   top: 0;
