@@ -21,7 +21,7 @@
                                     <div class="Card__Content">
                                         <div class="Card__Inner">
                                             <form class="Form Form--Dark" action="{{route("correspondences.update", $correspondence['id'])}}"
-                                                  method="post" enctype="multipart/form-data">
+                                                  method="put" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="ListData">
                                                     <div class="ListData__Head">
@@ -70,10 +70,10 @@
                                                                             <div class="Input__Area">
                                                                                 <input id="number_internal"
                                                                                        class="Input__Field"
+                                                                                       name="number_internal"
                                                                                        type="text"
                                                                                        readonly
-                                                                                       value={{isset($correspondence->number_internal) ? $correspondence->number_internal : ""}}
-                                                                                           name="number_internal">
+                                                                                       value={{isset($correspondence->number_internal) ? $correspondence->number_internal : ""}}>
                                                                                 <label class="Input__Label"
                                                                                        for="number_internal">@lang("numberInternal")</label>
                                                                             </div>
@@ -177,22 +177,35 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="Col-4-md Col-6-sm">
+
+                                                <div class="Col-12">
                                                     <div class="Form__Group">
-                                                        <div class="Form__Input">
-                                                            <div class="Input__Area">
-                                                                <input id="summary"
-                                                                       class="Input__Field"
-                                                                       type="text"
-                                                                       name="summary"
-                                                                       value={{isset($correspondence->summary) ? $correspondence->summary : ""}}
-                                                                       placeholder="@lang("Summary")">
-                                                                <label class="Input__Label"
-                                                                       for="FirstName">@lang("Summary")</label>
+                                                        <div class="Form__Textarea">
+                                                            <div class="Textarea__Area">
+                                                                                        <textarea id="summary" class="Textarea__Field" name="summary"
+                                                                                                  rows="3" placeholder="">{{$correspondence->summary}}</textarea>
+                                                                <label class="Textarea__Label" for="summary">ملخص الجلسة</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
+{{--                                                <div class="Col-4-md Col-6-sm">--}}
+{{--                                                    <div class="Form__Group">--}}
+{{--                                                        <div class="Form__Input">--}}
+{{--                                                            <div class="Input__Area">--}}
+{{--                                                                <textarea id="summary"--}}
+{{--                                                                       class="Input__Field"--}}
+{{--                                                                       type="text"--}}
+{{--                                                                       name="summary"--}}
+{{--                                                                       value={{isset($correspondence->summary) ? $correspondence->summary : ""}}--}}
+{{--                                                                           placeholder="@lang("Summary")"></textarea>--}}
+{{--                                                                <label class="Input__Label"--}}
+{{--                                                                       for="FirstName">@lang("Summary")</label>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
                                                 <div class="Row">
                                                     <div class="Col">
                                                         <div class="Form__Group">

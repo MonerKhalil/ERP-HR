@@ -60,7 +60,7 @@
                                                                                     {{ $NotificationItem["data"]["data"]["from"] }}
                                                                                 </strong>
                                                                             </span> ,
-                                                                                {{ $NotificationItem["data"]["type"] }} .
+                                                                                @lang($NotificationItem["data"]["type"]).
                                                                             </p>
                                                                             <p class="NotificationDescription">
                                                                                 @lang($NotificationItem["data"]["data"]["body"]) .

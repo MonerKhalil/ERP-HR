@@ -35,7 +35,7 @@
                                     </div>
                                     <ul class="NotificationParent__List Dropdown__Content">
                                         @php
-                                        $notifications = auth()->user()->notifications()->whereNot("data->type","audit")->latest()->get();
+                                          $notifications = auth()->user()->notifications()->whereNot("data->type","audit")->latest()->get();
                                         @endphp
                                         @if(count($notifications) > 0)
                                             @foreach($notifications as $NotificationItem)
@@ -56,11 +56,11 @@
                                                             <p class="NotificationTitle">
                                                                 من
                                                                 <span class="UserFrom">
-                                                                        <strong>
-                                                                            {{ $NotificationItem["data"]["data"]["from"] }}
-                                                                        </strong>
-                                                                    </span> ,
-                                                                {{ $NotificationItem["data"]["type"] }} .
+                                                                    <strong>
+                                                                        {{ $NotificationItem["data"]["data"]["from"] }}
+                                                                    </strong>
+                                                                </span> ,
+                                                                @lang($NotificationItem["data"]["type"])
                                                             </p>
                                                             <p class="NotificationDescription">
                                                                 @lang($NotificationItem["data"]["data"]["body"]) .

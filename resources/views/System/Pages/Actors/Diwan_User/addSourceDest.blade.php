@@ -45,7 +45,7 @@
                                                                                              "Value" => $Item] ) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('correspondenceType'),"DefaultValue" => "",
+                                                                                @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('type'),"DefaultValue" => "",
                                                                                             "Options" => $types,])
                                                                             </div>
                                                                         </div>
@@ -62,50 +62,50 @@
                                                                                              "Value" => $Item] ) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , ['Name' => "source_dest_type" , "Required" => "true" , "Label" => __('place type'),"DefaultValue" => "",
+                                                                                @include("System.Components.selector" , ['Name' => "source_dest_type" , "Required" => "true" , "Label" => __('transactionType'),"DefaultValue" => "",
                                                                                             "Options" => $dest_types,])
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                     data-TargetName="typeTemp"
-                                                                     data-TargetValue="internal">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @php
-                                                                                    $employee_dest_array = [] ;
-                                                                                    foreach ($employee_dest as $Index => $Item) {
-                                                                                        array_push($employee_dest_array , [ "Label" => $Item -> name ,
-                                                                                             "Value" => $Item] ) ;
-                                                                                    }
-                                                                                @endphp
-                                                                                @include("System.Components.selector" , ['Name' => "current_employee_id" , "Required" => "true" , "Label" => __('current employee'),"DefaultValue" => "",
-                                                                                            "Options" => $employee_dest_array,])
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                     data-TargetName="typeTemp"
-                                                                     data-TargetValue="internal">
-                                                                    <div class="Form__Group">
-                                                                        <div class="Form__Select">
-                                                                            <div class="Select__Area">
-                                                                                @php
-                                                                                    $employee_dest_array1 = [] ;
-                                                                                    foreach ($employee_dest as $Index => $Item) {
-                                                                                        array_push($employee_dest_array1 , [ "Label" => $Item -> name ,
-                                                                                             "Value" => $Item] ) ;
-                                                                                    }
-                                                                                @endphp
-                                                                                @include("System.Components.selector" , ['Name' => "in_employee_id_dest" , "Required" => "true" , "Label" => __('target employee'),"DefaultValue" => "",
-                                                                                            "Options" => $employee_dest_array1,])
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+{{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                     data-TargetName="typeTemp"--}}
+{{--                                                                     data-TargetValue="internal">--}}
+{{--                                                                    <div class="Form__Group">--}}
+{{--                                                                        <div class="Form__Select">--}}
+{{--                                                                            <div class="Select__Area">--}}
+{{--                                                                                @php--}}
+{{--                                                                                    $employee_dest_array = [] ;--}}
+{{--                                                                                    foreach ($employee_dest as $Index => $Item) {--}}
+{{--                                                                                        array_push($employee_dest_array , [ "Label" => $Item -> name ,--}}
+{{--                                                                                             "Value" => $Item] ) ;--}}
+{{--                                                                                    }--}}
+{{--                                                                                @endphp--}}
+{{--                                                                                @include("System.Components.selector" , ['Name' => "current_employee_id" , "Required" => "true" , "Label" => __('current employee'),"DefaultValue" => "",--}}
+{{--                                                                                            "Options" => $employee_dest_array,])--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
+{{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
+{{--                                                                     data-TargetName="typeTemp"--}}
+{{--                                                                     data-TargetValue="internal">--}}
+{{--                                                                    <div class="Form__Group">--}}
+{{--                                                                        <div class="Form__Select">--}}
+{{--                                                                            <div class="Select__Area">--}}
+{{--                                                                                @php--}}
+{{--                                                                                    $employee_dest_array1 = [] ;--}}
+{{--                                                                                    foreach ($employee_dest as $Index => $Item) {--}}
+{{--                                                                                        array_push($employee_dest_array1 , [ "Label" => $Item -> name ,--}}
+{{--                                                                                             "Value" => $Item] ) ;--}}
+{{--                                                                                    }--}}
+{{--                                                                                @endphp--}}
+{{--                                                                                @include("System.Components.selector" , ['Name' => "in_employee_id_dest" , "Required" => "true" , "Label" => __('target employee'),"DefaultValue" => "",--}}
+{{--                                                                                            "Options" => $employee_dest_array1,])--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
                                                                 <div class="VisibilityTarget Col-4-md Col-6-sm"
                                                                      data-TargetName="typeTemp"
                                                                      data-TargetValue="external">
@@ -114,17 +114,39 @@
                                                                             <div class="Select__Area">
                                                                                 @php
                                                                                     $out_section_array = [] ;
-                                                                                    foreach ($out_section as $Index => $Item) {
+                                                                                    foreach ($external_party as $Index => $Item) {
                                                                                         array_push($out_section_array , [ "Label" => $Item ,
                                                                                              "Value" => $Item] ) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('correspondenceType2'),"DefaultValue" => "",
+                                                                                @include("System.Components.selector" , ['Name' => "data[][external_party_id]" , "Required" => "true" , "Label" => __('externalParties'),"DefaultValue" => "",
                                                                                             "Options" => $out_section_array,])
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="typeTemp"
+                                                                     data-TargetValue="internal">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                <input type="checkbox" name="data[][internal_department_id]" value="0">
+                                                                                @php
+                                                                                    $in_section_array = [] ;
+                                                                                    foreach ($internal_department as $Index => $Item) {
+                                                                                        array_push($in_section_array , [ "Label" => $Item ,
+                                                                                             "Value" => $Item] ) ;
+                                                                                    }
+                                                                                @endphp
+{{--                                                                                @include("System.Components.selector" , ['Name' => "data[][internal_department_id]" , "Required" => "true" , "Label" => __('Department'),"DefaultValue" => "",--}}
+{{--                                                                                            "Options" => $in_section_array,])--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                                 <div class="Col-4-md Col-6-sm">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__UploadFile">
@@ -139,21 +161,28 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm">
+                                                                <div class="Col-12">
                                                                     <div class="Form__Group">
-                                                                        <div class="Form__Input">
-                                                                            <div class="Input__Area">
-                                                                                <input id="notice"
-                                                                                       class="Input__Field"
-                                                                                       type="text"
-                                                                                       name="notice"
-                                                                                       placeholder="@lang("Summary")">
-                                                                                <label class="Input__Label"
-                                                                                       for="notice">@lang("Summary")</label>
+                                                                        <div class="Form__Textarea">
+                                                                            <div class="Textarea__Area">
+                                                                                        <textarea id="summary" class="Textarea__Field" name="notice"
+                                                                                                  rows="3" placeholder=""></textarea>
+                                                                                <label class="Textarea__Label" for="summary">ملاحظات</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="Row">
+                                                    <div class="Col">
+                                                        <div class="Form__Group">
+                                                            <div class="Form__Button">
+                                                                <button class="Button Send"
+                                                                        type="submit">@lang("addTransaction")</button>
                                                             </div>
                                                         </div>
                                                     </div>

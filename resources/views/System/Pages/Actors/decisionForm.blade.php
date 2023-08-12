@@ -53,6 +53,30 @@
                                                                     <div class="Row GapC-1-5">
                                                                         <div class="Col-4-md Col-6-sm">
                                                                             <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("employees") }}">
+                                                                                <div class="Form__Select">
+                                                                                    <div class="Select__Area">
+                                                                                        @php
+                                                                                            $Employees = [] ;
+                                                                                            foreach ($employees as $Employee) {
+                                                                                                array_push($Employees , [
+                                                                                                    "Label" => $Employee["first_name"].$Employee["last_name"]
+                                                                                                    , "Value" => $Employee["id"] , "Name" => "employees[]"] ) ;
+                                                                                            }
+                                                                                        @endphp
+
+                                                                                        @include("System.Components.multiSelector" , [
+                                                                                            'Name' => "_" ,
+                                                                                            "NameIDs" => "EmployeesID" ,
+                                                                                            "DefaultValue" => "" , "Label" => "المطبق عليهم القرار" ,
+                                                                                            "Options" => $Employees
+                                                                                        ])
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group"
                                                                                  data-ErrorBackend="{{ Errors("type_decision_id") }}">
                                                                                 <div class="VisibilityOption Form__Select"
                                                                                      data-ElementsTargetName="DecisionFieldTarget">

@@ -116,7 +116,7 @@ class OvertimeTypeController extends Controller
             foreach ($request->ids as $id){
                 $overtimeType = OvertimeType::query()->find($id);
                 if (!is_null($overtimeType->overtimes()->first())){
-                    throw new \Exception(__("err_delete_exist_type_in_requests"));
+                    throw new MainException(__("err_delete_exist_type_in_requests"));
                 }
                 $overtimeType->delete();
             }
