@@ -14,6 +14,7 @@ use App\Models\EvaluationMember;
 use App\Models\SessionDecision;
 use App\Models\TypeDecision;
 use App\Services\SendNotificationService;
+use App\Services\SendNotifyDecisionEmpService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -234,11 +235,12 @@ class EmployeeEvaluationController extends Controller
 
     /**
      * @param DecisionEvaluationRequest $request
+     * @param SendNotifyDecisionEmpService $service
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
      * @throws MainException
      * @author moner khalil
      */
-    public function storeDecisionEvaluation(DecisionEvaluationRequest $request){
+    public function storeDecisionEvaluation(DecisionEvaluationRequest $request,SendNotifyDecisionEmpService $service){
         try {
             DB::beginTransaction();
             $user = auth()->user();
@@ -250,7 +252,7 @@ class EmployeeEvaluationController extends Controller
                 //SessionDecision
                 $session = $this->addSession($data,$evaluationEmployees);
                 //Decision
-                $this->addDecision($data,$typeDecision->id,$evaluation->employee_id,$evaluation->id,$session->id);
+                $this->addDecision($data,$typeDecision->id,$evaluation->employee_id,$evaluation->id,$session->id,$service);
                 DB::commit();
                 return $this->responseSuccess(null,null,"create",self::IndexRouteDecision);
             }else{
@@ -273,14 +275,14 @@ class EmployeeEvaluationController extends Controller
         if (isset($data['image'])){
             $image = MyApp::Classes()->storageFiles->Upload($data['image']);
             if (is_bool($image)){
-                throw new \Exception(__("err_image_upload"));
+                throw new MainException(__("err_image_upload"));
             }
             $data['image'] = $image;
         }
         if (isset($data['file'])){
             $file = MyApp::Classes()->storageFiles->Upload($data['file']);
             if (is_bool($file)){
-                throw new \Exception(__("err_file_upload"));
+                throw new MainException(__("err_file_upload"));
             }
             $data['file'] = $file;
         }
@@ -302,13 +304,14 @@ class EmployeeEvaluationController extends Controller
      * @param $employee_id
      * @param $evaluation_id
      * @param $session_id
+     * @param $service
      * @throws MainException
      */
-    private function addDecision($data, $typeDecision_id, $employee_id,$evaluation_id, $session_id){
+    private function addDecision($data, $typeDecision_id, $employee_id,$evaluation_id, $session_id,$service){
         if (isset($data['image_decision'])) {
             $image = MyApp::Classes()->storageFiles->Upload($data['image_decision']);
             if (is_bool($image)) {
-                throw new \Exception(__("err_image_upload"));
+                throw new MainException(__("err_image_upload"));
             }
             $data['image_decision'] = $image;
         }
@@ -326,6 +329,7 @@ class EmployeeEvaluationController extends Controller
             "image" => $data["image_decision"]??null,
         ]);
         $decision->employees()->attach([$employee_id]);
+        $service->SendNotify([$employee_id],$decision);
     }
 
     public function destroy($evaluation){

@@ -52,20 +52,15 @@ class Correspondence_source_dest extends BaseModel
     public function validationRules(){
         return function (BaseRequest $validator) {
             return [
-//                "correspondences_id"=>["required",Rule::exists("correspondences","id")],
                 "type" => ["required", Rule::in(Correspondence::type())],
                 "source_dest_type" => ["required",Rule::in(self::source_dest_type())],
                 "is_done"=>["sometimes","boolean",],
-                //"data" => ["required","array"],
-              //  "data.*" => ["required","array"],
-                //"data.*.current_employee_id" => ["required",Rule::exists("employees","id")],
                 "external_party_id" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "external";///check
-                }),Rule::exists("sections","id")],
+                }),Rule::exists("section_externals","id")],
                 "internal_department_id" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "internal";
-                }),Rule::exists("section_externals","id")],
-
+                }),Rule::exists("sections","id")],
                 "notice"=>$validator->textRule(false),
                 "path_file" =>$validator->fileRules(false),
                 //////legal section

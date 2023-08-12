@@ -133,6 +133,7 @@ class OverTimeAdminController extends Controller
             "count_hours_in_days" => $data->count_hours_in_days,
             "is_hourly" => $request->is_hourly,
             "status" => "approve",
+            "date_update_status" => now(),
             "description" => $request->description,
         ]);
         return $this->responseSuccess(null,null,"create",self::IndexRoute);
@@ -153,6 +154,7 @@ class OverTimeAdminController extends Controller
             "count_hours_in_days" => $data->count_hours_in_days,
             "is_hourly" => $request->is_hourly,
             "status" => "approve",
+            "date_update_status" => now(),
             "description" => $request->description,
         ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
