@@ -51,4 +51,12 @@ class EvaluationMember extends BaseModel
             ];
         };
     }
+
+    public static function typeEvaluation(){
+        return [
+            "performance","professionalism","readiness_for_development"
+            ,"collaboration","commitment_and_responsibility"
+            ,"innovation_and_creativity","technical_skills",
+        ];
+    }
 }

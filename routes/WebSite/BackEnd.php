@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix("notifications")->controller(NotificationsController::class)
             ->group(function () {
                 Route::get("show", "getNotifications")->name("notifications.show");
+                Route::get("update/get","getNotificationsUpdate")->name("notifications.update");
                 Route::delete("clear", "clearNotifications")->name("notifications.clear");
                 Route::put("edit/read", "editNotificationsToRead")->name("notifications.edit");
                 Route::delete("remove/notify", "removeNotification")->name("notify.remove");

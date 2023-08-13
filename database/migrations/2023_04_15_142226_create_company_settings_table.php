@@ -18,8 +18,8 @@ return new class extends Migration
             #Add Columns
             $table->string("name");
             $table->date("created_at_company");
-            $table->integer("count_administrative_leaves");
-            $table->integer("count_years_services_employees");
+            $table->integer("count_administrative_leaves")->nullable();
+            $table->integer("count_years_services_employees")->nullable();
             $table->integer("add_leaves_years_services_employees")->unsigned()->default(0);
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();

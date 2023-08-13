@@ -162,6 +162,9 @@ class Employee extends BaseModel
             "id",
             "id");
     }
+    public function evaluation(){
+        return $this->hasMany(EmployeeEvaluation::class,"employee_id","id");
+    }
 
     /**
      * Description: To check front end validation

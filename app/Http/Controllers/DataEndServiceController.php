@@ -37,8 +37,8 @@ class DataEndServiceController extends Controller
         $DataEnd = DataEndService::with(["employee","decision"])->whereNotNull("decision_id");
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
             $DataEnd = $DataEnd->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
-                ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
+                $q->where("first_name","Like","%".$request->filter["name_employee"])
+                ->orWhere("last_name","Like","%".$request->filter["name_employee"]);
             });
         }
         if (isset($request->filter["number_decision"]) && !is_null($request->filter["number_decision"])){
@@ -174,8 +174,8 @@ class DataEndServiceController extends Controller
         $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
             $query = $query->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
+                $q->where("first_name","Like","%".$request->filter["name_employee"])
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]);
             });
         }
         if (isset($request->filter["number_decision"]) && !is_null($request->filter["number_decision"])){
