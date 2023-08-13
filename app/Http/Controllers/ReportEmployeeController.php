@@ -138,6 +138,8 @@ class ReportEmployeeController extends Controller
             $this->finalQueryFilter->where("current_job","LIKE","%".$request->current_job."%") : $this->finalQueryFilter;
         //LanguageSkill
         $this->finalQueryFilter = $this->queryLanguageSkills($request);
+        //Evaluations
+        $this->finalQueryFilter = $this->queryEvaluations($request);
 
         return $this->finalQueryFilter->orderBy("id","desc");
     }
@@ -243,6 +245,20 @@ class ReportEmployeeController extends Controller
                     $compareTwoDate = [$from_date,$to_date];
                     $q->whereBetween("date",$compareTwoDate);
                 });
+        }
+        return $this->finalQueryFilter;
+    }
+
+    private function queryEvaluations($request){
+        if (!is_null($request->evaluations)){
+            $this->finalQueryFilter = $this->finalQueryFilter->with("evaluation")->whereHas("evaluation",function ($q) use ($request){
+                return $q->whereHas("enter_evaluation_employee",function ($q) use ($request){
+                    foreach ($request->evaluations as $evaluation) {
+                        $q = $q->where($evaluation["evaluation"],">=",$evaluation["value"]);
+                    }
+                    return $q;
+                });
+            });
         }
         return $this->finalQueryFilter;
     }

@@ -20,7 +20,7 @@ class WorkSettingSeeder extends Seeder
             "name" => "general",
             "count_days_work_in_weeks" => 5,
             "count_hours_work_in_days" => 8,
-            "days_leaves_in_weeks" => 2,
+            "days_leaves_in_weeks" => 'Sunday,Monday,Tuesday,Wednesday,Thursday',
             "work_hours_from" => Carbon::create(0,0,0,9)->format("G:i:s"),
             "work_hours_to" => Carbon::create(0,0,0,17)->format("G:i:s"),
             "min_overtime_hours" => 1,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\HelpersClasses\MyApp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 
 class NotificationsController extends Controller
 {
@@ -47,6 +48,16 @@ class NotificationsController extends Controller
             return response()->json(["message"=>"Success Read Notification"]);
         }
         return response()->json(["error"=>"dont exists id Notification"]);
+    }
+
+    public function getNotificationsUpdate(Request $request)
+    {
+        $notifications = auth()->user()->notifications()
+            ->where("id",">",$request->id_notify)
+            ->whereNot("data->type","audit")
+            ->latest()
+            ->get();
+        return response()->json(["notifications" => $notifications]);
     }
 
 }

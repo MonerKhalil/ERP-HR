@@ -36,8 +36,8 @@ class EmployeeEvaluationController extends Controller
         $data = EmployeeEvaluation::with(["enter_evaluation_employee"]);
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
             $data = $data->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."%")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
+                $q->where("first_name","Like","%".$request->filter["name_employee"])
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]);
             });
         }
         if (isset($filterFinal['from_next_evaluation_date']) && isset($filterFinal['to_next_evaluation_date'])){
@@ -52,11 +52,7 @@ class EmployeeEvaluationController extends Controller
 
     public function index(Request $request){
         $data = MyApp::Classes()->Search->getDataFilter($this->MainQuery($request),null,null,"evaluation_date");
-        $typeEvaluation = [
-            "performance","professionalism","readiness_for_development"
-            ,"collaboration","commitment_and_responsibility"
-            ,"innovation_and_creativity","technical_skills",
-        ];
+        $typeEvaluation = EvaluationMember::typeEvaluation();
         return $this->responseSuccess(self::NameBlade ,
             compact("data" , "typeEvaluation"));
     }
@@ -109,11 +105,7 @@ class EmployeeEvaluationController extends Controller
      */
     public function showEvaluation($evaluation){
         $evaluation = EmployeeEvaluation::with(["employee","enter_evaluation_employee","decisions"])->findOrFail($evaluation);
-        $typeEvaluation = [
-            "performance","professionalism","readiness_for_development"
-            ,"collaboration","commitment_and_responsibility"
-            ,"innovation_and_creativity","technical_skills",
-        ];
+        $typeEvaluation = EvaluationMember::typeEvaluation();
         if (!$evaluation->canShow()){
             throw new AuthorizationException(__("err_permission"));
         }
@@ -136,7 +128,7 @@ class EmployeeEvaluationController extends Controller
         //OrderBy
         $typeOrder = $request->typeOrder;
         $typeOrder = $request->typeOrder == "asc" || $request->typeOrder=="desc" ? $typeOrder : "asc";
-        $orderCol = in_array($request->order,$this->typeEvaluation()) ? $request->order : null;
+        $orderCol = in_array($request->order,EvaluationMember::typeEvaluation()) ? $request->order : null;
         $employees = EvaluationMember::with("employee")->where("evaluation_id",$evaluation->id);
         if (!is_null($orderCol)){
             $employees->orderBy($orderCol,$typeOrder);
@@ -144,8 +136,8 @@ class EmployeeEvaluationController extends Controller
         //Search
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])) {
             $employees = $employees->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."%")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
+                $q->where("first_name","Like","%".$request->filter["name_employee"])
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]);
             });
         }
         $employees = MyApp::Classes()->Search->dataPaginate($employees);
@@ -174,6 +166,7 @@ class EmployeeEvaluationController extends Controller
                 $q = $q->whereBetween("date",[$from,$to]);
             }
         }
+        $q = $q->where("evaluation_id",$evaluation->id);
         $decisions = MyApp::Classes()->Search->getDataFilter($q, null, null, "end_date_decision");
         return $this->responseSuccess("System/Pages/Actors/Evaluation/viewDecisionsEmployee" ,
             compact("evaluation","decisions" , "type_effects"));
@@ -191,11 +184,7 @@ class EmployeeEvaluationController extends Controller
             throw new AuthorizationException(__("err_permission"));
         }
 
-        $typeEvaluation = [
-            "performance","professionalism","readiness_for_development"
-            ,"collaboration","commitment_and_responsibility"
-            ,"innovation_and_creativity","technical_skills",
-        ];
+        $typeEvaluation = EvaluationMember::typeEvaluation();
         return $this->responseSuccess("System/Pages/Actors/Evaluation/addEvaluationEmployee",
             compact("evaluation","typeEvaluation"));
     }
@@ -347,13 +336,4 @@ class EmployeeEvaluationController extends Controller
         EmployeeEvaluation::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
-
-    private function typeEvaluation(){
-        return [
-            "performance","professionalism","readiness_for_development"
-            ,"collaboration","commitment_and_responsibility"
-            ,"innovation_and_creativity","technical_skills",
-        ];
-    }
-
 }

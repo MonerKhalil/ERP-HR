@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\EvaluationMember;
 use Illuminate\Validation\Rule;
 
 class ReportEmployeeRequest extends BaseRequest
@@ -33,6 +34,18 @@ class ReportEmployeeRequest extends BaseRequest
             }),Rule::exists("languages","id")],
             "languages.*.language_read" => ["nullable",Rule::in(["Beginner","Intermediate","Advanced"])],
             "languages.*.language_write" => ["nullable",Rule::in(["Beginner","Intermediate","Advanced"])],
+
+            "evaluations" => ["nullable","array"],
+            "evaluations.*" => [Rule::requiredIf(function (){
+                return !is_null($this->input("evaluations"));
+            }),"array"],
+            "evaluations.*.evaluation" => [Rule::requiredIf(function (){
+                return !is_null($this->input("evaluations"));
+            }),Rule::in(EvaluationMember::typeEvaluation())],
+            "evaluations.*.value" => [Rule::requiredIf(function (){
+                return !is_null($this->input("evaluations"));
+            }),"integer","min:1","max:10"],
+
             "family_status" => ["nullable","array"],
             "family_status.*" => [Rule::in(["married","divorced","single"])],
             "contract_type" => ['nullable', Rule::in(["permanent", "temporary","all"])],
