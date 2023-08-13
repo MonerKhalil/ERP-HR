@@ -29,14 +29,15 @@ class LegalController extends Controller
      */
     public function index(Request $request)
     {
-        $q = Correspondence::query();
-        $q->whereHas("CorrespondenceDest", function ($emp) use ($request) {
-            $internal_legal = Sections::query()->where("name","section_legal")->first();
-            $emp->where("type","internal")->where("internal_department_id",$internal_legal->id);
-        });
-        $correspondences = MyApp::Classes()->Search->getDataFilter($q, null, null, null);
-//        dd($correspondences);
-        return $this->responseSuccess("System.Pages.Actors.Diwan_User.viewCorrespondenses", compact("correspondences"));
+            $q = Correspondence_source_dest::with('correspondence');
+
+        if (isset($request->filter["Correspondence_id"]) && !is_null($request->filter["Correspondence_id"])){
+            $q = $q->whereHas("correspondence",function ($query)use($request){
+                $query->where("correspondences_id",$request->filter["Correspondence_id"]);
+            });
+        }
+        $correspondence_source_dest = MyApp::Classes()->Search->getDataFilter($q, null, null, "contract_date");
+        return $this->responseSuccess("System.Pages.Actors.Diwan_User.viewCorrespondenses", compact("correspondence_source_dest"));
     }
 
     public function sendLegalOpinion($Correspondence_id)
