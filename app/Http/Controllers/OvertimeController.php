@@ -56,7 +56,7 @@ class OvertimeController extends Controller
 
     public function createRequestOvertime(){
         $overtimesType = OvertimeType::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeForm" ,
+        return $this->responseSuccess("System/Pages/Actors/Overtime/OvertimeForm" ,
             compact("overtimesType"));
     }
 
@@ -89,7 +89,7 @@ class OvertimeController extends Controller
             throw new AuthorizationException(__("err_permission"));
         }
         $overtime = Overtime::with(["overtime_type","employee"])->findOrFail($overtime->id);
-        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeDetails" ,
+        return $this->responseSuccess("System/Pages/Actors/Overtime/OvertimeDetails" ,
             compact("overtime"));
     }
 
@@ -99,7 +99,7 @@ class OvertimeController extends Controller
         }
         $overtime = Overtime::with(["overtime_type","employee"])->findOrFail($overtime->id);
         $overtimesType = OvertimeType::query()->pluck("name","id")->toArray();
-        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeForm" ,
+        return $this->responseSuccess("System/Pages/Actors/Overtime/OvertimeForm" ,
             compact("overtime","overtimesType"));
     }
 

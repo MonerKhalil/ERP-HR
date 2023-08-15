@@ -1,43 +1,43 @@
 <?php
     $MyAccount = auth()->user() ;
-    $IsHavePermissionVacationRead = $MyAccount->can("read_leaves") || $MyAccount->can("all_leaves") ;
-    $IsHavePermissionVacationEdit = $MyAccount->can("update_leaves") || $MyAccount->can("all_leaves") ;
-    $IsHavePermissionVacationDelete = $MyAccount->can("delete_leaves") || $MyAccount->can("all_leaves") ;
-    $IsHavePermissionVacationExport = $MyAccount->can("export_leaves") || $MyAccount->can("all_leaves") ;
-    $IsHavePermissionVacationDecisionState = true || $MyAccount->can("all_leaves") ;
+    $IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeEdit = $MyAccount->can("edit_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeDelete = $MyAccount->can("delete_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeExport = $MyAccount->can("export_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes") ;
 ?>
 
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    @if($IsHavePermissionVacationRead)
-        <section class="MainContent__Section MainContent__Section--ViewVacationsPage">
-            <div class="ViewVacationsPage">
-                <div class="ViewVacationsPage__Breadcrumb">
+    @if($IsHavePermissionOverTimeRead)
+        <section class="MainContent__Section MainContent__Section--NewTypeViewPage">
+            <div class="NewTypeViewPage">
+                <div class="NewTypeViewPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => __("viewAllVocation") ,
-                        'paths' => [[__("home") , '#'] , [__("viewAllVocation")]] ,
-                        'summery' => __("titleViewAllVocation")
+                        'mainTitle' => __("viewOvertimeRequest") ,
+                        'paths' => [[__("home") , '#'] , [__("viewOvertimeRequest")]] ,
+                        'summery' => __("titleViewOvertimeRequest")
                     ])
                 </div>
-                <div class="ViewVacationsPage__Content">
+                <div class="NewTypeViewPage__Content">
                     <div class="Container--MainContent">
                         <div class="MessageProcessContainer">
                             @include("System.Components.messageProcess")
                         </div>
                         <div class="Row">
                             <div class="Col">
-                                <div class="Card ViewVacationsPage__TableUsers">
+                                <div class="Card NewTypeViewPage__TableUsers">
                                     <div class="Table">
-                                        @if($IsHavePermissionVacationExport)
+                                        @if($IsHavePermissionOverTimeExport)
                                             <form name="PrintAllTablePDF"
-                                                  action="{{ route("system.leaves_admin.export.pdf") }}"
+                                                  action="{{route("system.overtimes_admin.export.pdf")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
                                             </form>
                                             <form name="PrintAllTableXlsx"
-                                                  action="{{ route("system.leaves_admin.export.xls") }}"
+                                                  action="{{route("system.overtimes_admin.export.xls")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
@@ -52,23 +52,11 @@
                                                             <div class="Card__Tools Table__BulkTools">
                                                                 @php
                                                                     $AllOptions = [] ;
-                                                                    if($IsHavePermissionVacationDecisionState) {
+                                                                    if($IsHavePermissionOverTimeDelete)
                                                                         array_push($AllOptions , [
-                                                                            "Label" => __("acceptVocation") ,
-                                                                            "Action" => route("system.leaves_admin.leave.status.change" , "approve") ,
-                                                                            "Method" => "post"
-                                                                        ]);
-                                                                        array_push($AllOptions , [
-                                                                            "Label" => __("rejectVocation") ,
-                                                                            "Action" => route("system.leaves_admin.leave.status.change" , "reject") ,
-                                                                            "Method" => "post"
-                                                                        ]);
-                                                                    }
-                                                                    if($IsHavePermissionVacationDelete)
-                                                                        array_push($AllOptions , [
-                                                                            "Label" => __("removeAllVocations") ,
-                                                                            "Action" => route("system.leaves_admin.multi.delete") ,
-                                                                            "Method" => "delete"
+                                                                            "Label" => __("normalDelete")
+                                                                            , "Action" => route("system.overtimes_admin.multi.delete")
+                                                                            , "Method" => "delete"
                                                                     ]);
                                                                 @endphp
                                                                 @include("System.Components.bulkAction" , [
@@ -82,7 +70,7 @@
                                                                            data-popUp="SearchAbout">filter_list
                                                                         </i>
                                                                     </li>
-                                                                    @if($IsHavePermissionVacationExport)
+                                                                    @if($IsHavePermissionOverTimeExport)
                                                                         <li>
                                                                             <span class="SearchTools__Separate"></span>
                                                                         </li>
@@ -125,62 +113,84 @@
                                                                         </label>
                                                                     </th>
                                                                     <th class="Item__Col">#</th>
-                                                                    <th class="Item__Col">@lang("employeeName")</th>
-                                                                    <th class="Item__Col">@lang("vocationTypeWant")</th>
-                                                                    <th class="Item__Col">@lang("fromDate")</th>
-                                                                    <th class="Item__Col">@lang("vocationDaysNumber")</th>
-                                                                    <th class="Item__Col">@lang("fromTime")</th>
-                                                                    <th class="Item__Col">@lang("toTime")</th>
+                                                                    <th class="Item__Col">@lang("employeeWantVocation")</th>
+                                                                    <th class="Item__Col">@lang("overtimeType")</th>
+                                                                    <th class="Item__Col">@lang("startDateFrom")</th>
+                                                                    <th class="Item__Col">@lang("endDateFrom")</th>
+                                                                    <th class="Item__Col">@lang("isItHour")</th>
+                                                                    <th class="Item__Col">@lang("vocationTimeStart")</th>
+                                                                    <th class="Item__Col">@lang("vocationTimeEnd")</th>
                                                                     <th class="Item__Col">@lang("stateRequest")</th>
-                                                                    <th class="Item__Col">@lang("dateResponse")</th>
                                                                     <th class="Item__Col">@lang("more")</th>
                                                                 </tr>
-                                                                @foreach($data as $RequestItem)
+                                                                @foreach($data as $Index=>$RequestOvertime)
                                                                     <tr class="Item DataItem">
                                                                         <td class="Item__Col Item__Col--Check">
-                                                                            <input id="MoreRequestVacations_{{$RequestItem["id"]}}"
-                                                                                   class="CheckBoxItem" type="checkbox"
-                                                                                   name="ids[]" value="{{$RequestItem["id"]}}" hidden>
-                                                                            <label for="MoreRequestVacations_{{$RequestItem["id"]}}"
+                                                                            <input id="OvertimeRequest_{{ $RequestOvertime["id"] }}"
+                                                                                   class="CheckBoxItem" type="checkbox" hidden
+                                                                                   name="ids[]" value="{{ $RequestOvertime["id"] }}" >
+                                                                            <label for="OvertimeRequest_{{ $RequestOvertime["id"] }}"
                                                                                    class="CheckBoxRow">
                                                                                 <i class="material-icons ">
                                                                                     check_small
                                                                                 </i>
                                                                             </label>
                                                                         </td>
-                                                                        <th class="Item__Col">{{ $RequestItem["id"] }}</th>
-                                                                        <th class="Item__Col">
-                                                                            {{ $RequestItem->employee["first_name"]." ".$RequestItem->employee["last_name"] }}
-                                                                        </th>
-                                                                        <td class="Item__Col">{{ $RequestItem->leave_type["name"] ?? "(محذوف)" }}</td>
-                                                                        <td class="Item__Col">{{ $RequestItem["from_date"] }}</td>
-                                                                        <td class="Item__Col">{{ $RequestItem["count_days"] }}</td>
-                                                                        <td class="Item__Col">{{ $RequestItem["from_time"] ?? "_" }}</td>
-                                                                        <td class="Item__Col">{{ $RequestItem["to_time"] ?? "_" }}</td>
-                                                                        <td class="Item__Col">{{ $RequestItem["status"] }}</td>
-                                                                        <td class="Item__Col">{{ $RequestItem["date_update_status"] ?? "_" }}</td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime["id"] }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime->employee["first_name"]." ".$RequestOvertime->employee["first_name"] }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime->overtime_type["name"] }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime["from_date"] }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime["to_date"] }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            @if($RequestOvertime["is_hourly"])
+                                                                                @lang("yes")
+                                                                            @else
+                                                                                @lang("no")
+                                                                            @endif
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime["from_time"] ?? "_" }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime["to_time"] ?? "_" }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            @lang($RequestOvertime["status"])
+                                                                        </td>
                                                                         <td class="Item__Col MoreDropdown">
                                                                             <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                               data-MenuName="AllVacationsView_{{$RequestItem["id"]}}">
+                                                                               data-MenuName="RequestOvertime_{{ $RequestOvertime["id"] }}">
                                                                                 more_horiz
                                                                             </i>
                                                                             <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                                 data-MenuName="AllVacationsView_{{$RequestItem["id"]}}">
+                                                                                 data-MenuName="RequestOvertime_{{ $RequestOvertime["id"] }}">
                                                                                 <ul class="Dropdown__Content">
-                                                                                    @if($RequestItem["status"] == "pending")
-                                                                                        <li>
-                                                                                            <a href="{{ route("system.leaves.edit.leave" , $RequestItem["id"]) }}"
-                                                                                               class="Dropdown__Item">
-                                                                                                @lang("editVacationRequest")
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    @endif
                                                                                     <li>
-                                                                                        <a href="{{ route("system.leaves.show.leave" , $RequestItem["id"]) }}"
+                                                                                        <a href="{{ route("system.overtimes.show.overtime" , $RequestOvertime["id"]) }}"
                                                                                            class="Dropdown__Item">
                                                                                             @lang("viewDetails")
                                                                                         </a>
                                                                                     </li>
+                                                                                    @if($IsHavePermissionOverTimeEdit)
+                                                                                        @if($RequestOvertime["status"] == "pending")
+                                                                                            <li>
+                                                                                                <a href="{{ route("system.overtimes.edit.overtime" , $RequestOvertime["id"]) }}"
+                                                                                                   class="Dropdown__Item">
+                                                                                                    @lang("editRequest")
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        @endif
+                                                                                    @endif
                                                                                 </ul>
                                                                             </div>
                                                                         </td>
@@ -217,40 +227,60 @@
 @endsection
 
 @section("PopupPage")
-    @if($IsHavePermissionVacationRead)
+    @if($IsHavePermissionOverTimeRead)
         @php
-            $LeaveTypes = [] ;
-            foreach ($leavesType as $Index=>$TypeItem) {
-                array_push($LeaveTypes , [ "Label" => $TypeItem
+            $OvertimeTypes = [] ;
+            foreach ($overtimes as $Index=>$OvertimeItem) {
+                array_push($OvertimeTypes , [ "Label" => $OvertimeItem
                     , "Value" => $Index ]) ;
             }
         @endphp
         @php
             $Status = [] ;
-            foreach ($statusLeaves as $Index=>$StatusItem) {
+            foreach ($status as $Index=>$StatusItem) {
                 array_push($Status , [ "Label" => $StatusItem
                     , "Value" => $StatusItem ]) ;
             }
         @endphp
         @php
+            $IsHourlySelect = [] ;
+
+            array_push($IsHourlySelect , [ "Label" => "نعم"
+                    , "Value" => "1" ]) ;
+
+            array_push($IsHourlySelect , [ "Label" => "لا"
+                    , "Value" => "0" ]) ;
+        @endphp
+        @php
+
             $FilterItems = [] ;
 
             array_push($FilterItems , ['Type' => 'text' , 'Info' =>
                    ['Name' => "filter[name_employee]" , 'Placeholder' => __("employeeName")] ]) ;
 
             array_push($FilterItems , ['Type' => 'select' , 'Info' =>
-               ['Name' => "filter[leave_type]" , 'Placeholder' => __("vocationTypeWant") ,
-               "Options" => $LeaveTypes] ]) ;
+               ['Name' => "filter[overtime_type]" , 'Placeholder' => __("overtimeType") ,
+               "Options" => $OvertimeTypes] ]) ;
 
             array_push($FilterItems , ['Type' => 'select' , 'Info' =>
                    ['Name' => "filter[status]" , 'Placeholder' => __("stateRequest") ,
                    "Options" => $Status] ]);
 
             array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("vocationStartDate")] ]);
+               ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("startDateFrom")] ]);
 
             array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("vocationEndDate")] ]);
+               ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("endDateFrom")] ]);
+
+            array_push($FilterItems , ['Type' => 'select' , 'Info' =>
+                   ['Name' => "filter[is_hourly]" , 'Placeholder' => __("isItHour") ,
+                   "Options" => $IsHourlySelect] ]);
+
+            array_push($FilterItems , ['Type' => 'NormalTime' , 'Info' =>
+               ['Name' => "filter[from_time]" , 'Placeholder' => __("vocationTimeStart")] ]);
+
+            array_push($FilterItems , ['Type' => 'NormalTime' , 'Info' =>
+               ['Name' => "filter[to_time]" , 'Placeholder' => __("vocationTimeEnd")] ]);
 
         @endphp
         @include("System.Components.searchForm" , [

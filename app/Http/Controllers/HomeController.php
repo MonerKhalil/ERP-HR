@@ -9,6 +9,6 @@ class HomeController extends Controller
 {
     public function HomeView(): Response
     {
-        return response()->view("System.Pages.globalPage");
+        return response()->view("System/Pages/home");
     }
 }

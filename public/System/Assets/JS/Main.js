@@ -703,12 +703,19 @@ $(document).ready(function (){
             } else {
                 FlatPickerObject = $(Input).flatpickr();
             }
+
             if($(Input).hasClass("MinimumNow")) {
                 FlatPickerObject.set("minDate" , new Date());
             }
 
             if(!$(Input).hasClass("RangeData")) {
                 FlatPickerObject.set("onClose" , function() {
+                    $(Input).valid() ;
+                });
+            }
+
+            if($(Input).hasClass("TimeNoDate")) {
+                FlatPickerObject.set("onChange" , function() {
                     $(Input).valid() ;
                 });
             }
@@ -1196,11 +1203,13 @@ $(document).ready(function (){
                 $(List).find(".DataItem").each((_ , DataItem) => {
                     $(DataItem).find(".CheckBoxItem").change((ev) => {
                         const CheckBoxHeader = $(List).find(".HeaderList .CheckBoxItem") ;
-                        BulkVisible($(List).find(".CheckBoxItem:checked").length > 0) ;
-                        if(CheckBoxHeader.is(":checked") &&
-                            !$(ev.currentTarget).is(":checked")) {
+                        const CheckBoxDataTotal = $(List).find(".DataItem .CheckBoxItem") ;
+                        const CheckBoxDataTotalChecked = $(List).find(".DataItem .CheckBoxItem:checked") ;
+                        BulkVisible(CheckBoxDataTotalChecked.length > 0) ;
+                        if(CheckBoxDataTotal.length === CheckBoxDataTotalChecked.length)
+                            CheckBoxHeader.prop('checked', true);
+                        else
                             CheckBoxHeader.prop('checked', false);
-                        }
                     });
                 });
             });
@@ -1225,7 +1234,6 @@ $(document).ready(function (){
                        .trigger("ShowChange") ;
                });
             });
-
             function BulkVisible(IsVisible = Boolean) {
                 if(BulkTools && IsVisible)
                     $(BulkTools).addClass("Show") ;
@@ -1323,7 +1331,8 @@ $(document).ready(function (){
      */
 
     function NotificationSetting(NotificationInfo = {
-        Operation : "ReadAll" | "DeleteOne" | "ClearAll" | "AddOne" ,
+        NotificationElement : HTMLElement | undefined,
+        Operation : "ReadAll" | "DeleteOne" | "ClearAll" | "CheckUpdateAjax" ,
         NotificationID : Number | undefined ,
         NotificationAdd : "" | undefined
     }) {
@@ -1331,9 +1340,6 @@ $(document).ready(function (){
         const DomainSystem = `${URLSystem}/user/notifications` ;
 
         switch (NotificationInfo.Operation) {
-            case "AddOne" :
-                AddNotification() ;
-                break;
             case "ReadAll" :
                 ReadAllNotification() ;
                 break ;
@@ -1343,10 +1349,9 @@ $(document).ready(function (){
             case "ClearAll" :
                 ClearNotification() ;
                 break ;
-        }
-
-        function AddNotification() {
-
+            case "CheckUpdateAjax" :
+                CheckUpdateAjax() ;
+                break ;
         }
 
         function ReadAllNotification() {
@@ -1387,6 +1392,68 @@ $(document).ready(function (){
             });
         }
 
+        function CheckUpdateAjax() {
+            if(NotificationInfo.NotificationElement === undefined)
+                return ;
+            const IsUpdate = $(NotificationInfo.NotificationElement).attr("data-isUpdate");
+            if(IsUpdate === "false") {
+                $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "true");
+                $.ajax({
+                    url : `${DomainSystem}/edit/read?_token=${Token}` ,
+                    type : "put"
+                }).done((ResponseData) => {
+                    console.log(ResponseData);
+                //     for (const NotificationItem of ResponseData) {
+                //         console.log("ddd");
+                // //         const NotificationCreated = `
+                // //     <li class="Dropdown__Item Notification" data-notificationid="">
+                // //         <div class="Notification__Content">
+                // //             <a href="#" class="Notification__Icon Notification__Icon--Send">
+                // //                 <i class="material-icons"></i>
+                // //             </a>
+                // //             <a href="http://127.0.0.1:8000/system/evaluation/employee/show/add/employee/1"
+                // //                 class="Notification__Details">
+                // //                     <p class="NotificationTitle">
+                // //                         من
+                // //                         <span class="UserFrom">
+                // //                             <strong>
+                // //                                 name
+                // //                             </strong>
+                // //                         </span>
+                // //                         Type
+                // //                     </p>
+                // //                     <p class="NotificationDescription">
+                // //                         Body
+                // //                     </p>
+                // //                     <p class="NotificationDate">
+                // //                         Date
+                // //                     </p>
+                // //             </a>
+                // //             <div class="Notification__Remove">
+                // //                 <i class="material-icons">close</i>
+                // //             </div>
+                // //         </div>
+                // //     </li>
+                // // `;
+                // //         const NotificationAppended = $(NotificationInfo.NotificationElement)
+                // //             .find(".NotificationParent__List").append(NotificationCreated) ;
+                // //         $(NotificationAppended).find(".Notification__Remove i").click(() => {
+                // //             NotificationSetting({
+                // //                 Operation : "DeleteOne" ,
+                // //                 NotificationID : "Put ID Notification" ,
+                // //                 NotificationAdd : undefined
+                // //             });
+                // //         }) ;
+                //     }
+                    $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");
+                    console.log("Success");
+                }).fail(() => {
+                    $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");
+                    console.log("Failure");
+                });
+            }
+        }
+
         function CheckIfEmpty(NotificationParent = HTMLElement) {
             const NotificationNumber = $(NotificationParent).find(".Notification").length ;
             if(NotificationNumber === 0) {
@@ -1409,6 +1476,15 @@ $(document).ready(function (){
 
     $(".NotificationParent").ready(function() {
         $(".NotificationParent").each((_ , Parent) => {
+            $(Parent).attr("data-isUpdate" , "false");
+            // setInterval(() => {
+            //     NotificationSetting({
+            //         NotificationElement : Parent ,
+            //         Operation : "CheckUpdateAjax" ,
+            //         NotificationID : undefined ,
+            //         NotificationAdd : undefined
+            //     });
+            // } , 5000);
             $(Parent).find(".ReadAll").click(() => {
                 NotificationSetting({
                     Operation : "ReadAll" ,
@@ -1563,7 +1639,9 @@ $(document).ready(function (){
                 .find(".Selector .Selector__Options .Selector__Option").length ;
 
             $(SelectorInfo.MainSelector).attr("CounterID" , 0) ;
-            $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , 0) ;
+
+            if($(SelectorInfo.MainSelector).attr("data-ValueSelectedNum") === undefined)
+                $(SelectorInfo.MainSelector).attr("data-ValueSelectedNum" , 0) ;
 
             if($(SelectorInfo.MainSelector).attr("data-DefaultValues") !== undefined)
                 ValuesDefault = $(SelectorInfo.MainSelector).attr("data-DefaultValues").split(",");
@@ -1587,7 +1665,9 @@ $(document).ready(function (){
                 const OptionLabel = $(OptionSelector).text() ;
                 const OptionForm = $(OptionSelector).closest("form").get(0) ;
                 let CounterID = Number($(SelectorInfo.MainSelector).attr("CounterID")) ;
-                let ValueSelected = Number($(SelectorInfo.MainSelector).attr("ValueSelectedNum")) ;
+                let ValueSelected = $(SelectorInfo.MainSelector).attr("data-ValueSelectedNum") ;
+                ValueSelected++ ;
+
                 const ReadOnlyElement = $(`
                         <div class="ReadonlySelector ${ClassContainer}">
                             <div class="Form__Group">
@@ -1612,15 +1692,17 @@ $(document).ready(function (){
                             </div>
                         </div>
                     `).get(0) ;
+
                 if(Location === "Before")
                     $(SelectorInfo.MainSelector).before($(ReadOnlyElement)) ;
                 else
                     $(SelectorInfo.MainSelector).after($(ReadOnlyElement)) ;
                 $(ReadOnlyElement).find(".FieldReadOnly__Close").click(() => {
+                    ValueSelected = $(SelectorInfo.MainSelector).attr("data-ValueSelectedNum") - 1 ;
                     $(OptionSelector).show() ;
+                    ValueSelected-- ;
                     if(ValueSelected === AllValues)
                         $(SelectorInfo.MainSelector).show();
-                    ValueSelected-- ;
                     if(ValueSelected < MinFieldsRead)
                         SelectorOperation({
                             Operation : "SetRequired" ,
@@ -1645,7 +1727,6 @@ $(document).ready(function (){
                     Operation : "Clear" ,
                     Selector : $(SelectorInfo.MainSelector).find(".Selector").get(0) ,
                 });
-                ValueSelected++ ;
                 if(ValueSelected >= MinFieldsRead) {
                     SelectorOperation({
                         Operation : "ResetRequired",
@@ -1665,13 +1746,13 @@ $(document).ready(function (){
                     FormElement : OptionForm
                 });
                 $(SelectorInfo.MainSelector).attr("CounterID" , CounterID) ;
+                $(SelectorInfo.MainSelector).attr("data-ValueSelectedNum" , ValueSelected) ;
             }
         }
 
         function SelectorRest() {
             $(SelectorInfo.MainSelector).attr("CounterID" , 0) ;
             $(SelectorInfo.MainSelector).attr("ValueSelectedNum" , 0) ;
-
         }
 
     }
@@ -1767,7 +1848,7 @@ $(document).ready(function (){
                 $(MultiSelector).find(".MultiSelector__Option .MultiSelector__InputCheckBox")
                     .each((_ , OptionCheckbox) => {
                         TriggerNameMulti(TargetName , $(OptionCheckbox).attr("name")
-                            , $(OptionCheckbox).is(":checked")) ;
+                            , $(OptionCheckbox).is(":checked") , true) ;
                     $(OptionCheckbox).on("change" , function () {
                         TriggerNameMulti(TargetName , $(OptionCheckbox).attr("name")
                             , $(OptionCheckbox).is(":checked")) ;
@@ -1870,22 +1951,22 @@ $(document).ready(function (){
         }
 
         function TriggerNameMulti(NameElement = String , NameCheckBox = String
-                                  , IsChecked = Boolean) {
+                                  , IsChecked = Boolean , IsInitial = false) {
             $(".VisibilityTarget").each((_ , VisibilityTarget) => {
-                let CheckedNumOption = Number($(VisibilityTarget).attr("data-CheckedNumber"));
-                if(!CheckedNumOption) {
+                let CheckedNumOption = 0 ;
+                if(typeof $(VisibilityTarget).attr("data-CheckedNumber") !== 'undefined')
+                    CheckedNumOption = Number($(VisibilityTarget).attr("data-CheckedNumber"));
+                else
                     $(VisibilityTarget).attr("data-CheckedNumber" , 0) ;
-                    CheckedNumOption = 0 ;
-                }
                 const ElementName = $(VisibilityTarget).attr("data-TargetName");
                 if(ElementName === NameElement) {
                     const CheckboxesName = $(VisibilityTarget).attr("data-TargetCheckboxName")
                         .split(",") ?? undefined ;
                     for (let i = 0; i < CheckboxesName.length ; i++) {
                         if(CheckboxesName[i] === NameCheckBox) {
-                            if(IsChecked)
-                                CheckedNumOption++ ;
-                            else if(CheckedNumOption > 0)
+                            if(IsChecked) {
+                                CheckedNumOption++;
+                            } else if(!IsInitial && CheckedNumOption > 0)
                                 CheckedNumOption-- ;
                             break ;
                         }

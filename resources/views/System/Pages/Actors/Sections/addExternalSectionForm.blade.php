@@ -1,23 +1,24 @@
 <?php
     $MyAccount = auth()->user() ;
-    $IsHavePermissionSessionInRead = $MyAccount->can("read_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInEdit = $MyAccount->can("update_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInDelete = $MyAccount->can("delete_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInExport = $MyAccount->can("export_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInCreate = $MyAccount->can("create_sections") || $MyAccount->can("all_sections") ;
+    $IsHavePermissionSessionExRead = $MyAccount->can("read_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExEdit = $MyAccount->can("update_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExDelete = $MyAccount->can("delete_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExExport = $MyAccount->can("export_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExCreate = $MyAccount->can("create_section_externals") || $MyAccount->can("all_section_externals") ;
 ?>
 
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    @if($IsHavePermissionSessionInCreate)
+    @if((isset($sectionExternal) && $IsHavePermissionSessionExEdit) ||
+        (!isset($sectionExternal) && $IsHavePermissionSessionExCreate))
         <section class="MainContent__Section MainContent__Section--NewSectionForm">
             <div class="NewSectionFormPage">
                 <div class="NewSectionFormPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => isset($sections) ? __("editSectionInfo") : __("registerSectionInfo") ,
+                        'mainTitle' => "اضافة قسم خاجي جديد" ,
                         'paths' => [[__("home") , '#'] , ['Page']] ,
-                        'summery' => __("titleRegisterSectionInfo")
+                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                     ])
                 </div>
                 <div class="NewSectionFormPage__Content">
@@ -33,11 +34,11 @@
                                             <div class="Card__Inner">
                                                 <div class="Card__Body">
                                                     <form class="Form Form--Dark"
-                                                          action="{{ isset($sections) ? route("system.sections.update" , $sections["id"])
-                                                                : route("system.sections.store") }}"
+                                                          action="{{ isset($sectionExternal) ? route("system.section_externals.update" , $sectionExternal["id"])
+                                                                : route("system.section_externals.store") }}"
                                                           method="post">
                                                         @csrf
-                                                        @if(isset($sections))
+                                                        @if(isset($sectionExternal))
                                                             @method("put")
                                                         @endif
                                                         <div class="ListData" >
@@ -56,33 +57,11 @@
                                                                                     <div class="Input__Area">
                                                                                         <input id="SectionName" class="Input__Field"
                                                                                                type="text" name="name"
-                                                                                               value="{{ isset($sections) ? $sections["name"] : "" }}"
+                                                                                               value="{{ isset($sectionExternal) ? $sectionExternal["name"] : "" }}"
                                                                                                placeholder="@lang("sectionName")" required>
                                                                                         <label class="Input__Label" for="SectionName">
                                                                                             @lang("sectionName")
                                                                                         </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group"
-                                                                                 data-ErrorBackend="{{ Errors("moderator_id") }}">
-                                                                                <div class="Form__Select">
-                                                                                    <div class="Select__Area">
-                                                                                        @php
-                                                                                            $Employees = [] ;
-                                                                                            foreach ($employees as $Employee) {
-                                                                                                array_push($Employees , [ "Label" => $Employee["first_name"]." ".$Employee["last_name"]
-                                                                                                    , "Value" => $Employee["id"] ]) ;
-                                                                                            }
-                                                                                        @endphp
-                                                                                        @include("System.Components.selector" , [
-                                                                                            'Name' => "moderator_id" , "Required" => "true" ,
-                                                                                            "DefaultValue" => isset($sections) ? $sections["moderator_id"] : ""
-                                                                                             , "Label" => __("managerSection") ,
-                                                                                            "Options" => $Employees
-                                                                                        ])
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -101,7 +80,7 @@
                                                                                         @endphp
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "address_id" , "Required" => "true" ,
-                                                                                            "DefaultValue" => isset($sections) ? $sections["address_id"] : ""
+                                                                                            "DefaultValue" => isset($sectionExternal) ? $sectionExternal["address_id"] : ""
                                                                                              , "Label" => __("locationSection") ,
                                                                                             "Options" => $Countries
                                                                                         ])
@@ -109,17 +88,49 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="Col-12">
+                                                                        <div class="Col-4-md Col-6-sm">
                                                                             <div class="Form__Group"
-                                                                                 data-ErrorBackend="{{ Errors("details") }}">
-                                                                                <div class="Form__Textarea">
-                                                                                    <div class="Textarea__Area">
-                                                                                    <textarea id="SectionDetails" class="Textarea__Field"
-                                                                                              name="details" placeholder="@lang("descriptionSection")"
-                                                                                              rows="3"
-                                                                                    >{{ isset($sections) ? $sections["details"] : "" }}</textarea>
-                                                                                        <label class="Textarea__Label" for="SectionDetails">
-                                                                                            @lang("descriptionSection")
+                                                                                 data-ErrorBackend="{{ Errors("email") }}">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="SectionEmail" class="Input__Field"
+                                                                                               type="email" name="email"
+                                                                                               value="{{ isset($sectionExternal) ? $sectionExternal["email"] : "" }}"
+                                                                                               placeholder="البريد الالكتروني">
+                                                                                        <label class="Input__Label" for="SectionEmail">
+                                                                                            البريد الالكتروني
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("fax") }}">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="SectionFax" class="Input__Field"
+                                                                                               value="{{ isset($sectionExternal) ? $sectionExternal["fax"] : "" }}"
+                                                                                               type="number" name="fax"
+                                                                                               placeholder="الفاكس">
+                                                                                        <label class="Input__Label" for="SectionFax">
+                                                                                            الفاكس
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("phone") }}">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="SectionPhone" class="Input__Field"
+                                                                                               type="number" name="phone"
+                                                                                               value="{{ isset($sectionExternal) ? $sectionExternal["phone"] : "" }}"
+                                                                                               placeholder="رقم الهاتف">
+                                                                                        <label class="Input__Label" for="SectionPhone">
+                                                                                            رقم الهاتف
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
