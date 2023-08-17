@@ -363,6 +363,44 @@
                             {{--                            </li>--}}
                         </ul>
                     </li>
+                    <li class="NavigationsGroup__GroupItem">
+                        <div class="Title">
+                            <div class="NavName">
+                                <i class="material-icons Icon">
+                                    login
+                                </i>
+                                <span class="Label">الحضور</span>
+                            </div>
+                            <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                        </div>
+                        <ul class="NavigationsGroup__SubItems">
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.attendances.create") }}" class="NavName">
+                                        <span class="Label">تسجيل الحضور</span>
+                                    </a>
+                                </div>
+                            </li>
+                            {{--  View Attendance Inforamtion Admin  --}}
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.attendances.index") }}" class="NavName">
+                                        <span class="Label">عرض معلومات الحضور</span>
+                                    </a>
+                                </div>
+                            </li>
+                            {{--  View Attendance Inforamtion Employee  --}}
+                            <li class="NavigationsGroup__NavItem">
+                                <div class="Title">
+                                    <a href="{{ route("system.attendances.employee") }}" class="NavName">
+                                        <span class="Label">عرض كامل حضوري</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">

@@ -22,6 +22,7 @@
     "accept_request_leave" : "success accept request leave.",
     "cancel_request_leave" : "reject request leave.",
     "request_overtime" : "request overtime.",
+    "err_overtime_datetime_valid" : "err_overtime_datetime_valid.",
     "err_request_overtime_days" : "err_request_overtime_days",
     "err_request_overtime_rate_salary" : "err_request_overtime_rate_salary",
     "err_request_overtime_time" : "err_request_overtime_time",
@@ -32,6 +33,7 @@
     "evaluation_employee" : "evaluation employee request .",
     "msg_evaluation_employee" : "msg_evaluation_employee .",
     "err_check_in_attendance" : "err_check_in_attendance .",
+    "err_public_holiday" : "لايمكن تعديل تاريخ العطلة لانه تم تجاوز المدة الحالية لها .",
 
     "/*         Header         */": "",
 

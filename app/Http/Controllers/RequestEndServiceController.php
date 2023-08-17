@@ -36,8 +36,8 @@ class RequestEndServiceController extends Controller
         $DataEnd = DataEndService::with(["employee","decision"])->where("is_request_end_services",true);
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
             $DataEnd->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."&")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."&");
+                $q->where("first_name","Like","%".$request->filter["name_employee"])
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]);
             });
         }
         if (isset($request->filter["number_decision"]) && !is_null($request->filter["number_decision"])){

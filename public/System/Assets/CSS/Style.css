@@ -263,6 +263,36 @@ img {
   padding-left: 0 !important;
 }
 
+.my-1 {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.my-2 {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.my-3 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
+
+.mx-1 {
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
+}
+
+.mx-2 {
+  margin-left: 2rem !important;
+  margin-right: 2rem !important;
+}
+
+.mx-3 {
+  margin-left: 3rem !important;
+  margin-right: 3rem !important;
+}
+
 @media only screen and (max-width: 74.99em) {
   .Visible-desktop {
     display: initial !important;
@@ -2256,6 +2286,38 @@ body.Dark .Popper--MoreMenuTable.MenuTarget.Dropdown .Dropdown__Item:hover {
   color: #fff;
   line-height: 2;
   font-size: 1.8rem;
+}
+
+.SignatureStructure__List {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 2rem;
+}
+.SignatureStructure__Item {
+  display: flex;
+  align-items: center;
+}
+.SignatureStructure__Item .SignatureBox {
+  font-size: 1.6rem;
+  padding: 1rem 2.5rem;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+.SignatureStructure__Item .SignatureBox--Pending {
+  background: #d9a242;
+}
+.SignatureStructure__Item .SignatureBox--Success {
+  background: #51cb53;
+}
+.SignatureStructure__Item .SignatureBox--Reject {
+  background: #f93542;
+}
+.SignatureStructure__Item .material-icons {
+  margin: 0 1rem;
+}
+.SignatureStructure__Item:first-child .material-icons {
+  display: none;
 }
 
 .HeaderPage {
@@ -4297,6 +4359,144 @@ body.Dark .NotificationPage__NotificationList .Notification:not(:last-child)::af
 }
 .RollSettingPage .Card--NewRoll .Col--DragDropTarget:hover::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.2705882353);
+}
+
+.EmailPage #bodyTable {
+  table-layout: fixed;
+  background-color: #f9f9f9;
+}
+.EmailPage .wrapperWebview {
+  max-width: 600px;
+}
+.EmailPage .wrapperWebview .webview {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 0;
+}
+.EmailPage .wrapperWebview .webview .Logo {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+}
+.EmailPage .wrapperBody {
+  max-width: 600px;
+}
+.EmailPage .wrapperBody .tableCard {
+  background-color: #fff;
+  border-color: #e5e5e5;
+  border-style: solid;
+  border-width: 0 1px 1px 1px;
+}
+.EmailPage .wrapperBody .tableCard .topBorder {
+  background-color: #00d2f4;
+  font-size: 1px;
+  line-height: 3px;
+}
+.EmailPage .wrapperBody .tableCard .imgHero {
+  padding-bottom: 20px;
+}
+.EmailPage .wrapperBody .tableCard .imgHero a {
+  text-decoration: none;
+}
+.EmailPage .wrapperBody .tableCard .imgHero a img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  display: block;
+  color: #f9f9f9;
+}
+.EmailPage .wrapperBody .tableCard .containtTable {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.EmailPage .wrapperBody .tableCard .containtTable .description {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.EmailPage .wrapperBody .tableCard .containtTable .description .Group:not(:last-child) {
+  margin-bottom: 10px;
+}
+.EmailPage .wrapperBody .tableCard .containtTable .description .Group .text {
+  color: #666;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 22px;
+  text-transform: none;
+  text-align: initial;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 20px;
+}
+.EmailPage .wrapperBody .tableCard .containtTable .description .Group .list {
+  color: #666;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 22px;
+  text-transform: none;
+  margin-left: 15px;
+  list-style: initial;
+  padding-bottom: 20px;
+}
+.EmailPage .wrapperBody .tableCard .containtTable .description .Group .list li {
+  margin-bottom: 10px;
+}
+.EmailPage .wrapperBody .tableCard .containtTable .description .Group .title {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+.EmailPage .wrapperBody .tableCard .tableButton .contentCtaButton {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.EmailPage .wrapperBody .tableCard .tableButton .ctaButton {
+  background-color: rgb(0, 210, 244);
+  padding: 12px 35px;
+  border-radius: 50px;
+}
+.EmailPage .wrapperBody .tableCard .tableButton .ctaButton .text {
+  color: #fff;
+  font-family: Poppins, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 1px;
+  line-height: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: block;
+}
+.EmailPage .wrapperBody .tableCard .mainTitle .text {
+  position: relative;
+  color: #000;
+  font-family: Poppins, Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 36px;
+  text-transform: none;
+  text-align: center;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 30px;
+}
+.EmailPage .wrapperBody .tableCard .mainTitle .text::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #00d2f4;
+  height: 2px;
+  width: 100%;
 }
 
 /**

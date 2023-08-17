@@ -77,7 +77,6 @@ class EmployeeController extends Controller
             DB::commit();
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
-            dd($exception);
             DB::rollBack();
             throw new MainException($exception->getMessage());
         }

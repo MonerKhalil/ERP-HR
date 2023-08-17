@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix("notifications")->controller(NotificationsController::class)
             ->group(function () {
                 Route::get("show", "getNotifications")->name("notifications.show");
+                Route::get("update/get","getNotificationsUpdate")->name("notifications.update");
                 Route::delete("clear", "clearNotifications")->name("notifications.clear");
                 Route::put("edit/read", "editNotificationsToRead")->name("notifications.edit");
                 Route::delete("remove/notify", "removeNotification")->name("notify.remove");
@@ -348,9 +349,9 @@ Route::middleware(['auth'])->group(function () {
        =============================================*/
 
         Route::prefix("attendances")->name("attendances.")
-            ->controller(AttendanceController::class)->group(function (){
-                Route::get("create","showPageAttendance")->name("create");
-                Route::get("store/{type}","store")->name("store.type")
+            ->controller(AttendanceController::class)->group(function () {
+                Route::get("create","create")->name("create");
+                Route::post("store/{type}","store")->name("store.type")
                     ->whereIn("type",["check_in","check_out"]);
                 Route::get("all/employees","index")->name("index");
                 Route::get("all/employee","employeeAttendances")->name("employee");
@@ -431,8 +432,9 @@ Route::middleware(['auth'])->group(function () {
             Route::delete("multi/delete", "MultiDelete")->name("multi.delete");
         });
     Route::resource('correspondences_dest', CorrespondenceSourceDestController::class)->except("edit", "update",);
-    Route::get("transaction/create/correspondences_dest/{correspondences_id}", [CorrespondenceSourceDestController::class, "addTransaction"])->name("transaction.correspondences_dest.add");
-    Route::get("transaction/create/legalopinion/{correspondences_id}", [LegalController::class, "addLegalOpinion"])->name("transaction.legalopinion.add");
+    Route::get("transaction/create/correspondences_dest/{correspondences_id}", [CorrespondenceSourceDestController::class, "addDecisions"])->name("transaction.correspondences_dest.add");
+    Route::post("transaction/send/legalopinion/{correspondences_id}", [LegalController::class, "sendLegalOpinion"])->name("transaction.legalopinion.send");//the bottom send correspndence to legal section
+    Route::put("transaction/add/legalopinion", [LegalController::class, "addLegalOpinion"])->name("transaction.legalopinion.add");
 
 
     /*===========================================

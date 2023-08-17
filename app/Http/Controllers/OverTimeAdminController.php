@@ -35,8 +35,8 @@ class OverTimeAdminController extends Controller
         //search name employee
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
             $data = $data->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."%")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
+                $q->where("first_name","Like","%".$request->filter["name_employee"])
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]);
             });
         }
         if (isset($request->filter["start_date_filter"]) && !is_null($request->filter["start_date_filter"])
@@ -133,6 +133,7 @@ class OverTimeAdminController extends Controller
             "count_hours_in_days" => $data->count_hours_in_days,
             "is_hourly" => $request->is_hourly,
             "status" => "approve",
+            "date_update_status" => now(),
             "description" => $request->description,
         ]);
         return $this->responseSuccess(null,null,"create",self::IndexRoute);
@@ -153,6 +154,7 @@ class OverTimeAdminController extends Controller
             "count_hours_in_days" => $data->count_hours_in_days,
             "is_hourly" => $request->is_hourly,
             "status" => "approve",
+            "date_update_status" => now(),
             "description" => $request->description,
         ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);

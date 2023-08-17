@@ -1,6 +1,7 @@
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
+{{--    {{ dd($attendance) }}--}}
     <section class="MainContent__Section MainContent__Section--AddAttendancePage">
         <div class="AddAttendancePage">
             <div class="AddAttendancePage__Breadcrumb">
@@ -24,67 +25,70 @@
                                                  data-content="TimeIn">
                                                 Time In
                                             </div>
-                                            <div class="Taps__Item TimeOut"
-                                                 data-content="TimeOut">
-                                                Time Out
-                                            </div>
+                                            @if(isset($attendance["check_in"]))
+                                                <div class="Taps__Item TimeOut"
+                                                     data-content="TimeOut">
+                                                    Time Out
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="Taps__Panel" data-panel="TimeIn">
-                                        <form action="#" method="post">
+                                        <form action="{{ route("system.attendances.store.type" , "check_in") }}" method="post">
+                                            @csrf
                                             <div class="AttendanceClock__DateTime">
                                                 <div class="CircleTime ClockTime">
-                                                    <div class="Day">Monday</div>
-                                                    <div class="Time">10:20:39 PM</div>
-                                                    <div class="Date">December 20,2018</div>
+                                                    <div class="Day"></div>
+                                                    <div class="Time"></div>
+                                                    <div class="Date"></div>
                                                 </div>
                                             </div>
                                             <div class="AttendanceClock__Register">
-                                                @if(true)
-                                                    <button class="Button Size-2 Button--Primary">
-                                                        Attendance Record
-                                                    </button>
-                                                @endif
-                                                @if(false)
+                                                @if(isset($attendance["check_in"]))
                                                     <div class="BoxRegister">
-                                                        Welcome! MR.Amir Alhloo . <br>
-                                                        Time In at 10:20:34 PM Success!
+                                                        Welcome! {{ $employee["first_name"]." ".$employee["last_name"] }} <br>
+                                                        Time In at {{ \Carbon\Carbon::parse($attendance["check_in"])->format('H:i:s A') }} Success!
                                                     </div>
+                                                @else
+                                                    <button class="Button Size-2 Button--Primary">
+                                                        Check In Record
+                                                    </button>
                                                 @endif
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="Taps__Panel" data-panel="TimeOut">
-                                        <form action="#" method="post">
-                                            <div class="AttendanceClock__DateTime">
-                                                <div class="CircleTime ClockTime">
-                                                    <div class="Day">sunday</div>
-                                                    <div class="Time">10:20:39 PM</div>
-                                                    <div class="Date">December 19,2018</div>
-                                                </div>
-                                            </div>
-                                            <div class="AttendanceClock__Register">
-                                                @if(true)
-                                                    <button class="Button Size-2 Button--Primary">
-                                                        Attendance Record
-                                                    </button>
-                                                @endif
-                                                @if(false)
-                                                    <div class="BoxRegister">
-                                                        Welcome! MR.Amir Alhloo . <br>
-                                                        Time In at 10:20:34 PM Success!
+                                    @if(isset($attendance["check_in"]))
+                                        <div class="Taps__Panel" data-panel="TimeOut">
+                                            <form action="{{ route("system.attendances.store.type" , "check_out") }}" method="post">
+                                                @csrf
+                                                <div class="AttendanceClock__DateTime">
+                                                    <div class="CircleTime ClockTime">
+                                                        <div class="Day"></div>
+                                                        <div class="Time"></div>
+                                                        <div class="Date"></div>
                                                     </div>
-                                                @endif
-                                            </div>
-                                        </form>
-                                    </div>
+                                                </div>
+                                                <div class="AttendanceClock__Register">
+                                                    @if(isset($attendance["check_out"]))
+                                                        <div class="BoxRegister">
+                                                            Welcome! {{ $employee["first_name"]." ".$employee["last_name"] }} <br>
+                                                            Time Out at {{ \Carbon\Carbon::parse($attendance["check_out"])->format('H:i:s A') }} Success!
+                                                        </div>
+                                                    @else
+                                                        <button class="Button Size-2 Button--Primary">
+                                                            Check Out Record
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 @endsection
