@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 class CorrespondenceSourceDestController extends Controller
 {
     const Folder = "users";
-    const IndexRoute = "system.Correspondence.index";
+    const IndexRoute = "correspondences.index";
 
     public function __construct()
     {
@@ -58,7 +58,7 @@ class CorrespondenceSourceDestController extends Controller
         $external_party = SectionExternal::query()->pluck("name", "id")->toArray();//if external
         $internal_department = Sections::query()->pluck("name", "id")->toArray();//if external
         $employee_dest = Employee::query()->whereNot("user_id", Auth::id())->select(["id", "first_name", "last_name"])->get();//if internal
-        return $this->responseSuccess("System.Pages.Actors.Diwan_User.addSourceDest", compact("employee_dest", "correspondence",
+        return $this->responseSuccess("System.Pages.Actors.Diwan_User.addSourceDest", compact("employee_dest", "Correspondence_id",
             "source_dest_type", "external_party", "type","internal_department"));
     }
     /**
