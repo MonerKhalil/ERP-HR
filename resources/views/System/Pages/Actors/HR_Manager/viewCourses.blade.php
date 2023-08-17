@@ -7,7 +7,7 @@
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewCourses") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'summery' => __("titleViewCourse")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -96,8 +96,8 @@
                                                                 <div class="Item__Col">#</div>
                                                                 <div class="Item__Col"><span>@lang("name")</span></div>
                                                                 <div class="Item__Col"><span>@lang("type")</span></div>
-                                                                <div class="Item__Col"><span>@lang("start_date")</span></div>
-                                                                <div class="Item__Col"><span>@lang("end_date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("courseStartDate")</span></div>
+                                                                <div class="Item__Col"><span>@lang("courseEndDate")</span></div>
                                                             </div>
                                                             @foreach($data as $Course)
                                                                 <div class="Item DataItem">

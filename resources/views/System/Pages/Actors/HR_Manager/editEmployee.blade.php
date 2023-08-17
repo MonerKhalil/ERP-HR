@@ -196,7 +196,9 @@
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
-
+{{--                                                                                @php--}}
+{{--                                                                                dd($employee);--}}
+{{--                                                                                @endphp--}}
                                                                                 @include("System.Components.selector" , ['Name' => "user_id" , "Required" => "true" ,
                                                                                             "Label" => __('User'),"DefaultValue" => isset($employee) ? $employee["user_id"] : "",
                                                                                             "OptionsValues" => $users,])
@@ -554,9 +556,9 @@
                                                                                                    type="number"
                                                                                                    name="private_number2"
                                                                                                    value="{{isset($employee->contact[0]['private_number2']) ? $employee->contact[0]['private_number2'] : ""}}"
-                                                                                                   placeholder="@lang("personalPhone2")">
+                                                                                                   placeholder="@lang("private_number2")">
                                                                                             <label class="Input__Label"
-                                                                                                   for="EmpPersonalPhone">@lang("personalPhone2")</label>
+                                                                                                   for="EmpPersonalPhone">@lang("private_number2")</label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -609,7 +611,7 @@
                                                                                             @endphp
                                                                                             @include("System.Components.selector" , [
                                                                                                         'Name' => "country_name" , "Required" => "true"
-                                                                                                        , "Label" => __('countryName') ,"DefaultValue" => isset($employee->contact[0]->address->country['country_name']) ? $employee->contact[0]->address->country['country_name'] : ""
+                                                                                                        , "Label" => __('countryName') ,"DefaultValue" => isset($employee->contact[0]->address) ? $employee->contact[0]->address->country['id'] : ""
                                                                                                         , "Options" => $Countries
                                                                                                     ])
                                                                                         </div>
@@ -761,20 +763,6 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                {{--                                                                                <div class="Form__Group">--}}
-                                                                                {{--                                                                                    <div class="Form__UploadFile">--}}
-                                                                                {{--                                                                                        <div class="UploadFile__Area">--}}
-                                                                                {{--                                                                                            <input type="file"--}}
-                                                                                {{--                                                                                                   class="UploadFile__Field"--}}
-                                                                                {{--                                                                                                   name="document_education_path"--}}
-                                                                                {{--                                                                                                   placeholder="@lang("chooseDocument")">--}}
-                                                                                {{--                                                                                            <label--}}
-                                                                                {{--                                                                                                class="UploadFile__Label">--}}
-                                                                                {{--                                                                                                @lang("chooseDocument")--}}
-                                                                                {{--                                                                                            </label>--}}
-                                                                                {{--                                                                                        </div>--}}
-                                                                                {{--                                                                                    </div>--}}
-                                                                                {{--                                                                                </div>--}}
                                                                             </div>
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">

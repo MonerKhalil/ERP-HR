@@ -95,12 +95,15 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="Item__Col">#</div>
-                                                                <div class="Item__Col"><span>@lang("employee id")</span></div>
-                                                                <div class="Item__Col"><span>@lang("contract type")</span></div>
-                                                                <div class="Item__Col"><span>@lang("contract date")</span></div>
-                                                                <div class="Item__Col"><span>@lang("contract finish date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("employeeName")</span></div>
+                                                                <div class="Item__Col"><span>@lang("contractType")</span></div>
+                                                                <div class="Item__Col"><span>@lang("contractDate")</span></div>
+                                                                <div class="Item__Col"><span>@lang("contractFinish")</span></div>
                                                             </div>
                                                             @foreach($contracts as $contract)
+{{--                                                                @php--}}
+{{--                                                                dd($contract);--}}
+{{--                                                                @endphp--}}
                                                                 <div class="Item DataItem">
                                                                     <div class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_{{$contract["id"]}}"
@@ -113,7 +116,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="Item__Col">{{$contract["id"]}}</div>
-                                                                    <div class="Item__Col">{{$contract["employee_id"]}}</div>
+                                                                    <div class="Item__Col">{{$contract->employee["first_name"]}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_type"]}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_date"]}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_finish_date"]}}</div>
