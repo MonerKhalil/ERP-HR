@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
 
 class TypeDecisionController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/DecisionType/decisionTypeView";
     public const IndexRoute = "system.type_decisions.index";
     public function __construct()
     {
@@ -37,7 +37,7 @@ class TypeDecisionController extends Controller
      */
     public function create()
     {
-        //
+        return $this->responseSuccess("System/Pages/Actors/DecisionType/decisionTypeForm");
     }
 
     /**
@@ -71,7 +71,9 @@ class TypeDecisionController extends Controller
      */
     public function edit(TypeDecision $typeDecision)
     {
-        //
+        $data = $typeDecision ;
+        return $this->responseSuccess("System/Pages/Actors/DecisionType/decisionTypeForm" ,
+            compact("data"));
     }
 
     /**

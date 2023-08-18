@@ -46,19 +46,19 @@ class Correspondence extends BaseModel
     public function validationRules(){
 
         return function (BaseRequest $validator) {
-            $ID = $validator->route('correspondences')->id ?? 0;
+            $ID = $validator->route('correspondence')->id ?? 0;
             return [
                 "type"=>['required',Rule::in(self::type())],
                 "subject"=>["required","string"],
                 "summary"=>["required","string"],
                 "date"=>$validator->dateRules(true),
                 "path_file" => $validator->fileRules(false),
-                "number_internal"=>["numeric",Rule::requiredIf(function ()use($validator){
-                    return $validator->input("type") == "internal";
-                }),Rule::unique('correspondences', 'number_internal')->ignore($ID)],
-                "number_external"=>["numeric",Rule::requiredIf(function ()use($validator){
-                return $validator->input("type") == "external";
-            }),Rule::unique('correspondences', 'number_external')->ignore($ID)],
+//                "number_internal"=>["numeric",Rule::requiredIf(function ()use($validator){
+//                    return $validator->input("type") == "internal";
+//                }),Rule::unique('correspondences', 'number_internal')->ignore($ID)],
+//                "number_external"=>["numeric",Rule::requiredIf(function ()use($validator){
+//                return $validator->input("type") == "external";
+//            }),Rule::unique('correspondences', 'number_external')->ignore($ID)],
             ];
         };
     }

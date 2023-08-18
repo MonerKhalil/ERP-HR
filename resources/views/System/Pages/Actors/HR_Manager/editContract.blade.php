@@ -19,6 +19,9 @@
             <div class="Row">
                 <div class="AddContractPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="ContractPage__Information">
                                 <div class="Card">
@@ -36,17 +39,9 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
-                                                                    @php
-                                                                        $EmployeesList = [] ;
-                                                                        foreach ($data['employees_names'] as $Employee) {
-                                                                            array_push($EmployeesList , [
-                                                                                "Label" => $Employee["first_name"]
-                                                                                , "Value" => $Employee["id"] ]) ;
-                                                                        }
-                                                                    @endphp
                                                                     @include("System.Components.selector" , ['Name' => "employee_id" , "Required" => "true" , "Label" => __('employeeName'),
                                                                         "DefaultValue" => isset($data["contract"])? $data["contract"]["employee_id"] : "",
-                                                                                "Options" => $EmployeesList,])
+                                                                                "OptionsValues" => $data['employees_names'],])
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -64,9 +59,8 @@
                                                                             }
                                                                             array_push($CotnractTypes , [
                                                                                 "Label" => $type
-                                                                                , "Value" => $index ]) ;
+                                                                                , "Value" => $type ]) ;
                                                                         }
-
                                                                     @endphp
                                                                     @include("System.Components.selector" , ['Name' => "contract_type" , "Required" => "true" , "Label" => __('contractType') ,
                                                                         "DefaultValue" =>isset($data["contract"])? $default_value : "",
@@ -172,13 +166,34 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
+                                                                    @php
+                                                                        $Sections = [] ;
+                                                                        foreach ($data['sections'] as $Index => $Item) {
+                                                                            array_push($Sections , [ "Label" => $Item ,
+                                                                                 "Value" => $Index] ) ;
+                                                                        }
+                                                                    @endphp
                                                                     @include("System.Components.selector" , ['Name' => "section_id" , "Required" => "true" , "Label" => __('DepartmentName'),"DefaultValue" =>
-                                                                        isset($data["contract"])? $data["contract"]['sesction_id'] : "",
-                                                                                "OptionsValues" => $data['sections'],])
+                                                                        isset($data["contract"])? $data["contract"]['section_id'] : "",
+                                                                                "Options" => $Sections,])
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+{{--                                                    <div class="Col-4-md Col-6-sm">--}}
+{{--                                                        <div class="Form__Group">--}}
+{{--                                                            <div class="Form__Select">--}}
+{{--                                                                <div class="Select__Area">--}}
+{{--                                                                    @php--}}
+{{--                                                                    dd($data["contract"]);--}}
+{{--                                                                    @endphp--}}
+{{--                                                                    @include("System.Components.selector" , ['Name' => "managerName" , "Required" => "true" ,--}}
+{{--                                                                             "Label" => __('managerName'),"DefaultValue" => "",--}}
+{{--                                                                                "OptionsValues" => $employees_names,])--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                     <div class="Col-12-xs">
                                                         <div class="Form__Group">
                                                             <div class="Form__Button">

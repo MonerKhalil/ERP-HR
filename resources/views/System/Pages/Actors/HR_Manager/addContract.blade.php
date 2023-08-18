@@ -19,6 +19,9 @@
             <div class="Row">
                 <div class="AddContractPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="ContractPage__Information">
                                 <div class="Card">
@@ -156,16 +159,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="Col-4-md Col-6-sm">
-                                                        <div class="Form__Group">
-                                                            <div class="Form__Select">
-                                                                <div class="Select__Area">
-                                                                    @include("System.Components.selector" , ['Name' => "managerName" , "Required" => "true" , "Label" => __('managerName'),"DefaultValue" => "",
-                                                                                "OptionsValues" => $employees_names,])
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="Col-4-md Col-6-sm">--}}
+{{--                                                        <div class="Form__Group">--}}
+{{--                                                            <div class="Form__Select">--}}
+{{--                                                                <div class="Select__Area">--}}
+{{--                                                                    @include("System.Components.selector" , ['Name' => "managerName" , "Required" => "true" , "Label" => __('managerName'),"DefaultValue" => "",--}}
+{{--                                                                                "OptionsValues" => $employees_names,])--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                     <div class="Col-12-xs">
                                                         <div class="Form__Group">
                                                             <div class="Form__Button">

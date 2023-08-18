@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddEOSPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="EOSPage__Information">
                                 <div class="Card">
@@ -22,11 +25,12 @@
                                         <div class="Card__Inner">
                                             <div class="Card__Header">
                                                 <div class="Card__Title">
-                                                    <h3>@lang("contractInfo")</h3>
+                                                    <h3>@lang("EofInfo")</h3>
                                                 </div>
                                             </div>
-                                            <form class="Form Form--Dark" action="{{route("system.data_end_services.store")}}" method="post">
+                                            <form class="Form Form--Dark" action="{{route("system.data_end_services.update", $dataEndService["id"])}}" method="post">
                                                 @csrf
+                                                @method("put")
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">

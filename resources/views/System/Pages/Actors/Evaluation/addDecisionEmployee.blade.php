@@ -1,3 +1,13 @@
+<?php
+    $MyAccount = auth()->user() ;
+    $IsHavePermissionDecisionRead = $MyAccount->can("read_decisions") || $MyAccount->can("all_decisions") ;
+    $IsHavePermissionDecisionEdit = $MyAccount->can("update_decisions") || $MyAccount->can("all_decisions") ;
+    $IsHavePermissionDecisionDelete = $MyAccount->can("delete_decisions") || $MyAccount->can("all_decisions") ;
+    $IsHavePermissionDecisionExport = $MyAccount->can("export_decisions") || $MyAccount->can("all_decisions") ;
+?>
+
+
+
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
@@ -12,6 +22,9 @@
             </div>
             <div class="RequestOvertimeForm__Content">
                 <div class="ViewUsers__Content">
+                    <div class="MessageProcessContainer">
+                        @include("System.Components.messageProcess")
+                    </div>
                     <div class="Row">
                         <div class="RequestOvertimeForm__Form">
                             <div class="Container--MainContent">

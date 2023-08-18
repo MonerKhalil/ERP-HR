@@ -5,9 +5,9 @@
         <div class="AddCoursePage">
             <div class="AddCoursePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterEmployeeCourse') ,
+                    'mainTitle' => "تعديل معلومات الدورة" ,
                     'paths' => [['Courses' , '#'] , ['New Course']] ,
-                    'summery' => __('RegisterCoursesPage')
+                    'summery' => "صفحة تعديل معلومات الدورة"
                 ])
             </div>
         </div>
@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddCoursePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="CoursePage__Information">
                                 <div class="Card">
@@ -26,8 +29,9 @@
                                                 </div>
                                             </div>
                                             <form class="Form Form--Dark" action="{{route("system.conferences.update",$conference["id"])}}"
-                                                  method="patch">
+                                                  method="post">
                                                 @csrf
+                                                @method("put")
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">
@@ -44,7 +48,7 @@
                                                                     @endphp
                                                                     @include("System.Components.multiSelector" , [
                                                                                         'Name' => "_" , "Required" => "true" ,
-                                                                                        "DefaultValue" => "" , "Label" => "الموظفين" ,
+                                                                                        "DefaultValue" => "" , "Label" => "اسم الموظف" ,
                                                                                         "Options" => $EmployeesList ,
                                                                                         "NameIDs" => "name"
                                                                                     ])
@@ -61,7 +65,7 @@
                                                                         foreach ($types as $index=>$type) {
                                                                         array_push($courses_type , [
                                                                         "Label" => $type
-                                                                        , "Value" => $index]);
+                                                                        , "Value" => $type]);
                                                                         }
                                                                     @endphp
                                                                     @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('type'),"DefaultValue" =>
@@ -115,6 +119,41 @@
                                                                            placeholder="@lang("courseEndDate")">
                                                                     <label class="Date__Label"
                                                                            for="courseEndDate">@lang("courseEndDate")</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="State"
+                                                         data-CityURL="{{route("get.address")}}"
+                                                         class="Col-4-md Col-6-sm">
+                                                        <div class="Form__Group">
+                                                            <div class="Form__Select">
+                                                                <div class="Select__Area">
+                                                                    @php
+                                                                        $Countries = [] ;
+                                                                        foreach ($countries as $Index => $Item) {
+                                                                            array_push($Countries , [
+                                                                                "Label" => $Item
+                                                                                , "Value" => $Index ]) ;
+                                                                        }
+                                                                    @endphp
+                                                                    @include("System.Components.selector" , [
+                                                                                'Name' => "country_name" , "Required" => "true"
+                                                                                , "Label" => __('countryName') ,"DefaultValue" => $conference->address->country["id"]
+                                                                                , "Options" => $Countries
+                                                                            ])
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="City" class="Col-4-md Col-6-sm">
+                                                        <div class="Form__Group">
+                                                            <div class="Form__Select">
+                                                                <div class="Select__Area">
+                                                                    @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" ,
+                                                                    "Label" => __('cityName'),"DefaultValue" => $conference->address["name"],
+                                                                                "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
                                                                 </div>
                                                             </div>
                                                         </div>

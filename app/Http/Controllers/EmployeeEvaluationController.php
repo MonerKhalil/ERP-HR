@@ -33,7 +33,7 @@ class EmployeeEvaluationController extends Controller
     }
 
     private function MainQuery($request){
-        $data = EmployeeEvaluation::with(["enter_evaluation_employee"]);
+        $data = EmployeeEvaluation::with(["enter_evaluation_employee" , "employee"]);
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
             $data = $data->whereHas("employee",function ($q) use ($request){
                 $q->where("first_name","Like","%".$request->filter["name_employee"])

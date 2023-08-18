@@ -37,7 +37,7 @@ class SearchModel
                     $temp = MyApp::Classes()->stringProcess->DateFormat($value);
                     $queryBuilder = $queryBuilder->where($key,$temp);
                 }elseif (in_array($this->getTypeColumn($key,$tableName),self::DATATYPE_CHARS)){
-                    $queryBuilder = $queryBuilder->where($key,"LIKE","%".$value."%");
+                    $queryBuilder = $queryBuilder->where($key,"LIKE",$value."%");
                 }else{
                     $queryBuilder = $queryBuilder->where($key,$value);
                 }

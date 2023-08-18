@@ -44,6 +44,7 @@
                                                     <div class="Notification__Content">
                                                         @php
                                                             $NotificationObject = GetNotificationIcon($NotificationItem["data"]["type"]) ;
+                                                            $ArrayBodyNotification = explode("@@@@",$NotificationItem["data"]["data"]["body"]) ;
                                                         @endphp
                                                         <a href="{{ $NotificationItem["data"]["data"]["route_name"] }}"
                                                            class="Notification__Icon Notification__Icon--{{ $NotificationObject->Color }}">
@@ -63,7 +64,7 @@
                                                                 @lang($NotificationItem["data"]["type"])
                                                             </p>
                                                             <p class="NotificationDescription">
-                                                                @lang($NotificationItem["data"]["data"]["body"]) .
+                                                                @lang($ArrayBodyNotification[0]) .
                                                             </p>
                                                             <p class="NotificationDate">
                                                                 {{ \Carbon\Carbon::parse($NotificationItem["data"]["data"]["date"])->format("Y-m-d H:m") }}

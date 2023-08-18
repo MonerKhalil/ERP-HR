@@ -85,7 +85,8 @@ class ContractController extends Controller
         $data = $this->shareByBlade();
         $contract = Contract::with(["employee","section"])->findOrFail($contract);
         $data["contract"] = $contract;
-        return $this->responseSuccess("", $data);
+//        dd($data);
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editContract", compact('data'));
     }
 
 
@@ -95,7 +96,7 @@ class ContractController extends Controller
         try {
             DB::beginTransaction();
             $contract->update($request->validated());
-            $yearsEmployeeService->updateServicesYearsEmployee($request->employee_id);
+            $yearsEmployeeService->updateServicesYearsEmployee($contract["employee_id"]);
             DB::commit();
             return $this->responseSuccess(null, null, "update", self::IndexRoute);
         }catch (\Exception $exception){
@@ -152,7 +153,7 @@ class ContractController extends Controller
     public function ExportXls(Request $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+        return Excel::download(new TableCustomExport($data['head'], $data['body']), self::Folder . ".xlsx");
     }
 
     public function ExportPDF(Request $request)

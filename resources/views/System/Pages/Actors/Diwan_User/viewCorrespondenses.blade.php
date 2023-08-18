@@ -7,7 +7,7 @@
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewcorrespondences") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'summery' => __("titleViewCorrespondences")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -19,12 +19,12 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="#"
+                                    <form name="PrintAllTablePDF" action="correspondences/export/pdf"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx" action="correspondences/export/xls"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -36,15 +36,17 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-                                                            {{--                                                            @include("System.Components.bulkAction" , [--}}
-                                                            {{--                                                                "Options" => [ [--}}
-                                                            {{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
-                                                            {{--                                                                ] , [--}}
-                                                            {{--                                                                    "Label" => __("normalDelete")--}}
-                                                            {{--                                                                    , "Action" => route("system.employees.correspondence.destroy")--}}
-                                                            {{--                                                                    , "Method" => "delete"--}}
-                                                            {{--                                                                ] ]--}}
-                                                            {{--                                                            ])--}}
+                                                        @include("System.Components.bulkAction" , [
+                                                            "Options" => [ [
+                                                                    "Label" => __("printRowsAsPDF") , "Action" => route("correspondences.export.pdf") , "Method" => "post"
+                                                                ] ,[
+                                                                    "Label" => __("printRowsAsExcel") , "Action" => route("correspondences.export.xls") , "Method" => "post"
+                                                                ] , [
+                                                                "Label" => __("normalDelete")
+                                                                , "Action" => route("correspondences.multi.delete")
+                                                                , "Method" => "delete"
+                                                            ] ]
+                                                        ])
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -56,24 +58,24 @@
                                                                 <li>
                                                                     <span class="SearchTools__Separate"></span>
                                                                 </li>
-                                                                {{--                                                                <li class="Table__PrintMenu">--}}
-                                                                {{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
-                                                                {{--                                                                       title="Print">print</i>--}}
-                                                                {{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
-                                                                {{--                                                                        <ul class="Dropdown__Content">--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
-                                                                {{--                                                                                    @lang("printTablePDFFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
-                                                                {{--                                                                                    @lang("printTableXlsxFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                        </ul>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </li>--}}
+                                                                <li class="Table__PrintMenu">
+                                                                    <i class="material-icons IconClick PrintMenu__Button"
+                                                                       title="Print">print</i>
+                                                                    <div class="Dropdown PrintMenu__Menu">
+                                                                        <ul class="Dropdown__Content">
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
+                                                                                    @lang("printTablePDFFile")
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
+                                                                                    @lang("printTableXlsxFile")
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -97,17 +99,17 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="Item__Col">#</div>
-                                                                <div class="Item__Col"><span>@lang("Type")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Number")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Number")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("type")</span></div>
+                                                                <div class="Item__Col"><span>@lang("externalNumber")</span></div>
+                                                                <div class="Item__Col"><span>@lang("internalNumber")</span></div>
+                                                                <div class="Item__Col"><span>@lang("correspondenceDate")</span></div>
                                                             </div>
                                                             @foreach($correspondences as $correspondence)
                                                                 <div class="Item DataItem">
                                                                     <div class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_{{$correspondence["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="correspondences[]" value="{{$correspondence["id"]}}" hidden>
+                                                                               name="ids[]" value="{{$correspondence["id"]}}" hidden>
                                                                         <label for="ItemRow_{{$correspondence["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small
@@ -143,6 +145,12 @@
                                                                                     <a href="{{route("transaction.correspondences_dest.add", $correspondence["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         @lang("addTransaction")
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{route("transaction.legalopinion.send", $correspondence["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("requestLegalOponion")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>

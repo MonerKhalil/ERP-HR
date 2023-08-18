@@ -33,7 +33,8 @@
                                         @csrf
                                         <div class="Row">
                                             <div class="Col">
-                                                <div class="Form__Group">
+                                                <div class="Form__Group"
+                                                     data-ErrorBackend="{{ Errors("email") }}">
                                                     <div class="Form__Input">
                                                         <div class="Input__Area">
                                                             <input id="email" class="Input__Field" type="email"
@@ -42,17 +43,11 @@
                                                             <label class="Input__Label" for="email">@lang("email")</label>
                                                         </div>
                                                     </div>
-                                                    @if(!is_null(Errors("email")))
-                                                        <div class="Form__Error">
-                                                            <div class="Error__Area">
-                                                                <small>{{Errors("email")}}</small>
-                                                            </div>
-                                                        </div>
-                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="Col">
-                                                <div class="Form__Group">
+                                                <div class="Form__Group"
+                                                     data-ErrorBackend="{{ Errors("password") }}">
                                                     <div class="Form__Input Form__Input--Password">
                                                         <div class="Input__Area">
                                                             <input id="Password" class="Input__Field"
@@ -62,20 +57,15 @@
                                                             <i class="material-icons Input__Icon">visibility</i>
                                                         </div>
                                                     </div>
-                                                    @if(!is_null(Errors("email")))
-                                                        <div class="Form__Error">
-                                                            <div class="Error__Area">
-                                                                <small>{{Errors("password")}}</small>
-                                                            </div>
-                                                        </div>
-                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="Col-6-xs">
-                                                <div class="Form__Group">
+                                                <div class="Form__Group"
+                                                     data-ErrorBackend="{{ Errors("remember") }}">
                                                     <div class="Form__CheckBox">
                                                         <div class="CheckBox__Area">
-                                                            <input type="checkbox" id="RememberMe" name="remember"
+                                                            <input type="checkbox" id="RememberMe"
+                                                                   name="remember"
                                                                    class="CheckBox__Input">
                                                             <label class="CheckBox__Label" for="RememberMe">
                                                             <span class="IconChecked">
@@ -85,15 +75,6 @@
                                                             </span>
                                                                 <span class="TextCheckBox">@lang("rememberMe")</span>
                                                             </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="Col-6-xs">
-                                                <div class="Form__Group">
-                                                    <div class="Form__Link">
-                                                        <div class="Right Link__Area">
-                                                            <a href="{{route('password.request')}}" class="Link__Anchor">@lang("forgetPassword")</a>
                                                         </div>
                                                     </div>
                                                 </div>

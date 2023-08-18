@@ -99,15 +99,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="Col-4-md Col-6-sm">
-                                                        <div class="ListData__Content">
-                                                            <div class="Data_Col">
-                                                                            <span
-                                                                                class="Data_Label">@lang("managerName")</span>
-                                                                <span class="Data_Value">Anas</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="Col-4-md Col-6-sm">--}}
+{{--                                                        <div class="ListData__Content">--}}
+{{--                                                            <div class="Data_Col">--}}
+{{--                                                                            <span--}}
+{{--                                                                                class="Data_Label">@lang("managerName")</span>--}}
+{{--                                                                <span class="Data_Value">Anas</span>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                 </div>
                                             </form>
                                         </div>

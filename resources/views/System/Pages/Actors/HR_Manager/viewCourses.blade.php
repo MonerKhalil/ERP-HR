@@ -7,7 +7,7 @@
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewCourses") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'summery' => __("titleViewCourse")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -38,8 +38,10 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"
-                                                                ] , [
+                                                                    "Label" => __("printRowsAsPDF") , "Action" => route("system.conferences.export.pdf") , "Method" => "post"
+                                                                ] ,[
+                                                                    "Label" => __("printRowsAsExcel") , "Action" => route("system.conferences.export.xls") , "Method" => "post"
+                                                                ], [
                                                                     "Label" => __("normalDelete")
                                                                     , "Action" => route("system.conferences.multi.delete")
                                                                     , "Method" => "delete"
@@ -93,11 +95,11 @@
                                                                         </i>
                                                                     </label>
                                                                 </div>
-                                                                <div class="Item__Col">#</div>
+                                                                <div class="Item__Col">@lang("employeeName")</div>
                                                                 <div class="Item__Col"><span>@lang("name")</span></div>
                                                                 <div class="Item__Col"><span>@lang("type")</span></div>
-                                                                <div class="Item__Col"><span>@lang("start_date")</span></div>
-                                                                <div class="Item__Col"><span>@lang("end_date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("courseStartDate")</span></div>
+                                                                <div class="Item__Col"><span>@lang("courseEndDate")</span></div>
                                                             </div>
                                                             @foreach($data as $Course)
                                                                 <div class="Item DataItem">
@@ -111,7 +113,7 @@
                                                                             </i>
                                                                         </label>
                                                                     </div>
-                                                                    <div class="Item__Col">{{$Course["id"]}}</div>
+                                                                    <div class="Item__Col">{{count($Course->employees) > 0 ? $Course->employees[0]["first_name"] : ""}}</div>
                                                                     <div class="Item__Col">{{$Course["name"]}}</div>
                                                                     <div class="Item__Col">{{$Course["type"]}}</div>
                                                                     <div class="Item__Col">{{$Course["start_date"]}}</div>
@@ -178,7 +180,7 @@
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'text' , 'Info' =>
                 ['Name' => "filter[name]" , 'Placeholder' => __("courseName")]] , ['Type' => 'number' , 'Info' =>
-                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]
+                    ['Name' => "filter[employee_id]" , 'Placeholder' => __("employeeName")]
                 ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
                  'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
                 ]

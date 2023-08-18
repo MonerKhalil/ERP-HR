@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class SectionExternalController extends Controller
 {
-    public const NameBlade = "";
+    public const NameBlade = "System/Pages/Actors/Sections/viewExternalSection";
     public const IndexRoute = "system.section_externals.index";
 
     public function __construct()
@@ -30,8 +30,9 @@ class SectionExternalController extends Controller
      */
     public function index()
     {
+        $countries = countries();
         $data = MyApp::Classes()->Search->getDataFilter(SectionExternal::query());
-        return $this->responseSuccess(self::NameBlade,compact("data"));
+        return $this->responseSuccess(self::NameBlade,compact("data","countries"));
     }
 
     /**
@@ -42,7 +43,7 @@ class SectionExternalController extends Controller
     public function create()
     {
         $countries = countries();
-        return $this->responseSuccess("..." ,
+        return $this->responseSuccess("System/Pages/Actors/Sections/addExternalSectionForm" ,
             compact("countries"));
     }
 
@@ -66,7 +67,7 @@ class SectionExternalController extends Controller
      */
     public function show(SectionExternal $sectionExternal)
     {
-        return $this->responseSuccess("...",
+        return $this->responseSuccess("System/Pages/Actors/Sections/detailsExternalSection",
             compact("sectionExternal"));
     }
 
@@ -79,7 +80,7 @@ class SectionExternalController extends Controller
     public function edit(SectionExternal $sectionExternal)
     {
         $countries = countries();
-        return $this->responseSuccess("..." ,
+        return $this->responseSuccess("System/Pages/Actors/Sections/addExternalSectionForm" ,
             compact("countries","sectionExternal"));
     }
 

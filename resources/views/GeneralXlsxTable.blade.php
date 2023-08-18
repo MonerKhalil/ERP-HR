@@ -22,9 +22,9 @@
                         <tr>
                             @foreach($data['head'] as $value)
                                 @if(is_array($value) && isset($value['head']))
-                                    <td class="text-center">{{ $item->{$value['relationFunc']}->{$value['key']} }}</td>
+                                    <td class="text-center">{{ $item->{$value['relationFunc']}->{$value['key']} ?? "-" }}</td>
                                 @else
-                                    <td class="text-center">{{ $item->{$value} }}</td>
+                                    <td class="text-center">{{ $item->{$value} ?? "-" }}</td>
                                 @endif
                             @endforeach
                         </tr>
