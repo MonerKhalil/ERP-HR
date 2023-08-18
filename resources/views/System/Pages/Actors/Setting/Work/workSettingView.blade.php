@@ -35,12 +35,22 @@
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                             <form name="PrintAllTableXlsx"
                                                   action="{{route("system.work_settings.export.xls")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                         @endif
                                         <form action="#" method="post">
@@ -52,6 +62,18 @@
                                                             <div class="Card__Tools Table__BulkTools">
                                                                 @php
                                                                     $AllOptions = [] ;
+                                                                    if($IsHavePermissionWorkSettingExport) {
+                                                                        array_push($AllOptions , [
+                                                                            "Label" => __("printRowsAsPDF")
+                                                                            , "Action" => route("system.work_settings.export.pdf")
+                                                                            , "Method" => "post"
+                                                                        ]);
+                                                                        array_push($AllOptions , [
+                                                                            "Label" => __("printRowsAsExcel")
+                                                                            , "Action" => route("system.work_settings.export.xls")
+                                                                            , "Method" => "post"
+                                                                        ]);
+                                                                    }
                                                                     if($IsHavePermissionWorkSettingDelete)
                                                                         array_push($AllOptions , [
                                                                            "Label" => __("normalDelete")

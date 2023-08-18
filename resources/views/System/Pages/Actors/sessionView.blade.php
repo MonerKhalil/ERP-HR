@@ -36,12 +36,22 @@
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                             <form name="PrintAllTableXlsx"
                                                   action="{{route("system.session_decisions.export.xls")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                         @endif
                                         <form action="#" class="Form Form--Dark" method="post">

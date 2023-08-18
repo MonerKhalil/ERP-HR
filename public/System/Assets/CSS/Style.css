@@ -2042,6 +2042,10 @@ body.Dark .Popup__Close:hover {
   border: 1px solid #23364e;
   color: #96A2B4;
 }
+.Pagination__Number a.Current {
+  background-color: #3F51B5;
+  color: #fff;
+}
 .Pagination__Number a, .Pagination__Previous a, .Pagination__Next a {
   cursor: pointer;
   transition: all 0.3s;

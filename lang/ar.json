@@ -364,6 +364,7 @@
     "employeeName" : "اسم الموظف",
     "contractType" : "نوع العقد",
     "DepartmentName" : "اسم القسم",
+    "DepartmentManager" : "مدير القسم",
     "Diwan" : "الديوان",
     "HR" : "الموارد البشرية",
     "Administrative": "الشؤون الإدراية",

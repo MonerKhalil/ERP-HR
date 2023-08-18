@@ -113,7 +113,7 @@ class PublicHolidayController extends Controller
         if ($publicHoliday->start_date >= now() && $publicHoliday->end_date <= now()){
             throw new MainException(__("err_public_holiday"));
         }
-        if ($publicHoliday->end_date > now()){
+        if ($publicHoliday->start_date <= now()){
             throw new MainException(__("err_public_holiday"));
         }
         $publicHoliday->update($request->validated());

@@ -30,18 +30,26 @@
                                     <div class="Table">
                                         @if($IsHavePermissionDecisionExport)
                                             <form name="PrintAllTablePDF"
-                                                  action="#"
+                                                  action="{{ route("system.session_decisions.export.pdf") }}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
-                                                {{--  منحط function مشان يعطني كل الفلترة ويحطون ك input hidden متل ما عملنا new dash   --}}
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                             <form name="PrintAllTableXlsx"
-                                                  action="#"
+                                                  action="{{ route("system.session_decisions.export.xls") }}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
-                                                {{--  منحط function مشان يعطني كل الفلترة ويحطون ك input hidden متل ما عملنا new dash   --}}
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                         @endif
                                         <form action="#" method="post">
@@ -56,12 +64,12 @@
                                                                     if($IsHavePermissionDecisionExport) {
                                                                         array_push($AllOptions , [
                                                                         "Label" => __("printRowsAsPDF") ,
-                                                                         "Action" => "#",
+                                                                         "Action" => route("system.session_decisions.export.pdf") ,
                                                                          "Method" => "post"
                                                                     ]);
                                                                         array_push($AllOptions , [
                                                                             "Label" => __("printRowsAsExcel") ,
-                                                                            "Action" => "#" ,
+                                                                            "Action" => route("system.session_decisions.export.xls") ,
                                                                             "Method" => "post"
                                                                         ]);
                                                                     }

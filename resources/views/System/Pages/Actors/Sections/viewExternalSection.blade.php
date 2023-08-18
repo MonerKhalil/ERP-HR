@@ -52,6 +52,18 @@
                                                             <div class="Card__Tools Table__BulkTools">
                                                                 @php
                                                                     $AllOptions = [] ;
+                                                                    if($IsHavePermissionSessionExExport) {
+                                                                        array_push($AllOptions , [
+                                                                            "Label" => __("printRowsAsPDF")
+                                                                            , "Action" => route("system.section_externals.export.pdf")
+                                                                            , "Method" => "post"
+                                                                        ]);
+                                                                        array_push($AllOptions , [
+                                                                            "Label" => __("printRowsAsExcel")
+                                                                            , "Action" => route("system.section_externals.export.xls")
+                                                                            , "Method" => "post"
+                                                                        ]);
+                                                                    }
                                                                     if($IsHavePermissionSessionExDelete)
                                                                         array_push($AllOptions , [
                                                                             "Label" => __("normalDelete")

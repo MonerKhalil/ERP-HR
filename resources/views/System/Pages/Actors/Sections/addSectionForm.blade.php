@@ -107,7 +107,7 @@
                                                                                         @include("System.Components.selector" , [
                                                                                                     'Name' => "_" , "Required" => "true"
                                                                                                     , "Label" => __('countryName')
-                                                                                                    ,"DefaultValue" => isset($sections) ? $sections["address_id"] : ""
+                                                                                                    ,"DefaultValue" => isset($sections) ? $sections->address["country_id"] : ""
                                                                                                     , "Options" => $Countries
                                                                                                 ])
                                                                                     </div>
