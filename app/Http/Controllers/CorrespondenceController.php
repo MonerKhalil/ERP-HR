@@ -9,6 +9,7 @@ use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
 use App\Models\Correspondence;
 use App\Http\Requests\CorrespondenceRequest;
+use App\Services\SendNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -106,8 +107,6 @@ class CorrespondenceController extends Controller
                 $data["number_external"] = $number_external;
             }
             $data["employee_id"] = auth()->user()->employee->id;
-
-//            dd($data);
             Correspondence::query()->create($data);
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
@@ -160,6 +159,7 @@ class CorrespondenceController extends Controller
             //dd("djkj");
             DB::beginTransaction();
             $data =Arr::except($request->validated(),["number_internal","number_external","type"]) ;
+
             if (isset($data['path_file'])) {
                 $document_path = MyApp::Classes()->storageFiles->Upload($data['path_file']);
                 if (is_bool($document_path)) {
@@ -194,7 +194,7 @@ class CorrespondenceController extends Controller
     {
         $request->validate([
             "ids" => ["required", "array"],
-            "ids.*" => ["required", Rule::exists("contracts", "id")],
+            "ids.*" => ["required", Rule::exists("correspondences", "id")],
         ]);
         try {
             DB::beginTransaction();
