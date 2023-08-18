@@ -155,6 +155,22 @@
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{route("system.employees.contract.index")."?filter[employee_id]=".$employee["id"]}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض عقود الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li>
+                                                                                    <a href="{{route("system.conferences.index")."?filter[employee_id]=".$employee["id"]}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        عرض دورات الموظف
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
                                                                     </div>
                                                                 </div>

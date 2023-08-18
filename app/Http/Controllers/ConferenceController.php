@@ -60,7 +60,8 @@ class ConferenceController extends Controller
             DB::beginTransaction();
             $data = Arr::except($request->validated(), ["employees"]);
             $Conference = Conference::query()->create($data);
-            $Conference->employees()->attach($request->employees);
+            $employees = array_unique($request->employees);
+            $Conference->employees()->attach($employees);
             DB::commit();
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
@@ -99,7 +100,8 @@ class ConferenceController extends Controller
             $data = Arr::except($request->validated(), ["employees"]);
             $conference->update($data);
             if (isset($request->employees)){
-                $conference->employees()->sync($request->employees);
+                $employees = array_unique($request->employees);
+                $conference->employees()->sync($employees);
             }
             DB::commit();
             return $this->responseSuccess(null,null,"update",self::IndexRoute);

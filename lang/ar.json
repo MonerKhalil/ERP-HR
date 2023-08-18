@@ -679,6 +679,20 @@
     "ViewEmployeeCourse" : "عرض معلومات الدورة - المؤتمر",
     "ViewCoursesPage" : "صفحة عرض معلومات دورة معينة",
     "notices" : "ملاحظات",
-    "external_party" : "الجهة الخارجية"
+    "external_party" : "الجهة الخارجية",
+    "viewcorrespondences" : "عرض المراسلات",
+    "titleViewCorrespondences" : "هنا يتم عرض جميع المراسلات في النظام",
+    "internalNumber" : "الرقم الداخلي",
+    "externalNumber" : "الرقم الخارجي",
+    "correspondenceDate" : "تاريخ المراسلة",
+    "editCorrespondence" : "تعديل المراسلة",
+    "editCorrespondencesPage" : "صفحة تعديل معلومات المراسلة",
+    "correspondenceSubject" : "موضوع المراسلة",
+    "viewCorrespondence" : "عرض معلومات المراسلة",
+    "viewCorrespondencesPage" : "صفحة عرض معلومات المراسلة",
+    "RegisterTransaction" : "تسجيل حركة",
+    "RegisterTransactionsPage" : "صفحة تسجيل حركة مراسلة",
+    "editEofDetails" : "تعديل معلومات نهاية الخدمة",
+    "requestLegalOponion" : "طلب رأي قانوني"
 }
 

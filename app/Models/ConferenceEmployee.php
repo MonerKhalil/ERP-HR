@@ -17,6 +17,10 @@ class ConferenceEmployee extends BaseModel
 
     // Add relationships between tables section
 
+    public function conference(){
+        return $this->belongsTo(Conference::class,"conference_id","id");
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc

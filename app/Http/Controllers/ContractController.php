@@ -96,7 +96,7 @@ class ContractController extends Controller
         try {
             DB::beginTransaction();
             $contract->update($request->validated());
-            $yearsEmployeeService->updateServicesYearsEmployee();
+            $yearsEmployeeService->updateServicesYearsEmployee($contract["employee_id"]);
             DB::commit();
             return $this->responseSuccess(null, null, "update", self::IndexRoute);
         }catch (\Exception $exception){
@@ -181,7 +181,7 @@ class ContractController extends Controller
             [
                 "head" => "name_employee",
                 "relationFunc" => "employee",
-                "key" => "first_name",
+                "key" => "name",
             ],
             "contract_type", "contract_number", "contract_date", "contract_finish_date",
             "contract_direct_date", "salary", "created_at",

@@ -95,7 +95,7 @@
                                                                         </i>
                                                                     </label>
                                                                 </div>
-                                                                <div class="Item__Col">#</div>
+                                                                <div class="Item__Col">@lang("employeeName")</div>
                                                                 <div class="Item__Col"><span>@lang("name")</span></div>
                                                                 <div class="Item__Col"><span>@lang("type")</span></div>
                                                                 <div class="Item__Col"><span>@lang("courseStartDate")</span></div>
@@ -113,7 +113,7 @@
                                                                             </i>
                                                                         </label>
                                                                     </div>
-                                                                    <div class="Item__Col">{{$Course["id"]}}</div>
+                                                                    <div class="Item__Col">{{count($Course->employees) > 0 ? $Course->employees[0]["first_name"] : ""}}</div>
                                                                     <div class="Item__Col">{{$Course["name"]}}</div>
                                                                     <div class="Item__Col">{{$Course["type"]}}</div>
                                                                     <div class="Item__Col">{{$Course["start_date"]}}</div>
@@ -180,7 +180,7 @@
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'text' , 'Info' =>
                 ['Name' => "filter[name]" , 'Placeholder' => __("courseName")]] , ['Type' => 'number' , 'Info' =>
-                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]
+                    ['Name' => "filter[employee_id]" , 'Placeholder' => __("employeeName")]
                 ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
                  'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
                 ]

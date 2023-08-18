@@ -76,7 +76,6 @@
                                                                         </ul>
                                                                     </div>
                                                                 </li>
-
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -115,7 +114,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="Item__Col">{{$item["id"]}}</div>
-                                                                    <div class="Item__Col">{{$item["employee_id"]}}</div>
+                                                                    <div class="Item__Col">{{isset($item->employee) ? $item->employee["first_name"] : ""}}</div>
                                                                     <div class="Item__Col">{{$item["reason"]}}</div>
                                                                     <div class="Item__Col">{{$item["start_break_date"]}}</div>
                                                                     <div class="Item__Col">{{$item["end_break_date"]}}</div>
@@ -138,7 +137,7 @@
                                                                                 <li>
                                                                                     <a href="{{route("system.data_end_services.edit" , $item["id"])}}"
                                                                                        class="Dropdown__Item">
-                                                                                        @lang("editDetails")
+                                                                                        @lang("editEofDetails")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>

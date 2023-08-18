@@ -5,9 +5,9 @@
         <div class="AddCorrespondencePage">
             <div class="AddCorrespondencePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterCorrespondence') ,
+                    'mainTitle' => __('RegisterTransaction') ,
                     'paths' => [['Correspondences' , '#'] , ['Correspondence']] ,
-                    'summery' => __('RegisterCorrespondencesPage')
+                    'summery' => __('RegisterTransactionsPage')
                 ])
             </div>
         </div>
@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddCorrespondencePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="CorrespondencePage__Information">
                                 <div class="Card">
@@ -27,7 +30,7 @@
                                                 <div class="ListData">
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
-                                                            Main Information
+                                                            @lang('MainInformation')
                                                         </h4>
                                                     </div>
                                                     <div class="ListData__Content">
@@ -69,7 +72,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <input type="text"
-                                                                       name="correspondences_id" value="{{$Correspondence_id}}" hidden>
+                                                                       name="correspondences_id" value="{{$correspondence["id"]}}" hidden>
 {{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
 {{--                                                                     data-TargetName="typeTemp"--}}
 {{--                                                                     data-TargetValue="internal">--}}
@@ -157,7 +160,7 @@
                                                                                     "FieldID" => "docId" ,
                                                                                     "FieldName" => "path_file" ,
                                                                                     "LabelField" => __("chooseDocument"),
-                                                                                    "AcceptFiles" => "*"
+                                                                                    "AcceptFiles" => "application/pdf, .docx"
                                                                                 ])
                                                                             </div>
                                                                         </div>
