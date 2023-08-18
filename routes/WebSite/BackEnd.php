@@ -127,7 +127,7 @@ Route::middleware(['auth'])->group(function () {
             =         Start Decisions Routes        =
         =============================================*/
         Route::resource('type_decisions', TypeDecisionController::class)->except([
-            "edit", "create", "show"
+            "show"
         ]);
         Route::delete("type_decisions/multi/delete", [TypeDecisionController::class, "MultiDelete"])->name("type_decisions.multi.delete");
         Route::resource('session_decisions', SessionDecisionController::class);
@@ -170,7 +170,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('section_externals', SectionExternalController::class);
         Route::prefix("section_externals")->name("section_externals.")
-            ->controller(SectionsController::class)->group(function () {
+            ->controller(SectionExternalController::class)->group(function () {
                 Route::post('export/xlsx', "ExportXls")->name("export.xls");
                 Route::post('export/pdf', "ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete", "MultiDelete")->name("multi.delete");

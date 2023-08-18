@@ -1,31 +1,33 @@
 <?php
     $MyAccount = auth()->user() ;
-    $IsHavePermissionRead = $MyAccount->can("read_roles") || $MyAccount->can("all_roles") ;
-    $IsHavePermissionEdit = $MyAccount->can("update_roles") || $MyAccount->can("all_roles") ;
-    $IsHavePermissionDelete = $MyAccount->can("delete_roles") || $MyAccount->can("all_roles") ;
+    $IsHavePermissionDecisionTypeRead = $MyAccount->can("read_type_decisions") || $MyAccount->can("all_type_decisions") ;
+    $IsHavePermissionDecisionTypeEdit = $MyAccount->can("update_type_decisions") || $MyAccount->can("all_type_decisions") ;
+    $IsHavePermissionDecisionTypeDelete = $MyAccount->can("delete_type_decisions") || $MyAccount->can("all_type_decisions") ;
+    $IsHavePermissionDecisionTypeExport = $MyAccount->can("export_type_decisions") || $MyAccount->can("all_type_decisions") ;
+    $IsHavePermissionDecisionTypeCreate = $MyAccount->can("create_type_decisions") || $MyAccount->can("all_type_decisions") ;
 ?>
 
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    @if($IsHavePermissionRead)
-        <section class="MainContent__Section MainContent__Section--ViewUsers">
-            <div class="ViewUsers">
-                <div class="ViewUsers__Breadcrumb">
+    @if($IsHavePermissionDecisionTypeRead)
+        <section class="MainContent__Section MainContent__Section--ViewDecision">
+            <div class="ViewDecision">
+                <div class="ViewDecision__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => __("viewRoles") ,
-                        'paths' => [[__("home") , '#'] , [__("viewRoles")]] ,
-                        'summery' => __("titleViewRoles")
+                        'mainTitle' => "عرض جميع انواع التقارير" ,
+                        'paths' => [[__("home") , '#'] , [__("viewDecision")]] ,
+                        'summery' => __("titleViewDecision")
                     ])
                 </div>
-                <div class="ViewUsers__Content">
+                <div class="ViewDecision__Content">
                     <div class="Container--MainContent">
                         <div class="MessageProcessContainer">
                             @include("System.Components.messageProcess")
                         </div>
                         <div class="Row">
                             <div class="Col">
-                                <div class="Card ViewUsers__TableUsers">
+                                <div class="Card ViewDecision__TableUsers">
                                     <div class="Table">
                                         <form action="#" method="post">
                                             @csrf
@@ -33,23 +35,25 @@
                                                 <div class="Card__Inner py1">
                                                     <div class="Table__Head">
                                                         <div class="Card__ToolsGroup">
-                                                            @if($IsHavePermissionDelete)
-                                                                <div class="Card__Tools Table__BulkTools">
-                                                                    @include("System.Components.bulkAction" , [
-                                                                        "Options" => [ [
-                                                                            "Label" => __("normalDelete")
-                                                                            , "Action" => route("roles.multi.delete")
-                                                                            , "Method" => "delete"
-                                                                        ] ]
-                                                                    ])
-                                                                </div>
-                                                            @endif
+                                                            <div class="Card__Tools Table__BulkTools">
+                                                                @php
+                                                                    $AllOptions = [] ;
+                                                                    if($IsHavePermissionDecisionTypeDelete)
+                                                                        array_push($AllOptions , [
+                                                                                "Label" => __("normalDelete")
+                                                                                , "Action" => route("system.type_decisions.multi.delete")
+                                                                                , "Method" => "delete"
+                                                                        ]);
+                                                                @endphp
+                                                                @include("System.Components.bulkAction" , [
+                                                                    "Options" => $AllOptions
+                                                                ])
+                                                            </div>
                                                             <div class="Card__Tools Card__SearchTools">
                                                                 <ul class="SearchTools">
-                                                                    <li title="Filter">
+                                                                    <li>
                                                                         <i class="OpenPopup material-icons IconClick SearchTools__FilterIcon"
-                                                                           data-popUp="SearchAbout">
-                                                                            filter_list
+                                                                           data-popUp="SearchAbout">filter_list
                                                                         </i>
                                                                     </li>
                                                                 </ul>
@@ -60,9 +64,9 @@
                                                 @if(count($data) > 0)
                                                     <div class="Card__Inner p0">
                                                         <div class="Table__ContentTable">
-                                                            <div class="Table__Table">
-                                                                <div class="Item HeaderList">
-                                                                    <div class="Item__Col Item__Col--Check">
+                                                            <table class="Center Table__Table">
+                                                                <tr class="Item HeaderList">
+                                                                    <th class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_Main" class="CheckBoxItem"
                                                                                type="checkbox" hidden>
                                                                         <label for="ItemRow_Main" class="CheckBoxRow">
@@ -70,40 +74,38 @@
                                                                                 check_small
                                                                             </i>
                                                                         </label>
-                                                                    </div>
-                                                                    <div class="Item__Col">#</div>
-                                                                    <div class="Item__Col"><span>@lang("roleName")</span></div>
-                                                                    <div class="Item__Col"><span>@lang("createDate")</span></div>
-                                                                    <div class="Item__Col"><span>@lang("more")</span></div>
-                                                                </div>
-                                                                @foreach($data as $Role)
-                                                                    <div class="Item DataItem">
-                                                                        <div class="Item__Col Item__Col--Check">
-                                                                            <input id="ItemRow_{{$Role["id"]}}"
+                                                                    </th>
+                                                                    <th class="Item__Col">#</th>
+                                                                    <th class="Item__Col">اسم النوع</th>
+                                                                    <th class="Item__Col">@lang("more")</th>
+                                                                </tr>
+                                                                @foreach($data as $DecisionTypeData)
+                                                                    <tr class="Item DataItem">
+                                                                        <td class="Item__Col Item__Col--Check">
+                                                                            <input id="{{$DecisionTypeData["id"]}}"
                                                                                    class="CheckBoxItem" type="checkbox"
-                                                                                   name="ids[]" value="{{$Role["id"]}}" hidden>
-                                                                            <label for="ItemRow_{{$Role["id"]}}" class="CheckBoxRow">
+                                                                                   name="ids[]" value="{{$DecisionTypeData["id"]}}" hidden>
+                                                                            <label for="{{$DecisionTypeData["id"]}}" class="CheckBoxRow">
                                                                                 <i class="material-icons ">
                                                                                     check_small
                                                                                 </i>
                                                                             </label>
-                                                                        </div>
-                                                                        <div class="Item__Col">{{$Role["id"]}}</div>
-                                                                        <div class="Item__Col">{{$Role["name"]}}</div>
-                                                                        <div class="Item__Col">{{$Role["created_at"]}}</div>
-                                                                        <div class="Item__Col {{ $IsHavePermissionEdit ? "MoreDropdown" : "" }} ">
-                                                                            @if($IsHavePermissionEdit)
+                                                                        </td>
+                                                                        <td class="Item__Col">{{$DecisionTypeData["id"]}}</td>
+                                                                        <td class="Item__Col">{{$DecisionTypeData["name"]}}</td>
+                                                                        <td class="Item__Col MoreDropdown">
+                                                                            @if($IsHavePermissionDecisionTypeEdit)
                                                                                 <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                                   data-MenuName="RoleMore_{{$Role["id"]}}">
+                                                                                   data-MenuName="MoreDecision_{{$DecisionTypeData["id"]}}">
                                                                                     more_horiz
                                                                                 </i>
                                                                                 <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                                     data-MenuName="RoleMore_{{$Role["id"]}}">
+                                                                                     data-MenuName="MoreDecision_{{$DecisionTypeData["id"]}}">
                                                                                     <ul class="Dropdown__Content">
                                                                                         <li>
-                                                                                            <a href="{{route("roles.edit" , $Role["id"])}}"
+                                                                                            <a href="{{route("system.type_decisions.edit" , $DecisionTypeData["id"])}}"
                                                                                                class="Dropdown__Item">
-                                                                                                @lang("viewDetails")
+                                                                                                تعديل النوع
                                                                                             </a>
                                                                                         </li>
                                                                                     </ul>
@@ -111,10 +113,10 @@
                                                                             @else
                                                                                 -
                                                                             @endif
-                                                                        </div>
-                                                                    </div>
+                                                                        </td>
+                                                                    </tr>
                                                                 @endforeach
-                                                            </div>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 @else
@@ -145,17 +147,12 @@
 @endsection
 
 @section("PopupPage")
-    @if($IsHavePermissionRead)
+    @if($IsHavePermissionDecisionTypeRead)
         @include("System.Components.searchForm" , [
-        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
-        'FilterForm' => [ ['Type' => 'text' , 'Info' =>
-                ['Name' => "filter[name]" , 'Placeholder' => __("roleName")]] , ['Type' => 'number' , 'Info' =>
-                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]
-                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
-                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
+            'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+            'FilterForm' => [ ['Type' => 'text' , 'Info' =>
+                    ['Name' => "filter[name]" , 'Placeholder' => "اسم النوع"] ] ,
                 ]
-            ] ]
-    ])
-        @include("System.Components.fileOptions")
+        ])
     @endif
 @endsection

@@ -20,7 +20,7 @@ class Sections extends BaseModel
     // Add relationships between tables section
 
     public function moderator(){
-        return $this->belongsTo(Employee::class,"moderator_id","id");
+        return $this->belongsTo(Employee::class,"moderator_id","id")->withTrashed();
     }
 
     public function address()

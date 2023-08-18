@@ -20,7 +20,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class OverTimeAdminController extends Controller
 {
-    public const NameBlade = "System/Pages/Actors/Overtime/requestOvertimeView";
+    public const NameBlade = "System/Pages/Actors/Overtime/allOvertimeView";
     public const IndexRoute = "system.overtimes_admin.index";
 
     public function __construct()
@@ -114,7 +114,7 @@ class OverTimeAdminController extends Controller
     {
         $overtimesType = OvertimeType::query()->pluck("name","id")->toArray();
         $employees = Employee::query()->select(["id","first_name","last_name"])->get();
-        return $this->responseSuccess("System/Pages/Actors/Overtime/requestOvertimeForm" ,
+        return $this->responseSuccess("System/Pages/Actors/Overtime/OvertimeForm" ,
             compact("employees","overtimesType"));
     }
 

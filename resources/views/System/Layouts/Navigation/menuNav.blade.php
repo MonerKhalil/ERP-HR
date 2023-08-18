@@ -1,3 +1,38 @@
+<?php
+    $MyAccount = auth()->user() ;
+    $MyAccount = auth()->user() ;
+    $IsUserEmployee = !is_null($MyAccount->employee["id"]) ;
+    $IsHavePermissionRoleRead = $MyAccount->can("read_roles") || $MyAccount->can("all_roles") ;
+    $IsHavePermissionRoleCreate = $MyAccount->can("create_roles") || $MyAccount->can("all_roles") ;
+    $IsHavePermissionUsersRead = $MyAccount->can("read_users") || $MyAccount->can("all_users") ;
+    $IsHavePermissionUsersCreate = $MyAccount->can("create_users") || $MyAccount->can("all_users") ;
+    $IsHavePermissionSessionCreate = $MyAccount->can("create_session_decisions") || $MyAccount->can("all_session_decisions") ;
+    $IsHavePermissionSessionRead = $MyAccount->can("read_session_decisions") || $MyAccount->can("all_session_decisions") ;
+    $IsHavePermissionEvaluationCreate = $MyAccount->can("create_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
+    $IsHavePermissionEvaluationRead = $MyAccount->can("read_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
+    $IsHavePermissionSessionExRead = $MyAccount->can("read_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExCreate = $MyAccount->can("create_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionInCreate = $MyAccount->can("create_sections") || $MyAccount->can("all_sections") ;
+    $IsHavePermissionSessionInRead = $MyAccount->can("read_sections") || $MyAccount->can("all_sections") ;
+    $IsHavePermissionPublicHolidayCreate = $MyAccount->can("create_public_holidays") || $MyAccount->can("all_public_holidays") ;
+    $IsHavePermissionPublicHolidayRead = $MyAccount->can("read_public_holidays") || $MyAccount->can("all_public_holidays") ;
+    $IsHavePermissionAttendanceRead = $MyAccount->can("read_attendances") || $MyAccount->can("all_attendances") ;
+    $IsHavePermissionReportCreate = $MyAccount->can("create_employees") || $MyAccount->can("all_employees") ;
+    $IsHavePermissionCompanySettingRead = $MyAccount->can("read_company_settings") || $MyAccount->can("all_company_settings") ;
+    $IsHavePermissionWorkSettingCreate = $MyAccount->can("create_work_settings") || $MyAccount->can("all_work_settings") ;
+    $IsHavePermissionWorkSettingRead = $MyAccount->can("read_work_settings") || $MyAccount->can("all_work_settings") ;
+    $IsHavePermissionVacationTypeRead = $MyAccount->can("read_leave_types") || $MyAccount->can("all_leave_types") ;
+    $IsHavePermissionVacationTypeCreate = $MyAccount->can("create_leave_types") || $MyAccount->can("all_leave_types") ;
+    $IsHavePermissionVacationCreate = $MyAccount->can("create_leaves") || $MyAccount->can("all_leaves") ;
+    $IsHavePermissionVacationRead = $MyAccount->can("read_leaves") || $MyAccount->can("all_leaves") ;
+    $IsHavePermissionOverTimeTypeRead = $MyAccount->can("read_overtime_types") || $MyAccount->can("all_overtime_types") ;
+    $IsHavePermissionOverTimeTypeCreate = $MyAccount->can("create_overtime_types") || $MyAccount->can("all_overtime_types") ;
+    $IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionDecisionTypeCreate = $MyAccount->can("create_type_decisions") || $MyAccount->can("all_type_decisions") ;
+    $IsHavePermissionDecisionTypeRead = $MyAccount->can("read_type_decisions") || $MyAccount->can("all_type_decisions") ;
+?>
+
 <nav class="NavigationsMenu">
     <div class="NavigationsMenu__Wrap">
         <div class="NavigationsMenu__Content">
@@ -14,6 +49,21 @@
             <main class="NavigationsMenu__Navigations">
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
+                        <span class="Title">الرئيسية</span>
+                    </li>
+                    <li class="NavigationsGroup__NavItem">
+                        <div class="Title">
+                            <a href="{{route("home")}}" class="NavName">
+                                <i class="material-icons Icon">
+                                    home
+                                </i>
+                                <span class="Label">الصفحة الرئيسية</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="NavigationsMenu__NavigationsGroup">
+                    <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("admin")</span>
                     </li>
                     <li class="NavigationsGroup__NavItem">
@@ -26,64 +76,76 @@
                             </a>
                         </div>
                     </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    grade
-                                </i>
-                                <span class="Label">@lang("roles")</span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                    @if($IsHavePermissionRoleRead && $IsHavePermissionRoleCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        grade
+                                    </i>
+                                    <span class="Label">@lang("roles")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("roles.index")}}" class="NavName">
-                                        <span class="Label">@lang("viewRoles")</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("roles.create")}}" class="NavName">
-                                        <span class="Label">@lang("addRole")</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    group
-                                </i>
-                                <span class="Label">@lang("users")</span>
                             </div>
-                            <span class="material-icons ArrowRight">
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionRoleRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("roles.index")}}" class="NavName">
+                                                <span class="Label">@lang("viewRoles")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionRoleCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("roles.create")}}" class="NavName">
+                                                <span class="Label">@lang("addRole")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionUsersRead && $IsHavePermissionUsersCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        group
+                                    </i>
+                                    <span class="Label">@lang("users")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("users.index")}}" class="NavName">
-                                        <span class="Label">@lang("viewUsers")</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("users.create")}}" class="NavName">
-                                        <span class="Label">@lang("addUser")</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
+                            </div>
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionUsersRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("users.index")}}" class="NavName">
+                                                <span class="Label">@lang("viewUsers")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionUsersCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("users.create")}}" class="NavName">
+                                                <span class="Label">@lang("addUser")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
@@ -205,128 +267,203 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    groups_2
-                                </i>
-                                <span class="Label">@lang("decisionsSession")</span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                    @if($IsHavePermissionSessionRead || $IsHavePermissionSessionCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        groups_2
+                                    </i>
+                                    <span class="Label">@lang("decisionsSession")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.session_decisions.index")}}" class="NavName">
-                                        <span class="Label">@lang("viewSessions")</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.session_decisions.create")}}" class="NavName">
-                                        <span class="Label">@lang("addSession")</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    edit_note
-                                </i>
-                                <span class="Label">التقييمات</span>
                             </div>
-                            <span class="material-icons ArrowRight">
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionSessionRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.session_decisions.index")}}" class="NavName">
+                                                <span class="Label">@lang("viewSessions")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionSessionCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.session_decisions.create")}}" class="NavName">
+                                                <span class="Label">@lang("addSession")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionDecisionTypeCreate || $IsHavePermissionDecisionTypeRead)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        note_add
+                                    </i>
+                                    <span class="Label">انواع القرارات</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.evaluation.employee.create") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            اضافة موظف جديد للتقييم
-                                        </span>
-                                    </a>
-                                    <a href="{{ route("system.evaluation.employee.index") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            عرض جميع الموظفين المضافين
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    meeting_room
-                                </i>
-                                <span class="Label">@lang("departments")</span>
                             </div>
-                            <span class="material-icons ArrowRight">
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionDecisionTypeRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.type_decisions.index")}}" class="NavName">
+                                                <span class="Label">عرض انواع القرارات</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionDecisionTypeCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.type_decisions.create")}}" class="NavName">
+                                                <span class="Label">انشاء نوع قرار جديد</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionEvaluationCreate || $IsHavePermissionEvaluationRead)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        edit_note
+                                    </i>
+                                    <span class="Label">التقييمات</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.sections.create") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("addNewSection")
-                                        </span>
-                                    </a>
-                                    <a href="{{ route("system.sections.index") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("viewAllDepartments")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    weekend
-                                </i>
-                                <span class="Label">@lang("publicHoliday")</span>
                             </div>
-                            <span class="material-icons ArrowRight">
+                            <ul class="NavigationsGroup__SubItems">
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        @if($IsHavePermissionEvaluationCreate)
+                                            <a href="{{ route("system.evaluation.employee.create") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
+                                                اضافة موظف جديد للتقييم
+                                            </span>
+                                            </a>
+                                        @endif
+                                        @if($IsHavePermissionEvaluationRead)
+                                            <a href="{{ route("system.evaluation.employee.index") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
+                                                عرض جميع الموظفين المضافين
+                                            </span>
+                                            </a>
+                                        @endif
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionSessionInCreate || $IsHavePermissionSessionInRead ||
+                        $IsHavePermissionSessionExCreate || $IsHavePermissionSessionExRead)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        meeting_room
+                                    </i>
+                                    <span class="Label">@lang("departments")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.public_holidays.create") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("addNewHoliday")
-                                        </span>
-                                    </a>
-                                    <a href="{{ route("system.public_holidays.index") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("viewAllHoliday")
-                                        </span>
-                                    </a>
+                            </div>
+                            <ul class="NavigationsGroup__SubItems">
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        @if($IsHavePermissionSessionInCreate)
+                                            <a href="{{ route("system.sections.create") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
+                                                @lang("addNewSection")
+                                            </span>
+                                            </a>
+                                        @endif
+                                        @if($IsHavePermissionSessionInRead)
+                                            <a href="{{ route("system.sections.index") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
+                                                @lang("viewAllDepartments")
+                                            </span>
+                                            </a>
+                                        @endif
+                                        @if($IsHavePermissionSessionExCreate)
+                                            <a href="{{ route("system.section_externals.create") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
+                                                    اضافة قسم خارجي جديد
+                                                </span>
+                                            </a>
+                                        @endif
+                                        @if($IsHavePermissionSessionExRead)
+                                            <a href="{{ route("system.section_externals.index") }}" class="NavName">
+                                            <span class="Label">
+                                                عرض جميع الاقسام الخارجية
+                                            </span>
+                                            </a>
+                                        @endif
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionPublicHolidayCreate || $IsHavePermissionPublicHolidayRead)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        weekend
+                                    </i>
+                                    <span class="Label">@lang("publicHoliday")</span>
                                 </div>
-                            </li>
-                        </ul>
-                    </li>
+                                <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                            </div>
+                            <ul class="NavigationsGroup__SubItems">
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        @if($IsHavePermissionPublicHolidayCreate)
+                                            <a href="{{ route("system.public_holidays.create") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
+                                                @lang("addNewHoliday")
+                                            </span>
+                                            </a>
+                                        @endif
+                                        @if($IsHavePermissionPublicHolidayRead)
+                                            <a href="{{ route("system.public_holidays.index") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
+                                                @lang("viewAllHoliday")
+                                            </span>
+                                            </a>
+                                        @endif
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -363,44 +500,52 @@
                             {{--                            </li>--}}
                         </ul>
                     </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    login
-                                </i>
-                                <span class="Label">الحضور</span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                    @if($IsHavePermissionAttendanceRead || $IsUserEmployee)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        login
+                                    </i>
+                                    <span class="Label">الحضور</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.attendances.create") }}" class="NavName">
-                                        <span class="Label">تسجيل الحضور</span>
-                                    </a>
-                                </div>
-                            </li>
-                            {{--  View Attendance Inforamtion Admin  --}}
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.attendances.index") }}" class="NavName">
-                                        <span class="Label">عرض معلومات الحضور</span>
-                                    </a>
-                                </div>
-                            </li>
-                            {{--  View Attendance Inforamtion Employee  --}}
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.attendances.employee") }}" class="NavName">
-                                        <span class="Label">عرض كامل حضوري</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
+                            </div>
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsUserEmployee)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{ route("system.attendances.create") }}" class="NavName">
+                                                <span class="Label">تسجيل الحضور</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionAttendanceRead)
+                                    {{--  View Attendance Inforamtion Admin  --}}
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{ route("system.attendances.index") }}" class="NavName">
+                                                <span class="Label">عرض معلومات الحضور</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsUserEmployee)
+                                    {{--  View Attendance Inforamtion Employee  --}}
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{ route("system.attendances.employee") }}" class="NavName">
+                                                <span class="Label">عرض كامل حضوري</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
@@ -433,362 +578,418 @@
                         </ul>
                     </li>
                 </ul>
-
-                <ul class="NavigationsMenu__NavigationsGroup">
-                    <li class="NavigationsGroup__Title">
-                        <span class="Title">@lang("vocations")</span>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    emoji_food_beverage
-                                </i>
-                                <span class="Label">
+                @if($IsHavePermissionVacationRead || $IsHavePermissionVacationCreate
+                    || $IsUserEmployee || $IsHavePermissionVacationTypeRead
+                    || $IsHavePermissionVacationTypeCreate)
+                    <ul class="NavigationsMenu__NavigationsGroup">
+                        <li class="NavigationsGroup__Title">
+                            <span class="Title">@lang("vocations")</span>
+                        </li>
+                        @if($IsHavePermissionVacationRead || $IsHavePermissionVacationCreate
+                            || $IsUserEmployee)
+                            <li class="NavigationsGroup__GroupItem">
+                                <div class="Title">
+                                    <div class="NavName">
+                                        <i class="material-icons Icon">
+                                            emoji_food_beverage
+                                        </i>
+                                        <span class="Label">
                                     @lang("operation")
                                 </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                                    </div>
+                                    <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves_admin.index") }}" class="NavName">
-                                        <!-- Admin -->
-                                        <span class="Label">
+                                </div>
+                                <ul class="NavigationsGroup__SubItems">
+                                    @if($IsHavePermissionVacationRead)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.leaves_admin.index") }}" class="NavName">
+                                                    <!-- Admin -->
+                                                    <span class="Label">
                                             @lang("viewVocationsRequest")
                                         </span>
-                                    </a>
-                                </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsHavePermissionVacationCreate)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.leaves_admin.create") }}" class="NavName">
+                                    <span class="Label">
+                                        @lang("insertAdministrativeVacation")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsUserEmployee)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.leaves.create.request") }}" class="NavName">
+                                    <span class="Label">
+                                        @lang("requestVocation")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                </ul>
                             </li>
-                            <li class="NavigationsGroup__NavItem">
+                        @endif
+                        @if($IsUserEmployee)
+                            <li class="NavigationsGroup__GroupItem">
                                 <div class="Title">
-                                    <!-- User -->
-                                    <a href="{{ route("system.leaves_admin.create") }}" class="NavName">
+                                    <div class="NavName">
+                                        <i class="material-icons Icon">
+                                            emoji_food_beverage
+                                        </i>
                                         <span class="Label">
-                                            @lang("insertAdministrativeVacation")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <!-- User -->
-                                    <a href="{{ route("system.leaves.create.request") }}" class="NavName">
-                                        <span class="Label">
-                                            @lang("requestVocation")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    emoji_food_beverage
-                                </i>
-                                <span class="Label">
                                     @lang("aboutVocation")
                                 </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                                    </div>
+                                    <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves.all.status" , "pending") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
+                                </div>
+                                <ul class="NavigationsGroup__SubItems">
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{ route("system.leaves.all.status" , "pending") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
                                             @lang("vocationsPending")
                                         </span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves.all.status" , "approve") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{ route("system.leaves.all.status" , "approve") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
                                             @lang("vocationsAccept")
                                         </span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves.all.status" , "reject") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{ route("system.leaves.all.status" , "reject") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">
                                             @lang("vocationsReject")
                                         </span>
-                                    </a>
-                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{ route("system.leaves.show.leavesType") }}" class="NavName">
+                                                <!-- User -->
+                                                <span class="Label">@lang("viewVacationAvailable")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="NavigationsGroup__NavItem">
+                        @endif
+                        @if($IsHavePermissionVacationTypeRead || $IsHavePermissionVacationTypeCreate)
+                            <li class="NavigationsGroup__GroupItem">
                                 <div class="Title">
-                                    <a href="{{ route("system.leaves.show.leavesType") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">@lang("viewVacationAvailable")</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    emoji_food_beverage
-                                </i>
-                                <span class="Label">
+                                    <div class="NavName">
+                                        <i class="material-icons Icon">
+                                            emoji_food_beverage
+                                        </i>
+                                        <span class="Label">
                                     @lang("vocationsType")
                                 </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                                    </div>
+                                    <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <!-- Admin -->
-                                    <a href="{{ route("system.leave_types.index") }}" class="NavName">
+                                </div>
+                                <ul class="NavigationsGroup__SubItems">
+                                    @if($IsHavePermissionVacationTypeRead)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <!-- Admin -->
+                                                <a href="{{ route("system.leave_types.index") }}" class="NavName">
                                         <span class="Label">
                                             @lang("viewVocationsType")
                                         </span>
-                                    </a>
-                                </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsHavePermissionVacationTypeCreate)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <!-- User -->
+                                                <a href="{{ route("system.leave_types.create") }}" class="NavName">
+                                    <span class="Label">
+                                        @lang("addNewType")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                </ul>
                             </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <!-- User -->
-                                    <a href="{{ route("system.leave_types.create") }}" class="NavName">
-                                        <span class="Label">
-                                            @lang("addNewType")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="NavigationsMenu__NavigationsGroup">
-                    <li class="NavigationsGroup__Title">
+                        @endif
+                    </ul>
+                @endif
+                @if($IsHavePermissionOverTimeTypeRead || $IsHavePermissionOverTimeTypeCreate
+                    || $IsHavePermissionOverTimeCreate || $IsHavePermissionOverTimeRead || $IsUserEmployee)
+                    <ul class="NavigationsMenu__NavigationsGroup">
+                        <li class="NavigationsGroup__Title">
                         <span class="Title">
                             @lang("overtime")
                         </span>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    more_time
-                                </i>
-                                <span class="Label">
+                        </li>
+                        @if($IsUserEmployee || $IsHavePermissionOverTimeRead || $IsHavePermissionOverTimeCreate)
+                            <li class="NavigationsGroup__GroupItem">
+                                <div class="Title">
+                                    <div class="NavName">
+                                        <i class="material-icons Icon">
+                                            more_time
+                                        </i>
+                                        <span class="Label">
                                     @lang("operation")
                                 </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                                    </div>
+                                    <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtimes.create.request") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
+                                </div>
+                                <ul class="NavigationsGroup__SubItems">
+                                    @if($IsUserEmployee)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtimes.create.request") }}" class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
                                             @lang("addRequest")
                                         </span>
-                                    </a>
-                                </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsHavePermissionOverTimeRead)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
+                                                    <!-- Admin -->
+                                                    <span class="Label">
+                                        @lang("viewAllRequest")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsHavePermissionOverTimeCreate)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtimes_admin.create") }}" class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
+                                        @lang("insertAdministrativeOvertime")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                </ul>
                             </li>
-                            <li class="NavigationsGroup__NavItem">
+                        @endif
+                        @if($IsUserEmployee)
+                            <li class="NavigationsGroup__GroupItem">
                                 <div class="Title">
-                                    <a href="{{ route("system.overtimes_admin.index") }}" class="NavName">
-                                        <!-- Admin -->
+                                    <div class="NavName">
+                                        <i class="material-icons Icon">
+                                            more_time
+                                        </i>
                                         <span class="Label">
-                                            @lang("viewAllRequest")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtimes_admin.create") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("insertAdministrativeOvertime")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    more_time
-                                </i>
-                                <span class="Label">
-                                    @lang("viewOvertimeType")
-                                </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
-                                play_arrow
-                            </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtime_types.create") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("addNewType")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtime_types.index") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("viewAllTypes")
-                                        </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    more_time
-                                </i>
-                                <span class="Label">
                                     @lang("aboutMyOvertime")
                                 </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                                    </div>
+                                    <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtimes.all.status" , "pending") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
+                                </div>
+                                <ul class="NavigationsGroup__SubItems">
+                                    @if($IsUserEmployee)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtimes.all.status" , "pending") }}" class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
                                             @lang("viewMyRequestPending")
                                         </span>
-                                    </a>
-                                </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsUserEmployee)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtimes.all.status" , "approve") }}" class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
+                                        @lang("viewMyRequestAccept")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsUserEmployee)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtimes.all.status" , "reject") }}" class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
+                                        @lang("viewMyRequestReject")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                </ul>
                             </li>
-                            <li class="NavigationsGroup__NavItem">
+                        @endif
+                        @if($IsHavePermissionOverTimeTypeCreate || $IsHavePermissionOverTimeTypeRead)
+                            <li class="NavigationsGroup__GroupItem">
                                 <div class="Title">
-                                    <a href="{{ route("system.overtimes.all.status" , "approve") }}" class="NavName">
-                                        <!-- User -->
+                                    <div class="NavName">
+                                        <i class="material-icons Icon">
+                                            more_time
+                                        </i>
                                         <span class="Label">
-                                            @lang("viewMyRequestAccept")
-                                        </span>
-                                    </a>
+                                    @lang("viewOvertimeType")
+                                </span>
+                                    </div>
+                                    <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
                                 </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.overtimes.all.status" , "reject") }}" class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("viewMyRequestReject")
+                                <ul class="NavigationsGroup__SubItems">
+                                    @if($IsHavePermissionOverTimeTypeCreate)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtime_types.create") }}" class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
+                                            @lang("addNewType")
                                         </span>
-                                    </a>
-                                </div>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @if($IsHavePermissionOverTimeTypeRead)
+                                        <li class="NavigationsGroup__NavItem">
+                                            <div class="Title">
+                                                <a href="{{ route("system.overtime_types.index") }}" class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
+                                        @lang("viewAllTypes")
+                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                </ul>
                             </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="NavigationsMenu__NavigationsGroup">
-                    <li class="NavigationsGroup__Title">
+                        @endif
+                    </ul>
+                @endif
+                @if($IsHavePermissionReportCreate)
+                    <ul class="NavigationsMenu__NavigationsGroup">
+                        <li class="NavigationsGroup__Title">
                         <span class="Title">
                             @lang("report")
                         </span>
-                    </li>
-                    <li class="NavigationsGroup__NavItem">
-                        <div class="Title">
-                            <a href="{{route("system.employees.report")}}" class="NavName">
-                                <i class="material-icons Icon">
-                                    description
-                                </i>
-                                <span class="Label">
+                        </li>
+                        <li class="NavigationsGroup__NavItem">
+                            <div class="Title">
+                                <a href="{{route("system.employees.report")}}" class="NavName">
+                                    <i class="material-icons Icon">
+                                        description
+                                    </i>
+                                    <span class="Label">
                                     @lang("employeesReport")
                                 </span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="NavigationsMenu__NavigationsGroup">
-                    <li class="NavigationsGroup__Title">
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                @endif
+                @if($IsHavePermissionCompanySettingRead || $IsHavePermissionWorkSettingCreate
+                    || $IsHavePermissionWorkSettingRead)
+                    <ul class="NavigationsMenu__NavigationsGroup">
+                        <li class="NavigationsGroup__Title">
                         <span class="Title">
                             @lang("setting")
                         </span>
-                    </li>
-                    <li class="NavigationsGroup__NavItem">
-                        <div class="Title">
-                            <a href="{{route("system.company_settings.show")}}" class="NavName">
-                                <i class="material-icons Icon">
-                                    widgets
-                                </i>
-                                <span class="Label">
-                                    @lang("companySetting")
-                                </span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    room_preferences
-                                </i>
-                                <span class="Label">
-                                    @lang("workSetting")
-                                </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
-                                play_arrow
-                            </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
+                        </li>
+                        @if($IsHavePermissionCompanySettingRead)
                             <li class="NavigationsGroup__NavItem">
                                 <div class="Title">
-                                    <a href="{{ route("system.work_settings.create") }}"
-                                       class="NavName">
-                                        <!-- User -->
+                                    <a href="{{route("system.company_settings.show")}}" class="NavName">
+                                        <i class="material-icons Icon">
+                                            widgets
+                                        </i>
                                         <span class="Label">
-                                            @lang("addNewWorkSetting")
-                                        </span>
-                                    </a>
-                                    <a href="{{ route("system.work_settings.index") }}"
-                                       class="NavName">
-                                        <!-- User -->
-                                        <span class="Label">
-                                            @lang("viewAllWorkSetting")
-                                        </span>
+                                    @lang("companySetting")
+                                </span>
                                     </a>
                                 </div>
                             </li>
-                        </ul>
-                    </li>
-                </ul>
+                        @endif
+                        @if($IsHavePermissionWorkSettingCreate || $IsHavePermissionWorkSettingRead)
+                            <li class="NavigationsGroup__GroupItem">
+                                <div class="Title">
+                                    <div class="NavName">
+                                        <i class="material-icons Icon">
+                                            room_preferences
+                                        </i>
+                                        <span class="Label">
+                                    @lang("workSetting")
+                                </span>
+                                    </div>
+                                    <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                                </div>
+                                <ul class="NavigationsGroup__SubItems">
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            @if($IsHavePermissionWorkSettingCreate)
+                                                <a href="{{ route("system.work_settings.create") }}"
+                                                   class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
+                                            @lang("addNewWorkSetting")
+                                        </span>
+                                                </a>
+                                            @endif
+                                            @if($IsHavePermissionWorkSettingRead)
+                                                <a href="{{ route("system.work_settings.index") }}"
+                                                   class="NavName">
+                                                    <!-- User -->
+                                                    <span class="Label">
+                                            @lang("viewAllWorkSetting")
+                                        </span>
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                    </ul>
+                @endif
                 <ul class="NavigationsMenu__NavigationsGroup Visible-phoneLandscape">
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("app")</span>

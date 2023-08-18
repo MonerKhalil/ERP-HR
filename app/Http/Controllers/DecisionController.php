@@ -126,7 +126,8 @@ class DecisionController extends Controller
             }
         }
         $data = MyApp::Classes()->Search->getDataFilter($query, null, null, "end_date_decision");
-        return $this->responseSuccess(self::NameBlade , compact("data" , "type_decisions"));
+        return $this->responseSuccess(self::NameBlade , compact("data" , "type_decisions" ,
+            "session_decisions"));
     }
 
     /**

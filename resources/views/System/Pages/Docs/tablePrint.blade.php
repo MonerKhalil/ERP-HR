@@ -15,6 +15,8 @@
               rel="stylesheet">
         {{-- Normalize System --}}
         <link rel="stylesheet" href='{{asset('System/Assets/CSS/Normalize.css')}}' type="text/css" />
+        {{-- Libraries System --}}
+        <link rel="stylesheet" href='{{asset('System/Assets/Lib/Libraries.css')}}' type="text/css" />
         {{-- Main CSS System --}}
         <link rel="stylesheet" href='{{asset('System/Assets/CSS/Style.css')}}' type="text/css" />
         {{-- CSS Extra--}}
@@ -48,6 +50,7 @@
             /*# sourceMappingURL=Style.css.map */
 
         </style>
+
     </head>
 
     <body>
@@ -141,6 +144,10 @@
                 </div>
             </footer>
         </div>
+        {{-- JS Library --}}
+        <script src="{{asset("System/Assets/Lib/Libraries.js")}}"></script>
+        {{-- Main JS --}}
+        <script src="{{asset("System/Assets/JS/Main.js")}}"></script>
         <script>
             window.onload = function () {
                 javascript:window.print();

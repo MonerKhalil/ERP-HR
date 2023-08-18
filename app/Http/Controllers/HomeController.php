@@ -10,6 +10,6 @@ class HomeController extends Controller
 {
     public function HomeView(DataHomeService $homeService): Response
     {
-        return response()->view("System.Pages.globalPage",$homeService->getAllData());
+        return response()->view("System/Pages/home",$homeService->getAllData());
     }
 }

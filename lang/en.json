@@ -325,7 +325,7 @@
     "titleDecisionDetails" : "verify the details of the decision you entered",
     "salaryEffectType" : "type of effect on salary",
     "amountSalaryExtra" : "the value of addition to the salary",
-    "amountIncentivesExtra" : "adding value to incentives",
+    "rateIncentivesExtra" : "adding rate to incentives",
     "amountDiscountSalary" : "amount discount salary",
     "discountRateIncentives" : "rate discount salary",
     "decisionPhoto" : "decision photo",
@@ -574,7 +574,9 @@
     "operationWorkSetting": "Operations on this type",
     "viewAllWorkSetting": "View work schedule types",
     "titleViewAllWorkSetting": "Here, all work or shift types that can be assigned to employees can be displayed",
-
+    "minHourWork" : "min hour work",
+    "lateAllowanceMinute" : "late allowance minute",
+    "earlyAllowanceMinute" : "early allowance minute",
 
     "/*         Reports         */": "",
     "reportBy": "Report By",
