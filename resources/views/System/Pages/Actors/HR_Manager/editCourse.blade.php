@@ -5,9 +5,9 @@
         <div class="AddCoursePage">
             <div class="AddCoursePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterEmployeeCourse') ,
+                    'mainTitle' => "تعديل معلومات الدورة" ,
                     'paths' => [['Courses' , '#'] , ['New Course']] ,
-                    'summery' => __('RegisterCoursesPage')
+                    'summery' => "صفحة تعديل معلومات الدورة"
                 ])
             </div>
         </div>
@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddCoursePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="CoursePage__Information">
                                 <div class="Card">
@@ -26,8 +29,9 @@
                                                 </div>
                                             </div>
                                             <form class="Form Form--Dark" action="{{route("system.conferences.update",$conference["id"])}}"
-                                                  method="patch">
+                                                  method="post">
                                                 @csrf
+                                                @method("put")
                                                 <div class="Row GapC-1-5">
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">

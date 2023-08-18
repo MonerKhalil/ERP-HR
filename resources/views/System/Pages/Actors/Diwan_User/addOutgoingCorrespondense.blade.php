@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddCorrespondencePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="CorrespondencePage__Information">
                                 <div class="Card">
@@ -133,7 +136,7 @@
                                                                                     "FieldID" => "docId" ,
                                                                                     "FieldName" => "path_file" ,
                                                                                     "LabelField" => __("chooseDocument"),
-                                                                                    "AcceptFiles" => "*"
+                                                                                    "AcceptFiles" => "application/pdf, .docx"
                                                                                 ])
                                                                             </div>
                                                                         </div>

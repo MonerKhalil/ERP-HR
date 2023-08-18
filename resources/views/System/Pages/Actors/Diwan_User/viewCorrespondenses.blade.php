@@ -7,7 +7,7 @@
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewcorrespondences") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'summery' => __("titleViewCorrespondences")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -19,12 +19,12 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="#"
+                                    <form name="PrintAllTablePDF" action="correspondences/export/pdf"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx" action="correspondences/export/xls"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -43,7 +43,7 @@
                                                                     "Label" => __("printRowsAsExcel") , "Action" => route("correspondences.export.xls") , "Method" => "post"
                                                                 ] , [
                                                                 "Label" => __("normalDelete")
-                                                                , "Action" => '#'
+                                                                , "Action" => route("correspondences.multi.delete")
                                                                 , "Method" => "delete"
                                                             ] ]
                                                         ])
@@ -99,10 +99,10 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="Item__Col">#</div>
-                                                                <div class="Item__Col"><span>@lang("Type")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Number")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Number")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("type")</span></div>
+                                                                <div class="Item__Col"><span>@lang("externalNumber")</span></div>
+                                                                <div class="Item__Col"><span>@lang("internalNumber")</span></div>
+                                                                <div class="Item__Col"><span>@lang("correspondenceDate")</span></div>
                                                             </div>
                                                             @foreach($correspondences as $correspondence)
                                                                 <div class="Item DataItem">
@@ -145,6 +145,12 @@
                                                                                     <a href="{{route("transaction.correspondences_dest.add", $correspondence["id"])}}"
                                                                                        class="Dropdown__Item">
                                                                                         @lang("addTransaction")
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="{{route("transaction.legalopinion.send", $correspondence["id"])}}"
+                                                                                       class="Dropdown__Item">
+                                                                                        @lang("requestLegalOponion")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>

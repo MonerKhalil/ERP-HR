@@ -86,7 +86,7 @@ class CorrespondenceController extends Controller
             DB::beginTransaction();
 
 
-            $data = Arr::except($request->validated(),["number_external", "number_internal"]);
+            $data = Arr::except($request->validated(), ["number_external", "number_internal"]);
             if ($request->hasFile("path_file")) {
                 $path = MyApp::Classes()->storageFiles
                     ->Upload($request['path_file'], "correspondence/document_Correspondence");
@@ -98,7 +98,7 @@ class CorrespondenceController extends Controller
                     $number_internal++;
                 }
                 $data["number_internal"] = $number_internal;
-            } else if($request->type == "external") {
+            } else if ($request->type == "external") {
                 $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
                 if (!is_null($number_external)) {
                     $number_external++;
@@ -139,8 +139,15 @@ class CorrespondenceController extends Controller
     public function edit(Correspondence $correspondence)
     {
         $type = ['internal', 'external'];
-        $number_internal = Correspondence::query()->latest('number_internal')->pluck("number_internal")->first();
-        $number_external = Correspondence::query()->latest('number_external')->pluck("number_external")->first();
+        $number_internal = Correspondence::query()->latest('number_internal')->first()->number_internal ?? 0;
+        if (!is_null($number_internal)) {
+            $number_internal++;
+        }
+        $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
+        if (!is_null($number_external)) {
+            $number_external++;
+        }
+
         $correspondence = Correspondence::with(["CorrespondenceDest"])
             ->findOrFail($correspondence->id);
         return $this->responseSuccess("System.Pages.Actors.Diwan_User.editCorrespondence", compact("correspondence", 'number_internal', "number_external", "type"));
@@ -150,8 +157,9 @@ class CorrespondenceController extends Controller
     public function update(CorrespondenceRequest $request, Correspondence $correspondence)
     {
         try {
+            //dd("djkj");
             DB::beginTransaction();
-            $data = $request->validated();
+            $data =Arr::except($request->validated(),["number_internal","number_external","type"]) ;
             if (isset($data['path_file'])) {
                 $document_path = MyApp::Classes()->storageFiles->Upload($data['path_file']);
                 if (is_bool($document_path)) {
@@ -229,8 +237,8 @@ class CorrespondenceController extends Controller
                 "relationFunc" => "employee",
                 "key" => "name",
             ],
-            "subject","number_external","number_internal", "date",
-            "type","summary",
+            "subject", "number_external", "number_internal", "date",
+            "type", "summary",
             "created_at",
         ];
         return [

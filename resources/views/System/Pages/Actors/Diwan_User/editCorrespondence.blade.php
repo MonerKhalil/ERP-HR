@@ -5,9 +5,9 @@
         <div class="AddCorrespondencePage">
             <div class="AddCorrespondencePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterCorrespondence') ,
+                    'mainTitle' => __('editCorrespondence') ,
                     'paths' => [['Correspondences' , '#'] , ['Correspondence']] ,
-                    'summery' => __('RegisterCorrespondencesPage')
+                    'summery' => __('editCorrespondencesPage')
                 ])
             </div>
         </div>
@@ -15,24 +15,29 @@
             <div class="Row">
                 <div class="AddCorrespondencePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="CorrespondencePage__Information">
                                 <div class="Card">
                                     <div class="Card__Content">
                                         <div class="Card__Inner">
                                             <form class="Form Form--Dark" action="{{route("correspondences.update", $correspondence['id'])}}"
-                                                  method="put" enctype="multipart/form-data">
+                                                  method="post" enctype="multipart/form-data">
                                                 @csrf
+                                                @method("put")
                                                 <div class="ListData">
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
-                                                            Main Information
+                                                            @lang("MainInformation")
                                                         </h4>
                                                     </div>
                                                     <div class="ListData__Content">
                                                         <div class="ListData__CustomItem">
                                                             <div class="Row GapC-1-5">
                                                                 <div class="VisibilityOption Col-4-md Col-6-sm"
+                                                                     data-VisibilityDefault="{{isset($correspondence) ? $correspondence["type"] : "" }}"
                                                                      data-ElementsTargetName="typeTemp">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">
@@ -44,7 +49,7 @@
                                                                                              "Value" => $Item] ) ;
                                                                                     }
                                                                                 @endphp
-                                                                                @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('correspondenceType'),"DefaultValue" => $correspondence->type,
+                                                                                @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('type'),"DefaultValue" => $correspondence->type,
                                                                                             "Options" => $types,])
                                                                             </div>
                                                                         </div>
@@ -89,9 +94,9 @@
                                                                                 <input id="number_external"
                                                                                        class="Input__Field"
                                                                                        type="text"
+                                                                                       name="number_external"
                                                                                        readonly
-                                                                                       value={{isset($number_external) ? $number_external : ""}}
-                                                                                           name="number_external">
+                                                                                       value={{isset($number_external) ? $number_external : ""}}>
                                                                                 <label class="Input__Label"
                                                                                        for="number_internal">@lang("numberExternal")</label>
                                                                             </div>
@@ -121,8 +126,7 @@
                                                                                        value={{isset($correspondence->date) ? $correspondence->date : ""}}
                                                                                        placeholder="correspondence Date">
                                                                                 <label class="Date__Label"
-                                                                                       for="correspondenceDate">correspondence
-                                                                                    Date</label>
+                                                                                       for="correspondenceDate">@lang("correspondenceDate")</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -136,7 +140,7 @@
                                                                                     "FieldName" => "path_file" ,
                                                                                     "DefaultData" => (isset($correspondence->path_file)) ? PathStorage($correspondence->path_file) : ""  ,
                                                                                     "LabelField" => __("chooseDocument"),
-                                                                                    "AcceptFiles" => "*"
+                                                                                    "AcceptFiles" => "application/pdf, .docx"
                                                                                 ])
                                                                             </div>
                                                                         </div>
@@ -150,7 +154,7 @@
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
                                                             <label for="CorrespondenceSubjectEditor">
-                                                                Correspondence Subject
+                                                                @lang("correspondenceSubject")
                                                             </label>
                                                         </h4>
                                                     </div>
@@ -211,7 +215,7 @@
                                                         <div class="Form__Group">
                                                             <div class="Form__Button">
                                                                 <button class="Button Send"
-                                                                        type="submit">@lang("addCorrespondence")</button>
+                                                                        type="submit">@lang("save")</button>
                                                             </div>
                                                         </div>
                                                     </div>
