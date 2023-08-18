@@ -6,6 +6,8 @@ use App\Http\Controllers\CorrespondenceSourceDestController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LanguageSkillController;
 use App\Http\Controllers\MembershipController;
+use App\Models\ConferenceEmployee;
+use App\Models\Decision;
 use App\Models\LeaveType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -71,12 +73,9 @@ Route::delete('membership/{membership}/force-delete', [LanguageSkillController::
  */
 Route::post("mmm",[\App\Http\Controllers\SectionsController::class,"show"]);
 Route::get("xxx",function (){
-    $data = DB::table('INFORMATION_SCHEMA.COLUMNS')
-        ->select('DATA_TYPE')
-        ->where('TABLE_NAME', 'company_settings')
-        ->where('COLUMN_NAME', 'created_at')
-        ->first()->DATA_TYPE;
-    dd($data);
+    $bonusesDecision = ConferenceEmployee::with("conference")
+        ->where("employee_id",1)->get()->unique(["employee_id","conference_id"]);
+    dd($bonusesDecision);
 });
 
 Route::post("xxxc",[CorrespondenceSourceDestController::class,"store"]);

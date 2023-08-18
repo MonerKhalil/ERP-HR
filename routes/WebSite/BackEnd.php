@@ -25,6 +25,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OverTimeAdminController;
 use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\OvertimeTypeController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PositionEmployeeController;
 use App\Http\Controllers\ProfileUserController;
@@ -363,6 +364,23 @@ Route::middleware(['auth'])->group(function () {
 
         /*===========================================
         =        End Attendance Employee Routes         =
+       =============================================*/
+
+
+        /*===========================================
+        =        Start Payroll Employee Routes         =
+       =============================================*/
+
+        Route::prefix("payroll")->name("payroll.")
+            ->controller(PayrollController::class)->group(function (){
+                Route::get("salary/me","salaryDetails")->name("salary.me");
+                Route::get("salary/{employee}","salaryDetailsEmployee")->name("salary.employee");
+                Route::post('export/xlsx', "ExportXls")->name("export.xls");
+                Route::post('export/pdf', "ExportPDF")->name("export.pdf");
+            });
+
+        /*===========================================
+        =        End Payroll Employee Routes         =
        =============================================*/
 
 

@@ -22,7 +22,7 @@ class Overtime extends BaseModel
     // Add relationships between tables section
 
     public function overtime_type(){
-        return $this->belongsTo(OvertimeType::class,"overtime_type_id","id");
+        return $this->belongsTo(OvertimeType::class,"overtime_type_id","id")->withTrashed();
     }
 
     public function employee(){

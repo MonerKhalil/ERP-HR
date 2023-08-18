@@ -28,7 +28,7 @@ class Employee extends BaseModel
 
     // Add relationships between tables section
     public function work_setting(){
-        return $this->belongsTo(WorkSetting::class,"work_setting_id","id");
+        return $this->belongsTo(WorkSetting::class,"work_setting_id","id")->withTrashed();
     }
 
     public function user()
@@ -164,6 +164,18 @@ class Employee extends BaseModel
     }
     public function evaluation(){
         return $this->hasMany(EmployeeEvaluation::class,"employee_id","id");
+    }
+
+    public static function salary($employee_id){
+        $contract = Contract::query()->where("employee_id",$employee_id)
+            ->whereDate("contract_finish_date",">",now())
+            ->orderByDesc("contract_date")
+            ->first();
+        if (is_null($contract)){
+            $employee = Employee::with("work_setting")->findOrFail($employee_id);
+            return $employee->work_setting->salary_default;
+        }
+        return $contract->salary;
     }
 
     /**

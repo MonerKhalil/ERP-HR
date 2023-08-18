@@ -205,7 +205,7 @@ class EmployeeEvaluationController extends Controller
         $evaluationMember = EvaluationMember::query()->where("employee_id",$employee)
             ->where("evaluation_id",$evaluation->id)->first();
         $evaluationMember->update($evaluationMemberRequest->validated());
-        return $this->responseSuccess(null,null,"update",null,true);
+        return $this->responseSuccess(null,null,"update","home");
     }
 
     /**

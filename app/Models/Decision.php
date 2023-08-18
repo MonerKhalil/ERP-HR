@@ -57,11 +57,6 @@ class Decision extends BaseModel
                 "date" => $validator->dateRules(true),
                 "content" => [$rule,"string"],
                 "end_date_decision" => $validator->afterDateOrNowRules(false,'date'),
-                "value" => [Rule::requiredIf(function ()use($validator){
-                    return isset($validator->effect_salary) &&
-                        ($validator->effect_salary=="increment" || $validator->effect_salary=="decrement");
-                }),Rule::when(isset($validator->effect_salary) &&
-                    ($validator->effect_salary=="none"),"nullable"),"numeric","min:1"],
                 "rate" => [Rule::requiredIf(function ()use($validator){
                     return isset($validator->effect_salary) &&
                         ($validator->effect_salary=="increment" || $validator->effect_salary=="decrement");

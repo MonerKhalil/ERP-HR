@@ -95,7 +95,7 @@ class ContractController extends Controller
         try {
             DB::beginTransaction();
             $contract->update($request->validated());
-            $yearsEmployeeService->updateServicesYearsEmployee();
+            $yearsEmployeeService->updateServicesYearsEmployee($request->employee_id);
             DB::commit();
             return $this->responseSuccess(null, null, "update", self::IndexRoute);
         }catch (\Exception $exception){
