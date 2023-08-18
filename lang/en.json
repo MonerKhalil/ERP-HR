@@ -645,5 +645,7 @@
     "ViewEmployeeCourse" : "View Employee Course",
     "ViewCoursesPage" : "View Employee Course - Conference page",
     "notices" : "Notices",
-    "external_party" : "External Party"
+    "external_party" : "External Party",
+    "viewcorrespondences" : "View Correspondences",
+    "titleViewCorrespondences" : "All correspondences info are displayed here"
 }

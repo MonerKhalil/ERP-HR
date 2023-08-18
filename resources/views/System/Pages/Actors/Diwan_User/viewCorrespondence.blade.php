@@ -5,9 +5,9 @@
         <div class="AddCorrespondencePage">
             <div class="AddCorrespondencePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterCorrespondence') ,
+                    'mainTitle' => __('viewCorrespondence') ,
                     'paths' => [['Correspondences' , '#'] , ['Correspondence']] ,
-                    'summery' => __('RegisterCorrespondencesPage')
+                    'summery' => __('viewCorrespondencesPage')
                 ])
             </div>
         </div>

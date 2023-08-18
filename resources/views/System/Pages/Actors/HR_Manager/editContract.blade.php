@@ -19,6 +19,9 @@
             <div class="Row">
                 <div class="AddContractPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="ContractPage__Information">
                                 <div class="Card">
@@ -56,7 +59,7 @@
                                                                             }
                                                                             array_push($CotnractTypes , [
                                                                                 "Label" => $type
-                                                                                , "Value" => $index ]) ;
+                                                                                , "Value" => $type ]) ;
                                                                         }
                                                                     @endphp
                                                                     @include("System.Components.selector" , ['Name' => "contract_type" , "Required" => "true" , "Label" => __('contractType') ,
