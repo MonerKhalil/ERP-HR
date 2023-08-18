@@ -12,8 +12,8 @@ class NotificationComposer
     {
         $user = auth()->user();
         if(!is_null($user)){
-            $view->with("Notifications",$user->notifications()->latest()->take(10)->get()); 
-            $view->with("CountUnRead",$user->unreadNotifications()->count()); 
+            $view->with("Notifications",$user->notifications()->whereNot("data->type","audit")->latest()->take(10)->get());
+            $view->with("CountUnRead",$user->unreadNotifications()->whereNot("data->type","audit")->count());
         }
     }
 }

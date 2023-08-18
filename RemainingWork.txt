@@ -1,0 +1,21 @@
+ViewUser : {
+    View Users Need Bulk For Print Just Checked
+}
+
+ViewRole : {
+    View Roles Need Bulk For Print & Delete Just Checked
+    Error Back Search By Start & End Date
+}
+
++ Selector Problem With Footer
++ When Submit Form And Any Field is Not Valid the error created in fail location
+
+{
+    نسبة التقيم بالنسبة للتقرير لسا ما نعملت
+    مراجعة الكود الهاص بالـ Readonly + كود الـ Visibility
+    تزبيط الـ default تبع الـ Visibility الخاص بالـ multi selector
+    تزبيط شغلة البلد بالـ Section
+    تزبيط الـ Errors بل اللغة تبع التقارير
+    تشييكة عل الـ bulk action مشان مثلا ازا قلبنا من delete ل post مثلا تكون الامور تمام وتحذف الـ delete وازا حطينا delete بترجع
+    لا يوجد تفاصيل لعرض تقاييم الموظف
+}

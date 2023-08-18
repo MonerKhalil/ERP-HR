@@ -9,20 +9,14 @@
         flex-wrap: wrap;
         //margin-bottom: 2rem;
         column-gap: 2.5rem;
-        border-bottom: 1px solid $SeparateBorderColor;
     }
 
     &__Item {
         position: relative;
         padding: 1.5rem;
-        color : $SecondaryColor-Project ;
         font-weight: 600;
         cursor: pointer;
         transition: all .3s;
-
-        &:hover {
-            color: $WhiteColor;
-        }
 
         &::after {
             content: "";
@@ -37,18 +31,14 @@
             transition: all .3s;
         }
 
+        &.NotClickable {
+            cursor: default;
+        }
+
         &--Icon {
             display: flex;
             align-items: center;
             gap : .5rem ;
-        }
-
-        &.Active {
-            color: $TertiaryColor-Project;
-
-            &::after {
-                background-color: $TertiaryColor-Project;
-            }
         }
     }
 
@@ -62,5 +52,106 @@
         &.Active {
             display: block;
         }
+    }
+}
+
+@include Themes(Light) {
+
+    .Taps {
+
+        &__List {
+            border-bottom: 1px solid $SeparateBorderColor;
+        }
+
+        &__Item {
+            color : $GrayColor ;
+
+            &:not(.Active):hover {
+                color: $BlackColor ;
+            }
+
+            &.NotClickable {
+
+                &:not(.Active):hover {
+                    color: $GrayColor ;
+                }
+            }
+
+            &.Error {
+                color : $DangerColor ;
+
+                &:hover {
+                    color: $DangerColor ;
+                }
+
+                &.Active {
+                    color: $DangerColor;
+
+                    &::after {
+                        background-color: $DangerColor;
+                    }
+                }
+            }
+
+            &.Active {
+                color: $TertiaryColor-Project;
+
+                &::after {
+                    background-color: $TertiaryColor-Project;
+                }
+            }
+        }
+
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .Taps {
+
+        &__List {
+            border-bottom: 1px solid $SeparateBorderColor;
+        }
+
+        &__Item {
+            color : $SecondaryColor-Project ;
+
+            &:hover {
+                color: $WhiteColor;
+            }
+
+            &.NotClickable {
+
+                &:hover {
+                    color: $SecondaryColor-Project;
+                }
+            }
+
+            &.Error {
+                color : $DangerColor ;
+
+                &:hover {
+                    color: $DangerColor ;
+                }
+
+                &.Active {
+                    color: $DangerColor;
+
+                    &::after {
+                        background-color: $DangerColor;
+                    }
+                }
+            }
+
+            &.Active {
+                color: $TertiaryColor-Project;
+
+                &::after {
+                    background-color: $TertiaryColor-Project;
+                }
+            }
+        }
+
     }
 }

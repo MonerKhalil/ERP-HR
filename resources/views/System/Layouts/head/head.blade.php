@@ -12,6 +12,8 @@
 <link rel="stylesheet" href='{{asset('System/Assets/CSS/Normalize.css')}}' type="text/css" />
 {{-- Libraries System --}}
 <link rel="stylesheet" href='{{asset('System/Assets/Lib/Libraries.css')}}' type="text/css" />
+{{-- Libraries Extra --}}
+@yield('CSSLibrary_Extra')
 {{-- Main CSS System --}}
 <link rel="stylesheet" href='{{asset('System/Assets/CSS/Style.css')}}' type="text/css" />
 {{-- CSS Extra--}}

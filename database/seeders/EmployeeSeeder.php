@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Employee;
+use App\Models\Sections;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -14,6 +15,39 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        for ($i = 1 ;$i<=20 ; $i++){
+            Employee::create([
+                "work_setting_id" => 1,
+                "user_id" => $i,
+                "section_id" => 1,
+                "nationality" => $i,
+                "first_name" => $i."kmdakmds",
+                "last_name" => $i."kmdakmds",
+                "father_name" => $i."kmdakmds",
+                "mother_name" => $i."kmdakmds",
+                "NP_registration" => $i,
+                "birth_place" => $i,
+                "job_site" => $i."kmdakmds",
+                "current_job" => $i."kmdakmds",
+                "number_national" => $i,
+                "number_file" => $i,
+                "number_insurance" => $i,
+                "number_self" => $i,
+                "number_child" => $i,
+                "number_wives" => $i,
+                "gender" => "male",
+                "reason_exemption" => $i."kmdakmds",
+                "military_service" => "performer",
+                "family_status" => "married",
+                "birth_date" => now(),
+                "created_at" => now(),
+                "count_administrative_leaves" => 14,
+            ]);
+        }
+        for ($i = 1 ;$i<=10 ; $i++){
+            Sections::query()->find($i)->update([
+                "moderator_id" => $i,
+            ]);
+        }
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class RoleController extends Controller
 {
@@ -77,7 +78,8 @@ class RoleController extends Controller
     {
         $permissions = Permission::query()->get(["id","name"]);
         $rolePermissions = $role->permissions;
-        return $this->responseSuccess("role.show",compact('role','permissions','rolePermissions'));
+        return $this->responseSuccess("System.Pages.Actors.Admin.roleAdd"
+            ,compact('role','permissions','rolePermissions'));
     }
 
     /**
@@ -105,6 +107,16 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+        return $this->responseSuccess(null,null,"delete",self::IndexRoute);
+    }
+
+    public function MultiDelete(Request $request)
+    {
+        $request->validate([
+            "ids" => ["array","required"],
+            "ids.*" => ["required",Rule::exists("roles","id")],
+        ]);
+        Role::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 }

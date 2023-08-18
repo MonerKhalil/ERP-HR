@@ -65,7 +65,7 @@
                 position: relative;
 
                 &:not(:last-child) {
-                    margin-bottom: 1rem;
+                    margin-bottom: .5rem;
                 }
 
                 .Title {
@@ -75,7 +75,7 @@
                     .NavName {
                         display: flex;
                         justify-content: flex-start;
-                        align-items: flex-start;
+                        align-items: center;
                         gap: .5rem;
                         color : $WhiteColor ;
 
@@ -245,6 +245,10 @@
                                 }
                             }
                         }
+
+                        &__SubItems {
+                            display: none;
+                        }
                     }
 
                 }
@@ -332,4 +336,39 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .NavigationsMenu {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
+
+}
+
+@include Themes(Dark) {
+
+    .NavigationsMenu {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
 }

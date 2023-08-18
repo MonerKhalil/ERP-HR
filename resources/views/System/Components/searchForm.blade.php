@@ -6,7 +6,8 @@
                 <div class="Popup__InnerGroup">
                     @if(isset($InfoForm))
                         <form class="Form Form--Dark"
-                              action="{{$InfoForm['Route']}}" method="{{$InfoForm['Method']}}">
+                              action="{{$InfoForm['Route']}}"
+                              method="{{$InfoForm['Method']}}">
                             @csrf
                             @if(isset($SearchForm))
                                 <div class="Popup__Inner">
@@ -15,18 +16,18 @@
                                     </h3>
                                     <div class="Popup__Body">
                                         <div class="Row GapC-1-5">
-                                                <div class="Col">
-                                                    <div class="Form__Group">
-                                                        <div class="Form__Input">
-                                                            <div class="Input__Area">
-                                                                <input id="SearchField" class="Input__Field"
-                                                                       type="text" name="{{$SearchForm['Name']}}"
-                                                                       placeholder="{{$SearchForm['Placeholder']}}">
-                                                                <label class="Input__Label" for="SearchField">{{$SearchForm['Placeholder']}}</label>
-                                                            </div>
+                                            <div class="Col">
+                                                <div class="Form__Group">
+                                                    <div class="Form__Input">
+                                                        <div class="Input__Area">
+                                                            <input id="SearchField" class="Input__Field"
+                                                                   type="text" name="{{$SearchForm['Name']}}"
+                                                                   placeholder="{{$SearchForm['Placeholder']}}">
+                                                            <label class="Input__Label" for="SearchField">{{$SearchForm['Placeholder']}}</label>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -107,8 +108,9 @@
                                                             <div class="Form__Date">
                                                                 <div class="Date__Area">
                                                                     <input id="{{"Input".$Counter}}" class="RangeData Date__Field"
-                                                                           type="text" name="{{$Field["Info"]["Name"]}}"
-                                                                           placeholder="{{$Field["Info"]["Placeholder"]}}"
+                                                                           type="text" placeholder="{{$Field["Info"]["Placeholder"]}}"
+                                                                           date-StartDateName="{{$Field["Info"]["StartDateName"]}}"
+                                                                           date-EndDateName="{{$Field["Info"]["EndDateName"]}}"
                                                                            @if(isset($Field["Info"]["Value"]))
                                                                            value="{{$Field["Info"]["Value"]}}"
                                                                            @endif
@@ -140,6 +142,43 @@
                                                                         >
                                                                         <label class="Date__Label"
                                                                                for="{{"Input".$Counter}}">{{$Field["Info"]["Placeholder"]}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    @if($Field["Type"] == "NormalTime")
+                                                        <div class="Col-6-md">
+                                                            <div class="Form__Group">
+                                                                <div class="Form__Date">
+                                                                    <div class="Date__Area">
+                                                                        <input id="{{"Input".$Counter}}" class="TimeNoDate Date__Field"
+                                                                               type="time" name="{{$Field["Info"]["Name"]}}"
+                                                                               placeholder="{{$Field["Info"]["Placeholder"]}}"
+                                                                               @if(isset($Field["Info"]["Value"]))
+                                                                                    value="{{$Field["Info"]["Value"]}}"
+                                                                               @endif
+                                                                               @if(isset($Field["Info"]["Required"]))
+                                                                               required
+                                                                            @endif
+                                                                        >
+                                                                        <label class="Date__Label"
+                                                                               for="{{"Input".$Counter}}">{{$Field["Info"]["Placeholder"]}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                    @if($Field["Type"] == "NormalMultiSelector")
+                                                        <div class="Col-6-md">
+                                                            <div class="Form__Group">
+                                                                <div class="Form__Date">
+                                                                    <div class="Date__Area">
+                                                                        @include("System.Components.multiSelector" , [
+                                                                            'Name' => "_" , "NameIDs" => $Field["Info"]["NameIDs"] ,
+                                                                            "Label" => $Field["Info"]["Label"] ,
+                                                                            "Options" => $Field["Info"]["Options"]
+                                                                        ])
                                                                     </div>
                                                                 </div>
                                                             </div>

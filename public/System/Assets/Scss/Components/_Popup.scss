@@ -16,7 +16,6 @@
 
         .Title {
             position: relative;
-            background-color: $BackGroundColor_Extra-4;
             padding: 0 2rem;
         }
 
@@ -85,72 +84,102 @@
         visibility: visible;
         opacity: 1;
     }
+}
 
-    // Theme
+@include Themes(Light) {
 
-    &--Dark {
+    .Popup {
         background-color: $BackGroundColor_Extra-2 ;
 
-        .Popup {
+        &__Title {
 
-            &__Card {
+            .Title {
+                background-color: $WhiteColor;
+            }
+        }
+
+        &__Card {
+            background-color: $WhiteColor;
+            box-shadow: 0 0 $DarkShadow;
+        }
+
+        &__Close {
+
+            &:hover {
+                background-color: darken($PrimaryColor-Project , 20%);
+            }
+        }
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .Popup {
+        background-color: $BackGroundColor_Extra-2 ;
+
+        &__Title {
+
+            .Title {
                 background-color: $BackGroundColor_Extra-4;
-                box-shadow: 0 0 $DarkShadow;
+            }
+        }
 
-                .Form--Dark {
+        &__Card {
+            background-color: $BackGroundColor_Extra-4;
+            box-shadow: 0 0 $DarkShadow;
 
-                    .Form {
+            .Form {
 
-                        &__Input {
+                &__Input {
 
-                            .Input {
+                    .Input {
 
-                                &__Field {
+                        &__Field {
 
-                                    &:focus ~ .Input__Label ,
-                                    &:not(:placeholder-shown) ~ .Input__Label {
-                                        background-color: $BackGroundColor_Extra-4;
-                                    }
-                                }
-                            }
-                        }
-
-                        &__Date {
-
-                            .Date {
-
-                                &__Field {
-
-                                    &:not(:placeholder-shown) ~ .Date__Label {
-                                        background-color: $BackGroundColor_Extra-4;
-                                    }
-                                }
-                            }
-                        }
-
-                        &__Select {
-
-                            .Selector {
-
-                                &__WordLabel {
-                                    background-color: $BackGroundColor_Extra-4;
-                                }
-
-                                &__Options {
-                                    background-color: $BackGroundColor_Extra-4;
-                                }
+                            &:focus ~ .Input__Label ,
+                            &:not(:placeholder-shown) ~ .Input__Label {
+                                background-color: $BackGroundColor_Extra-4;
                             }
                         }
                     }
                 }
-            }
 
-            &__Close {
+                &__Date {
 
-                &:hover {
-                    background-color: darken($PrimaryColor-Project , 20%);
+                    .Date {
+
+                        &__Field {
+
+                            &:not(:placeholder-shown) ~ .Date__Label {
+                                background-color: $BackGroundColor_Extra-4;
+                            }
+                        }
+                    }
+                }
+
+                &__Select {
+
+                    .Selector {
+
+                        &__WordLabel {
+                            background-color: $BackGroundColor_Extra-4;
+                        }
+
+                        &__Options {
+                            background-color: $BackGroundColor_Extra-4;
+                        }
+                    }
                 }
             }
         }
+
+        &__Close {
+
+            &:hover {
+                background-color: darken($PrimaryColor-Project , 20%);
+            }
+        }
     }
+
 }

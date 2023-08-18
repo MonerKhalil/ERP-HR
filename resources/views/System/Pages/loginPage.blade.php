@@ -1,5 +1,6 @@
 @extends("System.master")
 
+
 @section("MainContent")
     <main class="MainContent">
         <section class="MainContent__Section MainContent__Section--Login">
@@ -27,18 +28,27 @@
                                 </div>
                                 <div class="AuthenticationPage__Form">
                                     <h2 class="AuthenticationPage__Title">@lang("signin")</h2>
-                                    <form class="Form Form--Dark" action="{{route('login')}}" method="post">
+                                    <form class="Form Form--Dark" id="AuthenticationForm"
+                                          action="{{route('login')}}" method="post">
                                         @csrf
                                         <div class="Row">
                                             <div class="Col">
                                                 <div class="Form__Group">
                                                     <div class="Form__Input">
                                                         <div class="Input__Area">
-                                                            <input id="email" class="Input__Field" type="text"
-                                                                   name="email" placeholder="@lang("email")">
+                                                            <input id="email" class="Input__Field" type="email"
+                                                                   name="email" required
+                                                                   placeholder="@lang("email")">
                                                             <label class="Input__Label" for="email">@lang("email")</label>
                                                         </div>
                                                     </div>
+                                                    @if(!is_null(Errors("email")))
+                                                        <div class="Form__Error">
+                                                            <div class="Error__Area">
+                                                                <small>{{Errors("email")}}</small>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="Col">
@@ -46,18 +56,26 @@
                                                     <div class="Form__Input Form__Input--Password">
                                                         <div class="Input__Area">
                                                             <input id="Password" class="Input__Field"
-                                                                   type="password" name="password" placeholder="@lang("password")">
+                                                                   type="password" name="password"
+                                                                   placeholder="@lang("password")" required>
                                                             <label class="Input__Label" for="Password">@lang("password")</label>
                                                             <i class="material-icons Input__Icon">visibility</i>
                                                         </div>
                                                     </div>
+                                                    @if(!is_null(Errors("email")))
+                                                        <div class="Form__Error">
+                                                            <div class="Error__Area">
+                                                                <small>{{Errors("password")}}</small>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="Col-6-xs">
                                                 <div class="Form__Group">
                                                     <div class="Form__CheckBox">
                                                         <div class="CheckBox__Area">
-                                                            <input type="checkbox" id="RememberMe"
+                                                            <input type="checkbox" id="RememberMe" name="remember"
                                                                    class="CheckBox__Input">
                                                             <label class="CheckBox__Label" for="RememberMe">
                                                             <span class="IconChecked">

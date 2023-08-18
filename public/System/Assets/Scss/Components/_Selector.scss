@@ -8,7 +8,7 @@
         position: relative;
         display: block ;
         width: 100%;
-        padding: 1rem 2rem;
+        padding: 1.1rem 2rem;
         outline: 1px solid $SeparateBorderColor_Extra-1;
         border-radius: $BorderRadiusValue ;
         cursor: pointer;
@@ -23,7 +23,7 @@
     &__WordChoose {
         display: none;
         font-size: 1.5rem;
-        color : $TextColor ;
+        color : #0e0e0e ;
     }
 
     &__Options {
@@ -53,10 +53,6 @@
             background-color: #1EE0AC;
         }
     }
-
-    //&__SelectForm {
-    //    display: none;
-    //}
 
     &__Arrow {
         position: absolute;
@@ -158,6 +154,50 @@
                     right: .5rem;
                 }
             }
+        }
+    }
+}
+
+@include Themes(Light) {
+
+    .Selector {
+
+        &.Selected {
+
+            .Selector {
+
+                &__WordChoose {
+                    color : #0e0e0e ;
+                }
+
+                &__WordLabel {
+                    background : linear-gradient(to bottom, #fff 44%, #F5F5F5 50%) ;
+                }
+
+            }
+
+        }
+    }
+}
+
+@include Themes(Dark) {
+
+    .Selector {
+
+        &.Selected {
+
+            .Selector {
+
+                &__WordChoose {
+                    color : $TextColor ;
+                }
+
+                &__WordLabel {
+                    background : $BackGroundColor ;
+                }
+
+            }
+
         }
     }
 }

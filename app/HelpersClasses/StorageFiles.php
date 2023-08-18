@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class StorageFiles
 {
     private const DISK = "public";
-    public const EX_IMG = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-    public const Ex_FILE = ['pdf','xlsx','csv'];
+    public const EX_IMG = ['jpg' , "JPG" , 'jpeg' , "JPEG" , 'png' ,'PNG' , 'gif' , 'GIF' , 'svg' , 'SVG'];
+    public const Ex_FILE = ['pdf','xlsx','csv','docx','PDF','XLSX','CSV','DOCX'];
     public const FOLDER_IMAGES = "images";
     public const FOLDER_FILES = "files";
 
@@ -31,11 +31,11 @@ class StorageFiles
         $fileNameFinal = strtolower(time() . Str::random(5) . '-' . Str::slug($file_base_name)) . '.' . $file->getClientOriginalExtension();
         if (in_array($ext, self::Ex_FILE)) {
             return Storage::disk(is_null($disk) ? self::DISK : $disk)
-                ->putFileAs($pathDir . "/" . self::FOLDER_FILES . "/", $file, $fileNameFinal);
+                ->putFileAs($pathDir . "/" . self::FOLDER_FILES, $file, $fileNameFinal);
         }
         if (in_array($ext, self::EX_IMG)) {
             return Storage::disk(is_null($disk) ? self::DISK : $disk)
-                ->putFileAs($pathDir . "/" . self::FOLDER_IMAGES . "/", $file, $fileNameFinal);
+                ->putFileAs($pathDir . "/" . self::FOLDER_IMAGES , $file, $fileNameFinal);
         }
         throw new MainException("you cant upload current file !!!");
     }
@@ -52,8 +52,16 @@ class StorageFiles
         if (is_null($paths)){
             return false;
         }
-        if (Storage::disk($disk)->exists($paths)) {
-            return Storage::disk(self::DISK)->delete($paths);
+        if (is_array($paths)){
+            foreach ($paths as $path){
+                if (Storage::disk($disk)->exists($path)) {
+                    return Storage::disk(self::DISK)->delete($path);
+                }
+            }
+        }else{
+            if (Storage::disk($disk)->exists($paths)) {
+                return Storage::disk(self::DISK)->delete($paths);
+            }
         }
         return false;
     }

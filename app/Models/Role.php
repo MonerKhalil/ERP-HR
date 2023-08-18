@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Http\Requests\BaseRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
 
 class Role extends \Spatie\Permission\Models\Role
 {
+    use SoftDeletes;
     /**
      * Description: To check front end validation
      * @inheritDoc

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\HelpersClasses\MyApp;
+use App\Models\WorkSetting;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
@@ -11,17 +12,25 @@ use Illuminate\Http\Response;
 
 class AuditController extends Controller
 {
+    public function showAudit($audit){
+        $user = auth()->user();
+        $audit = $user->notifications()
+            ->where("data->type","audit")
+            ->where("data->data->audit_id",$audit)
+            ->findOrFail();
+        return $this->responseSuccess("...",compact("$audit"));
+    }
+
     /**
      * @param Request $request
      * @return Response|RedirectResponse|null
      * @author moner khalil
      */
-    public function NotificationsAuditUserShow(Request $request): Response|RedirectResponse|null
+    public function AllNotificationsAuditUserShow(Request $request): Response|RedirectResponse|null
     {
         $dataFilter = $request->filter;
         $user = auth()->user();
         $queryAudit = $user->notifications()->where("data->type","audit");
-        $data = null;
         if (!is_null($dataFilter)){
             $idsNotificationsFilter = $queryAudit->get()->map(function ($item) {
                 return $this->resolveDataItem($item);

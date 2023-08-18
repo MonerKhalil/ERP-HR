@@ -2,6 +2,10 @@
 
 namespace App\HelpersClasses;
 
+use App\Exceptions\MainException;
+use App\Mail\CorrespondenceMail;
+use Illuminate\Support\Facades\Mail;
+
 class MyApp
 {
     public const RouteHome = "home";
@@ -80,6 +84,22 @@ class MyApp
     public function getLangLocale(string $lang): string
     {
         return in_array($lang,$this->Lang) ? $lang : $this->defaultLang;
+    }
+
+    /**
+     * @param $mail
+     * @param $subject
+     * @param $data
+     * @param null $bladeMail
+     * @throws MainException
+     * @author moner khalil
+     */
+    public function sendMail($mail, $subject, $data, $bladeMail = null){
+        try {
+            Mail::to($mail)->send(new CorrespondenceMail($data,$subject,$bladeMail));
+        }catch (\Exception $exception){
+            throw new MainException($exception->getMessage());
+        }
     }
 
 }

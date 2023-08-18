@@ -3,9 +3,14 @@
 namespace App\HelpersClasses;
 
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
 class SearchModel
 {
     private $request;
+    private const DATATYPE_CHARS = ['char', 'varchar', 'binary', 'varbinary', 'text', 'tinytext', 'mediumtext', 'longtext', 'enum', 'set'];
+    private const DATATYPE_DATE = ['date', 'datetime', 'timestamp', 'time', 'year'];
 
     public function __construct()
     {
@@ -15,18 +20,47 @@ class SearchModel
     /**
      * @param $queryBuilder
      * @param ?array $filter
+     * @param bool|null $isAll
+     * @param string|null $isFilterDate_SetColumn
      * @param callable|null $callback
      * @return mixed
      * @author moner khalil
      */
-    public function getDataFilter($queryBuilder, array $filter = null,callable $callback = null): mixed
+    public function getDataFilter($queryBuilder, array $filter = null
+        ,bool $isAll = null,string $isFilterDate_SetColumn = null,callable $callback = null): mixed
     {
-        foreach ($this->filterSearchAttributes($filter) as $key => $value){
-            $queryBuilder = $queryBuilder->where($key,"LIKE","%".strtolower($value)."%");
+        $filterFinal = $this->filterSearchAttributes($filter);
+        $tableName = $queryBuilder->getQuery()->from;
+        foreach ($filterFinal as $key => $value){
+            if (!is_null($value) && Schema::hasColumn($tableName,$key)){
+                if (in_array($this->getTypeColumn($key,$tableName),self::DATATYPE_DATE)){
+                    $temp = MyApp::Classes()->stringProcess->DateFormat($value);
+                    $queryBuilder = $queryBuilder->where($key,$temp);
+                }elseif (in_array($this->getTypeColumn($key,$tableName),self::DATATYPE_CHARS)){
+                    $queryBuilder = $queryBuilder->where($key,"LIKE","%".$value."%");
+                }else{
+                    $queryBuilder = $queryBuilder->where($key,$value);
+                }
+            }
         }
+
+        if (isset($filterFinal['start_date_filter']) && isset($filterFinal['end_date_filter'])){
+            $from = MyApp::Classes()->stringProcess->DateFormat($filterFinal['start_date_filter']);
+            $to = MyApp::Classes()->stringProcess->DateFormat($filterFinal['end_date_filter']);
+            if ( is_string($from) && is_string($to) && ($from <= $to) ){
+                $isFilterDate_SetColumn = is_null($isFilterDate_SetColumn) ? "created_at" : $isFilterDate_SetColumn;
+                $queryBuilder = $queryBuilder->whereBetween($isFilterDate_SetColumn,[$from,$to]);
+            }
+        }
+
+        $queryBuilder = $queryBuilder->orderBy("updated_at","desc");
 
         if (!is_null($callback)){
             return $callback($queryBuilder);
+        }
+
+        if ($isAll){
+            return $queryBuilder->get();
         }
 
         return $this->dataPaginate($queryBuilder);
@@ -34,7 +68,6 @@ class SearchModel
 
     /**
      * @param $queryBuilder
-     * @param $request
      * @return mixed
      * @author moner khalil
      */
@@ -42,9 +75,7 @@ class SearchModel
     {
         $tempCount = $this->countItemsPaginate();
 
-        $queryBuilder = $queryBuilder->orderBy("id","desc");
-
-        if (is_string($tempCount)){
+        if ($tempCount === "all"){
             return $queryBuilder->get();
         }
 
@@ -87,5 +118,13 @@ class SearchModel
             $finalFilter = array_merge($finalFilter,$this->request->filter);
         }
         return $finalFilter;
+    }
+
+    private function getTypeColumn($column,$table){
+        return DB::table('INFORMATION_SCHEMA.COLUMNS')
+            ->select('DATA_TYPE')
+            ->where('TABLE_NAME', $table)
+            ->where('COLUMN_NAME', $column)
+            ->first()->DATA_TYPE ?? "";
     }
 }

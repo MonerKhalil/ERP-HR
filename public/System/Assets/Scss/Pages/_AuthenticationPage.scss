@@ -28,7 +28,7 @@
         width: 50% ;
 
         > img {
-            object-fit: contain;
+            object-fit: cover;
             object-position: center;
         }
     }
@@ -39,17 +39,17 @@
         align-items: center;
         width: 50% ;
         padding: 0 2rem;
-        background-color: #1B202D;
 
         .Content {
             max-width: 100%;
-            width: 40rem;
-            margin: auto 0 ;
+            width: 50rem ;
+            padding: 4rem;
+            margin: auto 0;
+            border-radius: $BorderRadiusValue;
         }
     }
 
     &__Title {
-        color : #96A2B4 ;
         text-transform: capitalize;
     }
 
@@ -115,4 +115,32 @@
     }
 }
 
+@include Themes(Light) {
 
+    .AuthenticationPage {
+
+        &__LoginForm {
+
+            .Content {
+                background: #fff;
+                box-shadow: 0 2px 16px #5c5b5b5e;
+            }
+        }
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .AuthenticationPage {
+
+        &__LoginForm {
+            background-color: #1B202D;
+        }
+
+        &__Title {
+            color: #96A2B4;
+        }
+    }
+
+}

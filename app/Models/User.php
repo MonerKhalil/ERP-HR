@@ -13,10 +13,9 @@ use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements Auditable
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles,SoftDeletes;
-    use \OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +48,7 @@ class User extends Authenticatable implements Auditable
     // Add relationships between tables section
 
     public function employee(){
-        return $this->belongsTo(Employee::class,"user_id","id");
+        return $this->hasOne(Employee::class,"user_id","id")->withDefault();
     }
 
     /**
@@ -63,15 +62,16 @@ class User extends Authenticatable implements Auditable
             $user = auth()->user();
             $userCurrentId = $validator->route('user')->id ?? $user->id;
             $rules = [
-                    "name" => ["required","string"],
+                    "name" => $validator->textRule(true),
                     "email" => ["required","email",Rule::unique("users","email")],
                     "image" => $validator->imageRule(false),
                 ];
             if ($validator->isUpdatedRequest()){
-                $rules['email'] =  ["required","email",Rule::unique("users","email")->ignore($userCurrentId)];
+                $rules['name'] = $validator->textRule(false);
+                $rules['email'] =  ["sometimes","email",Rule::unique("users","email")->ignore($userCurrentId)];
                 $rules["old_password"] = ["sometimes","min:8","string"];
                 $rules["new_password"] = [Rule::requiredIf(!is_null($validator->input('old_password'))),"min:8","string"];
-                $rules["role"] = ["required",Rule::exists("roles","id")];
+                $rules["role"] = ["sometimes",Rule::exists("roles","id")];
                 if ($user->can("update_users")){
                     $rules["password"] = ["sometimes","min:8","string"];
                     $rules["re_password"] = ["sometimes","same:password"];

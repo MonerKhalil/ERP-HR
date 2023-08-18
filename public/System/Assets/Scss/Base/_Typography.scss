@@ -22,14 +22,25 @@ html {
     @include ScreenResponsive(Desktop_Large) {
         font-size: 70%;
     }
+
+    @include PrinterResponsive(Default) {
+        font-size: 56.25%;
+    }
 }
 
 body {
     font-family: $PrimaryFontFamily ;
-    color: $GrayColor ;
     font-size: 1.6rem ;
     font-weight: 400;
     line-height: 1.5;
+
+    &.Light {
+        color: #000;
+    }
+
+    &.Dark {
+        color: #b2b2b2;
+    }
 }
 
 a {
@@ -38,6 +49,7 @@ a {
 }
 
 h1 , .h1 {
+
 }
 
 h2 , .h2 {
@@ -59,11 +71,4 @@ p {
 
 .material-icons {
     font-size: 1.99rem;
-}
-
-@include PrinterResponsive() {
-
-    html {
-        font-size: 56.25%;
-    }
 }

@@ -11,7 +11,6 @@
     }
 
     &__Title {
-        color: $SecondaryColor-Project;
         text-transform: capitalize;
     }
 
@@ -20,18 +19,12 @@
         flex-direction: row;
         gap: 1rem;
         font-size: 1.4rem;
-        color : $TextColor ;
-
-        a {
-            color : $TextColor ;
-        }
     }
 
     &__Summery {
 
         .Summery {
             font-size: 1.4rem;
-            color: $TextColor;
         }
     }
 
@@ -42,6 +35,64 @@
             row-gap: 1rem;
             align-items: flex-start;
         }
+    }
+
+}
+
+@include Themes(Light) {
+
+    .Breadcrumb {
+
+        &__Title {
+            color: $SecondaryColor-Project-Light;
+        }
+
+        &__Path {
+
+            color : $TextColor-Light ;
+
+            a {
+                color : $TextColor-Light ;
+            }
+
+        }
+
+        &__Summery {
+
+            .Summery {
+                color: $TextColor-Light;
+            }
+        }
+
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .Breadcrumb {
+
+        &__Title {
+            color: $SecondaryColor-Project;
+        }
+
+        &__Path {
+
+            color : $TextColor ;
+
+            a {
+                color : $TextColor ;
+            }
+
+        }
+
+        &__Summery {
+
+            .Summery {
+                color: $TextColor;
+            }
+        }
+
     }
 
 }
