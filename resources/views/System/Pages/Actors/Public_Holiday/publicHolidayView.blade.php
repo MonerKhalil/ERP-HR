@@ -136,7 +136,13 @@
                                                                         <td class="Item__Col">{{$HolidayItem["start_date"]}}</td>
                                                                         <td class="Item__Col">{{$HolidayItem["end_date"]}}</td>
                                                                         <td class="Item__Col MoreDropdown">
-                                                                            @if($IsHavePermissionPublicHolidayEdit)
+                                                                            @php
+                                                                                $StartDate = \Carbon\Carbon::parse($HolidayItem["start_date"]);
+                                                                                $EndDate = \Carbon\Carbon::parse($HolidayItem["end_date"]);
+                                                                                $NowDate = \Carbon\Carbon::now();
+                                                                                $isCanEdit = $NowDate->lt($StartDate) && $NowDate->lt($EndDate) ;
+                                                                            @endphp
+                                                                            @if($IsHavePermissionPublicHolidayEdit && $isCanEdit)
                                                                                 <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
                                                                                    data-MenuName="AllVacationsView_{{$HolidayItem["id"]}}">
                                                                                     more_horiz

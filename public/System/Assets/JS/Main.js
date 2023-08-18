@@ -171,7 +171,7 @@ $(document).ready(function (){
 
     function SelectorOperation( SelectorInfo = {
         Operation : "InitializeSelector" | "SetRequired" | "ResetRequired" | "RemoveAllOption"
-            | "SetOption" | "Clone" | "Clear" | "GetData" | "HiddenOption" | "ShowOption"  ,
+            | "SetOption" | "Clone" | "Clear" | "GetData" | "HiddenOption" | "ShowOption" | "SetValue"  ,
         Selector : HTMLElement ,
         OptionContent : HTMLElement | undefined ,
         Option : HTMLElement | undefined ,
@@ -210,6 +210,9 @@ $(document).ready(function (){
                 break ;
             case "ShowOption" :
                 VisibleOption();
+                break ;
+            case "SetValue" :
+                SetValue();
                 break ;
         }
 
@@ -357,6 +360,20 @@ $(document).ready(function (){
                 OldValue : OldValue ,
                 NewValue : NewValue
             }]);
+        }
+
+        function SetValue() {
+            const InputField = $(SelectorInfo.Selector).find(".Selector__SelectForm").get(0) ;
+            const OldValue = $(InputField).val() ;
+            const NewValue = SelectorInfo.InsertOption.Value ;
+            const NewLabel = SelectorInfo.InsertOption.Label ;
+            $(SelectorInfo.Selector).addClass("Selected");
+            $(SelectorInfo.Selector).find(".Selector__Main .Selector__WordChoose")
+                .text(NewLabel);
+            $(InputField).attr("value" , NewValue);
+            $(InputField).valid() ;
+            SendChanges(OldValue , NewValue);
+            $(SelectorInfo.Selector).attr("data-selected" , NewValue);
         }
 
     }
@@ -2486,11 +2503,12 @@ $(document).ready(function (){
         const StateElement = $("#State").get(0);
         const URLGetCities = $(StateElement).attr("data-CityURL");
         const Cities = $("#City").get(0);
-        const DefaultData = $(StateElement).attr("data-StateDefault");
+        const StateDefault = $(StateElement).attr("data-StateDefault");
+        const CityDefault = $(StateElement).attr("data-CityDefault");
+        let IsInitial = true ;
 
-
-        if(DefaultData) {
-            ClickOption(DefaultData) ;
+        if(StateDefault) {
+            ClickOption(StateDefault) ;
         } else
             $(Cities).hide() ;
 
@@ -2511,6 +2529,8 @@ $(document).ready(function (){
                     for(let i in Response)
                         ArrayData[i] = Response[i];
                     InsertCities(ArrayData) ;
+                    if(IsInitial)
+                        IsInitial = false ;
                     LoaderHidden() ;
                 } ,
 
@@ -2529,6 +2549,7 @@ $(document).ready(function (){
             }) ;
             if(CitiesInfo.length > 0) {
                 CitiesInfo.forEach((Value , Index) => {
+                    console.log(Index + ":" + Value);
                     SelectorOperation({
                         Operation : "SetOption" ,
                         Selector : CitySelector ,
@@ -2538,6 +2559,18 @@ $(document).ready(function (){
                         }
                     });
                 }) ;
+                if(IsInitial && CityDefault) {
+                    console.log(CityDefault);
+                    console.log(CitiesInfo[CityDefault]);
+                    SelectorOperation({
+                        Operation : "SetValue" ,
+                        Selector : CitySelector ,
+                        InsertOption : {
+                            Value : CityDefault ,
+                            Label : CitiesInfo[CityDefault]
+                        }
+                    });
+                }
                 $(Cities).show() ;
             } else {
                 $(Cities).hide() ;
@@ -2657,7 +2690,7 @@ $(document).ready(function (){
             const NameDays = ["Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] ;
             const NameMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
             const CurrentDate = GetCurrentDate() ;
-            const Time = ((CurrentDate.Hour % 12) ? CurrentDate.Hour : 12) + ':' +
+            const Time = ((CurrentDate.Hour % 12) ? CurrentDate.Hour % 12 : 12) + ':' +
                 (CurrentDate.Minute < 10 ? '0'+CurrentDate.Minute : CurrentDate.Minute) + ':' +
                 CurrentDate.Second + " " +
                 (CurrentDate.Hour >= 12 ? 'PM' : 'AM') ;

@@ -4,7 +4,7 @@
     $IsHavePermissionVacationEdit = $MyAccount->can("update_leaves") || $MyAccount->can("all_leaves") ;
     $IsHavePermissionVacationDelete = $MyAccount->can("delete_leaves") || $MyAccount->can("all_leaves") ;
     $IsHavePermissionVacationExport = $MyAccount->can("export_leaves") || $MyAccount->can("all_leaves") ;
-    $IsHavePermissionVacationDecisionState = true || $MyAccount->can("all_leaves") ;
+    $IsHavePermissionVacationDecisionState = $MyAccount->can("all_leaves") ;
 ?>
 
 @extends("System.Pages.globalPage")

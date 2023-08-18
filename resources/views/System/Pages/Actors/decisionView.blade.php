@@ -34,12 +34,14 @@
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                <input type="hidden" name="filter[session_decision_id]" value="{{ $session_decisions }}">
                                             </form>
                                             <form name="PrintAllTableXlsx"
                                                   action="{{route("system.decisions.export.xls")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                <input type="hidden" name="filter[session_decision_id]" value="{{ $session_decisions }}">
                                             </form>
                                         @endif
                                         <form action="#" method="post">

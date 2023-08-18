@@ -136,6 +136,21 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group"
+                                                                                 data-ErrorBackend="{{ Errors("phone") }}">
+                                                                                <div class="Form__Input">
+                                                                                    <div class="Input__Area">
+                                                                                        <input id="SectionAddressDetails" class="Input__Field"
+                                                                                               type="number" name="address_details"
+                                                                                               placeholder="عنوان السكن">
+                                                                                        <label class="Input__Label" for="SectionAddressDetails">
+                                                                                            عنوان السكن
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

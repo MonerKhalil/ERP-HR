@@ -5,6 +5,7 @@
     $IsHavePermissionOverTimeDelete = $MyAccount->can("delete_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeExport = $MyAccount->can("export_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOvertimeDecisionState = $MyAccount->can("all_overtimes") ;
 ?>
 
 @extends("System.Pages.globalPage")

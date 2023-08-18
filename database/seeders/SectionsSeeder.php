@@ -23,11 +23,5 @@ class SectionsSeeder extends Seeder
                 "created_at" => now(),
             ]);
         }
-        Sections::create([
-            "address_id" => 11,
-            "name" => "section_legal",
-            "details" => "xxxxxxxxxxxxx11",
-            "created_at" => now(),
-        ]);
     }
 }

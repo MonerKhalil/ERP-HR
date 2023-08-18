@@ -1,5 +1,6 @@
 <?php
     $MyAccount = auth()->user() ;
+    $MyAccount = auth()->user() ;
     $IsUserEmployee = !is_null($MyAccount->employee["id"]) ;
     $IsHavePermissionRoleRead = $MyAccount->can("read_roles") || $MyAccount->can("all_roles") ;
     $IsHavePermissionRoleCreate = $MyAccount->can("create_roles") || $MyAccount->can("all_roles") ;
@@ -15,7 +16,6 @@
     $IsHavePermissionSessionInRead = $MyAccount->can("read_sections") || $MyAccount->can("all_sections") ;
     $IsHavePermissionPublicHolidayCreate = $MyAccount->can("create_public_holidays") || $MyAccount->can("all_public_holidays") ;
     $IsHavePermissionPublicHolidayRead = $MyAccount->can("read_public_holidays") || $MyAccount->can("all_public_holidays") ;
-    $IsHavePermissionAttendanceCreate = $MyAccount->can("create_attendances") || $MyAccount->can("all_attendances") ;
     $IsHavePermissionAttendanceRead = $MyAccount->can("read_attendances") || $MyAccount->can("all_attendances") ;
     $IsHavePermissionReportCreate = $MyAccount->can("create_employees") || $MyAccount->can("all_employees") ;
     $IsHavePermissionCompanySettingRead = $MyAccount->can("read_company_settings") || $MyAccount->can("all_company_settings") ;
@@ -29,6 +29,8 @@
     $IsHavePermissionOverTimeTypeCreate = $MyAccount->can("create_overtime_types") || $MyAccount->can("all_overtime_types") ;
     $IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionDecisionTypeCreate = $MyAccount->can("create_type_decisions") || $MyAccount->can("all_type_decisions") ;
+    $IsHavePermissionDecisionTypeRead = $MyAccount->can("read_type_decisions") || $MyAccount->can("all_type_decisions") ;
 ?>
 
 <nav class="NavigationsMenu">
@@ -300,6 +302,41 @@
                             </ul>
                         </li>
                     @endif
+                    @if($IsHavePermissionDecisionTypeCreate || $IsHavePermissionDecisionTypeRead)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        note_add
+                                    </i>
+                                    <span class="Label">انواع القرارات</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                            </div>
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionDecisionTypeRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.type_decisions.index")}}" class="NavName">
+                                                <span class="Label">عرض انواع القرارات</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionDecisionTypeCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.type_decisions.create")}}" class="NavName">
+                                                <span class="Label">انشاء نوع قرار جديد</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
                     @if($IsHavePermissionEvaluationCreate || $IsHavePermissionEvaluationRead)
                         <li class="NavigationsGroup__GroupItem">
                             <div class="Title">
@@ -463,7 +500,7 @@
                             {{--                            </li>--}}
                         </ul>
                     </li>
-                    @if($IsHavePermissionAttendanceCreate || $IsHavePermissionAttendanceRead)
+                    @if($IsHavePermissionAttendanceRead || $IsUserEmployee)
                         <li class="NavigationsGroup__GroupItem">
                             <div class="Title">
                                 <div class="NavName">
@@ -477,7 +514,7 @@
                             </span>
                             </div>
                             <ul class="NavigationsGroup__SubItems">
-                                @if($IsHavePermissionAttendanceCreate)
+                                @if($IsUserEmployee)
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
                                             <a href="{{ route("system.attendances.create") }}" class="NavName">
@@ -496,7 +533,7 @@
                                         </div>
                                     </li>
                                 @endif
-                                @if($IsHavePermissionAttendanceRead)
+                                @if($IsUserEmployee)
                                     {{--  View Attendance Inforamtion Employee  --}}
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">

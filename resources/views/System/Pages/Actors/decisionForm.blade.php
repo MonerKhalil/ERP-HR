@@ -1,6 +1,7 @@
 <?php
     $MyAccount = auth()->user() ;
     $IsHavePermissionDecisionCreate = $MyAccount->can("create_decisions") || $MyAccount->can("all_decisions") ;
+    $IsHavePermissionDecisionEdit = $MyAccount->can("edit_decisions") || $MyAccount->can("all_decisions") ;
 ?>
 
 @extends("System.Pages.globalPage")
@@ -17,7 +18,8 @@
 @endphp
 
 @section("ContentPage")
-    @if($IsHavePermissionDecisionCreate)
+    @if((isset($decision) && $IsHavePermissionDecisionEdit) ||
+        (!isset($decision) && $IsHavePermissionDecisionCreate))
         <section class="MainContent__Section MainContent__Section--AddDecisionPage">
             <div class="AddDecisionPage">
                 <div class="AddUserPage__Breadcrumb">
@@ -79,7 +81,7 @@
                                                                                                         , "Value" => $Employee["id"] , "Name" => "employees[]"] ) ;
                                                                                                 }
                                                                                             @endphp
-{{--                                                                                            $decision->employees--}}
+                                                                                            {{--                                                                                            $decision->employees--}}
                                                                                             @include("System.Components.multiSelector" , [
                                                                                                 'Name' => "_" ,
                                                                                                 "NameIDs" => "EmployeesID" ,
@@ -344,7 +346,8 @@
 @endsection
 
 @section("extraScripts")
-    @if($IsHavePermissionDecisionCreate)
+    @if((isset($decision) && $IsHavePermissionDecisionEdit) ||
+        (!isset($decision) && $IsHavePermissionDecisionCreate))
         {{-- JS Trumbowyg --}}
         <script src="{{asset("System/Assets/Lib/trumbowyg/dist/trumbowyg.min.js")}}"></script>
         @if(app()->getLocale()==="ar")

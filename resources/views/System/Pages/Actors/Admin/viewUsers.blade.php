@@ -32,11 +32,21 @@
                                               action="{{route("users.pdf")}}"
                                               method="post">
                                             @csrf
+                                            @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                @if(!is_null($FilterItem))
+                                                    <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                @endif
+                                            @endforeach
                                         </form>
                                         <form name="PrintAllTableXlsx"
                                               action="{{route("users.xls")}}"
                                               method="post">
                                             @csrf
+                                            @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                @if(!is_null($FilterItem))
+                                                    <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                @endif
+                                            @endforeach
                                         </form>
                                         <form action="#" method="post">
                                             @csrf

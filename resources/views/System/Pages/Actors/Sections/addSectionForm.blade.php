@@ -10,7 +10,8 @@
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    @if($IsHavePermissionSessionInCreate)
+    @if((isset($sections) && $IsHavePermissionSessionInEdit) ||
+        (!isset($sections) && $IsHavePermissionSessionInCreate))
         <section class="MainContent__Section MainContent__Section--NewSectionForm">
             <div class="NewSectionFormPage">
                 <div class="NewSectionFormPage__Breadcrumb">
@@ -87,24 +88,41 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="Col-4-md Col-6-sm">
-                                                                            <div class="Form__Group"
-                                                                                 data-ErrorBackend="{{ Errors("address_id") }}">
+                                                                        <div id="State"
+                                                                             data-StateDefault="{{ isset($sections) ? $sections->address["country_id"] : "" }}"
+                                                                             data-CityDefault="{{ isset($sections) ? $sections->address["id"] : "" }}"
+                                                                             data-CityURL="{{route("get.address")}}"
+                                                                             class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group">
                                                                                 <div class="Form__Select">
                                                                                     <div class="Select__Area">
                                                                                         @php
                                                                                             $Countries = [] ;
-                                                                                            foreach ($countries as $Index=>$Country) {
-                                                                                                array_push($Countries , [ "Label" => $Country
+                                                                                            foreach ($countries as $Index => $Item) {
+                                                                                                array_push($Countries , [
+                                                                                                    "Label" => $Item
                                                                                                     , "Value" => $Index ]) ;
                                                                                             }
                                                                                         @endphp
                                                                                         @include("System.Components.selector" , [
-                                                                                            'Name' => "address_id" , "Required" => "true" ,
-                                                                                            "DefaultValue" => isset($sections) ? $sections["address_id"] : ""
-                                                                                             , "Label" => __("locationSection") ,
-                                                                                            "Options" => $Countries
-                                                                                        ])
+                                                                                                    'Name' => "_" , "Required" => "true"
+                                                                                                    , "Label" => __('countryName')
+                                                                                                    ,"DefaultValue" => isset($sections) ? $sections["address_id"] : ""
+                                                                                                    , "Options" => $Countries
+                                                                                                ])
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="City"
+                                                                             class="Col-4-md Col-6-sm">
+                                                                            <div class="Form__Group">
+                                                                                <div class="Form__Select">
+                                                                                    <div class="Select__Area">
+                                                                                        @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('locationSection')
+                                                                                                ,"DefaultValue" => isset($sections) ? $sections->address["country_id"] : "" ,
+                                                                                                "OptionsValues" => []
+                                                                                            ])
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

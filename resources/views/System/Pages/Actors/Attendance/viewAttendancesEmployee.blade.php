@@ -1,10 +1,8 @@
 <?php
     $MyAccount = auth()->user() ;
-    $IsHavePermissionAttendanceRead = $MyAccount->can("read_attendances") || $MyAccount->can("all_attendances") ;
-    $IsHavePermissionAttendanceEdit = $MyAccount->can("update_attendances") || $MyAccount->can("all_attendances") ;
-    $IsHavePermissionAttendanceDelete = $MyAccount->can("delete_attendances") || $MyAccount->can("all_attendances") ;
+    $IsHavePermissionAttendanceRead = !is_null(auth()->user()->employee["id"]) ;
+    $IsHavePermissionAttendanceDelete = !is_null(auth()->user()->employee["id"]) ;
     $IsHavePermissionAttendanceExport = $MyAccount->can("export_attendances") || $MyAccount->can("all_attendances") ;
-    $IsHavePermissionAttendanceCreate = $MyAccount->can("create_attendances") || $MyAccount->can("all_attendances") ;
 ?>
 
 @extends("System.Pages.globalPage")

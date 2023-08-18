@@ -160,7 +160,7 @@
                                                                             {{ $EvaluationType["id"] }}
                                                                         </td>
                                                                         <td class="Item__Col">
-                                                                            {{ $EvaluationType["employee_id"] }}
+                                                                            {{ $EvaluationType->employee["first_name"].$EvaluationType->employee["last_name"] }}
                                                                         </td>
                                                                         <td class="Item__Col">
                                                                             {{ $EvaluationType["evaluation_date"] }}

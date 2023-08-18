@@ -4343,20 +4343,12 @@ body.Dark .MessagePage__Title {
   margin-bottom: 0.5rem;
   font-size: 1.6rem;
   font-weight: 600;
-  color: #b6c6e3;
 }
 .PrintPage__TextEditorContent {
   padding: 1.5rem 1rem;
-  color: #fff;
-}
-.PrintPage__TextEditorContent .TextEditorContent__Content .Content {
-  background-color: #1B2633;
 }
 .PrintPage .ListData--CustomPrint .ListData__Head {
   margin-bottom: 1rem;
-}
-.PrintPage .ListData--CustomPrint .ListData__Item {
-  color: #fff;
 }
 .PrintPage .ListData--CustomPrint .ListData__Item .Data_Col {
   padding: 1.5rem 1rem;
@@ -4368,6 +4360,32 @@ body.Dark .MessagePage__Title {
 }
 .PrintPage .Report .Table__Table .GroupRows__SubRows {
   display: table-row;
+}
+
+body.Light .PrintPage__CompanyInfo .DescriptionCompany .Text > * {
+  color: #103458;
+}
+body.Light .PrintPage__TextEditorContent {
+  color: #fff;
+}
+body.Light .PrintPage__TextEditorContent .TextEditorContent__Content .Content {
+  background-color: #1B2633;
+}
+body.Light .PrintPage .ListData--CustomPrint .ListData__Item {
+  color: #000;
+}
+
+body.Dark .PrintPage__CompanyInfo .DescriptionCompany .Text > * {
+  color: #b6c6e3;
+}
+body.Dark .PrintPage__TextEditorContent {
+  color: #fff;
+}
+body.Dark .PrintPage__TextEditorContent .TextEditorContent__Content .Content {
+  background-color: #1B2633;
+}
+body.Dark .PrintPage .ListData--CustomPrint .ListData__Item {
+  color: #fff;
 }
 
 .NotificationPage {

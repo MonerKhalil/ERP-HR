@@ -1,8 +1,8 @@
 <?php
     $MyAccount = auth()->user() ;
     $IsHavePermissionSessionCreate = $MyAccount->can("create_session_decisions") || $MyAccount->can("all_session_decisions") ;
+    $IsHavePermissionSessionEdit = $MyAccount->can("edit_session_decisions") || $MyAccount->can("all_session_decisions") ;
 ?>
-
 
 @extends("System.Pages.globalPage")
 
@@ -14,9 +14,9 @@
     }
 ?>
 
-
 @section("ContentPage")
-    @if($IsHavePermissionSessionCreate)
+    @if((isset($data) && $IsHavePermissionSessionEdit) ||
+        (!isset($data) && $IsHavePermissionSessionCreate))
         <section class="MainContent__Section MainContent__Section--AddDecisionPage">
             <div class="AddDecisionPage">
                 <div class="AddUserPage__Breadcrumb">
@@ -138,7 +138,7 @@
                                                                      data-TitleField="@lang("memberInSession")"
                                                                      data-RequiredNum="1"
                                                                      @if(isset($data) && count($data->members) > 0)
-                                                                        data-ValueSelectedNum="{{ count($data->members) }}"
+                                                                     data-ValueSelectedNum="{{ count($data->members) }}"
                                                                      @endif
                                                                      @if(isset($data))
                                                                      <?php
