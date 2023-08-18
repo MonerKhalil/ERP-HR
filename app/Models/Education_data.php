@@ -57,7 +57,7 @@ class Education_data extends BaseModel
                 "id_ed_lev"=>[$rule, Rule::exists('education_levels', 'id')],
                 "grant_date"=> $validator->dateRules($rule==="required"),
                 "college_name"=>$validator->textRule($rule==="required"),
-                "amount_impact_salary"=>['numeric', 'min:0', 'max:1000000'],
+                "amount_impact_salary"=>['integer', 'min:1', 'max:100'],
             ];
         };
     }

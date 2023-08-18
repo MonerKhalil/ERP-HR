@@ -25,8 +25,10 @@ class AttendanceController extends Controller
     public function __construct()
     {
         $table = app(Attendance::class)->getTable();
-        $this->addMiddlewarePermissionsToFunctions($table);
-        $this->middleware(["permission:read_".$table."|all_".$table])->only(["employeeAttendances"]);
+        $this->middleware("employee")->only(["employeeAttendances","store","create"]);
+        $this->middleware(["permission:read_".$table."|all_".$table])->only(["index"]);
+        $this->middleware(["permission:delete_".$table."|all_".$table])->only(["destroy","MultiDelete"]);
+        $this->middleware(["permission:export_".$table."|all_".$table])->only(["ExportPDF","ExportXls"]);
     }
 
     private function mainQuery($request){
