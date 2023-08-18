@@ -540,9 +540,9 @@
                                                                                                    class="Input__Field"
                                                                                                    type="number"
                                                                                                    name="private_number2"
-                                                                                                   placeholder="@lang("personalPhone2")" required>
+                                                                                                   placeholder="@lang("private_number2")" required>
                                                                                             <label class="Input__Label"
-                                                                                                   for="EmpPersonalPhone">@lang("personalPhone2")</label>
+                                                                                                   for="EmpPersonalPhone">@lang("private_number2")</label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

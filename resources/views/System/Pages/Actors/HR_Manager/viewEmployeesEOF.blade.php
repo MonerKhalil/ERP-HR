@@ -7,7 +7,7 @@
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewEOFs") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'summery' => __("titleViewEOFs")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -36,15 +36,15 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-                                                                                                                        @include("System.Components.bulkAction" , [
-                                                                                                                            "Options" => [ [
-                                                                                                                                "Label" => __("print") , "Action" => "#" , "Method" => "B"
-                                                                                                                            ] , [
-                                                                                                                                "Label" => __("normalDelete")
-                                                                                                                                , "Action" => route("users.multi.delete")
-                                                                                                                                , "Method" => "delete"
-                                                                                                                            ] ]
-                                                                                                                        ])
+                                                        @include("System.Components.bulkAction" , [
+                                                            "Options" => [ [
+                                                                "Label" => __("print") , "Action" => "#" , "Method" => "B"
+                                                            ] , [
+                                                                "Label" => __("normalDelete")
+                                                                , "Action" => route("users.multi.delete")
+                                                                , "Method" => "delete"
+                                                            ] ]
+                                                        ])
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -56,24 +56,6 @@
                                                                 <li>
                                                                     <span class="SearchTools__Separate"></span>
                                                                 </li>
-                                                                {{--                                                                <li class="Table__PrintMenu">--}}
-                                                                {{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
-                                                                {{--                                                                       title="Print">print</i>--}}
-                                                                {{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
-                                                                {{--                                                                        <ul class="Dropdown__Content">--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
-                                                                {{--                                                                                    @lang("printTablePDFFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
-                                                                {{--                                                                                    @lang("printTableXlsxFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                        </ul>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </li>--}}
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -94,10 +76,10 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="Item__Col">#</div>
-                                                                <div class="Item__Col"><span>@lang("employee id")</span></div>
-                                                                <div class="Item__Col"><span>@lang("EOS reason")</span></div>
-                                                                <div class="Item__Col"><span>@lang("EOS date")</span></div>
-                                                                <div class="Item__Col"><span>@lang("EOS finish date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("employeeName")</span></div>
+                                                                <div class="Item__Col"><span>@lang("reason")</span></div>
+                                                                <div class="Item__Col"><span>@lang("date")</span></div>
+                                                                <div class="Item__Col"><span>@lang("finishDate")</span></div>
                                                             </div>
                                                             @foreach($data as $item)
                                                                 <div class="Item DataItem">

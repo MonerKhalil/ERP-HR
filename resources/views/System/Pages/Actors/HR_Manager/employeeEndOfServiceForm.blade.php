@@ -22,7 +22,7 @@
                                         <div class="Card__Inner">
                                             <div class="Card__Header">
                                                 <div class="Card__Title">
-                                                    <h3>@lang("contractInfo")</h3>
+                                                    <h3>@lang("EofInfo")</h3>
                                                 </div>
                                             </div>
                                             <form class="Form Form--Dark" action="{{route("system.data_end_services.store")}}" method="post">

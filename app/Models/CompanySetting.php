@@ -30,8 +30,6 @@ class CompanySetting extends BaseModel
             return [
                 "name" => $validator->textRule(true),
                 "created_at_company" => ["required","date"],
-                "count_administrative_leaves" => ["required","numeric","min:1","max:30"],
-                "count_years_services_employees" => ["required","numeric","min:1"],
                 "add_leaves_years_services_employees" => ["nullable","numeric","min:0"],
             ];
         };

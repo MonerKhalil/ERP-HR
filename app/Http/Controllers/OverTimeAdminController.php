@@ -35,8 +35,8 @@ class OverTimeAdminController extends Controller
         //search name employee
         if (isset($request->filter["name_employee"]) && !is_null($request->filter["name_employee"])){
             $data = $data->whereHas("employee",function ($q) use ($request){
-                $q->where("first_name","Like","%".$request->filter["name_employee"]."%")
-                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]."%");
+                $q->where("first_name","Like","%".$request->filter["name_employee"])
+                    ->orWhere("last_name","Like","%".$request->filter["name_employee"]);
             });
         }
         if (isset($request->filter["start_date_filter"]) && !is_null($request->filter["start_date_filter"])
