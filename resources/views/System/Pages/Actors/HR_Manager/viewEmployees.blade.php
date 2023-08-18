@@ -7,7 +7,7 @@
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewEmployees") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'summery' => __("titleViewEmployees")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -94,14 +94,14 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="Item__Col">#</div>
-                                                                <div class="Item__Col"><span>@lang("Name")</span></div>
+                                                                <div class="Item__Col"><span>@lang("name")</span></div>
                                                                 <div class="Item__Col">
                                                                     <span>@lang("dossierNumber")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Phone")</span></div>
-                                                                <div class="Item__Col"><span>@lang("Department")</span>
+                                                                <div class="Item__Col"><span>@lang("currenctJob")</span></div>
+                                                                <div class="Item__Col"><span>@lang("familyStatus")</span>
                                                                 </div>
-                                                                <div class="Item__Col"><span>@lang("jobPosition")</span>
-                                                                </div>
+{{--                                                                <div class="Item__Col"><span>@lang("jobPosition")</span>--}}
+{{--                                                                </div>--}}
                                                             </div>
                                                             @foreach($employees as $employee)
                                                                 <div class="Item DataItem">
@@ -118,14 +118,14 @@
                                                                         </label>
                                                                     </div>
                                                                     <div
+                                                                        class="Item__Col">{{$employee["id"]}}</div>
+                                                                    <div
                                                                         class="Item__Col">{{$employee["first_name"]}}</div>
-                                                                    <div
-                                                                        class="Item__Col">{{$employee["user_id"]}}</div>
-                                                                    <div class="Item__Col">{{$employee["gender"]}}</div>
-                                                                    <div
-                                                                        class="Item__Col">{{$employee["NP_registration"]}}</div>
+                                                                    <div class="Item__Col">{{$employee["NP_registration"]}}</div>
                                                                     <div
                                                                         class="Item__Col">{{$employee["current_job"]}}</div>
+                                                                    <div
+                                                                        class="Item__Col">{{$employee["family_status"]}}</div>
                                                                     <div class="Item__Col MoreDropdown">
                                                                         <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
                                                                            data-MenuName="RoleMore_{{$employee["id"]}}">

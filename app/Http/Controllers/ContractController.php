@@ -85,7 +85,8 @@ class ContractController extends Controller
         $data = $this->shareByBlade();
         $contract = Contract::with(["employee","section"])->findOrFail($contract);
         $data["contract"] = $contract;
-        return $this->responseSuccess("", $data);
+//        dd($data);
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editContract", compact('data'));
     }
 
 

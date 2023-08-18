@@ -31,10 +31,13 @@
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
-                                                                            <span
-                                                                                class="Data_Label">@lang("emplpyeeName")</span>
                                                                 <span
-                                                                    class="Data_Value">{{$conference->employee_id}}</span>
+                                                                    class="Data_Label">@lang("employeeName")</span>
+                                                                <span class="Data_Value">
+                                                                    @foreach($conference->employees as $employee)
+                                                                        {{$employee["first_name"]}} ,
+                                                                    @endforeach
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -78,13 +81,26 @@
                                                             </div>
                                                         </div>
                                                     </div>
+{{--                                                    @php--}}
+{{--                                                    dd($conference);--}}
+{{--                                                    @endphp--}}
+                                                    <div class="Col-4-md Col-6-sm">
+                                                        <div class="ListData__Content">
+                                                            <div class="Data_Col">
+                                                                            <span
+                                                                                class="Data_Label">@lang("countryName")</span>
+                                                                <span
+                                                                    class="Data_Value">{{isset($conference->address->country["country_name"]) ? $conference->address->country["country_name"] : ""}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="ListData__Content">
                                                             <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("cityName")</span>
                                                                 <span
-                                                                    class="Data_Value">{{$conference->address->name}}</span>
+                                                                    class="Data_Value">{{isset($conference->address) ? $conference->address->name : ""}}</span>
                                                             </div>
                                                         </div>
                                                     </div>
