@@ -1,10 +1,10 @@
 <?php
     $MyAccount = auth()->user() ;
-    $IsHavePermissionSessionInRead = $MyAccount->can("read_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInEdit = $MyAccount->can("update_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInDelete = $MyAccount->can("delete_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInExport = $MyAccount->can("export_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInCreate = $MyAccount->can("create_sections") || $MyAccount->can("all_sections") ;
+    $IsHavePermissionSessionExRead = $MyAccount->can("read_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExEdit = $MyAccount->can("update_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExDelete = $MyAccount->can("delete_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExExport = $MyAccount->can("export_section_externals") || $MyAccount->can("all_section_externals") ;
+    $IsHavePermissionSessionExCreate = $MyAccount->can("create_section_externals") || $MyAccount->can("all_section_externals") ;
 ?>
 
 @extends("System.Pages.globalPage")
@@ -14,9 +14,9 @@
         <div class="DetailsSectionPage">
             <div class="DetailsSectionPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __("viewSectionDetails") ,
+                    'mainTitle' => "عرض تفاصيل القسم الخارجي" ,
                     'paths' => [[__("home") , '#'] , [__("viewSectionDetails")]] ,
-                    'summery' => __("titleViewSectionDetails")
+                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 ])
             </div>
             <div class="DetailsSectionPage__Content">
@@ -28,13 +28,13 @@
                         <div class="Col">
                             <div class="Card">
                                 <div class="Card__Inner">
-                                    @if($IsHavePermissionSessionInRead)
-                                        <div class="ListData NotResponsive">
-                                            <div class="ListData__Head">
-                                                <h4 class="ListData__Title">
-                                                    @lang("basicSectionInfo")
-                                                </h4>
-                                            </div>
+                                    <div class="ListData NotResponsive">
+                                        <div class="ListData__Head">
+                                            <h4 class="ListData__Title">
+                                                @lang("basicSectionInfo")
+                                            </h4>
+                                        </div>
+                                        @if($IsHavePermissionSessionExRead)
                                             <div class="ListData__Content">
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
@@ -42,17 +42,7 @@
                                                         @lang("sectionName")
                                                     </span>
                                                         <span class="Data_Value">
-                                                        {{ $sections["name"] }}
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="ListData__Item ListData__Item--NoAction">
-                                                    <div class="Data_Col">
-                                                    <span class="Data_Label">
-                                                        @lang("sectionName")
-                                                    </span>
-                                                        <span class="Data_Value">
-                                                        {{ $sections->moderator["first_name"]." ".$sections->moderator["last_name"] }}
+                                                        {{ $sectionExternal["name"] }}
                                                     </span>
                                                     </div>
                                                 </div>
@@ -62,61 +52,71 @@
                                                         @lang("locationSection")
                                                     </span>
                                                         <span class="Data_Value">
-                                                        {{ $sections->address["name"] }}
+                                                        {{ $sectionExternal->address["name"] }}
                                                     </span>
                                                     </div>
                                                 </div>
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        @lang("descriptionSection")
+                                                        البريد الالكتروني
                                                     </span>
                                                         <span class="Data_Value">
-                                                        {{ $sections["details"] ?? "_" }}
+                                                        {{ $sectionExternal["email"] }}
                                                     </span>
                                                     </div>
                                                 </div>
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        @lang("createSectionDate")
+                                                        الفاكس
                                                     </span>
                                                         <span class="Data_Value">
-                                                        {{ $sections["created_at"] }}
+                                                        {{ $sectionExternal["fax"] }}
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div class="ListData__Item ListData__Item--NoAction">
+                                                    <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        الهاتف
+                                                    </span>
+                                                        <span class="Data_Value">
+                                                        {{ $sectionExternal["phone"] }}
                                                     </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endif
-                                    @if($IsHavePermissionSessionInEdit || $IsHavePermissionSessionInDelete)
+                                        @endif
+                                    </div>
+                                    @if($IsHavePermissionSessionExEdit || $IsHavePermissionSessionExDelete)
                                         <div class="ListData">
-                                                <div class="ListData__Head">
-                                                    <h4 class="ListData__Title">
-                                                        @lang("operationSection")
-                                                    </h4>
+                                            <div class="ListData__Head">
+                                                <h4 class="ListData__Title">
+                                                    @lang("operationSection")
+                                                </h4>
+                                            </div>
+                                            <div class="ListData__Content">
+                                                <div class="Card__Inner px0">
+                                                    @if($IsHavePermissionSessionExEdit)
+                                                        <a href="{{route("system.section_externals.edit" , $sectionExternal["id"])}}"
+                                                           class="Button Button--Primary">
+                                                            @lang("editSection")
+                                                        </a>
+                                                    @endif
+                                                    @if($IsHavePermissionSessionExDelete)
+                                                        <form class="Form"
+                                                              style="display: inline-block" method="post"
+                                                              action="{{route("system.section_externals.destroy" , $sectionExternal["id"])}}">
+                                                            @csrf
+                                                            @method("delete")
+                                                            <button type="submit" class="Button Button--Danger">
+                                                                @lang("removeOneSection")
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </div>
-                                                <div class="ListData__Content">
-                                                    <div class="Card__Inner px0">
-                                                        @if($IsHavePermissionSessionInEdit)
-                                                            <a href="{{route("system.sections.edit" , $sections["id"])}}"
-                                                               class="Button Button--Primary">
-                                                                @lang("editSection")
-                                                            </a>
-                                                        @endif
-                                                        @if($IsHavePermissionSessionInDelete)
-                                                            <form class="Form"
-                                                                  style="display: inline-block" method="post"
-                                                                  action="{{route("system.sections.destroy" , $sections["id"])}}">
-                                                                @csrf
-                                                                @method("delete")
-                                                                <button type="submit" class="Button Button--Danger">
-                                                                    @lang("removeOneSection")
-                                                                </button>
-                                                            </form>
-                                                        @endif
-                                                    </div>
-                                                </div>
+                                            </div>
                                         </div>
                                     @endif
                                 </div>

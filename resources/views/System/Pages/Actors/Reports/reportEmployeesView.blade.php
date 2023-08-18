@@ -1,3 +1,11 @@
+<?php
+    $MyAccount = auth()->user() ;
+    $IsHavePermissionReportRead = $MyAccount->can("read_employees") || $MyAccount->can("all_employees") ;
+    $IsHavePermissionReportEdit = $MyAccount->can("update_employees") || $MyAccount->can("all_employees") ;
+    $IsHavePermissionReportDelete = $MyAccount->can("delete_employees") || $MyAccount->can("all_employees") ;
+    $IsHavePermissionReportExport = $MyAccount->can("export_employees") || $MyAccount->can("all_employees") ;
+?>
+
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
@@ -19,18 +27,20 @@
                         <div class="Col">
                             <div class="Card ReportEmployeesView__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF"
-                                          action="{{ route("system.employees.report.pdf") }}"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
-                                    <form name="PrintAllTableXlsx"
-                                          action="{{ route("system.employees.report.xlsx") }}"
-                                          class="FilterForm"
-                                          method="post">
-                                        @csrf
-                                    </form>
+                                    @if($IsHavePermissionReportExport)
+                                        <form name="PrintAllTablePDF"
+                                              action="{{ route("system.employees.report.pdf") }}"
+                                              class="FilterForm"
+                                              method="post">
+                                            @csrf
+                                        </form>
+                                        <form name="PrintAllTableXlsx"
+                                              action="{{ route("system.employees.report.xlsx") }}"
+                                              class="FilterForm"
+                                              method="post">
+                                            @csrf
+                                        </form>
+                                    @endif
                                     <form action="#" method="post">
                                         @csrf
                                         <div class="Card__InnerGroup">
@@ -39,24 +49,26 @@
                                                     <div class="Justify-Content-End Card__ToolsGroup">
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
-                                                                <li class="Table__PrintMenu">
-                                                                    <i class="material-icons IconClick PrintMenu__Button"
-                                                                       title="Print">print</i>
-                                                                    <div class="Dropdown PrintMenu__Menu">
-                                                                        <ul class="Dropdown__Content">
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
-                                                                                    @lang("printTablePDFFile")
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="Dropdown__Item">
-                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
-                                                                                    @lang("printTableXlsxFile")
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </li>
+                                                                @if($IsHavePermissionReportExport)
+                                                                    <li class="Table__PrintMenu">
+                                                                        <i class="material-icons IconClick PrintMenu__Button"
+                                                                           title="Print">print</i>
+                                                                        <div class="Dropdown PrintMenu__Menu">
+                                                                            <ul class="Dropdown__Content">
+                                                                                <li class="Dropdown__Item">
+                                                                                    <a href="javascript:document.PrintAllTablePDF.submit()">
+                                                                                        @lang("printTablePDFFile")
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="Dropdown__Item">
+                                                                                    <a href="javascript:document.PrintAllTableXlsx.submit()">
+                                                                                        @lang("printTableXlsxFile")
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </li>
+                                                                @endif
                                                             </ul>
                                                         </div>
                                                     </div>

@@ -265,7 +265,7 @@
     "titleDecisionDetails" : "قم بالتأكد من تفاصيل القرار الذي قمت بادخاله",
     "salaryEffectType" : "نوع التأثير على الراتب",
     "amountSalaryExtra" : "قيمة الاضافة على الراتب",
-    "amountIncentivesExtra" : "قيمة الاضافة على الحوافز",
+    "rateIncentivesExtra" : "نسبة الاضافة على الحوافز",
     "amountDiscountSalary" : "قيمة الحسم من الراتب",
     "discountRateIncentives" : "نسبة الحسم من الحوافز",
     "decisionPhoto" : "صورة عن القرار",
@@ -594,6 +594,9 @@
     "operationWorkSetting" : "العمليات على هذا النوع",
     "viewAllWorkSetting" : "عرض انواع الدوام",
     "titleViewAllWorkSetting" : "هنا يتم عرض جميع انواع الخاصة بالدوام او الورديات التي يمكن اسنادها للموظفين",
+    "minHourWork" : "الحد الادنى لساعات العمل",
+    "lateAllowanceMinute" : "دقائق التأخر المسموحة",
+    "earlyAllowanceMinute" : "دقائق الخروج المبكر",
 
     "/*         Reports         */": "",
     "reportBy" : "تقرير حسب",

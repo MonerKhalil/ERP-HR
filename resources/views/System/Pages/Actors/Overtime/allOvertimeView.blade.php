@@ -1,26 +1,24 @@
 <?php
     $MyAccount = auth()->user() ;
-    $IsHavePermissionEvaluationRead = $MyAccount->can("read_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
-    $IsHavePermissionEvaluationEdit = $MyAccount->can("update_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
-    $IsHavePermissionEvaluationDelete = $MyAccount->can("delete_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
-    $IsHavePermissionEvaluationExport = $MyAccount->can("export_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
-    $IsHavePermissionEvaluationCreate = $MyAccount->can("create_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
-    $IsHavePermissionDecisionRead = $MyAccount->can("read_decisions") || $MyAccount->can("all_decisions") ;
-    $IsHavePermissionDecisionCreate = $MyAccount->can("create_decisions") || $MyAccount->can("all_decisions") ;
+    $IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeEdit = $MyAccount->can("edit_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeDelete = $MyAccount->can("delete_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeExport = $MyAccount->can("export_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOvertimeDecisionState = $MyAccount->can("all_overtimes") ;
 ?>
-
 
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
-    @if($IsHavePermissionEvaluationRead)
+    @if($IsHavePermissionOverTimeRead)
         <section class="MainContent__Section MainContent__Section--NewTypeViewPage">
             <div class="NewTypeViewPage">
                 <div class="NewTypeViewPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "عرض جميع التقييمات" ,
-                        'paths' => [['Home' , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'mainTitle' => __("viewOvertimeRequest") ,
+                        'paths' => [[__("home") , '#'] , [__("viewOvertimeRequest")]] ,
+                        'summery' => __("titleViewOvertimeRequest")
                     ])
                 </div>
                 <div class="NewTypeViewPage__Content">
@@ -32,15 +30,15 @@
                             <div class="Col">
                                 <div class="Card NewTypeViewPage__TableUsers">
                                     <div class="Table">
-                                        @if($IsHavePermissionEvaluationExport)
+                                        @if($IsHavePermissionOverTimeExport)
                                             <form name="PrintAllTablePDF"
-                                                  action="#"
+                                                  action="{{route("system.overtimes_admin.export.pdf")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
                                             </form>
                                             <form name="PrintAllTableXlsx"
-                                                  action="#"
+                                                  action="{{route("system.overtimes_admin.export.xls")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
@@ -55,22 +53,10 @@
                                                             <div class="Card__Tools Table__BulkTools">
                                                                 @php
                                                                     $AllOptions = [] ;
-                                                                    if($IsHavePermissionEvaluationExport) {
-                                                                        array_push($AllOptions , [
-                                                                        "Label" => __("printRowsAsPDF") ,
-                                                                         "Action" => "#" ,
-                                                                         "Method" => "post"
-                                                                    ]);
-                                                                        array_push($AllOptions , [
-                                                                            "Label" => __("printRowsAsExcel") ,
-                                                                            "Action" => "#" ,
-                                                                            "Method" => "post"
-                                                                        ]);
-                                                                    }
-                                                                    if($IsHavePermissionEvaluationDelete)
+                                                                    if($IsHavePermissionOverTimeDelete)
                                                                         array_push($AllOptions , [
                                                                             "Label" => __("normalDelete")
-                                                                            , "Action" => route("system.evaluation.employee.multi.destroy.evaluation")
+                                                                            , "Action" => route("system.overtimes_admin.multi.delete")
                                                                             , "Method" => "delete"
                                                                     ]);
                                                                 @endphp
@@ -85,7 +71,7 @@
                                                                            data-popUp="SearchAbout">filter_list
                                                                         </i>
                                                                     </li>
-                                                                    @if($IsHavePermissionEvaluationExport)
+                                                                    @if($IsHavePermissionOverTimeExport)
                                                                         <li>
                                                                             <span class="SearchTools__Separate"></span>
                                                                         </li>
@@ -116,7 +102,7 @@
                                                 @if(count($data) > 0)
                                                     <div class="Card__Inner p0">
                                                         <div class="Table__ContentTable">
-                                                            <table class="Table__Table" >
+                                                            <table class="Center Table__Table" >
                                                                 <tr class="Item HeaderList">
                                                                     <th class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_Main" class="CheckBoxItem"
@@ -128,102 +114,83 @@
                                                                         </label>
                                                                     </th>
                                                                     <th class="Item__Col">#</th>
-                                                                    <th class="Item__Col">
-                                                                        اسم الموظف
-                                                                    </th>
-                                                                    <th class="Item__Col">
-                                                                        تاريخ اخر تقييم
-                                                                    </th>
-                                                                    <th class="Item__Col">
-                                                                        تاريخ التقييم التالي
-                                                                    </th>
-                                                                    <th class="Item__Col">
-                                                                        تاريخ انشاء التقييم
-                                                                    </th>
-                                                                    <th class="Item__Col">
-                                                                        المزيد
-                                                                    </th>
+                                                                    <th class="Item__Col">@lang("employeeWantVocation")</th>
+                                                                    <th class="Item__Col">@lang("overtimeType")</th>
+                                                                    <th class="Item__Col">@lang("startDateFrom")</th>
+                                                                    <th class="Item__Col">@lang("endDateFrom")</th>
+                                                                    <th class="Item__Col">@lang("isItHour")</th>
+                                                                    <th class="Item__Col">@lang("vocationTimeStart")</th>
+                                                                    <th class="Item__Col">@lang("vocationTimeEnd")</th>
+                                                                    <th class="Item__Col">@lang("stateRequest")</th>
+                                                                    <th class="Item__Col">@lang("more")</th>
                                                                 </tr>
-                                                                @foreach($data as $Index => $EvaluationType)
+                                                                @foreach($data as $Index=>$RequestOvertime)
                                                                     <tr class="Item DataItem">
                                                                         <td class="Item__Col Item__Col--Check">
-                                                                            <input id="EvaluationID_{{ $EvaluationType["id"] }}"
-                                                                                   class="CheckBoxItem" type="checkbox"
-                                                                                   name="ids[]" value="{{ $EvaluationType["id"] }}" hidden>
-                                                                            <label for="EvaluationID_{{ $EvaluationType["id"] }}" class="CheckBoxRow">
+                                                                            <input id="OvertimeRequest_{{ $RequestOvertime["id"] }}"
+                                                                                   class="CheckBoxItem" type="checkbox" hidden
+                                                                                   name="ids[]" value="{{ $RequestOvertime["id"] }}" >
+                                                                            <label for="OvertimeRequest_{{ $RequestOvertime["id"] }}"
+                                                                                   class="CheckBoxRow">
                                                                                 <i class="material-icons ">
                                                                                     check_small
                                                                                 </i>
                                                                             </label>
                                                                         </td>
                                                                         <td class="Item__Col">
-                                                                            {{ $EvaluationType["id"] }}
+                                                                            {{ $RequestOvertime["id"] }}
                                                                         </td>
                                                                         <td class="Item__Col">
-                                                                            {{ $EvaluationType->employee["first_name"].$EvaluationType->employee["last_name"] }}
+                                                                            {{ $RequestOvertime->employee["first_name"]." ".$RequestOvertime->employee["first_name"] }}
                                                                         </td>
                                                                         <td class="Item__Col">
-                                                                            {{ $EvaluationType["evaluation_date"] }}
+                                                                            {{ $RequestOvertime->overtime_type["name"] }}
                                                                         </td>
                                                                         <td class="Item__Col">
-                                                                            {{ $EvaluationType["next_evaluation_date"] }}
+                                                                            {{ $RequestOvertime["from_date"] }}
                                                                         </td>
                                                                         <td class="Item__Col">
-                                                                            {{ $EvaluationType["created_at"] }}
+                                                                            {{ $RequestOvertime["to_date"] }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            @if($RequestOvertime["is_hourly"])
+                                                                                @lang("yes")
+                                                                            @else
+                                                                                @lang("no")
+                                                                            @endif
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime["from_time"] ?? "_" }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            {{ $RequestOvertime["to_time"] ?? "_" }}
+                                                                        </td>
+                                                                        <td class="Item__Col">
+                                                                            @lang($RequestOvertime["status"])
                                                                         </td>
                                                                         <td class="Item__Col MoreDropdown">
                                                                             <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
-                                                                               data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
+                                                                               data-MenuName="RequestOvertime_{{ $RequestOvertime["id"] }}">
                                                                                 more_horiz
                                                                             </i>
                                                                             <div class="Popper--MoreMenuTable MenuTarget Dropdown"
-                                                                                 data-MenuName="MoreEvaluationOption_{{ $EvaluationType["id"] }}">
+                                                                                 data-MenuName="RequestOvertime_{{ $RequestOvertime["id"] }}">
                                                                                 <ul class="Dropdown__Content">
                                                                                     <li>
-                                                                                        <a href="{{ route("system.evaluation.employee.show.evaluation.details" , $EvaluationType["id"]) }}"
+                                                                                        <a href="{{ route("system.overtimes.show.overtime" , $RequestOvertime["id"]) }}"
                                                                                            class="Dropdown__Item">
-                                                                                            عرض التفاصيل
+                                                                                            @lang("viewDetails")
                                                                                         </a>
                                                                                     </li>
-                                                                                    @if($IsHavePermissionDecisionCreate)
-                                                                                        <li>
-                                                                                            <a href="{{ route("system.evaluation.employee.show.add.decision.evaluation" , $EvaluationType["id"]) }}"
-                                                                                               class="Dropdown__Item">
-                                                                                                اضافة قرار لهذا الموظف
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    @endif
-                                                                                    @if($IsHavePermissionEvaluationCreate)
-                                                                                        @php
-                                                                                            $IsCanEvaluation = false ;
-                                                                                            foreach ($EvaluationType->enter_evaluation_employee as $EmployeeInfo)
-                                                                                                if($EmployeeInfo->employee["user_id"] === Auth()->user()["id"]) {
-                                                                                                    $IsCanEvaluation = true ;
-                                                                                                    break ;
-                                                                                                }
-                                                                                        @endphp
-                                                                                        @if($IsCanEvaluation)
+                                                                                    @if($IsHavePermissionOverTimeEdit)
+                                                                                        @if($RequestOvertime["status"] == "pending")
                                                                                             <li>
-                                                                                                <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $EvaluationType["id"]) }}"
+                                                                                                <a href="{{ route("system.overtimes.edit.overtime" , $RequestOvertime["id"]) }}"
                                                                                                    class="Dropdown__Item">
-                                                                                                    اضافة تقييم لهذا الموظف
+                                                                                                    @lang("editRequest")
                                                                                                 </a>
                                                                                             </li>
                                                                                         @endif
-                                                                                    @endif
-                                                                                    <li>
-                                                                                        <a href="{{ route("system.evaluation.employee.show.evaluation" , $EvaluationType["id"]) }}"
-                                                                                           class="Dropdown__Item">
-                                                                                            عرض تقييمات هذا الموظف
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    @if($IsHavePermissionDecisionRead)
-                                                                                        <li>
-                                                                                            <a href="{{ route("system.evaluation.employee.show.evaluation.decisions" , $EvaluationType["id"]) }}"
-                                                                                               class="Dropdown__Item">
-                                                                                                عرض قرارات هذا الموظف
-                                                                                            </a>
-                                                                                        </li>
                                                                                     @endif
                                                                                 </ul>
                                                                             </div>
@@ -261,18 +228,65 @@
 @endsection
 
 @section("PopupPage")
-    @if($IsHavePermissionEvaluationRead)
+    @if($IsHavePermissionOverTimeRead)
+        @php
+            $OvertimeTypes = [] ;
+            foreach ($overtimes as $Index=>$OvertimeItem) {
+                array_push($OvertimeTypes , [ "Label" => $OvertimeItem
+                    , "Value" => $Index ]) ;
+            }
+        @endphp
+        @php
+            $Status = [] ;
+            foreach ($status as $Index=>$StatusItem) {
+                array_push($Status , [ "Label" => $StatusItem
+                    , "Value" => $StatusItem ]) ;
+            }
+        @endphp
+        @php
+            $IsHourlySelect = [] ;
+
+            array_push($IsHourlySelect , [ "Label" => "نعم"
+                    , "Value" => "1" ]) ;
+
+            array_push($IsHourlySelect , [ "Label" => "لا"
+                    , "Value" => "0" ]) ;
+        @endphp
+        @php
+
+            $FilterItems = [] ;
+
+            array_push($FilterItems , ['Type' => 'text' , 'Info' =>
+                   ['Name' => "filter[name_employee]" , 'Placeholder' => __("employeeName")] ]) ;
+
+            array_push($FilterItems , ['Type' => 'select' , 'Info' =>
+               ['Name' => "filter[overtime_type]" , 'Placeholder' => __("overtimeType") ,
+               "Options" => $OvertimeTypes] ]) ;
+
+            array_push($FilterItems , ['Type' => 'select' , 'Info' =>
+                   ['Name' => "filter[status]" , 'Placeholder' => __("stateRequest") ,
+                   "Options" => $Status] ]);
+
+            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
+               ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("startDateFrom")] ]);
+
+            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
+               ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("endDateFrom")] ]);
+
+            array_push($FilterItems , ['Type' => 'select' , 'Info' =>
+                   ['Name' => "filter[is_hourly]" , 'Placeholder' => __("isItHour") ,
+                   "Options" => $IsHourlySelect] ]);
+
+            array_push($FilterItems , ['Type' => 'NormalTime' , 'Info' =>
+               ['Name' => "filter[from_time]" , 'Placeholder' => __("vocationTimeStart")] ]);
+
+            array_push($FilterItems , ['Type' => 'NormalTime' , 'Info' =>
+               ['Name' => "filter[to_time]" , 'Placeholder' => __("vocationTimeEnd")] ]);
+
+        @endphp
         @include("System.Components.searchForm" , [
-        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
-        'FilterForm' => [ ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[id]" , 'Placeholder' => "رقم التقييم"] ] ,
-                ['Type' => 'text' , 'Info' =>
-                ['Name' => "filter[employee_name]" , 'Placeholder' => "اسم الموظف"] ] ,
-                ['Type' => 'dateSingle' , 'Info' =>
-                    ['Name' => "filter[evaluation_date]" , 'Placeholder' => "تاريخ اخر تقييم"] ] ,
-                ['Type' => 'dateSingle' , 'Info' =>
-                   ['Name' => "filter[next_evaluation_date]" , 'Placeholder' => "تاريخ التقييم التالي" ] ]
-        ]
-    ])
+           'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+           'FilterForm' => $FilterItems
+       ])
     @endif
 @endsection

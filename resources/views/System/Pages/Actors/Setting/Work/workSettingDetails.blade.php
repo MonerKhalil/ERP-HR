@@ -1,3 +1,12 @@
+<?php
+    $MyAccount = auth()->user() ;
+    $IsHavePermissionWorkSettingRead = $MyAccount->can("read_work_settings") || $MyAccount->can("all_work_settings") ;
+    $IsHavePermissionWorkSettingEdit = $MyAccount->can("update_work_settings") || $MyAccount->can("all_work_settings") ;
+    $IsHavePermissionWorkSettingDelete = $MyAccount->can("delete_work_settings") || $MyAccount->can("all_work_settings") ;
+    $IsHavePermissionWorkSettingExport = $MyAccount->can("export_work_settings") || $MyAccount->can("all_work_settings") ;
+    $IsHavePermissionWorkSettingCreate = $MyAccount->can("create_work_settings") || $MyAccount->can("all_work_settings") ;
+?>
+
 @extends("System.Pages.globalPage")
 
 @section("ContentPage")
@@ -19,7 +28,8 @@
                         <div class="Col">
                             <div class="Card">
                                 <div class="Card__Inner">
-                                    <div class="ListData NotResponsive">
+                                    @if($IsHavePermissionWorkSettingRead)
+                                        <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
                                                 @lang("basics")
@@ -92,6 +102,36 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
+                                                        @lang("minHourWork")
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$workSetting["min_overtime_hours"]}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        @lang("lateAllowanceMinute")
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$workSetting["late_enter_allowance_per_minute"]}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        @lang("earlyAllowanceMinute")
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{$workSetting["early_out_allowance_per_minute"]}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
                                                         @lang("workSettingDescription")
                                                     </span>
                                                     <span class="Data_Value">
@@ -101,30 +141,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="ListData">
-                                        <div class="ListData__Head">
-                                            <h4 class="ListData__Title">
-                                                @lang("operationWorkSetting")
-                                            </h4>
-                                        </div>
-                                        <div class="ListData__Content">
-                                            <div class="Card__Inner px0">
-                                                <a href="{{route("system.work_settings.edit" , $workSetting["id"])}}"
-                                                   class="Button Button--Primary">
-                                                    @lang("editType")
-                                                </a>
-                                                <form class="Form"
-                                                      style="display: inline-block" method="post"
-                                                      action="{{route("system.work_settings.destroy" , $workSetting["id"])}}">
-                                                    @csrf
-                                                    @method("delete")
-                                                    <button type="submit" class="Button Button--Danger">
-                                                        @lang("removeType")
-                                                    </button>
-                                                </form>
+                                    @endif
+                                    @if($IsHavePermissionWorkSettingEdit || $IsHavePermissionWorkSettingDelete)
+                                        <div class="ListData">
+                                            <div class="ListData__Head">
+                                                <h4 class="ListData__Title">
+                                                    @lang("operationWorkSetting")
+                                                </h4>
                                             </div>
+                                            <div class="ListData__Content">
+                                                    <div class="Card__Inner px0">
+                                                        @if($IsHavePermissionWorkSettingEdit)
+                                                            <a href="{{route("system.work_settings.edit" , $workSetting["id"])}}"
+                                                               class="Button Button--Primary">
+                                                                @lang("editType")
+                                                            </a>
+                                                        @endif
+                                                        @if($IsHavePermissionWorkSettingDelete)
+                                                            <form class="Form"
+                                                                  style="display: inline-block" method="post"
+                                                                  action="{{route("system.work_settings.destroy" , $workSetting["id"])}}">
+                                                                @csrf
+                                                                @method("delete")
+                                                                <button type="submit" class="Button Button--Danger">
+                                                                    @lang("removeType")
+                                                                </button>
+                                                            </form>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

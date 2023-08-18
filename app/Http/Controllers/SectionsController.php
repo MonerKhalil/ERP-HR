@@ -176,7 +176,7 @@ class SectionsController extends Controller
             [
                 "head"=> "moderator",
                 "relationFunc" => "moderator",
-                "key" => "name",
+                "key" => "first_name",
             ],"details"
         ];
         return [

@@ -11,6 +11,8 @@ class SectionExternal extends BaseModel
 {
     use HasFactory;
 
+    protected $table = "section_externals";
+
     protected $fillable = [
         #Add Attributes
         "name","address_id","address_details",
@@ -36,12 +38,13 @@ class SectionExternal extends BaseModel
             $section = is_null($validator->route("section_external")) ? "" : $validator->route("section_external")->id;
             return [
                 "name" => ["required",new TextRule(),"max:255",
-                    !$validator->isUpdatedRequest() ? Rule::unique("section_external","name")
-                        : Rule::unique("section_external","name")->ignore($section)],
+                    !$validator->isUpdatedRequest() ? Rule::unique("section_externals","name")
+                        : Rule::unique("section_externals","name")->ignore($section)],
                 "address_id" => ["required", Rule::exists('addresses', 'id')],
-                "email"=>["email","nullable"],
-                "fax"=>[$validator->textRule(false)],
-                "phone"=>["boolean","nullable"],
+                "address_details" => $validator->textRule(true),
+                "email"=>["email","required"],
+                "fax"=>["integer","required"],
+                "phone"=>["integer","required"],
             ];
         };
     }
