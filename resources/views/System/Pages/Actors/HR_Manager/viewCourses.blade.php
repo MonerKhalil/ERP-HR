@@ -38,8 +38,10 @@
                                                         <div class="Card__Tools Table__BulkTools">
                                                             @include("System.Components.bulkAction" , [
                                                                 "Options" => [ [
-                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"
-                                                                ] , [
+                                                                    "Label" => __("printRowsAsPDF") , "Action" => route("system.conferences.export.pdf") , "Method" => "post"
+                                                                ] ,[
+                                                                    "Label" => __("printRowsAsExcel") , "Action" => route("system.conferences.export.xls") , "Method" => "post"
+                                                                ], [
                                                                     "Label" => __("normalDelete")
                                                                     , "Action" => route("system.conferences.multi.delete")
                                                                     , "Method" => "delete"

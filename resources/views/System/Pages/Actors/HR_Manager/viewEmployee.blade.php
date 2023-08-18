@@ -284,7 +284,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("documentType")</span>
                                                                                     <span
-                                                                                        class="Data_Value">{{$employee->contact[0]->document_contact[0]["document_type"]}}</span>
+                                                                                        class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->document_contact[0]["document_type"] : ""}}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -294,7 +294,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("document")</span>
                                                                                     <span
-                                                                                        class="Data_Value"><a href='{{PathStorage($employee->contact[0]->document_contact[0]["document_path"])}}' target="_blank">
+                                                                                        class="Data_Value"><a href='{{PathStorage(count($employee->contact) > 0 ? $employee->contact[0]->document_contact[0]["document_path"] : "")}}' target="_blank">
                                                                                         عرض الوثيقة</a>
                                                                                         </a></span>
                                                                                 </div>
@@ -306,7 +306,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("documentID")</span>
                                                                                     <span
-                                                                                        class="Data_Value">{{$employee->contact[0]->document_contact[0]["document_number"]}}</span>
+                                                                                        class="Data_Value">{{count($employee->contact) > 0 ?  $employee->contact[0]->document_contact[0]["document_number"] : ""}}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -318,7 +318,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("personalPhone")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->contact[0]->private_number1}}</span>
+                                                                                class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->private_number1 : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -328,7 +328,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("workPhone")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->contact[0]->work_number}}</span>
+                                                                                class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->work_number : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -341,7 +341,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("email")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->contact[0]->email}}</span>
+                                                                                class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->email : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -361,7 +361,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("cityName")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->contact[0]->address->name}}</span>
+                                                                                class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->address->name : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -374,7 +374,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("districtName")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->contact[0]->address_details}}</span>
+                                                                                class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->address_details : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -384,7 +384,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("addressType")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->contact[0]->address_type}}</span>
+                                                                                class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->address_type : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -412,7 +412,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("educationDegree")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->education_data[0]->education_level->name}}</span>
+                                                                                class="Data_Value">{{count($employee->education_data) > 0 ? $employee->education_data[0]->education_level->name : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -423,7 +423,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("dateOfIssuance")</span>
                                                                                 <span
-                                                                                    class="Data_Value">{{$employee->education_data[0]->grant_date}}</span>
+                                                                                    class="Data_Value">{{count($employee->education_data) > 0 ? $employee->education_data[0]->grant_date : ""}}</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -435,7 +435,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("document")</span>
                                                                                 <span
-                                                                                    class="Data_Value"><a href="{{$employee->education_data[0]->document_education[0]["document_education_path"]}}" target="_blank">
+                                                                                    class="Data_Value"><a href="{{PathStorage(count($employee->contact) > 0 ? $employee->education_data[0]->document_education[0]["document_education_path"] : "")}}" target="_blank">
                                                                                     عرض الملف</a></span>
                                                                             </div>
                                                                         </div>
@@ -446,7 +446,7 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("collegeName")</span>
-                                                                            <span class="Data_Value">{{$employee->education_data[0]->college_name}}</span>
+                                                                            <span class="Data_Value">{{count($employee->education_data) > 0 ? $employee->education_data[0]->college_name : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -455,7 +455,7 @@
                                                                         <div class="Data_Col">
                                                                             <span
                                                                                 class="Data_Label">@lang("salaryImpact")</span>
-                                                                            <span class="Data_Value">{{$employee->education_data[0]->amount_impact_salary}}</span>
+                                                                            <span class="Data_Value">{{count($employee->education_data) > 0 ? $employee->education_data[0]->amount_impact_salary : ""}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

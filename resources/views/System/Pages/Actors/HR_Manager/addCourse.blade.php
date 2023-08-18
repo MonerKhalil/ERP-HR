@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddCoursePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="CoursePage__Information">
                                 <div class="Card">

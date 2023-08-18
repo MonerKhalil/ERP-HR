@@ -17,7 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CorrespondenceController extends Controller
 {
-    const Folder = "users";
+    const Folder = "correspondence";
     const IndexRoute = "correspondences.index";
 
     public function __construct()
@@ -202,7 +202,7 @@ class CorrespondenceController extends Controller
     public function ExportXls(Request $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+        return Excel::download(new TableCustomExport($data['head'], $data['body']), self::Folder . ".xlsx");
     }
 
     public function ExportPDF(Request $request)
@@ -225,17 +225,13 @@ class CorrespondenceController extends Controller
         $data = MyApp::Classes()->Search->getDataFilter($query, null, true);
         $head = [
             [
-                "head" => "CorrespondenceDest_sours",
-                "relationFunc" => "CorrespondenceDest",
-                "key" => "name",
-            ],
-            [
                 "head" => "name_employee",
                 "relationFunc" => "employee",
                 "key" => "name",
             ],
-            "contract_type", "contract_number", "contract_date", "contract_finish_date",
-            "contract_direct_date", "salary", "created_at",
+            "subject","number_external","number_internal", "date",
+            "type","summary",
+            "created_at",
         ];
         return [
             "head" => $head,

@@ -36,15 +36,17 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-                                                            {{--                                                            @include("System.Components.bulkAction" , [--}}
-                                                            {{--                                                                "Options" => [ [--}}
-                                                            {{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
-                                                            {{--                                                                ] , [--}}
-                                                            {{--                                                                    "Label" => __("normalDelete")--}}
-                                                            {{--                                                                    , "Action" => route("system.employees.correspondence.destroy")--}}
-                                                            {{--                                                                    , "Method" => "delete"--}}
-                                                            {{--                                                                ] ]--}}
-                                                            {{--                                                            ])--}}
+                                                        @include("System.Components.bulkAction" , [
+                                                            "Options" => [ [
+                                                                    "Label" => __("printRowsAsPDF") , "Action" => route("correspondences.export.pdf") , "Method" => "post"
+                                                                ] ,[
+                                                                    "Label" => __("printRowsAsExcel") , "Action" => route("correspondences.export.xls") , "Method" => "post"
+                                                                ] , [
+                                                                "Label" => __("normalDelete")
+                                                                , "Action" => '#'
+                                                                , "Method" => "delete"
+                                                            ] ]
+                                                        ])
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -56,24 +58,24 @@
                                                                 <li>
                                                                     <span class="SearchTools__Separate"></span>
                                                                 </li>
-                                                                {{--                                                                <li class="Table__PrintMenu">--}}
-                                                                {{--                                                                    <i class="material-icons IconClick PrintMenu__Button"--}}
-                                                                {{--                                                                       title="Print">print</i>--}}
-                                                                {{--                                                                    <div class="Dropdown PrintMenu__Menu">--}}
-                                                                {{--                                                                        <ul class="Dropdown__Content">--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">--}}
-                                                                {{--                                                                                    @lang("printTablePDFFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                            <li class="Dropdown__Item">--}}
-                                                                {{--                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">--}}
-                                                                {{--                                                                                    @lang("printTableXlsxFile")--}}
-                                                                {{--                                                                                </a>--}}
-                                                                {{--                                                                            </li>--}}
-                                                                {{--                                                                        </ul>--}}
-                                                                {{--                                                                    </div>--}}
-                                                                {{--                                                                </li>--}}
+                                                                <li class="Table__PrintMenu">
+                                                                    <i class="material-icons IconClick PrintMenu__Button"
+                                                                       title="Print">print</i>
+                                                                    <div class="Dropdown PrintMenu__Menu">
+                                                                        <ul class="Dropdown__Content">
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
+                                                                                    @lang("printTablePDFFile")
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
+                                                                                    @lang("printTableXlsxFile")
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -107,7 +109,7 @@
                                                                     <div class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_{{$correspondence["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="correspondences[]" value="{{$correspondence["id"]}}" hidden>
+                                                                               name="ids[]" value="{{$correspondence["id"]}}" hidden>
                                                                         <label for="ItemRow_{{$correspondence["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small
