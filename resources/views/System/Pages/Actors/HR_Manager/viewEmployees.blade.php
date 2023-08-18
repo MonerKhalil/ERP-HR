@@ -36,15 +36,17 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-                                                        @include("System.Components.bulkAction" , [
-                                                            "Options" => [ [
-                                                                "Label" => __("print") , "Action" => "#" , "Method" => "B"
-                                                            ] , [
-                                                                "Label" => __("normalDelete")
-                                                                , "Action" => route("system.employees.multi.delete")
-                                                                , "Method" => "delete"
-                                                            ] ]
-                                                        ])
+                                                            @include("System.Components.bulkAction" , [
+                                                                "Options" => [ [
+                                                                    "Label" => __("printRowsAsPDF") , "Action" => route("system.employees.report.pdf") , "Method" => "post"
+                                                                ] ,[
+                                                                    "Label" => __("printRowsAsExcel") , "Action" => route("system.employees.report.xlsx") , "Method" => "post"
+                                                                ], [
+                                                                    "Label" => __("normalDelete")
+                                                                    , "Action" => route("system.employees.multi.delete")
+                                                                    , "Method" => "delete"
+                                                                ] ]
+                                                            ])
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -97,18 +99,20 @@
                                                                 <div class="Item__Col"><span>@lang("name")</span></div>
                                                                 <div class="Item__Col">
                                                                     <span>@lang("dossierNumber")</span></div>
-                                                                <div class="Item__Col"><span>@lang("currenctJob")</span></div>
-                                                                <div class="Item__Col"><span>@lang("familyStatus")</span>
+                                                                <div class="Item__Col"><span>@lang("currenctJob")</span>
                                                                 </div>
-{{--                                                                <div class="Item__Col"><span>@lang("jobPosition")</span>--}}
-{{--                                                                </div>--}}
+                                                                <div class="Item__Col">
+                                                                    <span>@lang("familyStatus")</span>
+                                                                </div>
+                                                                {{--                                                                <div class="Item__Col"><span>@lang("jobPosition")</span>--}}
+                                                                {{--                                                                </div>--}}
                                                             </div>
                                                             @foreach($employees as $employee)
                                                                 <div class="Item DataItem">
                                                                     <div class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_{{$employee["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="employees[]"
+                                                                               name="ids[]"
                                                                                value="{{$employee["id"]}}" hidden>
                                                                         <label for="ItemRow_{{$employee["id"]}}"
                                                                                class="CheckBoxRow">
@@ -121,7 +125,8 @@
                                                                         class="Item__Col">{{$employee["id"]}}</div>
                                                                     <div
                                                                         class="Item__Col">{{$employee["first_name"]}}</div>
-                                                                    <div class="Item__Col">{{$employee["NP_registration"]}}</div>
+                                                                    <div
+                                                                        class="Item__Col">{{$employee["NP_registration"]}}</div>
                                                                     <div
                                                                         class="Item__Col">{{$employee["current_job"]}}</div>
                                                                     <div

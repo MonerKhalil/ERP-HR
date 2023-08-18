@@ -31,41 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /*
  *****************************test********************
  */
-Route::resources(
-    [
-        "contract" => ContractController::class,
-        "languageSkill" => LanguageSkillController::class,
-        "membership" => MembershipController::class,
-    ]);
 
-Route::get('contract/data/trash', [ContractController::class, 'trash'])
-    ->name('contract.trash');
-Route::put('contract/{contract}/restore', [ContractController::class, 'restore'])
-    ->name('contract.restore');
-Route::delete('contract/{contract}/force-delete', [ContractController::class, 'forceDelete'])
-    ->name('contract.force-delete');
-
-Route::post('contract/export/xlsx', [ContractController::class, 'ExportXls'])->name("export.xls");
-Route::post('contract/export/pdf',[ContractController::class, 'ExportPDF'] )->name("export.pdf");
-Route::delete("contract/multi/delete", [ContractController::class, 'MultiDelete'])->name("multi.delete");
-Route::post("cors", [\App\Http\Controllers\CorrespondenceController::class, 'store']);
-Route::get("index", [\App\Http\Controllers\CorrespondenceController::class, 'index']);
-
-
-
-Route::get('language/data/trash', [LanguageSkillController::class, 'trash'])
-    ->name('language_skill.trash');
-Route::put('language/{language}/restore', [LanguageSkillController::class, 'restore'])
-    ->name('language_skill.restore');
-Route::delete('language/{language}/force-delete', [LanguageSkillController::class, 'forceDelete'])
-    ->name('language_skill.force-delete');
-
-Route::get('membership/data/trash', [LanguageSkillController::class, 'trash'])
-    ->name('membership.trash');
-Route::put('membership/{membership}/restore', [LanguageSkillController::class, 'restore'])
-    ->name('membership.restore');
-Route::delete('membership/{membership}/force-delete', [LanguageSkillController::class, 'forceDelete'])
-    ->name('membership.force-delete');
 /*
  *****************************test********************
  */

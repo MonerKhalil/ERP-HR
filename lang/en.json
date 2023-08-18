@@ -643,5 +643,7 @@
     "EofInfo" : "End of service info",
     "titleViewCourse" : "Show Courses info",
     "ViewEmployeeCourse" : "View Employee Course",
-    "ViewCoursesPage" : "View Employee Course - Conference page"
+    "ViewCoursesPage" : "View Employee Course - Conference page",
+    "notices" : "Notices",
+    "external_party" : "External Party"
 }

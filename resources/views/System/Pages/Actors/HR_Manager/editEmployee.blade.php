@@ -272,7 +272,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm">
+                                                                <div class="VisibilityOption Col-4-md Col-6-sm" data-ElementsTargetName="familyStatus"
+                                                                     data-VisibilityDefault="{{ isset($employee) ? $employee["family_status"] : ""}}">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
@@ -291,8 +292,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm"
-                                                                     id="wivesNumber">
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     id="wivesNumber"
+                                                                     data-TargetName="familyStatus"
+                                                                     data-TargetValue="married">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
@@ -308,8 +311,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm"
-                                                                     id="childrenNumber">
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="familyStatus"
+                                                                     id="childrenNumber"
+                                                                     data-TargetValue="married">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
@@ -485,7 +490,7 @@
                                                                                                         "FieldName" => "document_contact[0][document_path]" ,
                                                                                                         "DefaultData" => (isset($employee->contact[0]->document_contact)) ? PathStorage($employee->contact[0]->document_contact[0]["document_path"]) : ""  ,
                                                                                                         "LabelField" => __("chooseDocument"),
-                                                                                                        "AcceptFiles" => "*"
+                                                                                                        "AcceptFiles" => "application/pdf, .docx"
                                                                                                     ])
                                                                                                 </div>
                                                                                             </div>
@@ -618,22 +623,18 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div id="City" class="Col-4-md Col-6-sm">
-                                                                                <div class="Form__Group">
-                                                                                    <div class="Form__Select">
-                                                                                        <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => isset($employee->contact[0]->address->name) ? $employee->contact[0]->address->name : "",
-                                                                                                        "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div id="Address" class="Col-4-md Col-6-sm">
-                                                                                <div class="Form__Group">
-                                                                                    <div class="Form__Select">
-                                                                                        <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "districtName" , "Required" => "true" , "Label" => __('district'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("Mazzah"), __("Barzeh"), __('Duma')],])
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group" >
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="address"
+                                                                                                   class="Input__Field"
+                                                                                                   type="text"
+{{--                                                                                                   value="{{isset($employee->contact[0]['email']) ? $employee->contact[0]['email'] : ""}}"--}}
+                                                                                                   name="address_id"
+                                                                                                   placeholder="@lang("city_name")" required>
+                                                                                            <label class="Input__Label"
+                                                                                                   for="address">@lang("city_name")</label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -758,7 +759,7 @@
                                                                                                 "FieldName" => "document_education_path[0]" ,
                                                                                                 "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
                                                                                                 "LabelField" => __("chooseDocument"),
-                                                                                                "AcceptFiles" => "*"
+                                                                                                "AcceptFiles" => "application/pdf, .docx"
                                                                                             ])
                                                                                         </div>
                                                                                     </div>

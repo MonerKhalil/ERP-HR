@@ -19,12 +19,12 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="#"
+                                    <form name="PrintAllTablePDF" action="data_end_services/export/pdf"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="#"
+                                    <form name="PrintAllTableXlsx" action="data_end_services/export/pdf"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -37,14 +37,16 @@
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
                                                         @include("System.Components.bulkAction" , [
-                                                            "Options" => [ [
-                                                                "Label" => __("print") , "Action" => "#" , "Method" => "B"
-                                                            ] , [
-                                                                "Label" => __("normalDelete")
-                                                                , "Action" => route("users.multi.delete")
-                                                                , "Method" => "delete"
-                                                            ] ]
-                                                        ])
+                                                                "Options" => [ [
+                                                                    "Label" => __("printRowsAsPDF") , "Action" => route("system.data_end_services.export.pdf") , "Method" => "post"
+                                                                ] ,[
+                                                                    "Label" => __("printRowsAsExcel") , "Action" => route("system.data_end_services.export.xls") , "Method" => "post"
+                                                                ], [
+                                                                    "Label" => __("normalDelete")
+                                                                    , "Action" => route("system.data_end_services.multi.delete")
+                                                                    , "Method" => "delete"
+                                                                ] ]
+                                                            ])
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -56,6 +58,25 @@
                                                                 <li>
                                                                     <span class="SearchTools__Separate"></span>
                                                                 </li>
+                                                                <li class="Table__PrintMenu">
+                                                                    <i class="material-icons IconClick PrintMenu__Button"
+                                                                       title="Print">print</i>
+                                                                    <div class="Dropdown PrintMenu__Menu">
+                                                                        <ul class="Dropdown__Content">
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTablePDF.submit()">
+                                                                                    @lang("printTablePDFFile")
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="Dropdown__Item">
+                                                                                <a href="javascript:document.PrintAllTableXlsx.submit()">
+                                                                                    @lang("printTableXlsxFile")
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -86,7 +107,7 @@
                                                                     <div class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_{{$item["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="EOFs[]" value="{{$item["id"]}}" hidden>
+                                                                               name="ids[]" value="{{$item["id"]}}" hidden>
                                                                         <label for="ItemRow_{{$item["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small
@@ -155,16 +176,16 @@
     </section>
 @endsection
 
-{{--@section("PopupPage")--}}
-{{--    @include("System.Components.searchForm" , [--}}
-{{--        'InfoForm' => ["Route" => "" , "Method" => "get"] ,--}}
-{{--        'FilterForm' => [ ['Type' => 'text' , 'Info' =>--}}
-{{--                ['Name' => "filter[name]" , 'Placeholder' => __("roleName")]] , ['Type' => 'number' , 'Info' =>--}}
-{{--                    ['Name' => "filter[id]" , 'Placeholder' => __("id")]--}}
-{{--                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,--}}
-{{--                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"--}}
-{{--                ]--}}
-{{--            ] ]--}}
-{{--    ])--}}
-{{--    @include("System.Components.fileOptions")--}}
-{{--@endsection--}}
+@section("PopupPage")
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [ ['Type' => 'text' , 'Info' =>
+                ['Name' => "filter[reason]" , 'Placeholder' => "السبب"]] , ['Type' => 'number' , 'Info' =>
+                    ['Name' => "filter[id]" , 'Placeholder' => "المعرف"]
+                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
+                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
+                ]
+            ] ]
+    ])
+    @include("System.Components.fileOptions")
+@endsection

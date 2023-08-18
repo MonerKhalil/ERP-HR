@@ -53,8 +53,9 @@ class Correspondence_source_dest extends BaseModel
         return function (BaseRequest $validator) {
             return [
                 "type" => ["required", Rule::in(Correspondence::type())],
+                "correspondences_id"=>["required",Rule::exists("correspondences","id")],
                 "source_dest_type" => ["required",Rule::in(self::source_dest_type())],
-                "is_done"=>["sometimes","boolean",],
+                "is_done"=>["nullable","boolean",],
                 "external_party_id" => [Rule::requiredIf(function ()use($validator){
                     return $validator->input("type") == "external";///check
                 }),Rule::exists("section_externals","id")],

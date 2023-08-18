@@ -677,6 +677,8 @@
     "EofInfo" : "معلومات نهاية الخدمة",
     "titleViewCourse" : "عرض معلومات الدورات و المؤتمرات",
     "ViewEmployeeCourse" : "عرض معلومات الدورة - المؤتمر",
-    "ViewCoursesPage" : "صفحة عرض معلومات دورة معينة"
+    "ViewCoursesPage" : "صفحة عرض معلومات دورة معينة",
+    "notices" : "ملاحظات",
+    "external_party" : "الجهة الخارجية"
 }
 

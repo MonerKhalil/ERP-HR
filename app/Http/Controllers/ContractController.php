@@ -153,7 +153,7 @@ class ContractController extends Controller
     public function ExportXls(Request $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+        return Excel::download(new TableCustomExport($data['head'], $data['body']), self::Folder . ".xlsx");
     }
 
     public function ExportPDF(Request $request)
@@ -181,7 +181,7 @@ class ContractController extends Controller
             [
                 "head" => "name_employee",
                 "relationFunc" => "employee",
-                "key" => "name",
+                "key" => "first_name",
             ],
             "contract_type", "contract_number", "contract_date", "contract_finish_date",
             "contract_direct_date", "salary", "created_at",

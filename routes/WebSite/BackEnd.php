@@ -385,20 +385,20 @@ Route::middleware(['auth'])->group(function () {
         Route::get("contract/edit/{contract}", [ContractController::class, "edit"])->name("employees.contract.edit");
         Route::post("contract/update/{contract}", [ContractController::class, "update"])->name("employees.contract.update");
         Route::delete("contract/multi/delete", [ContractController::class, "MultiContractsDelete"])->name("employees.contract.multi.delete");
-        Route::post('export/xlsx', [ContractController::class, "ExportXls"])->name("employees.contract.export.xls");
-        Route::post('export/pdf', [ContractController::class, "ExportPDF"])->name("employees.contract.export.pdf");
+        Route::post('contract/export/xlsx', [ContractController::class, "ExportXls"])->name("employees.contract.export.xls");
+        Route::post('contract/export/pdf', [ContractController::class, "ExportPDF"])->name("employees.contract.export.pdf");
 
         Route::get("languageSkill/show/{languageSkill?}", [LanguageSkillController::class, "show"])->name("employees.languageSkill.show");
         Route::get("languageSkill/edit/{languageSkill?}", [LanguageSkillController::class, "edit"])->name("employees.languageSkill.edit");
         Route::post("languageSkill/update/{languageSkill?}", [LanguageSkillController::class, "update"])->name("employees.languageSkill.update");
-        Route::delete("contract/multi/delete", [LanguageSkillController::class, "MultiLanguageDelete"])->name("employees.languageSkill.multi.delete");
+        Route::delete("languageSkill/multi/delete", [LanguageSkillController::class, "MultiLanguageDelete"])->name("employees.languageSkill.multi.delete");
         Route::post('export/xlsx', [LanguageSkillController::class, "ExportXls"])->name("employees.languageSkill.export.xls");
         Route::post('export/pdf', [LanguageSkillController::class, "ExportPDF"])->name("employees.languageSkill.export.pdf");
 
         Route::get("membership/show/{membership?}", [MembershipController::class, "show"])->name("employees.membership.show");
         Route::get("membership/edit/{membership?}", [MembershipController::class, "edit"])->name("employees.membership.edit");
         Route::post("membership/update/{membership?}", [MembershipController::class, "update"])->name("employees.membership.update");
-        Route::delete("contract/multi/delete", [MembershipController::class, "MultiMembershipDelete"])->name("employees.membership.multi.delete");
+        Route::delete("membership/multi/delete", [MembershipController::class, "MultiMembershipDelete"])->name("employees.membership.multi.delete");
         Route::post('export/xlsx', [MembershipController::class, "ExportXls"])->name("employees.membership.export.xls");
         Route::post('export/pdf', [MembershipController::class, "ExportPDF"])->name("employees.membership.export.pdf");
 
@@ -432,7 +432,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete("multi/delete", "MultiDelete")->name("multi.delete");
         });
     Route::resource('correspondences_dest', CorrespondenceSourceDestController::class)->except("edit", "update",);
-    Route::get("transaction/create/correspondences_dest/{correspondences_id}", [CorrespondenceSourceDestController::class, "addDecisions"])->name("transaction.correspondences_dest.add");
+    Route::get("transaction/create/correspondences_dest/{correspondences_id}", [CorrespondenceSourceDestController::class, "addTransaction"])->name("transaction.correspondences_dest.add");
     Route::post("transaction/send/legalopinion/{correspondences_id}", [LegalController::class, "sendLegalOpinion"])->name("transaction.legalopinion.send");//the bottom send correspndence to legal section
     Route::put("transaction/add/legalopinion", [LegalController::class, "addLegalOpinion"])->name("transaction.legalopinion.add");
 
