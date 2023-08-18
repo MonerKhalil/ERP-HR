@@ -9,6 +9,7 @@ use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
 use App\Models\Correspondence;
 use App\Http\Requests\CorrespondenceRequest;
+use App\Services\SendNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -106,8 +107,6 @@ class CorrespondenceController extends Controller
                 $data["number_external"] = $number_external;
             }
             $data["employee_id"] = auth()->user()->employee->id;
-
-//            dd($data);
             Correspondence::query()->create($data);
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
@@ -139,8 +138,14 @@ class CorrespondenceController extends Controller
     public function edit(Correspondence $correspondence)
     {
         $type = ['internal', 'external'];
-        $number_internal = Correspondence::query()->latest('number_internal')->pluck("number_internal")->first();
-        $number_external = Correspondence::query()->latest('number_external')->pluck("number_external")->first();
+        $number_internal = Correspondence::query()->latest('number_internal')->first()->number_internal ?? 0;
+        if (!is_null($number_internal)) {
+            $number_internal++;
+        }
+        $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
+        if (!is_null($number_external)) {
+            $number_external++;
+        }
         $correspondence = Correspondence::with(["CorrespondenceDest"])
             ->findOrFail($correspondence->id);
         return $this->responseSuccess("System.Pages.Actors.Diwan_User.editCorrespondence", compact("correspondence", 'number_internal', "number_external", "type"));
@@ -151,7 +156,7 @@ class CorrespondenceController extends Controller
     {
         try {
             DB::beginTransaction();
-            $data = $request->validated();
+            $data =Arr::except($request->validated(),["number_internal","number_external"]) ;
             if (isset($data['path_file'])) {
                 $document_path = MyApp::Classes()->storageFiles->Upload($data['path_file']);
                 if (is_bool($document_path)) {
@@ -186,7 +191,7 @@ class CorrespondenceController extends Controller
     {
         $request->validate([
             "ids" => ["required", "array"],
-            "ids.*" => ["required", Rule::exists("contracts", "id")],
+            "ids.*" => ["required", Rule::exists("correspondences", "id")],
         ]);
         try {
             DB::beginTransaction();

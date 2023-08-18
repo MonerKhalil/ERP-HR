@@ -10,6 +10,7 @@ use App\Http\Requests\Correspondence_source_destRequest;
 use App\Models\Employee;
 use App\Models\SectionExternal;
 use App\Models\Sections;
+use App\Services\SendNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -58,16 +59,18 @@ class CorrespondenceSourceDestController extends Controller
         $external_party = SectionExternal::query()->pluck("name", "id")->toArray();//if external
         $internal_department = Sections::query()->pluck("name", "id")->toArray();//if external
         $employee_dest = Employee::query()->whereNot("user_id", Auth::id())->select(["id", "first_name", "last_name"])->get();//if internal
-        return $this->responseSuccess("System.Pages.Actors.Diwan_User.addSourceDest", compact("employee_dest", "Correspondence_id",
-            "source_dest_type", "external_party", "type","internal_department"));
+        return $this->responseSuccess("System.Pages.Actors.Diwan_User.addSourceDest", compact("employee_dest", "correspondence",
+            "source_dest_type", "external_party", "type", "internal_department"));
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     * @param SendNotificationService $sendNotificationService
      * @return \Illuminate\Http\Response
      */
-    public function store(Correspondence_source_destRequest $request)
+    public function store(Correspondence_source_destRequest $request, SendNotificationService $sendNotificationService)
     {
         try {
             DB::beginTransaction();
@@ -77,24 +80,23 @@ class CorrespondenceSourceDestController extends Controller
                     ->Upload($request['path_file'], "correspondence/document_Correspondence");
                 $data['path_file'] = $path;
             }
-            $data['current_employee_id'] =  auth()->user()->employee->id;
+            $data['current_employee_id'] = auth()->user()->employee->id;
             $data['external_party_id'] = $request->external_party_id;
             $data['internal_department_id'] = $request->internal_department_id;
-            Correspondence_source_dest::query()->create($data);
-//            if (!is_null($request->date)) {
-//                foreach ($request->data as $soursDest) {
-//                    $temp = $soursDest;
-//                    $data['current_employee_id'] =  auth()->user()->employee->id;
-//                    $data['external_party_id'] = $temp->external_party_id;
-//                    $data['internal_department_id'] = $temp->internal_department_id;
-//                    Correspondence_source_dest::query()->create($data);
-//                }
-//            }
+          $correspondence_source_dest  =Correspondence_source_dest::query()->create($data);
+            if($request->type == "external") {
+            if($this->isOnlineInternet()){
+    /////send mail
 
+                }
+            }elseif ($request->type == "internal"){
+                $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
+                $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
+                    route("system.evaluation.employee.show.add.evaluation",$correspondence_source_dest->id));
+            }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
         } catch (\Exception $exception) {
-            dd($exception);
             DB::rollBack();
             throw new MainException($exception->getMessage());
         }
@@ -162,4 +164,15 @@ class CorrespondenceSourceDestController extends Controller
     {
         //
     }
+
+    public function isOnlineInternet($site = "www.google.com"): bool
+    {
+        if (@fopen($site, "r")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }
