@@ -32,9 +32,8 @@
             "attendances" : "a",
             "payrolls" : "a"
         },
-        "user" : {
-            "users" : ["r"],
-            "roles" : ["r"]
+        "employee" : {
+
         }
     },
     "process": {

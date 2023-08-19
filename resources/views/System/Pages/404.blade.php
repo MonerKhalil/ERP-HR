@@ -13,7 +13,7 @@
                             <p>
                                 @lang("404Message")
                             </p>
-                            <a class="Button Button--Primary" href="#">
+                            <a class="Button Button--Primary" href="{{route("home")}}">
                                 @lang("backToHome")
                             </a>
                         </div>

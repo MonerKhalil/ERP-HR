@@ -156,6 +156,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('conferences', ConferenceController::class);
         Route::prefix("conferences")->name("conferences.")
             ->controller(ConferenceController::class)->group(function () {
+                Route::get('{employee}', "EmployeeConference")->name("show.employee");
                 Route::post('export/xlsx', "ExportXls")->name("export.xls");
                 Route::post('export/pdf', "ExportPDF")->name("export.pdf");
                 Route::delete("multi/delete", "MultiDelete")->name("multi.delete");

@@ -39,6 +39,15 @@ class ConferenceController extends Controller
         return $this->responseSuccess(self::NameBlade,compact("data"));
     }
 
+    public function EmployeeConference($employee){
+        $employee = Employee::query()->find($employee);
+        $query = Conference::query()->whereHas("employees",function ($q)use ($employee){
+            return $q->where("id",$employee->id);
+        });
+        $data = MyApp::Classes()->Search->getDataFilter($query);
+        return $this->responseSuccess(self::NameBlade,compact("data"));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
