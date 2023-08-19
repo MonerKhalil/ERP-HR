@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
 use App\Http\Requests\WorkSettingRequest;
+use App\Models\Employee;
 use App\Models\WorkSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -147,6 +149,10 @@ class WorkSettingController extends Controller
      */
     public function destroy(WorkSetting $workSetting)
     {
+        $relatedEmployees = Employee::query()->where("work_setting_id",$workSetting->id)->first();
+        if (!is_null($relatedEmployees)){
+            throw new MainException(__("err_cascade_delete") . "employees");
+        }
         $workSetting->delete();
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }
@@ -157,6 +163,12 @@ class WorkSettingController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("work_settings","id")],
         ]);
+        foreach ($request->ids as $id){
+            $relatedEmployees = Employee::query()->where("work_setting_id",$id)->first();
+            if (!is_null($relatedEmployees)){
+                throw new MainException(__("err_cascade_delete") . "employees");
+            }
+        }
         WorkSetting::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }

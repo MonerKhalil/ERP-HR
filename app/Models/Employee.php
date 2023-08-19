@@ -166,6 +166,18 @@ class Employee extends BaseModel
         return $this->hasMany(EmployeeEvaluation::class,"employee_id","id");
     }
 
+    public static function salary($employee_id){
+        $contract = Contract::query()->where("employee_id",$employee_id)
+            ->whereDate("contract_finish_date",">",now())
+            ->orderByDesc("contract_date")
+            ->first();
+        if (is_null($contract)){
+            $employee = Employee::with("work_setting")->findOrFail($employee_id);
+            return $employee->work_setting->salary_default;
+        }
+        return $contract->salary;
+    }
+
     /**
      * Description: To check front end validation
      * @inheritDoc
@@ -203,10 +215,10 @@ class Employee extends BaseModel
                     return $validator->military_service === "exempt";
                 })],
                 "family_status" => ["required",Rule::in(["married","divorced","single"])],
-                "number_wives" => ["numeric","min:1",Rule::requiredIf(function ()use($validator){
+                "number_wives" => ["numeric","min:0",Rule::requiredIf(function ()use($validator){
                     return $validator->family_status === "married" || $validator->family_status === "divorced";
                 })],
-                "number_child" => ["numeric",Rule::requiredIf(function ()use($validator){
+                "number_child" => ["numeric","min:0",Rule::requiredIf(function ()use($validator){
                     return $validator->family_status === "married" || $validator->family_status === "divorced";
                 })],
                 "birth_date" => $validator->dateRules(true),

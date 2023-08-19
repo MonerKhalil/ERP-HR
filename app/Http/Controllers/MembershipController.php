@@ -146,7 +146,6 @@ class MembershipController extends Controller
         $request->validate([
             "ids" => ["required", "array"],
             "ids.*" => ["required", Rule::exists("contracts", "id")],
-            //  "contracts.*.user_id" => ["required", Rule::exists("users", "id")],
         ]);
 
 

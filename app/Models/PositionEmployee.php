@@ -20,7 +20,7 @@ class PositionEmployee extends BaseModel
     // Add relationships between tables section
 
     public function position(){
-        return $this->belongsTo(Position::class,"position_id","id");
+        return $this->belongsTo(Position::class,"position_id","id")->withTrashed();
     }
 
     public function employee(){

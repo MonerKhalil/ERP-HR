@@ -70,7 +70,6 @@ class LegalController extends Controller
           DB::rollBack();
           throw new MainException($exception->getMessage());
       }
-
     }
 
     public function addLegalOpinion(Request $request, SendNotificationService $sendNotificationService)

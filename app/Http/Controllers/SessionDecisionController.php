@@ -8,7 +8,9 @@ use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
+use App\Models\Decision;
 use App\Models\Employee;
+use App\Models\MemberSessionDecision;
 use App\Models\SessionDecision;
 use App\Http\Requests\SessionDecisionRequest;
 use Illuminate\Http\Request;
@@ -158,6 +160,14 @@ class SessionDecisionController extends Controller
      */
     public function destroy(SessionDecision $sessionDecision)
     {
+        if (!is_null($sessionDecision->decisions()->first())){
+            throw new MainException(__("err_cascade_delete") . "decisions");
+        }
+        $relatedMembersSession = MemberSessionDecision::query()
+            ->where("session_decision_id",$sessionDecision->id)->first();
+        if (!is_null($relatedMembersSession)){
+            throw new MainException(__("err_cascade_delete") . "member session decision");
+        }
         $sessionDecision->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -168,6 +178,17 @@ class SessionDecisionController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("session_decisions","id")],
         ]);
+        foreach ($request->ids as $id){
+            $relatedDecision = Decision::query()->where("session_decision_id",$id)->first();
+            if (!is_null($relatedDecision)){
+                throw new MainException(__("err_cascade_delete") . "decisions");
+            }
+            $relatedMembersSession = MemberSessionDecision::query()
+                ->where("session_decision_id",$id)->first();
+            if (!is_null($relatedMembersSession)){
+                throw new MainException(__("err_cascade_delete") . "member session decision");
+            }
+        }
         SessionDecision::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }

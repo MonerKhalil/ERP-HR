@@ -181,7 +181,7 @@ class ContractController extends Controller
             [
                 "head" => "name_employee",
                 "relationFunc" => "employee",
-                "key" => "first_name",
+                "key" => "name",
             ],
             "contract_type", "contract_number", "contract_date", "contract_finish_date",
             "contract_direct_date", "salary", "created_at",

@@ -12,6 +12,9 @@ use App\Http\Requests\EmployeeRequest;
 use App\Models\Decision;
 use App\Models\Education_level;
 use App\Models\Employee;
+use App\Models\Leave;
+use App\Models\Overtime;
+use App\Models\PositionEmployee;
 use App\Models\Sections;
 use App\Models\User;
 use App\Models\WorkSetting;
@@ -95,7 +98,7 @@ class EmployeeController extends Controller
             "education_data" => function($q){
                 return $q->with(["document_education","education_level"])->get();
             },
-            "nationality_country","section","positions","contract","language_skill",
+            "nationality_country","section","positions","contract","language_skill","user",
         ]);
         $employee = is_null($employee) ? $employeeQuery->where("user_id",auth()->id())->firstOrFail()
             : $employeeQuery->findOrFail($employee);
@@ -136,6 +139,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
+        throw new MainException(__("err_cascade_delete") . "sections");
         $employee->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -146,6 +150,7 @@ class EmployeeController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("employees","id")],
         ]);
+        throw new MainException(__("err_cascade_delete") . "sections");
         Employee::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }

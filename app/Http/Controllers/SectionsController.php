@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\Exports\TableCustomExport;
 use App\HelpersClasses\ExportPDF;
 use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
+use App\Models\Contract;
+use App\Models\Correspondence_source_dest;
 use App\Models\Employee;
 use App\Models\Sections;
 use App\Http\Controllers\Controller;
@@ -120,6 +123,17 @@ class SectionsController extends Controller
      */
     public function destroy(Sections $section)
     {
+        if (!is_null($section->contracts()->first())){
+            throw new MainException(__("err_cascade_delete") . "contracts");
+        }
+        if (!is_null($section->employees()->first())){
+            throw new MainException(__("err_cascade_delete") . "employees");
+        }
+        $relatedCorrespondence_source_dest = Correspondence_source_dest::query()
+            ->where("internal_department_id",$section->id)->first();
+        if (!is_null($relatedCorrespondence_source_dest)){
+            throw new MainException(__("err_cascade_delete") . "correspondence_source_dest");
+        }
         $section->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -130,6 +144,21 @@ class SectionsController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("sections","id")],
         ]);
+        foreach ($request->ids as $id){
+            $contracts = Contract::query()->where("section_id",$id)->first();
+            if (!is_null($contracts)){
+                throw new MainException(__("err_cascade_delete") . "contracts");
+            }
+            $employees = Employee::query()->where("section_id",$id)->first();
+            if (!is_null($employees)){
+                throw new MainException(__("err_cascade_delete") . "employees");
+            }
+            $relatedCorrespondence_source_dest = Correspondence_source_dest::query()
+                ->where("internal_department_id",$id)->first();
+            if (!is_null($relatedCorrespondence_source_dest)){
+                throw new MainException(__("err_cascade_delete") . "correspondence_source_dest");
+            }
+        }
         Sections::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
