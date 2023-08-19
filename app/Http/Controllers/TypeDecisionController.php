@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MainException;
 use App\HelpersClasses\MyApp;
+use App\Models\Decision;
 use App\Models\TypeDecision;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TypeDecisionRequest;
@@ -97,6 +99,10 @@ class TypeDecisionController extends Controller
      */
     public function destroy(TypeDecision $typeDecision)
     {
+        $relatedDecisions = Decision::query()->where("type_decision_id",$typeDecision->id)->first();
+        if (!is_null($relatedDecisions)){
+            throw new MainException(__("err_cascade_delete") . "decisions");
+        }
         $typeDecision->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -107,6 +113,12 @@ class TypeDecisionController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("type_decisions","id")],
         ]);
+        foreach ($request->ids as $id){
+            $relatedDecisions = Decision::query()->where("type_decision_id",$id)->first();
+            if (!is_null($relatedDecisions)){
+                throw new MainException(__("err_cascade_delete") . "decisions");
+            }
+        }
         TypeDecision::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }

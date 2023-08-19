@@ -11,7 +11,7 @@ use App\Models\Employee;
 use App\Models\Language_skill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Language_skillRequest;
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;

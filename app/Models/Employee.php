@@ -28,7 +28,7 @@ class Employee extends BaseModel
 
     // Add relationships between tables section
     public function work_setting(){
-        return $this->belongsTo(WorkSetting::class,"work_setting_id","id")->withTrashed();
+        return $this->belongsTo(WorkSetting::class,"work_setting_id","id");
     }
 
     public function user()
@@ -215,10 +215,10 @@ class Employee extends BaseModel
                     return $validator->military_service === "exempt";
                 })],
                 "family_status" => ["required",Rule::in(["married","divorced","single"])],
-                "number_wives" => ["numeric","min:1",Rule::requiredIf(function ()use($validator){
+                "number_wives" => ["numeric","min:0",Rule::requiredIf(function ()use($validator){
                     return $validator->family_status === "married" || $validator->family_status === "divorced";
                 })],
-                "number_child" => ["numeric",Rule::requiredIf(function ()use($validator){
+                "number_child" => ["numeric","min:0",Rule::requiredIf(function ()use($validator){
                     return $validator->family_status === "married" || $validator->family_status === "divorced";
                 })],
                 "birth_date" => $validator->dateRules(true),
