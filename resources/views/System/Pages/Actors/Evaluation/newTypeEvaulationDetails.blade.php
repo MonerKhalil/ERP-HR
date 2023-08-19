@@ -15,9 +15,9 @@
         <div class="SessionDetailsPage">
             <div class="SessionDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض تفاصيل النوع" ,
+                    'mainTitle' => __("ViewDetailsType") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'summery' => __("TitleViewDetailsType")
                 ])
             </div>
             <div class="SessionDetailsPage__Content">
@@ -40,7 +40,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الموظف المراد تقيمه
+                                                        @lang("EmployeeWhoNeedEvaluation")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $evaluation->employee["first_name"].$evaluation->employee["last_name"] }}
@@ -50,7 +50,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الاشخاص الذين سيقومون بعملية التقييم
+                                                        @lang("PersonWhoDoneEvaluation")
                                                     </span>
                                                         <span class="Data_Value">
                                                         @php
@@ -69,7 +69,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ التقييم
+                                                        @lang("StartEmployeeEvaluation")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $evaluation["evaluation_date"] }}
@@ -79,7 +79,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ التقييم التالي
+                                                        @lang("EndEmployeeEvaluation")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $evaluation["next_evaluation_date"] }}
@@ -89,7 +89,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ انشاء هذا النوع
+                                                        @lang("CreateDateThatType")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $evaluation["created_at"] }}
@@ -99,7 +99,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        تاريخ تحديث هذا النوع
+                                                        @lang("UpdateDateThatType")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $evaluation["updated_at"] }}
@@ -111,14 +111,14 @@
                                         <div class="ListData NotResponsive">
                                             <div class="ListData__Head">
                                                 <h4 class="ListData__Title">
-                                                    الوصف الخاص بهذا التقييم
+                                                    @lang("EmployeeThatEvaluation")
                                                 </h4>
                                             </div>
                                             <div class="ListData__Content">
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الوصف
+                                                        @lang("workSettingDescription")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $evaluation["description"] }}
@@ -133,7 +133,7 @@
                                             <div class="ListData">
                                                 <div class="ListData__Head">
                                                     <h4 class="ListData__Title">
-                                                        العمليات على النوع
+                                                        @lang("OperationOnTypes")
                                                     </h4>
                                                 </div>
                                                 <div class="ListData__Content">
@@ -141,25 +141,25 @@
                                                         @if($IsHavePermissionEvaluationRead)
                                                             <a href="{{ route("system.evaluation.employee.show.add.decision.evaluation" , $evaluation["id"]) }}"
                                                                class="Button Button--Primary my-1">
-                                                                اضافة قرار للموظف
+                                                                @lang("addDecisionEvaluation")
                                                             </a>
                                                         @endif
                                                         @if($IsHavePermissionEvaluationCreate)
                                                             <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $evaluation["id"]) }}"
                                                                class="Button Button--Primary my-1">
-                                                                اضافة تقييم للموظف
+                                                                @lang("AddEmployeeEvaluation")
                                                             </a>
                                                         @endif
                                                         @if($IsHavePermissionEvaluationRead)
                                                             <a href="{{ route("system.evaluation.employee.show.evaluation" , $evaluation["id"]) }}"
                                                                class="Button Button--Primary my-1">
-                                                                عرض تقييمات الموظف
+                                                                @lang("ViewEvaluationEmployee")
                                                             </a>
                                                         @endif
                                                         @if($IsHavePermissionDecisionRead)
                                                             <a href="{{ route("system.evaluation.employee.show.evaluation.decisions" , $evaluation["id"]) }}"
                                                                class="Button Button--Primary my-1">
-                                                                عرض قرارات الموظف
+                                                                @lang("ViewDecisionEmployeee")
                                                             </a>
                                                         @endif
                                                         @if($IsHavePermissionEvaluationDelete)
@@ -169,7 +169,7 @@
                                                                 @csrf
                                                                 @method("delete")
                                                                 <button type="submit" class="Button Button--Danger">
-                                                                    حذف المعلومات
+                                                                    @lang("DeleteInformation")
                                                                 </button>
                                                             </form>
                                                         @endif

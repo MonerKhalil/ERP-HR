@@ -16,9 +16,9 @@
             <div class="NewSectionFormPage">
                 <div class="NewSectionFormPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "اضافة قسم خاجي جديد" ,
+                        'mainTitle' => __("AddExternalSectionNew") ,
                         'paths' => [[__("home") , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleAddExternalSectionNew")
                     ])
                 </div>
                 <div class="NewSectionFormPage__Content">
@@ -96,9 +96,9 @@
                                                                                         <input id="SectionEmail" class="Input__Field"
                                                                                                type="email" name="email"
                                                                                                value="{{ isset($sectionExternal) ? $sectionExternal["email"] : "" }}"
-                                                                                               placeholder="البريد الالكتروني">
+                                                                                               placeholder="{{ __("email") }}">
                                                                                         <label class="Input__Label" for="SectionEmail">
-                                                                                            البريد الالكتروني
+                                                                                            @lang("email")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -112,9 +112,9 @@
                                                                                         <input id="SectionFax" class="Input__Field"
                                                                                                value="{{ isset($sectionExternal) ? $sectionExternal["fax"] : "" }}"
                                                                                                type="number" name="fax"
-                                                                                               placeholder="الفاكس">
+                                                                                               placeholder="{{ __("fax") }}">
                                                                                         <label class="Input__Label" for="SectionFax">
-                                                                                            الفاكس
+                                                                                            @lang("fax")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -128,9 +128,9 @@
                                                                                         <input id="SectionPhone" class="Input__Field"
                                                                                                type="number" name="phone"
                                                                                                value="{{ isset($sectionExternal) ? $sectionExternal["phone"] : "" }}"
-                                                                                               placeholder="رقم الهاتف">
+                                                                                               placeholder="{{ __("phone") }}">
                                                                                         <label class="Input__Label" for="SectionPhone">
-                                                                                            رقم الهاتف
+                                                                                            @lang("phone")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -142,10 +142,12 @@
                                                                                 <div class="Form__Input">
                                                                                     <div class="Input__Area">
                                                                                         <input id="SectionAddressDetails" class="Input__Field"
-                                                                                               type="number" name="address_details"
-                                                                                               placeholder="عنوان السكن">
+                                                                                               type="text" name="address_details"
+                                                                                               required
+                                                                                               value="{{ isset($sectionExternal) ? $sectionExternal["address_details"] : ""}}"
+                                                                                               placeholder="{{ __("AddressDetails") }}">
                                                                                         <label class="Input__Label" for="SectionAddressDetails">
-                                                                                            عنوان السكن
+                                                                                            @lang("AddressDetails")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>

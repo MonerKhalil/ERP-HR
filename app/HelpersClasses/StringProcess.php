@@ -53,11 +53,11 @@ class StringProcess
 
     /**
      * @description Check String is Date and Convert to YYYY-MM-DD
-     * @param string $inputString
+     * @param null||string $inputString
      * @return false|string
      * @author moner khalil
      */
-    public function DateFormat(string $inputString){
+    public function DateFormat(?string $inputString){
         $formats = [
             'Y-m-d',
             'd-m-Y',

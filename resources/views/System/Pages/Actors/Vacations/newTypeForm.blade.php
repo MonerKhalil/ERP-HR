@@ -17,9 +17,9 @@
             <div class="NewTypeVacationForm">
                 <div class="NewTypeVacationForm__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => __("vocationForm") ,
+                        'mainTitle' => isset($leaveType) ? __("vocationFormEdit") : __("vocationForm") ,
                         'paths' => [[__("home") , '#'] , [__("vocationForm")]] ,
-                        'summery' => __("titleVocationForm")
+                        'summery' => isset($leaveType) ? __("TitleVocationFormEdit") : __("titleVocationForm")
                     ])
                 </div>
                 <div class="NewTypeVacationForm__Content">

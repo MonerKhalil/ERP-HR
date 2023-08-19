@@ -232,8 +232,6 @@
                     ['Name' => "filter[work_hours_from]" , 'Placeholder' => __("workSettingStartDate")] ] ,
                 ['Type' => 'NormalTime' , 'Info' =>
                     ['Name' => "filter[work_hours_to]" , 'Placeholder' => __("workSettingEndDate")] ] ,
-                ['Type' => 'NormalTime' , 'Info' =>
-                    ['Name' => "filter[work_hours_to]" , 'Placeholder' => __("workSettingEndDate")] ] ,
             ]
         ])
     @endif

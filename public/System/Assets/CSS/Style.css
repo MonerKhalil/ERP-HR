@@ -2724,7 +2724,7 @@ body.Dark .HeaderPage .IconClick:hover, body.Dark .HeaderPage .IconClick.Active 
   border-top: 1px solid #23364e;
 }
 .NavigationsMenu__Navigations::-webkit-scrollbar {
-  width: 0.4rem;
+  width: 0.6rem;
 }
 .NavigationsMenu__Navigations::-webkit-scrollbar-track, .NavigationsMenu__Navigations::-webkit-scrollbar-thumb {
   background-color: transparent;
@@ -2735,7 +2735,7 @@ body.Dark .HeaderPage .IconClick:hover, body.Dark .HeaderPage .IconClick.Active 
   background-color: rgba(24, 24, 24, 0.8705882353);
 }
 .NavigationsMenu__Navigations:hover::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2705882353);
+  background-color: rgba(255, 255, 255, 0.6901960784);
 }
 .NavigationsMenu__NavigationsGroup .NavigationsGroup__Title {
   margin: 1.5rem 0 1.5rem 0.5rem;

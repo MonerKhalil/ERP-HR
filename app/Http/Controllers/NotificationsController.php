@@ -52,11 +52,15 @@ class NotificationsController extends Controller
 
     public function getNotificationsUpdate(Request $request)
     {
-        $notifications = auth()->user()->notifications()
-            ->where("id",">",$request->id_notify)
-            ->whereNot("data->type","audit")
-            ->latest()
-            ->get();
+        if (is_null($request->id_notify)){
+            $notifications = null;
+        }else{
+            $notifications = auth()->user()->notifications()
+                ->where("id",">",$request->id_notify)
+                ->whereNot("data->type","audit")
+                ->latest()
+                ->get();
+        }
         return response()->json(["notifications" => $notifications]);
     }
 

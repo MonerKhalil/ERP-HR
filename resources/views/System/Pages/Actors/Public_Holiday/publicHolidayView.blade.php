@@ -227,13 +227,8 @@
                ['Type' => 'text' , 'Info' =>
                    ['Name' => "filter[name]" , 'Placeholder' => __("publicHolidayName")] ] ,
 
-               ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("publicHolidayStartDate") ,
-                     'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
-                    ]
-               ] ,
-
-               ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("publicHolidayEndDate") ,
-                     'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
+               ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("publicHolidayDate") ,
+                     'StartDateName' => "filter[start_date_filter]" , 'EndDateName' => "filter[end_date_filter]"
                     ]
                ] ,
            ]

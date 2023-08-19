@@ -14,9 +14,9 @@
             <div class="NewTypeViewPage">
                 <div class="NewTypeViewPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "عرض جميع قرارات التقييم" ,
+                        'mainTitle' => __("ViewAllDecisionEvaluation") ,
                         'paths' => [['Home' , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleViewAllDecisionEvaluation")
                     ])
                 </div>
                 <div class="NewTypeViewPage__Content">
@@ -135,25 +135,25 @@
                                                                     </th>
                                                                     <th class="Item__Col">#</th>
                                                                     <th class="Item__Col">
-                                                                        رقم القرار
+                                                                        @lang("decisionNumber")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        تاريخ القرار
+                                                                        @lang("dateDecision")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        تاريخ انتهاء القرار
+                                                                        @lang("dateDecisionEnd")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        نوع التأثير على الراتب
+                                                                        @lang("salaryEffectType")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        قيمة التأثير
+                                                                        @lang("ValueEffect")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        نسبة التأثير
+                                                                        @lang("RateEffect")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        المزيد
+                                                                        @lang("more")
                                                                     </th>
                                                                 </tr>
                                                                 @foreach($decisions as $DecisionItem)
@@ -201,7 +201,7 @@
                                                                                     <li>
                                                                                         <a href="{{ route("system.decisions.show" , $DecisionItem["id"]) }}"
                                                                                            class="Dropdown__Item">
-                                                                                            عرض التفاصيل
+                                                                                            @lang("viewDetails")
                                                                                         </a>
                                                                                     </li>
                                                                                 </ul>
@@ -261,11 +261,11 @@
                        ['Name' => "end_date_decision" , 'Placeholder' => __("dateDecisionEnd")
                        , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ] ,
                     ['Type' => 'select' , 'Info' =>
-                    ['Name' => "filter[effect_salary]" , 'Placeholder' => "نوع التأثير على الراتب" , "Options" => $TypeEffect] ] ,
+                    ['Name' => "filter[effect_salary]" , 'Placeholder' => __("salaryEffectType") , "Options" => $TypeEffect] ] ,
                     ['Type' => 'number' , 'Info' =>
-                    ['Name' => "filter[value]" , 'Placeholder' => "قيمة التأثير"] ] ,
+                    ['Name' => "filter[value]" , 'Placeholder' => __("ValueEffect")] ] ,
                     ['Type' => 'number' , 'Info' =>
-                    ['Name' => "filter[rate]" , 'Placeholder' => "نسبة التأثير"] ] ,
+                    ['Name' => "filter[rate]" , 'Placeholder' => __("RateEffect")] ] ,
                 ]
         ])
     @endif

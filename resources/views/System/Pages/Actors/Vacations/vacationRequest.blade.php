@@ -58,7 +58,7 @@
                     @include('System.Components.breadcrumb' , [
                         'mainTitle' => (isset($leave)) ? __("editVocation") : __("requestVocation") ,
                         'paths' => [[__("home") , '#'] , ['Page']] ,
-                        'summery' => __("titleVocationRequest")
+                        'summery' => (isset($leave)) ? __("TitleVocationRequestEdit") : __("titleVocationRequest")
                     ])
                 </div>
                 <div class="VacationRequestPage__Content">

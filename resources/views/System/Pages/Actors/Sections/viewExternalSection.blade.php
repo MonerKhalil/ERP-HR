@@ -15,9 +15,9 @@
             <div class="ViewSectionPage">
                 <div class="ViewSectionPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "عرض جميع الاقسام الخارجية" ,
+                        'mainTitle' => __("ViewAllExternalSection") ,
                         'paths' => [[__("home") , '#'] , [__("viewAllSection")]] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleViewAllExternalSection")
                     ])
                 </div>
                 <div class="ViewSectionPage__Content">
@@ -128,8 +128,8 @@
                                                                     <th class="Item__Col">@lang("sectionName")</th>
                                                                     <th class="Item__Col">@lang("locationSection")</th>
                                                                     <th class="Item__Col">@lang("email")</th>
-                                                                    <th class="Item__Col">الفاكس</th>
-                                                                    <th class="Item__Col">رقم الهاتف</th>
+                                                                    <th class="Item__Col">@lang("fax")</th>
+                                                                    <th class="Item__Col">@lang("phone")</th>
                                                                     <th class="Item__Col">@lang("more")</th>
                                                                 </tr>
                                                                 @foreach($data as $Index=>$Section)
@@ -147,7 +147,15 @@
                                                                         </td>
                                                                         <td class="Item__Col">{{$Section["id"]}}</td>
                                                                         <td class="Item__Col">{{$Section["name"]}}</td>
-                                                                        <td class="Item__Col">{{$Section->address["name"]}}</td>
+                                                                        <td class="Item__Col">
+                                                                            @php
+                                                                                $CountryName = null ;
+                                                                                foreach($countries as $Index=>$Country)
+                                                                                    if($Index == $Section["address_id"])
+                                                                                        $CountryName = $Country ;
+                                                                            @endphp
+                                                                            {{ $CountryName ?? "" }}
+                                                                        </td>
                                                                         <td class="Item__Col">{{$Section["email"]}}</td>
                                                                         <td class="Item__Col">{{$Section["fax"]}}</td>
                                                                         <td class="Item__Col">{{$Section["phone"]}}</td>
@@ -229,13 +237,13 @@
                    "Options" => $Countries] ] ,
 
                ['Type' => 'email' , 'Info' =>
-                   ['Name' => "filter[email]" , 'Placeholder' => "البريد الالكتروني"] ] ,
+                   ['Name' => "filter[email]" , 'Placeholder' => __("email")] ] ,
 
                ['Type' => 'number' , 'Info' =>
-                   ['Name' => "filter[fax]" , 'Placeholder' => "الفاكس"] ] ,
+                   ['Name' => "filter[fax]" , 'Placeholder' => __("fax")] ] ,
 
                ['Type' => 'number' , 'Info' =>
-                   ['Name' => "filter[phone]" , 'Placeholder' => "رقم الهاتف"] ] ,
+                   ['Name' => "filter[phone]" , 'Placeholder' => __("phone")] ] ,
 
            ]
        ])

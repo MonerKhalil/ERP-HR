@@ -152,7 +152,7 @@
                 ['Name' => "filter[name]" , 'Placeholder' => __("roleName")]] , ['Type' => 'number' , 'Info' =>
                     ['Name' => "filter[id]" , 'Placeholder' => __("id")]
                 ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
-                 'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
+                 'StartDateName' => "filter[start_date_filter]" , 'EndDateName' => "filter[end_date_filter]"
                 ]
             ] ]
     ])

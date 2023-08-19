@@ -15,9 +15,9 @@
             <div class="ViewUsers">
                 <div class="ViewUsers__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "عرض معلومات الحضور" ,
+                        'mainTitle' => __("ViewAttendaceInfoAdmin") ,
                         'paths' => [['Home' , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleViewAttendaceInfoAdmin")
                     ])
                 </div>
                 <div class="ViewUsers__Content">
@@ -135,14 +135,14 @@
                                                                         </label>
                                                                     </th>
                                                                     <th class="Item__Col">#</th>
-                                                                    <th class="Item__Col"><span>اسم الموظف</span></th>
-                                                                    <th class="Item__Col"><span>القسم</span></th>
-                                                                    <th class="Item__Col"><span>التاريخ</span></th>
-                                                                    <th class="Item__Col"><span>@lang("CheckIn")</span></th>
-                                                                    <th class="Item__Col"><span>@lang("CheckOut")</span></th>
-                                                                    <th class="Item__Col"><span>ساعات العمل</span></th>
-                                                                    <th class="Item__Col"><span>ساعات التأخير</span></th>
-                                                                    <th class="Item__Col"><span>الساعات الغير مكتملة لليوم</span></th>
+                                                                    <th class="Item__Col"><span>@lang("employeeName")</span></th>
+                                                                    <th class="Item__Col"><span>@lang("DepartmentName")</span></th>
+                                                                    <th class="Item__Col"><span>@lang("DateAttendance")</span></th>
+                                                                    <th class="Item__Col"><span>@lang("TimeCheckIn")</span></th>
+                                                                    <th class="Item__Col"><span>@lang("TimeCheckOut")</span></th>
+                                                                    <th class="Item__Col"><span>@lang("hoursWorkSetting")</span></th>
+                                                                    <th class="Item__Col"><span>@lang("HourLate")</span></th>
+                                                                    <th class="Item__Col"><span>@lang("HourNotCompleteInDay")</span></th>
                                                                 </tr>
                                                                 @foreach($data as $ItemRow)
                                                                     <tr class="Item DataItem">
@@ -227,25 +227,23 @@
             'InfoForm' => ["Route" => "" , "Method" => "get"] ,
             'FilterForm' => [
                     ['Type' => 'text' , 'Info' =>
-                    ['Name' => "filter[name_employee]" , 'Placeholder' => "اسم الموظف" ] ] ,
+                    ['Name' => "filter[name_employee]" , 'Placeholder' => __("employeeName") ] ] ,
                     ['Type' => 'select' , 'Info' =>
-                        ['Name' => "filter[section]" , 'Placeholder' => "القسم" ,
+                        ['Name' => "filter[section]" , 'Placeholder' => __("DepartmentName") ,
                         "Options" => $SectionTypes] ] ,
                     ['Type' => 'number' , 'Info' =>
-                    ['Name' => "filter[id]" , 'Placeholder' => "رقم الحضور" ] ] ,
-                    ['Type' => 'number' , 'Info' =>
-                    ['Name' => "filter[hours_work]" , 'Placeholder' => "ساعات العمل" ] ] ,
+                    ['Name' => "filter[hours_work]" , 'Placeholder' => __("hoursWorkSetting") ] ] ,
                     ['Type' => 'text' , 'Info' =>
-                    ['Name' => "filter[late_entry_per_minute]" , 'Placeholder' => "دقائق التأخير" ] ] ,
+                    ['Name' => "filter[late_entry_per_minute]" , 'Placeholder' => __("MinuteDate") ] ] ,
                     ['Type' => 'text' , 'Info' =>
-                    ['Name' => "filter[early_exit_per_minute]" , 'Placeholder' => "الدقائق الغير مكتملة" ] ] ,
+                    ['Name' => "filter[early_exit_per_minute]" , 'Placeholder' => __("MinuteNotComplete") ] ] ,
                     ['Type' => 'dateRange' , 'Info' =>
-                        ['Name' => "createDate" , 'Placeholder' => "تاريخ الحضور"
+                        ['Name' => "createDate" , 'Placeholder' => __("DateAttendance")
                         , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ] ,
                     ['Type' => 'NormalTime' , 'Info' =>
-                        ['Name' => "filter[check_in]" , 'Placeholder' => "check_in" ] ] ,
+                        ['Name' => "filter[check_in]" , 'Placeholder' => __("TimeCheckIn") ] ] ,
                     ['Type' => 'NormalTime' , 'Info' =>
-                        ['Name' => "filter[check_out]" , 'Placeholder' => "check_in"] ] ,
+                        ['Name' => "filter[check_out]" , 'Placeholder' => __("TimeCheckOut") ] ] ,
                   ]
         ])
     @endif

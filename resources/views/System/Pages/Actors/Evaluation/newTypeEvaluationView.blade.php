@@ -18,9 +18,9 @@
             <div class="NewTypeViewPage">
                 <div class="NewTypeViewPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "عرض جميع التقييمات" ,
+                        'mainTitle' => __("ViewAllEvaluation") ,
                         'paths' => [['Home' , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleAllEvaluation")
                     ])
                 </div>
                 <div class="NewTypeViewPage__Content">
@@ -80,19 +80,19 @@
                                                                     </th>
                                                                     <th class="Item__Col">#</th>
                                                                     <th class="Item__Col">
-                                                                        اسم الموظف
+                                                                        @lang("employeeName")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        تاريخ اخر تقييم
+                                                                        @lang("StartEmployeeEvaluation")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        تاريخ التقييم التالي
+                                                                        @lang("EndEmployeeEvaluation")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        تاريخ انشاء التقييم
+                                                                        @lang("CreateDateEvaluation")
                                                                     </th>
                                                                     <th class="Item__Col">
-                                                                        المزيد
+                                                                        @lang("more")
                                                                     </th>
                                                                 </tr>
                                                                 @foreach($data as $Index => $EvaluationType)
@@ -133,14 +133,14 @@
                                                                                     <li>
                                                                                         <a href="{{ route("system.evaluation.employee.show.evaluation.details" , $EvaluationType["id"]) }}"
                                                                                            class="Dropdown__Item">
-                                                                                            عرض التفاصيل
+                                                                                            @lang("viewDetails")
                                                                                         </a>
                                                                                     </li>
                                                                                     @if($IsHavePermissionDecisionCreate)
                                                                                         <li>
                                                                                             <a href="{{ route("system.evaluation.employee.show.add.decision.evaluation" , $EvaluationType["id"]) }}"
                                                                                                class="Dropdown__Item">
-                                                                                                اضافة قرار لهذا الموظف
+                                                                                                @lang("AddDecisionForEmployee")
                                                                                             </a>
                                                                                         </li>
                                                                                     @endif
@@ -157,7 +157,7 @@
                                                                                             <li>
                                                                                                 <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $EvaluationType["id"]) }}"
                                                                                                    class="Dropdown__Item">
-                                                                                                    اضافة تقييم لهذا الموظف
+                                                                                                    @lang("AddEvaluationForEmployee")
                                                                                                 </a>
                                                                                             </li>
                                                                                         @endif
@@ -165,14 +165,14 @@
                                                                                     <li>
                                                                                         <a href="{{ route("system.evaluation.employee.show.evaluation" , $EvaluationType["id"]) }}"
                                                                                            class="Dropdown__Item">
-                                                                                            عرض تقييمات هذا الموظف
+                                                                                            @lang("ViewEvaluationEmployee")
                                                                                         </a>
                                                                                     </li>
                                                                                     @if($IsHavePermissionDecisionRead)
                                                                                         <li>
                                                                                             <a href="{{ route("system.evaluation.employee.show.evaluation.decisions" , $EvaluationType["id"]) }}"
                                                                                                class="Dropdown__Item">
-                                                                                                عرض قرارات هذا الموظف
+                                                                                                @lang("ViewDecisionEmployee")
                                                                                             </a>
                                                                                         </li>
                                                                                     @endif
@@ -216,13 +216,13 @@
         @include("System.Components.searchForm" , [
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'number' , 'Info' =>
-                ['Name' => "filter[id]" , 'Placeholder' => "رقم التقييم"] ] ,
+                ['Name' => "filter[id]" , 'Placeholder' => __("NumberEvaluation")] ] ,
                 ['Type' => 'text' , 'Info' =>
-                ['Name' => "filter[employee_name]" , 'Placeholder' => "اسم الموظف"] ] ,
+                ['Name' => "filter[employee_name]" , 'Placeholder' => __("employeeName")] ] ,
                 ['Type' => 'dateSingle' , 'Info' =>
-                    ['Name' => "filter[evaluation_date]" , 'Placeholder' => "تاريخ اخر تقييم"] ] ,
+                    ['Name' => "filter[evaluation_date]" , 'Placeholder' => __("StartEmployeeEvaluation")] ] ,
                 ['Type' => 'dateSingle' , 'Info' =>
-                   ['Name' => "filter[next_evaluation_date]" , 'Placeholder' => "تاريخ التقييم التالي" ] ]
+                   ['Name' => "filter[next_evaluation_date]" , 'Placeholder' => __("EndEmployeeEvaluation") ] ]
         ]
     ])
     @endif

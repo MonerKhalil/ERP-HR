@@ -67,8 +67,9 @@ class SectionExternalController extends Controller
      */
     public function show(SectionExternal $sectionExternal)
     {
+        $countries = countries();
         return $this->responseSuccess("System/Pages/Actors/Sections/detailsExternalSection",
-            compact("sectionExternal"));
+            compact("sectionExternal" , "countries"));
     }
 
     /**
