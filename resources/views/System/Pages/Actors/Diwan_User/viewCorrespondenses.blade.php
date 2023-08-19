@@ -147,12 +147,6 @@
                                                                                         @lang("addTransaction")
                                                                                     </a>
                                                                                 </li>
-                                                                                <li>
-                                                                                    <a href="{{route("transaction.legalopinion.send", $correspondence["id"])}}"
-                                                                                       class="Dropdown__Item">
-                                                                                        @lang("requestLegalOponion")
-                                                                                    </a>
-                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>

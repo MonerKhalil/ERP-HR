@@ -693,6 +693,11 @@
     "RegisterTransaction" : "تسجيل حركة",
     "RegisterTransactionsPage" : "صفحة تسجيل حركة مراسلة",
     "editEofDetails" : "تعديل معلومات نهاية الخدمة",
-    "requestLegalOponion" : "طلب رأي قانوني"
+    "requestLegalOponion" : "طلب رأي قانوني",
+    "cityName" : "اسم المنطقة",
+    "addressDetails" : "تفاصيل العنوان",
+    "addCorrespondence" : "حفظ المراسلة",
+    "legalOponion" : "الرأي القانوني",
+
 }
 
