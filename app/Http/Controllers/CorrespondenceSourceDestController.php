@@ -94,9 +94,10 @@ class CorrespondenceSourceDestController extends Controller
 //                Mail::to($mail)->send(new CorrespondenceMail($data,$correspondence ));
                 }
             }elseif ($request->type == "internal"){
+                $correspondence=Correspondence::find($correspondence_source_dest->correspondences_id)
                 $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
                 $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-                    route("correspondences.show",$correspondence_source_dest->correspondences_id));
+                    route("correspondences.show",$correspondence));
             }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);

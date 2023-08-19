@@ -23,7 +23,7 @@
                                 <div class="Card">
                                     <div class="Card__Content">
                                         <div class="Card__Inner">
-                                            <form class="Form Form--Dark" action="{{route("correspondences.store")}}"
+                                            <form class="Form Form--Dark" action="{{route("transaction.legalopinion.add", $correspondence["id"])}}"
                                                   method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="ListData">
@@ -117,7 +117,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="ListData">
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
@@ -134,6 +133,52 @@
                                                                         <div class="Form__Textarea">
                                                                             <span
                                                                                 class="Data_Value">{{$correspondence->summary}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ListData">
+                                                    <div class="ListData__Head">
+                                                        <h4 class="ListData__Title">
+                                                            <label for="CorrespondenceSubjectEditor">
+                                                                @lang("legalOponion")
+                                                            </label>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="ListData__Content">
+                                                        <div class="ListData__CustomItem">
+                                                            <div class="Row">
+                                                                <div class="Col">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Textarea">
+                                                                            <div class="Textarea__Area">
+                                                                                <div class="trumbowyg-dark">
+                                                                            <textarea id="legalOponionEditor"
+                                                                                      class="TextEditor Textarea__Field"
+                                                                                      placeholder="أدخل الرأي القانوني"
+                                                                                      name="legal_opinion"
+                                                                                      required></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="Row">
+                                                                <div class="Col-4-md Col-6-sm">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__UploadFile">
+                                                                            <div class="UploadFile__Area">
+                                                                                @include("System.Components.fileUpload" , [
+                                                                                    "FieldID" => "docId" ,
+                                                                                    "FieldName" => "path_file_legal_opinion" ,
+                                                                                    "LabelField" => __("chooseDocument"),
+                                                                                    "AcceptFiles" => "application/pdf, .docx"
+                                                                                ])
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -162,43 +207,17 @@
                                                                             </div>
                                                                         </div>
                                                                     @endforeach
-                                                                    {{--                                                                    <div class="SignatureStructure__Item">--}}
-                                                                    {{--                                                                        <i class="material-icons ArrowRight">chevron_right</i>--}}
-                                                                    {{--                                                                        <div class="OpenPopup SignatureBox SignatureBox--Pending"--}}
-                                                                    {{--                                                                             data-popup="Signature_2">--}}
-                                                                    {{--                                                                            <div class="SignatureName">Amir</div>--}}
-                                                                    {{--                                                                        </div>--}}
-                                                                    {{--                                                                    </div>--}}
-                                                                    {{--                                                                    <div class="SignatureStructure__Item">--}}
-                                                                    {{--                                                                        <i class="material-icons ArrowRight">chevron_right</i>--}}
-                                                                    {{--                                                                        <div class="OpenPopup SignatureBox SignatureBox--Pending"--}}
-                                                                    {{--                                                                             data-popup="Signature_3">--}}
-                                                                    {{--                                                                            <div class="SignatureName">Amir</div>--}}
-                                                                    {{--                                                                        </div>--}}
-                                                                    {{--                                                                    </div>--}}
-                                                                    {{--                                                                    <div class="SignatureStructure__Item">--}}
-                                                                    {{--                                                                        <i class="material-icons ArrowRight">chevron_right</i>--}}
-                                                                    {{--                                                                        <div class="OpenPopup SignatureBox SignatureBox--Pending"--}}
-                                                                    {{--                                                                             data-popup="Signature_4">--}}
-                                                                    {{--                                                                            <div class="SignatureName">Amir</div>--}}
-                                                                    {{--                                                                        </div>--}}
-                                                                    {{--                                                                    </div>--}}
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            </form>
-                                            <form action="{{route("transaction.legalopinion.send", $correspondence["id"])}}"
-                                                  method="post">
-                                                @csrf
                                                 <div class="Row">
                                                     <div class="Col">
                                                         <div class="Form__Group">
                                                             <div class="Form__Button">
                                                                 <button class="Button Send"
-                                                                        type="submit">طلب رأي قانوني</button>
+                                                                        type="submit">@lang("save")</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -298,186 +317,6 @@
             </div>
         </div>
     @endforeach
-    {{--    <div class="Popup Popup--Dark" data-name="Signature_2">--}}
-    {{--        <div class="Popup__Content">--}}
-    {{--            <div class="Popup__Card">--}}
-    {{--                <i class="material-icons Popup__Close">close</i>--}}
-    {{--                <div class="Popup__CardContent">--}}
-    {{--                    <div class="Popup__InnerGroup">--}}
-    {{--                        <div class="ListData NotResponsive">--}}
-    {{--                            <div class="ListData__Head">--}}
-    {{--                                <h4 class="ListData__Title">--}}
-    {{--                                    معلومات الموقعين--}}
-    {{--                                </h4>--}}
-    {{--                            </div>--}}
-    {{--                            <div class="ListData__Content">--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الاولى--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الثانية--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الثالثة--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الرابعة--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-    {{--    <div class="Popup Popup--Dark" data-name="Signature_3">--}}
-    {{--        <div class="Popup__Content">--}}
-    {{--            <div class="Popup__Card">--}}
-    {{--                <i class="material-icons Popup__Close">close</i>--}}
-    {{--                <div class="Popup__CardContent">--}}
-    {{--                    <div class="Popup__InnerGroup">--}}
-    {{--                        <div class="ListData NotResponsive">--}}
-    {{--                            <div class="ListData__Head">--}}
-    {{--                                <h4 class="ListData__Title">--}}
-    {{--                                    معلومات الموقعين--}}
-    {{--                                </h4>--}}
-    {{--                            </div>--}}
-    {{--                            <div class="ListData__Content">--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الاولى--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الثانية--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الثالثة--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الرابعة--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-    {{--    <div class="Popup Popup--Dark" data-name="Signature_4">--}}
-    {{--        <div class="Popup__Content">--}}
-    {{--            <div class="Popup__Card">--}}
-    {{--                <i class="material-icons Popup__Close">close</i>--}}
-    {{--                <div class="Popup__CardContent">--}}
-    {{--                    <div class="Popup__InnerGroup">--}}
-    {{--                        <div class="ListData NotResponsive">--}}
-    {{--                            <div class="ListData__Head">--}}
-    {{--                                <h4 class="ListData__Title">--}}
-    {{--                                    معلومات الموقعين--}}
-    {{--                                </h4>--}}
-    {{--                            </div>--}}
-    {{--                            <div class="ListData__Content">--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الاولى--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الثانية--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الثالثة--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                                <div class="ListData__Item ListData__Item--NoAction">--}}
-    {{--                                    <div class="Data_Col">--}}
-    {{--                                        <span class="Data_Label">--}}
-    {{--                                            المعلومة الرابعة--}}
-    {{--                                        </span>--}}
-    {{--                                        <span class="Data_Value">--}}
-    {{--                                            ---}}
-    {{--                                        </span>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
 @endsection
 
 @section("extraScripts")
