@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\MainException;
 use App\HelpersClasses\MyApp;
+use App\Mail\CorrespondenceMail;
 use App\Models\Correspondence;
 use App\Models\Correspondence_source_dest;
 use App\Http\Requests\Correspondence_source_destRequest;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CorrespondenceSourceDestController extends Controller
 {
@@ -87,12 +89,14 @@ class CorrespondenceSourceDestController extends Controller
             if($request->type == "external") {
             if($this->isOnlineInternet()){
     /////send mail
-
+//                $mail=$correspondence_source_dest->external_party->mail;
+//                $correspondence=Correspondence::find($correspondence_source_dest->correspondences_id);
+//                Mail::to($mail)->send(new CorrespondenceMail($data,$correspondence ));
                 }
             }elseif ($request->type == "internal"){
                 $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
                 $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-                    route("system.evaluation.employee.show.add.evaluation",$correspondence_source_dest->id));
+                    route("correspondences.show",$correspondence_source_dest->correspondences_id));
             }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
