@@ -9,6 +9,7 @@ use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
 use App\Http\Requests\ConferenceRequest;
 use App\Models\Conference;
+use App\Models\ConferenceEmployee;
 use App\Models\Employee;
 use App\Models\SessionDecision;
 use Illuminate\Http\Request;
@@ -119,6 +120,10 @@ class ConferenceController extends Controller
      */
     public function destroy(Conference $conference)
     {
+        $related = ConferenceEmployee::query()->where("conference_id",$conference->id)->first();
+        if (!is_null($related)){
+            throw new MainException(__("err_cascade_delete") . "employees");
+        }
         $conference->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -129,6 +134,12 @@ class ConferenceController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("conferences","id")],
         ]);
+        foreach ($request->ids as $id){
+            $related = ConferenceEmployee::query()->where("conference_id",$id)->first();
+            if (!is_null($related)){
+                throw new MainException(__("err_cascade_delete") . "employees");
+            }
+        }
         Conference::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }

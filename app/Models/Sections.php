@@ -36,17 +36,6 @@ class Sections extends BaseModel
     public function employees(){
         return $this->hasMany(Employee::class,"section_id","id");
     }
-    public function correspondence(){
-        return $this->hasMany(Correspondence::class,'employee_id','id');
-    }
-    public function correspondence_sections(){
-
-        return $this->belongsToMany(Correspondence::class,"correspondence_source_dests",
-            "section_id",
-            "correspondences_id",
-            "id",
-            "id");
-    }
 
     /**
      * Description: To check front end validation

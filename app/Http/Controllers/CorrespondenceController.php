@@ -9,6 +9,7 @@ use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
 use App\Models\Correspondence;
 use App\Http\Requests\CorrespondenceRequest;
+use App\Models\Correspondence_source_dest;
 use App\Services\SendNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -186,6 +187,10 @@ class CorrespondenceController extends Controller
      */
     public function destroy(Correspondence $correspondence)
     {
+        $related = Correspondence_source_dest::query()->where("correspondences_id",$correspondence->id)->first();
+        if (!is_null($related)){
+            throw new MainException(__("err_cascade_delete") . "correspondence_source_dest");
+        }
         $correspondence->delete();
         return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
@@ -198,6 +203,12 @@ class CorrespondenceController extends Controller
         ]);
         try {
             DB::beginTransaction();
+            foreach ($request->ids as $id){
+                $related = Correspondence_source_dest::query()->where("correspondences_id",$id)->first();
+                if (!is_null($related)){
+                    throw new MainException(__("err_cascade_delete") . "correspondence_source_dest");
+                }
+            }
             Correspondence::query()->whereIn("id", $request->ids)->delete();
             DB::commit();
             $this->responseSuccess(null, null, "delete", self::IndexRoute);
