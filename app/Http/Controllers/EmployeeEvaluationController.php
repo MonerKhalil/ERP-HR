@@ -205,7 +205,7 @@ class EmployeeEvaluationController extends Controller
         $evaluationMember = EvaluationMember::query()->where("employee_id",$employee)
             ->where("evaluation_id",$evaluation->id)->first();
         $evaluationMember->update($evaluationMemberRequest->validated());
-        return $this->responseSuccess(null,null,"update",null,true);
+        return $this->responseSuccess(null,null,"update","home");
     }
 
     /**
@@ -322,7 +322,13 @@ class EmployeeEvaluationController extends Controller
     }
 
     public function destroy($evaluation){
-        $evaluation = EmployeeEvaluation::query()->findOrFail($evaluation);
+        $evaluation = EmployeeEvaluation::with(["enter_evaluation_employee","decisions"])->findOrFail($evaluation);
+        if (!is_null($evaluation->enter_evaluation_employee)){
+            throw new MainException(__("err_cascade_delete") . "Evaluation Members");
+        }
+        if (!is_null($evaluation->decisions)){
+            throw new MainException(__("err_cascade_delete") . "decisions");
+        }
         $evaluation->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -333,6 +339,16 @@ class EmployeeEvaluationController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("employee_evaluations","id")],
         ]);
+        foreach ($request->ids as $id){
+            $relatedDecision = Decision::query()->where("evaluation_id",$id)->first();
+            if (!is_null($relatedDecision)){
+                throw new MainException(__("err_cascade_delete") . "decisions");
+            }
+            $relatedEvaluationMember = EvaluationMember::query()->where("evaluation_id",$id)->first();
+            if (!is_null($relatedEvaluationMember)){
+                throw new MainException(__("err_cascade_delete") . "Evaluation Members");
+            }
+        }
         EmployeeEvaluation::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }

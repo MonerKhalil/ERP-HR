@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddEOSPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="EOSPage__Information">
                                 <div class="Card">
@@ -94,21 +97,41 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">
-                                                            <div class="Form__Input">
-                                                                <div class="Input__Area">
-                                                                    <input id="decisionNumber"
-                                                                           class="Input__Field"
-                                                                           type="number"
-                                                                           name="decision_id"
-                                                                           placeholder="@lang("decisionNumber")" required>
-                                                                    <label class="Input__Label"
-                                                                           for="decisionNumber">@lang("decisionNumber")</label>
+                                                            <div class="Form__Select">
+                                                                <div class="Select__Area">
+                                                                    @php
+                                                                        $reasons = [] ;
+                                                                                        foreach ($decision as $index=>$reason1) {
+                                                                                            array_push($reasons , [
+                                                                                                "Label" => $reason1
+                                                                                                , "Value" => $index ]) ;
+                                                                                        }
+                                                                    @endphp
+                                                                    @include("System.Components.selector" , ['Name' => "decision_id" , "Required" => "true" , "Label" => __('decisionNumber'),"DefaultValue" => "",
+                                                                                "Options" => $reasons,])
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
+{{--                                                    <div class="Col-4-md Col-6-sm">--}}
+{{--                                                        <div class="Form__Group">--}}
+{{--                                                            <div class="Form__Input">--}}
+{{--                                                                <div class="Input__Area">--}}
+{{--                                                                    <input id="decisionNumber"--}}
+{{--                                                                           class="Input__Field"--}}
+{{--                                                                           type="number"--}}
+{{--                                                                           name="decision_id"--}}
+{{--                                                                           placeholder="@lang("decisionNumber")" required>--}}
+{{--                                                                    <label class="Input__Label"--}}
+{{--                                                                           for="decisionNumber">@lang("decisionNumber")</label>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
 {{--                                                    <div class="Col-4-md Col-6-sm">--}}
 {{--                                                        <div class="Form__Group">--}}
 {{--                                                            <div class="Form__Date">--}}

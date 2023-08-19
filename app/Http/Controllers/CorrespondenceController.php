@@ -9,6 +9,8 @@ use App\HelpersClasses\MessagesFlash;
 use App\HelpersClasses\MyApp;
 use App\Models\Correspondence;
 use App\Http\Requests\CorrespondenceRequest;
+use App\Models\Correspondence_source_dest;
+use App\Services\SendNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CorrespondenceController extends Controller
 {
-    const Folder = "users";
+    const Folder = "correspondence";
     const IndexRoute = "correspondences.index";
 
     public function __construct()
@@ -63,11 +65,11 @@ class CorrespondenceController extends Controller
     private function shareByBlade()
     {
         $type = ['internal', 'external'];
-        $number_internal = Correspondence::query()->latest('number_internal')->first()->number_internal ?? 0;
+        $number_internal = Correspondence::query()->withTrashed()->latest('number_internal')->first()->number_internal ?? 0;
         if (!is_null($number_internal)) {
             $number_internal++;
         }
-        $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
+        $number_external = Correspondence::query()->withTrashed()->latest('number_external')->first()->number_external ?? 0;
         if (!is_null($number_external)) {
             $number_external++;
         }
@@ -86,28 +88,26 @@ class CorrespondenceController extends Controller
             DB::beginTransaction();
 
 
-            $data = Arr::except($request->validated(),["number_external", "number_internal"]);
+            $data = Arr::except($request->validated(), ["number_external", "number_internal"]);
             if ($request->hasFile("path_file")) {
                 $path = MyApp::Classes()->storageFiles
                     ->Upload($request['path_file'], "correspondence/document_Correspondence");
                 $data['path_file'] = $path;
             }
             if ($request->type == "internal") {
-                $number_internal = Correspondence::query()->latest('number_internal')->first()->number_internal ?? 0;
+                $number_internal = Correspondence::query()->withTrashed()->latest('number_internal')->first()->number_internal ?? 0;
                 if (!is_null($number_internal)) {
                     $number_internal++;
                 }
                 $data["number_internal"] = $number_internal;
-            } else if($request->type == "external") {
-                $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
+            } else if ($request->type == "external") {
+                $number_external = Correspondence::query()->withTrashed()->latest('number_external')->first()->number_external ?? 0;
                 if (!is_null($number_external)) {
                     $number_external++;
                 }
                 $data["number_external"] = $number_external;
             }
             $data["employee_id"] = auth()->user()->employee->id;
-
-//            dd($data);
             Correspondence::query()->create($data);
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);
@@ -139,8 +139,15 @@ class CorrespondenceController extends Controller
     public function edit(Correspondence $correspondence)
     {
         $type = ['internal', 'external'];
-        $number_internal = Correspondence::query()->latest('number_internal')->pluck("number_internal")->first();
-        $number_external = Correspondence::query()->latest('number_external')->pluck("number_external")->first();
+        $number_internal = Correspondence::query()->withTrashed()->latest('number_internal')->first()->number_internal ?? 0;
+        if (!is_null($number_internal)) {
+            $number_internal++;
+        }
+        $number_external = Correspondence::query()->withTrashed()->latest('number_external')->first()->number_external ?? 0;
+        if (!is_null($number_external)) {
+            $number_external++;
+        }
+
         $correspondence = Correspondence::with(["CorrespondenceDest"])
             ->findOrFail($correspondence->id);
         return $this->responseSuccess("System.Pages.Actors.Diwan_User.editCorrespondence", compact("correspondence", 'number_internal', "number_external", "type"));
@@ -150,8 +157,10 @@ class CorrespondenceController extends Controller
     public function update(CorrespondenceRequest $request, Correspondence $correspondence)
     {
         try {
+            //dd("djkj");
             DB::beginTransaction();
-            $data = $request->validated();
+            $data =Arr::except($request->validated(),["number_internal","number_external","type"]) ;
+
             if (isset($data['path_file'])) {
                 $document_path = MyApp::Classes()->storageFiles->Upload($data['path_file']);
                 if (is_bool($document_path)) {
@@ -178,6 +187,10 @@ class CorrespondenceController extends Controller
      */
     public function destroy(Correspondence $correspondence)
     {
+        $related = Correspondence_source_dest::query()->where("correspondences_id",$correspondence->id)->first();
+        if (!is_null($related)){
+            throw new MainException(__("err_cascade_delete") . "correspondence_source_dest");
+        }
         $correspondence->delete();
         return $this->responseSuccess(null, null, "delete", self::IndexRoute);
     }
@@ -186,13 +199,19 @@ class CorrespondenceController extends Controller
     {
         $request->validate([
             "ids" => ["required", "array"],
-            "ids.*" => ["required", Rule::exists("contracts", "id")],
+            "ids.*" => ["required", Rule::exists("correspondences", "id")],
         ]);
         try {
             DB::beginTransaction();
+            foreach ($request->ids as $id){
+                $related = Correspondence_source_dest::query()->where("correspondences_id",$id)->first();
+                if (!is_null($related)){
+                    throw new MainException(__("err_cascade_delete") . "correspondence_source_dest");
+                }
+            }
             Correspondence::query()->whereIn("id", $request->ids)->delete();
             DB::commit();
-            $this->responseSuccess(null, null, "delete", self::IndexRoute);
+            return $this->responseSuccess(null, null, "delete", self::IndexRoute);
         } catch (\Exception $e) {
             DB::rollBack();
             throw new MainException($e->getMessage());
@@ -202,7 +221,7 @@ class CorrespondenceController extends Controller
     public function ExportXls(Request $request)
     {
         $data = $this->MainExportData($request);
-        return Excel::download(new TableCustomExport($data['head'], $data['body'], "test"), self::Folder . ".xlsx");
+        return Excel::download(new TableCustomExport($data['head'], $data['body']), self::Folder . ".xlsx");
     }
 
     public function ExportPDF(Request $request)
@@ -225,17 +244,13 @@ class CorrespondenceController extends Controller
         $data = MyApp::Classes()->Search->getDataFilter($query, null, true);
         $head = [
             [
-                "head" => "CorrespondenceDest_sours",
-                "relationFunc" => "CorrespondenceDest",
-                "key" => "name",
-            ],
-            [
                 "head" => "name_employee",
                 "relationFunc" => "employee",
                 "key" => "name",
             ],
-            "contract_type", "contract_number", "contract_date", "contract_finish_date",
-            "contract_direct_date", "salary", "created_at",
+            "subject", "number_external", "number_internal", "date",
+            "type", "summary",
+            "created_at",
         ];
         return [
             "head" => $head,

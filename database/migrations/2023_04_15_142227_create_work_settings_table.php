@@ -24,7 +24,9 @@ return new class extends Migration
             $table->time("work_hours_to");
             $table->integer("late_enter_allowance_per_minute");
             $table->integer("early_out_allowance_per_minute");
-            $table->integer("min_overtime_hours");
+            $table->float("salary_default");
+            $table->integer("rate_deduction_from_salary");
+            $table->enum("type_discount_minuteOrHour",["minute","hour"])->default("minute");
             $table->text("description")->nullable();
             $table->boolean("is_active")->default(true);
             $table->foreignId("created_by")->nullable()->constrained("users")->restrictOnDelete();

@@ -48,13 +48,6 @@ class EmployeeEvaluation extends BaseModel
             $this->employee_id === ($user->employee->id ?? "");
     }
 
-    public static function boot() {
-        parent::boot();
-        self::deleting(function($evaluation) {
-           $evaluation->enter_evaluation_employee()->delete();
-        });
-    }
-
     /**
      * Description: To check front end validation
      * @inheritDoc

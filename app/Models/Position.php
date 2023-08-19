@@ -13,7 +13,7 @@ class Position extends BaseModel
 
     protected $fillable = [
         #Add Attributes
-        "name","rate_salary","rate_stimulus",
+        "name","rate_salary","rate_stimulus",//حوافز
         "created_by","updated_by","is_active",
     ];
 

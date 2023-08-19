@@ -29,7 +29,8 @@
             "overtimes": "a",
             "section_externals": "a",
             "employee_evaluations": "a",
-            "attendances" : "a"
+            "attendances" : "a",
+            "payrolls" : "a"
         },
         "user" : {
             "users" : ["r"],

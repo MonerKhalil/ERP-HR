@@ -6,6 +6,7 @@ use App\Models\WorkSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 
 class WorkSettingSeeder extends Seeder
 {
@@ -23,9 +24,11 @@ class WorkSettingSeeder extends Seeder
             "days_leaves_in_weeks" => "Friday,Saturday",
             "work_hours_from" => Carbon::create(0,0,0,9)->format("G:i:s"),
             "work_hours_to" => Carbon::create(0,0,0,17)->format("G:i:s"),
-            "min_overtime_hours" => 1,
             "late_enter_allowance_per_minute" => 2 ,
             "early_out_allowance_per_minute" => 2 ,
+            "salary_default" => 1000,
+            "rate_deduction_from_salary" => 2,
+            "type_discount_minuteOrHour" => "hour",
         ]);
     }
 }

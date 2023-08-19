@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddEmployeePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="EmployeePage__Information">
                                 <div class="Card Card--Taps Taps">
@@ -197,7 +200,7 @@
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
 {{--                                                                                @php--}}
-{{--                                                                                dd($employee);--}}
+{{--                                                                                dd($users, $employee["user_id"]);--}}
 {{--                                                                                @endphp--}}
                                                                                 @include("System.Components.selector" , ['Name' => "user_id" , "Required" => "true" ,
                                                                                             "Label" => __('User'),"DefaultValue" => isset($employee) ? $employee["user_id"] : "",
@@ -272,7 +275,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm">
+                                                                <div class="VisibilityOption Col-4-md Col-6-sm" data-ElementsTargetName="familyStatus"
+                                                                     data-VisibilityDefault="{{ isset($employee) ? $employee["family_status"] : ""}}">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
@@ -291,8 +295,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm"
-                                                                     id="wivesNumber">
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     id="wivesNumber"
+                                                                     data-TargetName="familyStatus"
+                                                                     data-TargetValue="married">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
@@ -308,8 +314,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm"
-                                                                     id="childrenNumber">
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="familyStatus"
+                                                                     id="childrenNumber"
+                                                                     data-TargetValue="married">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Input">
                                                                             <div class="Input__Area">
@@ -446,7 +454,7 @@
                                                                 <div class="ListData">
                                                                     <div class="ListData__Head">
                                                                         <h4 class="ListData__Title">
-                                                                            الوئايق (اختيارية)
+                                                                            الوثائق (اختيارية)
                                                                         </h4>
                                                                     </div>
                                                                     <div class="ListData__Content">
@@ -467,7 +475,7 @@
                                                                                                                 , "Value" => $Item ]) ;
                                                                                                         }
                                                                                                     @endphp
-                                                                                                    @include("System.Components.selector" , ['Name' => "document_contact[0][document_type]" , "Required" => "true" ,
+                                                                                                    @include("System.Components.selector" , ['Name' => "document_contact[0][document_type]" , "Required" => "false" ,
                                                                                                              "Label" => __('documentType'),"DefaultValue" => isset($employee->contact[0]->document_contact)? $employee->contact[0]->document_contact[0]["document_type"]: "",
                                                                                                                 "Options" => $Document_type,])
                                                                                                 </div>
@@ -485,7 +493,7 @@
                                                                                                         "FieldName" => "document_contact[0][document_path]" ,
                                                                                                         "DefaultData" => (isset($employee->contact[0]->document_contact)) ? PathStorage($employee->contact[0]->document_contact[0]["document_path"]) : ""  ,
                                                                                                         "LabelField" => __("chooseDocument"),
-                                                                                                        "AcceptFiles" => "*"
+                                                                                                        "AcceptFiles" => "application/pdf, .docx"
                                                                                                     ])
                                                                                                 </div>
                                                                                             </div>
@@ -595,7 +603,12 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+{{--                                                                            @php--}}
+{{--                                                                                dd( $employee->contact[0]->address);--}}
+{{--                                                                            @endphp--}}
                                                                             <div id="State"
+                                                                                 data-StateDefault="{{ isset($employee->contact[0]->address) ? $employee->contact[0]->address->country['id'] : "" }}"
+                                                                                 data-CityDefault="{{ isset($employee->contact[0]) ? $employee->contact[0]['address_id'] : "" }}"
                                                                                  data-CityURL="{{route("get.address")}}"
                                                                                  class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
@@ -622,22 +635,28 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => isset($employee->contact[0]->address->name) ? $employee->contact[0]->address->name : "",
+                                                                                            @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => isset($employee->contact[0]) ? $employee->contact[0]['address_id'] : "",
                                                                                                         "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div id="Address" class="Col-4-md Col-6-sm">
-                                                                                <div class="Form__Group">
-                                                                                    <div class="Form__Select">
-                                                                                        <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "districtName" , "Required" => "true" , "Label" => __('district'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("Mazzah"), __("Barzeh"), __('Duma')],])
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+{{--                                                                            <div class="Col-4-md Col-6-sm">--}}
+{{--                                                                                <div class="Form__Group" >--}}
+{{--                                                                                    <div class="Form__Input">--}}
+{{--                                                                                        <div class="Input__Area">--}}
+{{--                                                                                            <input id="address"--}}
+{{--                                                                                                   class="Input__Field"--}}
+{{--                                                                                                   type="text"--}}
+{{--                                                                                                   value="{{isset($employee->contact[0]['email']) ? $employee->contact[0]['email'] : ""}}"--}}
+{{--                                                                                                   name="district_name"--}}
+{{--                                                                                                   placeholder="@lang("city_name")" required>--}}
+{{--                                                                                            <label class="Input__Label"--}}
+{{--                                                                                                   for="address">@lang("city_name")</label>--}}
+{{--                                                                                        </div>--}}
+{{--                                                                                    </div>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
@@ -663,7 +682,8 @@
                                                                                             <input id="address"
                                                                                                    class="Input__Field"
                                                                                                    type="text"
-                                                                                                   name="EmpAddress"
+                                                                                                   value="{{isset($employee->contact[0]->address_details)? $employee->contact[0]->address_details : ""}}"
+                                                                                                   name="address_details"
                                                                                                    placeholder="@lang("address")">
                                                                                             <label class="Input__Label"
                                                                                                    for="address">@lang("address")</label>
@@ -711,8 +731,13 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "id_ed_lev" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => $employee->education_data[0]->education_level['name'],
+{{--                                                                                            @php--}}
+{{--                                                                                                dd($education_level);--}}
+{{--                                                                                            @endphp--}}
+                                                                                            @include("System.Components.selector" , ['Name' => "id_ed_lev" , "Required" => "true" ,
+                                                                                             "Label" => __('educationDegree'),"DefaultValue" => $employee->education_data[0]->education_level['id'],
                                                                                                         "OptionsValues" => $education_level,])
+
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -756,9 +781,9 @@
                                                                                             @include("System.Components.fileUpload" , [
                                                                                                 "FieldID" => "docEducation" ,
                                                                                                 "FieldName" => "document_education_path[0]" ,
-                                                                                                "DefaultData" => (isset($decision)) ? PathStorage($decision["image"]) : ""  ,
+                                                                                                "DefaultData" => (isset($employee->education_data[0])) ? PathStorage($employee->education_data[0]->document_education[0]->document_education_path) : ""  ,
                                                                                                 "LabelField" => __("chooseDocument"),
-                                                                                                "AcceptFiles" => "*"
+                                                                                                "AcceptFiles" => "application/pdf, .docx"
                                                                                             ])
                                                                                         </div>
                                                                                     </div>

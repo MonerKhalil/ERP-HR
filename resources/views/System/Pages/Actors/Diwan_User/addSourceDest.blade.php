@@ -5,16 +5,20 @@
         <div class="AddCorrespondencePage">
             <div class="AddCorrespondencePage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterCorrespondence') ,
+                    'mainTitle' => __('RegisterTransaction') ,
                     'paths' => [['Correspondences' , '#'] , ['Correspondence']] ,
-                    'summery' => __('RegisterCorrespondencesPage')
+                    'summery' => __('RegisterTransactionsPage')
                 ])
             </div>
         </div>
+
         <div class="AddCorrespondencePagePrim__Content">
             <div class="Row">
                 <div class="AddCorrespondencePage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="CorrespondencePage__Information">
                                 <div class="Card">
@@ -27,7 +31,7 @@
                                                 <div class="ListData">
                                                     <div class="ListData__Head">
                                                         <h4 class="ListData__Title">
-                                                            Main Information
+                                                            @lang('MainInformation')
                                                         </h4>
                                                     </div>
                                                     <div class="ListData__Content">
@@ -51,7 +55,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="Col-4-md Col-6-sm">
+                                                                <div class="VisibilityOption Col-4-md Col-6-sm"
+                                                                     data-ElementsTargetName="response">
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Select">
                                                                             <div class="Select__Area">
@@ -68,8 +73,29 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"
+                                                                     data-TargetName="response"
+                                                                     data-TargetValue="outgoing_to_incoming,incoming_to_outgoing">
+                                                                    <div class="Form__Group">
+                                                                        <div class="Form__Select">
+                                                                            <div class="Select__Area">
+                                                                                @php
+                                                                                    $corrs = [] ;
+                                                                                    foreach ($all_numbers as $Index => $Item) {
+                                                                                        array_push($corrs , [ "Label" => $Item ,
+                                                                                             "Value" => $Index] ) ;
+                                                                                    }
+                                                                                @endphp
+                                                                                @include("System.Components.selector" , ['Name' => "source_correspondence_id" , "Required" => "true" , "Label" => __('transactionSource'),"DefaultValue" => "",
+                                                                                            "Options" => $corrs,])
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                                 <input type="text"
-                                                                       name="correspondences_id" value="{{$Correspondence_id}}" hidden>
+                                                                       name="correspondences_id" value="{{$correspondence["id"]}}" hidden>
 {{--                                                                <div class="VisibilityTarget Col-4-md Col-6-sm"--}}
 {{--                                                                     data-TargetName="typeTemp"--}}
 {{--                                                                     data-TargetValue="internal">--}}
@@ -157,7 +183,7 @@
                                                                                     "FieldID" => "docId" ,
                                                                                     "FieldName" => "path_file" ,
                                                                                     "LabelField" => __("chooseDocument"),
-                                                                                    "AcceptFiles" => "*"
+                                                                                    "AcceptFiles" => "application/pdf, .docx"
                                                                                 ])
                                                                             </div>
                                                                         </div>

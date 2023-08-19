@@ -19,12 +19,12 @@
                         <div class="Col">
                             <div class="Card ViewUsers__TableUsers">
                                 <div class="Table">
-                                    <form name="PrintAllTablePDF" action="{{ route("export.pdf") }}"
+                                    <form name="PrintAllTablePDF" action="employees.contract.export.pdf"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
                                     </form>
-                                    <form name="PrintAllTableXlsx" action="{{ route("export.xls") }}"
+                                    <form name="PrintAllTableXlsx" action="employees.contract.export.pdf"
                                           class="FilterForm"
                                           method="post">
                                         @csrf
@@ -36,16 +36,17 @@
                                                 <div class="Table__Head">
                                                     <div class="Card__ToolsGroup">
                                                         <div class="Card__Tools Table__BulkTools">
-{{--                                                            @include("System.Components.bulkAction" , [--}}
-{{--                                                                "Options" => [ [--}}
-{{--                                                                    "Label" => __("print") , "Action" => "#" , "Method" => "B"--}}
-{{--                                                                ] , [--}}
-{{--                                                                    "Label" => __("normalDelete")--}}
-{{--                                                                    , "Action" => route("system.employees.contract.destroy", --}}
-{{--                                                                    )--}}
-{{--                                                                    , "Method" => "delete"--}}
-{{--                                                                ] ]--}}
-{{--                                                            ])--}}
+                                                            @include("System.Components.bulkAction" ,[
+                                                                "Options" => [ [
+                                                                    "Label" => __("printRowsAsPDF") , "Action" => route("system.employees.contract.export.pdf") , "Method" => "post"
+                                                                ] ,[
+                                                                    "Label" => __("printRowsAsExcel") , "Action" => route("system.employees.contract.export.xls") , "Method" => "post"
+                                                                ], [
+                                                                    "Label" => __("normalDelete")
+                                                                    , "Action" => route("system.employees.multi.delete")
+                                                                    , "Method" => "delete"
+                                                                ] ]
+                                                            ])
                                                         </div>
                                                         <div class="Card__Tools Card__SearchTools">
                                                             <ul class="SearchTools">
@@ -108,7 +109,7 @@
                                                                     <div class="Item__Col Item__Col--Check">
                                                                         <input id="ItemRow_{{$contract["id"]}}"
                                                                                class="CheckBoxItem" type="checkbox"
-                                                                               name="contracts[]" value="{{$contract["id"]}}" hidden>
+                                                                               name="ids[]" value="{{$contract["id"]}}" hidden>
                                                                         <label for="ItemRow_{{$contract["id"]}}" class="CheckBoxRow">
                                                                             <i class="material-icons ">
                                                                                 check_small
@@ -116,7 +117,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="Item__Col">{{$contract["id"]}}</div>
-                                                                    <div class="Item__Col">{{$contract->employee["first_name"]}}</div>
+                                                                    <div class="Item__Col">{{isset($contract->employee) ? $contract->employee["first_name"] : ""}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_type"]}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_date"]}}</div>
                                                                     <div class="Item__Col">{{$contract["contract_finish_date"]}}</div>

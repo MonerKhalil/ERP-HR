@@ -19,6 +19,9 @@
             <div class="Row">
                 <div class="AddContractPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="ContractPage__Information">
                                 <div class="Card">
@@ -52,11 +55,11 @@
                                                                         $default_value = "";
                                                                         foreach ($data['contract_type'] as $index=>$type) {
                                                                             if($type == $data['contract']['contract_type']){
-                                                                                $default_value = $index;
+                                                                                $default_value = $type;
                                                                             }
                                                                             array_push($CotnractTypes , [
                                                                                 "Label" => $type
-                                                                                , "Value" => $index ]) ;
+                                                                                , "Value" => $type ]) ;
                                                                         }
                                                                     @endphp
                                                                     @include("System.Components.selector" , ['Name' => "contract_type" , "Required" => "true" , "Label" => __('contractType') ,

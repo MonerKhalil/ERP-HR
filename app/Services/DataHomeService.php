@@ -9,6 +9,7 @@ use App\Models\Employee;
 use App\Models\EvaluationMember;
 use App\Models\Leave;
 use App\Models\Overtime;
+use App\Models\Payroll;
 use App\Models\Sections;
 use App\Models\SessionDecision;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,7 @@ class DataHomeService
     private function processEmployee(){
         return [
             "count_days_overTime_in_month_current" => Overtime::query()
+                    ->whereYear("created_at",now()->year)
                     ->whereMonth("created_at",now()->month)
                     ->where("employee_id",$this->employee_id)
                     ->where("is_hourly","0")
@@ -44,7 +46,13 @@ class DataHomeService
             "count_houres_overTime_in_month_current" => $this->countHoursOverTimeInMonthCurrent(),
             "count_days_attendance_in_month_current" => $this->countAttendanceCheckInInMonthCurrent(),
             "count_leaves_in_last_5_month" => $this->countLeavesInLast5Month(),
-            "evaluation_avg_in_month_current" => $this->evaluationAvgInMonthCurrent()//is object......,
+            "evaluation_avg_in_month_current" => $this->evaluationAvgInMonthCurrent(),//is object......,
+            "salary" => Payroll::query()
+            ->where("employee_id",$this->employee_id)
+            ->whereYear("created_at",now()->year)
+            ->whereMonth("created_at",now()->month)
+            ->whereDay("created_at",now()->day)
+            ->first()->total_salary ?? Employee::salary($this->employee_id),
         ];
     }
 
@@ -55,20 +63,27 @@ class DataHomeService
             "count_sessions" => SessionDecision::query()->count(),
             "count_contracts" => Contract::query()->count(),
             "count_decisions" => Decision::query()->count(),
-            "count_decisions_in_month_current" => Decision::query()->whereMonth("created_at",now()->month)->count(),
+            "count_decisions_in_month_current" => Decision::query()
+                ->whereYear("created_at",now()->year)
+                ->whereMonth("created_at",now()->month)->count(),
             "count_leaves_request_pending_in_month_current" => Leave::query()
+                ->whereYear("created_at",now()->year)
                 ->whereMonth("created_at",now()->month)
                 ->where("status","pending")->count(),
             "count_overtime_request_pending_in_month_current" => Overtime::query()
+                ->whereYear("created_at",now()->year)
                 ->whereMonth("created_at",now()->month)
                 ->where("status","pending")->count(),
             "count_leaves_request_pending_in_day_current" => Leave::query()
+                ->whereYear("created_at",now()->year)
                 ->whereDay("created_at",now()->day)
                 ->where("status","pending")->count(),
             "count_overtime_request_pending_in_day_current" => Overtime::query()
+                ->whereYear("created_at",now()->year)
                 ->whereDay("created_at",now()->day)
                 ->where("status","pending")->count(),
             "count_employees_late_entry_current_day" => Attendance::query()
+                ->whereYear("created_at",now()->year)
                 ->whereDay("created_at",now()->day)
                 ->where("late_entry_per_minute",">","0")->count(),
             "leaves_approve_by_last_5_month" => $this->countLeavesProcessMonth("approve"),//array[month] = count..
@@ -138,6 +153,7 @@ class DataHomeService
             ->whereHas("evaluation" ,function ($q){
                 return $q->where("employee_id" , $this->employee_id);
             })
+            ->whereYear("created_at",now()->year)
             ->whereMonth("created_at",now()->month)
             ->first() ?? null;
     }
@@ -145,11 +161,13 @@ class DataHomeService
     private function countHoursOverTimeInMonthCurrent(){
         $hoursOnly = Overtime::query()
             ->select(DB::raw("sum( count_hours_in_days * count_days ) as hours_all"))
+            ->whereYear("created_at",now()->year)
             ->whereMonth("created_at",now()->month)
             ->where("employee_id",$this->employee_id)
             ->where("is_hourly","1")
             ->first()->hours_all ?? 0;
         $daysOnly = Overtime::query()
+                ->whereYear("created_at",now()->year)
                 ->whereMonth("created_at",now()->month)
                 ->where("employee_id",$this->employee_id)
                 ->where("is_hourly","0")
@@ -162,6 +180,7 @@ class DataHomeService
 
     private function countAttendanceCheckInInMonthCurrent(){
         return Attendance::query()
+            ->whereYear("created_at",now()->year)
             ->whereMonth("created_at",now()->month)
             ->where("employee_id",$this->employee_id)
             ->whereNotNull("check_in")->count() ?? 0;

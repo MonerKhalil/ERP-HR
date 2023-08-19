@@ -9,6 +9,7 @@ use App\HelpersClasses\MyApp;
 use App\Http\Requests\BaseRequest;
 use App\Http\Requests\ConferenceRequest;
 use App\Models\Conference;
+use App\Models\ConferenceEmployee;
 use App\Models\Employee;
 use App\Models\SessionDecision;
 use Illuminate\Http\Request;
@@ -60,7 +61,8 @@ class ConferenceController extends Controller
             DB::beginTransaction();
             $data = Arr::except($request->validated(), ["employees"]);
             $Conference = Conference::query()->create($data);
-            $Conference->employees()->attach($request->employees);
+            $employees = array_unique($request->employees);
+            $Conference->employees()->attach($employees);
             DB::commit();
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
@@ -99,7 +101,8 @@ class ConferenceController extends Controller
             $data = Arr::except($request->validated(), ["employees"]);
             $conference->update($data);
             if (isset($request->employees)){
-                $conference->employees()->sync($request->employees);
+                $employees = array_unique($request->employees);
+                $conference->employees()->sync($employees);
             }
             DB::commit();
             return $this->responseSuccess(null,null,"update",self::IndexRoute);
@@ -117,6 +120,10 @@ class ConferenceController extends Controller
      */
     public function destroy(Conference $conference)
     {
+        $related = ConferenceEmployee::query()->where("conference_id",$conference->id)->first();
+        if (!is_null($related)){
+            throw new MainException(__("err_cascade_delete") . "employees");
+        }
         $conference->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
@@ -127,6 +134,12 @@ class ConferenceController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("conferences","id")],
         ]);
+        foreach ($request->ids as $id){
+            $related = ConferenceEmployee::query()->where("conference_id",$id)->first();
+            if (!is_null($related)){
+                throw new MainException(__("err_cascade_delete") . "employees");
+            }
+        }
         Conference::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
