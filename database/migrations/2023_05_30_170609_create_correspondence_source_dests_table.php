@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId("current_employee_id")->constrained("employees")->restrictOnDelete();
             $table->foreignId("external_party_id")->nullable()->constrained("section_externals")->restrictOnDelete();
             $table->foreignId("internal_department_id")->nullable()->constrained("sections")->restrictOnDelete();
+            $table->foreignId("source_correspondence_id")->nullable()->constrained("correspondences")->restrictOnDelete();
             $table->enum('source_dest_type',['outgoing','incoming','outgoing_to_incoming','incoming_to_outgoing']);
             $table->enum('type',['internal','external']);
             /////////////////////////////////////legal section

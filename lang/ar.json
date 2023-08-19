@@ -714,10 +714,11 @@
     "minutes_late_entry_value" : "قيمة التأخير",
     "minutes_early_exit" : "عدد دقائق الخروج المبكر",
     "minutes_early_exit_value" : "قيمة دقائق الخروج المبكر",
-    "created_at" : "تاريخ الانشاء"
+    "created_at" : "تاريخ الانشاء",
     "cityName" : "اسم المنطقة",
     "addressDetails" : "تفاصيل العنوان",
     "addCorrespondence" : "حفظ المراسلة",
     "legalOponion" : "الرأي القانوني",
+    "transactionSource" : "مصدر المراسلة"
 }
 

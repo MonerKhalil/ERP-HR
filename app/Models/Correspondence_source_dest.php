@@ -13,6 +13,7 @@ class Correspondence_source_dest extends BaseModel
     protected $fillable = [
         #Add Attributes
         "correspondences_id", //
+        'source_correspondence_id',
         "current_employee_id", //
         "external_party_id", //
         "internal_department_id", //
@@ -51,8 +52,10 @@ class Correspondence_source_dest extends BaseModel
      */
     public function validationRules(){
         return function (BaseRequest $validator) {
+//            dd($validator->source_correspondence_id);
             return [
                 "type" => ["required", Rule::in(Correspondence::type())],
+                "source_correspondence_id" => ["nullable", Rule::exists("correspondences","id")],
                 "correspondences_id"=>["required",Rule::exists("correspondences","id")],
                 "source_dest_type" => ["required",Rule::in(self::source_dest_type())],
                 "is_done"=>["nullable","boolean",],

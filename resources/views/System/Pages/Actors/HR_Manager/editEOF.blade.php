@@ -112,22 +112,41 @@
                                                     </div>
                                                     <div class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">
-                                                            <div class="Form__Input">
-                                                                <div class="Input__Area">
-                                                                    <input id="decisionNumber"
-                                                                           class="Input__Field"
-                                                                           type="number"
-                                                                           @if(isset($dataEndService))
-                                                                           value="{{$dataEndService["decision_id"]}}"
-                                                                           @endif
-                                                                           name="decision_id"
-                                                                           placeholder="@lang("decisionNumber")">
-                                                                    <label class="Input__Label"
-                                                                           for="decisionNumber">@lang("decisionNumber")</label>
+                                                            <div class="Form__Select">
+                                                                <div class="Select__Area">
+                                                                    @php
+                                                                        $reasons = [] ;
+                                                                                        foreach ($decision as $index=>$reason1) {
+                                                                                            array_push($reasons , [
+                                                                                                "Label" => $reason1
+                                                                                                , "Value" => $index ]) ;
+                                                                                        }
+                                                                    @endphp
+                                                                    @include("System.Components.selector" , ['Name' => "decision_id" , "Required" => "true" , "Label" => __('decisionNumber'),
+                                                                     "DefaultValue" => $dataEndService["decision_id"],
+                                                                                "Options" => $reasons,])
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+{{--                                                    <div class="Col-4-md Col-6-sm">--}}
+{{--                                                        <div class="Form__Group">--}}
+{{--                                                            <div class="Form__Input">--}}
+{{--                                                                <div class="Input__Area">--}}
+{{--                                                                    <input id="decisionNumber"--}}
+{{--                                                                           class="Input__Field"--}}
+{{--                                                                           type="number"--}}
+{{--                                                                           @if(isset($dataEndService))--}}
+{{--                                                                           value="{{$dataEndService["decision_id"]}}"--}}
+{{--                                                                           @endif--}}
+{{--                                                                           name="decision_id"--}}
+{{--                                                                           placeholder="@lang("decisionNumber")">--}}
+{{--                                                                    <label class="Input__Label"--}}
+{{--                                                                           for="decisionNumber">@lang("decisionNumber")</label>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                     {{--                                                    <div class="Col-4-md Col-6-sm">--}}
                                                     {{--                                                        <div class="Form__Group">--}}
                                                     {{--                                                            <div class="Form__Date">--}}
