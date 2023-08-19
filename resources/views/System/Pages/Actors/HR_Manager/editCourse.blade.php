@@ -39,11 +39,24 @@
                                                                 <div class="Select__Area">
                                                                     @php
                                                                         $EmployeesList = [] ;
+                                                                                        //IsChecked
                                                                                         foreach ($employees as $Employees) {
-                                                                                            array_push($EmployeesList , [
-                                                                                                "Label" => $Employees["first_name"]." ".$Employees["last_name"]
-                                                                                                , "Value" => $Employees["id"],
-                                                                                                 "Name" => "employees[]"]);
+                                                                                            $IsSelected = false ;
+                                                                                            foreach($conference->employees as $EmployeeConference)
+                                                                                                if($EmployeeConference["id"] === $Employees["id"]) {
+                                                                                                    $IsSelected = true ;
+                                                                                                }
+                                                                                            if($IsSelected)
+                                                                                                array_push($EmployeesList , [
+                                                                                                    "Label" => $Employees["first_name"]." ".$Employees["last_name"]
+                                                                                                    , "Value" => $Employees["id"],
+                                                                                                     "IsChecked" => "true" ,
+                                                                                                     "Name" => "employees[]"]);
+                                                                                            else
+                                                                                                 array_push($EmployeesList , [
+                                                                                                    "Label" => $Employees["first_name"]." ".$Employees["last_name"]
+                                                                                                    , "Value" => $Employees["id"],
+                                                                                                     "Name" => "employees[]"]);
                                                                                         }
                                                                     @endphp
                                                                     @include("System.Components.multiSelector" , [
@@ -124,6 +137,8 @@
                                                         </div>
                                                     </div>
                                                     <div id="State"
+                                                         data-StateDefault="{{ isset($conference->address->country["id"]) ? $conference->address->country["id"] : "" }}"
+                                                         data-CityDefault="{{ isset($conference->address["name"]) ? $conference->address["id"] : "" }}"
                                                          data-CityURL="{{route("get.address")}}"
                                                          class="Col-4-md Col-6-sm">
                                                         <div class="Form__Group">
@@ -152,7 +167,7 @@
                                                             <div class="Form__Select">
                                                                 <div class="Select__Area">
                                                                     @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" ,
-                                                                    "Label" => __('cityName'),"DefaultValue" => $conference->address["name"],
+                                                                    "Label" => __('cityName'),"DefaultValue" => $conference->address["id"],
                                                                                 "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
                                                                 </div>
                                                             </div>
@@ -165,7 +180,7 @@
                                                                     <input id="heldPlace"
                                                                            class="Input__Field"
                                                                            type="text"
-                                                                           name="address_id"
+                                                                           name="address_details"
                                                                            value="{{isset($conference) ? $conference["address_details"] : ""}}"
                                                                            placeholder="@lang("heldPlace")">
                                                                     <label class="Input__Label"

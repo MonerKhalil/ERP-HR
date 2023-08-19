@@ -6,7 +6,7 @@
         <div class="DecisionDetailsPage">
             <div class="DecisionDetailsPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض تفاصيل قرار التقييم" ,
+                    'mainTitle' => __("ViewDetailsDecisionEvaluation") ,
                     'paths' => [[__("home") , '#'] , [__("decisionDetails")]] ,
                     'summery' => __("titleDecisionDetails")
                 ])

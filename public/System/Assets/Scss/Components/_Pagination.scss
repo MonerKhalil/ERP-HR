@@ -61,6 +61,11 @@
         color : $TextColor;
     }
 
+    &__Number a.Current {
+        background-color: $PrimaryColor-Project;
+        color : $WhiteColor ;
+    }
+
     &__Number a,
     &__Previous a,
     &__Next a {

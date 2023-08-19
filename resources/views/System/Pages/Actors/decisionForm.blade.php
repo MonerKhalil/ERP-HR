@@ -217,42 +217,6 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
-                                                                                            <input id="DiscountAmountSalary" class="Input__Field" type="number"
-                                                                                                   value="{{$DecrementValue ?? ""}}"
-                                                                                                   name="value"
-                                                                                                   placeholder="{{ __("amountDiscountSalary") }}" required>
-                                                                                            <label class="Input__Label"
-                                                                                                   for="DiscountAmountSalary">
-                                                                                                @lang("amountDiscountSalary")
-                                                                                            </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                                 data-TargetName="BonesPunishmentFields"
-                                                                                 data-TargetValue="increment">
-                                                                                <div class="Form__Group"
-                                                                                     data-ErrorBackend="{{ Errors("value") }}">
-                                                                                    <div class="Form__Input">
-                                                                                        <div class="Input__Area">
-                                                                                            <input id="IncreasesAmountSalary" class="Input__Field" type="number"
-                                                                                                   value="{{ $IncrementValue ?? "" }}"
-                                                                                                   name="value" placeholder="{{ __("amountSalaryExtra") }}" required>
-                                                                                            <label class="Input__Label"
-                                                                                                   for="IncreasesAmountSalary">
-                                                                                                {{ __("amountSalaryExtra") }}
-                                                                                            </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                                 data-TargetName="BonesPunishmentFields"
-                                                                                 data-TargetValue="decrement">
-                                                                                <div class="Form__Group">
-                                                                                    <div class="Form__Input">
-                                                                                        <div class="Input__Area">
                                                                                             <input id="DiscountAmountFinancial" class="Input__Field" type="number"
                                                                                                    value="{{ $DecrementRate ?? "" }}"
                                                                                                    name="rate" placeholder="{{ __("discountRateIncentives") }}" required>

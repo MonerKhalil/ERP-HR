@@ -36,12 +36,22 @@
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                             <form name="PrintAllTableXlsx"
                                                   action="{{route("system.session_decisions.export.xls")}}"
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                             </form>
                                         @endif
                                         <form action="#" class="Form Form--Dark" method="post">
@@ -236,10 +246,6 @@
                     ] , ['Type' => 'dateRange' , 'Info' =>
                     ['Name' => "filter[date_session]" , 'Placeholder' => __("sessionDate") ,
                      "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"]
-                    ] , ['Type' => 'dateSingle' , 'Info' =>
-                    ['Name' => "filter[created_at]" , 'Placeholder' => "تاريخ الانشاء" ,]
-                    ] ,  ['Type' => 'dateSingle' , 'Info' =>
-                    ['Name' => "filter[updated_at]" , 'Placeholder' => "تاريخ التعديل" ,]
                     ]
                  ]
         ])

@@ -28,12 +28,12 @@
                                             <div class="TypeTime">
                                                 <div class="Taps__Item TimeIn Active"
                                                      data-content="TimeIn">
-                                                    Time In
+                                                    @lang("TimeCheckIn")
                                                 </div>
                                                 @if(isset($attendance["check_in"]))
                                                     <div class="Taps__Item TimeOut"
                                                          data-content="TimeOut">
-                                                        Time Out
+                                                        @lang("TimeCheckOut")
                                                     </div>
                                                 @endif
                                             </div>
@@ -51,12 +51,12 @@
                                                 <div class="AttendanceClock__Register">
                                                     @if(isset($attendance["check_in"]))
                                                         <div class="BoxRegister">
-                                                            Welcome! {{ $employee["first_name"]." ".$employee["last_name"] }} <br>
-                                                            Time In at {{ \Carbon\Carbon::parse($attendance["check_in"])->format('H:i:s A') }} Success!
+                                                            @lang("Welcome")! {{ $employee["first_name"]." ".$employee["last_name"] }} <br>
+                                                            @lang("DoneCheckIn") {{ \Carbon\Carbon::parse($attendance["check_in"])->format('H:i:s A') }} @lang("Success")!
                                                         </div>
                                                     @else
                                                         <button class="Button Size-2 Button--Primary">
-                                                            Check In Record
+                                                            @lang("CheckInRecord")
                                                         </button>
                                                     @endif
                                                 </div>
@@ -76,12 +76,12 @@
                                                     <div class="AttendanceClock__Register">
                                                         @if(isset($attendance["check_out"]))
                                                             <div class="BoxRegister">
-                                                                Welcome! {{ $employee["first_name"]." ".$employee["last_name"] }} <br>
-                                                                Time Out at {{ \Carbon\Carbon::parse($attendance["check_out"])->format('H:i:s A') }} Success!
+                                                                @lang("Welcome")! {{ $employee["first_name"]." ".$employee["last_name"] }} <br>
+                                                                @lang("DoneCheckOut") {{ \Carbon\Carbon::parse($attendance["check_out"])->format('H:i:s A') }} @lang("Success")!
                                                             </div>
                                                         @else
                                                             <button class="Button Size-2 Button--Primary">
-                                                                Check Out Record
+                                                                @lang("CheckOutRecord")
                                                             </button>
                                                         @endif
                                                     </div>

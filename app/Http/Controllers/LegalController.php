@@ -43,22 +43,33 @@ class LegalController extends Controller
 
     public function sendLegalOpinion($Correspondence_id, SendNotificationService $sendNotificationService)
     {
-        $correspondence = Correspondence::query()->where("id", $Correspondence_id)->firstOrFail();
-        $internal_legal = Sections::query()->where("name","section_legal")->get();//if external
-        $correspondence_source_dest=  Correspondence_source_dest::query()->create([
-            "correspondences_id"=>$correspondence->id,
-            "current_employee_id"=>auth()->user()->employee->id,
-            //"external_party_id",
-            "internal_department_id"=>$internal_legal->id,
-            "is_done"=>false,
-            "type"=>"internal",
-           // "path_file",
-            "source_dest_type"=>"outgoing",
-        ]);
-        $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
-        $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-            route("correspondences.show",$correspondence_source_dest->correspondences_id));
-        return $this->responseSuccess(".....", compact("internal_legal","correspondence"));
+      try{
+          DB::beginTransaction();
+          $correspondence = Correspondence::query()->where("id", $Correspondence_id)->firstOrFail();
+          $internal_legal = Sections::query()->where("name","section_legal")->first();//if internal
+          if(is_null($internal_legal)){
+              throw new MainException(" section_legal لا يوجد قسم شؤوون قانونية");
+          }
+          $correspondence_source_dest=  Correspondence_source_dest::query()->create([
+              "correspondences_id"=>$correspondence->id,
+              "current_employee_id"=>auth()->user()->employee->id,
+              //"external_party_id",
+              "internal_department_id"=>$internal_legal->id,
+              "is_done"=>false,
+              "type"=>"internal",
+              // "path_file",
+              "source_dest_type"=>"outgoing",
+          ]);
+          $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
+          $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
+              route("correspondences.show",$correspondence));
+          DB::commit();
+          return $this->responseSuccess("System.Pages.Actors.Diwan_User.addLegalOponion", compact("internal_legal","correspondence"),"x");
+      }catch (\Exception $exception){
+       //   dd($exception)
+          DB::rollBack();
+          throw new MainException($exception->getMessage());
+      }
     }
 
     public function addLegalOpinion(Request $request, SendNotificationService $sendNotificationService)

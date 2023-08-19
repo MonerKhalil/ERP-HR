@@ -147,12 +147,6 @@
                                                                                         @lang("addTransaction")
                                                                                     </a>
                                                                                 </li>
-                                                                                <li>
-                                                                                    <a href="{{route("transaction.legalopinion.send", $correspondence["id"])}}"
-                                                                                       class="Dropdown__Item">
-                                                                                        @lang("requestLegalOponion")
-                                                                                    </a>
-                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -188,15 +182,15 @@
     </section>
 @endsection
 
-{{--@section("PopupPage")--}}
-{{--    @include("System.Components.searchForm" , [--}}
-{{--        'InfoForm' => ["Route" => "" , "Method" => "get"] ,--}}
-{{--        'FilterForm' => [ ['Type' => 'number' , 'Info' =>--}}
-{{--                ['Name' => "filter[id]" , 'Placeholder' => __("correspondenceNumber") ] ] , ['Type' => 'text' , 'Info' =>--}}
-{{--                    ['Name' => "filter[employee_id]" , 'Placeholder' => __("employeeName")]--}}
-{{--                ] , ['Type' => 'dateRange' , 'Info' =>--}}
-{{--                ['Name' => "filter[correspondence_date]" , 'Placeholder' => __("correspondenceDate") ,--}}
-{{--                 "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"]--}}
-{{--            ] ]--}}
-{{--    ])--}}
-{{--@endsection--}}
+@section("PopupPage")
+    @include("System.Components.searchForm" , [
+        'InfoForm' => ["Route" => "" , "Method" => "get"] ,
+        'FilterForm' => [ ['Type' => 'number' , 'Info' =>
+                ['Name' => "filter[id]" , 'Placeholder' => __("correspondenceNumber") ] ] , ['Type' => 'text' , 'Info' =>
+                    ['Name' => "filter[section_id]" , 'Placeholder' => __("employeeName")]
+                ] , ['Type' => 'dateRange' , 'Info' =>
+                ['Name' => "filter[correspondence_date]" , 'Placeholder' => __("correspondenceDate") ,
+                 "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"]
+            ] ]
+    ])
+@endsection

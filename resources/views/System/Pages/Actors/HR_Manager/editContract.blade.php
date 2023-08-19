@@ -55,7 +55,7 @@
                                                                         $default_value = "";
                                                                         foreach ($data['contract_type'] as $index=>$type) {
                                                                             if($type == $data['contract']['contract_type']){
-                                                                                $default_value = $index;
+                                                                                $default_value = $type;
                                                                             }
                                                                             array_push($CotnractTypes , [
                                                                                 "Label" => $type

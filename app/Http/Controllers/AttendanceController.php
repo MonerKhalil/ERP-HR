@@ -172,6 +172,7 @@ class AttendanceController extends Controller
         if (isset($request->employee_id) && !is_null($request->employee_id)){
             $query = $query->where("employee_id",$request->employee_id);
         }
+        $query = isset($request->ids) ? $query->whereIn("id",$request->ids) : $query;
 
         $data = MyApp::Classes()->Search->getDataFilter($query,null,true);
 

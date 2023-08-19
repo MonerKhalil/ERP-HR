@@ -49,7 +49,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        @lang("sectionName")
+                                                        @lang("DepartmentManager")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $sections->moderator["first_name"]." ".$sections->moderator["last_name"] }}

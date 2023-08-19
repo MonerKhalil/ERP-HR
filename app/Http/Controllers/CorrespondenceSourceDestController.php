@@ -57,12 +57,24 @@ class CorrespondenceSourceDestController extends Controller
     {
         $correspondence = Correspondence::query()->where("id", $Correspondence_id)->firstOrFail();
         $type = Correspondence::type();//internal,external
+        $number_external=Correspondence::query()->whereNotNull("number_external")->pluck("number_external", "id")->toArray();
+        $number_internal = Correspondence::query()->whereNotNull("number_internal")->pluck("number_internal", "id")->toArray();
+//        dd($number_external, $number_internal);
+        $x = [];
+        foreach ($number_internal as $key => $value) {
+            $number_internal[$key] = 'internal ' . $value;
+        }
+        foreach ($number_external as $key => $value) {
+            $number_external[$key] = 'external ' . $value;
+        }
+        $all_numbers = $number_internal + $number_external;
+//        $all_numbers = array_merge($number_external, $number_internal);
         $source_dest_type = Correspondence_source_dest::source_dest_type();//type
         $external_party = SectionExternal::query()->pluck("name", "id")->toArray();//if external
         $internal_department = Sections::query()->pluck("name", "id")->toArray();//if external
         $employee_dest = Employee::query()->whereNot("user_id", Auth::id())->select(["id", "first_name", "last_name"])->get();//if internal
         return $this->responseSuccess("System.Pages.Actors.Diwan_User.addSourceDest", compact("employee_dest", "correspondence",
-            "source_dest_type", "external_party", "type", "internal_department"));
+            "source_dest_type", "external_party", "type", "internal_department","number_external","number_internal", "all_numbers"));
     }
 
     /**
@@ -94,9 +106,10 @@ class CorrespondenceSourceDestController extends Controller
 //                Mail::to($mail)->send(new CorrespondenceMail($data,$correspondence ));
                 }
             }elseif ($request->type == "internal"){
+                $correspondence=Correspondence::find($correspondence_source_dest->correspondences_id);
                 $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
                 $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-                    route("correspondences.show",$correspondence_source_dest->correspondences_id));
+                    route("correspondences.show",$correspondence));
             }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);

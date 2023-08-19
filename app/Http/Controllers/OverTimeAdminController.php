@@ -73,12 +73,11 @@ class OverTimeAdminController extends Controller
 
     /**
      * @param Request $request
-     * @param Overtime $overtime_obj
      * @param $status
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|null
      * @author moner khalil
      */
-    public function changeStatus(Request $request, Overtime $overtime_obj, $status){
+    public function changeStatus(Request $request, $status){
         $request->validate([
             "ids" => ["required","array"],
             "ids.*" => ["required",Rule::exists("overtimes","id")],

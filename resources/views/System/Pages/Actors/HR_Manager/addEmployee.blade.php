@@ -287,6 +287,7 @@
                                                                                             <input id="wivesNum"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
+                                                                                                   value="0"
                                                                                                    name="number_wives"
                                                                                                    placeholder="@lang("wivesNumber")">
                                                                                             <label class="Input__Label"
@@ -305,6 +306,7 @@
                                                                                             <input id="childrenNum"
                                                                                                    class="Input__Field"
                                                                                                    type="number"
+                                                                                                   value="0"
                                                                                                    name="number_child"
                                                                                                    placeholder="@lang("childrenNumber")">
                                                                                             <label class="Input__Label"
@@ -331,9 +333,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="VisibilityTarget Col-4-md Col-6-sm"
-                                                                                 data-TargetName="familyStatus"
-                                                                                 data-TargetValue="married">
+                                                                            <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
@@ -341,7 +341,7 @@
                                                                                                    class="Input__Field"
                                                                                                    type="text"
                                                                                                    name="current_job"
-                                                                                                   placeholder="@lang("profession")" required>
+                                                                                                   placeholder="@lang("profession")">
                                                                                             <label class="Input__Label"
                                                                                                    for="profession">@lang("profession")</label>
                                                                                         </div>
@@ -610,31 +610,31 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="Col-4-md Col-6-sm">
-                                                                                <div class="Form__Group" >
-                                                                                    <div class="Form__Input">
-                                                                                        <div class="Input__Area">
-                                                                                            <input id="address"
-                                                                                                   class="Input__Field"
-                                                                                                   type="text"
-                                                                                                   name="address_id"
-                                                                                                   placeholder="@lang("city_name")" required>
-                                                                                            <label class="Input__Label"
-                                                                                                   for="address">@lang("city_name")</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div id="Address" class="Col-4-md Col-6-sm">
+                                                                            <div id="City" class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "districtName" , "Required" => "true" , "Label" => __('district'),"DefaultValue" => "",
-                                                                                                        "OptionsValues" => [__("Mazzah"), __("Barzeh"), __('Duma')],])
+                                                                                            @include("System.Components.selector" , ['Name' => "address_id" , "Required" => "true" , "Label" => __('cityName'),"DefaultValue" => "",
+                                                                                                        "OptionsValues" => [__("Damascus"), __("Aleppo"), __('Amman')],])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+{{--                                                                            <div class="Col-4-md Col-6-sm">--}}
+{{--                                                                                <div class="Form__Group" >--}}
+{{--                                                                                    <div class="Form__Input">--}}
+{{--                                                                                        <div class="Input__Area">--}}
+{{--                                                                                            <input id="address"--}}
+{{--                                                                                                   class="Input__Field"--}}
+{{--                                                                                                   type="text"--}}
+{{--                                                                                                   name="district_name"--}}
+{{--                                                                                                   placeholder="@lang("cityName")" required>--}}
+{{--                                                                                            <label class="Input__Label"--}}
+{{--                                                                                                   for="address">@lang("cityName")</label>--}}
+{{--                                                                                        </div>--}}
+{{--                                                                                    </div>--}}
+{{--                                                                                </div>--}}
+{{--                                                                            </div>--}}
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
