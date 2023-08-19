@@ -64,11 +64,11 @@ class CorrespondenceController extends Controller
     private function shareByBlade()
     {
         $type = ['internal', 'external'];
-        $number_internal = Correspondence::query()->latest('number_internal')->first()->number_internal ?? 0;
+        $number_internal = Correspondence::query()->withTrashed()->latest('number_internal')->first()->number_internal ?? 0;
         if (!is_null($number_internal)) {
             $number_internal++;
         }
-        $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
+        $number_external = Correspondence::query()->withTrashed()->latest('number_external')->first()->number_external ?? 0;
         if (!is_null($number_external)) {
             $number_external++;
         }
@@ -94,13 +94,13 @@ class CorrespondenceController extends Controller
                 $data['path_file'] = $path;
             }
             if ($request->type == "internal") {
-                $number_internal = Correspondence::query()->latest('number_internal')->first()->number_internal ?? 0;
+                $number_internal = Correspondence::query()->withTrashed()->latest('number_internal')->first()->number_internal ?? 0;
                 if (!is_null($number_internal)) {
                     $number_internal++;
                 }
                 $data["number_internal"] = $number_internal;
             } else if ($request->type == "external") {
-                $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
+                $number_external = Correspondence::query()->withTrashed()->latest('number_external')->first()->number_external ?? 0;
                 if (!is_null($number_external)) {
                     $number_external++;
                 }
@@ -138,11 +138,11 @@ class CorrespondenceController extends Controller
     public function edit(Correspondence $correspondence)
     {
         $type = ['internal', 'external'];
-        $number_internal = Correspondence::query()->latest('number_internal')->first()->number_internal ?? 0;
+        $number_internal = Correspondence::query()->withTrashed()->latest('number_internal')->first()->number_internal ?? 0;
         if (!is_null($number_internal)) {
             $number_internal++;
         }
-        $number_external = Correspondence::query()->latest('number_external')->first()->number_external ?? 0;
+        $number_external = Correspondence::query()->withTrashed()->latest('number_external')->first()->number_external ?? 0;
         if (!is_null($number_external)) {
             $number_external++;
         }
