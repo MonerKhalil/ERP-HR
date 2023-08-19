@@ -11,9 +11,9 @@
             <div class="RequestOvertimeForm">
                 <div class="RequestOvertimeForm__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "اضافة نوع تقييم جديد" ,
+                        'mainTitle' => __("AddNewTypeEvaluation") ,
                         'paths' => [['Home' , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleNewTypeEvaluation")
                     ])
                 </div>
                 <div class="RequestOvertimeForm__Content">
@@ -36,7 +36,7 @@
                                                             <div class="ListData">
                                                                 <div class="ListData__Head">
                                                                     <h4 class="ListData__Title">
-                                                                        معلومات التقييم الجديد
+                                                                        @lang("EvaluationInfoNew")
                                                                     </h4>
                                                                 </div>
                                                                 <div class="ListData__Content">
@@ -59,7 +59,7 @@
                                                                                             @include("System.Components.multiSelector" , [
                                                                                                 'Name' => "_" , "Required" => "true" ,
                                                                                                 "NameIDs" => "EvaluationEmployeesID" ,
-                                                                                                "DefaultValue" => "" , "Label" => "الموظفين الذين سيقومون بالتقييم" ,
+                                                                                                "DefaultValue" => "" , "Label" => __("EmployeeWhoEvaluated") ,
                                                                                                 "Options" => $EvaluationEmployees
                                                                                             ])
                                                                                         </div>
@@ -82,7 +82,7 @@
 
                                                                                             @include("System.Components.selector" , [
                                                                                                 'Name' => "employee_id" , "DefaultValue" => "" ,
-                                                                                                "Label" => "الموظف المراد تقييمه" , "Required" => "true",
+                                                                                                "Label" => __("EmployeeNeedEvaluate") , "Required" => "true",
                                                                                                 "Options" => $Employees
                                                                                             ])
                                                                                         </div>
@@ -98,11 +98,11 @@
                                                                                                    name="evaluation_date"
                                                                                                    class="DateMinToday Date__Field"
                                                                                                    TargetDateStartName="StartEvaluationDate"
-                                                                                                   type="text" placeholder="تاريخ البدأ بالتقييم"
+                                                                                                   type="text" placeholder="{{ __("StartEmployeeEvaluation") }}"
                                                                                                    required>
                                                                                             <label class="Date__Label"
                                                                                                    for="StartEvaluationDate">
-                                                                                                تاريخ البدأ بالتقييم
+                                                                                                @lang("StartEmployeeEvaluation")
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -117,11 +117,11 @@
                                                                                                    name="next_evaluation_date"
                                                                                                    class="DateEndFromStart Date__Field"
                                                                                                    data-StartDateName="StartEvaluationDate"
-                                                                                                   type="text" placeholder="تاريخ التقييم التالي"
+                                                                                                   type="text" placeholder="{{ __("EndEmployeeEvaluation") }}"
                                                                                                    required>
                                                                                             <label class="Date__Label"
                                                                                                    for="NextEvaluationDate">
-                                                                                                تاريخ التقييم التالي
+                                                                                                @lang("EndEmployeeEvaluation")
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
@@ -132,8 +132,9 @@
                                                                                      data-ErrorBackend="{{ Errors("description") }}">
                                                                                     <div class="Form__Textarea">
                                                                                         <div class="Textarea__Area">
-                                                                                            <textarea id="NotesForEvaluation" class="Textarea__Field" name="description" rows="3" placeholder="ملاحظات حول هذا التقييم"></textarea>
-                                                                                            <label class="Textarea__Label" for="NotesForEvaluation">ملاحظات حول هذا التقييم</label>
+                                                                                            <textarea id="NotesForEvaluation" class="Textarea__Field" name="description"
+                                                                                                      rows="3" placeholder="{{ __("NotesEvaluation") }}"></textarea>
+                                                                                            <label class="Textarea__Label" for="NotesForEvaluation">@lang("NotesEvaluation")</label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -147,7 +148,7 @@
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Button">
                                                                             <button class="Button Send"
-                                                                                    type="submit">اضافة معلومات تقييم جديد</button>
+                                                                                    type="submit">@lang("AddInfoEvaluationNew")</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>

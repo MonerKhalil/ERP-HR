@@ -1416,53 +1416,57 @@ $(document).ready(function (){
             if(IsUpdate === "false") {
                 $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "true");
                 $.ajax({
-                    url : `${DomainSystem}/edit/read?_token=${Token}` ,
-                    type : "put"
+                    url : `${DomainSystem}/update/get` ,
+                    type : "GET"
                 }).done((ResponseData) => {
                     console.log(ResponseData);
-                //     for (const NotificationItem of ResponseData) {
-                //         console.log("ddd");
-                // //         const NotificationCreated = `
-                // //     <li class="Dropdown__Item Notification" data-notificationid="">
-                // //         <div class="Notification__Content">
-                // //             <a href="#" class="Notification__Icon Notification__Icon--Send">
-                // //                 <i class="material-icons"></i>
-                // //             </a>
-                // //             <a href="http://127.0.0.1:8000/system/evaluation/employee/show/add/employee/1"
-                // //                 class="Notification__Details">
-                // //                     <p class="NotificationTitle">
-                // //                         من
-                // //                         <span class="UserFrom">
-                // //                             <strong>
-                // //                                 name
-                // //                             </strong>
-                // //                         </span>
-                // //                         Type
-                // //                     </p>
-                // //                     <p class="NotificationDescription">
-                // //                         Body
-                // //                     </p>
-                // //                     <p class="NotificationDate">
-                // //                         Date
-                // //                     </p>
-                // //             </a>
-                // //             <div class="Notification__Remove">
-                // //                 <i class="material-icons">close</i>
-                // //             </div>
-                // //         </div>
-                // //     </li>
-                // // `;
-                // //         const NotificationAppended = $(NotificationInfo.NotificationElement)
-                // //             .find(".NotificationParent__List").append(NotificationCreated) ;
-                // //         $(NotificationAppended).find(".Notification__Remove i").click(() => {
-                // //             NotificationSetting({
-                // //                 Operation : "DeleteOne" ,
-                // //                 NotificationID : "Put ID Notification" ,
-                // //                 NotificationAdd : undefined
-                // //             });
-                // //         }) ;
+                //     const ItemNoData =  $(NotificationInfo.NotificationElement)
+                //         .find(".NotificationParent__List .NoData--V2");
+                //     if(ItemNoData.length > 0 && ResponseData.length > 0) {
+                //         ItemNoData.remove() ;
                 //     }
-                    $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");
+                //     for (const NotificationItem of ResponseData) {
+                //         const NotificationCreated = `
+                //     <li class="Dropdown__Item Notification" data-notificationid="">
+                //         <div class="Notification__Content">
+                //             <a href="#" class="Notification__Icon Notification__Icon--Send">
+                //                 <i class="material-icons"></i>
+                //             </a>
+                //             <a href="http://127.0.0.1:8000/system/evaluation/employee/show/add/employee/1"
+                //                 class="Notification__Details">
+                //                     <p class="NotificationTitle">
+                //                         من
+                //                         <span class="UserFrom">
+                //                             <strong>
+                //                                 name
+                //                             </strong>
+                //                         </span>
+                //                         Type
+                //                     </p>
+                //                     <p class="NotificationDescription">
+                //                         Body
+                //                     </p>
+                //                     <p class="NotificationDate">
+                //                         Date
+                //                     </p>
+                //             </a>
+                //             <div class="Notification__Remove">
+                //                 <i class="material-icons">close</i>
+                //             </div>
+                //         </div>
+                //     </li>
+                // `;
+                //         const NotificationAppended = $(NotificationInfo.NotificationElement)
+                //             .find(".NotificationParent__List").append(NotificationCreated) ;
+                //         $(NotificationAppended).find(".Notification__Remove i").click(() => {
+                //             NotificationSetting({
+                //                 Operation : "DeleteOne" ,
+                //                 NotificationID : "Put ID Notification" ,
+                //                 NotificationAdd : undefined
+                //             });
+                //         }) ;
+                //     }
+                //     $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");
                     console.log("Success");
                 }).fail(() => {
                     $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");
@@ -1501,7 +1505,7 @@ $(document).ready(function (){
             //         NotificationID : undefined ,
             //         NotificationAdd : undefined
             //     });
-            // } , 5000);
+            // } , 1000);
             $(Parent).find(".ReadAll").click(() => {
                 NotificationSetting({
                     Operation : "ReadAll" ,
@@ -2687,7 +2691,7 @@ $(document).ready(function (){
         } , 1000) ;
 
         function UpdateClock() {
-            const NameDays = ["Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] ;
+            const NameDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday"] ;
             const NameMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
             const CurrentDate = GetCurrentDate() ;
             const Time = ((CurrentDate.Hour % 12) ? CurrentDate.Hour % 12 : 12) + ':' +
@@ -2778,7 +2782,7 @@ function GetCurrentDate() {
     const CurrentDate = new Date();
     const Month = CurrentDate.getMonth() ;
     const Day_Month = CurrentDate.getDate();
-    const Day_Week = CurrentDate.getDay() + 1;
+    const Day_Week = CurrentDate.getDay();
     const Year = CurrentDate.getFullYear();
     const Hour = CurrentDate.getHours().toString();
     const Minute = CurrentDate.getMinutes().toString();
