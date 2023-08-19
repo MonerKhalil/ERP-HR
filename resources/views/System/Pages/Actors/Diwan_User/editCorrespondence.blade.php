@@ -50,7 +50,7 @@
                                                                                     }
                                                                                 @endphp
                                                                                 @include("System.Components.selector" , ['Name' => "type" , "Required" => "true" , "Label" => __('type'),"DefaultValue" => $correspondence->type,
-                                                                                            "Options" => $types,])
+                                                                                            "Options" => $types, ])
                                                                             </div>
                                                                         </div>
                                                                     </div>

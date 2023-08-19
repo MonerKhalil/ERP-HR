@@ -92,7 +92,7 @@ class CorrespondenceSourceDestController extends Controller
             }elseif ($request->type == "internal"){
                 $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
                 $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-                    route("system.evaluation.employee.show.add.evaluation",$correspondence_source_dest->id));
+                    route("correspondences.show",$correspondence_source_dest->correspondences_id));
             }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);

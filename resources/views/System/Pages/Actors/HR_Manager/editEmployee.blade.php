@@ -715,7 +715,8 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-                                                                                            @include("System.Components.selector" , ['Name' => "id_ed_lev" , "Required" => "true" , "Label" => __('educationDegree'),"DefaultValue" => $employee->education_data[0]->education_level['name'],
+                                                                                            @include("System.Components.selector" , ['Name' => "id_ed_lev" , "Required" => "true" ,
+                                                                                             "Label" => __('educationDegree'),"DefaultValue" => $employee->education_data[0]->education_level['name'],
                                                                                                         "OptionsValues" => $education_level,])
                                                                                         </div>
                                                                                     </div>

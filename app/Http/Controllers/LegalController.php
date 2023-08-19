@@ -57,8 +57,8 @@ class LegalController extends Controller
         ]);
         $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
         $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-            route("system.evaluation.employee.show.add.evaluation",$correspondence_source_dest->id));
-        return $this->responseSuccess(".....", compact("internal_legal","correspondence"));
+            route("correspondences.show",$correspondence_source_dest->correspondences_id));
+        return $this->responseSuccess("System.Pages.Actors.Diwan_User.viewCorrespondenses", compact("internal_legal","correspondence"));
     }
 
     public function addLegalOpinion(Request $request, SendNotificationService $sendNotificationService)
@@ -84,7 +84,7 @@ class LegalController extends Controller
             ]);
             $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
             $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-                route("system.evaluation.employee.show.add.evaluation",$correspondence_source_dest->id));
+                route("correspondences.show",$correspondence_source_dest->correspondences_id));
             DB::commit();
             return $this->responseSuccess(null,null,"create",self::IndexRoute);
         }catch (\Exception $exception){
