@@ -719,6 +719,10 @@
     "addressDetails" : "تفاصيل العنوان",
     "addCorrespondence" : "حفظ المراسلة",
     "legalOponion" : "الرأي القانوني",
-    "transactionSource" : "مصدر المراسلة"
+    "transactionSource" : "مصدر المراسلة",
+    "showEmployeeContract" : "عرض معلومات العقد",
+    "showContractsPage" : "صفحة عرض معلومات العقد",
+    "editEmployeeContract" : "تعديل معلومات العقد",
+    "editContractsPage" : "صفحة تعديل معلومات العقد"
 }
 

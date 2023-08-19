@@ -9,9 +9,9 @@
         <div class="AddContractPage">
             <div class="AddContractPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterEmployeeContract') ,
+                    'mainTitle' => __('editEmployeeContract') ,
                     'paths' => [['Contracts' , '#'] , ['New Contract']] ,
-                    'summery' => __('RegisterContractsPage')
+                    'summery' => __('editContractsPage')
                 ])
             </div>
         </div>
