@@ -211,7 +211,7 @@ class CorrespondenceController extends Controller
             }
             Correspondence::query()->whereIn("id", $request->ids)->delete();
             DB::commit();
-            $this->responseSuccess(null, null, "delete", self::IndexRoute);
+            return $this->responseSuccess(null, null, "delete", self::IndexRoute);
         } catch (\Exception $e) {
             DB::rollBack();
             throw new MainException($e->getMessage());

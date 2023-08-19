@@ -60,9 +60,9 @@ class DataEndServiceController extends Controller
     {
         $employees = Employee::query()->select(["first_name","last_name","id"])->get();
 //        dd($employees);
-//        $decision = Decision::query()->pluck("name","id")->toArray();
+        $decision = Decision::query()->pluck("number","id")->toArray();
         $reason = DataEndService::Reasons();
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.employeeEndOfServiceForm",compact("employees","reason"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.employeeEndOfServiceForm",compact("employees","reason", "decision"));
     }
 
     public function createFromEmployee($employee){
@@ -107,9 +107,9 @@ class DataEndServiceController extends Controller
     {
         $dataEndService = DataEndService::with(["employee","decision"])->findOrFail($dataEndService->id);
         $employee = Employee::query()->select(["first_name","last_name","id"])->get();
-//        $decision = Decision::query()->pluck("name","id")->toArray();
+        $decision = Decision::query()->pluck("number","id")->toArray();
         $reason = DataEndService::Reasons();
-        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editEOF",compact("dataEndService","employee","reason"));
+        return $this->responseSuccess("System.Pages.Actors.HR_Manager.editEOF",compact("dataEndService","employee","reason", "decision"));
     }
 
     /**

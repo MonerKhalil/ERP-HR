@@ -718,6 +718,7 @@
     "cityName" : "اسم المنطقة",
     "addressDetails" : "تفاصيل العنوان",
     "addCorrespondence" : "حفظ المراسلة",
-    "legalOponion" : "الرأي القانوني"
+    "legalOponion" : "الرأي القانوني",
+    "transactionSource" : "مصدر المراسلة"
 }
 

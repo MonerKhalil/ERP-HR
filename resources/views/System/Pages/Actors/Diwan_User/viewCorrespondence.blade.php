@@ -266,6 +266,30 @@
                                             </div>
                                         </div>
                                     @endif
+                                    @if($transaction["source_dest_type"] == 'outgoing_to_incoming')
+                                        <div class="ListData__Item ListData__Item--NoAction">
+                                            <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            @lang('transactionSource')
+                                        </span>
+                                                <span class="Data_Value">
+                                            {{$transaction["source_correspondence_id"]}}
+                                        </span>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($transaction["source_dest_type"] == 'incoming_to_outgoing')
+                                        <div class="ListData__Item ListData__Item--NoAction">
+                                            <div class="Data_Col">
+                                        <span class="Data_Label">
+                                            @lang("transactionSource")
+                                        </span>
+                                                <span class="Data_Value">
+                                            {{$transaction["source_correspondence_id"]}}
+                                        </span>
+                                            </div>
+                                        </div>
+                                    @endif
                                     @if($transaction["type"] == 'external')
                                         <div class="ListData__Item ListData__Item--NoAction">
                                             <div class="Data_Col">

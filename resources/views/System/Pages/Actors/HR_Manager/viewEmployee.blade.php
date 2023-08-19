@@ -151,7 +151,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("userName")</span>
                                                                             <span
-                                                                                class="Data_Value">{{$employee->user_id}}</span>
+                                                                                class="Data_Value">{{$employee->user["name"]}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

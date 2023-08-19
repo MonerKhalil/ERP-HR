@@ -116,7 +116,7 @@ class EmployeeController extends Controller
                 return $q->with(["document_education","education_level"])->get();
             },
         ]);
-        $data = $this->shareByBlade();
+        $data = $this->shareByBlade($employee->id);
         $data['employee'] = is_null($employee) ? $employeeQuery->where("user_id",auth()->id())->firstOrFail()
             : $employeeQuery->findOrFail($employee->id);
         return $this->responseSuccess("System.Pages.Actors.HR_Manager.editEmployee",$data);
@@ -155,7 +155,7 @@ class EmployeeController extends Controller
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
-    private function shareByBlade(){
+    private function shareByBlade($id_employee = null){
         $work_settings = WorkSetting::query()->get();
         $gender = ["male", "female"];
         $military_service = ["exempt", "performer", "in_service"];
@@ -163,7 +163,11 @@ class EmployeeController extends Controller
         $address_type = ["house", "clinic", "office"];
         $document_type = ["family_card","identification","passport"];
         $education_level = Education_level::query()->pluck("name","id")->toArray();
-        $employees = Employee::query()->pluck("user_id")->toArray();
+        if(is_null($id_employee)){
+            $employees = Employee::query()->pluck("user_id")->toArray();
+        }else{
+            $employees = Employee::query()->whereNot("id",$id_employee)->pluck("user_id")->toArray();
+        }
         $users = User::query()
             ->whereNotIn("id",$employees)
             ->whereNot("id",Auth()->id())->pluck("name","id")->toArray();
