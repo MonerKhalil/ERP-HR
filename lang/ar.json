@@ -432,8 +432,8 @@
     "vocationOpen" : "مفتوحة" ,
     "vocationClose" : "محدودة",
     "vocationDaysInYear" : "عدد ايام الاجازة في السنة",
-    "vocationHourly" : "هل الاجازة ساعية محددة",
-    "vocationHourlyOpening" : "هل الاجازة ساعية مفتوحة",
+    "vocationHourly" : "هل الاجازة ساعية او لا",
+    "vocationHourlyOpening" : "هل يمكن اخذها بشكل ساعي او لا",
     "vocationHourlyDetermineCanTaken" : "عدد الساعات المسموحة في اليوم",
     "yes" : "نعم",
     "no" : "لا",
@@ -862,7 +862,9 @@
     "total_avg" : "التقييم الكلي",
 
     "Payroll" : "الرواتب",
-    "TitlePayroll" : "هنا يتم عرض تفاصيل الرواتب الموظف الحالي"
+    "TitlePayroll" : "هنا يتم عرض تفاصيل الرواتب الموظف الحالي",
+    "rate_deduction_attendance_dont_check_out" : "نسبة الراتب المخصوم من تسجيل الخروج",
+    "Title_rate_deduction_attendance_dont_check_out" : "النسبة التي ستخصم من الراتب في حال عدم عمل تسجيل وقت الخروج"
 
 }
 
