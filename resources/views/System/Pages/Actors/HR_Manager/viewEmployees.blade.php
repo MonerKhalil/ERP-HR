@@ -163,11 +163,19 @@
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>
+{{--                                                                            <ul class="Dropdown__Content">--}}
+{{--                                                                                <li>--}}
+{{--                                                                                    <a href="{{route("system.conferences.index")}}"--}}
+{{--                                                                                       class="Dropdown__Item">--}}
+{{--                                                                                        عرض دورات الموظف--}}
+{{--                                                                                    </a>--}}
+{{--                                                                                </li>--}}
+{{--                                                                            </ul>--}}
                                                                             <ul class="Dropdown__Content">
                                                                                 <li>
-                                                                                    <a href="{{route("system.conferences.index")."?filter[employee_id]=".$employee["id"]}}"
+                                                                                    <a href="{{ route("system.payroll.salary.employee" , $employee["id"]) }}"
                                                                                        class="Dropdown__Item">
-                                                                                        عرض دورات الموظف
+                                                                                        @lang("Payroll")
                                                                                     </a>
                                                                                 </li>
                                                                             </ul>

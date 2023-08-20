@@ -1413,60 +1413,71 @@ $(document).ready(function (){
             if(NotificationInfo.NotificationElement === undefined)
                 return ;
             const IsUpdate = $(NotificationInfo.NotificationElement).attr("data-isUpdate");
+            const LastIDNotification = $(NotificationInfo.NotificationElement)
+                .find(".Notification") ;
+            let IdLastNotification = undefined ;
+            if(LastIDNotification.length > 0)
+                IdLastNotification = $(LastIDNotification.get(0)).attr("data-notificationid") ;
+            console.log(IdLastNotification);
             if(IsUpdate === "false") {
                 $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "true");
                 $.ajax({
-                    url : `${DomainSystem}/update/get` ,
+                    url : `${DomainSystem}/update/get?_token=${Token}${ IdLastNotification ? "&id_notify="+IdLastNotification : ""}` ,
                     type : "GET"
                 }).done((ResponseData) => {
+                    // console.log(ResponseData["notifications"]);
                     console.log(ResponseData);
-                //     const ItemNoData =  $(NotificationInfo.NotificationElement)
-                //         .find(".NotificationParent__List .NoData--V2");
-                //     if(ItemNoData.length > 0 && ResponseData.length > 0) {
-                //         ItemNoData.remove() ;
-                //     }
-                //     for (const NotificationItem of ResponseData) {
-                //         const NotificationCreated = `
-                //     <li class="Dropdown__Item Notification" data-notificationid="">
-                //         <div class="Notification__Content">
-                //             <a href="#" class="Notification__Icon Notification__Icon--Send">
-                //                 <i class="material-icons"></i>
-                //             </a>
-                //             <a href="http://127.0.0.1:8000/system/evaluation/employee/show/add/employee/1"
-                //                 class="Notification__Details">
-                //                     <p class="NotificationTitle">
-                //                         من
-                //                         <span class="UserFrom">
-                //                             <strong>
-                //                                 name
-                //                             </strong>
-                //                         </span>
-                //                         Type
-                //                     </p>
-                //                     <p class="NotificationDescription">
-                //                         Body
-                //                     </p>
-                //                     <p class="NotificationDate">
-                //                         Date
-                //                     </p>
-                //             </a>
-                //             <div class="Notification__Remove">
-                //                 <i class="material-icons">close</i>
-                //             </div>
-                //         </div>
-                //     </li>
-                // `;
-                //         const NotificationAppended = $(NotificationInfo.NotificationElement)
-                //             .find(".NotificationParent__List").append(NotificationCreated) ;
-                //         $(NotificationAppended).find(".Notification__Remove i").click(() => {
-                //             NotificationSetting({
-                //                 Operation : "DeleteOne" ,
-                //                 NotificationID : "Put ID Notification" ,
-                //                 NotificationAdd : undefined
-                //             });
-                //         }) ;
-                //     }
-                //     $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");
+                    const ItemNoData =  $(NotificationInfo.NotificationElement)
+                        .find(".NotificationParent__List .NoData--V2");
+
+                    if(ItemNoData.length > 0 && ResponseData.length > 0) {
+                        ItemNoData.remove() ;
+                    }
+
+                    for (let i=ResponseData["notifications"].length - 1 ; i >= 0 ; i--) {
+                        const NotificationCreated = `
+                    <li class="Dropdown__Item Notification" data-notificationid="${ ResponseData["notifications"][i]["id"] }">
+                        <div class="Notification__Content">
+                            <a href="${ ResponseData["notifications"][i]["data"]["data"]["route_name"] }"
+                                class="Notification__Icon Notification__Icon--Send">
+                                <i class="material-icons"></i>
+                            </a>
+                            <a href="${ ResponseData["notifications"][i]["data"]["data"]["route_name"] }"
+                                class="Notification__Details">
+                                    <p class="NotificationTitle">
+                                        ${ (LanguagePage === "en") ? "From" : "من" }
+                                        <span class="UserFrom">
+                                            <strong>
+                                                ${ ResponseData["notifications"][i]["data"]["data"]["from"] }
+                                            </strong>
+                                        </span>
+                                        ${ ResponseData["notifications"][i]["data"]["type"]}
+                                    </p>
+                                    <p class="NotificationDescription">
+                                        ${ ResponseData["notifications"][i]["data"]["data"]["body"].split("@@@@")[1] }
+                                    </p>
+                                    <p class="NotificationDate">
+                                        ${ ResponseData["notifications"][i]["data"]["data"]["date"] }
+                                    </p>
+                            </a>
+                            <div class="Notification__Remove">
+                                <i class="material-icons">close</i>
+                            </div>
+                        </div>
+                    </li>
+                `;
+                        const NotificationAppended = $(NotificationInfo.NotificationElement)
+                            .find(".NotificationParent__List").prepend(NotificationCreated) ;
+                        $(NotificationAppended).find(".Notification__Remove i").click(() => {
+                            NotificationSetting({
+                                Operation : "DeleteOne" ,
+                                NotificationID : "Put ID Notification" ,
+                                NotificationAdd : undefined
+                            });
+                        }) ;
+                    }
+
+                    $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");
                     console.log("Success");
                 }).fail(() => {
                     $(NotificationInfo.NotificationElement).attr("data-isUpdate" , "false");

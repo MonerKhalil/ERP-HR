@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\HelpersClasses\MyApp;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
@@ -53,12 +54,14 @@ class NotificationsController extends Controller
     public function getNotificationsUpdate(Request $request)
     {
         if (is_null($request->id_notify)){
-            $notifications = null;
+            $notifications = auth()->user()->notifications()
+                ->orderByDesc("created_at")
+                ->get();
         }else{
             $notifications = auth()->user()->notifications()
                 ->where("id",">",$request->id_notify)
                 ->whereNot("data->type","audit")
-                ->latest()
+                ->orderByDesc("created_at")
                 ->get();
         }
         return response()->json(["notifications" => $notifications]);
