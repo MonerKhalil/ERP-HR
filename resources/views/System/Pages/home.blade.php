@@ -115,7 +115,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">Monthly Decision</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("MonthlyDecision")</p>
                                                                 <h2>{{ $Value }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -132,7 +132,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">طلبات الاجازة المعلقة الشهرية</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("VocationRequestPending")</p>
                                                                 <h2>{{ $Value }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -149,22 +149,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">طلبات العمل الاضافي المعلقة الشهرية</p>
-                                                                <h2>{{ $Value }}</h2>
-                                                            </div>
-                                                            <div class="stat-card__icon stat-card__icon--3">
-                                                                <div class="stat-card__icon-circle">
-                                                                    <i class="material-icons">person</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                                @if($Index == "count_overtime_request_pending_in_month_current")
-                                                    <div class="Col-4-md">
-                                                        <div class="stat-card">
-                                                            <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">طلبات العمل الاضافي المعلقة الشهرية</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("OvertimeRequestPending")</p>
                                                                 <h2>{{ $Value }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -181,7 +166,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">عدد الموظفين المتأخرين اليوم</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("EmployeeNumberLateDay")</p>
                                                                 <h2>{{ $Value }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -201,7 +186,7 @@
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
-                                                            <p class="text-uppercase mb-1 text-muted">عدد الايام العمل الاضافي في الشهر</p>
+                                                            <p class="text-uppercase mb-1 text-muted">@lang("OvertimeDaysInMonth")</p>
                                                             <h2>{{ $Value }}</h2>
                                                         </div>
                                                         <div class="stat-card__icon stat-card__icon--3">
@@ -216,7 +201,7 @@
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
-                                                            <p class="text-uppercase mb-1 text-muted">عدد ساعات العمل الاضافي في الشهر</p>
+                                                            <p class="text-uppercase mb-1 text-muted">@lang("OvertimeHoursInMonth")</p>
                                                             <h2>{{ $Value }}</h2>
                                                         </div>
                                                         <div class="stat-card__icon stat-card__icon--3">
@@ -231,7 +216,7 @@
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
-                                                            <p class="text-uppercase mb-1 text-muted">عدد ايام الحضور في الشهر</p>
+                                                            <p class="text-uppercase mb-1 text-muted">@lang("DaysAttendanceInMonth")</p>
                                                             <h2>{{ $Value }}</h2>
                                                         </div>
                                                         <div class="stat-card__icon stat-card__icon--3">
@@ -248,7 +233,7 @@
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
                                                                 <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("performance")</p>
-                                                                <h2>{{ $Value->performance ?? "-" }}</h2>
+                                                                <h2>{{ $Value->performance > 0 ? $Value->performance : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">
@@ -263,7 +248,7 @@
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
                                                                 <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("professionalism")</p>
-                                                                <h2>{{ $Value->professionalism ?? "-" }}</h2>
+                                                                <h2>{{ $Value->professionalism > 0 ? $Value->professionalism  : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">
@@ -278,7 +263,7 @@
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
                                                                 <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("readiness_for_development")</p>
-                                                                <h2>{{ $Value->readiness_for_development ?? "-" }}</h2>
+                                                                <h2>{{ $Value->readiness_for_development > 0 ? $Value->readiness_for_development : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">
@@ -293,7 +278,7 @@
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
                                                                 <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("collaboration")</p>
-                                                                <h2>{{ $Value->collaboration ?? "-" }}</h2>
+                                                                <h2>{{ $Value->collaboration > 0 ? $Value->collaboration : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">
@@ -308,7 +293,7 @@
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
                                                                 <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("commitment_and_responsibility")</p>
-                                                                <h2>{{ $Value->commitment_and_responsibility ?? "-" }}</h2>
+                                                                <h2>{{ $Value->commitment_and_responsibility > 0 ? $Value->commitment_and_responsibility : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">
@@ -323,7 +308,7 @@
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
                                                                 <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("innovation_and_creativity")</p>
-                                                                <h2>{{ $Value->innovation_and_creativity ?? "-" }}</h2>
+                                                                <h2>{{ $Value->innovation_and_creativity > 0 ? $Value->innovation_and_creativity : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">
@@ -338,7 +323,7 @@
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
                                                                 <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("technical_skills")</p>
-                                                                <h2>{{ $Value->technical_skills ?? "-" }}</h2>
+                                                                <h2>{{ $Value->technical_skills > 0 ? $Value->technical_skills : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">
@@ -352,8 +337,8 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">total_avg</p>
-                                                                <h2>{{ $Value->total_avg ?? "-" }}</h2>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("total_avg")</p>
+                                                                <h2>{{ $Value->total_avg > 0 ? $Value->total_avg : "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
                                                                 <div class="stat-card__icon-circle">

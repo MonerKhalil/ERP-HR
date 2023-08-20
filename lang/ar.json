@@ -197,6 +197,7 @@
     "printRowsAsPDF" : "طباعة الاسطر كـ PDF",
     "printRowsAsExcel" : "طباعة الاسطر كـ  Excel",
 
+
     "/*         Form Search         */": "",
 
     "search" : "بحث",
@@ -850,6 +851,18 @@
     "SectionNumber" : "عدد الاقسام",
     "SessionsNumber" : "عدد الجلسات",
     "ContractNumber" : "عدد العقود",
-    "DecisionNumber" : "عدد القرارات"
+    "DecisionNumber" : "عدد القرارات",
+    "MonthlyDecision" : "عدد القرارات في الشهر",
+    "VocationRequestPending" : "طلبات الاجازة المعلقة الشهرية",
+    "OvertimeRequestPending" : "طلبات العمل الاضافي المعلقة الشهرية",
+    "EmployeeNumberLateDay" : "عدد الموظفين المتأخرين اليوم",
+    "OvertimeDaysInMonth" : "عدد الايام العمل الاضافي في الشهر",
+    "OvertimeHoursInMonth" : "عدد ساعات العمل الاضافي في الشهر",
+    "DaysAttendanceInMonth" : "عدد ايام الحضور في الشهر",
+    "total_avg" : "التقييم الكلي",
+
+    "Payroll" : "الرواتب",
+    "TitlePayroll" : "هنا يتم عرض تفاصيل الرواتب الموظف الحالي"
+
 }
 

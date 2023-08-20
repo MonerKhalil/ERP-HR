@@ -55,7 +55,7 @@
                                                         <a href="{{ $NotificationItem["data"]["data"]["route_name"] }}"
                                                            class="Notification__Details">
                                                             <p class="NotificationTitle">
-                                                                من
+                                                                @lang("ofPage")
                                                                 <span class="UserFrom">
                                                                     <strong>
                                                                         {{ $NotificationItem["data"]["data"]["from"] }}
@@ -84,7 +84,7 @@
                                                     </i>
                                                 </div>
                                                 <div class="Text">
-                                                    لا يوجد اشعارات لعرضها
+                                                    @lang("noNotification")
                                                 </div>
                                             </li>
                                         @endif
