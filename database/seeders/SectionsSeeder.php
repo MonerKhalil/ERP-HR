@@ -15,19 +15,28 @@ class SectionsSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1 ; $i<=10;$i++){
-            Sections::create([
-                "address_id" => $i,
-                "name" => "section_".$i,
-                "details" => "xxxxxxxxxxxxx".$i,
-                "created_at" => now(),
-            ]);
-        }
-
         Sections::create([
-            "address_id" => 11,
-            "name" => "section_legal",
-            "details" => "xxxxxxxxxxxxx",
+            "address_id" =>3459 ,
+            "name" => "قسم الذاتية",
+            "details" => "يهتم بتخزين ومعالجة كافة معلومات الموظف ",
+            "created_at" => now(),
+        ]);
+        Sections::create([
+            "address_id" => 3459 ,
+            "name" => "قسم الشؤون القانونية ",
+            "details" => "يهتم بالأمور القانونية في المؤسسة",
+            "created_at" => now(),
+        ]);
+        Sections::create([
+            "address_id" => 3459 ,
+            "name" => "قسم الديوان ",
+            "details" => "يهتم بمعالجة المراسلات ومتابعة حركاتها ",
+            "created_at" => now(),
+        ]);
+        Sections::create([
+            "address_id" => 3459 ,
+            "name" => "قسم العلاقات العملاء ",
+            "details" => "يهتم بمناقشة مشاكل العملاء وخدمتهم",
             "created_at" => now(),
         ]);
     }
