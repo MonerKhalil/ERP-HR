@@ -102,16 +102,6 @@
                                             <div class="ListData__Item ListData__Item--NoAction">
                                                 <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        @lang("minHourWork")
-                                                    </span>
-                                                    <span class="Data_Value">
-                                                        {{$workSetting["min_overtime_hours"]}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="ListData__Item ListData__Item--NoAction">
-                                                <div class="Data_Col">
-                                                    <span class="Data_Label">
                                                         @lang("lateAllowanceMinute")
                                                     </span>
                                                     <span class="Data_Value">
@@ -126,6 +116,16 @@
                                                     </span>
                                                     <span class="Data_Value">
                                                         {{$workSetting["early_out_allowance_per_minute"]}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ListData__Item ListData__Item--NoAction">
+                                                <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        @lang("rate_deduction_attendance_dont_check_out")
+                                                    </span>
+                                                    <span class="Data_Value">
+                                                        {{ $workSetting["rate_deduction_attendance_dont_check_out"] ?? "_" }}
                                                     </span>
                                                 </div>
                                             </div>

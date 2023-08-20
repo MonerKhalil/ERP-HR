@@ -59,7 +59,7 @@ class NotificationsController extends Controller
                 ->get();
         }else{
             $notifications = auth()->user()->notifications()
-                ->where("id",">",$request->id_notify)
+                ->where("id","<",$request->id_notify)
                 ->whereNot("data->type","audit")
                 ->orderByDesc("created_at")
                 ->get();
