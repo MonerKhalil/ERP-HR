@@ -580,37 +580,39 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                         </li>
                     @endif
                 </ul>
-                <ul class="NavigationsMenu__NavigationsGroup">
-                    <li class="NavigationsGroup__Title">
-                        <span class="Title">@lang("Payroll")</span>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    payments
-                                </i>
-                                <span class="Label">
+                @if($IsUserEmployee)
+                    <ul class="NavigationsMenu__NavigationsGroup">
+                        <li class="NavigationsGroup__Title">
+                            <span class="Title">@lang("Payroll")</span>
+                        </li>
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        payments
+                                    </i>
+                                    <span class="Label">
                                     @lang("payroll")
                                 </span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{ route("system.leaves_admin.index") }}" class="NavName">
+                            </div>
+                            <ul class="NavigationsGroup__SubItems">
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{ route("system.payroll.salary.me") }}" class="NavName">
                                         <span class="Label">
                                             @lang("viewVocationsRequest")
                                         </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                @endif
                 @if($IsHavePermissionVacationRead || $IsHavePermissionVacationCreate
                     || $IsUserEmployee || $IsHavePermissionVacationTypeRead
                     || $IsHavePermissionVacationTypeCreate)
