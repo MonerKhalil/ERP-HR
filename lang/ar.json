@@ -504,6 +504,7 @@
     "titleViewVacationAvailable" : "هنا سيتم عرض عدد ايام وساعات الاجازة الخاصة بك و التي ستقوم بتحديدها",
     "viewVocationInfo": "عرض معلومات الاجازة",
     "result" : "نتائج",
+    "VocationDate" : "تاريخ الاجازة",
 
     "/*         Overtime         */": "",
     "viewAllOvertimeType" : "عرض انواع العمل الاضافي",
@@ -541,6 +542,7 @@
     "rejectTheRequest" : "رفض الطلب",
     "viewMyOvertimeRequest" : "عرض طلبات العمل الاضافي الخاصة بي ال",
     "titleViewMyOvertimeRequest" : "هنا نقوم بعرض جميع طلبات العملي الاضافي الخاصة بي حسب الحالة المحددة",
+    "overtimeDate" : "تاريخ العمل الاضافي",
 
 
     "vocationFormEdit" : "تعديل معلومات النوع",
@@ -621,6 +623,12 @@
     "minHourWork" : "الحد الادنى لساعات العمل",
     "lateAllowanceMinute" : "دقائق التأخر المسموحة",
     "earlyAllowanceMinute" : "دقائق الخروج المبكر",
+
+    "DefaultSalary" : "الراتب الافتراضي",
+    "RateValueDiscountLate" : "نسبة القيمة المخصومة من التأخير",
+    "DiscountBy" : "الحسم سيكون حسب",
+    "minutes" : "الدقائق",
+    "hours" : "الساعات",
 
     "/*         Reports         */": "",
     "reportBy" : "تقرير حسب",
@@ -799,6 +807,16 @@
     "DoneEvaluation" : "تم التقييم" ,
     "FailEvaluation" : "لم يتم بعد",
     "EvaluationInfo" : "معلومات التقييم",
+    "performance" : "اداء",
+    "professionalism" : "احترافية",
+    "readiness_for_development" : "استعداد للتطوير",
+    "collaboration": "تعاون",
+    "commitment_and_responsibility": "التزام والمسؤولية",
+    "innovation_and_creativity": "ابتكار والإبداع",
+    "technical_skills" : "مهارات تقنية",
+    "by" : "حسب",
+    "the" : "ال",
+
 
     "/*         Attendace         */": "",
     "RegisterAttendanceRecord" : "تسجيل حضور الموظف",
@@ -820,6 +838,26 @@
     "MinuteDate" : "دقائق التأخير",
     "MinuteNotComplete" : "الدقائق الغير مكتملة",
     "ViewAllMyAttendance" : "عرض كامل حضوري",
-    "TitleViewAllMyAttendance" : "هنا سيتم عرض كامل حضورك المسجل داخل النظام"
+    "TitleViewAllMyAttendance" : "هنا سيتم عرض كامل حضورك المسجل داخل النظام",
+    "transactionSource" : "مصدر المراسلة",
+    "showEmployeeContract" : "عرض معلومات العقد",
+    "showContractsPage" : "صفحة عرض معلومات العقد",
+    "editEmployeeContract" : "تعديل معلومات العقد",
+    "editContractsPage" : "صفحة تعديل معلومات العقد",
+    "TitleViewAllMyAttendance" : "هنا سيتم عرض كامل حضورك المسجل داخل النظام",
+    "TitleHomePage" : "هنا سيتم عرض بعض الاحصائيات الخاصة بالموظف",
+    "EmployeeNumber" : "عدد الموظفين",
+    "SectionNumber" : "عدد الاقسام",
+    "SessionsNumber" : "عدد الجلسات",
+    "ContractNumber" : "عدد العقود",
+    "DecisionNumber" : "عدد القرارات",
+    "MonthlyDecision" : "عدد القرارات في الشهر",
+    "VocationRequestPending" : "طلبات الاجازة المعلقة الشهرية",
+    "OvertimeRequestPending" : "طلبات العمل الاضافي المعلقة الشهرية",
+    "EmployeeNumberLateDay" : "عدد الموظفين المتأخرين اليوم",
+    "OvertimeDaysInMonth" : "عدد الايام العمل الاضافي في الشهر",
+    "OvertimeHoursInMonth" : "عدد ساعات العمل الاضافي في الشهر",
+    "DaysAttendanceInMonth" : "عدد ايام الحضور في الشهر",
+    "total_avg" : "التقييم الكلي"
 }
 

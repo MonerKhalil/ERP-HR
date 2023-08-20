@@ -316,7 +316,7 @@
     }
 
     &__Tips {
-        font-weight: 300;
+        font-weight: 400;
     }
 
 }
@@ -517,7 +517,7 @@
 
                     &:focus ~ .Textarea__Label ,
                     &:not(:placeholder-shown) ~ .Textarea__Label {
-                        background-color: $BackGroundColor_Extra-3;
+                        background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%) ;
                     }
                 }
             }
@@ -658,7 +658,7 @@
         }
 
         &__Tips {
-            color: #86c1e7;
+            color: $BlackColor;
         }
 
     }

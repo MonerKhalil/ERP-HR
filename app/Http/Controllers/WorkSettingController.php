@@ -77,7 +77,9 @@ class WorkSettingController extends Controller
             "description" => $request->description,
             "late_enter_allowance_per_minute" => $request->late_enter_allowance_per_minute,
             "early_out_allowance_per_minute" => $request->early_out_allowance_per_minute,
-            "min_overtime_hours" => $request->min_overtime_hours,
+            "salary_default" => $request->salary_default,
+            "rate_deduction_from_salary" => $request->rate_deduction_from_salary,
+            "type_discount_minuteOrHour" => $request->type_discount_minuteOrHour,
         ]);
         return $this->responseSuccess(null,null,"create",self::IndexRoute);
     }
@@ -135,8 +137,10 @@ class WorkSettingController extends Controller
             "work_hours_to" => $h_to,
             "late_enter_allowance_per_minute" => $request->late_enter_allowance_per_minute,
             "early_out_allowance_per_minute" => $request->early_out_allowance_per_minute,
-            "min_overtime_hours" => $request->min_overtime_hours,
             "description" => is_null($request->description) ? $workSetting->description : $request->description,
+            "salary_default" => $request->salary_default,
+            "rate_deduction_from_salary" => $request->rate_deduction_from_salary,
+            "type_discount_minuteOrHour" => $request->type_discount_minuteOrHour,
         ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }

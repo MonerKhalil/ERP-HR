@@ -95,3 +95,113 @@
         opacity: 1;
     }
 }
+
+
+@include Themes(Light) {
+
+    .MessageProcessContainer {
+        box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .MessageProcess {
+        background-color: $WhiteColor;
+
+        &__Close {
+            color : $PrimaryColor-Project ;
+
+            &:hover {
+                color : darken($PrimaryColor-Project , 20%) ;
+            }
+        }
+
+        &__Separate {
+            background-image: -webkit-linear-gradient(left, rgb(0 0 0 / 0%), rgb(0 0 0 / 15%), rgb(0 0 0 / 0%));
+        }
+
+        &--Success {
+
+            .MessageProcess__MainContent {
+                //background: linear-gradient(to right bottom , #1b491ccc 20% , #1a202e 80%) ;
+                color : $SuccessColor ;
+            }
+        }
+
+        &--Error {
+
+            .MessageProcess__MainContent {
+                //background-color: #f2dede ;
+                color : $DangerColor ;
+            }
+        }
+
+        &--Warning  {
+
+            .MessageProcess__MainContent {
+                //background-color: #fcf8e3 ;
+                color : $WarningColor ;
+            }
+        }
+
+        &--Info {
+
+            .MessageProcess__MainContent {
+                //background-color: #d9edf7 ;
+                color : $InfoColor ;
+            }
+        }
+    }
+
+}
+
+@include Themes(Dark) {
+
+    .MessageProcess {
+        background-color: $BackGroundColor;
+
+        &__Close {
+            color : $PrimaryColor-Project ;
+
+            &:hover {
+                color : darken($PrimaryColor-Project , 20%) ;
+            }
+        }
+
+        &__Separate {
+            background-image: -webkit-linear-gradient(left,rgba($WhiteColor, 0)
+            ,rgba($WhiteColor, 0.15),rgba($WhiteColor, 0));
+        }
+
+        &--Success {
+
+            .MessageProcess__MainContent {
+                //background: linear-gradient(to right bottom , #1b491ccc 20% , #1a202e 80%) ;
+                color : $SuccessColor ;
+            }
+        }
+
+        &--Error {
+
+            .MessageProcess__MainContent {
+                //background-color: #f2dede ;
+                color : $DangerColor ;
+            }
+        }
+
+        &--Warning  {
+
+            .MessageProcess__MainContent {
+                //background-color: #fcf8e3 ;
+                color : $WarningColor ;
+            }
+        }
+
+        &--Info {
+
+            .MessageProcess__MainContent {
+                //background-color: #d9edf7 ;
+                color : $InfoColor ;
+            }
+        }
+    }
+
+}

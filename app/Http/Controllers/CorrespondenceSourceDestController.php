@@ -109,7 +109,7 @@ class CorrespondenceSourceDestController extends Controller
                 $correspondence=Correspondence::find($correspondence_source_dest->correspondences_id);
                 $idemployee=$correspondence_source_dest->internal_department->moderator->user_id;
                 $sendNotificationService->sendNotify([$idemployee],"Correspondence_internal","msg_Correspondence_internal",
-                    route("correspondences.show",$correspondence));
+                    route("correspondences.index",$correspondence));
             }
             DB::commit();
             return $this->responseSuccess(null, null, "create", self::IndexRoute);

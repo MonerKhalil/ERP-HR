@@ -149,24 +149,6 @@
                                                                             </div>
                                                                             <div class="Col-4-md Col-6-sm">
                                                                                 <div class="Form__Group"
-                                                                                     data-ErrorBackend="{{ Errors("min_overtime_hours") }}">
-                                                                                    <div class="Form__Input">
-                                                                                        <div class="Input__Area">
-                                                                                            <input id="minHourWork" class="Input__Field"
-                                                                                                   @if(isset($workSetting))
-                                                                                                   value="{{ $workSetting["min_overtime_hours"] }}"
-                                                                                                   @endif
-                                                                                                   type="number" name="min_overtime_hours"
-                                                                                                   placeholder="@lang("minHourWork")" required>
-                                                                                            <label class="Input__Label" for="minHourWork">
-                                                                                                @lang("minHourWork")
-                                                                                            </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="Col-4-md Col-6-sm">
-                                                                                <div class="Form__Group"
                                                                                      data-ErrorBackend="{{ Errors("late_enter_allowance_per_minute") }}">
                                                                                     <div class="Form__Input">
                                                                                         <div class="Input__Area">
@@ -197,6 +179,64 @@
                                                                                             <label class="Input__Label" for="EarlyAllowanceMinute">
                                                                                                 @lang("earlyAllowanceMinute")
                                                                                             </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group"
+                                                                                     data-ErrorBackend="{{ Errors("salary_default") }}">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="SalaryExtra" class="Input__Field"
+                                                                                                   type="number" name="salary_default"
+                                                                                                   @if(isset($workSetting))
+                                                                                                        value="{{ $workSetting["salary_default"] }}"
+                                                                                                   @endif
+                                                                                                   placeholder="@lang("DefaultSalary")" required>
+                                                                                            <label class="Input__Label" for="SalaryExtra">
+                                                                                                @lang("DefaultSalary")
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group"
+                                                                                     data-ErrorBackend="{{ Errors("rate_deduction_from_salary") }}">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="RateDiscountLate" class="Input__Field"
+                                                                                                   type="number" name="rate_deduction_from_salary"
+                                                                                                   @if(isset($workSetting))
+                                                                                                        value="{{ $workSetting["rate_deduction_from_salary"] }}"
+                                                                                                   @endif
+                                                                                                   min="0" max="100"
+                                                                                                   placeholder="@lang("RateValueDiscountLate")" required>
+                                                                                            <label class="Input__Label" for="RateDiscountLate">
+                                                                                                @lang("RateValueDiscountLate")
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group"
+                                                                                     data-ErrorBackend="{{ Errors("type_discount_minuteOrHour") }}">
+                                                                                    <div class="Form__Select">
+                                                                                        <div class="Select__Area">
+                                                                                            @php
+                                                                                                $Options = [] ;
+                                                                                                 array_push($Options , [ "Label" => __("minutes") , "Value" => "minute"]) ;
+                                                                                                 array_push($Options , [ "Label" => __("hours") , "Value" => "hour"]) ;
+                                                                                            @endphp
+
+                                                                                            @include("System.Components.selector" , [
+                                                                                                'Name' => "type_discount_minuteOrHour" , "Required" => "true" ,
+                                                                                                "DefaultValue" => isset($workSetting) ? $workSetting["type_discount_minuteOrHour"] : ""
+                                                                                                , "Label" => __("DiscountBy") ,
+                                                                                                "Options" => $Options
+                                                                                            ])
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

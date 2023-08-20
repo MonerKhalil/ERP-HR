@@ -27,8 +27,8 @@ class PublicHolidayController extends Controller
         $query = PublicHoliday::query();
         if (isset($request->filter["start_date_filter"]) && !is_null($request->filter["start_date_filter"])
             && isset($request->filter["end_date_filter"]) && !is_null($request->filter["end_date_filter"])){
-            $fromDate = MyApp::Classes()->stringProcess->DateFormat($request->start_date_filter);
-            $toDate = MyApp::Classes()->stringProcess->DateFormat($request->end_date_filter);
+            $fromDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["start_date_filter"]);
+            $toDate = MyApp::Classes()->stringProcess->DateFormat($request->filter["end_date_filter"]);
             if ( is_string($fromDate) && is_string($toDate) && ($fromDate <= $toDate) ){
                 $query = $query->where(function ($query) use ($fromDate,$toDate){
                     $query->whereBetween('start_date', [$fromDate, $toDate])
