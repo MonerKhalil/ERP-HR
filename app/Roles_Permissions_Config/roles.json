@@ -33,7 +33,37 @@
             "payrolls" : "a"
         },
         "employee" : {
-
+        },
+        "hr_manager": {
+            "employees": "a",
+            "data_end_services": "a",
+            "conferences": "a",
+            "request_end_services": "a",
+            "session_decisions": "a",
+            "type_decisions": "a",
+            "decisions": "a",
+            "leaves" : "a",
+            "leave_types": "a",
+            "overtime_types": "a",
+            "overtimes": "a",
+            "attendances" : "a",
+            "work_settings": "a",
+            "contracts": "a",
+            "payrolls" : "a"
+        },
+        "diwan_manager": {
+            "employees": "r",
+            "correspondences": "a",
+            "correspondence_source_dests": "a",
+            "sections": "r",
+            "section_externals": "r"
+        },
+        "legal_manager": {
+            "employees": "r",
+            "correspondences": "a",
+            "correspondence_source_dests": "a",
+            "sections": "r",
+            "section_externals": "r"
         }
     },
     "process": {

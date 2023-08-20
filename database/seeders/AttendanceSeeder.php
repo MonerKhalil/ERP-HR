@@ -14,6 +14,6 @@ class AttendanceSeeder extends Seeder
      */
     public function run()
     {
-        //
+
     }
 }
