@@ -731,11 +731,8 @@
                                                                                 <div class="Form__Group">
                                                                                     <div class="Form__Select">
                                                                                         <div class="Select__Area">
-{{--                                                                                            @php--}}
-{{--                                                                                                dd($education_level);--}}
-{{--                                                                                            @endphp--}}
                                                                                             @include("System.Components.selector" , ['Name' => "id_ed_lev" , "Required" => "true" ,
-                                                                                             "Label" => __('educationDegree'),"DefaultValue" => $employee->education_data[0]->education_level['id'],
+                                                                                             "Label" => __('educationDegree'),"DefaultValue" => isset($employee->education_data[0]->education_level['id']) ? $employee->education_data[0]->education_level['id'] : "",
                                                                                                         "OptionsValues" => $education_level,])
 
                                                                                         </div>

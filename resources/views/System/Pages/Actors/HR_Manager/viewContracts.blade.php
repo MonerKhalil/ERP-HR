@@ -7,7 +7,7 @@
                 @include('System.Components.breadcrumb' , [
                     'mainTitle' => __("viewContracts") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => __("titleViewUsers")
+                    'summery' => __("titleViewContracts")
                 ])
             </div>
             <div class="ViewUsers__Content">
@@ -181,10 +181,8 @@
         'InfoForm' => ["Route" => "" , "Method" => "get"] ,
         'FilterForm' => [ ['Type' => 'number' , 'Info' =>
                 ['Name' => "filter[id]" , 'Placeholder' => __("contractNumber") ] ] , ['Type' => 'text' , 'Info' =>
-                    ['Name' => "filter[employee_id]" , 'Placeholder' => __("employeeName")]
-                ] , ['Type' => 'dateRange' , 'Info' =>
-                ['Name' => "filter[contract_date]" , 'Placeholder' => __("contractDate") ,
-                 "StartDateName" => "filter[start_date]" , "EndDateName" => "filter[end_date]"]
-            ] ]
+                    ['Name' => "filter[contract_type]" , 'Placeholder' => __("contractType")]
+                ]
+             ]
     ])
 @endsection
