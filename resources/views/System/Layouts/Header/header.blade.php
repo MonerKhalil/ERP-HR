@@ -1,4 +1,4 @@
-<header class="HeaderPage">
+<header class="HeaderPage OpenMenu">
     <div class="HeaderPage__Wrap">
         <div class="Container--Header">
             <div class="HeaderPage__Content">

@@ -44,7 +44,8 @@ class SearchModel
             }
         }
 
-        if (isset($filterFinal['start_date_filter']) && isset($filterFinal['end_date_filter'])){
+        if (isset($filterFinal['start_date_filter']) && !is_null($filterFinal['start_date_filter']) &&
+            isset($filterFinal['end_date_filter']) && !is_null($filterFinal['end_date_filter'])){
             $from = MyApp::Classes()->stringProcess->DateFormat($filterFinal['start_date_filter']);
             $to = MyApp::Classes()->stringProcess->DateFormat($filterFinal['end_date_filter']);
             if ( is_string($from) && is_string($to) && ($from <= $to) ){

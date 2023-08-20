@@ -14,9 +14,9 @@
         <div class="DetailsSectionPage">
             <div class="DetailsSectionPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "عرض تفاصيل القسم الخارجي" ,
+                    'mainTitle' => __("ViewSectionExternalDetails") ,
                     'paths' => [[__("home") , '#'] , [__("viewSectionDetails")]] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'summery' => __("TitleViewSectionExternalDetails")
                 ])
             </div>
             <div class="DetailsSectionPage__Content">
@@ -51,15 +51,21 @@
                                                     <span class="Data_Label">
                                                         @lang("locationSection")
                                                     </span>
-                                                        <span class="Data_Value">
-                                                        {{ $sectionExternal->address["name"] }}
+                                                    <span class="Data_Value">
+                                                        @php
+                                                            $CountryName = null ;
+                                                            foreach($countries as $Index=>$Country)
+                                                                if($Index == $sectionExternal["address_id"])
+                                                                    $CountryName = $Country ;
+                                                        @endphp
+                                                        {{ $CountryName ?? "" }}
                                                     </span>
                                                     </div>
                                                 </div>
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        البريد الالكتروني
+                                                        @lang("email")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $sectionExternal["email"] }}
@@ -69,7 +75,17 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الفاكس
+                                                        @lang("AddressDetails")
+                                                    </span>
+                                                        <span class="Data_Value">
+                                                        {{ $sectionExternal["address_details"] }}
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div class="ListData__Item ListData__Item--NoAction">
+                                                    <div class="Data_Col">
+                                                    <span class="Data_Label">
+                                                        @lang("fax")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $sectionExternal["fax"] }}
@@ -79,7 +95,7 @@
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
                                                     <span class="Data_Label">
-                                                        الهاتف
+                                                        @lang("phone")
                                                     </span>
                                                         <span class="Data_Value">
                                                         {{ $sectionExternal["phone"] }}

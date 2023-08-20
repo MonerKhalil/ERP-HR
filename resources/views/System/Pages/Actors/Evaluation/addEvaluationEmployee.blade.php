@@ -12,9 +12,9 @@
             <div class="RequestOvertimeForm">
                 <div class="RequestOvertimeForm__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "تقييم الموظف" ,
+                        'mainTitle' => __("EvaluationEmployee") ,
                         'paths' => [['Home' , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleAddEvaluation")
                     ])
                 </div>
                 <div class="RequestOvertimeForm__Content">
@@ -38,7 +38,7 @@
                                                             <div class="ListData">
                                                                 <div class="ListData__Head">
                                                                     <h4 class="ListData__Title">
-                                                                        درجات التقييم
+                                                                        @lang("EvaluationDegree")
                                                                     </h4>
                                                                 </div>
                                                                 <div class="ListData__Content">
@@ -53,10 +53,10 @@
                                                                                                 <input id="{{ $typeEvaluationItem }}" class="Input__Field"
                                                                                                        type="number" name="{{ $typeEvaluationItem }}"
                                                                                                        min="1" max="10"
-                                                                                                       placeholder="درجة ال@lang($typeEvaluationItem)">
+                                                                                                       placeholder="@lang("DegreeThe")@lang($typeEvaluationItem)">
                                                                                                 <label class="Input__Label"
                                                                                                        for="{{ $typeEvaluationItem }}">
-                                                                                                    درجة ال@lang($typeEvaluationItem)
+                                                                                                    @lang("DegreeThe")@lang($typeEvaluationItem)
                                                                                                 </label>
                                                                                             </div>
                                                                                         </div>
@@ -72,7 +72,7 @@
                                                                     <div class="Form__Group">
                                                                         <div class="Form__Button">
                                                                             <button class="Button Send" type="submit">
-                                                                                تقييم هذا الموظف
+                                                                                @lang("EvaluationEmployee")
                                                                             </button>
                                                                         </div>
                                                                     </div>

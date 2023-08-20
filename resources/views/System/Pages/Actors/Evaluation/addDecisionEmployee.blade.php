@@ -15,9 +15,9 @@
         <div class="RequestOvertimeForm">
             <div class="RequestOvertimeForm__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "اضافة قرار للموظف" ,
+                    'mainTitle' => __("addDecisionEvaluation") ,
                     'paths' => [['Home' , '#'] , ['Page']] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'summery' => __("TitleDecisionEvaluation")
                 ])
             </div>
             <div class="RequestOvertimeForm__Content">
@@ -45,7 +45,7 @@
                                                         <div class="ListData">
                                                             <div class="ListData__Head">
                                                                 <h4 class="ListData__Title">
-                                                                    معلومات الجلسة
+                                                                    @lang("SessionInfo")
                                                                 </h4>
                                                             </div>
                                                             <div class="ListData__Content">
@@ -58,10 +58,10 @@
                                                                                     <div class="Input__Area">
                                                                                         <input id="SessionName" class="Input__Field"
                                                                                                type="text" name="name"
-                                                                                               placeholder="اسم الجلسة">
+                                                                                               placeholder="{{ __("sessionName") }}">
                                                                                         <label class="Input__Label"
                                                                                                for="SessionName">
-                                                                                            اسم الجلسة
+                                                                                            @lang("sessionName")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -82,7 +82,7 @@
                                                                                         @endphp
                                                                                         @include("System.Components.selector" , [
                                                                                             'Name' => "moderator_id" , "Required" => "true" ,
-                                                                                            "DefaultValue" => "" , "Label" => "مدير الجلسة" ,
+                                                                                            "DefaultValue" => "" , "Label" => __("SessionModrate") ,
                                                                                             "Options" => $Employees
                                                                                         ])
                                                                                     </div>
@@ -97,11 +97,11 @@
                                                                                         <input id="DateSession"
                                                                                                name="date_session"
                                                                                                class="DateMinToday Date__Field"
-                                                                                               type="date" placeholder="تاريخ الجلسة"
+                                                                                               type="date" placeholder="{{ __("SessionDate") }}"
                                                                                                required>
                                                                                         <label class="Date__Label"
                                                                                                for="DateSession">
-                                                                                            تاريخ الجلسة
+                                                                                            @lang("SessionDate")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -113,8 +113,10 @@
                                                                                 <div class="Form__Textarea">
                                                                                     <div class="Textarea__Area">
                                                                                         <textarea id="SessionDescription" class="Textarea__Field" name="description"
-                                                                                                  rows="3" placeholder="وصف الجلسة"></textarea>
-                                                                                        <label class="Textarea__Label" for="SessionDescription">وصف الجلسة</label>
+                                                                                                  rows="3" placeholder="{{ __("SessionDecription") }}"></textarea>
+                                                                                        <label class="Textarea__Label" for="SessionDescription">
+                                                                                            @lang("SessionDecription")
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -126,7 +128,7 @@
                                                         <div class="ListData">
                                                             <div class="ListData__Head">
                                                                 <h4 class="ListData__Title">
-                                                                    معلومات القرار
+                                                                    @lang("DecisionInfo")
                                                                 </h4>
                                                             </div>
                                                             <div class="ListData__Content">
@@ -140,10 +142,10 @@
                                                                                         <input id="DecisionNumber" class="Input__Field"
                                                                                                type="number" name="number"
                                                                                                min="0"
-                                                                                               placeholder="رقم القرار">
+                                                                                               placeholder="{{ __("decisionNumber") }}">
                                                                                         <label class="Input__Label"
                                                                                                for="DecisionNumber">
-                                                                                            رقم القرار
+                                                                                            @lang("decisionNumber")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -158,11 +160,11 @@
                                                                                                name="date"
                                                                                                class="DateMinToday Date__Field"
                                                                                                TargetDateStartName="StartDateDecision"
-                                                                                               type="date" placeholder="تاريخ القرار"
+                                                                                               type="date" placeholder="{{ __("dateDecision") }}"
                                                                                                required>
                                                                                         <label class="Date__Label"
                                                                                                for="DateDecision">
-                                                                                            تاريخ القرار
+                                                                                            @lang("dateDecision")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -177,10 +179,10 @@
                                                                                                name="end_date_decision"
                                                                                                data-StartDateName="StartDateDecision"
                                                                                                class="DateEndFromStart Date__Field"
-                                                                                               type="date" placeholder="تاريخ انتهاء القرار">
+                                                                                               type="date" placeholder="{{ __("dateDecisionEnd") }}">
                                                                                         <label class="Date__Label"
                                                                                                for="EndDateDecision">
-                                                                                            تاريخ انتهاء القرار
+                                                                                                @lang("dateDecisionEnd")
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -195,7 +197,7 @@
                                                                                             "FieldID" => "ImageDecision" ,
                                                                                             "FieldName" => "image_decision" ,
                                                                                             "DefaultData" => ""  ,
-                                                                                            "LabelField" => "صورة عن القرار" ,
+                                                                                            "LabelField" => __("decisionPhoto") ,
                                                                                             "AcceptFiles" => "image/png, image/gif, image/jpeg, image/jpg, image/svg"
                                                                                         ])
                                                                                     </div>
@@ -297,7 +299,7 @@
                                                         <div class="ListData">
                                                             <div class="ListData__Head">
                                                                 <h4 class="ListData__Title">
-                                                                    محتوى القرار
+                                                                    @lang("decisionContent")
                                                                 </h4>
                                                             </div>
                                                             <div class="ListData__Content">
@@ -331,7 +333,7 @@
                                                                 <div class="Form__Group">
                                                                     <div class="Form__Button">
                                                                         <button class="Button Send" type="submit">
-                                                                            تقييم هذا الموظف
+                                                                            @lang("EvaluationEmployee")
                                                                         </button>
                                                                     </div>
                                                                 </div>

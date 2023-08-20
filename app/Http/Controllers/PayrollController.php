@@ -38,23 +38,30 @@ class PayrollController extends Controller
             }else{
                 $payroll = $payroll->whereMonth("created_at",$request->month);
             }
+        }else{
+            $payroll = $payroll
+                ->whereYear("created_at",now()->year)
+                ->whereMonth("created_at",now()->month);
         }
         return $payroll->orderByDesc("created_at");
     }
 
     public function salaryDetails(Request $request){
-        $employee = auth()->user()->employee->id;
-        $data = MyApp::Classes()->Search->dataPaginate($this->MainQuery($request,$employee));
-        return $this->responseSuccess(self::NameBlade ,
-            compact("data"));
+        $employee = auth()->user()->employee;
+        $data = $this->MainQuery($request,$employee->id)->first();
+        $year = $request->year ?? now()->year;
+        $month = $request->month ?? now()->month;
+        return $this->responseSuccess("System/Pages/Actors/Payroll/payrollDetails",
+            compact("data","employee","year","month"));
     }
 
     public function salaryDetailsEmployee(Request $request,$employee){
         $employee = Employee::query()->findOrFail($employee);
-        $employee = $employee->id;
-        $data = MyApp::Classes()->Search->dataPaginate($this->MainQuery($request,$employee));
+        $data = $this->MainQuery($request,$employee->id)->first();
+        $year = $request->year ?? now()->year;
+        $month = $request->month ?? now()->month;
         return $this->responseSuccess(self::NameBlade ,
-            compact("data","employee"));
+            compact("data","employee","year","month"));
     }
 
     public function ExportXls(BaseRequest $request)
@@ -64,8 +71,15 @@ class PayrollController extends Controller
     }
 
     public function ExportPDF(BaseRequest $request) {
-        $data = $this->MainExportData($request);
-        return ExportPDF::downloadPDF($data['head'],$data['body']);
+        $request->validate([
+            "employee_id" => ["required",Rule::exists("employees","id")],
+        ]);
+        $employee = Employee::query()->find($request->employee_id);
+        $data = $this->MainQuery($request,$employee->id)->first();
+        $year = $request->year ?? now()->year;
+        $month = $request->month ?? now()->month;
+        return $this->responseSuccess("System/Pages/Actors/Payroll/PDF_payrollDetailsAdmin" ,
+            compact("data","employee","year","month"));
     }
 
     /**
@@ -77,8 +91,6 @@ class PayrollController extends Controller
     {
         $request->validate([
             "employee_id" => ["required",Rule::exists("employees","id")],
-            "ids" => ["sometimes","array"],
-            "ids.*" => ["sometimes",Rule::exists("payrolls","id")],
         ]);
         $query = $this->mainQuery($request,$request->employee_id);
 
@@ -86,7 +98,7 @@ class PayrollController extends Controller
             $query = $query->where("employee_id",$request->employee_id);
         }
 
-        $data = $query->get();
+        $data = [$query->first()];
 
         $head = [
             [
@@ -94,9 +106,14 @@ class PayrollController extends Controller
                 "relationFunc" => "employee",
                 "key" => "name",
             ],
-            "total_salary",
-            "overtime_value","bonuses_decision","penalties_decision",
-            "absence_days_value",
+            "total_salary","default_salary",
+            "overtime_minute","overtime_value","bonuses_decision","penalties_decision",
+            "absence_days","absence_days_value",
+            "count_leaves_unpaid","leaves_unpaid_value","count_leaves_effect_salary","leaves_effect_salary_value",
+            "position_employee_value","conferences_employee_value",
+            "education_value",
+            "minutes_late_entry","minutes_late_entry_value",
+            "minutes_early_exit","minutes_early_exit_value",
         ];
         return [
             "head" => $head,

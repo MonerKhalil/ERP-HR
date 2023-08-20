@@ -13,9 +13,9 @@
             <div class="NewTypeViewPage">
                 <div class="NewTypeViewPage__Breadcrumb">
                     @include('System.Components.breadcrumb' , [
-                        'mainTitle' => "عرض جميع تقييمات الموظف" ,
+                        'mainTitle' => __("ViewAllEvaluationEmployee") ,
                         'paths' => [['Home' , '#'] , ['Page']] ,
-                        'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                        'summery' => __("TitleViewAllEvaluationEmployee")
                     ])
                 </div>
                 <div class="NewTypeViewPage__Content">
@@ -36,22 +36,22 @@
                                                             <tr class="Item HeaderList">
                                                                 <th class="Item__Col">#</th>
                                                                 <th class="Item__Col">
-                                                                    اسم الموظف
+                                                                    @lang("employeeName")
                                                                 </th>
                                                                 <th class="Item__Col">
-                                                                    تاريخ التقييم
+                                                                    @lang("EvaluationDate")
                                                                 </th>
                                                                 <th class="Item__Col">
-                                                                    التقييم من قِبل
+                                                                    @lang("EvaluationFrom")
                                                                 </th>
                                                                 <th class="Item__Col">
-                                                                    هل تم التقييم
+                                                                    @lang("IsEvaluation")
                                                                 </th>
                                                                 <th class="Item__Col">
-                                                                    التقييمات
+                                                                    @lang("Evaluations")
                                                                 </th>
                                                                 <th class="Item__Col">
-                                                                    المزيد
+                                                                    @lang("more")
                                                                 </th>
                                                             </tr>
                                                             @foreach($evaluation->enter_evaluation_employee as $Index => $EvaluationItem)
@@ -78,9 +78,9 @@
                                                                     </td>
                                                                     <td class="Item__Col">
                                                                         @if($IsEvaluation)
-                                                                            تم التقييم
+                                                                            @lang("DoneEvaluation")
                                                                         @else
-                                                                            لم يتم بعد
+                                                                            @lang("FailEvaluation")
                                                                         @endif
                                                                     </td>
                                                                     <td class="Item__Col">
@@ -106,7 +106,7 @@
                                                                                         <li>
                                                                                             <a href="{{ route("system.evaluation.employee.show.add.evaluation" , $evaluation["id"]) }}"
                                                                                                class="Dropdown__Item">
-                                                                                                اضافة تقييم لهذا الموظف
+                                                                                                @lang("AddEvaluationForEmployee")
                                                                                             </a>
                                                                                         </li>
                                                                                     </ul>
@@ -162,7 +162,7 @@
                                     <div class="ListData NotResponsive">
                                         <div class="ListData__Head">
                                             <h4 class="ListData__Title">
-                                                معلومات التقييم
+                                                @lang("EvaluationInfo")
                                             </h4>
                                         </div>
                                         <div class="ListData__Content">

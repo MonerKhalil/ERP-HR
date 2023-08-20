@@ -34,6 +34,11 @@
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                                 <input type="hidden" name="filter[session_decision_id]" value="{{ $session_decisions }}">
                                             </form>
                                             <form name="PrintAllTableXlsx"
@@ -41,6 +46,11 @@
                                                   class="FilterForm"
                                                   method="post">
                                                 @csrf
+                                                @foreach(FilterDataRequest() as $Index=>$FilterItem)
+                                                    @if(!is_null($FilterItem))
+                                                        <input type="hidden" name="filter[{{ $Index }}]" value="{{ $FilterItem }}"/>
+                                                    @endif
+                                                @endforeach
                                                 <input type="hidden" name="filter[session_decision_id]" value="{{ $session_decisions }}">
                                             </form>
                                         @endif

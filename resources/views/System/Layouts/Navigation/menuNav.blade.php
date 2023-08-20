@@ -45,7 +45,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
 
 ?>
 
-<nav class="NavigationsMenu">
+<nav class="NavigationsMenu Open">
     <div class="NavigationsMenu__Wrap">
         <div class="NavigationsMenu__Content">
             <header class="NavigationsMenu__Header">
@@ -61,7 +61,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
             <main class="NavigationsMenu__Navigations">
                 <ul class="NavigationsMenu__NavigationsGroup">
                     <li class="NavigationsGroup__Title">
-                        <span class="Title">الرئيسية</span>
+                        <span class="Title">@lang("main")</span>
                     </li>
                     <li class="NavigationsGroup__NavItem">
                         <div class="Title">
@@ -69,7 +69,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                 <i class="material-icons Icon">
                                     home
                                 </i>
-                                <span class="Label">الصفحة الرئيسية</span>
+                                <span class="Label">@lang("HomePage")</span>
                             </a>
                         </div>
                     </li>
@@ -338,7 +338,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <i class="material-icons Icon">
                                         note_add
                                     </i>
-                                    <span class="Label">انواع القرارات</span>
+                                    <span class="Label">@lang("DecisionType")</span>
                                 </div>
                                 <span class="material-icons ArrowRight">
                                 play_arrow
@@ -349,7 +349,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
                                             <a href="{{route("system.type_decisions.index")}}" class="NavName">
-                                                <span class="Label">عرض انواع القرارات</span>
+                                                <span class="Label">@lang("ViewAllDecisionType")</span>
                                             </a>
                                         </div>
                                     </li>
@@ -358,7 +358,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
                                             <a href="{{route("system.type_decisions.create")}}" class="NavName">
-                                                <span class="Label">انشاء نوع قرار جديد</span>
+                                                <span class="Label">@lang("CreateNewDecisionType")</span>
                                             </a>
                                         </div>
                                     </li>
@@ -373,7 +373,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <i class="material-icons Icon">
                                         edit_note
                                     </i>
-                                    <span class="Label">التقييمات</span>
+                                    <span class="Label">@lang("Evaluations")</span>
                                 </div>
                                 <span class="material-icons ArrowRight">
                                 play_arrow
@@ -386,7 +386,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                             <a href="{{ route("system.evaluation.employee.create") }}" class="NavName">
                                                 <!-- User -->
                                                 <span class="Label">
-                                                اضافة موظف جديد للتقييم
+                                                @lang("CreateNewEmployeeEvaluation")
                                             </span>
                                             </a>
                                         @endif
@@ -394,7 +394,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                             <a href="{{ route("system.evaluation.employee.index") }}" class="NavName">
                                                 <!-- User -->
                                                 <span class="Label">
-                                                عرض جميع الموظفين المضافين
+                                                @lang("ViewAllEmployeeAdded")
                                             </span>
                                             </a>
                                         @endif
@@ -540,7 +540,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <i class="material-icons Icon">
                                         login
                                     </i>
-                                    <span class="Label">الحضور</span>
+                                    <span class="Label">@lang("Attendance")</span>
                                 </div>
                                 <span class="material-icons ArrowRight">
                                 play_arrow
@@ -551,7 +551,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
                                             <a href="{{ route("system.attendances.create") }}" class="NavName">
-                                                <span class="Label">تسجيل الحضور</span>
+                                                <span class="Label">@lang("RegisterAttendance")</span>
                                             </a>
                                         </div>
                                     </li>
@@ -561,7 +561,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
                                             <a href="{{ route("system.attendances.index") }}" class="NavName">
-                                                <span class="Label">عرض معلومات الحضور</span>
+                                                <span class="Label">@lang("ViewAttendaceInfoAdmin")</span>
                                             </a>
                                         </div>
                                     </li>
@@ -571,7 +571,7 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
                                             <a href="{{ route("system.attendances.employee") }}" class="NavName">
-                                                <span class="Label">عرض كامل حضوري</span>
+                                                <span class="Label">@lang("ViewAllMyAttendance")</span>
                                             </a>
                                         </div>
                                     </li>
