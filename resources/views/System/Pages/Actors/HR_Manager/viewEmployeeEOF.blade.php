@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddEOSPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="EOSPage__Information">
                                 <div class="Card">

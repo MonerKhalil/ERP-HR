@@ -1,36 +1,48 @@
 <?php
-    $MyAccount = auth()->user() ;
-    $MyAccount = auth()->user() ;
-    $IsUserEmployee = !is_null($MyAccount->employee["id"]) ;
-    $IsHavePermissionRoleRead = $MyAccount->can("read_roles") || $MyAccount->can("all_roles") ;
-    $IsHavePermissionRoleCreate = $MyAccount->can("create_roles") || $MyAccount->can("all_roles") ;
-    $IsHavePermissionUsersRead = $MyAccount->can("read_users") || $MyAccount->can("all_users") ;
-    $IsHavePermissionUsersCreate = $MyAccount->can("create_users") || $MyAccount->can("all_users") ;
-    $IsHavePermissionSessionCreate = $MyAccount->can("create_session_decisions") || $MyAccount->can("all_session_decisions") ;
-    $IsHavePermissionSessionRead = $MyAccount->can("read_session_decisions") || $MyAccount->can("all_session_decisions") ;
-    $IsHavePermissionEvaluationCreate = $MyAccount->can("create_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
-    $IsHavePermissionEvaluationRead = $MyAccount->can("read_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
-    $IsHavePermissionSessionExRead = $MyAccount->can("read_section_externals") || $MyAccount->can("all_section_externals") ;
-    $IsHavePermissionSessionExCreate = $MyAccount->can("create_section_externals") || $MyAccount->can("all_section_externals") ;
-    $IsHavePermissionSessionInCreate = $MyAccount->can("create_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionSessionInRead = $MyAccount->can("read_sections") || $MyAccount->can("all_sections") ;
-    $IsHavePermissionPublicHolidayCreate = $MyAccount->can("create_public_holidays") || $MyAccount->can("all_public_holidays") ;
-    $IsHavePermissionPublicHolidayRead = $MyAccount->can("read_public_holidays") || $MyAccount->can("all_public_holidays") ;
-    $IsHavePermissionAttendanceRead = $MyAccount->can("read_attendances") || $MyAccount->can("all_attendances") ;
-    $IsHavePermissionReportCreate = $MyAccount->can("create_employees") || $MyAccount->can("all_employees") ;
-    $IsHavePermissionCompanySettingRead = $MyAccount->can("read_company_settings") || $MyAccount->can("all_company_settings") ;
-    $IsHavePermissionWorkSettingCreate = $MyAccount->can("create_work_settings") || $MyAccount->can("all_work_settings") ;
-    $IsHavePermissionWorkSettingRead = $MyAccount->can("read_work_settings") || $MyAccount->can("all_work_settings") ;
-    $IsHavePermissionVacationTypeRead = $MyAccount->can("read_leave_types") || $MyAccount->can("all_leave_types") ;
-    $IsHavePermissionVacationTypeCreate = $MyAccount->can("create_leave_types") || $MyAccount->can("all_leave_types") ;
-    $IsHavePermissionVacationCreate = $MyAccount->can("create_leaves") || $MyAccount->can("all_leaves") ;
-    $IsHavePermissionVacationRead = $MyAccount->can("read_leaves") || $MyAccount->can("all_leaves") ;
-    $IsHavePermissionOverTimeTypeRead = $MyAccount->can("read_overtime_types") || $MyAccount->can("all_overtime_types") ;
-    $IsHavePermissionOverTimeTypeCreate = $MyAccount->can("create_overtime_types") || $MyAccount->can("all_overtime_types") ;
-    $IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes") ;
-    $IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes") ;
-    $IsHavePermissionDecisionTypeCreate = $MyAccount->can("create_type_decisions") || $MyAccount->can("all_type_decisions") ;
-    $IsHavePermissionDecisionTypeRead = $MyAccount->can("read_type_decisions") || $MyAccount->can("all_type_decisions") ;
+$MyAccount = auth()->user();
+$MyAccount = auth()->user();
+$IsUserEmployee = !is_null($MyAccount->employee["id"]);
+$IsHavePermissionRoleRead = $MyAccount->can("read_roles") || $MyAccount->can("all_roles");
+$IsHavePermissionRoleCreate = $MyAccount->can("create_roles") || $MyAccount->can("all_roles");
+$IsHavePermissionUsersRead = $MyAccount->can("read_users") || $MyAccount->can("all_users");
+$IsHavePermissionUsersCreate = $MyAccount->can("create_users") || $MyAccount->can("all_users");
+$IsHavePermissionSessionCreate = $MyAccount->can("create_session_decisions") || $MyAccount->can("all_session_decisions");
+$IsHavePermissionSessionRead = $MyAccount->can("read_session_decisions") || $MyAccount->can("all_session_decisions");
+$IsHavePermissionEvaluationCreate = $MyAccount->can("create_employee_evaluations") || $MyAccount->can("all_employee_evaluations");
+$IsHavePermissionEvaluationRead = $MyAccount->can("read_employee_evaluations") || $MyAccount->can("all_employee_evaluations");
+$IsHavePermissionSessionExRead = $MyAccount->can("read_section_externals") || $MyAccount->can("all_section_externals");
+$IsHavePermissionSessionExCreate = $MyAccount->can("create_section_externals") || $MyAccount->can("all_section_externals");
+$IsHavePermissionSessionInCreate = $MyAccount->can("create_sections") || $MyAccount->can("all_sections");
+$IsHavePermissionSessionInRead = $MyAccount->can("read_sections") || $MyAccount->can("all_sections");
+$IsHavePermissionPublicHolidayCreate = $MyAccount->can("create_public_holidays") || $MyAccount->can("all_public_holidays");
+$IsHavePermissionPublicHolidayRead = $MyAccount->can("read_public_holidays") || $MyAccount->can("all_public_holidays");
+$IsHavePermissionAttendanceRead = $MyAccount->can("read_attendances") || $MyAccount->can("all_attendances");
+$IsHavePermissionReportCreate = $MyAccount->can("create_employees") || $MyAccount->can("all_employees");
+$IsHavePermissionCompanySettingRead = $MyAccount->can("read_company_settings") || $MyAccount->can("all_company_settings");
+$IsHavePermissionWorkSettingCreate = $MyAccount->can("create_work_settings") || $MyAccount->can("all_work_settings");
+$IsHavePermissionWorkSettingRead = $MyAccount->can("read_work_settings") || $MyAccount->can("all_work_settings");
+$IsHavePermissionVacationTypeRead = $MyAccount->can("read_leave_types") || $MyAccount->can("all_leave_types");
+$IsHavePermissionVacationTypeCreate = $MyAccount->can("create_leave_types") || $MyAccount->can("all_leave_types");
+$IsHavePermissionVacationCreate = $MyAccount->can("create_leaves") || $MyAccount->can("all_leaves");
+$IsHavePermissionVacationRead = $MyAccount->can("read_leaves") || $MyAccount->can("all_leaves");
+$IsHavePermissionOverTimeTypeRead = $MyAccount->can("read_overtime_types") || $MyAccount->can("all_overtime_types");
+$IsHavePermissionOverTimeTypeCreate = $MyAccount->can("create_overtime_types") || $MyAccount->can("all_overtime_types");
+$IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes");
+$IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes");
+$IsHavePermissionDecisionTypeCreate = $MyAccount->can("create_type_decisions") || $MyAccount->can("all_type_decisions");
+$IsHavePermissionDecisionTypeRead = $MyAccount->can("read_type_decisions") || $MyAccount->can("all_type_decisions");
+
+$IsHavePermissionEmployeeCreate = $MyAccount->can("create_employees") || $MyAccount->can("all_employees");
+$IsHavePermissionEmployeeRead = $MyAccount->can("read_employees") || $MyAccount->can("all_employees");
+$IsHavePermissionContractsCreate = $MyAccount->can("create_contracts") || $MyAccount->can("all_contracts");
+$IsHavePermissionContractsRead = $MyAccount->can("read_contracts") || $MyAccount->can("all_contracts");
+$IsHavePermissionCoursesCreate = $MyAccount->can("create_conferences") || $MyAccount->can("all_conferences");
+$IsHavePermissionCoursesRead = $MyAccount->can("read_conferences") || $MyAccount->can("all_conferences");
+$IsHavePermissionEofCreate = $MyAccount->can("create_data_end_services") || $MyAccount->can("all_data_end_services");
+$IsHavePermissionEofRead = $MyAccount->can("read_data_end_services") || $MyAccount->can("all_data_end_services");
+$IsHavePermissionCorrespondenceCreate = $MyAccount->can("create_correspondences") || $MyAccount->can("all_correspondences");
+$IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") || $MyAccount->can("all_correspondences");
+
 ?>
 
 <nav class="NavigationsMenu">
@@ -151,6 +163,7 @@
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("resumeSection")</span>
                     </li>
+
                     <li class="NavigationsGroup__GroupItem">
                         <div class="Title">
                             <div class="NavName">
@@ -164,20 +177,24 @@
                             </span>
                         </div>
                         <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.employees.index")}}" class="NavName">
-                                        <span class="Label">@lang("viewEmployees")</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.employees.create")}}" class="NavName">
-                                        <span class="Label">@lang("addEmployee")</span>
-                                    </a>
-                                </div>
-                            </li>
+                            @if($IsHavePermissionEmployeeRead)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.employees.index")}}" class="NavName">
+                                            <span class="Label">@lang("viewEmployees")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+                            @if($IsHavePermissionEmployeeCreate)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.employees.create")}}" class="NavName">
+                                            <span class="Label">@lang("addEmployee")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                     <li class="NavigationsGroup__GroupItem">
@@ -193,20 +210,24 @@
                             </span>
                         </div>
                         <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.employees.contract.index")}}" class="NavName">
-                                        <span class="Label">@lang("viewContracts")</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.employees.contract.create")}}" class="NavName">
-                                        <span class="Label">@lang("addContract")</span>
-                                    </a>
-                                </div>
-                            </li>
+                            @if($IsHavePermissionContractsRead)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.employees.contract.index")}}" class="NavName">
+                                            <span class="Label">@lang("viewContracts")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+                            @if($IsHavePermissionContractsCreate)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.employees.contract.create")}}" class="NavName">
+                                            <span class="Label">@lang("addContract")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                     <li class="NavigationsGroup__GroupItem">
@@ -222,20 +243,24 @@
                             </span>
                         </div>
                         <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.conferences.index")}}" class="NavName">
-                                        <span class="Label">@lang("viewCourses")</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.conferences.create")}}" class="NavName">
-                                        <span class="Label">@lang("addCourse")</span>
-                                    </a>
-                                </div>
-                            </li>
+                            @if($IsHavePermissionCoursesRead)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.conferences.index")}}" class="NavName">
+                                            <span class="Label">@lang("viewCourses")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+                            @if($IsHavePermissionCoursesCreate)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.conferences.create")}}" class="NavName">
+                                            <span class="Label">@lang("addCourse")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                     <li class="NavigationsGroup__GroupItem">
@@ -251,20 +276,24 @@
                             </span>
                         </div>
                         <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.data_end_services.index")}}" class="NavName">
-                                        <span class="Label">@lang("viewEOF")</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("system.data_end_services.create")}}" class="NavName">
-                                        <span class="Label">@lang("addEOF")</span>
-                                    </a>
-                                </div>
-                            </li>
+                            @if($IsHavePermissionEofRead)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.data_end_services.index")}}" class="NavName">
+                                            <span class="Label">@lang("viewEOF")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+                            @if($IsHavePermissionEofCreate)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("system.data_end_services.create")}}" class="NavName">
+                                            <span class="Label">@lang("addEOF")</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                     @if($IsHavePermissionSessionRead || $IsHavePermissionSessionCreate)
@@ -477,20 +506,24 @@
                             </span>
                         </div>
                         <ul class="NavigationsGroup__SubItems">
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("correspondences.index")}}" class="NavName">
-                                        <span class="Label">عرض المراسلات</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="NavigationsGroup__NavItem">
-                                <div class="Title">
-                                    <a href="{{route("correspondences.create")}}" class="NavName">
-                                        <span class="Label">إضافة مراسلة</span>
-                                    </a>
-                                </div>
-                            </li>
+                            @if($IsHavePermissionCorrespondenceRead)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("correspondences.index")}}" class="NavName">
+                                            <span class="Label">عرض المراسلات</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+                            @if($IsHavePermissionCorrespondenceCreate)
+                                <li class="NavigationsGroup__NavItem">
+                                    <div class="Title">
+                                        <a href="{{route("correspondences.create")}}" class="NavName">
+                                            <span class="Label">إضافة مراسلة</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
                             {{--                            <li class="NavigationsGroup__NavItem">--}}
                             {{--                                <div class="Title">--}}
                             {{--                                    <a href="{{route("correspondences_dest.create")}}" class="NavName">--}}
@@ -657,7 +690,8 @@
                                 <ul class="NavigationsGroup__SubItems">
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
-                                            <a href="{{ route("system.leaves.all.status" , "pending") }}" class="NavName">
+                                            <a href="{{ route("system.leaves.all.status" , "pending") }}"
+                                               class="NavName">
                                                 <!-- User -->
                                                 <span class="Label">
                                             @lang("vocationsPending")
@@ -667,7 +701,8 @@
                                     </li>
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
-                                            <a href="{{ route("system.leaves.all.status" , "approve") }}" class="NavName">
+                                            <a href="{{ route("system.leaves.all.status" , "approve") }}"
+                                               class="NavName">
                                                 <!-- User -->
                                                 <span class="Label">
                                             @lang("vocationsAccept")
@@ -677,7 +712,8 @@
                                     </li>
                                     <li class="NavigationsGroup__NavItem">
                                         <div class="Title">
-                                            <a href="{{ route("system.leaves.all.status" , "reject") }}" class="NavName">
+                                            <a href="{{ route("system.leaves.all.status" , "reject") }}"
+                                               class="NavName">
                                                 <!-- User -->
                                                 <span class="Label">
                                             @lang("vocationsReject")
@@ -768,7 +804,8 @@
                                     @if($IsUserEmployee)
                                         <li class="NavigationsGroup__NavItem">
                                             <div class="Title">
-                                                <a href="{{ route("system.overtimes.create.request") }}" class="NavName">
+                                                <a href="{{ route("system.overtimes.create.request") }}"
+                                                   class="NavName">
                                                     <!-- User -->
                                                     <span class="Label">
                                             @lang("addRequest")
@@ -823,7 +860,8 @@
                                     @if($IsUserEmployee)
                                         <li class="NavigationsGroup__NavItem">
                                             <div class="Title">
-                                                <a href="{{ route("system.overtimes.all.status" , "pending") }}" class="NavName">
+                                                <a href="{{ route("system.overtimes.all.status" , "pending") }}"
+                                                   class="NavName">
                                                     <!-- User -->
                                                     <span class="Label">
                                             @lang("viewMyRequestPending")
@@ -835,7 +873,8 @@
                                     @if($IsUserEmployee)
                                         <li class="NavigationsGroup__NavItem">
                                             <div class="Title">
-                                                <a href="{{ route("system.overtimes.all.status" , "approve") }}" class="NavName">
+                                                <a href="{{ route("system.overtimes.all.status" , "approve") }}"
+                                                   class="NavName">
                                                     <!-- User -->
                                                     <span class="Label">
                                         @lang("viewMyRequestAccept")
@@ -847,7 +886,8 @@
                                     @if($IsUserEmployee)
                                         <li class="NavigationsGroup__NavItem">
                                             <div class="Title">
-                                                <a href="{{ route("system.overtimes.all.status" , "reject") }}" class="NavName">
+                                                <a href="{{ route("system.overtimes.all.status" , "reject") }}"
+                                                   class="NavName">
                                                     <!-- User -->
                                                     <span class="Label">
                                         @lang("viewMyRequestReject")
