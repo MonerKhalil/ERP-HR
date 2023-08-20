@@ -20,16 +20,30 @@ class AttendanceService
     }
 
     public function checkIn(){
+
+        $now = date('H:i:s');
+
+        $cIn = Carbon::createFromFormat('H:s:i', $now);
+
+        $workSettingEmployee = $this->user->work_setting;
+
+        $work_hours_from = $workSettingEmployee->work_hours_from;
+        $work_hours_from = Carbon::createFromFormat('H:s:i', $work_hours_from);
+        $late_entry_per_minute = $cIn->greaterThan($work_hours_from) ? $cIn->diffInMinutes($work_hours_from) : 0 ;
+
         if (is_null($this->attendance)){
             $attendance = Attendance::create([
                 "employee_id" => $this->user->id,
-                "check_in" => now(),
+                "check_in" => $now,
+                "late_entry_per_minute" => $late_entry_per_minute,
+
             ]);
         }else{
             $attendance = $this->attendance;
             if (is_null($attendance->check_in) && is_null($attendance->check_out)){
                 $attendance->update([
-                    "check_in" => now(),
+                    "check_in" => $now,
+                    "late_entry_per_minute" => $late_entry_per_minute,
                 ]);
             }
         }
