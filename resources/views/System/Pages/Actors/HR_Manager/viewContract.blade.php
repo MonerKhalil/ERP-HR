@@ -5,9 +5,9 @@
         <div class="AddContractPage">
             <div class="AddContractPage__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => __('RegisterEmployeeContract') ,
+                    'mainTitle' => __('showEmployeeContract') ,
                     'paths' => [['Contracts' , '#'] , ['New Contract']] ,
-                    'summery' => __('RegisterContractsPage')
+                    'summery' => __('showContractsPage')
                 ])
             </div>
         </div>
@@ -15,6 +15,9 @@
             <div class="Row">
                 <div class="AddContractPage__Form">
                     <div class="Container--MainContent">
+                        <div class="MessageProcessContainer">
+                            @include("System.Components.messageProcess")
+                        </div>
                         <div class="Row">
                             <div class="ContractPage__Information">
                                 <div class="Card">

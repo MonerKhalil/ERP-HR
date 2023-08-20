@@ -44,6 +44,7 @@
     "err_check_in_attendance" : "يجب عمل تسجيل حضور قبل القيام بعملية تسجيل خروج .",
     "err_public_holiday" : "لايمكن تعديل تاريخ العطلة لانه تم تجاوز المدة الحالية لها .",
     "err_cascade_delete" : "عذرا لايمكنك حذف هذا السجل بسبب وجود سجلات مربوطة معه -> ",
+    "err_permission" : "لا تمتلك صلاحيات للوصول لتلك العملية .",
 
     "/*         Header         */": "",
 
@@ -837,16 +838,18 @@
     "MinuteDate" : "دقائق التأخير",
     "MinuteNotComplete" : "الدقائق الغير مكتملة",
     "ViewAllMyAttendance" : "عرض كامل حضوري",
+    "TitleViewAllMyAttendance" : "هنا سيتم عرض كامل حضورك المسجل داخل النظام"
+    "transactionSource" : "مصدر المراسلة",
+    "showEmployeeContract" : "عرض معلومات العقد",
+    "showContractsPage" : "صفحة عرض معلومات العقد",
+    "editEmployeeContract" : "تعديل معلومات العقد",
+    "editContractsPage" : "صفحة تعديل معلومات العقد"
     "TitleViewAllMyAttendance" : "هنا سيتم عرض كامل حضورك المسجل داخل النظام",
-
-
-
     "TitleHomePage" : "هنا سيتم عرض بعض الاحصائيات الخاصة بالموظف",
     "EmployeeNumber" : "عدد الموظفين",
     "SectionNumber" : "عدد الاقسام",
     "SessionsNumber" : "عدد الجلسات",
     "ContractNumber" : "عدد العقود",
     "DecisionNumber" : "عدد القرارات"
-
 }
 

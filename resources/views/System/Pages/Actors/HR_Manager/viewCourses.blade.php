@@ -181,7 +181,8 @@
         'FilterForm' => [ ['Type' => 'text' , 'Info' =>
                 ['Name' => "filter[name]" , 'Placeholder' => __("courseName")]] , ['Type' => 'number' , 'Info' =>
                     ['Name' => "filter[employee_id]" , 'Placeholder' => __("employeeName")]
-                ] , ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
+                ] ,
+                 ['Type' => 'dateRange' , 'Info' => ['Placeholder' => __("createDate") ,
                  'StartDateName' => "filter[start_date]" , 'EndDateName' => "filter[end_date]"
                 ]
             ] ]
