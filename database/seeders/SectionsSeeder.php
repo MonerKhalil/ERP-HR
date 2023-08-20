@@ -23,7 +23,7 @@ class SectionsSeeder extends Seeder
         ]);
         Sections::create([
             "address_id" => 3459 ,
-            "name" => "قسم الشؤون القانونية ",
+            "name" => "قسم الشؤون القانونية",
             "details" => "يهتم بالأمور القانونية في المؤسسة",
             "created_at" => now(),
         ]);
