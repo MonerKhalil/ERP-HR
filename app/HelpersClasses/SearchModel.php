@@ -10,7 +10,8 @@ class SearchModel
 {
     private $request;
     private const DATATYPE_CHARS = ['char', 'varchar', 'binary', 'varbinary', 'text', 'tinytext', 'mediumtext', 'longtext', 'enum', 'set'];
-    private const DATATYPE_DATE = ['date', 'datetime', 'timestamp', 'time', 'year'];
+    private const DATATYPE_DATE = ['date', 'timestamp', 'year'];
+    private const DATATYPE_Time = ['datetime','time',];
 
     public function __construct()
     {
@@ -35,7 +36,9 @@ class SearchModel
             if (!is_null($value) && Schema::hasColumn($tableName,$key)){
                 if (in_array($this->getTypeColumn($key,$tableName),self::DATATYPE_DATE)){
                     $temp = MyApp::Classes()->stringProcess->DateFormat($value);
-                    $queryBuilder = $queryBuilder->where($key,$temp);
+                    $queryBuilder = $queryBuilder->where($key,"LIKE",$temp."%");
+                }elseif (in_array($this->getTypeColumn($key,$tableName),self::DATATYPE_Time)) {
+                    $queryBuilder = $queryBuilder->where($key,"LIKE",$value."%");
                 }elseif (in_array($this->getTypeColumn($key,$tableName),self::DATATYPE_CHARS)){
                     $queryBuilder = $queryBuilder->where($key,"LIKE",$value."%");
                 }else{

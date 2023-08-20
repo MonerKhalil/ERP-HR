@@ -140,6 +140,9 @@
                                                                     <th class="Item__Col">@lang("hoursWorkSetting")</th>
                                                                     <th class="Item__Col">@lang("workSettingStartDate")</th>
                                                                     <th class="Item__Col">@lang("workSettingEndDate")</th>
+                                                                    <th class="Item__Col">@lang("DefaultSalary")</th>
+                                                                    <th class="Item__Col">@lang("RateValueDiscountLate")</th>
+                                                                    <th class="Item__Col">@lang("DiscountBy")</th>
                                                                     <th class="Item__Col">@lang("more")</th>
                                                                 </tr>
                                                                 @foreach($data as $DataItem)
@@ -160,6 +163,9 @@
                                                                         <td class="Item__Col">{{ $DataItem["count_hours_work_in_days"] }}</td>
                                                                         <td class="Item__Col">{{ $DataItem["work_hours_from"] }}</td>
                                                                         <td class="Item__Col">{{ $DataItem["work_hours_to"] }}</td>
+                                                                        <td class="Item__Col">{{ $DataItem["salary_default"] }}</td>
+                                                                        <td class="Item__Col">{{ $DataItem["rate_deduction_from_salary"] }}</td>
+                                                                        <td class="Item__Col">{{ $DataItem["type_discount_minuteOrHour"] }}</td>
                                                                         <td class="Item__Col MoreDropdown">
                                                                             <i class="material-icons Popper--MoreMenuTable MenuPopper IconClick More__Button"
                                                                                data-MenuName="MoreDecision_{{$DataItem["id"]}}">
@@ -219,6 +225,13 @@
 
 @section("PopupPage")
     @if($IsHavePermissionWorkSettingRead)
+
+        @php
+            $Options = [] ;
+            array_push($Options , [ "Label" => __("minutes") , "Value" => "minute"]) ;
+            array_push($Options , [ "Label" => __("hours") , "Value" => "hour"]) ;
+        @endphp
+
         @include("System.Components.searchForm" , [
             'InfoForm' => ["Route" => "" , "Method" => "get"] ,
             'FilterForm' => [
@@ -232,6 +245,13 @@
                     ['Name' => "filter[work_hours_from]" , 'Placeholder' => __("workSettingStartDate")] ] ,
                 ['Type' => 'NormalTime' , 'Info' =>
                     ['Name' => "filter[work_hours_to]" , 'Placeholder' => __("workSettingEndDate")] ] ,
+               ['Type' => 'number' , 'Info' =>
+                    ['Name' => "filter[salary_default]" , 'Placeholder' => __("DefaultSalary")] ] ,
+               ['Type' => 'number' , 'Info' =>
+                    ['Name' => "filter[rate_deduction_from_salary]" , 'Placeholder' => __("RateValueDiscountLate")] ] ,
+                ['Type' => 'select' , 'Info' =>
+                        ['Name' => "filter[type_discount_minuteOrHour]" , 'Placeholder' => __("DiscountBy") ,
+                        "Options" => $Options] ]
             ]
         ])
     @endif
