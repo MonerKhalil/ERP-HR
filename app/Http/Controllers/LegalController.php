@@ -46,7 +46,7 @@ class LegalController extends Controller
       try{
           DB::beginTransaction();
           $correspondence = Correspondence::query()->where("id", $Correspondence_id)->firstOrFail();
-          $internal_legal = Sections::query()->where("name","section_legal")->first();//if internal
+          $internal_legal = Sections::query()->where("name","قسم الشؤون القانونية")->first();//if internal
           if(is_null($internal_legal)){
               throw new MainException(" section_legal لا يوجد قسم شؤوون قانونية");
           }

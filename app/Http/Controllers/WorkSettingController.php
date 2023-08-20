@@ -80,6 +80,7 @@ class WorkSettingController extends Controller
             "salary_default" => $request->salary_default,
             "rate_deduction_from_salary" => $request->rate_deduction_from_salary,
             "type_discount_minuteOrHour" => $request->type_discount_minuteOrHour,
+            "rate_deduction_attendance_dont_check_out" => $request->rate_deduction_attendance_dont_check_out,
         ]);
         return $this->responseSuccess(null,null,"create",self::IndexRoute);
     }
@@ -141,6 +142,7 @@ class WorkSettingController extends Controller
             "salary_default" => $request->salary_default,
             "rate_deduction_from_salary" => $request->rate_deduction_from_salary,
             "type_discount_minuteOrHour" => $request->type_discount_minuteOrHour,
+            "rate_deduction_attendance_dont_check_out" => $request->rate_deduction_attendance_dont_check_out,
         ]);
         return $this->responseSuccess(null,null,"update",self::IndexRoute);
     }

@@ -241,6 +241,30 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="Col-4-md Col-6-sm">
+                                                                                <div class="Form__Group"
+                                                                                     data-ErrorBackend="{{ Errors("rate_deduction_attendance_dont_check_out") }}">
+                                                                                    <div class="Form__Input">
+                                                                                        <div class="Input__Area">
+                                                                                            <input id="RateDiscountForCheckOut" class="Input__Field"
+                                                                                                   type="number" name="rate_deduction_attendance_dont_check_out"
+                                                                                                   @if(isset($workSetting))
+                                                                                                        value="{{ $workSetting["rate_deduction_attendance_dont_check_out"] }}"
+                                                                                                   @endif
+                                                                                                   min="0" max="100"
+                                                                                                   placeholder="@lang("rate_deduction_attendance_dont_check_out")" required>
+                                                                                            <label class="Input__Label" for="RateDiscountForCheckOut">
+                                                                                                @lang("rate_deduction_attendance_dont_check_out")
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <label class="Form__Tips" for="RateDiscountForCheckOut">
+                                                                                            <small>
+                                                                                                @lang("Title_rate_deduction_attendance_dont_check_out")
+                                                                                            </small>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                             <div class="Col-12">
                                                                                 <div class="Form__Group"
                                                                                      data-ErrorBackend="{{ Errors("description") }}">
