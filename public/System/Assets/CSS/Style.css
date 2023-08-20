@@ -1011,7 +1011,7 @@ body.Light .Form__Date .Date__Field:not(:placeholder-shown) ~ .Date__Label {
   background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%);
 }
 body.Light .Form__Textarea .Textarea__Field:focus ~ .Textarea__Label, body.Light .Form__Textarea .Textarea__Field:not(:placeholder-shown) ~ .Textarea__Label {
-  background-color: #1B202D;
+  background: linear-gradient(to bottom, #fff 44%, #F5F5F5 50%);
 }
 body.Light .Form__CheckBox .CheckBox__Input:checked ~ .CheckBox__Label .IconChecked {
   background-color: #3F51B5;

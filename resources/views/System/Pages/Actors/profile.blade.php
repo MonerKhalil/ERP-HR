@@ -79,53 +79,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="Card">
-                                    <div class="Card__Content">
-                                        <div class="Card__Inner">
-                                            <div class="ProfilePage__Connection">
-                                                <div class="Card__Header">
-                                                    <div class="Card__Title">
-                                                        <h3>@lang("connectedBy")</h3>
-                                                    </div>
-                                                    @if(!$IsVisitor && $IsHavePermissionEditUser)
-                                                        <i class="material-icons OpenPopup IconClick EditIcon"
-                                                           data-popUp="UpdateSocialMedia">
-                                                            edit
-                                                        </i>
-                                                    @endif
-                                                </div>
-                                                <div class="Card__Body">
-                                                    <ul class="SocialMedia">
-                                                        <li class="SocialMedia__Item">
-                                                            <a href="#">
-                                                                <img src="{{@asset("System/Assets/Images/SVG/Social Media/icons8-facebook.svg")}}"
-                                                                     class="SocialMedia__Icon" alt="">
-                                                            </a>
-                                                        </li>
-                                                        <li class="SocialMedia__Item">
-                                                            <a href="#">
-                                                                <img src="{{@asset("System/Assets/Images/SVG/Social Media/icons8-linkedin.svg")}}"
-                                                                     class="SocialMedia__Icon" alt="">
-                                                            </a>
-                                                        </li>
-                                                        <li class="SocialMedia__Item">
-                                                            <a href="#">
-                                                                <img src="{{@asset("System/Assets/Images/SVG/Social Media/icons8-google-plus.svg")}}"
-                                                                     class="SocialMedia__Icon" alt="">
-                                                            </a>
-                                                        </li>
-                                                        <li class="SocialMedia__Item">
-                                                            <a href="#">
-                                                                <img src="{{@asset("System/Assets/Images/SVG/Social Media/icons8-whatsapp.svg")}}"
-                                                                     class="SocialMedia__Icon" alt="">
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         @endif
                         <div class="Col-9-md">
@@ -138,18 +91,6 @@
                                             <i class="material-icons">face</i>
                                             @lang("userInfo")
                                         </li>
-                                        @endif
-                                        @if($user->employee->exists && $IsHavePermissionReadEmployee)
-                                            <li class="Taps__Item Taps__Item--Icon"
-                                                    data-content="EmployeeInfo">
-                                                    <i class="material-icons">badge</i>
-                                                    @lang("employeeInfo")
-                                                </li>
-                                            <li class="Taps__Item Taps__Item--Icon"
-                                                    data-content="WorkInfo">
-                                                    <i class="material-icons">work</i>
-                                                    @lang("workInfo")
-                                                </li>
                                         @endif
                                         @if($IsHavePermissionEditUser || $IsHavePermissionDelete)
                                             <li class="Taps__Item Taps__Item--Icon"
@@ -187,57 +128,6 @@
                                                                     ]
                                                                 ]
                                                             ])
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        @if($user->employee->exists && $IsHavePermissionReadEmployee)
-                                            <div class="Card Taps__Panel" data-panel="EmployeeInfo">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Body">
-                                                            @include("System.Components.dataList" , [
-                                                            "Title" => __("basics") , "ListData" => [
-                                                                [
-                                                                    "Label" => __("fullName") , "Value" => $user->employee["first_name"]." ".$user->employee["last_name"] ,
-                                                                    "IsLock" => true
-                                                                ] , [
-                                                                    "Label" => __("gender") , "Value" => $user->employee->gender ,
-                                                                    "IsLock" => true
-                                                                ] , [
-                                                                    "Label" => __("dateBirthday") , "Value" => $user->employee->birth_date ,
-                                                                    "IsLock" => true
-                                                                ]
-                                                            ]
-                                                        ])
-                                                            @include("System.Components.dataList" , [
-                                                           "Title" => __("additionalInformation") , "ListData" => [
-                                                               [
-                                                                   "Label" => __("joinDate") , "Value" => $user->employee["created_at"] ,
-                                                                   "IsLock" => true
-                                                               ]
-                                                           ]
-                                                       ])
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="Card Taps__Panel" data-panel="WorkInfo">
-                                                <div class="Card__Content">
-                                                    <div class="Card__Inner">
-                                                        <div class="Card__Body">
-                                                            @include("System.Components.dataList" , [
-                                                            "Title" => __("basics") , "ListData" => [
-                                                                [
-                                                                    "Label" => __("Department") , "Value" => $user->employee["section_id"]  ,
-                                                                    "IsLock" => true
-                                                                ] , [
-                                                                    "Label" => __("jobPosition") , "Value" => $user->employee["job_site"] ,
-                                                                    "IsLock" => true
-                                                                ]
-                                                            ]
-                                                        ])
                                                         </div>
                                                     </div>
                                                 </div>
