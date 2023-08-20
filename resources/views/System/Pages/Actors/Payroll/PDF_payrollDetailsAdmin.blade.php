@@ -39,7 +39,7 @@
                         @include('System.Components.breadcrumb' , [
                             'mainTitle' => __("Payroll") ,
                             'paths' => [[__("home") , '#'] , [__("Payroll")]] ,
-                            'summery' => __("titlePayroll")
+                            'summery' => __("TitlePayroll")
                         ])
                     </div>
                     <div class="SessionDetailsPage__Content">
