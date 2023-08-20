@@ -1509,14 +1509,14 @@ $(document).ready(function (){
     $(".NotificationParent").ready(function() {
         $(".NotificationParent").each((_ , Parent) => {
             $(Parent).attr("data-isUpdate" , "false");
-            setInterval(() => {
-                NotificationSetting({
-                    NotificationElement : Parent ,
-                    Operation : "CheckUpdateAjax" ,
-                    NotificationID : undefined ,
-                    NotificationAdd : undefined
-                });
-            } , 1000);
+            // setInterval(() => {
+            //     NotificationSetting({
+            //         NotificationElement : Parent ,
+            //         Operation : "CheckUpdateAjax" ,
+            //         NotificationID : undefined ,
+            //         NotificationAdd : undefined
+            //     });
+            // } , 1000);
             $(Parent).find(".ReadAll").click(() => {
                 NotificationSetting({
                     Operation : "ReadAll" ,
