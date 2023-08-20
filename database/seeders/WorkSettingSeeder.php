@@ -29,6 +29,7 @@ class WorkSettingSeeder extends Seeder
             "salary_default" => 1000,
             "rate_deduction_from_salary" => 15,
             "type_discount_minuteOrHour" => "minute",
+            "rate_deduction_attendance_dont_check_out" => 1,
         ]);
         WorkSetting::create([
             "name" => "employee_shift",
@@ -42,6 +43,7 @@ class WorkSettingSeeder extends Seeder
             "salary_default" => 1000,
             "rate_deduction_from_salary" => 15,
             "type_discount_minuteOrHour" => "minute",
+            "rate_deduction_attendance_dont_check_out" => 1,
         ]);
     }
 }

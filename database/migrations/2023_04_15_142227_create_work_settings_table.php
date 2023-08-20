@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer("early_out_allowance_per_minute");
             $table->float("salary_default");
             $table->integer("rate_deduction_from_salary");
+            $table->integer("rate_deduction_attendance_dont_check_out");
             $table->enum("type_discount_minuteOrHour",["minute","hour"])->default("minute");
             $table->text("description")->nullable();
             $table->boolean("is_active")->default(true);
