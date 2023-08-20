@@ -18,6 +18,7 @@ class WorkSetting extends BaseModel
         "work_hours_from","work_hours_to","description",
         "late_enter_allowance_per_minute","early_out_allowance_per_minute",
         "salary_default","rate_deduction_from_salary","type_discount_minuteOrHour",
+        "rate_deduction_attendance_dont_check_out",
         "created_by","updated_by","is_active",
     ];
 
@@ -48,6 +49,7 @@ class WorkSetting extends BaseModel
                 "salary_default" => ["required","numeric"],
                 "rate_deduction_from_salary" => ["required","integer","min:1","max:100"],
                 "type_discount_minuteOrHour" => ["required",Rule::in(["minute","hour"])],
+                "rate_deduction_attendance_dont_check_out" =>["required","integer","min:1","max:100"],
             ];
         };
     }
