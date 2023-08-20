@@ -163,139 +163,147 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                     <li class="NavigationsGroup__Title">
                         <span class="Title">@lang("resumeSection")</span>
                     </li>
+                    @if($IsHavePermissionEmployeeRead || $IsHavePermissionEmployeeCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        badge
+                                    </i>
+                                    <span class="Label">@lang("employees")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
+                                play_arrow
+                            </span>
+                            </div>
 
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    badge
-                                </i>
-                                <span class="Label">@lang("employees")</span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionEmployeeRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.employees.index")}}" class="NavName">
+                                                <span class="Label">@lang("viewEmployees")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionEmployeeCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.employees.create")}}" class="NavName">
+                                                <span class="Label">@lang("addEmployee")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionContractsRead || $IsHavePermissionContractsCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        description
+                                    </i>
+                                    <span class="Label">@lang("contracts")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            @if($IsHavePermissionEmployeeRead)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.employees.index")}}" class="NavName">
-                                            <span class="Label">@lang("viewEmployees")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                            @if($IsHavePermissionEmployeeCreate)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.employees.create")}}" class="NavName">
-                                            <span class="Label">@lang("addEmployee")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    description
-                                </i>
-                                <span class="Label">@lang("contracts")</span>
                             </div>
-                            <span class="material-icons ArrowRight">
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionContractsRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.employees.contract.index")}}" class="NavName">
+                                                <span class="Label">@lang("viewContracts")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionContractsCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.employees.contract.create")}}" class="NavName">
+                                                <span class="Label">@lang("addContract")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionCoursesRead || $IsHavePermissionCoursesCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        menu_book
+                                    </i>
+                                    <span class="Label">@lang("courses")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            @if($IsHavePermissionContractsRead)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.employees.contract.index")}}" class="NavName">
-                                            <span class="Label">@lang("viewContracts")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                            @if($IsHavePermissionContractsCreate)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.employees.contract.create")}}" class="NavName">
-                                            <span class="Label">@lang("addContract")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    menu_book
-                                </i>
-                                <span class="Label">@lang("courses")</span>
                             </div>
-                            <span class="material-icons ArrowRight">
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionCoursesRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.conferences.index")}}" class="NavName">
+                                                <span class="Label">@lang("viewCourses")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionCoursesCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.conferences.create")}}" class="NavName">
+                                                <span class="Label">@lang("addCourse")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if($IsHavePermissionEofRead || $IsHavePermissionEofCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        description
+                                    </i>
+                                    <span class="Label">@lang("EmployeesEOF")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            @if($IsHavePermissionCoursesRead)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.conferences.index")}}" class="NavName">
-                                            <span class="Label">@lang("viewCourses")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                            @if($IsHavePermissionCoursesCreate)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.conferences.create")}}" class="NavName">
-                                            <span class="Label">@lang("addCourse")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    description
-                                </i>
-                                <span class="Label">@lang("EmployeesEOF")</span>
                             </div>
-                            <span class="material-icons ArrowRight">
-                                play_arrow
-                            </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            @if($IsHavePermissionEofRead)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.data_end_services.index")}}" class="NavName">
-                                            <span class="Label">@lang("viewEOF")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                            @if($IsHavePermissionEofCreate)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("system.data_end_services.create")}}" class="NavName">
-                                            <span class="Label">@lang("addEOF")</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionEofRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.data_end_services.index")}}" class="NavName">
+                                                <span class="Label">@lang("viewEOF")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionEofCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("system.data_end_services.create")}}" class="NavName">
+                                                <span class="Label">@lang("addEOF")</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
                     @if($IsHavePermissionSessionRead || $IsHavePermissionSessionCreate)
                         <li class="NavigationsGroup__GroupItem">
                             <div class="Title">
@@ -493,46 +501,48 @@ $IsHavePermissionCorrespondenceRead = $MyAccount->can("read_correspondences") ||
                             </ul>
                         </li>
                     @endif
-                    <li class="NavigationsGroup__GroupItem">
-                        <div class="Title">
-                            <div class="NavName">
-                                <i class="material-icons Icon">
-                                    groups_2
-                                </i>
-                                <span class="Label">@lang("correspondences")</span>
-                            </div>
-                            <span class="material-icons ArrowRight">
+                    @if($IsHavePermissionCorrespondenceRead || $IsHavePermissionCorrespondenceCreate)
+                        <li class="NavigationsGroup__GroupItem">
+                            <div class="Title">
+                                <div class="NavName">
+                                    <i class="material-icons Icon">
+                                        groups_2
+                                    </i>
+                                    <span class="Label">@lang("correspondences")</span>
+                                </div>
+                                <span class="material-icons ArrowRight">
                                 play_arrow
                             </span>
-                        </div>
-                        <ul class="NavigationsGroup__SubItems">
-                            @if($IsHavePermissionCorrespondenceRead)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("correspondences.index")}}" class="NavName">
-                                            <span class="Label">عرض المراسلات</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                            @if($IsHavePermissionCorrespondenceCreate)
-                                <li class="NavigationsGroup__NavItem">
-                                    <div class="Title">
-                                        <a href="{{route("correspondences.create")}}" class="NavName">
-                                            <span class="Label">إضافة مراسلة</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endif
-                            {{--                            <li class="NavigationsGroup__NavItem">--}}
-                            {{--                                <div class="Title">--}}
-                            {{--                                    <a href="{{route("correspondences_dest.create")}}" class="NavName">--}}
-                            {{--                                        <span class="Label">إضافة وجهة</span>--}}
-                            {{--                                    </a>--}}
-                            {{--                                </div>--}}
-                            {{--                            </li>--}}
-                        </ul>
-                    </li>
+                            </div>
+                            <ul class="NavigationsGroup__SubItems">
+                                @if($IsHavePermissionCorrespondenceRead)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("correspondences.index")}}" class="NavName">
+                                                <span class="Label">عرض المراسلات</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if($IsHavePermissionCorrespondenceCreate)
+                                    <li class="NavigationsGroup__NavItem">
+                                        <div class="Title">
+                                            <a href="{{route("correspondences.create")}}" class="NavName">
+                                                <span class="Label">إضافة مراسلة</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+                                {{--                            <li class="NavigationsGroup__NavItem">--}}
+                                {{--                                <div class="Title">--}}
+                                {{--                                    <a href="{{route("correspondences_dest.create")}}" class="NavName">--}}
+                                {{--                                        <span class="Label">إضافة وجهة</span>--}}
+                                {{--                                    </a>--}}
+                                {{--                                </div>--}}
+                                {{--                            </li>--}}
+                            </ul>
+                        </li>
+                    @endif
                     @if($IsHavePermissionAttendanceRead || $IsUserEmployee)
                         <li class="NavigationsGroup__GroupItem">
                             <div class="Title">
