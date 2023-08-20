@@ -300,7 +300,7 @@
                                                                                     <span
                                                                                         class="Data_Label">@lang("documentType")</span>
                                                                                     <span
-                                                                                        class="Data_Value">{{count($employee->contact) > 0 ? $employee->contact[0]->document_contact[0]["document_type"] : ""}}</span>
+                                                                                        class="Data_Value">{{count($employee->contact) > 0 ? (count($employee->contact[0]->document_contact) > 0 ? $employee->contact[0]->document_contact[0]["document_type"] : "") : ""}}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -311,9 +311,9 @@
                                                                                 class="Data_Label">@lang("document")</span>
                                                                                     <span
                                                                                         class="Data_Value"><a
-                                                                                            href='{{PathStorage(count($employee->contact) > 0 ? $employee->contact[0]->document_contact[0]["document_path"] : "")}}'
+                                                                                            href='{{PathStorage(count($employee->contact) > 0 ? (count($employee->contact[0]->document_contact) > 0 ? $employee->contact[0]->document_contact[0]["document_path"] :  "") : "")}}'
                                                                                             target="_blank">
-                                                                                        عرض الوثيقة</a>
+                                                                                        عرض الوثيقة
                                                                                         </a></span>
                                                                                 </div>
                                                                             </div>
@@ -324,7 +324,7 @@
                                                                             <span
                                                                                 class="Data_Label">@lang("documentID")</span>
                                                                                     <span
-                                                                                        class="Data_Value">{{count($employee->contact) > 0 ?  $employee->contact[0]->document_contact[0]["document_number"] : ""}}</span>
+                                                                                        class="Data_Value">{{count($employee->contact) > 0 ?  (count($employee->contact[0]->document_contact) > 0 ? $employee->contact[0]->document_contact[0]["document_number"] :  "") : ""}}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -497,7 +497,7 @@
                                                                                 class="Data_Label">@lang("document")</span>
                                                                                 <span
                                                                                     class="Data_Value"><a
-                                                                                        href="{{PathStorage(count($employee->contact) > 0 ? $employee->education_data[0]->document_education[0]["document_education_path"] : "")}}"
+                                                                                        href="{{PathStorage(count($employee->education_data) > 0 ? $employee->education_data[0]->document_education[0]["document_education_path"] ?? "" : "")}}"
                                                                                         target="_blank">
                                                                                     عرض الملف</a></span>
                                                                             </div>

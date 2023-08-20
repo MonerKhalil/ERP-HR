@@ -23,7 +23,7 @@ class EditSalaryEmployees extends MainClassTasks
                 $temp = $this->EditSalary();
             }while(!$temp);
         })->dailyAt("23:30");
-//        })->dailyAt("15:44");
+//        })->dailyAt("16:12");
     }
 
     private function EditSalary(){

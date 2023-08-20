@@ -148,7 +148,7 @@
                                                                                     }
                                                                                 @endphp
                                                                                 @include("System.Components.selector" , ['Name' => "data[][external_party_id]" , "Required" => "true" , "Label" => __('externalParties'),"DefaultValue" => "",
-                                                                                            "OptionsValues" => $out_section_array,])
+                                                                                            "Options" => $out_section_array,])
                                                                             </div>
                                                                         </div>
                                                                     </div>
