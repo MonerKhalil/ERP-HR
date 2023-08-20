@@ -156,7 +156,7 @@
                                                                                 </i>
                                                                             </label>
                                                                         </td>
-                                                                        <th class="Item__Col">{{ $RequestItem["id"] }}</th>
+                                                                        <td class="Item__Col">{{ $RequestItem["id"] }}</td>
                                                                         <td class="Item__Col">{{ $RequestItem->leave_type["name"] ?? "(محذوف)" }}</td>
                                                                         <td class="Item__Col">{{ $RequestItem["from_date"] }}</td>
                                                                         <td class="Item__Col">{{ $RequestItem["count_days"] }}</td>
@@ -233,20 +233,15 @@
             }
         @endphp
         @php
-            $Status = [] ;
-            foreach ($statusLeaves as $Index=>$StatusItem) {
-                array_push($Status , [ "Label" => $StatusItem
-                    , "Value" => $StatusItem ]) ;
-            }
-        @endphp
-        @php
             $FilterItems = [] ;
 
-            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("vocationStartDate")] ]);
+            array_push($FilterItems , ['Type' => 'select' , 'Info' =>
+                        ['Name' => "filter[leave_type]" , 'Placeholder' => __("vocationTypeWant") ,
+                        "Options" => $LeaveTypes] ]);
 
-            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("vocationEndDate")] ]);
+            array_push($FilterItems , ['Type' => 'dateRange' , 'Info' =>
+                    ['Name' => "end_date_decision" , 'Placeholder' => __("VocationDate")
+                    , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ]);
 
         @endphp
         @include("System.Components.searchForm" , [

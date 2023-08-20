@@ -770,7 +770,7 @@ p {
   transition: color 0.3s;
 }
 .Form__Tips {
-  font-weight: 300;
+  font-weight: 400;
 }
 
 html[lang=ar] .Form__Input .Input__Label,
@@ -1076,7 +1076,7 @@ body.Light .Form__FieldReadOnly .FieldReadOnly__Value {
   color: #96A2B4;
 }
 body.Light .Form__Tips {
-  color: #86c1e7;
+  color: #000;
 }
 
 body.Dark .Form__Input .Date__Area,
@@ -2141,6 +2141,59 @@ html[lang=ar] .Pagination__Next a {
 .MessageProcess.Show {
   visibility: visible;
   opacity: 1;
+}
+
+body.Light .MessageProcessContainer {
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.25);
+}
+body.Light .MessageProcess {
+  background-color: #fff;
+}
+body.Light .MessageProcess__Close {
+  color: #3F51B5;
+}
+body.Light .MessageProcess__Close:hover {
+  color: #252f69;
+}
+body.Light .MessageProcess__Separate {
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+}
+body.Light .MessageProcess--Success .MessageProcess__MainContent {
+  color: #51cb53;
+}
+body.Light .MessageProcess--Error .MessageProcess__MainContent {
+  color: #f93542;
+}
+body.Light .MessageProcess--Warning .MessageProcess__MainContent {
+  color: #d9a242;
+}
+body.Light .MessageProcess--Info .MessageProcess__MainContent {
+  color: #38a9e1;
+}
+
+body.Dark .MessageProcess {
+  background-color: #1A202E;
+}
+body.Dark .MessageProcess__Close {
+  color: #3F51B5;
+}
+body.Dark .MessageProcess__Close:hover {
+  color: #252f69;
+}
+body.Dark .MessageProcess__Separate {
+  background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+}
+body.Dark .MessageProcess--Success .MessageProcess__MainContent {
+  color: #51cb53;
+}
+body.Dark .MessageProcess--Error .MessageProcess__MainContent {
+  color: #f93542;
+}
+body.Dark .MessageProcess--Warning .MessageProcess__MainContent {
+  color: #d9a242;
+}
+body.Dark .MessageProcess--Info .MessageProcess__MainContent {
+  color: #38a9e1;
 }
 
 .TextEditorContent__Content ul {
@@ -3687,6 +3740,13 @@ html[lang=ar] .Table__Table .Item__Col:last-child {
   padding-left: 2.4rem;
 }
 
+body.Light .Table__PrintMenu .PrintMenu__Menu {
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.25);
+}
+body.Light .Table__PrintMenu .PrintMenu__Menu .Dropdown__Item {
+  background-color: #fff;
+  color: #000;
+}
 body.Light .Table__PrintMenu .PrintMenu__Menu .Dropdown__Item:hover {
   background-color: #2d3f54;
   color: #fff;

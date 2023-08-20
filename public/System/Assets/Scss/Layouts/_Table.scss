@@ -234,8 +234,11 @@
             .PrintMenu {
 
                 &__Menu {
+                    box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.25);
 
                     .Dropdown__Item {
+                        background-color: #fff;
+                        color : $BlackColor ;
 
                         &:hover {
                             background-color: lighten($BackGroundColor_Extra-4 , 10%);

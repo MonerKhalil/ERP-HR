@@ -170,10 +170,10 @@
                                                                                 </i>
                                                                             </label>
                                                                         </td>
-                                                                        <th class="Item__Col">{{ $RequestItem["id"] }}</th>
-                                                                        <th class="Item__Col">
+                                                                        <td class="Item__Col">{{ $RequestItem["id"] }}</td>
+                                                                        <td class="Item__Col">
                                                                             {{ $RequestItem->employee["first_name"]." ".$RequestItem->employee["last_name"] }}
-                                                                        </th>
+                                                                        </td>
                                                                         <td class="Item__Col">{{ $RequestItem->leave_type["name"] ?? "(محذوف)" }}</td>
                                                                         <td class="Item__Col">{{ $RequestItem["from_date"] }}</td>
                                                                         <td class="Item__Col">{{ $RequestItem["count_days"] }}</td>
@@ -268,11 +268,9 @@
                    ['Name' => "filter[status]" , 'Placeholder' => __("stateRequest") ,
                    "Options" => $Status] ]);
 
-            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("vocationStartDate")] ]);
-
-            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("vocationEndDate")] ]);
+            array_push($FilterItems , ['Type' => 'dateRange' , 'Info' =>
+                    ['Name' => "end_date_decision" , 'Placeholder' => __("VocationDate")
+                    , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ]);
 
         @endphp
         @include("System.Components.searchForm" , [
