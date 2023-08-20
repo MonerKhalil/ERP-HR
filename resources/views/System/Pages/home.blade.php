@@ -1,5 +1,6 @@
 <?php
     $MyAccount = auth()->user() ;
+    $IsYourPermission = !is_null(auth()->user()->employee["id"]) ;
     $IsHavePermissionOverTimeRead = $MyAccount->can("read__overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionAttendanceRead = $MyAccount->can("read_attendances") || $MyAccount->can("all_attendances") ;
     $IsHavePermissionEvaluationRead = $MyAccount->can("read_employee_evaluations") || $MyAccount->can("all_employee_evaluations") ;
@@ -18,9 +19,9 @@
         <div class="RequestOvertimeForm">
             <div class="RequestOvertimeForm__Breadcrumb">
                 @include('System.Components.breadcrumb' , [
-                    'mainTitle' => "الصفحة الرئيسية" ,
+                    'mainTitle' => __("HomePage") ,
                     'paths' => [] ,
-                    'summery' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+                    'summery' => __("TitleHomePage")
                 ])
             </div>
             <div class="RequestOvertimeForm__Content">
@@ -38,7 +39,7 @@
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
-                                                            <p class="text-uppercase mb-1 text-muted">Employee</p>
+                                                            <p class="text-uppercase mb-1 text-muted">@lang("EmployeeNumber")</p>
                                                             <h2>{{ $Value }}</h2>
                                                         </div>
                                                         <div class="stat-card__icon stat-card__icon--3">
@@ -53,7 +54,7 @@
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
-                                                            <p class="text-uppercase mb-1 text-muted">Sections</p>
+                                                            <p class="text-uppercase mb-1 text-muted">@lang("SectionNumber")</p>
                                                             <h2>{{ $Value }}</h2>
                                                         </div>
                                                         <div class="stat-card__icon stat-card__icon--3">
@@ -68,7 +69,7 @@
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
-                                                            <p class="text-uppercase mb-1 text-muted">Sessions</p>
+                                                            <p class="text-uppercase mb-1 text-muted">@lang("SessionsNumber")</p>
                                                             <h2>{{ $Value }}</h2>
                                                         </div>
                                                         <div class="stat-card__icon stat-card__icon--3">
@@ -83,7 +84,7 @@
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
-                                                            <p class="text-uppercase mb-1 text-muted">Contracts</p>
+                                                            <p class="text-uppercase mb-1 text-muted">@lang("ContractNumber")</p>
                                                             <h2>{{ $Value }}</h2>
                                                         </div>
                                                         <div class="stat-card__icon stat-card__icon--3">
@@ -99,7 +100,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">Decision</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("DecisionNumber")</p>
                                                                 <h2>{{ $Value }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -194,41 +195,39 @@
                                             @endif
                                         @endforeach
                                     @endif
-                                    @if(isset($current_employee))
+                                    @if(isset($current_employee) && $IsYourPermission)
                                         @foreach($current_employee as $Index=>$Value)
-                                            @if($IsHavePermissionOverTimeRead)
-                                                @if($Index == "count_days_overTime_in_month_current")
-                                                    <div class="Col-4-md">
-                                                        <div class="stat-card">
-                                                            <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">عدد الايام العمل الاضافي في الشهر</p>
-                                                                <h2>{{ $Value }}</h2>
-                                                            </div>
-                                                            <div class="stat-card__icon stat-card__icon--3">
-                                                                <div class="stat-card__icon-circle">
-                                                                    <i class="material-icons">person</i>
-                                                                </div>
+                                            @if($Index == "count_days_overTime_in_month_current")
+                                                <div class="Col-4-md">
+                                                    <div class="stat-card">
+                                                        <div class="stat-card__content">
+                                                            <p class="text-uppercase mb-1 text-muted">عدد الايام العمل الاضافي في الشهر</p>
+                                                            <h2>{{ $Value }}</h2>
+                                                        </div>
+                                                        <div class="stat-card__icon stat-card__icon--3">
+                                                            <div class="stat-card__icon-circle">
+                                                                <i class="material-icons">person</i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @endif
-                                                @if($Index == "count_houres_overTime_in_month_current")
-                                                    <div class="Col-4-md">
-                                                        <div class="stat-card">
-                                                            <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">عدد ساعات العمل الاضافي في الشهر</p>
-                                                                <h2>{{ $Value }}</h2>
-                                                            </div>
-                                                            <div class="stat-card__icon stat-card__icon--3">
-                                                                <div class="stat-card__icon-circle">
-                                                                    <i class="material-icons">person</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
+                                                </div>
                                             @endif
-                                            @if($Index == "count_days_attendance_in_month_current" && $IsHavePermissionAttendanceRead)
+                                            @if($Index == "count_houres_overTime_in_month_current")
+                                                <div class="Col-4-md">
+                                                    <div class="stat-card">
+                                                        <div class="stat-card__content">
+                                                            <p class="text-uppercase mb-1 text-muted">عدد ساعات العمل الاضافي في الشهر</p>
+                                                            <h2>{{ $Value }}</h2>
+                                                        </div>
+                                                        <div class="stat-card__icon stat-card__icon--3">
+                                                            <div class="stat-card__icon-circle">
+                                                                <i class="material-icons">person</i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($Index == "count_days_attendance_in_month_current")
                                                 <div class="Col-4-md">
                                                     <div class="stat-card">
                                                         <div class="stat-card__content">
@@ -243,12 +242,12 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            @if($Index == "evaluation_avg_in_month_current" && $IsHavePermissionEvaluationRead)
+                                            @if($Index == "evaluation_avg_in_month_current")
                                                 @if($Value->performance)
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">performance</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("performance")</p>
                                                                 <h2>{{ $Value->performance ?? "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -263,7 +262,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">professionalism</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("professionalism")</p>
                                                                 <h2>{{ $Value->professionalism ?? "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -278,7 +277,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">readiness_for_development</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("readiness_for_development")</p>
                                                                 <h2>{{ $Value->readiness_for_development ?? "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -293,7 +292,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">collaboration</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("collaboration")</p>
                                                                 <h2>{{ $Value->collaboration ?? "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -308,7 +307,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">commitment_and_responsibility</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("commitment_and_responsibility")</p>
                                                                 <h2>{{ $Value->commitment_and_responsibility ?? "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -323,7 +322,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">innovation_and_creativity</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("innovation_and_creativity")</p>
                                                                 <h2>{{ $Value->innovation_and_creativity ?? "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">
@@ -338,7 +337,7 @@
                                                     <div class="Col-4-md">
                                                         <div class="stat-card">
                                                             <div class="stat-card__content">
-                                                                <p class="text-uppercase mb-1 text-muted">technical_skills</p>
+                                                                <p class="text-uppercase mb-1 text-muted">@lang("the")@lang("technical_skills")</p>
                                                                 <h2>{{ $Value->technical_skills ?? "-" }}</h2>
                                                             </div>
                                                             <div class="stat-card__icon stat-card__icon--3">

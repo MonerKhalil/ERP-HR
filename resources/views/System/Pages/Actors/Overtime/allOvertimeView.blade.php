@@ -301,21 +301,10 @@
                    ['Name' => "filter[status]" , 'Placeholder' => __("stateRequest") ,
                    "Options" => $Status] ]);
 
-            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[start_date_filter]" , 'Placeholder' => __("startDateFrom")] ]);
+            array_push($FilterItems , ['Type' => 'dateRange' , 'Info' =>
+                    ['Name' => "end_date_decision" , 'Placeholder' => __("overtimeDate")
+                    , "StartDateName" => "filter[start_date_filter]" , "EndDateName" => "filter[end_date_filter]"] ]);
 
-            array_push($FilterItems , ['Type' => 'dateSingle' , 'Info' =>
-               ['Name' => "filter[end_date_filter]" , 'Placeholder' => __("endDateFrom")] ]);
-
-            array_push($FilterItems , ['Type' => 'select' , 'Info' =>
-                   ['Name' => "filter[is_hourly]" , 'Placeholder' => __("isItHour") ,
-                   "Options" => $IsHourlySelect] ]);
-
-            array_push($FilterItems , ['Type' => 'NormalTime' , 'Info' =>
-               ['Name' => "filter[from_time]" , 'Placeholder' => __("vocationTimeStart")] ]);
-
-            array_push($FilterItems , ['Type' => 'NormalTime' , 'Info' =>
-               ['Name' => "filter[to_time]" , 'Placeholder' => __("vocationTimeEnd")] ]);
 
         @endphp
         @include("System.Components.searchForm" , [

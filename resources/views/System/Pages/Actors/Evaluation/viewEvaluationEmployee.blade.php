@@ -169,12 +169,12 @@
                                             @foreach($typeEvaluation as $ItemType)
                                                 <div class="ListData__Item ListData__Item--NoAction">
                                                     <div class="Data_Col">
-                                                <span class="Data_Label">
-                                                    by {{ $ItemType }}
-                                                </span>
+                                                        <span class="Data_Label">
+                                                            @lang("by") @lang("the")@lang($ItemType)
+                                                        </span>
                                                         <span class="Data_Value">
-                                                    {{ $EvaluationItem[$ItemType] }}
-                                                </span>
+                                                            {{ $EvaluationItem[$ItemType] }}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             @endforeach

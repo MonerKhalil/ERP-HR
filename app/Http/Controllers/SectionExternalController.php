@@ -116,7 +116,7 @@ class SectionExternalController extends Controller
             "ids" => ["array","required"],
             "ids.*" => ["required",Rule::exists("section_externals","id")],
         ]);
-        Sections::query()->whereIn("id",$request->ids)->delete();
+        SectionExternal::query()->whereIn("id",$request->ids)->delete();
         return $this->responseSuccess(null,null,"delete",self::IndexRoute);
     }
 
