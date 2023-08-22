@@ -2,7 +2,7 @@
     $MyAccount = auth()->user() ;
     $IsMyOverTime = (!is_null(auth()->user()->employee["id"]) && ($overtime->employee["user_id"] == auth()->user()["id"]));
     $IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes") ;
-    $IsHavePermissionOverTimeEdit = $MyAccount->can("edit_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeEdit = $MyAccount->can("update_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeDelete = $MyAccount->can("delete_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeExport = $MyAccount->can("export_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOvertimeDecisionState = $MyAccount->can("all_overtimes") ;

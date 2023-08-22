@@ -1,7 +1,7 @@
 <?php
     $MyAccount = auth()->user() ;
     $IsHavePermissionCompanySettingRead = $MyAccount->can("read_company_settings") || $MyAccount->can("all_company_settings") ;
-    $IsHavePermissionCompanySettingEdit = $MyAccount->can("all_company_settings") ;
+    $IsHavePermissionCompanySettingEdit = $MyAccount->can("update_company_settings") || $MyAccount->can("all_company_settings") ;
 ?>
 
 @extends("System.Pages.globalPage")
