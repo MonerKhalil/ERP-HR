@@ -1,7 +1,7 @@
 <?php
     $MyAccount = auth()->user() ;
     $IsHavePermissionOverTimeRead = $MyAccount->can("read_overtimes") || $MyAccount->can("all_overtimes") ;
-    $IsHavePermissionOverTimeEdit = $MyAccount->can("edit_overtimes") || $MyAccount->can("all_overtimes") ;
+    $IsHavePermissionOverTimeEdit = $MyAccount->can("update_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeDelete = $MyAccount->can("delete_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeExport = $MyAccount->can("export_overtimes") || $MyAccount->can("all_overtimes") ;
     $IsHavePermissionOverTimeCreate = $MyAccount->can("create_overtimes") || $MyAccount->can("all_overtimes") ;

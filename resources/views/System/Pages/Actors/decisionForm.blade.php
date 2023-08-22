@@ -1,7 +1,7 @@
 <?php
     $MyAccount = auth()->user() ;
     $IsHavePermissionDecisionCreate = $MyAccount->can("create_decisions") || $MyAccount->can("all_decisions") ;
-    $IsHavePermissionDecisionEdit = $MyAccount->can("edit_decisions") || $MyAccount->can("all_decisions") ;
+    $IsHavePermissionDecisionEdit = $MyAccount->can("update_decisions") || $MyAccount->can("all_decisions") ;
 ?>
 
 @extends("System.Pages.globalPage")
