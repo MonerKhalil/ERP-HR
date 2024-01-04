@@ -197,6 +197,7 @@
                                     font-size: 1.2rem;
                                     cursor: pointer;
                                     transition: color .3s;
+                                    color : $TextColor;
 
                                     &:hover {
                                         color : $TertiaryColor-Project ;
@@ -207,69 +208,71 @@
                             &__Content {
                                 max-height: 20rem ;
                                 overflow-y: auto;
-                                padding: 0 1.5rem;
 
                                 @include ScrollBar();
+
+                                    .NoData--V2 {
+
+                                    .Icon {
+
+                                        i {
+                                            font-size: 5rem;
+                                        }
+                                    }
+
+                                    .Text {
+                                        font-size: 1.4rem;
+                                    }
+                                }
+
                             }
 
                             &__Item {
-                                position: relative;
-                                display: flex;
-                                padding: 1.5rem 0 0;
 
-                                .NotificationIcon {
-                                    width: 4rem;
-
-                                    i {
-                                        font-size: 2rem;
-                                        padding: 0.5rem;
-                                        border-radius: 50%;
-                                    }
-
-                                    &--Send {
-                                        i {
-                                            color : #1EE0AC ;
-                                            background-color: #193E40;
-                                        }
-                                    }
-
-                                    &--Receive {
-                                        i {
-                                            color : #F4BD0E ;
-                                            background-color: #393828;
-                                        }
-                                    }
-                                }
-
-                                .NotificationDetails {
-                                    flex : 1 ;
-
-                                    .NotificationSummery {
-                                        font-size: 1.2rem;
-                                        font-weight: 500;
-                                        margin-bottom: 0.5rem;
-                                        line-height: 1.4;
-                                    }
-
-                                    .NotificationDate {
-                                        font-size: 1rem;
-                                        font-weight: 400;
-                                    }
-
-                                }
-
-                                .NotificationRemove {
-                                    cursor: pointer;
-
-                                    i {
-                                        font-size: 1.4rem;
-                                        transition: color .3s;
-                                    }
+                                &.Notification {
+                                    padding: 1rem 1.5rem;
 
                                     &:hover {
+                                        background-color: lighten($BackGroundColor , 3%);
+                                    }
 
-                                        i {
-                                            color : $TertiaryColor-Project
+                                    .Notification {
+
+                                        &__Icon {
+                                            width: 4rem;
+
+                                            i {
+                                                font-size: 2rem;
+                                            }
+                                        }
+
+                                        &__Details {
+
+                                            .NotificationTitle {
+                                                font-size: 1.2rem;
+                                                font-weight: 500;
+                                                margin-bottom: 0.5rem;
+                                                line-height: 1.4;
+                                                color : $WhiteColor_Extra-2;
+                                            }
+
+                                            .NotificationDescription {
+                                                font-size: 1.1rem ;
+                                                color : #b2b2b2 ;
+                                            }
+
+                                            .NotificationDate {
+                                                font-size: 1rem;
+                                                font-weight: 400;
+                                            }
+                                        }
+
+                                        &__Remove {
+                                            color : #b2b2b2 ;
+
+                                            i {
+                                                font-size: 1.4rem;
+                                            }
                                         }
                                     }
                                 }
@@ -420,4 +423,39 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .HeaderPage {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
+
+}
+
+@include Themes(Dark) {
+
+    .HeaderPage {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
 }

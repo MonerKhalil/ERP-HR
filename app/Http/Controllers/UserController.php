@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Exceptions\UnauthorizedException;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UserController extends Controller
 {
@@ -31,7 +30,7 @@ class UserController extends Controller
     {
         $table = app(User::class)->getTable();
         $this->addMiddlewarePermissionsToFunctions($table);
-        $this->middleware("permission:delete_".$table)
+        $this->middleware("permission:delete_".$table."|all_".$table)
             ->only(["MultiUsersForceDelete","MultiUsersDelete","forceDelete"]);
     }
 
@@ -95,7 +94,8 @@ class UserController extends Controller
         $user = User::with("employee")->findOrFail($user->id);
         if ($auth->id == $user->id || $auth->can("read_users") || $auth->can("all_users")){
             $roles = Role::query()->pluck('name','id')->toArray();
-            return $this->responseSuccess("System.Pages.Actors.profile",compact('user','roles'));
+            return $this->responseSuccess("System.Pages.Actors.profile" ,
+                compact('user','roles'));
         }
         throw UnauthorizedException::forPermissions(["read_users","all_users"]);
     }
@@ -228,28 +228,35 @@ class UserController extends Controller
         }
     }
 
-    public function ExportXls(): BinaryFileResponse
+    public function ExportXls(BaseRequest $request)
     {
-        $data = $this->MainExportData();
+        $data = $this->MainExportData($request);
         return Excel::download(new TableCustomExport($data['head'],$data['body']),self::Folder.".xlsx");
     }
 
-    public function ExportPDF(): Response
+    public function ExportPDF(BaseRequest $request)
     {
-        $data = $this->MainExportData();
-        return ExportPDF::downloadPDF($data['head'],$data['body'],self::Folder);
+        $data = $this->MainExportData($request);
+        return ExportPDF::downloadPDF($data['head'],$data['body']);
     }
 
     /**
+     * @param BaseRequest $request
      * @return array
      * @author moner khalil
      */
-    private function MainExportData(): array
+    private function MainExportData(BaseRequest $request): array
     {
+        $request->validate([
+            "users" => ["sometimes","array"],
+            "users.*" => ["sometimes",Rule::exists("users","id")],
+        ]);
         $head = [
             "name" , "email" , "created_at",
         ];
-        $users = MyApp::Classes()->Search->getDataFilter(User::query()->select($head)->whereNot("id",auth()->id()));
+        $query = User::query()->select($head)->whereNot("id",auth()->id());
+        $query = isset($request->users) ? $query->whereIn("id",$request->users) : $query;
+        $users = MyApp::Classes()->Search->getDataFilter($query,null,true);
         return [
             "head" => $head,
             "body" => $users,

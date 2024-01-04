@@ -1,5 +1,5 @@
 {{-- Main Footer --}}
-<footer class="FooterPage">
+<footer class="FooterPage OpenMenu">
     <div class="FooterPage__Wrap">
         <div class="Container--MainContent">
             <div class="FooterPage__Content">

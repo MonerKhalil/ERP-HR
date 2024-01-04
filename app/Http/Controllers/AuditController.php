@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\HelpersClasses\MyApp;
+use App\Models\WorkSetting;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
@@ -11,17 +12,25 @@ use Illuminate\Http\Response;
 
 class AuditController extends Controller
 {
+    public function showAudit($audit){
+        $user = auth()->user();
+        $audit = $user->notifications()
+            ->where("data->type","audit")
+            ->where("data->data->audit_id",$audit)
+            ->findOrFail();
+        return $this->responseSuccess("...",compact("$audit"));
+    }
+
     /**
      * @param Request $request
      * @return Response|RedirectResponse|null
      * @author moner khalil
      */
-    public function NotificationsAuditUserShow(Request $request): Response|RedirectResponse|null
+    public function AllNotificationsAuditUserShow(Request $request): Response|RedirectResponse|null
     {
         $dataFilter = $request->filter;
         $user = auth()->user();
         $queryAudit = $user->notifications()->where("data->type","audit");
-        $data = null;
         if (!is_null($dataFilter)){
             $idsNotificationsFilter = $queryAudit->get()->map(function ($item) {
                 return $this->resolveDataItem($item);
@@ -43,8 +52,9 @@ class AuditController extends Controller
                 return $check;
             })->pluck('id');
             $data = $queryAudit->whereIn("id", $idsNotificationsFilter);
-            $data = (!is_null($dataFilter['start_date']) && !is_null($dataFilter['end_date']))
-                && ($dataFilter['start_date'] <= $dataFilter['end_date'])
+            $data = (isset($dataFilter['start_date']) && !is_null($dataFilter['start_date']) &&
+                isset($dataFilter['end_date']) && !is_null($dataFilter['end_date']))
+            && ($dataFilter['start_date'] <= $dataFilter['end_date'])
                 ? $data->whereBetween('created_at',[$dataFilter['start_date'],$dataFilter['end_date']]) : $data;
         }else{
             $data = $queryAudit;

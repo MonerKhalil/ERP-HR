@@ -2,7 +2,7 @@
 .FooterPage {
     position: relative;
     width: 100%;
-    z-index: $MiddleLayer;
+    z-index: -1;
     transition: padding $HeaderMenu;
 
     &__Wrap {

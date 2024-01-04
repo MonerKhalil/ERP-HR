@@ -9,7 +9,7 @@
         @include('System.Layouts.head.head')
     </head>
 
-    <body>
+    <body class="Light">
         <div id="Wrapper">
             @yield("MainContent")
             @include("System.Components.loader")

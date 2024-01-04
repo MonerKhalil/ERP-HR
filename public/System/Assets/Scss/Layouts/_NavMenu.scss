@@ -45,7 +45,25 @@
         max-height: calc(100vh - 5rem - 15vh);
         overflow-y: auto;
         border-top: 1px solid $SeparateBorderColor;
-        @include ScrollBar();
+
+        &::-webkit-scrollbar {
+            width: .6rem;
+        }
+        &::-webkit-scrollbar-track ,
+        &::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            border-radius: 10px;
+            transition: all .3s;
+        }
+        &:hover {
+            &::-webkit-scrollbar-track {
+                background-color: #181818de;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: #ffffffb0;
+            }
+        }
+
     }
 
     &__NavigationsGroup {
@@ -65,7 +83,7 @@
                 position: relative;
 
                 &:not(:last-child) {
-                    margin-bottom: 1rem;
+                    margin-bottom: .5rem;
                 }
 
                 .Title {
@@ -75,7 +93,7 @@
                     .NavName {
                         display: flex;
                         justify-content: flex-start;
-                        align-items: flex-start;
+                        align-items: center;
                         gap: .5rem;
                         color : $WhiteColor ;
 
@@ -245,6 +263,10 @@
                                 }
                             }
                         }
+
+                        &__SubItems {
+                            display: none;
+                        }
                     }
 
                 }
@@ -332,4 +354,39 @@
             }
         }
     }
+}
+
+@include Themes(Light) {
+
+    .NavigationsMenu {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
+
+}
+
+@include Themes(Dark) {
+
+    .NavigationsMenu {
+
+        .IconClick {
+            color : $WhiteColor ;
+
+            &:hover ,
+            &.Active {
+                background-color: rgba($BlackColor , .35);
+            }
+
+        }
+    }
+
 }

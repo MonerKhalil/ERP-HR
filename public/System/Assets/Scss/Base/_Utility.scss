@@ -18,6 +18,10 @@
     @include ScreenResponsive(Desktop_Large) {
         padding: 0 1.4rem ;
     }
+
+    @include PrinterResponsive(Default) {
+        padding: 0 2.2rem ;
+    }
 }
 
 .Container--MainContent {
@@ -39,20 +43,18 @@
     @include ScreenResponsive(Desktop_Large) {
         padding: 0 3.4rem ;
     }
+
+    @include PrinterResponsive(Default) {
+        padding: 0 4.2rem ;
+    }
 }
 
 .IconClick {
     font-size: 2rem;
     border-radius: 50%;
     padding: 0.6rem;
-    color : $WhiteColor ;
     cursor: pointer;
     transition: all .3s;
-
-    &:hover ,
-    &.Active {
-        background-color: rgba($BlackColor , .35);
-    }
 }
 
 .UserImage {
@@ -84,6 +86,7 @@
     &__SystemName {
         color: $WhiteColor;
         font-weight: bold;
+        white-space: nowrap;
     }
 }
 
@@ -107,14 +110,12 @@
     justify-content: end !important;
 }
 
-.ReplaceOldBackGround {
-    background-color: #542426 ;
-    color : $WhiteColor ;
+.Justify-Content-Center {
+    justify-content: center !important;
 }
 
-.ReplaceNewBackGround {
-    background-color: #1C4428;
-    color : $WhiteColor ;
+.Overflow-Hidden {
+    overflow: hidden;
 }
 
 .Visible-phonePortrait ,
@@ -131,6 +132,62 @@
 .Hidden-desktop ,
 .Hidden-desktopLarge {
     display: initial ;
+}
+
+.px-0 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.py-0 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.pt-0 {
+    padding-top: 0 !important;
+}
+
+.pb-0 {
+    padding-bottom : 0 !important;
+}
+
+.pr-0 {
+    padding-right : 0 !important;
+}
+
+.pl-0 {
+    padding-left : 0 !important;
+}
+
+.my-1 {
+    margin-top : 1rem !important;
+    margin-bottom : 1rem !important;
+}
+
+.my-2 {
+    margin-top : 2rem !important;
+    margin-bottom : 2rem !important;
+}
+
+.my-3 {
+    margin-top : 3rem !important;
+    margin-bottom : 3rem !important;
+}
+
+.mx-1 {
+    margin-left : 1rem !important;
+    margin-right : 1rem !important;
+}
+
+.mx-2 {
+    margin-left : 2rem !important;
+    margin-right : 2rem !important;
+}
+
+.mx-3 {
+    margin-left : 3rem !important;
+    margin-right : 3rem !important;
 }
 
 @include ScreenResponsive(Desktop) {
@@ -186,5 +243,51 @@
 
     .Right {
         text-align: left ;
+    }
+}
+
+@include Themes(Light) {
+
+    .IconClick {
+        color : $DarkGrayColor ;
+
+        &:hover ,
+        &.Active {
+            background-color: rgba($BlackColor , .35);
+        }
+
+    }
+
+    .ReplaceNewBackGround {
+        background-color: #36794b;
+        color : $WhiteColor ;
+    }
+
+    .ReplaceOldBackGround {
+        background-color: #86191e ;
+        color : $WhiteColor ;
+    }
+}
+
+@include Themes(Dark) {
+
+    .IconClick {
+        color : $WhiteColor ;
+
+        &:hover ,
+        &.Active {
+            background-color: rgba($BlackColor , .35);
+        }
+
+    }
+
+    .ReplaceNewBackGround {
+        background-color: #1C4428;
+        color : $WhiteColor ;
+    }
+
+    .ReplaceOldBackGround {
+        background-color: #542426 ;
+        color : $WhiteColor ;
     }
 }

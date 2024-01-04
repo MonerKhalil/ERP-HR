@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Tasks\CreateEmployeesAttendance;
+use App\Console\Tasks\CreateEmployeesPayroll;
+use App\Console\Tasks\EditSalaryEmployees;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +18,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        #create rows employees in table attendance in every day
+        (new CreateEmployeesAttendance())->mainProcess($schedule);
+        #create rows employees in table payroll in every month
+        (new CreateEmployeesPayroll())->mainProcess($schedule);
+        #edit salary employees in table payroll in every day
+        (new EditSalaryEmployees())->mainProcess($schedule);
     }
 
     /**

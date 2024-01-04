@@ -3,10 +3,13 @@
 namespace App\Exceptions;
 
 use App\HelpersClasses\MessagesFlash;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -41,8 +44,18 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (Throwable $e) {
+//            dd($e);
+            $url = Route::current();
+            $url = ( ($url != null) && ($url->getPrefix() == 'api') );
+            if ($url){
+                return response()->json(['error'=>$e->errors()]);
+            }
             if ($e instanceof ValidationException) {
                 MessagesFlash::Errors($e->errors());
+                return \redirect()->back();
+            }
+            if ($e instanceof AuthorizationException){
+                MessagesFlash::Errors(__("err_permission"));
                 return \redirect()->back();
             }
             if ($e instanceof AuthenticationException) {
@@ -50,10 +63,13 @@ class Handler extends ExceptionHandler
                 return \redirect()->route("login");
             }
             if ($e instanceof NotFoundHttpException || $e instanceof ModelNotFoundException)
-                return response()->view("404");
-            if ($e instanceof AccessDeniedHttpException)
-                return response()->view("403");
-            dd($e);
+                return response()->view("System.Pages.404");
+            if ($e instanceof AccessDeniedHttpException || $e instanceof UnauthorizedException) {
+                MessagesFlash::Errors(__("err_permission"));
+                return \redirect()->back();
+            }
+            MessagesFlash::Errors($e->getMessage());
+            return \redirect()->back();
         });
     }
 }
